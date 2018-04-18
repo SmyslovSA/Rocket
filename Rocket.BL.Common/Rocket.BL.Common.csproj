@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DtoModels\CustomDto.cs" />
+    <Compile Include="Models\DomainModel.cs" />
     <Compile Include="Mappings\CustomMappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IService.cs" />
