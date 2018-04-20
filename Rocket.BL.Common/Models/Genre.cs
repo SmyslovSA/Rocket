@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.DtoModels
+﻿namespace Rocket.BL.Common.Models
 {
     public class Genre
     {
