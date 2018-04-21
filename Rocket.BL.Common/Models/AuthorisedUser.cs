@@ -1,7 +1,7 @@
 ﻿namespace Rocket.BL.Common.Models
 {
     // авторизованный пользователь
-    public abstract class User
+    public abstract class AuthorisedUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

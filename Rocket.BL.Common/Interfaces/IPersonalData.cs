@@ -5,7 +5,7 @@
     /// </summary>
     interface IPersonalData
     {
-        bool ChangePersonalData(User user, string firstName, string lastName, string avatar);
-        bool ChangePasswordData(User user, string newPassword, string newPasswordConfirm);
+        bool ChangePersonalData(AuthorisedUser user, string firstName, string lastName, string avatar);
+        bool ChangePasswordData(AuthorisedUser user, string newPassword, string newPasswordConfirm);
     }
 }

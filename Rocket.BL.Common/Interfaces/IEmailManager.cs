@@ -5,7 +5,7 @@
     /// </summary>
     interface IEmailManager
     {
-        bool AddEmail(User user, string email);
-        bool DeleteEmail(User user, string email);
+        bool AddEmail(AuthorisedUser user, string email);
+        bool DeleteEmail(AuthorisedUser user, string email);
     }
 }
