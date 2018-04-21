@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rocket.BL.Common.Models
 {
-    interface IEmailManager
+    class PremiumUser:SimpleUser
     {
-        bool AddEmail(User user, string email);
-        bool DeleteEmail(User user, string email);
     }
 }

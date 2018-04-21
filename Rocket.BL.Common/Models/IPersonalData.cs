@@ -8,7 +8,7 @@ namespace Rocket.BL.Common.Models
 {
     interface IPersonalData
     {
-        bool ChangePersonalData(SimpleUser user, string firstName, string lastName, string avatar);
-        bool ChangePasswordData(SimpleUser user, string newPassword, string newPasswordConfirm);
+        bool ChangePersonalData(User user, string firstName, string lastName, string avatar);
+        bool ChangePasswordData(User user, string newPassword, string newPasswordConfirm);
     }
 }

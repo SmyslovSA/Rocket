@@ -8,7 +8,7 @@ namespace Rocket.BL.Common.Models
 {
     interface IGenreManager
     {
-        bool AddGenre(SimpleUser user, IEnumerable<string> categories, IEnumerable<string> genre);
-        bool DeleteGenre(SimpleUser user, IEnumerable<string> categories, IEnumerable<string> genre);
+        bool AddGenre(User user, IEnumerable<string> categories, IEnumerable<string> genre);
+        bool DeleteGenre(User user, IEnumerable<string> categories, IEnumerable<string> genre);
     }
 }
