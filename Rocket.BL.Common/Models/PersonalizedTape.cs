@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Rocket.BL.Common.Enums;
 
 namespace Rocket.BL.Common.Models
 {
     public class PersonalizedTape
     {
-        public IDictionary<IEnumerable<string>, ICollection<string>> Categories { get; set; }
+        public IDictionary<IEnumerable<Categories>, ICollection<Genres>> PersonalTape { get; set; }
        
     }
 }

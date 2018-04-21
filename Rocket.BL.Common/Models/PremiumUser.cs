@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Rocket.BL.Common.Models
+﻿namespace Rocket.BL.Common.Models
 {
-    class PremiumUser:SimpleUser
+    //авторизованный пользователь с премиум правами
+    class PremiumUser :SimpleUser
     {
     }
 }

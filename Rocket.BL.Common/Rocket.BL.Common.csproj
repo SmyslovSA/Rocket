@@ -44,9 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\IEmailManager.cs" />
-    <Compile Include="Models\IGenreManager.cs" />
-    <Compile Include="Models\IPersonalData.cs" />
+    <Compile Include="Enums\Gategories.cs" />
+    <Compile Include="Enums\Genres.cs" />
+    <Compile Include="Interfaces\IEmailManager.cs" />
+    <Compile Include="Interfaces\IGenreManager.cs" />
+    <Compile Include="Interfaces\IPersonalData.cs" />
     <Compile Include="Models\PersonalizedTape.cs" />
     <Compile Include="Models\PremiumUser.cs" />
     <Compile Include="Models\Release.cs" />

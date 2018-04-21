@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rocket.BL.Common.Models
 {
-    public class SimpleUser:User
+    //авторизованный пользователь с обычными правами
+    public class SimpleUser : User
     {
         public string Avatar { get; set; }
         public ICollection<string> Email { get; set; }
-        public PersonalizedTape Personalized;
-        
-
+        public PersonalizedTape Personalized { get; set; }
     }
 }
