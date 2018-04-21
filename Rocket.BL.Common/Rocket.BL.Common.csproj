@@ -44,10 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\IEmailManager.cs" />
+    <Compile Include="Models\IGenreManager.cs" />
+    <Compile Include="Models\IPersonalData.cs" />
     <Compile Include="Models\Release.cs" />
     <Compile Include="Mappings\CustomMappingProfile.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IService.cs" />
   </ItemGroup>
