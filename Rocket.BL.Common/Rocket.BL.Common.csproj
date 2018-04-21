@@ -47,6 +47,7 @@
     <Compile Include="Models\IEmailManager.cs" />
     <Compile Include="Models\IGenreManager.cs" />
     <Compile Include="Models\IPersonalData.cs" />
+    <Compile Include="Models\PersonalizedTape.cs" />
     <Compile Include="Models\PremiumUser.cs" />
     <Compile Include="Models\Release.cs" />
     <Compile Include="Mappings\CustomMappingProfile.cs" />

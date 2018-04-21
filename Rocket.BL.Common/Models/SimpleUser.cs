@@ -10,6 +10,8 @@ namespace Rocket.BL.Common.Models
     {
         public string Avatar { get; set; }
         public ICollection<string> Email { get; set; }
-        public IDictionary<IEnumerable<string>,ICollection<string>> Categories { get; set; }
+        public PersonalizedTape Personalized;
+        
+
     }
 }
