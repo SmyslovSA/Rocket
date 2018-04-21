@@ -48,6 +48,8 @@
     <Compile Include="Mappings\CustomMappingProfile.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\UserRoles\RolePermission.cs" />
+    <Compile Include="Models\UserRoles\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IService.cs" />
   </ItemGroup>
@@ -60,5 +62,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
