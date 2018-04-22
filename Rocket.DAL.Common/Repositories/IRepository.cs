@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Rocket.DAL.Common.Repositories
 {
-    public interface IRepository<TEntity> where TEntity : class, IDisposable
+    public interface IRepository<TEntity> where TEntity : class
     {
         /// <summary>
         /// get list of entity
