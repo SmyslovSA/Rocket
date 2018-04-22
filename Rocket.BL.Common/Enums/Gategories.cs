@@ -3,7 +3,5 @@
     public enum Categories
     {
         Movies,
-        TVseries,
-        Music
     }
 }
