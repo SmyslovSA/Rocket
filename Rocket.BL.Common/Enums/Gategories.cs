@@ -1,6 +1,6 @@
 ﻿namespace Rocket.BL.Common.Enums
 {
-    public enum Categor
+    public enum Categories
     {
         Movies,
     }
