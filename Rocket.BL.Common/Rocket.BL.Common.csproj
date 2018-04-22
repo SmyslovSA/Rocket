@@ -48,6 +48,13 @@
     <Compile Include="Mappings\CustomMappingProfile.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\ReleaseList\Episode.cs" />
+    <Compile Include="Models\ReleaseList\Film.cs" />
+    <Compile Include="Models\ReleaseList\Person.cs" />
+    <Compile Include="Models\ReleaseList\Release.cs" />
+    <Compile Include="Models\ReleaseList\Season.cs" />
+    <Compile Include="Models\ReleaseList\TVSeries.cs" />
+    <Compile Include="Models\ReleaseList\VideoGenre.cs" />
     <Compile Include="Models\UserRoles\RolePermission.cs" />
     <Compile Include="Models\UserRoles\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
