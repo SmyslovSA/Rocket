@@ -18,7 +18,8 @@ namespace Rocket.BL.Common.Models.ReleaseList
         public string Title { get; set; }
 
         /// <summary>
-        /// Возвращает или задает путь к изображению постера сериала
+        /// Возвращает или задает относительный путь
+        /// от корневой папки приложения к файлу изображения постера фильма
         /// </summary>
         public string PosterImagePath { get; set; }
 

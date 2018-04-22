@@ -18,8 +18,6 @@ namespace Rocket.BL.Common.Services
         /// <summary>
         /// Добавляет заданный фильм в хранилище данных
         /// и возвращает идентификатор добавленного фильма.
-        /// Если добавление фильма завершилось неудачей,
-        /// возвращает -1.
         /// </summary>
         /// <param name="film">Экземпляр фильма для добавления</param>
         /// <returns>Идентификатор фильма</returns>
@@ -27,19 +25,15 @@ namespace Rocket.BL.Common.Services
 
         /// <summary>
         /// Обновляет информацию заданного фильма в хранилище данных
-        /// и возвращает значение, которое определяет
-        /// прошла ли операция успешно
         /// </summary>
         /// <param name="film">Экземпляр фильма для обновления</param>
-        /// <returns>Возвращает <see langword="true"/> при успешном обновлении</returns>
-        bool UpdateFilm(Film film);
+        void UpdateFilm(Film film);
 
         /// <summary>
         /// Удаляет фильм с заданным идентификатором из хранилища данных.
         /// </summary>
         /// <param name="id">Идентификатор фильма</param>
-        /// <returns>Возвращает <see langword="true"/> при успешном удалении</returns>
-        bool DeleteFilm(int id);
+        void DeleteFilm(int id);
 
         /// <summary>
         /// Проверяет наличие заданного фильма в хранилище данных

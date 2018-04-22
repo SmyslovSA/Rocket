@@ -18,7 +18,8 @@ namespace Rocket.DAL.Common.DbModels
         public int Number { get; set; }
 
         /// <summary>
-        /// Возвращает или задает путь к изображению постера сезона
+        /// Возвращает или задает относительный путь
+        /// от корневой папки приложения к файлу изображения постера сезона
         /// </summary>
         public string PosterImagePath { get; set; }
 

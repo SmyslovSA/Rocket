@@ -18,7 +18,8 @@ namespace Rocket.DAL.Common.DbModels
         public string Title { get; set; }
 
         /// <summary>
-        /// Возвращает или задает путь к изображению постера сериала
+        /// Возвращает или задает относительный путь
+        /// от корневой папки приложения к файлу изображения постера сериала
         /// </summary>
         public string PosterImagePath { get; set; }
 
