@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Rocket.BL.Common.Models.ReleaseList
+namespace Rocket.DAL.Common.DbModels
 {
     /// <summary>
-    /// Представляет информацию о конкретном сериале
+    /// Представляет модель хранения данных о сериалах
     /// </summary>
-    public class TVSeries
+    public class DbTVSeries
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификатор сериала
@@ -19,29 +19,29 @@ namespace Rocket.BL.Common.Models.ReleaseList
 
         /// <summary>
         /// Возвращает или задает относительный путь
-        /// от корневой папки приложения к файлу изображения постера фильма
+        /// от корневой папки приложения к файлу изображения постера сериала
         /// </summary>
         public string PosterImagePath { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию режиссеров, которые сняли сериал
         /// </summary>
-        public ICollection<Person> Directors { get; set; }
+        public ICollection<DbPerson> Directors { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию актёров, которые снялись в сериале
         /// </summary>
-        public ICollection<Person> Cast { get; set; }
+        public ICollection<DbPerson> Cast { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию жанров, к которым относится сериал
         /// </summary>
-        public ICollection<VideoGenre> Genres { get; set; }
+        public ICollection<DbVideoGenre> Genres { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию стран, которые участвовали в создании сериала
         /// </summary>
-        public ICollection<string> Countries { get; set; }
+        public ICollection<DbCountry> Countries { get; set; }
 
         /// <summary>
         /// Возвращает или задает краткое описание сериала
@@ -51,6 +51,6 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию сезонов сериала
         /// </summary>
-        public ICollection<Season> Seasons { get; set; }
+        public ICollection<DbSeason> Seasons { get; set; }
     }
 }

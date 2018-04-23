@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Rocket.BL.Common.Models.ReleaseList
+namespace Rocket.DAL.Common.DbModels
 {
     /// <summary>
-    /// Представляет информацию о конкретном сезоне сериала
+    /// Представляет модель хранения данных о сезонах сериалов
     /// </summary>
-    public class Season
+    public class DbSeason
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификатор сезона
@@ -31,6 +31,18 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию серий сезона
         /// </summary>
-        public ICollection<Episode> Episodes { get; set; }
+        public ICollection<DbEpisode> Episodes { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает идентификатор сериала,
+        /// к которому относится этот сезон
+        /// </summary>
+        public int TVSeriesId { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает сериал,
+        /// к которому относится этот сезон
+        /// </summary>
+        public DbTVSeries TVSeries { get; set; }
     }
 }
