@@ -44,7 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\EmailMessage.cs" />
+    <Compile Include="Models\Notification\ConnectionSettings.cs" />
+    <Compile Include="Models\Notification\Message.cs" />
+    <Compile Include="Models\Notification\Reciever.cs" />
+    <Compile Include="Models\Notification\Sender.cs" />
     <Compile Include="Models\Release.cs" />
     <Compile Include="Mappings\CustomMappingProfile.cs" />
     <Compile Include="Models\Film.cs" />
@@ -68,8 +71,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
