@@ -13,12 +13,12 @@ namespace Rocket.BL.Common.Models.Notification
     class Reciever
     {
         /// <summary>
-        /// Gets or sets the current user or guest name
+        /// Gets or sets the user or guest name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the current user or guest
+        /// Gets or sets the user or guest
         /// email address
         /// </summary>
         public string EmailAddress { get; set; }

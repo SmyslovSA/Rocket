@@ -13,19 +13,19 @@ namespace Rocket.BL.Common.Models.Notification
     class Sender
     {
         /// <summary>
-        /// Gets or sets the current administrator
+        /// Gets or sets the administrator
         /// or system name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the current administrator
+        /// Gets or sets the administrator
         /// or system email address
         /// </summary>
         public string EmailAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets the password of the current
+        /// Gets or sets the password of the
         /// administrator or system account
         /// </summary>
         public string Password { get; set; }
