@@ -10,7 +10,7 @@ namespace Rocket.BL.Common.Models.Notification
     /// Describes user or guest which
     /// is the reciever of message
     /// </summary>
-    class Reciever
+    public class Reciever
     {
         /// <summary>
         /// Gets or sets the user or guest name

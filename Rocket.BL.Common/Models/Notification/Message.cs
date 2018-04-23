@@ -10,7 +10,7 @@ namespace Rocket.BL.Common.Models
     /// <summary>
     /// Describes message
     /// </summary>
-    class Message
+    public class Message
     {
         /// <summary>
         /// Gets or sets the reciever of

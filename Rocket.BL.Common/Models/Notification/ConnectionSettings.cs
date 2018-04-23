@@ -10,7 +10,7 @@ namespace Rocket.BL.Common.Models.Notification
     /// Describes a properties of
     /// the current transfer session
     /// </summary>
-    class ConnectionSettings
+    public class ConnectionSettings
     {
         /// <summary>
         /// Gets or sets the host

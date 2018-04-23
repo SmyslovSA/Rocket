@@ -10,7 +10,7 @@ namespace Rocket.BL.Common.Models.Notification
     /// Describes administrator or system
     /// which sends the message
     /// </summary>
-    class Sender
+    public class Sender
     {
         /// <summary>
         /// Gets or sets the administrator
