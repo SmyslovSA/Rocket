@@ -1,37 +1,63 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Rocket.DAL.Common.Repositories
 {
+    /// <summary>
+    /// Представляет обобщенный репозиторий
+    /// Код взят из статьи https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+    /// </summary>
+    /// <typeparam name="TEntity">Тип, экземплярами которого управляет репозиторий</typeparam>
     public interface IRepository<TEntity> where TEntity : class
     {
         /// <summary>
-        /// Получить список всех элементов
+        /// Возвращает перечисление экземпляров <see cref="TEntity"/> из хранилища данных.
+        /// Применяет фильтр, сортировку и загрузку связанных свойств,
+        /// если заданы соответствующие значения параметров
         /// </summary>
-        /// <returns></returns>
-        IEnumerable<TEntity> FetchAll();
+        /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
+        /// <param name="orderBy">Лямбда-выражение определяющее сортировку экземпляров <see cref="TEntity"/></param>
+        /// <param name="includeProperties">Список связанных свойств экземпляров <see cref="TEntity"/>, разделенный запятыми</param>
+        /// <returns>Перечисление экземпляров <see cref="TEntity"/></returns>
+        IEnumerable<TEntity> Get(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "");
 
         /// <summary>
-        /// Получить элемент по ID элемента
+        /// Возвращает экземпляр <see cref="TEntity"/>,
+        /// соответствующий заданному идентификатору, из хранилища данных
         /// </summary>
-        TEntity GetElementById(int key);
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Экземпляр <see cref="TEntity"/></returns>
+        TEntity GetById(object id);
 
         /// <summary>
-        /// Добавить элемент сущности
+        /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
         /// </summary>
-        /// <param name="entity"></param>
-        void Add(TEntity entity);
+        /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
+        void Insert(TEntity entity);
 
         /// <summary>
-        /// Изменить элемент сущности
+        /// Обновляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
         void Update(TEntity entity);
 
         /// <summary>
-        /// Удалить элемент сущности
+        /// Удаляет экземпляр <see cref="TEntity"/>,
+        /// соответствующий заданному идентификатору, из хранилища данных
         /// </summary>
-        void Delete(int key);
+        /// <param name="id">Идентификатор</param>
+        void Delete(object id);
+
+        /// <summary>
+        /// Удаляет заданный экземпляр <see cref="TEntity"/> из хранилища данных
+        /// </summary>
+        /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
+        void Delete(TEntity entity);
     }
+
 }
-
-
