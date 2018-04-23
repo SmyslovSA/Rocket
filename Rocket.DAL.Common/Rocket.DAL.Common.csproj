@@ -43,6 +43,11 @@
     <Compile Include="DbModels\DbCountry.cs" />
     <Compile Include="DbModels\DbEpisode.cs" />
     <Compile Include="DbModels\DbFilm.cs" />
+    <Compile Include="DbModels\DbMusic.cs" />
+    <Compile Include="DbModels\DbMusicBand.cs" />
+    <Compile Include="DbModels\DbMusicGenre.cs" />
+    <Compile Include="DbModels\DbMusician.cs" />
+    <Compile Include="DbModels\DbMusicTrack.cs" />
     <Compile Include="DbModels\DbPerson.cs" />
     <Compile Include="DbModels\DbSeason.cs" />
     <Compile Include="DbModels\DbTVSeries.cs" />
