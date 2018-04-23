@@ -25,6 +25,4 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// </summary>
         public ICollection<Permission> Permissions;
     }
-
-
 }
