@@ -50,9 +50,14 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\ReleaseList\Episode.cs" />
     <Compile Include="Models\ReleaseList\Film.cs" />
+    <Compile Include="Models\ReleaseList\Music.cs" />
+    <Compile Include="Models\ReleaseList\MusicBand.cs" />
+    <Compile Include="Models\ReleaseList\MusicGenre.cs" />
+    <Compile Include="Models\ReleaseList\Musician.cs" />
     <Compile Include="Models\ReleaseList\Person.cs" />
     <Compile Include="Models\ReleaseList\Release.cs" />
     <Compile Include="Models\ReleaseList\Season.cs" />
+    <Compile Include="Models\ReleaseList\MusicTrack.cs" />
     <Compile Include="Models\ReleaseList\TVSeries.cs" />
     <Compile Include="Models\ReleaseList\VideoGenre.cs" />
     <Compile Include="Models\UserRoles\RolePermission.cs" />
@@ -61,6 +66,9 @@
     <Compile Include="Services\IRolePermissionService.cs" />
     <Compile Include="Services\IUserRoleService.cs" />
     <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\IFilmDetailedInfoService.cs" />
+    <Compile Include="Services\IMusicDetailedInfoService.cs" />
+    <Compile Include="Services\ITVSeriesDetailedInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
