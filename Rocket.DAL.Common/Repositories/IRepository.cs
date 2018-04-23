@@ -7,33 +7,32 @@ namespace Rocket.DAL.Common.Repositories
     public interface IRepository<TEntity> where TEntity : class
     {
         /// <summary>
-        /// get list of entity
+        /// Получить список всех элементов
         /// </summary>
         /// <returns></returns>
         IEnumerable<TEntity> FetchAll();
 
         /// <summary>
-        /// return TEntity by key
+        /// Получить элемент по ID элемента
         /// </summary>
         TEntity GetElementById(int key);
 
         /// <summary>
-        /// standart operation Add
+        /// Добавить элемент сущности
         /// </summary>
         /// <param name="entity"></param>
         void Add(TEntity entity);
 
         /// <summary>
-        /// standart operation Update
+        /// Изменить элемент сущности
         /// </summary>
         /// <param name="entity"></param>
         void Update(TEntity entity);
 
         /// <summary>
-        /// standart operation Delete
+        /// Удалить элемент сущности
         /// </summary>
-        /// <param name="entity"></param>
-        void Delete(TEntity entity);
+        void Delete(int key);
     }
 }
 
