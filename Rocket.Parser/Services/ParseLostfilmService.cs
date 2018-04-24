@@ -10,7 +10,7 @@ namespace Rocket.Parser.Services
     /// <summary>
     /// Proove of concept!
     /// </summary>
-    public class LostfilmParseService
+    public class ParseLostfilmService
     {
         private string _baseUrl = "http://www.lostfilm.tv";
         private string _serialAddUrl = "/series";

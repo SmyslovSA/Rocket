@@ -1,35 +1,35 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Rocket.Parser.Interfaces;
 
-namespace Rocket.Parser.Core
+namespace Rocket.Parser.Services
 {
     /// <summary>
-    /// Загрузчик HTML
+    /// Загружает Html
     /// </summary>
-    public class HtmlLoader
+    public class LoadHtmlService : ILoadHtmlService
     {
         readonly HttpClient _client;
-        readonly string _url;
-
-        public HtmlLoader(IParserSettings settings)
+        
+        public LoadHtmlService()
         {
             _client = new HttpClient();
-            _url = $"{settings.BaseUrl}{settings.Prefix}";
         }
 
         /// <summary>
         /// Загружает Html
         /// </summary>
         /// <param name="id">Префикс</param>
+        /// /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        public async Task<string> GetSourceById(string id)
+        public async Task<string> GetSourceById(string id, string url)
         {
-            var currentUrl = _url.Replace("{CurrentId}", id);
+            var currentUrl = url.Replace("{CurrentId}", id);
             var response = await _client.GetAsync(currentUrl);
             string source = null;
 
-            if(response != null && response.StatusCode == HttpStatusCode.OK)
+            if (response != null && response.StatusCode == HttpStatusCode.OK)
             {
                 source = await response.Content.ReadAsStringAsync();
             }

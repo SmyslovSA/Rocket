@@ -22,8 +22,10 @@ namespace Rocket.Parser
                         serviceConfigurator.WhenStarted((service, control) => service.Start(control));
                         serviceConfigurator.WhenStopped((service, control) => service.Start(control));
 
-                        // Создает заказы и возвраты в наве по заказам портала которые нужно передать в нав.
+                        // Запуск парсера для Lostfilm
                         LostfilmParse(serviceConfigurator);
+
+                        ParseAlbumInfoJob(serviceConfigurator);
 
                     });
 
@@ -82,7 +84,7 @@ namespace Rocket.Parser
         }
 
         /// <summary>
-        /// Создает заказы и возвраты в наве по заказам портала которые нужно передать в нав.
+        /// Парсит Lostfilm
         /// </summary>
         /// <param name="serviceConfigurator"></param>
         private static void LostfilmParse(ServiceConfigurator<Service> serviceConfigurator)
@@ -104,13 +106,46 @@ namespace Rocket.Parser
                         .RepeatForever())
                     .Build();
 
-                // Запускает создание заказов в наве по заказам портала которые нужно передать в нав.
+                // Запускает парсер Lostfilm
                 IJobDetail lostfilmParseTriggerJob = JobBuilder.Create<LostfilmParseJob>().Build();
 
                 serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
                     jobConfigurator
                         .WithJob(() => lostfilmParseTriggerJob)
                         .AddTrigger(lostfilmParseTrigger));
+            }
+        }
+
+        /// <summary>
+        /// Парсит сайт album-info.ru
+        /// </summary>
+        /// <param name="serviceConfigurator"></param>
+        public static void ParseAlbumInfoJob(ServiceConfigurator<Service> serviceConfigurator)
+        {
+            string errorMessage = "";
+
+            int isSwitchOnLostfilmParse = 1;
+            int albumInfoParsingPeriodInMinutes = 150;
+
+
+
+
+            if (isSwitchOnLostfilmParse == 1)
+            {
+                Func<ITrigger> albumInfoParseTrigger = () => TriggerBuilder.Create()
+                    .WithSimpleSchedule(builder => builder
+                        .WithIntervalInMinutes(albumInfoParsingPeriodInMinutes)
+                        .WithMisfireHandlingInstructionIgnoreMisfires()
+                        .RepeatForever())
+                    .Build();
+
+                // Запускает парсер album-info.ru
+                IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<ParseAlbumInfoJob>().Build();
+
+                serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
+                    jobConfigurator
+                        .WithJob(() => albumInfoParseTriggerJob)
+                        .AddTrigger(albumInfoParseTrigger));
             }
         }
     }

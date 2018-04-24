@@ -6,7 +6,7 @@ using Rocket.Parser.Services;
 namespace Rocket.Parser.Jobs
 {
     /// <summary>
-    /// Запускает парсинг Lostfilm.
+    /// Джоба для парсинга сайта lostfilm.tv
     /// </summary>
     [DisallowConcurrentExecution]
     internal class LostfilmParseJob : IJob
@@ -20,7 +20,7 @@ namespace Rocket.Parser.Jobs
             //todo логирование парсер запущен
             try
             {
-                var lostfilmParseService = new LostfilmParseService();
+                var lostfilmParseService = new ParseLostfilmService();
 
                 var test = Task.Run(() => lostfilmParseService.Parse()).Result;
             }

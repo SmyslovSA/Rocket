@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Rocket.Parser.Models
+namespace Rocket.DAL.Common.DbModels.Parser
 {
     /// <summary>
     /// Элемент ресурса
     /// </summary>
-    public class ResourceItem
+    public class DbResourceItem
     {
         /// <summary>
         /// Id
@@ -15,12 +15,12 @@ namespace Rocket.Parser.Models
         /// <summary>
         /// Id типа ресурса
         /// </summary>
-        public int ResourceTypeId { get; set; }
+        public int ResourceId { get; set; }
 
         /// <summary>
         /// Id внутри ресурса
         /// </summary>
-        public string ResourceId { get; set; }
+        public string ResourceInternalId { get; set; }
 
         /// <summary>
         /// Ссылка на страницу элемента ресурса

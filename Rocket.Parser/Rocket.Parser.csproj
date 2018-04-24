@@ -67,24 +67,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\AlbumInfo\AlbumInfoItemParser.cs" />
-    <Compile Include="Core\AlbumInfo\AlbumInfoItemSettings.cs" />
-    <Compile Include="Core\AlbumInfo\AlbumInfoReleaseParser.cs" />
-    <Compile Include="Core\AlbumInfo\AlbumInfoReleaseSettings.cs" />
-    <Compile Include="Core\HtmlLoader.cs" />
-    <Compile Include="Core\IParser.cs" />
-    <Compile Include="Core\IParserSettings.cs" />
-    <Compile Include="Core\ParserWorker.cs" />
-    <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Jobs\LostfilmParseJob.cs" />
-    <Compile Include="Middleware.cs" />
+    <Compile Include="Jobs\ParseAlbumInfoJob.cs" />
     <Compile Include="Models\AlbumInfoRelease.cs" />
-    <Compile Include="Models\ResourceItem.cs" />
-    <Compile Include="Models\ResourceType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
-    <Compile Include="Services\LostfilmParseService.cs" />
+    <Compile Include="Interfaces\ILoadHtmlService.cs" />
+    <Compile Include="Interfaces\IParseAlbumInfoService.cs" />
+    <Compile Include="Services\LoadHtmlService.cs" />
+    <Compile Include="Services\ParseAlbumInfoService.cs" />
+    <Compile Include="Services\ParseLostfilmService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -93,6 +86,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
+      <Project>{4383c0ff-4c4a-4c42-bb46-5a5137e5e7ad}</Project>
+      <Name>Rocket.DAL.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
