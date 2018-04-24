@@ -4,7 +4,7 @@ namespace Rocket.Parser.Core.AlbumInfo
     /// <summary>
     /// Реализация настроек парсера для парсинга информации о наличии релизов с сайта album-info.ru
     /// </summary>
-    class AlbumInfoItemSettings : IParserSettings
+    public class AlbumInfoItemSettings : IParserSettings
     {
         public AlbumInfoItemSettings(int start, int end, string baseUrl, string prefix )
         {

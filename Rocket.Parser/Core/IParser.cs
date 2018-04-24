@@ -6,7 +6,7 @@ namespace Rocket.Parser.Core
     /// Парсер
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    interface IParser<T> where T : class
+    public interface IParser<T> where T : class
     {
         /// <summary>
         /// Парсинг

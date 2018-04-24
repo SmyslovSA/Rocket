@@ -7,7 +7,7 @@ namespace Rocket.Parser.Core
     /// <summary>
     /// Загрузчик HTML
     /// </summary>
-    class HtmlLoader
+    public class HtmlLoader
     {
         readonly HttpClient _client;
         readonly string _url;

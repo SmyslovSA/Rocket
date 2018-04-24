@@ -6,7 +6,7 @@ namespace Rocket.Parser.Core.AlbumInfo
     /// <summary>
     /// Реализация парсера для парсинга информации о наличии релизов с сайта album-info.ru
     /// </summary>
-    class AlbumInfoItemParser : IParser<string[]>
+    public class AlbumInfoItemParser : IParser<string[]>
     {
         public string[] Parse(IHtmlDocument document)
         {

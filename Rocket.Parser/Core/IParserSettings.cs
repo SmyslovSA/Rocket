@@ -3,7 +3,7 @@
     /// <summary>
     /// Настройки парсера
     /// </summary>
-    interface IParserSettings
+    public interface IParserSettings
     {
         /// <summary>
         /// URL сата

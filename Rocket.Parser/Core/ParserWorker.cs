@@ -10,7 +10,7 @@ namespace Rocket.Parser.Core
     /// Управление парсером
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    class ParserWorker<T> where T : class
+    public class ParserWorker<T> where T : class
     {
         IParser<T> _parser;
         IParserSettings _parserSettings;
