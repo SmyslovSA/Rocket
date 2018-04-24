@@ -1,20 +1,18 @@
 ﻿namespace Rocket.BL.Common.Models.ReleaseList
 {
     /// <summary>
-    /// Представляет перечисление жанров фильмов и сериалов
+    /// Представляет информацию о жанре фильма или сериала
     /// </summary>
-    public enum VideoGenre
+    public class VideoGenre
     {
-        Action,
-        Advanture,
-        Comedy,
-        Crime,
-        Drama,
-        Historical,
-        Horror,
-        Musicals,
-        ScienceFiction,
-        War,
-        Western
+        /// <summary>
+        /// Возвращает или задает уникальный идентификатор жанра
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает название жанра
+        /// </summary>
+        public string Name { get; set; }
     }
 }

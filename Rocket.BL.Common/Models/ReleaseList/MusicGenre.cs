@@ -8,8 +8,8 @@
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Возвращает или задает музыкальный жанр
+		/// Возвращает или задает название музыкального жанра
 		/// </summary>
-		public string Genre { get; set; }
+		public string Name { get; set; }
 	}
 }
