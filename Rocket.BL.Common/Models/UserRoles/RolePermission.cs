@@ -6,7 +6,7 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// Уникальный идентификатор значения "право доступа" 
         /// (либо функциональная возможность)
         /// </summary>
-        public string PermisssionId { get; set; }
+        public ushort PermisssionId { get; set; }
 
         /// <summary>
         /// Описание  функц. возможности, соответствующее идентификатору 
