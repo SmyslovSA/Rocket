@@ -21,10 +21,10 @@ namespace Rocket.DAL.Common.DbModels
 		/// </summary>
 		public string Title { get; set; }
 
-		/// <summary>
-		/// Возвращает или задает дату выхода фильма
-		/// </summary>
-		public DateTime ReleaseDate { get; set; }
+        /// <summary>
+        /// Возвращает или задает дату выхода музыкального релиза
+        /// </summary>
+        public DateTime ReleaseDate { get; set; }
 
 		/// <summary>
 		/// Возвращает или задает относительный путь
@@ -45,16 +45,11 @@ namespace Rocket.DAL.Common.DbModels
 		/// <summary>
 		/// Возвращает или задает музыкальные треки которые относятся к релизу
 		/// </summary>
-		public ICollection<DbMusicTrack> MusicTrack { get; set; }
+		public ICollection<DbMusicTrack> DbMusicTracks { get; set; }
 
 		/// <summary>
-		/// Возвращает или задает группы испольнителей музыкального релиза
+		/// Возвращает или задает исполнителей музыкального релиза
 		/// </summary>
-		public ICollection<DbMusicBand> MusicBand { get; set; }
-
-		/// <summary>
-		/// Возвращает или задает испольнителей музыкального релиза
-		/// </summary>
-		public ICollection<DbMusician> Musician { get; set; }
+		public ICollection<DbMusician> DbMusicians { get; set; }
 	}
 }
