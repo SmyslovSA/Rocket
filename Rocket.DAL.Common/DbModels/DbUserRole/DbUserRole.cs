@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 
-namespace Rocket.BL.Common.Models.UserRoles
+namespace Rocket.DAL.Common.DbModels.DbUserRole
 {
-    public class UserRole
+    public class DbUserRole
     {
         /// <summary>
         /// Уникальный идентификатор роли пользователя
         /// </summary>
-        public ushort RoleId { get; set; }
+        public ushort Id { get; set; }
 
         /// <summary>
         /// Название роли пользователя
@@ -23,6 +23,6 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// <summary>
         /// collection of permissions 
         /// </summary>
-        public ICollection<RolePermission> Permissions;
+        public ICollection<DbRolePermission> Permissions;
     }
 }
