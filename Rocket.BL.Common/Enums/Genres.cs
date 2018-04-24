@@ -1,5 +1,8 @@
-﻿namespace Rocket.BL.Common.Enums
+﻿using System;
+
+namespace Rocket.BL.Common.Enums
 {
+    [Flags]
     public enum Genres
     {
         Action = Categories.Movies | Categories.TVseries,
