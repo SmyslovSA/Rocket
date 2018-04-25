@@ -2,7 +2,7 @@
 
 namespace Rocket.BL.Common.Services
 {
-    public interface IUserRoleService
+    public interface IRoleService
     {
         /// <summary>
         /// Устанавливает дефолт значение роли для новых 
