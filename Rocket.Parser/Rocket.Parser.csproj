@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\IocMapper.cs" />
+    <Compile Include="Heplers\LostFilmSerailListHelper.cs" />
     <Compile Include="Interfaces\IParseService.cs" />
     <Compile Include="Jobs\LostfilmParseJob.cs" />
     <Compile Include="Jobs\AlbumInfoParseJob.cs" />
@@ -98,8 +99,6 @@
       <Name>Rocket.DAL.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Heplers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

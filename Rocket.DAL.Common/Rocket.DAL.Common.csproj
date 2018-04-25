@@ -55,6 +55,8 @@
     <Compile Include="DbModels\Parser\DbResource.cs" />
     <Compile Include="DbModels\Parser\DbParserSettings.cs" />
     <Compile Include="DbModels\Parser\DbResourceItem.cs" />
+    <Compile Include="DbModels\Parser\GenreEntity.cs" />
+    <Compile Include="DbModels\Parser\PersonEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IDbCountryRepository.cs" />
     <Compile Include="Repositories\IDbEpisodeRepository.cs" />

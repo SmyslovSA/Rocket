@@ -35,7 +35,7 @@ namespace Rocket.Parser
                         LostfilmParseProcess(serviceConfigurator);
 
                         //Запуск парсера для AlbumInfo  
-                        AlbumInfoParseProcess(serviceConfigurator);
+                        //AlbumInfoParseProcess(serviceConfigurator);
                     });
 
                     configurator.StartAutomatically();
@@ -55,7 +55,7 @@ namespace Rocket.Parser
         /// <param name="serviceConfigurator"></param>
         private static void LostfilmParseProcess(ServiceConfigurator<Service> serviceConfigurator)
         {
-
+            //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
             int.TryParse(System.Configuration.ConfigurationManager.AppSettings["LostfilmParseIsSwitchOn"], out int lostfilmParseIsSwitchOn);
             int.TryParse(System.Configuration.ConfigurationManager.AppSettings["LostfilmParsePeriodInMinutes"], out int lostfilmParsePeriodInMinutes);
                         
@@ -84,6 +84,7 @@ namespace Rocket.Parser
         /// <param name="serviceConfigurator"></param>
         public static void AlbumInfoParseProcess(ServiceConfigurator<Service> serviceConfigurator)
         {
+            //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
             int.TryParse(System.Configuration.ConfigurationManager.AppSettings["AlbumInfoParseIsSwitchOn"], out int albumInfoParseIsSwitchOn);
             int.TryParse(System.Configuration.ConfigurationManager.AppSettings["AlbumInfoPeriodInMinutes"], out int albumInfoParsingPeriodInMinutes);
 
