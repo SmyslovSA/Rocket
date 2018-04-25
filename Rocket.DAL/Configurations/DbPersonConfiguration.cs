@@ -15,7 +15,7 @@ namespace Rocket.DAL.Configurations
                 .Property(p => p.Id)
                 .HasColumnName("Id");
 
-            Property(p => p.FulltName)
+            Property(p => p.FullName)
                 .IsRequired()
                 .HasColumnName("FullName")
                 .HasMaxLength(50);

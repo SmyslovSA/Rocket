@@ -15,7 +15,7 @@ namespace Rocket.DAL.Common.DbModels
         /// <summary>
         /// Возвращает или задает имя и фамилию (полное имя) человека
         /// </summary>
-        public string FulltName { get; set; }
+        public string FullName { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию фильмов,

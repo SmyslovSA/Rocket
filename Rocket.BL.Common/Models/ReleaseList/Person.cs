@@ -13,6 +13,6 @@
         /// <summary>
         /// Возвращает или задает имя и фамилию (полное имя) человека
         /// </summary>
-        public string FulltName { get; set; }
+        public string FullName { get; set; }
     }
 }
