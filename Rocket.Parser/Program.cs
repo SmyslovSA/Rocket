@@ -1,5 +1,8 @@
 ﻿using System;
+using Ninject;
+using Ninject.Modules;
 using Quartz;
+using Rocket.Parser.Config;
 using Rocket.Parser.Jobs;
 using Topshelf;
 using Topshelf.Quartz;
@@ -12,47 +15,50 @@ namespace Rocket.Parser
 
         static void Main(string[] args)
         {
-            HostFactory.Run(configurator =>
+            try
             {
-                try
+                HostFactory.Run(configurator =>
                 {
+                    //todo сделать внедрение зависимостей чтоб работало
+                    // внедрение зависимостей
+                    //NinjectModule registrations = new IocMapper.NinjectRegistrations();
+                    //var kernel = new StandardKernel(registrations);
+                    ////kernel.Load(registrations);
+
                     configurator.Service<Service>(serviceConfigurator =>
                     {
                         serviceConfigurator.ConstructUsing(name => new Service());
                         serviceConfigurator.WhenStarted((service, control) => service.Start(control));
                         serviceConfigurator.WhenStopped((service, control) => service.Start(control));
 
-                        // Запуск парсера для Lostfilm
-                        LostfilmParse(serviceConfigurator);
+                        //Запуск парсера для Lostfilm
+                        LostfilmParseProcess(serviceConfigurator);
 
-                        ParseAlbumInfoJob(serviceConfigurator);
-
+                        //Запуск парсера для AlbumInfo  
+                        AlbumInfoParseProcess(serviceConfigurator);
                     });
 
                     configurator.StartAutomatically();
-                }
-                catch (Exception e)
-                {
-                    // todo log
-                    throw;
-                }
-            });
+                });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         /// <summary>
         /// Парсит Lostfilm
         /// </summary>
         /// <param name="serviceConfigurator"></param>
-        private static void LostfilmParse(ServiceConfigurator<Service> serviceConfigurator)
+        private static void LostfilmParseProcess(ServiceConfigurator<Service> serviceConfigurator)
         {
-            string errorMessage = "";
 
-            int isSwitchOnLostfilmParse = 1;
-            int lostfilmParsePeriodInMinutes = 150;
-
-
-
-
+            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["IsSwitchOnLostfilmParse"], out int isSwitchOnLostfilmParse);
+            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["LostfilmParsePeriodInMinutes"], out int lostfilmParsePeriodInMinutes);
+                        
             if (isSwitchOnLostfilmParse == 1)
             {
                 Func<ITrigger> lostfilmParseTrigger = () => TriggerBuilder.Create()
@@ -76,15 +82,10 @@ namespace Rocket.Parser
         /// Парсит сайт album-info.ru
         /// </summary>
         /// <param name="serviceConfigurator"></param>
-        public static void ParseAlbumInfoJob(ServiceConfigurator<Service> serviceConfigurator)
+        public static void AlbumInfoParseProcess(ServiceConfigurator<Service> serviceConfigurator)
         {
-            string errorMessage = "";
-
-            int isSwitchOnLostfilmParse = 1;
-            int albumInfoParsingPeriodInMinutes = 150;
-
-
-
+            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["IsSwitchOnLostfilmParse"], out int isSwitchOnLostfilmParse);
+            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["AlbumInfoPeriodInMinutes"], out int albumInfoParsingPeriodInMinutes);
 
             if (isSwitchOnLostfilmParse == 1)
             {

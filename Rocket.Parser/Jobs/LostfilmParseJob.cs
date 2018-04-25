@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Quartz;
 using Rocket.Parser.Services;
 
@@ -20,9 +19,9 @@ namespace Rocket.Parser.Jobs
             //todo логирование парсер запущен
             try
             {
-                var lostfilmParseService = new ParseLostfilmService();
-
-                var test = Task.Run(() => lostfilmParseService.Parse()).Result;
+                var loadHtmlService = new LoadHtmlService();
+                var lostfilmParseService = new ParseLostfilmService(loadHtmlService);
+                lostfilmParseService.Parse();
             }
             catch (Exception excpt)
             {

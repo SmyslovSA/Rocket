@@ -1,18 +1,25 @@
-﻿using System.Threading.Tasks;
+﻿using AngleSharp.Dom.Html;
+using System.Threading.Tasks;
 
 namespace Rocket.Parser.Interfaces
 {
     /// <summary>
-    /// Загружает Html
+    /// Интерфейс сервиса для загрузки html
     /// </summary>
     public interface ILoadHtmlService
     {
         /// <summary>
-        /// Загружает Html
+        /// Получает Html в виде строки по ссылке.
         /// </summary>
-        /// <param name="id">Префикс</param>
-        /// <param name="url">URL</param>
+        /// /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        Task<string> GetSourceById(string id, string url);
+        Task<string> GetTextByUrlAsync(string url);
+
+        /// <summary>
+        /// Получает Html по ссылке.
+        /// </summary>
+        /// <param name="url">URL</param>
+        /// <returns>HtmlDocument</returns>
+        Task<IHtmlDocument> GetHtmlDocumentByUrlAsync(string url);
     }
 }
