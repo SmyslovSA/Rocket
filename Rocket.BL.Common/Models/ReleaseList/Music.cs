@@ -21,7 +21,7 @@ namespace Rocket.BL.Common.Models.ReleaseList
 		/// <summary>
 		/// Возвращает или задает информацию о выходе музыкального релиза
 		/// </summary>
-		public Release Release { get; set; }
+		public DateTime ReleaseDate { get; set; }
 
 		/// <summary>
 		/// Возвращает или задает относительный путь
@@ -42,16 +42,11 @@ namespace Rocket.BL.Common.Models.ReleaseList
 		/// <summary>
 		/// Возвращает или задает музыкальные треки которые относятся к релизу
 		/// </summary>
-		public ICollection<MusicTrack> MusicTrack { get; set; }
+		public ICollection<MusicTrack> MusicTracks { get; set; }
 
 		/// <summary>
-		/// Возвращает или задает группы испольнителей музыкального релиза
+		/// Возвращает или задает исполнителей музыкального релиза
 		/// </summary>
-		public ICollection<MusicBand> MusicBand { get; set; }
-
-		/// <summary>
-		/// Возвращает или задает испольнителей музыкального релиза
-		/// </summary>
-		public ICollection<Musician> Musician { get; set; }
+		public ICollection<Musician> Musicians { get; set; }
 	}
 }

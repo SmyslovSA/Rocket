@@ -29,9 +29,9 @@ namespace Rocket.DAL.Common.DbModels
 		public TimeSpan Duration { get; set; }
 
 		/// <summary>
-		/// Возвращает или задает коллекцию музыкальных релизов,
-		/// которые относятся к этому треку
+		/// Возвращает музыкальный релиз,
+		/// который относятся к этому треку
 		/// </summary>
-		public ICollection<DbMusic> DbMusic { get; set; }
+		public DbMusic DbMusic { get; set; }
 	}
 }

@@ -14,9 +14,9 @@ namespace Rocket.BL.Common.Models.ReleaseList
         public int Id { get; set; }
 
         /// <summary>
-        /// Возвращает или задает информацию о выходе фильма
+        /// Возвращает или задает дату выхода фильма
         /// </summary>
-        public Release Release { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
         /// <summary>
         /// Возвращает или задает название фильма
@@ -52,7 +52,7 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает продолжительность фильма
         /// </summary>
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
         /// <summary>
         /// Возвращает или задает краткое описание фильма
