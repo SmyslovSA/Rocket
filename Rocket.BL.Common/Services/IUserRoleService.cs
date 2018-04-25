@@ -9,7 +9,7 @@ namespace Rocket.BL.Common.Services
         /// зарегестрированных пользователей
         /// </summary>
         /// <param name="roleId"></param>
-        void SetDefaultUserRule(ushort roleId);
+        void SetDefaultUserRole(ushort roleId);
 
         /// <summary>
         /// Меняет значение роли, установленное вручную
@@ -29,13 +29,13 @@ namespace Rocket.BL.Common.Services
         IEnumerable FetchAllByRole(ushort roleId);
 
         /// <summary>
-        /// Добавить функц возможность для роли
+        /// Добавить существующую функц возможность для выбранной роли
         /// </summary>
         /// <returns></returns>
         bool AddRoleToUserRoleList(ushort roleId, ushort permissionId);
 
         /// <summary>
-        /// Удалить функц возможность у роли
+        /// Удалить функц возможность из текущего списка у роли
         /// </summary>
         /// <returns></returns>
         bool RemoveRoleFromUserRoleList(ushort roleId, ushort permissionId);
