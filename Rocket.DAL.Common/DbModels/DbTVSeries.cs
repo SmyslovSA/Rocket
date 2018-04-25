@@ -51,6 +51,6 @@ namespace Rocket.DAL.Common.DbModels
         /// <summary>
         /// Возвращает или задает коллекцию сезонов сериала
         /// </summary>
-        public ICollection<DbSeason> Seasons { get; set; }
+        public ICollection<DbSeason> DbSeasons { get; set; }
     }
 }

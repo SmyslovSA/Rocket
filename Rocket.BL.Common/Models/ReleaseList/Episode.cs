@@ -13,9 +13,9 @@ namespace Rocket.BL.Common.Models.ReleaseList
         public int Id { get; set; }
 
         /// <summary>
-        /// Возвращает или задает информацию о выходе серии
+        /// Возвращает или задает дату выхода серии
         /// </summary>
-        public Release Release { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
         /// <summary>
         /// Возвращает или задает номер серии в сезоне
@@ -30,7 +30,7 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает продолжительность серии
         /// </summary>
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
         /// <summary>
         /// Возвращает или задает краткое описание серии
