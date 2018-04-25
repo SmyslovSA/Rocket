@@ -20,7 +20,7 @@ namespace Rocket.Parser.Jobs
             try
             {
                 var loadHtmlService = new LoadHtmlService();
-                var lostfilmParseService = new ParseLostfilmService(loadHtmlService);
+                var lostfilmParseService = new LostfilmParseService(loadHtmlService);
                 lostfilmParseService.Parse();
             }
             catch (Exception excpt)

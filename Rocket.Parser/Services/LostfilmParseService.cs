@@ -13,13 +13,13 @@ namespace Rocket.Parser.Services
     /// <summary>
     /// Proove of concept!
     /// </summary>
-    internal class ParseLostfilmService : IParseService
+    internal class LostfilmParseService : IParseService
     {
         private readonly ILoadHtmlService _loadHtmlService;
 
         private string _serialAddUrl = "/series";
 
-        public ParseLostfilmService(ILoadHtmlService loadHtmlService)
+        public LostfilmParseService(ILoadHtmlService loadHtmlService)
         {
             _loadHtmlService = loadHtmlService;
         }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Rocket.Parser.Interfaces
+﻿namespace Rocket.Parser.Interfaces
 {
     internal interface IParseService
     {
+        /// <summary>
+        /// Выполнение парсинга.
+        /// </summary>
         void Parse();
     }
 }

@@ -56,10 +56,10 @@ namespace Rocket.Parser
         private static void LostfilmParseProcess(ServiceConfigurator<Service> serviceConfigurator)
         {
 
-            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["IsSwitchOnLostfilmParse"], out int isSwitchOnLostfilmParse);
+            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["LostfilmParseIsSwitchOn"], out int lostfilmParseIsSwitchOn);
             int.TryParse(System.Configuration.ConfigurationManager.AppSettings["LostfilmParsePeriodInMinutes"], out int lostfilmParsePeriodInMinutes);
                         
-            if (isSwitchOnLostfilmParse == 1)
+            if (lostfilmParseIsSwitchOn == 1)
             {
                 Func<ITrigger> lostfilmParseTrigger = () => TriggerBuilder.Create()
                     .WithSimpleSchedule(builder => builder
@@ -84,10 +84,10 @@ namespace Rocket.Parser
         /// <param name="serviceConfigurator"></param>
         public static void AlbumInfoParseProcess(ServiceConfigurator<Service> serviceConfigurator)
         {
-            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["IsSwitchOnLostfilmParse"], out int isSwitchOnLostfilmParse);
+            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["AlbumInfoParseIsSwitchOn"], out int albumInfoParseIsSwitchOn);
             int.TryParse(System.Configuration.ConfigurationManager.AppSettings["AlbumInfoPeriodInMinutes"], out int albumInfoParsingPeriodInMinutes);
 
-            if (isSwitchOnLostfilmParse == 1)
+            if (albumInfoParseIsSwitchOn == 1)
             {
                 Func<ITrigger> albumInfoParseTrigger = () => TriggerBuilder.Create()
                     .WithSimpleSchedule(builder => builder
@@ -97,7 +97,7 @@ namespace Rocket.Parser
                     .Build();
 
                 // Запускает парсер album-info.ru
-                IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<ParseAlbumInfoJob>().Build();
+                IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<AlbumInfoParseJob>().Build();
 
                 serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
                     jobConfigurator
