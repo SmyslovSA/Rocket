@@ -2,7 +2,7 @@
 
 namespace Rocket.DAL.Common.DbModels.DbUserRole
 {
-    public class DbUserRole
+    public class DbRole
     {
         /// <summary>
         /// Уникальный идентификатор роли пользователя
@@ -23,6 +23,6 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// <summary>
         /// collection of permissions 
         /// </summary>
-        public ICollection<DbRolePermission> Permissions;
+        public ICollection<DbPermission> Permissions;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Rocket.BL.Common.Models.UserRoles
 {
-    public class UserRole
+    public class Role
     {
         /// <summary>
         /// Уникальный идентификатор роли пользователя
@@ -23,6 +23,6 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// <summary>
         /// collection of permissions 
         /// </summary>
-        public ICollection<RolePermission> Permissions;
+        public ICollection<Permission> Permissions;
     }
 }

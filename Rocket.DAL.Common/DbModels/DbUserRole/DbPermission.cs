@@ -2,13 +2,13 @@
 
 namespace Rocket.DAL.Common.DbModels.DbUserRole
 {
-    public class DbRolePermission
+    public class DbPermission
     {
         /// <summary>
         /// Уникальный идентификатор значения "право доступа" 
         /// (либо функциональная возможность)
         /// </summary>
-        public string Id { get; set; }
+        public ushort Id { get; set; }
 
         /// <summary>
         /// Описание  функц. возможности, соответствующее идентификатору 
@@ -19,6 +19,6 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// Задает или получает список ролей, у которых
         /// есть текущая функциональная возможность
         /// </summary>
-        public ICollection<DbUserRole> Roles { get; set; }
+        public ICollection<DbRole> Roles { get; set; }
     }
 }

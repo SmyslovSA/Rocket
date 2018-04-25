@@ -1,6 +1,6 @@
 namespace Rocket.BL.Common.Models.UserRoles
 {
-    public class RolePermission
+    public class Permission
     {
         /// <summary>
         /// ”никальный идентификатор значени€ "право доступа" 
