@@ -35,7 +35,7 @@ namespace Rocket.Parser
                         LostfilmParseProcess(serviceConfigurator);
 
                         //Запуск парсера для AlbumInfo  
-                        //AlbumInfoParseProcess(serviceConfigurator);
+                        AlbumInfoParseProcess(serviceConfigurator);
                     });
 
                     configurator.StartAutomatically();
