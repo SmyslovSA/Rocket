@@ -31,7 +31,7 @@ namespace Rocket.DAL.Common.DbModels
         /// <summary>
         /// Возвращает или задает продолжительность серии
         /// </summary>
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
         /// <summary>
         /// Возвращает или задает краткое описание серии

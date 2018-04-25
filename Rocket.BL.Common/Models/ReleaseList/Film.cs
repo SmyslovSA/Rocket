@@ -52,7 +52,7 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает продолжительность фильма
         /// </summary>
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
         /// <summary>
         /// Возвращает или задает краткое описание фильма

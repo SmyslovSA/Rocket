@@ -79,7 +79,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\ModelConfiguration.cs" />
+    <Compile Include="Configurations\DbCountryConfiguration.cs" />
+    <Compile Include="Configurations\DbEpisodeConfiguration.cs" />
+    <Compile Include="Configurations\DbFilmConfiguration.cs" />
+    <Compile Include="Configurations\DbPersonConfiguration.cs" />
+    <Compile Include="Configurations\DbSeasonConfiguration.cs" />
+    <Compile Include="Configurations\DbTVSeriesConfiguration.cs" />
+    <Compile Include="Configurations\DbVideoGenreConfiguration.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +94,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
+      <Project>{4383C0FF-4C4A-4C42-BB46-5A5137E5E7AD}</Project>
+      <Name>Rocket.DAL.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
