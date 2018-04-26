@@ -31,7 +31,7 @@ namespace Rocket.DAL.Common.DbModels
         /// <summary>
         /// Возвращает или задает продолжительность серии
         /// </summary>
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
         /// <summary>
         /// Возвращает или задает краткое описание серии
@@ -42,12 +42,12 @@ namespace Rocket.DAL.Common.DbModels
         /// Возвращает или задает идентификатор сезона,
         /// к которому относится эта серия
         /// </summary>
-        public int SeasonId { get; set; }
+        public int DbSeasonId { get; set; }
 
         /// <summary>
         /// Возвращает или задает сезон,
         /// к которому относится эта серия
         /// </summary>
-        public ICollection<DbSeason> DbSeason { get; set; }
+        public DbSeason DbSeason { get; set; }
     }
 }

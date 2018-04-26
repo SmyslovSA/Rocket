@@ -1,7 +1,7 @@
 ﻿namespace Rocket.BL.Common.Models.ReleaseList
 {
     /// <summary>
-    /// Представляет информацию о человеке (режиссере, актёре или музыканте)
+    /// Представляет информацию о человеке (режиссере, актёре)
     /// </summary>
     public class Person
     {
@@ -11,13 +11,8 @@
         public int Id { get; set; }
 
         /// <summary>
-        /// Возвращает или задает имя человека
+        /// Возвращает или задает имя и фамилию (полное имя) человека
         /// </summary>
-        public string FirstName { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает фамилию человека
-        /// </summary>
-        public string LastName { get; set; }
+        public string FullName { get; set; }
     }
 }

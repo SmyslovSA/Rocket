@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,13 +45,14 @@
     <Compile Include="DbModels\DbEpisode.cs" />
     <Compile Include="DbModels\DbFilm.cs" />
     <Compile Include="DbModels\DbMusic.cs" />
-    <Compile Include="DbModels\DbMusicBand.cs" />
     <Compile Include="DbModels\DbMusicGenre.cs" />
     <Compile Include="DbModels\DbMusician.cs" />
     <Compile Include="DbModels\DbMusicTrack.cs" />
     <Compile Include="DbModels\DbPerson.cs" />
     <Compile Include="DbModels\DbSeason.cs" />
     <Compile Include="DbModels\DbTVSeries.cs" />
+    <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
+    <Compile Include="DbModels\DbUserRole\DbRole.cs" />
     <Compile Include="DbModels\DbVideoGenre.cs" />
     <Compile Include="DbModels\Parser\DbResource.cs" />
     <Compile Include="DbModels\Parser\DbParserSettings.cs" />
@@ -62,6 +64,8 @@
     <Compile Include="Repositories\IDbEpisodeRepository.cs" />
     <Compile Include="Repositories\IDbPersonRepository.cs" />
     <Compile Include="Repositories\IDbFilmRepository.cs" />
+    <Compile Include="Repositories\IDbRoleRepository\IDbPermissionRepository.cs" />
+    <Compile Include="Repositories\IDbRoleRepository\IDbRoleRepository.cs" />
     <Compile Include="Repositories\IDbSeasonRepository.cs" />
     <Compile Include="Repositories\IDbTVSeriesRepository.cs" />
     <Compile Include="Repositories\IDbVideoGenreRepository.cs" />
@@ -70,5 +74,9 @@
     <Compile Include="UoW\ITVSeriesUnitOfWork.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

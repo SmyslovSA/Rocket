@@ -37,12 +37,12 @@ namespace Rocket.DAL.Common.DbModels
         /// Возвращает или задает идентификатор сериала,
         /// к которому относится этот сезон
         /// </summary>
-        public int TVSeriesId { get; set; }
+        public int DbTVSeriesId { get; set; }
 
         /// <summary>
         /// Возвращает или задает сериал,
         /// к которому относится этот сезон
         /// </summary>
-        public DbTVSeries TVSeries { get; set; }
+        public DbTVSeries DbTVSeries { get; set; }
     }
 }
