@@ -32,7 +32,7 @@ namespace Rocket.DAL.Common.Repositories
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Экземпляр <see cref="TEntity"/></returns>
-        TEntity GetByID(object id);
+        TEntity GetById(object id);
 
         /// <summary>
         /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
