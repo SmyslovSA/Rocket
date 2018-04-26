@@ -29,6 +29,12 @@ namespace Rocket.DAL.Common.DbModels
 		public TimeSpan Duration { get; set; }
 
 		/// <summary>
+		/// Возвращает или задает идентификатор музыкального релиза,
+		/// к которому относится трек
+		/// </summary>
+		public int DbMusicId { get; set; }
+
+		/// <summary>
 		/// Возвращает музыкальный релиз,
 		/// который относятся к этому треку
 		/// </summary>
