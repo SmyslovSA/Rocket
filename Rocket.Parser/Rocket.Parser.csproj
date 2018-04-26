@@ -73,7 +73,6 @@
   <ItemGroup>
     <Compile Include="Config\Bindings.cs" />
     <Compile Include="Heplers\LostFilmSerailListHelper.cs" />
-    <Compile Include="Interfaces\ILostfilmParser.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IParseService.cs" />
     <Compile Include="Jobs\LostfilmParseJob.cs" />
@@ -82,7 +81,6 @@
     <Compile Include="Models\LostfilmSerialModel.cs" />
     <Compile Include="Parsers\AlbumInfoParser.cs" />
     <Compile Include="Interfaces\IAlbumInfoParser.cs" />
-    <Compile Include="Parsers\LostfilmParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />

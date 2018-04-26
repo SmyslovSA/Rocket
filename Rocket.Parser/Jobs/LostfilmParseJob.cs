@@ -24,8 +24,8 @@ namespace Rocket.Parser.Jobs
                 var kernel = new StandardKernel();
                 kernel.Load(Assembly.GetExecutingAssembly());
 
-                var parser = kernel.Get<ILostfilmParser>();
-                parser.ParseAsync();
+                var lostfilmParseService = kernel.Get<ILostfilmParseService>();
+                lostfilmParseService.ParseAsync();
             }
             catch (Exception excpt)
             {

@@ -37,7 +37,7 @@ namespace Rocket.Parser.Parsers
         /// <summary>
         /// Запуск парсинга сайта album-info.ru 
         /// </summary>
-        public async Task<int> ParseAsync()
+        public async Task ParseAsync()
         {
             //todo логирование парсер запущен
             try
@@ -95,7 +95,6 @@ namespace Rocket.Parser.Parsers
                     // todo сохраняем в БД releases 
                     
                 }
-                return 1;
             }
             catch (Exception excpt)
             {

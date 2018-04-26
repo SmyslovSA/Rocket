@@ -19,6 +19,8 @@ namespace Rocket.Parser.Services
         /// </summary>
         public LoadHtmlService()
         {
+            //потому что https://stackoverflow.com/questions/15705092/do-httpclient-and-httpclienthandler-have-to-be-disposed
+            //todo не забыть спросить Александра
             _client = new HttpClient();
         }
         

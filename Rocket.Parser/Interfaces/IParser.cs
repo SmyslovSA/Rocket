@@ -11,6 +11,6 @@ namespace Rocket.Parser.Interfaces
         /// Запуск процесса парсинга
         /// </summary>
         /// <returns></returns>
-        Task<int> ParseAsync();
+        Task ParseAsync();
     }
 }

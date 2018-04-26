@@ -15,9 +15,7 @@ namespace Rocket.Parser.Config
             Bind<ILoadHtmlService>().To<LoadHtmlService>();
             Bind<IParseAlbumInfoService>().To<ParseAlbumInfoService>();
             Bind<IAlbumInfoParser>().To<AlbumInfoParser>();
-            Bind<ILostfilmParser>().To<LostfilmParser>();
             Bind<ILostfilmParseService>().To<LostfilmParseService>();
         }
-        
     }
 }
