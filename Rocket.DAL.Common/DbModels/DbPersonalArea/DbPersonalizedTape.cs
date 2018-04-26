@@ -12,8 +12,28 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// список релизов в виде "категория - список жанров"
+        /// внешний ключ к таболице User
         /// </summary>
-        public IDictionary<DbCategory,ICollection<DbGenre>> Tape { get; set; }
+        public int? UserId { get; set; }
+        /// <summary>
+        /// ссылка на Usera
+        /// </summary>
+        public DbUser User { get; set; }
+        /// <summary>
+        /// внешний ключ к таблице Category
+        /// </summary>
+        public int? CategoryId { get; set; }
+        /// <summary>
+        /// ссылка на Category
+        /// </summary>
+        public DbCategory Category { get; set; }
+        /// <summary>
+        /// внешний ключ к таблице Genre
+        /// </summary>
+        public int? GenreId { get; set; }
+        /// <summary>
+        /// ссылка на Genre
+        /// </summary>
+        public DbGenre Genre { get; set; }
     }
 }

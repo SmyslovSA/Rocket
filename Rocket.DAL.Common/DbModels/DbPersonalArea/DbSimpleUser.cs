@@ -5,12 +5,12 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
     /// <summary>
     /// модель хранения данных обычного пользователя
     /// </summary>
-    public class DbSimpleUser
+    public class DbUser
     {
         /// <summary>
         /// Id пользователя
         /// </summary>
-        public ulong Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// имя пользователя
         /// </summary>
@@ -34,14 +34,6 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// список e-mail пользователя
         /// </summary>
-        public ICollection<string> Email { get; set; }
-        /// <summary>
-        /// внешний ключ к модели PersonalizedTape пользвателя
-        /// </summary>
-        public int? PersonalizedTapeId { get; set; }
-        /// <summary>
-        /// персональный список релизов пользователя
-        /// </summary>
-        public DbPersonalizedTape PersonalizedTape { get; set; }
+        public ICollection<DbEmail> Email { get; set; }
     }
 }

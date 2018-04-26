@@ -44,17 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\Gategories.cs" />
-    <Compile Include="Enums\Genres.cs" />
     <Compile Include="Interfaces\IEmailManager.cs" />
     <Compile Include="Interfaces\IGenreManager.cs" />
     <Compile Include="Interfaces\IPersonalData.cs" />
+    <Compile Include="Models\PersonalArea\Category.cs" />
+    <Compile Include="Models\PersonalArea\Genre.cs" />
     <Compile Include="Models\PersonalArea\PersonalizedTape.cs" />
     <Compile Include="Models\PersonalArea\PremiumUser.cs" />
     <Compile Include="Models\Release.cs" />
     <Compile Include="Mappings\CustomMappingProfile.cs" />
     <Compile Include="Models\Film.cs" />
-    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\ReleaseList\Episode.cs" />
     <Compile Include="Models\ReleaseList\Film.cs" />
     <Compile Include="Models\ReleaseList\Person.cs" />

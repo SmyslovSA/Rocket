@@ -1,6 +1,4 @@
-﻿using Rocket.BL.Common.Enums;
-
-namespace Rocket.BL.Common.Models
+﻿namespace Rocket.BL.Common.Models
 {
     interface IGenreManager
     {
@@ -13,7 +11,7 @@ namespace Rocket.BL.Common.Models
         /// <returns>
         /// true - при успешном добавлении жанра в список пользователя
         /// </returns>
-        bool AddGenre(AuthorisedUser user, Categories category, Genres genre);
+        bool AddGenre(AuthorisedUser user, string category, string genre);
         /// <summary>
         /// удаление жанра определенной категории из персонального списка ожидания релизов
         /// </summary>
@@ -23,6 +21,6 @@ namespace Rocket.BL.Common.Models
         /// <returns>
         /// true - при успешном удалении жанра из списка пользователя
         /// </returns>
-        bool DeleteGenre(AuthorisedUser user, Categories category, Genres genre);
+        bool DeleteGenre(AuthorisedUser user, string category, string genre);
     }
 }
