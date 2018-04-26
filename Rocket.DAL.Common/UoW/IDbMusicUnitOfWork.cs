@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.UoW
 	/// <summary>
 	/// Представляет unit of work для работы с музыкальными релизами
 	/// </summary>
-	interface IDbMusicUnitOfWork : IUnitOfWork
+	public interface IDbMusicUnitOfWork : IUnitOfWork
 	{
 		/// <summary>
 		/// Возвращает репозиторий для музыкальных релизов

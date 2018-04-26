@@ -6,7 +6,7 @@ namespace Rocket.DAL.Configurations
 	/// <summary>
 	/// Конфигурация хранения данных о музыкальном релизе
 	/// </summary>
-	class DbMusicConfiguration : EntityTypeConfiguration<DbMusic>
+	public class DbMusicConfiguration : EntityTypeConfiguration<DbMusic>
 	{
 		public DbMusicConfiguration()
 		{
@@ -53,7 +53,7 @@ namespace Rocket.DAL.Configurations
 
 			HasMany(f => f.MusicTracks)
 				.WithRequired(p => p.DbMusic)
-				.HasForeignKey(p => p.DbMusic);
+				.HasForeignKey(p => p.DbMusicId);
 		}
 	}
 }

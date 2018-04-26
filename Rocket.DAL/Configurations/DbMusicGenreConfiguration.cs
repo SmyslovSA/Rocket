@@ -6,7 +6,7 @@ namespace Rocket.DAL.Configurations
 	/// <summary>
 	/// Конфигурация хранения данных о музыкальных жанрах
 	/// </summary>
-	class DbMusicGenreConfiguration : EntityTypeConfiguration<DbMusicGenre>
+	public class DbMusicGenreConfiguration : EntityTypeConfiguration<DbMusicGenre>
 	{
 		public DbMusicGenreConfiguration()
 		{

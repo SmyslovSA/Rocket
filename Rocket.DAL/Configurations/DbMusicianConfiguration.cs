@@ -6,7 +6,7 @@ namespace Rocket.DAL.Configurations
 	/// <summary>
 	/// Конфигурация хранения данных о музыкальных исполнителях
 	/// </summary>
-	class DbMusicianConfiguration : EntityTypeConfiguration<DbMusician>
+	public class DbMusicianConfiguration : EntityTypeConfiguration<DbMusician>
 	{
 		public DbMusicianConfiguration()
 		{

@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Rocket.DAL.Configurations
 {
-	class DbMusicTrackConfiguration : EntityTypeConfiguration<DbMusicTrack>
+	public class DbMusicTrackConfiguration : EntityTypeConfiguration<DbMusicTrack>
 	{
 		public DbMusicTrackConfiguration()
 		{
