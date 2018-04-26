@@ -95,6 +95,8 @@
     <Compile Include="Configurations\DbTVSeriesConfiguration.cs" />
     <Compile Include="Configurations\DbUserConfiguration.cs" />
     <Compile Include="Configurations\DbVideoGenreConfiguration.cs" />
+    <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
+    <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

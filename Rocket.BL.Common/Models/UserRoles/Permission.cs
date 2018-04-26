@@ -12,5 +12,10 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// Описание  функц. возможности, соответствующее идентификатору 
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Именование переменной, за которой скрывается реализация фичи
+        /// </summary>
+        public string ValueName { get; set; }
     }
 }
