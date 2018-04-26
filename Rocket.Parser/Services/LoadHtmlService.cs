@@ -12,20 +12,25 @@ namespace Rocket.Parser.Services
     /// </summary>
     public class LoadHtmlService : ILoadHtmlService
     {
+        readonly HttpClient _client;
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        public LoadHtmlService()
+        {
+            _client = new HttpClient();
+        }
+        
         /// <summary>
         /// Получает Html в виде строки по ссылке.
         /// </summary>
         /// /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        public async Task<string> GetTextByUrlAsync(string url)
+        public async Task<string> GetHtmlByUrlAsync(string url)
         {
-            HttpResponseMessage response;
-            using (var httpClient = new HttpClient())
-            {
-                response = await httpClient.GetAsync(url);
-            }
-
-            string source = string.Empty;
+            var response = await _client.GetAsync(url);
+            string source = null;
 
             if (response != null && response.StatusCode == HttpStatusCode.OK)
             {
@@ -35,6 +40,7 @@ namespace Rocket.Parser.Services
             return source;
         }
 
+        //todo убрать отсюда
         /// <summary>
         /// Получает Html по ссылке.
         /// </summary>
@@ -42,7 +48,7 @@ namespace Rocket.Parser.Services
         /// <returns>HtmlDocument</returns>
         public async Task<IHtmlDocument> GetHtmlDocumentByUrlAsync(string url)
         {
-            var source = await GetTextByUrlAsync(url);
+            var source = await GetHtmlByUrlAsync(url);
 
             var domParser = new HtmlParser();
 

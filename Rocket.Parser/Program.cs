@@ -1,8 +1,5 @@
 ﻿using System;
-using Ninject;
-using Ninject.Modules;
 using Quartz;
-using Rocket.Parser.Config;
 using Rocket.Parser.Jobs;
 using Topshelf;
 using Topshelf.Quartz;
@@ -19,12 +16,6 @@ namespace Rocket.Parser
             {
                 HostFactory.Run(configurator =>
                 {
-                    //todo сделать внедрение зависимостей чтоб работало
-                    // внедрение зависимостей
-                    //NinjectModule registrations = new IocMapper.NinjectRegistrations();
-                    //var kernel = new StandardKernel(registrations);
-                    ////kernel.Load(registrations);
-
                     configurator.Service<Service>(serviceConfigurator =>
                     {
                         serviceConfigurator.ConstructUsing(name => new Service());
@@ -96,14 +87,22 @@ namespace Rocket.Parser
                         .WithMisfireHandlingInstructionIgnoreMisfires()
                         .RepeatForever())
                     .Build();
+                try
+                {
+                    IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<ParseAlbumInfoJob>().Build();
 
+                    serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
+                        jobConfigurator
+                            .WithJob(() => albumInfoParseTriggerJob)
+                            .AddTrigger(albumInfoParseTrigger));
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
                 // Запускает парсер album-info.ru
-                IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<AlbumInfoParseJob>().Build();
-
-                serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
-                    jobConfigurator
-                        .WithJob(() => albumInfoParseTriggerJob)
-                        .AddTrigger(albumInfoParseTrigger));
             }
         }
     }

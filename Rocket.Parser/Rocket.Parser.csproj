@@ -71,12 +71,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\IocMapper.cs" />
+    <Compile Include="Config\Bindings.cs" />
     <Compile Include="Heplers\LostFilmSerailListHelper.cs" />
     <Compile Include="Interfaces\IParseService.cs" />
     <Compile Include="Jobs\LostfilmParseJob.cs" />
-    <Compile Include="Jobs\AlbumInfoParseJob.cs" />
+    <Compile Include="Jobs\ParseAlbumInfoJob.cs" />
     <Compile Include="Models\AlbumInfoRelease.cs" />
+    <Compile Include="Parsers\AlbumInfoParser.cs" />
+    <Compile Include="Interfaces\IAlbumInfoParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />

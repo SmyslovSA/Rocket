@@ -13,7 +13,7 @@ namespace Rocket.Parser.Interfaces
         /// </summary>
         /// /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        Task<string> GetTextByUrlAsync(string url);
+        Task<string> GetHtmlByUrlAsync(string url);
 
         /// <summary>
         /// Получает Html по ссылке.

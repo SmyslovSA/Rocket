@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AngleSharp.Parser.Html;
+using System.Reflection;
+using Ninject;
 using Quartz;
-using Rocket.DAL.Common.DbModels.Parser;
-using Rocket.DAL.Common.Repositories;
 using Rocket.Parser.Interfaces;
-using Rocket.Parser.Models;
-using Rocket.Parser.Services;
 
 namespace Rocket.Parser.Jobs
 {   
@@ -15,7 +10,7 @@ namespace Rocket.Parser.Jobs
     /// Джоба для парсинга сайта album-info.ru
     /// </summary>
     [DisallowConcurrentExecution]
-    internal class AlbumInfoParseJob : IJob
+    internal class ParseAlbumInfoJob : IJob
     {
         /// <summary>
         /// Запуск парсинга сайта album-info.ru 
@@ -26,10 +21,10 @@ namespace Rocket.Parser.Jobs
             //todo логирование парсер запущен
             try
             {
-                var loadHtmlService = new LoadHtmlService();
-                var parseAlbumInfoService = new ParseAlbumInfoService(loadHtmlService, null);
-                parseAlbumInfoService.Parse();
-
+                var kernel = new StandardKernel();
+                kernel.Load(Assembly.GetExecutingAssembly());
+                var parser = kernel.Get<IAlbumInfoParser>();
+                parser.ParseAsync();
             }
             catch (Exception excpt)
             {
