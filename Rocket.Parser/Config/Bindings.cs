@@ -7,11 +7,16 @@ namespace Rocket.Parser.Config
 {
     public class Bindings : NinjectModule
     {
+        /// <summary>
+        /// Настройка Ninject
+        /// </summary>
         public override void Load()
         {
             Bind<ILoadHtmlService>().To<LoadHtmlService>();
             Bind<IParseAlbumInfoService>().To<ParseAlbumInfoService>();
             Bind<IAlbumInfoParser>().To<AlbumInfoParser>();
+            Bind<ILostfilmParser>().To<LostfilmParser>();
+            Bind<ILostfilmParseService>().To<LostfilmParseService>();
         }
         
     }

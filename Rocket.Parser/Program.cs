@@ -102,7 +102,6 @@ namespace Rocket.Parser
                     Console.WriteLine(e);
                     throw;
                 }
-                // Запускает парсер album-info.ru
             }
         }
     }

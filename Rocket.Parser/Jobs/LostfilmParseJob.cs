@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reflection;
+using Ninject;
 using Quartz;
-using Rocket.Parser.Services;
+using Rocket.Parser.Interfaces;
 
 namespace Rocket.Parser.Jobs
 {
@@ -19,9 +21,11 @@ namespace Rocket.Parser.Jobs
             //todo логирование парсер запущен
             try
             {
-                var loadHtmlService = new LoadHtmlService();
-                var lostfilmParseService = new LostfilmParseService(loadHtmlService);
-                lostfilmParseService.Parse();
+                var kernel = new StandardKernel();
+                kernel.Load(Assembly.GetExecutingAssembly());
+
+                var parser = kernel.Get<ILostfilmParser>();
+                parser.ParseAsync();
             }
             catch (Exception excpt)
             {

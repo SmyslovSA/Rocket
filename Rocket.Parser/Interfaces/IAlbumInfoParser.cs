@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
-
-namespace Rocket.Parser.Interfaces
+﻿namespace Rocket.Parser.Interfaces
 {
-    public interface IAlbumInfoParser
+    /// <summary>
+    /// Парсер для сайта album-info.ru
+    /// </summary>
+    public interface IAlbumInfoParser: IParser
     {
-        Task<int> ParseAsync();
+
     }
 }
