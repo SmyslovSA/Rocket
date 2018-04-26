@@ -12,23 +12,8 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
             ToTable("t_user_permission")
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
-                .HasColumnName("permission_id");
+                .HasColumnName("prm_id");
 
-            Property(t => t.Description)
-                .IsOptional()
-                .HasColumnName("description")
-                .HasMaxLength(250)
-                .IsVariableLength();
-
-            Property(t => t.ValueName)
-                .IsRequired()
-                .HasColumnName("valueName")
-                .HasMaxLength(50)
-                .IsVariableLength();
-
-            // уточнить является ли это дублированием
-            //HasMany(t => t.Roles)
-            //    .WithMany(x => x.Permissions);
         }
     }
 }
