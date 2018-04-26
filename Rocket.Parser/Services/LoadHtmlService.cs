@@ -40,7 +40,6 @@ namespace Rocket.Parser.Services
             return source;
         }
 
-        //todo убрать отсюда
         /// <summary>
         /// Получает Html по ссылке.
         /// </summary>

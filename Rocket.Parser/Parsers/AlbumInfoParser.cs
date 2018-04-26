@@ -57,15 +57,13 @@ namespace Rocket.Parser.Parsers
                 //обрабатываем постранично
                 for (int i = settings.StartPoint; i <= settings.EndPoint; i++)
                 {
-                    //загружаем страницу со ссылками на релизы
-                    var source = await _loadHtmlService.GetHtmlByUrlAsync(
-                        $"{settings.BaseUrl}{settings.Prefix.Replace("{CurrentId}",i.ToString())}");
+                    var linksPageUrl = $"{settings.BaseUrl}{settings.Prefix.Replace("{CurrentId}", i.ToString())}";
 
-                    var domParser = new HtmlParser();
-                    var document = await domParser.ParseAsync(source);
+                    //загружаем страницу со ссылками на релизы
+                    var linksPageHtmlDoc = await _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl);
 
                     //получаем ссылки на страницы релизов
-                    var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(document);
+                    var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
 
                     var resourceItems = new List<DbResourceItem>();
 
@@ -74,7 +72,7 @@ namespace Rocket.Parser.Parsers
                         var releases = new List<AlbumInfoRelease>();
 
                         //загружаем страницу релиза
-                        var releaseSource = await _loadHtmlService.GetHtmlByUrlAsync("http://www.album-info.ru/" + releaseLink);
+                        var releaseUrl = "http://www.album-info.ru/" + releaseLink;
 
                         resourceItems.Add(new DbResourceItem
                         {
@@ -83,19 +81,15 @@ namespace Rocket.Parser.Parsers
                             ResourceItemLink = releaseLink,
                             CreateDateTime = DateTime.Now
                         });
+                        
+                        //парсим страницу релиза
+                        var releaseHtmlDoc = await _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl);
+                        var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
 
-                        if (releaseSource != null)
+                        if (release != null)
                         {
-                            //парсим страницу релиза
-                            var documentRelease = await domParser.ParseAsync(releaseSource);
-                            var release = _parseAlbumInfoService.ParseRelease(documentRelease);
-
-                            if (release != null)
-                            {
-                                releases.Add(release);
-                            }
+                            releases.Add(release);
                         }
-
                     }
 
                     //todo сохраняем в БД resourceItems
