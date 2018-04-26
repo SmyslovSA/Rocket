@@ -34,7 +34,7 @@ namespace Rocket.DAL.Configurations
 				.HasColumnName("Duration");
 
 			HasMany(f => f.Musicians)
-				.WithMany(p => p.DbMusics)
+				.WithMany(p => p.Musics)
 				.Map(m =>
 				{
 					m.ToTable("MusicMusicians");
