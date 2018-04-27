@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Rocket.DAL.Common.DbModels.DbPersonalArea
+﻿namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
     /// <summary>
     /// модель персонального списка релизов
