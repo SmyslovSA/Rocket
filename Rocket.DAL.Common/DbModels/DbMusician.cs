@@ -21,6 +21,6 @@ namespace Rocket.DAL.Common.DbModels
 		/// Возвращает или задает коллекцию музыкальных релизов,
 		/// которые относятся к данному исполнителю
 		/// </summary>
-		public ICollection<DbMusic> DbMusics { get; set; }
+		public ICollection<DbMusic> Musics { get; set; }
 	}
 }

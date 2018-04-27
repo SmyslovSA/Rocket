@@ -47,7 +47,7 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию стран, которые участвовали в создании фильма
         /// </summary>
-        public ICollection<string> Countries { get; set; }
+        public ICollection<Country> Countries { get; set; }
 
         /// <summary>
         /// Возвращает или задает продолжительность фильма
