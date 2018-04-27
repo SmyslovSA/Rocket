@@ -14,6 +14,21 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
                 .Property(t => t.Id)
                 .HasColumnName("prm_id");
 
+            Property(t => t.Description)
+                .IsOptional()
+                .HasColumnName("description")
+                .HasMaxLength(250)
+                .IsVariableLength();
+
+            Property(t => t.ValueName)
+                .IsRequired()
+                .HasColumnName("value_name")
+                .HasMaxLength(50)
+                .IsVariableLength();
+
+            // уточнить является ли это дублированием
+            //HasMany(t => t.Roles)
+            //    .WithMany(x => x.Permissions);
         }
     }
 }

@@ -59,8 +59,8 @@
     <Compile Include="Repositories\IDbEpisodeRepository.cs" />
     <Compile Include="Repositories\IDbPersonRepository.cs" />
     <Compile Include="Repositories\IDbFilmRepository.cs" />
-    <Compile Include="Repositories\IDbRoleRepository\IDbPermissionRepository.cs" />
-    <Compile Include="Repositories\IDbRoleRepository\IDbRoleRepository.cs" />
+    <Compile Include="Repositories\IDbUserRoleRepository\IDbPermissionRepository.cs" />
+    <Compile Include="Repositories\IDbUserRoleRepository\IDbRoleRepository.cs" />
     <Compile Include="Repositories\IDbSeasonRepository.cs" />
     <Compile Include="Repositories\IDbTVSeriesRepository.cs" />
     <Compile Include="Repositories\IDbVideoGenreRepository.cs" />
