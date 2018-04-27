@@ -52,13 +52,11 @@
     <Compile Include="Models\PersonalArea\Genre.cs" />
     <Compile Include="Models\PersonalArea\PersonalizedTape.cs" />
     <Compile Include="Models\PersonalArea\PremiumUser.cs" />
-    <Compile Include="Models\Release.cs" />
     <Compile Include="Models\Notification\ConnectionSettings.cs" />
     <Compile Include="Models\Notification\Message.cs" />
     <Compile Include="Models\Notification\Reciever.cs" />
     <Compile Include="Models\Notification\Sender.cs" />
     <Compile Include="Mappings\CustomMappingProfile.cs" />
-    <Compile Include="Models\Film.cs" />
     <Compile Include="Models\ReleaseList\Episode.cs" />
     <Compile Include="Models\ReleaseList\Film.cs" />
     <Compile Include="Models\ReleaseList\Music.cs" />
