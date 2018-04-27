@@ -1,7 +1,9 @@
 ﻿namespace Rocket.BL.Common.Models
 {
-    //авторизованный пользователь с премиум правами
-    public class PremiumUser :SimpleUser
+    /// <summary>
+    /// авторизованный пользователь с премиум правами
+    /// </summary>
+    public class PremiumUser:SimpleUser
     {
     }
 }

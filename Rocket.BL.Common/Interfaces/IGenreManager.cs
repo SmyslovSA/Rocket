@@ -1,6 +1,9 @@
 ﻿namespace Rocket.BL.Common.Models
 {
-    interface IGenreManager
+    /// <summary>
+    /// интерфейс для работы с жанрами
+    /// </summary>
+    public interface IGenreManager
     {
         /// <summary>
         /// добавления жанра определенной категории в персональный список ожидания релизов

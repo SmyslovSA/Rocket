@@ -3,7 +3,7 @@
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
     /// <summary>
-    /// модель хранения данных обычного пользователя
+    /// модель хранения данных пользователя
     /// </summary>
     public class DbUser
     {

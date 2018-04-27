@@ -1,5 +1,8 @@
 ﻿namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
+    /// <summary>
+    /// модель хранения данных e-mail
+    /// </summary>
     public class DbEmail
     {
         /// <summary>

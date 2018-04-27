@@ -1,6 +1,9 @@
 ﻿namespace Rocket.BL.Common.Models
 {
-    interface IPersonalData
+    /// <summary>
+    /// интерфейс для работы с личными данными User
+    /// </summary>
+    public interface IPersonalData
     {
         /// <summary>
         /// изменение личных данных (ФИО, аватар)

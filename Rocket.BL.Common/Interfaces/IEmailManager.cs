@@ -1,6 +1,9 @@
 ﻿namespace Rocket.BL.Common.Models
 {
-    interface IEmailManager
+    /// <summary>
+    /// интерфейс для работы с email-адресами
+    /// </summary>
+    public interface IEmailManager
     {
         /// <summary>
         /// добавление нового e-mail для отправки нотификаций

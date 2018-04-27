@@ -1,5 +1,8 @@
 ﻿namespace Rocket.BL.Common.Models
 {
+    /// <summary>
+    /// класс, содержащий данные о жанрах фильма, сериала или музыки
+    /// </summary>
     public class Genre
     {
         /// <summary>

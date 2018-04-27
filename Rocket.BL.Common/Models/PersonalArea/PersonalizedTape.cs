@@ -2,6 +2,9 @@
 
 namespace Rocket.BL.Common.Models
 {
+    /// <summary>
+    /// класс, содержащий данные о персональном списке релизов User
+    /// </summary>
     public class PersonalizedTape
     {
         /// <summary>

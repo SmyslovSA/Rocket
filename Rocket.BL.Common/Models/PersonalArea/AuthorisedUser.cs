@@ -1,6 +1,8 @@
 ﻿namespace Rocket.BL.Common.Models
 {
-    // авторизованный пользователь
+    /// <summary>
+    /// авторизованный пользователь
+    /// </summary>
     public abstract class AuthorisedUser
     {
         /// <summary>

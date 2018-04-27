@@ -44,7 +44,7 @@
     <Compile Include="DbModels\DbModel.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbCategory.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />
-    <Compile Include="DbModels\DbPersonalArea\DbSimpleUser.cs" />
+    <Compile Include="DbModels\DbPersonalArea\DbUser.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbGenre.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbPersonalizedTape.cs" />
     <Compile Include="DbModels\DbCountry.cs" />
