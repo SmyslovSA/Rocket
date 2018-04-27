@@ -1,5 +1,8 @@
 ﻿namespace Rocket.BL.Common.Models.ReleaseList
 {
+	/// <summary>
+	/// Представляет информацию о жанре музыкального релиза
+	/// </summary>
 	public class MusicGenre
 	{
 		/// <summary>

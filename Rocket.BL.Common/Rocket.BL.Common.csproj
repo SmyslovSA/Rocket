@@ -45,6 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\CountryMappingProfile.cs" />
+    <Compile Include="Mappings\EpisodeMappingProfile.cs" />
+    <Compile Include="Mappings\FilmMappingProfile.cs" />
+    <Compile Include="Mappings\PersonMappingProfile.cs" />
+    <Compile Include="Mappings\SeasonMappingProfile.cs" />
+    <Compile Include="Mappings\TVSeriesMappingProfile.cs" />
+    <Compile Include="Mappings\VideoGenreMappingProfile.cs" />
     <Compile Include="Interfaces\IEmailManager.cs" />
     <Compile Include="Interfaces\IGenreManager.cs" />
     <Compile Include="Interfaces\IPersonalData.cs" />
@@ -57,6 +64,7 @@
     <Compile Include="Models\Notification\Reciever.cs" />
     <Compile Include="Models\Notification\Sender.cs" />
     <Compile Include="Mappings\CustomMappingProfile.cs" />
+    <Compile Include="Models\ReleaseList\Country.cs" />
     <Compile Include="Models\ReleaseList\Episode.cs" />
     <Compile Include="Models\ReleaseList\Film.cs" />
     <Compile Include="Models\ReleaseList\Music.cs" />
