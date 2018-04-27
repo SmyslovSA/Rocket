@@ -45,11 +45,11 @@ namespace Rocket.DAL.Common.DbModels
 		/// <summary>
 		/// Возвращает или задает музыкальные треки которые относятся к релизу
 		/// </summary>
-		public ICollection<DbMusicTrack> DbMusicTracks { get; set; }
+		public ICollection<DbMusicTrack> MusicTracks { get; set; }
 
 		/// <summary>
 		/// Возвращает или задает исполнителей музыкального релиза
 		/// </summary>
-		public ICollection<DbMusician> DbMusicians { get; set; }
+		public ICollection<DbMusician> Musicians { get; set; }
 	}
 }
