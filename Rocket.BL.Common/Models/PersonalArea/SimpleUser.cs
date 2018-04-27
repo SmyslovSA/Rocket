@@ -5,7 +5,7 @@ namespace Rocket.BL.Common.Models
     /// <summary>
     /// авторизованный пользователь с обычными правами
     /// </summary>
-    public class SimpleUser:AuthorisedUser
+    public class SimpleUser : AuthorisedUser
     {
         /// <summary>
         /// относительный путь к аватаре пользователя
