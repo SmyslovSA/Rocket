@@ -11,8 +11,18 @@
         public int Id { get; set; }
 
         /// <summary>
-        /// Полное имя человека.
+        /// Полное имя человека(рус).
         /// </summary>
-        public string FullName { get; set; }
+        public string FullNameRu { get; set; }
+
+        /// <summary>
+        /// Полное имя человека(англ).
+        /// </summary>
+        public string FullNameEn { get; set; }
+
+        /// <summary>
+        /// Фото превью человека.
+        /// </summary>
+        public string PhotoThumbnailUrl { get; set; }
     }
 }

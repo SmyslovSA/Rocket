@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
+using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
 using Rocket.Parser.Models;
@@ -16,6 +18,12 @@ namespace Rocket.Parser.Services
     internal class LostfilmParseService : ILostfilmParseService
     {
         private readonly ILoadHtmlService _loadHtmlService;
+
+        //todo вынести в хэлпер
+        private const string AddCastUrl = "/cast";
+        private const string HttpPrefix = "http:";
+        private const string SeasonText = "сезон";
+        private const string EpisodeText = "серия";
 
         /// <summary>
         /// Ctor
@@ -67,14 +75,22 @@ namespace Rocket.Parser.Services
                     //Парсим обзорную информации по еще не вышедшей серии
                     ParseOverviewNewSeria(htmlDocumentSerialOverviewDetails, lostfilmSerialModel);
 
-                    if (lostfilmSerialModel.NewSeriaDetailNewUrl != null)
+                    if (lostfilmSerialModel.NewSeriaDetailUrl != null)
                     {
                         //Получаем элемент с более подробной информацией о новой серии
-                        var htmlDetailNewSeria = await _loadHtmlService.GetHtmlDocumentByUrlAsync(baseUrl + lostfilmSerialModel.NewSeriaDetailNewUrl);
+                        var htmlDetailNewSeria = await _loadHtmlService.GetHtmlDocumentByUrlAsync(
+                            baseUrl + lostfilmSerialModel.NewSeriaDetailUrl);
 
                         //Парсим информацию о новой серии с её страницы
                         ParseDetailNewSeria(htmlDetailNewSeria, lostfilmSerialModel);
                     }
+
+                    //Получаем элемент со списком актеров режисеров продюсеров
+                    var htmlCastTvSerial = await _loadHtmlService.GetHtmlDocumentByUrlAsync(
+                        baseUrl + lostfilmSerialModel.AddUrlForDetail + AddCastUrl);
+
+                    //Парсим информацию о новой серии с её страницы
+                    ParseCastTvSerial(htmlCastTvSerial, lostfilmSerialModel);
 
                     listLostfilmSerialModel.Add(lostfilmSerialModel);
 
@@ -84,12 +100,26 @@ namespace Rocket.Parser.Services
 
                 //todo сделать чтобы догрузилось еще 10 строк
 
-                //todo сделать запихивание данных в бд
 
-                //todo сделать получение Person
+                //todo сделать через автомапер
+                foreach (var lostfilmSerialModel in listLostfilmSerialModel)
+                {
+                    //todo добавить в сущности поля которые я уже вытянул(рейтинг, ссылка на оф сайт и т.д.)
+                    //создаем сущность сериала
+                    var tvSeriasEntity = CreateTvSeriasEntity(lostfilmSerialModel);
 
+                    //todo тут делаем Save без комита
 
-                var t = 1211;
+                    //создаем сущность сезона
+                    var seasonEntity = CreateSeasonEntity(lostfilmSerialModel, tvSeriasEntity);
+
+                    // todo тут делаем Save без комита
+
+                    //создаем сущность серии
+                    var episodeEntity = CreateEpisodeEntity(lostfilmSerialModel, seasonEntity);
+
+                    // todo тут делаем Save с комитом
+                }
 
             }
             catch (Exception e)
@@ -112,7 +142,7 @@ namespace Rocket.Parser.Services
 
             var imageUrlTvSerialThumbElement =
                 serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > a > div.picture-box > img.thumb");
-            lostfilmSerialModel.ImageUrlTvSerialThumb = "http:" + imageUrlTvSerialThumbElement.GetAttribute("src");
+            lostfilmSerialModel.ImageUrlTvSerialThumb = HttpPrefix + imageUrlTvSerialThumbElement.GetAttribute("src");
 
             var tvSerialNameRuElement =
                 serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > a > div.body > div.name-ru");
@@ -187,7 +217,7 @@ namespace Rocket.Parser.Services
             var officialSiteElement =
                 serialOverviewElement.QuerySelector(
                     "#left-pane > div:nth-child(5) > div.details-pane > div.right-box > a:nth-child(8)");
-            lostfilmSerialModel.OfficialSite = officialSiteElement?.InnerHtml;
+            lostfilmSerialModel.OfficialSiteUrl = officialSiteElement?.InnerHtml;
         }
 
         public void ParseOverviewNewSeria(IHtmlDocument htmlDocumentSerialOverviewDetails, LostfilmSerialModel lostfilmSerialModel)
@@ -207,7 +237,7 @@ namespace Rocket.Parser.Services
                 string seriaDetailNewUrl = serialDetailElementNew.GetAttribute("onclick");
                 int indexStart = seriaDetailNewUrl.IndexOf("'", StringComparison.Ordinal);
                 int indexEnd = seriaDetailNewUrl.IndexOf("'", indexStart + 1, StringComparison.Ordinal) - 1;
-                lostfilmSerialModel.NewSeriaDetailNewUrl = seriaDetailNewUrl.Substring(6, indexEnd - indexStart);
+                lostfilmSerialModel.NewSeriaDetailUrl = seriaDetailNewUrl.Substring(6, indexEnd - indexStart);
             }
 
             var newSeriaDateReleaseRu =
@@ -235,8 +265,129 @@ namespace Rocket.Parser.Services
             string keyword = "Длительность:";
             durationInMinText = GetDetailsElement(durationInMinText, keyword, "<");
             durationInMinText = Regex.Replace(durationInMinText, @"[а-я]", "");
-            double.TryParse(durationInMinText, out double durationInMin);
+            int.TryParse(durationInMinText, out int durationInMin);
             lostfilmSerialModel.DurationInMin = durationInMin;
+        }
+
+        private void ParseCastTvSerial(IHtmlDocument htmlCastTvSerial, LostfilmSerialModel lostfilmSerialModel)
+        {
+            int i = 4;
+            lostfilmSerialModel.ListActor = ParseCastListOfPerson(htmlCastTvSerial, ref i);
+
+            i = i + 2;
+            lostfilmSerialModel.ListDirector = ParseCastListOfPerson(htmlCastTvSerial, ref i);
+
+            i = i + 2;
+            lostfilmSerialModel.ListProducer = ParseCastListOfPerson(htmlCastTvSerial, ref i);
+
+            i = i + 2;
+            lostfilmSerialModel.ListWriter = ParseCastListOfPerson(htmlCastTvSerial, ref i);
+        }
+
+        private List<PersonEntity> ParseCastListOfPerson(IHtmlDocument htmlCastTvSerial, ref int i)
+        {
+            var listPersonEntity = new List<PersonEntity>();
+
+            IElement personElement;
+            do
+            {
+                personElement = htmlCastTvSerial.QuerySelector(
+                    $"#left-pane > div.content > div.center-block.margin-left > div > div > a:nth-child({i})");
+
+                if (personElement != null)
+                {
+                    var personEntity = new PersonEntity();
+                    var actorImgElement = htmlCastTvSerial.QuerySelector(
+                        $"#left-pane > div.content > div.center-block.margin-left > div > div > a:nth-child({i}) > img");
+
+                    string photoThumbnailUrl = actorImgElement.GetAttribute("autoload");
+                    if (!string.IsNullOrEmpty(photoThumbnailUrl))
+                    {
+                        personEntity.PhotoThumbnailUrl = HttpPrefix + photoThumbnailUrl;
+                    }
+                    personEntity.FullNameRu = personElement.GetElementsByClassName("name-ru").FirstOrDefault()?.InnerHtml;
+                    personEntity.FullNameEn = personElement.GetElementsByClassName("name-en").FirstOrDefault()?.InnerHtml;
+
+                    listPersonEntity.Add(personEntity);
+                    i = i + 2;
+                }
+            } while (personElement != null || i > 200); //предусматриваем "запасной выход"
+
+            return listPersonEntity;
+        }
+
+        private TvSeriasEntity CreateTvSeriasEntity(LostfilmSerialModel lostfilmSerialModel)
+        {
+            //todo проверять на существование через совпадение по имени
+
+            var tvSeriasEntity = new TvSeriasEntity();
+
+            tvSeriasEntity.TitleRu = lostfilmSerialModel.TvSerialNameRu;
+            tvSeriasEntity.TitleEn = lostfilmSerialModel.TvSerialNameEn;
+            tvSeriasEntity.PosterImageUrl = lostfilmSerialModel.ImageUrlTvSerialThumb;
+            tvSeriasEntity.Summary = null; //todo вытянуть парсером
+            tvSeriasEntity.ListActor = lostfilmSerialModel.ListActor;
+            tvSeriasEntity.ListDirector = lostfilmSerialModel.ListDirector;
+            tvSeriasEntity.ListProducer = lostfilmSerialModel.ListProducer;
+            tvSeriasEntity.ListWriter = lostfilmSerialModel.ListWriter;
+            //todo распарсить и подставить жанры, если их нет добавить в бд
+            tvSeriasEntity.ListGenreEntity = null;
+
+            return tvSeriasEntity;
+        }
+
+        private SeasonEntity CreateSeasonEntity(LostfilmSerialModel lostfilmSerialModel,
+            TvSeriasEntity tvSeriasEntity)
+        {
+
+            //todo проверять на существование через совпадение по имени
+
+            var seasonEntity = new SeasonEntity();
+
+            string episodeAndSeriaNumberText = lostfilmSerialModel.EpisodeAndSeriaNumberText;
+
+            int endIndex = episodeAndSeriaNumberText.IndexOf(SeasonText, StringComparison.Ordinal);
+            string seasonNumberText =
+                episodeAndSeriaNumberText.Substring(0, endIndex);
+            seasonNumberText = Regex.Replace(seasonNumberText, @"[ ]", "");
+
+            int.TryParse(seasonNumberText, out int seasonNumber);
+
+            seasonEntity.Number = seasonNumber;
+            seasonEntity.PosterImageUrl = null; //todo получить парсером
+            seasonEntity.Summary = null; //todo получить парсером
+            seasonEntity.DbTvSeriesId = tvSeriasEntity.Id;
+
+            return seasonEntity;
+        }
+
+        private EpisodeEntity CreateEpisodeEntity(LostfilmSerialModel lostfilmSerialModel, SeasonEntity seasonEntity)
+        {
+
+            //todo проверять на существование через совпадение по имени
+
+            var episodeEntity = new EpisodeEntity();
+
+            string episodeAndSeriaNumberText = lostfilmSerialModel.EpisodeAndSeriaNumberText;
+
+            int startIndex = episodeAndSeriaNumberText.IndexOf(SeasonText, StringComparison.Ordinal) 
+                             + SeasonText.Length;
+            int endIndex = episodeAndSeriaNumberText.IndexOf(EpisodeText, StringComparison.Ordinal);
+            string episodeNumberText =
+                episodeAndSeriaNumberText.Substring(startIndex, endIndex - startIndex);
+
+            episodeNumberText = Regex.Replace(episodeNumberText, @"[ ]", "");
+            int.TryParse(episodeNumberText, out int episodeNumber);
+
+            episodeEntity.Number = episodeNumber;
+            episodeEntity.ReleaseDateRu = lostfilmSerialModel.DateReleaseRu;
+            episodeEntity.ReleaseDateEn = lostfilmSerialModel.DateReleaseEn;
+            episodeEntity.Title = null; //todo получить парсером
+            episodeEntity.Duration = new TimeSpan(0, 0, lostfilmSerialModel.DurationInMin, 0);
+            episodeEntity.Summary = null;//todo получить парсером
+            episodeEntity.DbSeasonId = seasonEntity.Id;
+
+            return episodeEntity;
         }
     }
 }

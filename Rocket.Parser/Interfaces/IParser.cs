@@ -5,7 +5,7 @@ namespace Rocket.Parser.Interfaces
     /// <summary>
     /// Базовый интерфейс парсера
     /// </summary>
-    public interface IParser
+    internal interface IParser
     {
         /// <summary>
         /// Запуск процесса парсинга

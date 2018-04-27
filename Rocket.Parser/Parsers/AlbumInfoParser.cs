@@ -8,7 +8,7 @@ using Rocket.Parser.Models;
 
 namespace Rocket.Parser.Parsers
 {
-    public class AlbumInfoParser : IAlbumInfoParser
+    internal class AlbumInfoParser : IAlbumInfoParser
     {
         private readonly ILoadHtmlService _loadHtmlService;
         private readonly IParseAlbumInfoService _parseAlbumInfoService;

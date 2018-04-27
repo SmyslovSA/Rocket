@@ -1,6 +1,6 @@
 ﻿namespace Rocket.Parser.Interfaces
 {
-    public interface ILostfilmParseService : IParser
+    internal interface ILostfilmParseService : IParser
     {
         ///// <summary>
         ///// Парсим заголовок сериала из списка сериалов.
