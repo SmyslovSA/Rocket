@@ -135,7 +135,7 @@ namespace Rocket.Parser.Services
         /// <param name="serialTopElement">Элемент заголовка сериала.</param>
         /// <param name="lostfilmSerialModel">Модель для временной агрегации данных результата парсинга.</param>
         /// <param name="i">Счетчик.</param>
-        public void ParseSerialHeaderBase(IElement serialTopElement, LostfilmSerialModel lostfilmSerialModel, int i)
+        private void ParseSerialHeaderBase(IElement serialTopElement, LostfilmSerialModel lostfilmSerialModel, int i)
         {
             var addUrlForDetailElement = serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > a");
             lostfilmSerialModel.AddUrlForDetail = addUrlForDetailElement.GetAttribute("href");
@@ -165,7 +165,7 @@ namespace Rocket.Parser.Services
         /// <param name="serialTopElement">Элемент заголовка сериала.</param>
         /// <param name="lostfilmSerialModel">Модель для временной агрегации данных результата парсинга.</param>
         /// <param name="i">Счетчик.</param>
-        public void ParseSerialHeaderDetailsPane(IElement serialTopElement, LostfilmSerialModel lostfilmSerialModel, int i)
+        private void ParseSerialHeaderDetailsPane(IElement serialTopElement, LostfilmSerialModel lostfilmSerialModel, int i)
         {
             var detailsPaneElement = serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > a > div.body > div.details-pane");
             string detailsPane = detailsPaneElement.InnerHtml;
@@ -183,7 +183,7 @@ namespace Rocket.Parser.Services
                 GetDetailsElement(detailsPane, LostFilmSerailListHelper.GetKeywordYearStart(), "<");
         }
 
-        public string GetDetailsElement(string detailsText, string keyword, string endString)
+        private string GetDetailsElement(string detailsText, string keyword, string endString)
         {
             if (endString == null) throw new ArgumentNullException(nameof(endString));
 
@@ -197,7 +197,7 @@ namespace Rocket.Parser.Services
             return Regex.Replace(currentDetailsPane, @"[ \t\n\r\f\v]", "");
         }
 
-        public void ParseSerialOverviewDetails(IHtmlDocument htmlDocumentSerialListDetail, LostfilmSerialModel lostfilmSerialModel)
+        private void ParseSerialOverviewDetails(IHtmlDocument htmlDocumentSerialListDetail, LostfilmSerialModel lostfilmSerialModel)
         {
             var serialOverviewElement =
                 htmlDocumentSerialListDetail.QuerySelector("#left-pane > div:nth-child(5) > div.details-pane");
@@ -220,7 +220,7 @@ namespace Rocket.Parser.Services
             lostfilmSerialModel.OfficialSiteUrl = officialSiteElement?.InnerHtml;
         }
 
-        public void ParseOverviewNewSeria(IHtmlDocument htmlDocumentSerialOverviewDetails, LostfilmSerialModel lostfilmSerialModel)
+        private void ParseOverviewNewSeria(IHtmlDocument htmlDocumentSerialOverviewDetails, LostfilmSerialModel lostfilmSerialModel)
         {
             var serialListDetailElement =
                 htmlDocumentSerialOverviewDetails.QuerySelector("#left-pane > div.text-block.guide");
@@ -256,7 +256,7 @@ namespace Rocket.Parser.Services
             lostfilmSerialModel.DateReleaseEn = dateReleaseEn;
         }
 
-        public void ParseDetailNewSeria(IHtmlDocument htmlDetailNewSeria, LostfilmSerialModel lostfilmSerialModel)
+        private void ParseDetailNewSeria(IHtmlDocument htmlDetailNewSeria, LostfilmSerialModel lostfilmSerialModel)
         {
             var durationInMinElement = htmlDetailNewSeria.QuerySelector(
                 "#left-pane > div.white-background.clearfix > div:nth-child(5) > div.details-pane > div:nth-child(2)");
