@@ -21,7 +21,7 @@ namespace Rocket.BL.Common.Models.UserRoles
         public bool IsActive { get; set; }
 
         /// <summary>
-        /// collection of permissions
+        /// collection of permissions 
         /// </summary>
         public ICollection<Permission> Permissions;
     }
