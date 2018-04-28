@@ -5,13 +5,6 @@ namespace Rocket.BL.Common.Services
     public interface IRoleService
     {
         /// <summary>
-        /// Устанавливает дефолт значение роли для новых 
-        /// зарегестрированных пользователей
-        /// </summary>
-        /// <param name="roleId"></param>
-        void SetDefaultUserRole(ushort roleId);
-
-        /// <summary>
         /// Меняет значение роли, установленное вручную
         /// </summary>
         /// <param name="newRoleId"></param>
@@ -28,16 +21,6 @@ namespace Rocket.BL.Common.Services
         /// <returns></returns>
         IEnumerable FetchAllByRole(ushort roleId);
 
-        /// <summary>
-        /// Добавить существующую функц возможность для выбранной роли
-        /// </summary>
-        /// <returns></returns>
-        bool AddRoleToUserRoleList(ushort roleId, ushort permissionId);
 
-        /// <summary>
-        /// Удалить функц возможность из текущего списка у роли
-        /// </summary>
-        /// <returns></returns>
-        bool RemoveRoleFromUserRoleList(ushort roleId, ushort permissionId);
     }
 }
