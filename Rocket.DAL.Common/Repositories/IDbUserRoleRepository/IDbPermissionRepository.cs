@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories.IDbRoleRepository
     /// <summary>
     /// Репозиторий для работы с правами
     /// </summary>
-    interface IDbPermissionRepository : IRepository<DbPermission>
+    public interface IDbPermissionRepository : IRepository<DbPermission>
     {
     }
 }
