@@ -15,7 +15,7 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="user">Экземпляр пользователя, который проверяется</param>
         /// <returns>Возвращает <see langword='true'/>, если проверка завершена успешно</returns>
-        bool IUserValidateOnAddition(IUser user);
+        bool IUserValidateOnAddition(User user);
 
         /// <summary>
         /// Валидирует (проверяем) экземпляр пользователя
@@ -23,6 +23,6 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="user">Экземпляр пользователя, который проверяется</param>
         /// <returns>Возвращает <see langword='true'/>, если проверка завершена успешно</returns>
-        bool IUserValidateOnUpdating(IUser user);
+        bool IUserValidateOnUpdating(User user);
     }
 }

@@ -8,13 +8,14 @@
     /// </summary>
     public class Identity
     {
-        // Имя.
+        /// <summary>
+        /// Имя
+        /// </summary>
         public string FirstName { get; set; }
 
-        // Фамилия.
-        public string SecondName { get; set; }
-
-        // Отчество.
-        public string Family { get; set; }
+        /// <summary>
+        /// Фамилия
+        /// </summary>
+        public string Sirname { get; set; }
     }
 }

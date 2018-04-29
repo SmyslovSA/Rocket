@@ -5,23 +5,36 @@ namespace Rocket.BL.Common.Models.User
     /// <summary>
     /// Тип адреса. Классика.
     /// </summary>
-    class Address : IAddress
+    public class Address
     {
+        /// <summary>
+        /// Задает или возвращает почтовый индекс
+        /// </summary>
         public string Index { get; set; }
 
+        /// <summary>
+        /// Возвращает или задает страну
+        /// </summary>
         public Country Country { get; set; }
 
-        public string Region { get; set; }
-
-        public string District { get; set; }
-
+        /// <summary>
+        /// Возвращает или задает город
+        /// </summary>
         public string City { get; set; }
 
+        /// <summary>
+        /// Возвращает или задает номер строения (дома)
+        /// </summary>
         public string Building { get; set; }
 
-        // Корпус.
+        /// <summary>
+        /// Возвращает или задает номер корпуса
+        /// </summary>
         public string BuildingBlock { get; set; }
 
+        /// <summary>
+        /// Возвращает или задает номер квартиры
+        /// </summary>
         public string Flat { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace Rocket.BL.Common.Models.User
     /// Некие субуго личностные, характеризующие данные,
     /// дата рождения, пол.
     /// </summary>
-    public interface IPersonality
+    public class Personality
     {
         // Дата рождения.
         DateTime? DateOfBirth { get; set; }

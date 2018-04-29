@@ -1,9 +1,18 @@
 ﻿namespace Rocket.BL.Common.Models.User
 {
-    public class User : IUser
+    /// <summary>
+    /// Представляет информацию о пользователе
+    /// </summary>
+    public class User
     {
-        public IPerson Person { get; set; }
+        /// <summary>
+        /// Возвращает или задает информацию о человеке
+        /// </summary>
+        public Person Person { get; set; }
 
-        public IAccount Account { get; set; }
+        /// <summary>
+        /// Возвращает или задает информацию об аккаунте
+        /// </summary>
+        public Account Account { get; set; }
     }
 }

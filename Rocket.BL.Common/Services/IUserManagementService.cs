@@ -18,7 +18,7 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="user">Экземпляр пользователя</param>
         /// <returns></returns>
-        int AddUser(IUser user);
+        int AddUser(User user);
 
         /// <summary>
         /// Возвращает пользователя с заданным идентификатором
@@ -27,13 +27,13 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
         /// <returns></returns>
-        IUser GetUser(int id);
+        User GetUser(int id);
 
         /// <summary>
         /// Обновляет информацию заданного пользователя в хранилище данных.
         /// </summary>
         /// <param name="user">Экземпляр пользователя</param>
-        void UpdateUser(IUser user);
+        void UpdateUser(User user);
 
         /// <summary>
         /// Удаляет пользователя с заданным идентификатором
@@ -48,6 +48,6 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="user">Экземпляр пользователя для проверки</param>
         /// <returns>Возвращает <see langword='true'/>, если пользователь существует в хранилище данных</returns>
-        bool UserExists(IUser user);
+        bool UserExists(User user);
     }
 }

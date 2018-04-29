@@ -4,24 +4,47 @@ using Rocket.BL.Common.Models.UserRoles;
 namespace Rocket.BL.Common.Models.User
 {
     /// <summary>
-    /// Тип аккаунта.
+    /// Представляет информацию об аккануте.
     /// </summary>
-    public class Account : IAccount
+    public class Account
     {
-        public int Id { get; set; } // Уникальный идентификатор.
+        /// <summary>
+        /// Возвращает или задает идентификационный номер аккаунта
+        /// </summary>
+        public int Id { get; set; }
 
-        public string Login { get; set; } // Имя пользователя.
+        /// <summary>
+        /// Возвращает или задает логин пользователя
+        /// </summary>
+        public string Login { get; set; }
 
-        public IPassword Password { get; set; } // Пароль. Содержит, как сам пароль, так и требования к нему.
+        /// <summary>
+        /// Возвращает или задает пароль
+        /// </summary>
+        public string Password { get; set; }
 
-        public StatusType Status { get; set; } // Статус аккаунта. Создан, деактивирован и так далее.
+        /// <summary>
+        /// Возвращает или задает статус акканута
+        /// (активирован, не активирован, деактивирован, забанен)
+        /// </summary>
+        public AccountStatus AccountStatus { get; set; }
 
-        public Level Level { get; set; } // Уровень аккаунта, золотой и т д.)).
+        /// <summary>
+        /// Возвращает или задает уровень пользователя
+        /// (пока что это - обычный и премиум пользователь)
+        /// </summary>
+        public AccountLevel AccountLevel { get; set; } // Уровень аккаунта, золотой и т д.)).
 
+        /// <summary>
+        /// Возвращает или задает необходимость подтверждения регистрации
+        /// путем активации Email
+        /// </summary>
         public bool ActivationNeeded { get; set; } // Требуется ли активация Email.
-
-        public Role Role { get; set; } // Роль.
-
+        
+        /// <summary>
+        /// Возвращает или задачт дату и время создания
+        /// или изменения статуса аккаунта.
+        /// </summary>
         public DateTime DateTimeStamp { get; set; } // Дата создания.
     }
 }

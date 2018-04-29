@@ -5,23 +5,28 @@
     /// Что, более менее неизменно в рамках небольших
     /// отрезков жизни, характеризует, как личность.
     /// </summary>
-    public class Person : IPerson 
+    public class Person
     {
         public int Id { get; set; }
-            
-        // Идентификатор. Имя, отчество, фамилия.
+
+        /// <summary>
+        /// Имя и фамилия
+        /// </summary>
         public Identity Identity { get; set; }
 
-        // Каналы связи.
+        /// <summary>
+        /// Контактная информация (телефоны, Email, др.)
+        /// </summary>
         public Communication Communication { get; set; }
 
-        // Национальность, включая язык.
+        /// <summary>
+        /// Возвращает или задает язык и национальность
+        /// </summary>
         public Nationality Nationality { get; set; }
 
-        // Тут все классически - адрес.
-        public IAddress Address { get; set; }
-
-        // Дата рождения и пол.
-        public IPersonality Personality { get; set; }
+        /// <summary>
+        /// Возвращает или задает дату рождения и пол
+        /// </summary>
+        public Personality Personality { get; set; }
     }
 }

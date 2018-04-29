@@ -2,28 +2,29 @@
 
 namespace Rocket.BL.Common.Models.User
 {
-    /// Средства коммуникации с человеком и, в конечном счету,
-    /// с пользователем. Все, что только может понадобиться для 
-    /// коммуникации собрано здесь.
+    /// <summary>
+    /// Представляет точку входа для контактной информации
     /// </summary>
     public class Communication
-    {
-        // Как обращаться к пользователю при переписке,
-        // Email-ах и так далее. Определен тип 'HowToCall'
-        // путем перечисления.
-        public HowToCall? HowToCall { get; set; }
+    {   
+        /// <summary>
+        /// Задает или возвращает сведения о том, как обращаться к пользователю
+        /// </summary>
+        public HowToCall HowToCall { get; set; }
         
-        // Список телефонных номеров с кодами
-        public List<IPhone> Phones { get; set; }
+        /// <summary>
+        /// Задает или возвращает коллекцию телефонных номеров
+        /// </summary>
+        public ICollection<string> Phones { get; set; }
 
-        // Каналы связи: мессенджеры, соцсети.
-        public List<Communicator> Communicators { get; set; }
+        /// <summary>
+        /// Задает или возвращает коллекцию Eamil
+        /// </summary>
+        public ICollection<string> EMailAddresses { get; set; }
 
-        // Список адресов электронной почты
-        public List<string> EMailAddresses { get; set; }
-
-        // Почтовый адрес. Ссылается на общий для проекта 
-        // тип 'Address'.
-        public IAddress MailAddress { get; set; }
+        /// <summary>
+        /// Возвращает или задает почтовый адрес
+        /// </summary>
+        public Address MailAddress { get; set; }
     }
 }

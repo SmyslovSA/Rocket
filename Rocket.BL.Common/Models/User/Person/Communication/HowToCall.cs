@@ -1,14 +1,19 @@
 ﻿namespace Rocket.BL.Common.Models.User
 {
     /// <summary>
-    /// Перечисление, как обращаться к пользователю.
+    /// Представляет сведения о том, как обращаться к пользователю
+    /// (Mr, Miss, Ms)
     /// </summary>
-    public enum HowToCall
+    public class HowToCall
     {
-        Mr = 1,
+        /// <summary>
+        /// Возвращает или задает уникальный идентификатор сведений о том, как обращаться к пользователю
+        /// </summary>
+        public int Id { get; set; }
 
-        Ms = 2,
-
-        Miss = 3
+        /// <summary>
+        /// Возвращает или задает обращение к пользователю
+        /// </summary>
+        public string Name { get; set; }
     }
 }
