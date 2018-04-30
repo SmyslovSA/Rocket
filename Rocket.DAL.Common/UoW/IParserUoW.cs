@@ -10,6 +10,11 @@ namespace Rocket.DAL.Common.UoW
         /// <summary>
         /// Возвращает репозиторий ресурсов для парсинга
         /// </summary>
-        IResourceEntityRepository ResourceEntities { get; }
+        IResourceRepository Resources { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий настроек парсера
+        /// </summary>
+        IParserSettingsRepository ParserSettings { get; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Rocket.DAL.Common.DbModels.Parser
+﻿using System.Collections.Generic;
+
+namespace Rocket.DAL.Common.DbModels.Parser
 {
     /// <summary>
     /// Содержит информацию о ресурсе для парсинга
@@ -19,6 +21,11 @@
         /// Ссылка на страницу ресурса
         /// </summary>
         public string ResourceLink { get; set; }
+
+        /// <summary>
+        /// Коллекция настроек
+        /// </summary>
+        public ICollection<ParserSettingsEntity> ParserSettings { get; set; }
 
     }
 }

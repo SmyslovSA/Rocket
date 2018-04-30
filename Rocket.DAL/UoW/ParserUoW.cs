@@ -8,14 +8,20 @@ namespace Rocket.DAL.UoW
     {
         private readonly IRocketContext _rocketContext;
 
-        public ParserUoW(IRocketContext rocketContext, IResourceEntityRepository resourceEntityRepository)
+        public ParserUoW(
+            IRocketContext rocketContext, 
+            IResourceRepository resourceRepository,
+            IParserSettingsRepository parserSettingsRepository)
         {
             _rocketContext = rocketContext;
-            ResourceEntities = resourceEntityRepository;
+            Resources = resourceRepository;
+            ParserSettings = parserSettingsRepository;
         }   
 
-        public IResourceEntityRepository ResourceEntities { get; }
-        
+        public IResourceRepository Resources { get; }
+
+        public IParserSettingsRepository ParserSettings { get; }
+
         public void Save()
         {
             _rocketContext.SaveChanges();

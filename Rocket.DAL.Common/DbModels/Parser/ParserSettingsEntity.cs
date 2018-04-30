@@ -16,6 +16,11 @@
         public int ResourceId { get; set; }
 
         /// <summary>
+        /// Ссылка на ресурс
+        /// </summary>
+        public ResourceEntity Resource { get; set; }
+
+        /// <summary>
         /// URL сата
         /// </summary>
         public string BaseUrl { get; set; }
