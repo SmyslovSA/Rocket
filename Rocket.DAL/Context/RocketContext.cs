@@ -11,7 +11,7 @@ namespace Rocket.DAL.Context
             Database.SetInitializer<RocketContext>(null);
         }
 
-        public DbSet<DbResource> Resources { get; set; }
+        public DbSet<ResourceEntity> Resources { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

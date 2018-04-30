@@ -43,7 +43,7 @@ namespace Rocket.Parser.Parsers
                 // todo опеределить способ получение настроек
                 //var settings = _dbParserSettingsRepository.GetByID(1);
 
-                var settings = new DbParserSettings
+                var settings = new ParserSettingsEntity
                 {
                     BaseUrl = "http://www.album-info.ru/albumlist.aspx?",
                     Prefix = "page={CurrentId}",
@@ -52,7 +52,7 @@ namespace Rocket.Parser.Parsers
                     ResourceId = 1
                 };
 
-                var resourceItemsBc = new BlockingCollection<DbResourceItem>();
+                var resourceItemsBc = new BlockingCollection<ResourceItemEntity>();
                 var releasesBc = new BlockingCollection<AlbumInfoRelease>();
 
                 //обрабатываем постранично (на каждую страницу свой поток)
@@ -71,7 +71,7 @@ namespace Rocket.Parser.Parsers
                     {
                         var releaseUrl = "http://www.album-info.ru/" + releaseLink;
 
-                        resourceItemsBc.Add(new DbResourceItem
+                        resourceItemsBc.Add(new ResourceItemEntity
                         {
                             ResourceId = settings.ResourceId,
                             ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
