@@ -13,7 +13,6 @@ namespace Rocket.Parser.Parsers
         private readonly IParseAlbumInfoService _parseAlbumInfoService;
         //private readonly IRepository<DbParserSettings> _dbParserSettingsRepository;
         
-        #region Ctor
         /// <summary>
         /// Ctor
         /// </summary>
@@ -29,10 +28,7 @@ namespace Rocket.Parser.Parsers
             //_dbParserSettingsRepository = dbParserSettingsRepository;
             _parseAlbumInfoService = parseAlbumInfoService;
         }
-        #endregion
-        
 
-        #region Methods
         /// <summary>
         /// Запуск парсинга сайта album-info.ru 
         /// </summary>
@@ -103,6 +99,5 @@ namespace Rocket.Parser.Parsers
             
             //todo логирование парсер отработал
         }
-        #endregion
     }
 }
