@@ -15,8 +15,13 @@ namespace Rocket.DAL
         /// </summary>
         public override void Load()
         {
+            //контексты
             Bind<IRocketContext>().To<RocketContext>();
+
+            //репозитарии
             Bind<IResourceEntityRepository>().To<ResourceEntityRepository>();
+
+            //UoW
             Bind<IParserUoW>().To<ParserUoW>();
         }
     }

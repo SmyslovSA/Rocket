@@ -21,7 +21,7 @@ namespace Rocket.Parser.Parsers
         /// </summary>
         /// <param name="loadHtmlService">Сервис загрузки HTML</param>
         /// <param name="parseAlbumInfoService">Сервис парсинга сайта album-info.ru</param>
-        /// <param name="dbParserSettingsRepository">Репозиторий параметров парсера</param>
+        /// <param name="parserUoW">UoW для парсера</param>
         public AlbumInfoParser(ILoadHtmlService loadHtmlService,
             IParseAlbumInfoService parseAlbumInfoService, IParserUoW parserUoW)
         {
