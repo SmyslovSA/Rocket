@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
-using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
-using Rocket.Parser.Models;
+using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace Rocket.Parser.Services
 {
@@ -19,51 +17,128 @@ namespace Rocket.Parser.Services
     {
         private readonly ILoadHtmlService _loadHtmlService;
 
-        //todo вынести в хэлпер
-        private const string AddCastUrl = "/cast";
-        private const string HttpPrefix = "http:";
-        private const string SeasonText = "сезон";
-        private const string EpisodeText = "серия";
-
-        /// <summary>
-        /// Ctor
-        /// </summary>
-        /// <param name="loadHtmlService">Сервис загрузки HTML</param>
-
         public LostfilmParseService(ILoadHtmlService loadHtmlService)
         {
             _loadHtmlService = loadHtmlService;
+        }
+
+        /// <summary>
+        /// Модель для временной агрегации данных результата парсинга (нужна чтобы потом сделать дополнительный парсинг и вставку в бд)
+        /// </summary>
+        private class LostfilmSerialModel
+        {
+            /// <summary>
+            /// Дополнительная ссылка для получения деталей по сериалу.
+            /// </summary>
+            public string AddUrlForDetail { get; set; }
+
+            /// <summary>
+            /// Ссылка на изображение-миниатюру для сериала.
+            /// </summary>
+            public string ImageUrlTvSerialThumb { get; set; }
+
+            /// <summary>
+            /// Название сериала по-русски.
+            /// </summary>
+            public string TvSerialNameRu { get; set; }
+
+            /// <summary>
+            /// Название сериала по-английски.
+            /// </summary>
+            public string TvSerialNameEn { get; set; }
+
+            /// <summary>
+            /// Текущий статус сериала.
+            /// </summary>
+            public string TvSerialCurrentStatus { get; set; }
+
+            /// <summary>
+            /// Год начала показа сериала.
+            /// </summary>
+            public string TvSerialYearStart { get; set; }
+
+            /// <summary>
+            /// Теливизионный канал на котором показывают сериал.
+            /// </summary>
+            public string TvSerialCanal { get; set; }
+
+            /// <summary>
+            /// Список жанров в виде строки для последующего парсинга.
+            /// </summary>
+            public string ListGenreForParse { get; set; }
+
+            /// <summary>
+            /// Рейтинг сериала на Lostfilm.
+            /// </summary>
+            public double TvSerialRateOnLostFilm { get; set; }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public string PremiereDateText { get; set; }
+
+            public double RateImDb { get; set; }
+
+            public string OfficialSite { get; set; }
+
+            public string EpisodeAndSeriaNumberText { get; set; }
+
+            public string NewSeriaDetailNewUrl { get; set; }
+
+            public DateTime DateReleaseRu { get; set; }
+
+            public DateTime DateReleaseEn { get; set; }
+
+            public double DurationInMin { get; set; }
         }
 
         public async Task ParseAsync()
         {
             try
             {
+                ParseLostFilmAsync();
+            }
+            catch (Exception e)
+            {
+                //todo добавить логирование
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        private async Task ParseLostFilmAsync()
+        {
+
+            try
+            {
                 //todo эта настройка должна лежать в базе и задаваться через админку на UI, а пока в конфиге
                 //Получаем основную ссылку на ресурс LostFilm
-                var baseUrl = System.Configuration.ConfigurationManager.AppSettings["LostfilmParseBaseUrl"];
+                var baseUrl = ConfigurationManager.AppSettings["LostfilmParseBaseUrl"];
 
                 //Получаем элемент со списком сериалов
-                var htmlDocumentSerialList = await _loadHtmlService.GetHtmlDocumentByUrlAsync(baseUrl + "/series");
-                var elSerialList = htmlDocumentSerialList.QuerySelector("#serials_list");
+                var htmlDocumentSerialList = await _loadHtmlService.GetHtmlDocumentByUrlAsync(
+                    baseUrl + LostfilmAddUrlForBase.AdditionalUrlToSerialList);
+                var elSerialList = htmlDocumentSerialList.QuerySelector(LostfilmTvSerailListHeaderHelper.Base);
 
                 //Формируем список моделей с данными которые нам удалось вытянуть с Lostfilm (грузит по 10 сериалов за раз)
                 var listLostfilmSerialModel = new List<LostfilmSerialModel>();
                 int i = 2;
-                IElement serialTopHtml;
+                IElement serialTopElement;
                 do
                 {
                     //Перебираем сериалы пока не закончились в подгруженном списке
-                    serialTopHtml = elSerialList.QuerySelector($"#serials_list > div:nth-child({i})");
-                    if (serialTopHtml == null) break;
+                    serialTopElement = elSerialList.QuerySelector(
+                        string.Format(LostfilmTvSerailListHeaderHelper.TvSerial, i));
+                    if (serialTopElement == null)
+                    {
+                        //todo запись в лог - предупреждение
+                        break;
+                    }
 
                     var lostfilmSerialModel = new LostfilmSerialModel();
 
                     //Парсим заголовок сериала из списка сериалов
-                    ParseSerialHeaderBase(serialTopHtml, lostfilmSerialModel, i);
-
-                    //Парсим заголовок сериала из списка сериалов панель детализации
-                    ParseSerialHeaderDetailsPane(serialTopHtml, lostfilmSerialModel, i);
+                    ParseSerialHeader(serialTopElement, lostfilmSerialModel, i);
 
                     //Получаем элемент с обзорной информацией о сериале
                     var htmlDocumentSerialOverviewDetails =
@@ -75,22 +150,14 @@ namespace Rocket.Parser.Services
                     //Парсим обзорную информации по еще не вышедшей серии
                     ParseOverviewNewSeria(htmlDocumentSerialOverviewDetails, lostfilmSerialModel);
 
-                    if (lostfilmSerialModel.NewSeriaDetailUrl != null)
+                    if (lostfilmSerialModel.NewSeriaDetailNewUrl != null)
                     {
                         //Получаем элемент с более подробной информацией о новой серии
-                        var htmlDetailNewSeria = await _loadHtmlService.GetHtmlDocumentByUrlAsync(
-                            baseUrl + lostfilmSerialModel.NewSeriaDetailUrl);
+                        var htmlDetailNewSeria = await _loadHtmlService.GetHtmlDocumentByUrlAsync(baseUrl + lostfilmSerialModel.NewSeriaDetailNewUrl);
 
                         //Парсим информацию о новой серии с её страницы
                         ParseDetailNewSeria(htmlDetailNewSeria, lostfilmSerialModel);
                     }
-
-                    //Получаем элемент со списком актеров режисеров продюсеров
-                    var htmlCastTvSerial = await _loadHtmlService.GetHtmlDocumentByUrlAsync(
-                        baseUrl + lostfilmSerialModel.AddUrlForDetail + AddCastUrl);
-
-                    //Парсим информацию о новой серии с её страницы
-                    ParseCastTvSerial(htmlCastTvSerial, lostfilmSerialModel);
 
                     listLostfilmSerialModel.Add(lostfilmSerialModel);
 
@@ -100,26 +167,12 @@ namespace Rocket.Parser.Services
 
                 //todo сделать чтобы догрузилось еще 10 строк
 
+                //todo сделать запихивание данных в бд
 
-                //todo сделать через автомапер
-                foreach (var lostfilmSerialModel in listLostfilmSerialModel)
-                {
-                    //todo добавить в сущности поля которые я уже вытянул(рейтинг, ссылка на оф сайт и т.д.)
-                    //создаем сущность сериала
-                    var tvSeriasEntity = CreateTvSeriasEntity(lostfilmSerialModel);
+                //todo сделать получение Person
 
-                    //todo тут делаем Save без комита
 
-                    //создаем сущность сезона
-                    var seasonEntity = CreateSeasonEntity(lostfilmSerialModel, tvSeriasEntity);
-
-                    // todo тут делаем Save без комита
-
-                    //создаем сущность серии
-                    var episodeEntity = CreateEpisodeEntity(lostfilmSerialModel, seasonEntity);
-
-                    // todo тут делаем Save с комитом
-                }
+                var t = 1211;
 
             }
             catch (Exception e)
@@ -135,28 +188,42 @@ namespace Rocket.Parser.Services
         /// <param name="serialTopElement">Элемент заголовка сериала.</param>
         /// <param name="lostfilmSerialModel">Модель для временной агрегации данных результата парсинга.</param>
         /// <param name="i">Счетчик.</param>
-        private void ParseSerialHeaderBase(IElement serialTopElement, LostfilmSerialModel lostfilmSerialModel, int i)
+        private void ParseSerialHeader(IElement serialTopElement, LostfilmSerialModel lostfilmSerialModel, int i)
         {
-            var addUrlForDetailElement = serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > a");
-            lostfilmSerialModel.AddUrlForDetail = addUrlForDetailElement.GetAttribute("href");
+            //Получаем элемент детализации по сериалу из заголовка
+            var addUrlForDetailElement = serialTopElement
+                .QuerySelector(string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetail, i));
 
-            var imageUrlTvSerialThumbElement =
-                serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > a > div.picture-box > img.thumb");
-            lostfilmSerialModel.ImageUrlTvSerialThumb = HttpPrefix + imageUrlTvSerialThumbElement.GetAttribute("src");
+            //Получаем дополнительную ссылку для получения деталей по сериалу.
+            lostfilmSerialModel.AddUrlForDetail = addUrlForDetailElement.GetAttribute(CommonHelper.HrefAttribute);
 
-            var tvSerialNameRuElement =
-                serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > a > div.body > div.name-ru");
+            //todo сделать проверку на наличие сериала в бд по ссылке, если есть код ниже выполняться не должен
+            //todo кроме обновление рейтинга!!!
+
+            //Получаем ссылку на изображение-миниатюру для сериала.
+            var imageUrlTvSerialThumbElement = serialTopElement.QuerySelector(
+                string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetailImageUrlThumb, i));
+            lostfilmSerialModel.ImageUrlTvSerialThumb =
+                CommonHelper.HttpText + imageUrlTvSerialThumbElement.GetAttribute(CommonHelper.SrcAttribute);
+
+            //Получаем название сериала по-русски.
+            var tvSerialNameRuElement = serialTopElement.QuerySelector(
+                    string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetailTvSerialNameRu, i));
             lostfilmSerialModel.TvSerialNameRu = tvSerialNameRuElement?.InnerHtml;
 
-            var tvSerialNameEnElement =
-                serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > a > div.body > div.name-en");
+            //Получаем название сериала по-английски.
+            var tvSerialNameEnElement = serialTopElement.QuerySelector(
+                string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetailTvSerialNameEn, i));
             lostfilmSerialModel.TvSerialNameEn = tvSerialNameEnElement?.InnerHtml;
 
-            var lostfilmRateElement =
-                serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > div.mark-green-box");
-
+            //Получаем рейтинг сериала на Lostfilm.
+            var lostfilmRateElement = serialTopElement.QuerySelector(
+                string.Format(LostfilmTvSerailListHeaderHelper.TvSerialLostfilmRate, i));
             double.TryParse(lostfilmRateElement.InnerHtml, out double lostfilmRate);
             lostfilmSerialModel.TvSerialRateOnLostFilm = lostfilmRate;
+
+            //Парсим заголовок сериала из списка сериалов панель детализации
+            ParseSerialHeaderDetailsPane(serialTopElement, lostfilmSerialModel, i);
         }
 
         /// <summary>
@@ -164,40 +231,38 @@ namespace Rocket.Parser.Services
         /// </summary>
         /// <param name="serialTopElement">Элемент заголовка сериала.</param>
         /// <param name="lostfilmSerialModel">Модель для временной агрегации данных результата парсинга.</param>
-        /// <param name="i">Счетчик.</param>
-        private void ParseSerialHeaderDetailsPane(IElement serialTopElement, LostfilmSerialModel lostfilmSerialModel, int i)
+        /// <param name="i">Счетчик елементов заголовка сериала.</param>
+        private void ParseSerialHeaderDetailsPane(IElement serialTopElement,
+            LostfilmSerialModel lostfilmSerialModel, int i)
         {
-            var detailsPaneElement = serialTopElement.QuerySelector($"#serials_list > div:nth-child({i}) > a > div.body > div.details-pane");
+            //Получаем панель деталей
+            var detailsPaneElement = serialTopElement.QuerySelector(
+                string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetailPane, i));
             string detailsPane = detailsPaneElement.InnerHtml;
 
+            //Получаем текущий статус сериала
             lostfilmSerialModel.TvSerialCurrentStatus =
-                GetDetailsElement(detailsPane, LostFilmSerailListHelper.GetKeywordStatus(), "<");
+                StringHelper.GetSubstring(detailsPane, LostfilmTvSerailListHeaderHelper.KeywordStatus,
+                    CommonHelper.OpenAngleBracket);
 
+            //Получаем теливизионный канал на котором показывают сериал
             lostfilmSerialModel.TvSerialCanal =
-                GetDetailsElement(detailsPane, LostFilmSerailListHelper.GetKeywordCanal(), "<");
+                StringHelper.GetSubstring(detailsPane, LostfilmTvSerailListHeaderHelper.KeywordCanal,
+                    CommonHelper.OpenAngleBracket);
 
+            //Получаем список жанров в виде строки для последующего парсинга.
             lostfilmSerialModel.ListGenreForParse =
-                GetDetailsElement(detailsPane, LostFilmSerailListHelper.GetKeywordGenre(), "<");
-            
+                StringHelper.GetSubstring(detailsPane, LostfilmTvSerailListHeaderHelper.KeywordGenre,
+                    CommonHelper.OpenAngleBracket);
+
+            //Получаем год начала показа сериала.
             lostfilmSerialModel.TvSerialYearStart =
-                GetDetailsElement(detailsPane, LostFilmSerailListHelper.GetKeywordYearStart(), "<");
+                StringHelper.GetSubstring(detailsPane, LostfilmTvSerailListHeaderHelper.KeywordYearStart,
+                    CommonHelper.OpenAngleBracket);
         }
 
-        private string GetDetailsElement(string detailsText, string keyword, string endString)
-        {
-            if (endString == null) throw new ArgumentNullException(nameof(endString));
-
-            int startIndex = detailsText.IndexOf(keyword, StringComparison.Ordinal) + keyword.Length;
-
-            int endIndex = detailsText.IndexOf(endString, startIndex, StringComparison.Ordinal);
-            if (endIndex < 0) endIndex = detailsText.Length;
-
-            string currentDetailsPane = detailsText.Substring(startIndex, endIndex - startIndex);
-
-            return Regex.Replace(currentDetailsPane, @"[ \t\n\r\f\v]", "");
-        }
-
-        private void ParseSerialOverviewDetails(IHtmlDocument htmlDocumentSerialListDetail, LostfilmSerialModel lostfilmSerialModel)
+        private void ParseSerialOverviewDetails(IHtmlDocument htmlDocumentSerialListDetail,
+            LostfilmSerialModel lostfilmSerialModel)
         {
             var serialOverviewElement =
                 htmlDocumentSerialListDetail.QuerySelector("#left-pane > div:nth-child(5) > div.details-pane");
@@ -209,7 +274,7 @@ namespace Rocket.Parser.Services
             var serialOverviewText = serialOverviewElement.InnerHtml;
             string keyword = "Рейтинг IMDb:";
 
-            string rateImDbText = GetDetailsElement(serialOverviewText, keyword, "<");
+            string rateImDbText = StringHelper.GetSubstring(serialOverviewText, keyword, "<");
             double.TryParse(rateImDbText, out double rateImDb);
 
             lostfilmSerialModel.RateImDb = rateImDb;
@@ -217,7 +282,7 @@ namespace Rocket.Parser.Services
             var officialSiteElement =
                 serialOverviewElement.QuerySelector(
                     "#left-pane > div:nth-child(5) > div.details-pane > div.right-box > a:nth-child(8)");
-            lostfilmSerialModel.OfficialSiteUrl = officialSiteElement?.InnerHtml;
+            lostfilmSerialModel.OfficialSite = officialSiteElement?.InnerHtml;
         }
 
         private void ParseOverviewNewSeria(IHtmlDocument htmlDocumentSerialOverviewDetails, LostfilmSerialModel lostfilmSerialModel)
@@ -237,7 +302,7 @@ namespace Rocket.Parser.Services
                 string seriaDetailNewUrl = serialDetailElementNew.GetAttribute("onclick");
                 int indexStart = seriaDetailNewUrl.IndexOf("'", StringComparison.Ordinal);
                 int indexEnd = seriaDetailNewUrl.IndexOf("'", indexStart + 1, StringComparison.Ordinal) - 1;
-                lostfilmSerialModel.NewSeriaDetailUrl = seriaDetailNewUrl.Substring(6, indexEnd - indexStart);
+                lostfilmSerialModel.NewSeriaDetailNewUrl = seriaDetailNewUrl.Substring(6, indexEnd - indexStart);
             }
 
             var newSeriaDateReleaseRu =
@@ -246,12 +311,12 @@ namespace Rocket.Parser.Services
             var newSeriaDateReleaseText = newSeriaDateReleaseRu.InnerHtml;
 
             string keyword = "Ru:";
-            string dateReleaseRuText = GetDetailsElement(newSeriaDateReleaseText, keyword, "<");
+            string dateReleaseRuText = StringHelper.GetSubstring(newSeriaDateReleaseText, keyword, "<");
             DateTime.TryParse(dateReleaseRuText, out DateTime dateReleaseRu);
             lostfilmSerialModel.DateReleaseRu = dateReleaseRu;
 
             keyword = "Eng:";
-            string dateReleaseEnText = GetDetailsElement(newSeriaDateReleaseText, keyword, "<");
+            string dateReleaseEnText = StringHelper.GetSubstring(newSeriaDateReleaseText, keyword, "<");
             DateTime.TryParse(dateReleaseEnText, out DateTime dateReleaseEn);
             lostfilmSerialModel.DateReleaseEn = dateReleaseEn;
         }
@@ -263,131 +328,10 @@ namespace Rocket.Parser.Services
             string durationInMinText = durationInMinElement.InnerHtml;
 
             string keyword = "Длительность:";
-            durationInMinText = GetDetailsElement(durationInMinText, keyword, "<");
+            durationInMinText = StringHelper.GetSubstring(durationInMinText, keyword, "<");
             durationInMinText = Regex.Replace(durationInMinText, @"[а-я]", "");
-            int.TryParse(durationInMinText, out int durationInMin);
+            double.TryParse(durationInMinText, out double durationInMin);
             lostfilmSerialModel.DurationInMin = durationInMin;
-        }
-
-        private void ParseCastTvSerial(IHtmlDocument htmlCastTvSerial, LostfilmSerialModel lostfilmSerialModel)
-        {
-            int i = 4;
-            lostfilmSerialModel.ListActor = ParseCastListOfPerson(htmlCastTvSerial, ref i);
-
-            i = i + 2;
-            lostfilmSerialModel.ListDirector = ParseCastListOfPerson(htmlCastTvSerial, ref i);
-
-            i = i + 2;
-            lostfilmSerialModel.ListProducer = ParseCastListOfPerson(htmlCastTvSerial, ref i);
-
-            i = i + 2;
-            lostfilmSerialModel.ListWriter = ParseCastListOfPerson(htmlCastTvSerial, ref i);
-        }
-
-        private List<PersonEntity> ParseCastListOfPerson(IHtmlDocument htmlCastTvSerial, ref int i)
-        {
-            var listPersonEntity = new List<PersonEntity>();
-
-            IElement personElement;
-            do
-            {
-                personElement = htmlCastTvSerial.QuerySelector(
-                    $"#left-pane > div.content > div.center-block.margin-left > div > div > a:nth-child({i})");
-
-                if (personElement != null)
-                {
-                    var personEntity = new PersonEntity();
-                    var actorImgElement = htmlCastTvSerial.QuerySelector(
-                        $"#left-pane > div.content > div.center-block.margin-left > div > div > a:nth-child({i}) > img");
-
-                    string photoThumbnailUrl = actorImgElement.GetAttribute("autoload");
-                    if (!string.IsNullOrEmpty(photoThumbnailUrl))
-                    {
-                        personEntity.PhotoThumbnailUrl = HttpPrefix + photoThumbnailUrl;
-                    }
-                    personEntity.FullNameRu = personElement.GetElementsByClassName("name-ru").FirstOrDefault()?.InnerHtml;
-                    personEntity.FullNameEn = personElement.GetElementsByClassName("name-en").FirstOrDefault()?.InnerHtml;
-
-                    listPersonEntity.Add(personEntity);
-                    i = i + 2;
-                }
-            } while (personElement != null || i > 200); //предусматриваем "запасной выход"
-
-            return listPersonEntity;
-        }
-
-        private TvSeriasEntity CreateTvSeriasEntity(LostfilmSerialModel lostfilmSerialModel)
-        {
-            //todo проверять на существование через совпадение по имени
-
-            var tvSeriasEntity = new TvSeriasEntity();
-
-            tvSeriasEntity.TitleRu = lostfilmSerialModel.TvSerialNameRu;
-            tvSeriasEntity.TitleEn = lostfilmSerialModel.TvSerialNameEn;
-            tvSeriasEntity.PosterImageUrl = lostfilmSerialModel.ImageUrlTvSerialThumb;
-            tvSeriasEntity.Summary = null; //todo вытянуть парсером
-            tvSeriasEntity.ListActor = lostfilmSerialModel.ListActor;
-            tvSeriasEntity.ListDirector = lostfilmSerialModel.ListDirector;
-            tvSeriasEntity.ListProducer = lostfilmSerialModel.ListProducer;
-            tvSeriasEntity.ListWriter = lostfilmSerialModel.ListWriter;
-            //todo распарсить и подставить жанры, если их нет добавить в бд
-            tvSeriasEntity.ListGenreEntity = null;
-
-            return tvSeriasEntity;
-        }
-
-        private SeasonEntity CreateSeasonEntity(LostfilmSerialModel lostfilmSerialModel,
-            TvSeriasEntity tvSeriasEntity)
-        {
-
-            //todo проверять на существование через совпадение по имени
-
-            var seasonEntity = new SeasonEntity();
-
-            string episodeAndSeriaNumberText = lostfilmSerialModel.EpisodeAndSeriaNumberText;
-
-            int endIndex = episodeAndSeriaNumberText.IndexOf(SeasonText, StringComparison.Ordinal);
-            string seasonNumberText =
-                episodeAndSeriaNumberText.Substring(0, endIndex);
-            seasonNumberText = Regex.Replace(seasonNumberText, @"[ ]", "");
-
-            int.TryParse(seasonNumberText, out int seasonNumber);
-
-            seasonEntity.Number = seasonNumber;
-            seasonEntity.PosterImageUrl = null; //todo получить парсером
-            seasonEntity.Summary = null; //todo получить парсером
-            seasonEntity.DbTvSeriesId = tvSeriasEntity.Id;
-
-            return seasonEntity;
-        }
-
-        private EpisodeEntity CreateEpisodeEntity(LostfilmSerialModel lostfilmSerialModel, SeasonEntity seasonEntity)
-        {
-
-            //todo проверять на существование через совпадение по имени
-
-            var episodeEntity = new EpisodeEntity();
-
-            string episodeAndSeriaNumberText = lostfilmSerialModel.EpisodeAndSeriaNumberText;
-
-            int startIndex = episodeAndSeriaNumberText.IndexOf(SeasonText, StringComparison.Ordinal) 
-                             + SeasonText.Length;
-            int endIndex = episodeAndSeriaNumberText.IndexOf(EpisodeText, StringComparison.Ordinal);
-            string episodeNumberText =
-                episodeAndSeriaNumberText.Substring(startIndex, endIndex - startIndex);
-
-            episodeNumberText = Regex.Replace(episodeNumberText, @"[ ]", "");
-            int.TryParse(episodeNumberText, out int episodeNumber);
-
-            episodeEntity.Number = episodeNumber;
-            episodeEntity.ReleaseDateRu = lostfilmSerialModel.DateReleaseRu;
-            episodeEntity.ReleaseDateEn = lostfilmSerialModel.DateReleaseEn;
-            episodeEntity.Title = null; //todo получить парсером
-            episodeEntity.Duration = new TimeSpan(0, 0, lostfilmSerialModel.DurationInMin, 0);
-            episodeEntity.Summary = null;//todo получить парсером
-            episodeEntity.DbSeasonId = seasonEntity.Id;
-
-            return episodeEntity;
         }
     }
 }

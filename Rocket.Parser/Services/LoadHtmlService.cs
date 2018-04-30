@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
+using Rocket.Parser.Exceptions;
 using Rocket.Parser.Interfaces;
 
 namespace Rocket.Parser.Services
@@ -12,50 +14,63 @@ namespace Rocket.Parser.Services
     /// </summary>
     public class LoadHtmlService : ILoadHtmlService
     {
-        readonly HttpClient _client;
-
-        /// <summary>
-        /// Ctor
-        /// </summary>
-        public LoadHtmlService()
-        {
-            //потому что https://stackoverflow.com/questions/15705092/do-httpclient-and-httpclienthandler-have-to-be-disposed
-            //todo не забыть спросить Александра
-            _client = new HttpClient();
-        }
-        
         /// <summary>
         /// Получает Html в виде строки по ссылке.
         /// </summary>
-        /// /// <param name="url">URL</param>
+        /// <exception cref = "NotGetTextByUrlException" >"Не удалось загрузить текст по ссылке {0}."</exception >
+        /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        public async Task<string> GetHtmlByUrlAsync(string url)
+        public async Task<string> GetTextByUrlAsync(string url)
         {
-            var response = await _client.GetAsync(url);
-            string source = null;
-
-            if (response != null && response.StatusCode == HttpStatusCode.OK)
+            try
             {
-                source = await response.Content.ReadAsStringAsync();
-            }
+                HttpResponseMessage response;
+                using (var httpClient = new HttpClient())
+                {
+                    response = await httpClient.GetAsync(url);
+                }
 
-            return source;
+                string source = string.Empty;
+
+                if (response != null && response.StatusCode == HttpStatusCode.OK)
+                {
+                    source = await response.Content.ReadAsStringAsync();
+                }
+
+                return source;
+            }
+            catch (Exception e)
+            {
+                throw new NotGetTextByUrlException(url, e);
+            }
         }
 
         /// <summary>
         /// Получает Html по ссылке.
         /// </summary>
+        /// <exception cref = "NotGetHtmlDocumentByUrlException">"Не удалось загрузить HtmlDocument по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>HtmlDocument</returns>
         public async Task<IHtmlDocument> GetHtmlDocumentByUrlAsync(string url)
         {
-            var source = await GetHtmlByUrlAsync(url);
+            try
+            {
+                var source = await GetTextByUrlAsync(url);
 
-            var domParser = new HtmlParser();
+                var domParser = new HtmlParser();
 
-            var htmldocument = await domParser.ParseAsync(source);
+                var htmldocument = await domParser.ParseAsync(source);
 
-            return htmldocument;
+                return htmldocument;
+            }
+            catch (NotGetTextByUrlException notGetTextByUrlException)
+            {
+                throw new NotGetHtmlDocumentByUrlException(url, notGetTextByUrlException.InnerException);
+            }
+            catch (Exception e)
+            {
+                throw new NotGetHtmlDocumentByUrlException(url, e);
+            }
         }
     }
 }

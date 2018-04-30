@@ -2,20 +2,22 @@
 using System.Reflection;
 using Ninject;
 using Quartz;
+using Rocket.Parser.Heplers;
 using Rocket.Parser.Jobs;
 using Topshelf;
 using Topshelf.Quartz;
 using Topshelf.ServiceConfigurators;
+using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace Rocket.Parser
 {
     public class Program
     {
-
-        static void Main(string[] args)
+        private static void Main()
         {
             try
             {
+                //Подключаем Ioc
                 var kernel = new StandardKernel();
                 kernel.Load(Assembly.GetExecutingAssembly());
 
@@ -42,21 +44,23 @@ namespace Rocket.Parser
                 Console.WriteLine(e);
                 throw;
             }
-            
+
         }
 
         /// <summary>
-        /// Парсит Lostfilm
+        /// Добавляет в конфигуратор Quartz задание по расписанию для парсинга Lostfilm.
         /// </summary>
-        /// <param name="serviceConfigurator"></param>
+        /// <param name="serviceConfigurator">Конфигуратор Quartz.</param>
         /// <param name="kernel">DI контейнер</param>
         private static void LostfilmParseProcess(ServiceConfigurator<Service> serviceConfigurator, IKernel kernel)
         {
             //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
-            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["LostfilmParseIsSwitchOn"], out int lostfilmParseIsSwitchOn);
-            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["LostfilmParsePeriodInMinutes"], out int lostfilmParsePeriodInMinutes);
-                        
-            if (lostfilmParseIsSwitchOn == 1)
+            bool.TryParse(ConfigurationManager.AppSettings[SettingsHelper.LostfilmParseIsSwitchOnKey],
+                out bool lostfilmParseIsSwitchOn);
+            int.TryParse(ConfigurationManager.AppSettings[SettingsHelper.LostfilmParsePeriodInMinutesKey],
+                out int lostfilmParsePeriodInMinutes);
+
+            if (lostfilmParseIsSwitchOn)
             {
                 Func<ITrigger> lostfilmParseTrigger = () => TriggerBuilder.Create()
                     .WithSimpleSchedule(builder => builder
@@ -66,7 +70,7 @@ namespace Rocket.Parser
                     .Build();
 
                 // Запускает парсер Lostfilm
-                IJobDetail lostfilmParseTriggerJob = JobBuilder.Create<LostfilmParseJob>().Build();
+                var lostfilmParseTriggerJob = JobBuilder.Create<LostfilmParseJob>().Build();
                 lostfilmParseTriggerJob.JobDataMap.Put("container", kernel);
 
                 serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
@@ -77,19 +81,19 @@ namespace Rocket.Parser
         }
 
         /// <summary>
-        /// Парсит сайт album-info.ru
+        /// Добавляет в конфигуратор Quartz задание по расписанию для парсинга album-info.ru.
         /// </summary>
-        /// <param name="serviceConfigurator"></param>
+        /// <param name="serviceConfigurator">Конфигуратор Quartz.</param>
         /// <param name="kernel">DI контейнер</param>
         public static void AlbumInfoParseProcess(ServiceConfigurator<Service> serviceConfigurator, IKernel kernel)
         {
-            
-
             //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
-            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["AlbumInfoParseIsSwitchOn"], out int albumInfoParseIsSwitchOn);
-            int.TryParse(System.Configuration.ConfigurationManager.AppSettings["AlbumInfoPeriodInMinutes"], out int albumInfoParsingPeriodInMinutes);
+            bool.TryParse(ConfigurationManager.AppSettings[SettingsHelper.AlbumInfoParseIsSwitchOnKey],
+                out bool albumInfoParseIsSwitchOn);
+            int.TryParse(ConfigurationManager.AppSettings[SettingsHelper.AlbumInfoPeriodInMinutesKey],
+                out int albumInfoParsingPeriodInMinutes);
 
-            if (albumInfoParseIsSwitchOn == 1)
+            if (albumInfoParseIsSwitchOn)
             {
                 Func<ITrigger> albumInfoParseTrigger = () => TriggerBuilder.Create()
                     .WithSimpleSchedule(builder => builder
@@ -97,22 +101,15 @@ namespace Rocket.Parser
                         .WithMisfireHandlingInstructionIgnoreMisfires()
                         .RepeatForever())
                     .Build();
-                try
-                {
-                    IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<ParseAlbumInfoJob>().Build();
-                    albumInfoParseTriggerJob.JobDataMap.Put("container", kernel);
 
-                    serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
-                        jobConfigurator
-                            .WithJob(() => albumInfoParseTriggerJob)
-                            .AddTrigger(albumInfoParseTrigger));
+                // Запускает парсер album-info.ru
+                IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<AlbumInfoParseJob>().Build();
+                albumInfoParseTriggerJob.JobDataMap.Put("container", kernel);
 
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
+                    jobConfigurator
+                        .WithJob(() => albumInfoParseTriggerJob)
+                        .AddTrigger(albumInfoParseTrigger));
             }
         }
     }

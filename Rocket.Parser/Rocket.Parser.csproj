@@ -72,11 +72,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Bindings.cs" />
-    <Compile Include="Heplers\LostFilmSerailListHelper.cs" />
+    <Compile Include="Exceptions\NotGetHtmlDocumentByUrlException.cs" />
+    <Compile Include="Exceptions\NotGetTextByUrlException.cs" />
+    <Compile Include="Heplers\CommonHelper.cs" />
+    <Compile Include="Heplers\LostfilmAddUrlForBase.cs" />
+    <Compile Include="Heplers\LostfilmTvSerailListHeaderHelper.cs" />
+    <Compile Include="Heplers\SettingsHelper.cs" />
+    <Compile Include="Heplers\StringHelper.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IParseService.cs" />
     <Compile Include="Jobs\LostfilmParseJob.cs" />
-    <Compile Include="Jobs\ParseAlbumInfoJob.cs" />
+    <Compile Include="Jobs\AlbumInfoParseJob.cs" />
     <Compile Include="Models\AlbumInfoRelease.cs" />
     <Compile Include="Models\LostfilmSerialModel.cs" />
     <Compile Include="Parsers\AlbumInfoParser.cs" />
@@ -104,5 +110,6 @@
       <Name>Rocket.DAL.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

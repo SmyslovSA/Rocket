@@ -9,7 +9,7 @@ namespace Rocket.Parser.Jobs
     /// Джоба для парсинга сайта album-info.ru
     /// </summary>
     [DisallowConcurrentExecution]
-    internal class ParseAlbumInfoJob : IJob
+    internal class AlbumInfoParseJob : IJob
     {
         /// <summary>
         /// Запуск парсинга сайта album-info.ru 
