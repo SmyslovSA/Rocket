@@ -3,14 +3,18 @@ namespace Rocket.BL.Common.Models.UserRoles
     public class Permission
     {
         /// <summary>
-        /// Уникальный идентификатор значения "право доступа" 
-        /// (либо функциональная возможность)
+        /// uniq identificator of permission
         /// </summary>
         public ushort PermisssionId { get; set; }
 
         /// <summary>
-        /// Описание  функц. возможности, соответствующее идентификатору 
+        /// description of permission
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// name of permission 
+        /// </summary>
+        public string ValueName { get; set; }
     }
 }
