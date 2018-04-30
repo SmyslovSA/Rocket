@@ -1,14 +1,16 @@
-﻿namespace Rocket.Parser.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace Rocket.Parser.Interfaces
 {
     /// <summary>
     /// Базовый интерфейс парсера
     /// </summary>
-    internal interface IParser
+    internal interface IParserAsync
     {
         /// <summary>
         /// Запуск процесса парсинга
         /// </summary>
         /// <returns></returns>
-        void Parse();
+        Task ParseAsync();
     }
 }

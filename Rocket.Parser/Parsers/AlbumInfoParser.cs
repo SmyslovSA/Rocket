@@ -32,7 +32,7 @@ namespace Rocket.Parser.Parsers
         /// <summary>
         /// Запуск парсинга сайта album-info.ru 
         /// </summary>
-        public async Task ParseAsync()
+        public void Parse()
         {
             //todo логирование парсер запущен
             try
@@ -52,51 +52,40 @@ namespace Rocket.Parser.Parsers
                 var releases = new List<AlbumInfoRelease>();
 
                 //обрабатываем постранично (на каждую страницу свой поток)
-                for (int i = settings.StartPoint; i <= settings.EndPoint; i++)
+                Parallel.For(settings.StartPoint, settings.EndPoint + 1, index =>
                 {
-                    var linksPageUrl = $"{settings.BaseUrl}{settings.Prefix.Replace("{CurrentId}", i.ToString())}";
+                    var linksPageUrl = $"{settings.BaseUrl}{settings.Prefix.Replace("{CurrentId}", index.ToString())}";
 
-                    await Task.Run(() =>
+                    //загружаем страницу со ссылками на релизы
+                    var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl).Result;
+
+                    //получаем ссылки на страницы релизов
+                    var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
+
+                    //каждый релиз на странице обрабатываем в своем потоке
+                    Parallel.ForEach(releaseLinkList, releaseLink =>
                     {
-                        //загружаем страницу со ссылками на релизы
-                        var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl).Result;
+                        var releaseUrl = "http://www.album-info.ru/" + releaseLink;
 
-                        //получаем ссылки на страницы релизов
-                        var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
-
-                        foreach (var releaseLink in releaseLinkList)
+                        resourceItems.Add(new DbResourceItem
                         {
-                            //каждый релиз в своем потоке
-                            Task.Run(() =>
-                            {
-                                var releaseUrl = "http://www.album-info.ru/" + releaseLink;
+                            ResourceId = settings.ResourceId,
+                            ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
+                            ResourceItemLink = releaseLink,
+                            CreateDateTime = DateTime.Now
+                        });
 
-                                resourceItems.Add(new DbResourceItem
-                                {
-                                    ResourceId = settings.ResourceId,
-                                    ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
-                                    ResourceItemLink = releaseLink,
-                                    CreateDateTime = DateTime.Now
-                                });
+                        //парсим страницу релиза
+                        var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl).Result;
+                        var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
 
-                                //парсим страницу релиза
-                                var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl).Result;
-                                var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
-
-                                if (release != null)
-                                {
-                                    release.ResourceItemId = settings.ResourceId;
-                                    releases.Add(release);
-                                }
-                            });
+                        if (release != null)
+                        {
+                            release.ResourceItemId = settings.ResourceId;
+                            releases.Add(release);
                         }
                     });
-
-
-                    //todo сохраняем в БД resourceItems
-                    // todo сохраняем в БД releases 
-                    
-                }
+                });
             }
             catch (Exception excpt)
             {
