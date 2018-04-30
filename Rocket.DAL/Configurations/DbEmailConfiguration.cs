@@ -7,12 +7,11 @@ namespace Rocket.DAL.Configurations
     {
         public DbEmailConfiguration()
         {
-                 ToTable("Email")
+                 ToTable("Emails")
                 .HasKey(e => e.Id)
                 .Property(f => f.Id)
                 .HasColumnName("Id");
-
-                  Property(f => f.Name)
+                Property(f => f.Name)
                  .IsRequired()
                  .HasColumnName("Name");
 

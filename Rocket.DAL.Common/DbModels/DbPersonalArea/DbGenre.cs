@@ -18,6 +18,8 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// связь многие-ко-многим с таблицей DbCategory
         /// </summary>
-        public ICollection<DbCategory> Categories { get; set; }
+        public virtual ICollection<DbCategory> Categories { get; set; }
+
+        public virtual ICollection<DbPersonalizedTape> PersonalizedTape { get; set; }
     }
 }
