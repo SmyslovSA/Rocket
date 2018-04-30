@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.Parser.Interfaces;
@@ -29,6 +31,7 @@ namespace Rocket.Parser.Parsers
             _parseAlbumInfoService = parseAlbumInfoService;
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Запуск парсинга сайта album-info.ru 
         /// </summary>
@@ -45,11 +48,12 @@ namespace Rocket.Parser.Parsers
                     BaseUrl = "http://www.album-info.ru/albumlist.aspx?",
                     Prefix = "page={CurrentId}",
                     StartPoint = 2,
-                    EndPoint = 2
+                    EndPoint = 2,
+                    ResourceId = 1
                 };
 
-                var resourceItems = new List<DbResourceItem>();
-                var releases = new List<AlbumInfoRelease>();
+                var resourceItemsBc = new BlockingCollection<DbResourceItem>();
+                var releasesBc = new BlockingCollection<AlbumInfoRelease>();
 
                 //обрабатываем постранично (на каждую страницу свой поток)
                 Parallel.For(settings.StartPoint, settings.EndPoint + 1, index =>
@@ -67,7 +71,7 @@ namespace Rocket.Parser.Parsers
                     {
                         var releaseUrl = "http://www.album-info.ru/" + releaseLink;
 
-                        resourceItems.Add(new DbResourceItem
+                        resourceItemsBc.Add(new DbResourceItem
                         {
                             ResourceId = settings.ResourceId,
                             ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
@@ -82,10 +86,20 @@ namespace Rocket.Parser.Parsers
                         if (release != null)
                         {
                             release.ResourceItemId = settings.ResourceId;
-                            releases.Add(release);
+                            releasesBc.Add(release);
                         }
                     });
                 });
+
+                if (resourceItemsBc.Any())
+                {
+                    //todo сохранение в БД
+                }
+
+                if (releasesBc.Any())
+                {
+                    //todo сохранение в БД
+                }
             }
             catch (Exception excpt)
             {
