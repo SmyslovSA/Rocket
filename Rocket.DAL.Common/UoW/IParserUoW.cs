@@ -1,4 +1,6 @@
-﻿using Rocket.DAL.Common.Repositories;
+﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.Repositories;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -16,5 +18,12 @@ namespace Rocket.DAL.Common.UoW
         /// Возвращает репозиторий настроек парсера
         /// </summary>
         IParserSettingsRepository ParserSettings { get; }
+
+        /// <summary>
+        /// Возвращает список настроек парсера
+        /// </summary>
+        /// <param name="resourceName">Название ресурса для парсинга</param>
+        /// <returns>Коллекция ParserSettingsEntity</returns>
+        ICollection<ParserSettingsEntity> GetParserSettingsByResourceName(string resourceName);
     }
 }

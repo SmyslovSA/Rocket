@@ -39,66 +39,62 @@ namespace Rocket.Parser.Parsers
             //todo логирование парсер запущен
             try
             {
-                // todo опеределить способ получение настроек
-                //var settings = _dbParserSettingsRepository.GetByID(1);
+                // получаем настроейки парсера
+                var settings = _parserUoW.GetParserSettingsByResourceName("Album Info"); //todo в ресурсы
 
-                var settings = new ParserSettingsEntity
+                // для каждой настройки выполняем парсинг
+                foreach (var setting in settings)
                 {
-                    BaseUrl = "http://www.album-info.ru/albumlist.aspx?",
-                    Prefix = "page={CurrentId}",
-                    StartPoint = 2,
-                    EndPoint = 2,
-                    ResourceId = 1
-                };
+                    var resourceItemsBc = new BlockingCollection<ResourceItemEntity>();
+                    var releasesBc = new BlockingCollection<AlbumInfoRelease>();
 
-                var resourceItemsBc = new BlockingCollection<ResourceItemEntity>();
-                var releasesBc = new BlockingCollection<AlbumInfoRelease>();
-
-                //обрабатываем постранично (на каждую страницу свой поток)
-                Parallel.For(settings.StartPoint, settings.EndPoint + 1, index =>
-                {
-                    var linksPageUrl = $"{settings.BaseUrl}{settings.Prefix.Replace("{CurrentId}", index.ToString())}";
-
-                    //загружаем страницу со ссылками на релизы
-                    var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl).Result;
-
-                    //получаем ссылки на страницы релизов
-                    var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
-
-                    //каждый релиз на странице обрабатываем в своем потоке
-                    Parallel.ForEach(releaseLinkList, releaseLink =>
+                    //обрабатываем постранично (на каждую страницу свой поток)
+                    Parallel.For(setting.StartPoint, setting.EndPoint + 1, index =>
                     {
-                        var releaseUrl = "http://www.album-info.ru/" + releaseLink;
+                        var linksPageUrl = $"{setting.BaseUrl}{setting.Prefix.Replace("{CurrentId}", index.ToString())}";
 
-                        resourceItemsBc.Add(new ResourceItemEntity
+                        //загружаем страницу со ссылками на релизы
+                        var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl).Result;
+
+                        //получаем ссылки на страницы релизов
+                        var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
+
+                        //каждый релиз на странице обрабатываем в своем потоке
+                        Parallel.ForEach(releaseLinkList, releaseLink =>
                         {
-                            ResourceId = settings.ResourceId,
-                            ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
-                            ResourceItemLink = releaseLink,
-                            CreateDateTime = DateTime.Now
+                            var releaseUrl = "http://www.album-info.ru/" + releaseLink;
+
+                            resourceItemsBc.Add(new ResourceItemEntity
+                            {
+                                ResourceId = setting.ResourceId,
+                                ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
+                                ResourceItemLink = releaseLink,
+                                CreateDateTime = DateTime.Now
+                            });
+
+                            //парсим страницу релиза
+                            var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl).Result;
+                            var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
+
+                            if (release != null)
+                            {
+                                release.ResourceItemId = setting.ResourceId;
+                                releasesBc.Add(release);
+                            }
                         });
-
-                        //парсим страницу релиза
-                        var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl).Result;
-                        var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
-
-                        if (release != null)
-                        {
-                            release.ResourceItemId = settings.ResourceId;
-                            releasesBc.Add(release);
-                        }
                     });
-                });
 
-                if (resourceItemsBc.Any())
-                {
-                    //todo сохранение в БД
+                    if (resourceItemsBc.Any())
+                    {
+                        //todo сохранение в БД
+                    }
+
+                    if (releasesBc.Any())
+                    {
+                        //todo сохранение в БД
+                    }
                 }
 
-                if (releasesBc.Any())
-                {
-                    //todo сохранение в БД
-                }
             }
             catch (Exception excpt)
             {
