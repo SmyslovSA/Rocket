@@ -11,10 +11,12 @@ namespace Rocket.BL.Common.Models
         /// относительный путь к аватаре пользователя
         /// </summary>
         public string Avatar { get; set; }
+
         /// <summary>
         /// коллекция e-mail адресов пользователя
         /// </summary>
         public ICollection<string> Email { get; set; }
+
         /// <summary>
         /// персональный список ожидания релизов по категориям  
         /// </summary>

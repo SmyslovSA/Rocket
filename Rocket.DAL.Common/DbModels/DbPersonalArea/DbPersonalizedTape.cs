@@ -18,7 +18,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// ссылка на Usera
         /// </summary>
-        public DbUser User { get; set; }
+        public virtual DbUser User { get; set; }
         /// <summary>
         /// внешний ключ к таблице Category
         /// </summary>
@@ -26,7 +26,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// ссылка на Category
         /// </summary>
-        public DbCategory Category { get; set; }
+        public virtual DbCategory Category { get; set; }
         /// <summary>
         /// внешний ключ к таблице Genre
         /// </summary>
@@ -34,6 +34,6 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// ссылка на Genre
         /// </summary>
-        public DbGenre Genre { get; set; }
+        public virtual DbGenre Genre { get; set; }
     }
 }

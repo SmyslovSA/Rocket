@@ -11,7 +11,13 @@ namespace Rocket.DAL.Configurations
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
                 .HasColumnName("Id");
-         
+            HasMany(p => p.PersonalizedTape)
+                .WithRequired(p => p.User);
+            HasMany(p => p.PersonalizedTape)
+                .WithRequired(p => p.Genre);
+            HasMany(p => p.PersonalizedTape)
+                .WithRequired(p => p.Category);
+
 
         }
     }

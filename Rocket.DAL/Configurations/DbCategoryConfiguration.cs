@@ -13,7 +13,6 @@ namespace Rocket.DAL.Configurations
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
                 .HasColumnName("Id");
-
             Property(t => t.Name)
                 .IsRequired()
                 .HasColumnName("Name")
