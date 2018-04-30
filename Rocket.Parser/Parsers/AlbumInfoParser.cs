@@ -48,43 +48,48 @@ namespace Rocket.Parser.Parsers
                     EndPoint = 2
                 };
 
-                //обрабатываем постранично
+                var resourceItems = new List<DbResourceItem>();
+                var releases = new List<AlbumInfoRelease>();
+
+                //обрабатываем постранично (на каждую страницу свой поток)
                 for (int i = settings.StartPoint; i <= settings.EndPoint; i++)
                 {
                     var linksPageUrl = $"{settings.BaseUrl}{settings.Prefix.Replace("{CurrentId}", i.ToString())}";
 
-                    //загружаем страницу со ссылками на релизы
-                    var linksPageHtmlDoc = await _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl);
-
-                    //получаем ссылки на страницы релизов
-                    var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
-
-                    var resourceItems = new List<DbResourceItem>();
-
-                    foreach (var releaseLink in releaseLinkList)
+                    await Task.Run(() =>
                     {
-                        var releases = new List<AlbumInfoRelease>();
+                        //загружаем страницу со ссылками на релизы
+                        var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl).Result;
 
-                        //загружаем страницу релиза
-                        var releaseUrl = "http://www.album-info.ru/" + releaseLink;
+                        //получаем ссылки на страницы релизов
+                        var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
 
-                        resourceItems.Add(new DbResourceItem
+                        foreach (var releaseLink in releaseLinkList)
                         {
-                            ResourceId = settings.ResourceId,
-                            ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
-                            ResourceItemLink = releaseLink,
-                            CreateDateTime = DateTime.Now
-                        });
-                        
-                        //парсим страницу релиза
-                        var releaseHtmlDoc = await _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl);
-                        var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
+                            //загружаем страницу релиза
+                            var releaseUrl = "http://www.album-info.ru/" + releaseLink;
 
-                        if (release != null)
-                        {
-                            releases.Add(release);
+                            resourceItems.Add(new DbResourceItem
+                            {
+                                ResourceId = settings.ResourceId,
+                                ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
+                                ResourceItemLink = releaseLink,
+                                CreateDateTime = DateTime.Now
+                            });
+
+                            //парсим страницу релиза
+                            var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl).Result;
+                            var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
+
+                            if (release != null)
+                            {
+                                release.ResourceItemId = settings.ResourceId;
+                                releases.Add(release);
+                            }
                         }
-                    }
+
+                    });
+
 
                     //todo сохраняем в БД resourceItems
                     // todo сохраняем в БД releases 
