@@ -1,6 +1,6 @@
 ﻿namespace Rocket.Parser.Interfaces
 {
-    internal interface ILostfilmParseService : IParserAsync
+    internal interface ILostfilmParseService : IParser
     {
     }
 }

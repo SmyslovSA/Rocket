@@ -92,7 +92,7 @@ namespace Rocket.Parser.Services
             public double DurationInMin { get; set; }
         }
 
-        public async Task ParseAsync()
+        public void Parse()
         {
             try
             {
