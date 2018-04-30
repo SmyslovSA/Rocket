@@ -93,6 +93,8 @@
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ResourceEntityRepository.cs" />
+    <Compile Include="UoW\ParserUoW.cs" />
     <Compile Include="UoW\UoW.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -71,14 +71,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Bindings.cs" />
+    <Compile Include="Bootstrapper\DataAccessBootstrapper.cs" />
+    <Compile Include="Config\ParserModule.cs" />
     <Compile Include="Exceptions\NotGetHtmlDocumentByUrlException.cs" />
     <Compile Include="Exceptions\NotGetTextByUrlException.cs" />
+    <Compile Include="Heplers\BootstrapHelper.cs" />
     <Compile Include="Heplers\CommonHelper.cs" />
     <Compile Include="Heplers\LostfilmAddUrlForBase.cs" />
     <Compile Include="Heplers\LostfilmTvSerailListHeaderHelper.cs" />
     <Compile Include="Heplers\SettingsHelper.cs" />
     <Compile Include="Heplers\StringHelper.cs" />
+    <Compile Include="Interfaces\INinjectModuleBootstrapper.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IParserAsync.cs" />
     <Compile Include="Interfaces\IParseService.cs" />
@@ -109,6 +112,10 @@
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
       <Project>{4383c0ff-4c4a-4c42-bb46-5a5137e5e7ad}</Project>
       <Name>Rocket.DAL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rocket.DAL\Rocket.DAL.csproj">
+      <Project>{67c097cc-75da-45ad-95d9-595ccf0a1063}</Project>
+      <Name>Rocket.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

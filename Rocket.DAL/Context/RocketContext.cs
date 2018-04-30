@@ -1,10 +1,11 @@
 ﻿using System.Data.Entity;
+using Rocket.DAL.Common.Context;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Configurations;
 
 namespace Rocket.DAL.Context
 {
-    public class RocketContext : DbContext
+    public class RocketContext : DbContext, IRocketContext
     {
         public RocketContext() : base("DefaultConnection")
         {

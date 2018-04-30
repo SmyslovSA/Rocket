@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.UoW;
 using Rocket.Parser.Interfaces;
 using Rocket.Parser.Models;
 
@@ -13,7 +14,7 @@ namespace Rocket.Parser.Parsers
     {
         private readonly ILoadHtmlService _loadHtmlService;
         private readonly IParseAlbumInfoService _parseAlbumInfoService;
-        //private readonly IRepository<DbParserSettings> _dbParserSettingsRepository;
+        private readonly IParserUoW _parserUoW;
         
         /// <summary>
         /// Ctor
@@ -22,13 +23,11 @@ namespace Rocket.Parser.Parsers
         /// <param name="parseAlbumInfoService">Сервис парсинга сайта album-info.ru</param>
         /// <param name="dbParserSettingsRepository">Репозиторий параметров парсера</param>
         public AlbumInfoParser(ILoadHtmlService loadHtmlService,
-            IParseAlbumInfoService parseAlbumInfoService
-            //,
-            /*IRepository<DbParserSettings> dbParserSettingsRepository*/)
+            IParseAlbumInfoService parseAlbumInfoService, IParserUoW parserUoW)
         {
             _loadHtmlService = loadHtmlService;
-            //_dbParserSettingsRepository = dbParserSettingsRepository;
             _parseAlbumInfoService = parseAlbumInfoService;
+            _parserUoW = parserUoW;
         }
 
         /// <inheritdoc />
