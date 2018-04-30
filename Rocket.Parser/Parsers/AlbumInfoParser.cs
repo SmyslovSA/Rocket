@@ -66,28 +66,30 @@ namespace Rocket.Parser.Parsers
 
                         foreach (var releaseLink in releaseLinkList)
                         {
-                            //загружаем страницу релиза
-                            var releaseUrl = "http://www.album-info.ru/" + releaseLink;
-
-                            resourceItems.Add(new DbResourceItem
+                            //каждый релиз в своем потоке
+                            Task.Run(() =>
                             {
-                                ResourceId = settings.ResourceId,
-                                ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
-                                ResourceItemLink = releaseLink,
-                                CreateDateTime = DateTime.Now
+                                var releaseUrl = "http://www.album-info.ru/" + releaseLink;
+
+                                resourceItems.Add(new DbResourceItem
+                                {
+                                    ResourceId = settings.ResourceId,
+                                    ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
+                                    ResourceItemLink = releaseLink,
+                                    CreateDateTime = DateTime.Now
+                                });
+
+                                //парсим страницу релиза
+                                var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl).Result;
+                                var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
+
+                                if (release != null)
+                                {
+                                    release.ResourceItemId = settings.ResourceId;
+                                    releases.Add(release);
+                                }
                             });
-
-                            //парсим страницу релиза
-                            var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl).Result;
-                            var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
-
-                            if (release != null)
-                            {
-                                release.ResourceItemId = settings.ResourceId;
-                                releases.Add(release);
-                            }
                         }
-
                     });
 
 
