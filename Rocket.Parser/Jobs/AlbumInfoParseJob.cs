@@ -24,7 +24,7 @@ namespace Rocket.Parser.Jobs
                 var kernel = (IKernel)schedulerContext.Get("container");
 
                 var parser = kernel.Get<IAlbumInfoParser>();
-                parser.ParseAsync();
+                parser.Parse();
             }
             catch (Exception excpt)
             {

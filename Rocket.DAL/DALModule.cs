@@ -1,17 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject.Modules;
+﻿using Ninject.Modules;
+using Rocket.DAL.Common.Context;
+using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Context;
+using Rocket.DAL.Repositories;
+using Rocket.DAL.UoW;
 
 namespace Rocket.DAL
 {
     public class DALModule : NinjectModule
     {
+        /// <summary>
+        /// Настройка Ninject для DAL
+        /// </summary>
         public override void Load()
         {
-            // register repositories here
+            //контексты
+            Bind<IRocketContext>().To<RocketContext>();
+
+            //репозитарии
+            Bind<IResourceEntityRepository>().To<ResourceEntityRepository>();
+
+            //UoW
+            Bind<IParserUoW>().To<ParserUoW>();
         }
     }
 }

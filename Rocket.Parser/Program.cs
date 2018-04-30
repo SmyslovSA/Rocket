@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using Ninject;
 using Quartz;
 using Rocket.Parser.Heplers;
@@ -18,8 +17,8 @@ namespace Rocket.Parser
             try
             {
                 //Подключаем Ioc
-                var kernel = new StandardKernel();
-                kernel.Load(Assembly.GetExecutingAssembly());
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                var kernel = BootstrapHelper.LoadNinjectKernel(assemblies);
 
                 HostFactory.Run(configurator =>
                 {

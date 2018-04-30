@@ -5,10 +5,10 @@ using Rocket.Parser.Services;
 
 namespace Rocket.Parser.Config
 {
-    public class Bindings : NinjectModule
+    public class ParserModule : NinjectModule
     {
         /// <summary>
-        /// Настройка Ninject
+        /// Настройка Ninject для парсера
         /// </summary>
         public override void Load()
         {

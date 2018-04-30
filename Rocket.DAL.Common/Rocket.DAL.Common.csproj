@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -41,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\IDbContext.cs" />
+    <Compile Include="Context\IRocketContext.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbCategory.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbUser.cs" />
@@ -59,9 +67,9 @@
     <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
     <Compile Include="DbModels\DbUserRole\DbRole.cs" />
     <Compile Include="DbModels\DbVideoGenre.cs" />
-    <Compile Include="DbModels\Parser\DbResource.cs" />
-    <Compile Include="DbModels\Parser\DbParserSettings.cs" />
-    <Compile Include="DbModels\Parser\DbResourceItem.cs" />
+    <Compile Include="DbModels\Parser\ResourceEntity.cs" />
+    <Compile Include="DbModels\Parser\ParserSettingsEntity.cs" />
+    <Compile Include="DbModels\Parser\ResourceItemEntity.cs" />
     <Compile Include="DbModels\Parser\EpisodeEntity.cs" />
     <Compile Include="DbModels\Parser\GenreEntity.cs" />
     <Compile Include="DbModels\Parser\PersonEntity.cs" />
@@ -82,13 +90,16 @@
     <Compile Include="Repositories\IDbTVSeriesRepository.cs" />
     <Compile Include="Repositories\IDbVideoGenreRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IResourceEntityRepository.cs" />
     <Compile Include="UoW\IDbFilmUnitOfWork.cs" />
     <Compile Include="UoW\IDbMusicUnitOfWork.cs" />
+    <Compile Include="UoW\IParserUoW.cs" />
     <Compile Include="UoW\ITVSeriesUnitOfWork.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

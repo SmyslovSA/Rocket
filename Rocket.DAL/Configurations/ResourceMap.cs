@@ -6,7 +6,7 @@ namespace Rocket.DAL.Configurations
     /// <summary>
     /// Описание сущности Resource
     /// </summary>
-    public class ResourceMap : EntityTypeConfiguration<DbResource>
+    public class ResourceMap : EntityTypeConfiguration<ResourceEntity>
     {
         public ResourceMap()
         {

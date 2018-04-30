@@ -3,7 +3,7 @@
     /// <summary>
     /// Содержит информацию о ресурсе для парсинга
     /// </summary>
-    public class DbResource
+    public class ResourceEntity
     {
         /// <summary>
         /// Id ресурса
