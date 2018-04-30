@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Rocket.DAL.Common.DbModels.Parser;
-using Rocket.DAL.Common.Repositories;
 using Rocket.Parser.Interfaces;
 using Rocket.Parser.Models;
 

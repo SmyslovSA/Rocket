@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using Ninject;
 using Quartz;
 using Rocket.Parser.Interfaces;
@@ -21,8 +20,8 @@ namespace Rocket.Parser.Jobs
             //todo логирование парсер запущен
             try
             {
-                var kernel = new StandardKernel();
-                kernel.Load(Assembly.GetExecutingAssembly());
+                var schedulerContext = context.JobDetail.JobDataMap;
+                var kernel = (IKernel)schedulerContext.Get("container");
 
                 var parser = kernel.Get<IAlbumInfoParser>();
                 parser.ParseAsync();

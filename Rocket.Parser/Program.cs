@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using Ninject;
 using Quartz;
 using Rocket.Parser.Jobs;
 using Topshelf;
@@ -14,6 +16,9 @@ namespace Rocket.Parser
         {
             try
             {
+                var kernel = new StandardKernel();
+                kernel.Load(Assembly.GetExecutingAssembly());
+
                 HostFactory.Run(configurator =>
                 {
                     configurator.Service<Service>(serviceConfigurator =>
@@ -23,10 +28,10 @@ namespace Rocket.Parser
                         serviceConfigurator.WhenStopped((service, control) => service.Start(control));
 
                         //Запуск парсера для Lostfilm
-                        LostfilmParseProcess(serviceConfigurator);
+                        LostfilmParseProcess(serviceConfigurator, kernel);
 
                         //Запуск парсера для AlbumInfo  
-                        AlbumInfoParseProcess(serviceConfigurator);
+                        AlbumInfoParseProcess(serviceConfigurator, kernel);
                     });
 
                     configurator.StartAutomatically();
@@ -44,7 +49,8 @@ namespace Rocket.Parser
         /// Парсит Lostfilm
         /// </summary>
         /// <param name="serviceConfigurator"></param>
-        private static void LostfilmParseProcess(ServiceConfigurator<Service> serviceConfigurator)
+        /// <param name="kernel">DI контейнер</param>
+        private static void LostfilmParseProcess(ServiceConfigurator<Service> serviceConfigurator, IKernel kernel)
         {
             //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
             int.TryParse(System.Configuration.ConfigurationManager.AppSettings["LostfilmParseIsSwitchOn"], out int lostfilmParseIsSwitchOn);
@@ -61,6 +67,7 @@ namespace Rocket.Parser
 
                 // Запускает парсер Lostfilm
                 IJobDetail lostfilmParseTriggerJob = JobBuilder.Create<LostfilmParseJob>().Build();
+                lostfilmParseTriggerJob.JobDataMap.Put("container", kernel);
 
                 serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
                     jobConfigurator
@@ -73,8 +80,11 @@ namespace Rocket.Parser
         /// Парсит сайт album-info.ru
         /// </summary>
         /// <param name="serviceConfigurator"></param>
-        public static void AlbumInfoParseProcess(ServiceConfigurator<Service> serviceConfigurator)
+        /// <param name="kernel">DI контейнер</param>
+        public static void AlbumInfoParseProcess(ServiceConfigurator<Service> serviceConfigurator, IKernel kernel)
         {
+            
+
             //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
             int.TryParse(System.Configuration.ConfigurationManager.AppSettings["AlbumInfoParseIsSwitchOn"], out int albumInfoParseIsSwitchOn);
             int.TryParse(System.Configuration.ConfigurationManager.AppSettings["AlbumInfoPeriodInMinutes"], out int albumInfoParsingPeriodInMinutes);
@@ -90,6 +100,7 @@ namespace Rocket.Parser
                 try
                 {
                     IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<ParseAlbumInfoJob>().Build();
+                    albumInfoParseTriggerJob.JobDataMap.Put("container", kernel);
 
                     serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
                         jobConfigurator
