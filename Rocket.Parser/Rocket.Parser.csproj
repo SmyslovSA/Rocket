@@ -75,11 +75,11 @@
     <Compile Include="Config\ParserModule.cs" />
     <Compile Include="Exceptions\NotGetHtmlDocumentByUrlException.cs" />
     <Compile Include="Exceptions\NotGetTextByUrlException.cs" />
+    <Compile Include="Heplers\AlbumInfoHelper.cs" />
     <Compile Include="Heplers\BootstrapHelper.cs" />
     <Compile Include="Heplers\CommonHelper.cs" />
-    <Compile Include="Heplers\LostfilmAddUrlForBase.cs" />
-    <Compile Include="Heplers\LostfilmTvSerailListHeaderHelper.cs" />
-    <Compile Include="Heplers\SettingsHelper.cs" />
+    <Compile Include="Heplers\LostfilmHelper.cs" />
+    <Compile Include="Heplers\SectionGroupHelper.cs" />
     <Compile Include="Heplers\StringHelper.cs" />
     <Compile Include="Interfaces\INinjectModuleBootstrapper.cs" />
     <Compile Include="Interfaces\IParser.cs" />

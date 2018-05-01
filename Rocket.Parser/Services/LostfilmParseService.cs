@@ -6,7 +6,7 @@ using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
+using Rocket.Parser.Models;
 
 namespace Rocket.Parser.Services
 {
@@ -20,76 +20,6 @@ namespace Rocket.Parser.Services
         public LostfilmParseService(ILoadHtmlService loadHtmlService)
         {
             _loadHtmlService = loadHtmlService;
-        }
-
-        /// <summary>
-        /// Модель для временной агрегации данных результата парсинга (нужна чтобы потом сделать дополнительный парсинг и вставку в бд)
-        /// </summary>
-        private class LostfilmSerialModel
-        {
-            /// <summary>
-            /// Дополнительная ссылка для получения деталей по сериалу.
-            /// </summary>
-            public string AddUrlForDetail { get; set; }
-
-            /// <summary>
-            /// Ссылка на изображение-миниатюру для сериала.
-            /// </summary>
-            public string ImageUrlTvSerialThumb { get; set; }
-
-            /// <summary>
-            /// Название сериала по-русски.
-            /// </summary>
-            public string TvSerialNameRu { get; set; }
-
-            /// <summary>
-            /// Название сериала по-английски.
-            /// </summary>
-            public string TvSerialNameEn { get; set; }
-
-            /// <summary>
-            /// Текущий статус сериала.
-            /// </summary>
-            public string TvSerialCurrentStatus { get; set; }
-
-            /// <summary>
-            /// Год начала показа сериала.
-            /// </summary>
-            public string TvSerialYearStart { get; set; }
-
-            /// <summary>
-            /// Теливизионный канал на котором показывают сериал.
-            /// </summary>
-            public string TvSerialCanal { get; set; }
-
-            /// <summary>
-            /// Список жанров в виде строки для последующего парсинга.
-            /// </summary>
-            public string ListGenreForParse { get; set; }
-
-            /// <summary>
-            /// Рейтинг сериала на Lostfilm.
-            /// </summary>
-            public double TvSerialRateOnLostFilm { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public string PremiereDateText { get; set; }
-
-            public double RateImDb { get; set; }
-
-            public string OfficialSite { get; set; }
-
-            public string EpisodeAndSeriaNumberText { get; set; }
-
-            public string NewSeriaDetailNewUrl { get; set; }
-
-            public DateTime DateReleaseRu { get; set; }
-
-            public DateTime DateReleaseEn { get; set; }
-
-            public double DurationInMin { get; set; }
         }
 
         public void Parse()
@@ -113,12 +43,12 @@ namespace Rocket.Parser.Services
             {
                 //todo эта настройка должна лежать в базе и задаваться через админку на UI, а пока в конфиге
                 //Получаем основную ссылку на ресурс LostFilm
-                var baseUrl = ConfigurationManager.AppSettings["LostfilmParseBaseUrl"];
+                var baseUrl = LostfilmHelper.GetBaseUrl();
 
                 //Получаем элемент со списком сериалов
                 var htmlDocumentSerialList = await _loadHtmlService.GetHtmlDocumentByUrlAsync(
-                    baseUrl + LostfilmAddUrlForBase.AdditionalUrlToSerialList);
-                var elSerialList = htmlDocumentSerialList.QuerySelector(LostfilmTvSerailListHeaderHelper.Base);
+                    baseUrl + LostfilmHelper.GetAdditionalUrlToSerialList());
+                var elSerialList = htmlDocumentSerialList.QuerySelector(LostfilmHelper.GetTvSerailListHeaderBase());
 
                 //Формируем список моделей с данными которые нам удалось вытянуть с Lostfilm (грузит по 10 сериалов за раз)
                 var listLostfilmSerialModel = new List<LostfilmSerialModel>();
@@ -128,7 +58,7 @@ namespace Rocket.Parser.Services
                 {
                     //Перебираем сериалы пока не закончились в подгруженном списке
                     serialTopElement = elSerialList.QuerySelector(
-                        string.Format(LostfilmTvSerailListHeaderHelper.TvSerial, i));
+                        string.Format(LostfilmHelper.GetTvSerialHeader(), i));
                     if (serialTopElement == null)
                     {
                         //todo запись в лог - предупреждение
@@ -192,7 +122,7 @@ namespace Rocket.Parser.Services
         {
             //Получаем элемент детализации по сериалу из заголовка
             var addUrlForDetailElement = serialTopElement
-                .QuerySelector(string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetail, i));
+                .QuerySelector(string.Format(LostfilmHelper.GetTvSerialHeaderDetail(), i));
 
             //Получаем дополнительную ссылку для получения деталей по сериалу.
             lostfilmSerialModel.AddUrlForDetail = addUrlForDetailElement.GetAttribute(CommonHelper.HrefAttribute);
@@ -202,23 +132,23 @@ namespace Rocket.Parser.Services
 
             //Получаем ссылку на изображение-миниатюру для сериала.
             var imageUrlTvSerialThumbElement = serialTopElement.QuerySelector(
-                string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetailImageUrlThumb, i));
+                string.Format(LostfilmHelper.GetTvSerialHeaderDetailImageUrlThumb(), i));
             lostfilmSerialModel.ImageUrlTvSerialThumb =
                 CommonHelper.HttpText + imageUrlTvSerialThumbElement.GetAttribute(CommonHelper.SrcAttribute);
 
             //Получаем название сериала по-русски.
             var tvSerialNameRuElement = serialTopElement.QuerySelector(
-                    string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetailTvSerialNameRu, i));
+                    string.Format(LostfilmHelper.GetTvSerialHeaderDetailTvSerialNameRu(), i));
             lostfilmSerialModel.TvSerialNameRu = tvSerialNameRuElement?.InnerHtml;
 
             //Получаем название сериала по-английски.
             var tvSerialNameEnElement = serialTopElement.QuerySelector(
-                string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetailTvSerialNameEn, i));
+                string.Format(LostfilmHelper.GetTvSerialHeaderDetailTvSerialNameEn(), i));
             lostfilmSerialModel.TvSerialNameEn = tvSerialNameEnElement?.InnerHtml;
 
             //Получаем рейтинг сериала на Lostfilm.
             var lostfilmRateElement = serialTopElement.QuerySelector(
-                string.Format(LostfilmTvSerailListHeaderHelper.TvSerialLostfilmRate, i));
+                string.Format(LostfilmHelper.GetTvSerialHeaderLostfilmRate(), i));
             double.TryParse(lostfilmRateElement.InnerHtml, out double lostfilmRate);
             lostfilmSerialModel.TvSerialRateOnLostFilm = lostfilmRate;
 
@@ -237,27 +167,27 @@ namespace Rocket.Parser.Services
         {
             //Получаем панель деталей
             var detailsPaneElement = serialTopElement.QuerySelector(
-                string.Format(LostfilmTvSerailListHeaderHelper.TvSerialDetailPane, i));
+                string.Format(LostfilmHelper.GetTvSerialHeaderDetailPane(), i));
             string detailsPane = detailsPaneElement.InnerHtml;
 
             //Получаем текущий статус сериала
             lostfilmSerialModel.TvSerialCurrentStatus =
-                StringHelper.GetSubstring(detailsPane, LostfilmTvSerailListHeaderHelper.KeywordStatus,
+                StringHelper.GetSubstring(detailsPane, LostfilmHelper.GetTvSerialHeaderKeywordStatus(),
                     CommonHelper.OpenAngleBracket);
 
             //Получаем теливизионный канал на котором показывают сериал
             lostfilmSerialModel.TvSerialCanal =
-                StringHelper.GetSubstring(detailsPane, LostfilmTvSerailListHeaderHelper.KeywordCanal,
+                StringHelper.GetSubstring(detailsPane, LostfilmHelper.GetTvSerialHeaderKeywordCanal(),
                     CommonHelper.OpenAngleBracket);
 
             //Получаем список жанров в виде строки для последующего парсинга.
             lostfilmSerialModel.ListGenreForParse =
-                StringHelper.GetSubstring(detailsPane, LostfilmTvSerailListHeaderHelper.KeywordGenre,
+                StringHelper.GetSubstring(detailsPane, LostfilmHelper.GetTvSerialHeaderKeywordGenre(),
                     CommonHelper.OpenAngleBracket);
 
             //Получаем год начала показа сериала.
             lostfilmSerialModel.TvSerialYearStart =
-                StringHelper.GetSubstring(detailsPane, LostfilmTvSerailListHeaderHelper.KeywordYearStart,
+                StringHelper.GetSubstring(detailsPane, LostfilmHelper.GetTvSerialHeaderKeywordYearStart(),
                     CommonHelper.OpenAngleBracket);
         }
 
