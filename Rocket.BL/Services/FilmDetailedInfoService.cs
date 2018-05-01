@@ -15,7 +15,7 @@ namespace Rocket.BL.Services
     /// </summary>
     public class FilmDetailedInfoService : IFilmDetailedInfoService
     {
-        IDbFilmUnitOfWork _unitOfWork;
+        private IDbFilmUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Создает новый экземпляр <see cref="FilmDetailedInfoService"/>
