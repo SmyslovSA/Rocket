@@ -6,7 +6,7 @@ using Rocket.Parser.Interfaces;
 
 namespace Rocket.Parser.Bootstrapper
 {
-    public class DataAccessBootstrapper : INinjectModuleBootstrapper
+    public class ParserBootstrapper : INinjectModuleBootstrapper
     {
         public IList<INinjectModule> GetModules()
         {

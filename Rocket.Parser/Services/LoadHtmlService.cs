@@ -14,6 +14,13 @@ namespace Rocket.Parser.Services
     /// </summary>
     public class LoadHtmlService : ILoadHtmlService
     {
+        private readonly HttpClient _httpClient;
+
+        public LoadHtmlService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
         /// <summary>
         /// Получает Html в виде строки по ссылке.
         /// </summary>
@@ -24,13 +31,9 @@ namespace Rocket.Parser.Services
         {
             try
             {
-                HttpResponseMessage response;
-                using (var httpClient = new HttpClient())
-                {
-                    response = await httpClient.GetAsync(url);
-                }
+                var response = await _httpClient.GetAsync(url);
 
-                string source = string.Empty;
+                var source = string.Empty;
 
                 if (response != null && response.StatusCode == HttpStatusCode.OK)
                 {

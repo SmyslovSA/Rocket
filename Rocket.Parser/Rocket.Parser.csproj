@@ -71,7 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper\DataAccessBootstrapper.cs" />
+    <Compile Include="Bootstrapper\ParserBootstrapper.cs" />
     <Compile Include="Config\ParserModule.cs" />
     <Compile Include="Exceptions\NotGetHtmlDocumentByUrlException.cs" />
     <Compile Include="Exceptions\NotGetTextByUrlException.cs" />
