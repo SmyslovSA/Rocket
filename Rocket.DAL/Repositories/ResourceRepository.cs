@@ -10,11 +10,11 @@ using Rocket.DAL.Context;
 
 namespace Rocket.DAL.Repositories
 {
-    public class ResourceEntityRepository : IResourceEntityRepository
+    public class ResourceRepository : IResourceRepository
     {
         private readonly IRocketContext _rocketContext;
 
-        public ResourceEntityRepository(IRocketContext rocketContext)
+        public ResourceRepository(IRocketContext rocketContext)
         {
             _rocketContext = rocketContext;
         }
@@ -23,10 +23,6 @@ namespace Rocket.DAL.Repositories
         {
             _rocketContext.Resources.Remove(_rocketContext.Resources.Find((int) id) 
                 ?? throw new InvalidOperationException());
-
-            //var resourceEntity = _rocketContext.Resources.Find((int) id);
-            //_rocketContext.Resources.Attach(resourceEntity);
-            //_rocketContext.Entry(resourceEntity).State = EntityState.Deleted;
         }
 
         public void Delete(ResourceEntity entity)

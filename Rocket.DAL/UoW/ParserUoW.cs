@@ -1,4 +1,9 @@
-﻿using Rocket.DAL.Common.Context;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using Rocket.DAL.Common.Context;
+using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.UoW;
 
@@ -8,14 +13,20 @@ namespace Rocket.DAL.UoW
     {
         private readonly IRocketContext _rocketContext;
 
-        public ParserUoW(IRocketContext rocketContext, IResourceEntityRepository resourceEntityRepository)
+        public ParserUoW(
+            IRocketContext rocketContext, 
+            IResourceRepository resourceRepository,
+            IParserSettingsRepository parserSettingsRepository)
         {
             _rocketContext = rocketContext;
-            ResourceEntities = resourceEntityRepository;
+            Resources = resourceRepository;
+            ParserSettings = parserSettingsRepository;
         }   
 
-        public IResourceEntityRepository ResourceEntities { get; }
-        
+        public IResourceRepository Resources { get; }
+
+        public IParserSettingsRepository ParserSettings { get; }
+
         public void Save()
         {
             _rocketContext.SaveChanges();
@@ -29,6 +40,26 @@ namespace Rocket.DAL.UoW
         public void Dispose()
         {
             _rocketContext.Dispose();
+        }
+
+        /// <summary>
+        /// Возвращает список настроек парсера
+        /// </summary>
+        /// <param name="resourceName">Название ресурса для парсинга</param>
+        /// <returns>Коллекция ParserSettingsEntity</returns>
+        public ICollection<ParserSettingsEntity> GetParserSettingsByResourceName(string resourceName)
+        {
+            var resource = _rocketContext.Resources.Where(item => item.Name == resourceName).
+                Include(r => r.ParserSettings).FirstOrDefault();
+
+            if (resource != null && resource.ParserSettings.Any())
+            {
+                return resource.ParserSettings.ToList();
+            }
+
+            throw new NotImplementedException(); //todo
+
+            //return null;
         }
 
     }

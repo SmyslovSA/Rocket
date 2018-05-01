@@ -14,9 +14,12 @@ namespace Rocket.DAL.Context
 
         public DbSet<ResourceEntity> Resources { get; set; }
 
+        public DbSet<ParserSettingsEntity> ParserSettings { get; set; }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ResourceMap());
+            modelBuilder.Configurations.Add(new ParserSettingsMap());
         }
     }
 }

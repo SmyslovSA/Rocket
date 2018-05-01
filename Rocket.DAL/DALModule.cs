@@ -19,7 +19,8 @@ namespace Rocket.DAL
             Bind<IRocketContext>().To<RocketContext>();
 
             //репозитарии
-            Bind<IResourceEntityRepository>().To<ResourceEntityRepository>();
+            Bind<IResourceRepository>().To<ResourceRepository>();
+            Bind<IParserSettingsRepository>().To<ParserSettingsRepository>();
 
             //UoW
             Bind<IParserUoW>().To<ParserUoW>();

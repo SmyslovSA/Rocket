@@ -70,7 +70,7 @@ namespace Rocket.Parser
 
                 // Запускает парсер Lostfilm
                 var lostfilmParseTriggerJob = JobBuilder.Create<LostfilmParseJob>().Build();
-                lostfilmParseTriggerJob.JobDataMap.Put("container", kernel);
+                lostfilmParseTriggerJob.JobDataMap.Put(CommonHelper.ContainerKey, kernel);
 
                 serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
                     jobConfigurator
@@ -103,7 +103,7 @@ namespace Rocket.Parser
 
                 // Запускает парсер album-info.ru
                 IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<AlbumInfoParseJob>().Build();
-                albumInfoParseTriggerJob.JobDataMap.Put("container", kernel);
+                albumInfoParseTriggerJob.JobDataMap.Put(CommonHelper.ContainerKey, kernel);
 
                 serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
                     jobConfigurator

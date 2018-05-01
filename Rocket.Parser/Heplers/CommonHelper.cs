@@ -13,5 +13,6 @@
         public const string HrefAttribute = "href";
         public const string SrcAttribute = "src";
 
+        public const string ContainerKey = "container";
     }
 }
