@@ -46,7 +46,7 @@ namespace Rocket.Parser.Services
                 var baseUrl = LostfilmHelper.GetBaseUrl();
 
                 //Получаем элемент со списком сериалов
-                var htmlDocumentSerialList = await _loadHtmlService.GetHtmlDocumentByUrlAsync(
+                var htmlDocumentSerialList = _loadHtmlService.GetHtmlDocumentByUrlAsync(
                     baseUrl + LostfilmHelper.GetAdditionalUrlToSerialList());
                 var elSerialList = htmlDocumentSerialList.QuerySelector(LostfilmHelper.GetTvSerailListHeaderBase());
 
@@ -72,7 +72,7 @@ namespace Rocket.Parser.Services
 
                     //Получаем элемент с обзорной информацией о сериале
                     var htmlDocumentSerialOverviewDetails =
-                        await _loadHtmlService.GetHtmlDocumentByUrlAsync(baseUrl + lostfilmSerialModel.AddUrlForDetail);
+                        _loadHtmlService.GetHtmlDocumentByUrlAsync(baseUrl + lostfilmSerialModel.AddUrlForDetail);
 
                     //Парсим обзорную информацию по сериалу
                     ParseSerialOverviewDetails(htmlDocumentSerialOverviewDetails, lostfilmSerialModel);
@@ -83,7 +83,7 @@ namespace Rocket.Parser.Services
                     if (lostfilmSerialModel.NewSeriaDetailNewUrl != null)
                     {
                         //Получаем элемент с более подробной информацией о новой серии
-                        var htmlDetailNewSeria = await _loadHtmlService.GetHtmlDocumentByUrlAsync(baseUrl + lostfilmSerialModel.NewSeriaDetailNewUrl);
+                        var htmlDetailNewSeria = _loadHtmlService.GetHtmlDocumentByUrlAsync(baseUrl + lostfilmSerialModel.NewSeriaDetailNewUrl);
 
                         //Парсим информацию о новой серии с её страницы
                         ParseDetailNewSeria(htmlDetailNewSeria, lostfilmSerialModel);

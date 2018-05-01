@@ -16,6 +16,10 @@ namespace Rocket.Parser.Services
     {
         private readonly HttpClient _httpClient;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="httpClient"></param>
         public LoadHtmlService(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -27,17 +31,17 @@ namespace Rocket.Parser.Services
         /// <exception cref = "NotGetTextByUrlException" >"Не удалось загрузить текст по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        public async Task<string> GetTextByUrlAsync(string url)
+        public string GetTextByUrlAsync(string url) //todo rename async
         {
             try
             {
-                var response = await _httpClient.GetAsync(url);
+                var response = _httpClient.GetAsync(url).Result;
 
                 var source = string.Empty;
 
                 if (response != null && response.StatusCode == HttpStatusCode.OK)
                 {
-                    source = await response.Content.ReadAsStringAsync();
+                    source =  response.Content.ReadAsStringAsync().Result;
                 }
 
                 return source;
@@ -54,15 +58,15 @@ namespace Rocket.Parser.Services
         /// <exception cref = "NotGetHtmlDocumentByUrlException">"Не удалось загрузить HtmlDocument по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>HtmlDocument</returns>
-        public async Task<IHtmlDocument> GetHtmlDocumentByUrlAsync(string url)
+        public IHtmlDocument GetHtmlDocumentByUrlAsync(string url)
         {
             try
             {
-                var source = await GetTextByUrlAsync(url);
+                var source = GetTextByUrlAsync(url);
 
                 var domParser = new HtmlParser();
 
-                var htmldocument = await domParser.ParseAsync(source);
+                var htmldocument = domParser.ParseAsync(source).Result;
 
                 return htmldocument;
             }

@@ -54,7 +54,7 @@ namespace Rocket.Parser.Parsers
                         var linksPageUrl = $"{setting.BaseUrl}{setting.Prefix}{index.ToString()}";
 
                         //загружаем страницу со ссылками на релизы
-                        var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl).Result;
+                        var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl);
 
                         //получаем ссылки на страницы релизов
                         var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
@@ -73,7 +73,7 @@ namespace Rocket.Parser.Parsers
                             });
 
                             //парсим страницу релиза
-                            var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl).Result;
+                            var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl);
                             var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
 
                             if (release != null)

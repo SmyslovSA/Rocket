@@ -15,7 +15,7 @@ namespace Rocket.Parser.Interfaces
         /// <exception cref = "NotGetTextByUrlException" >"Не удалось загрузить текст по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        Task<string> GetTextByUrlAsync(string url);
+        string GetTextByUrlAsync(string url);
 
         /// <summary>
         /// Получает Html по ссылке.
@@ -23,6 +23,6 @@ namespace Rocket.Parser.Interfaces
         /// <exception cref = "NotGetHtmlDocumentByUrlException" >"Не удалось загрузить HtmlDocument по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>HtmlDocument</returns>
-        Task<IHtmlDocument> GetHtmlDocumentByUrlAsync(string url);
+        IHtmlDocument GetHtmlDocumentByUrlAsync(string url);
     }
 }
