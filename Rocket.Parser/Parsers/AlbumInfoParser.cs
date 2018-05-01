@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Rocket.DAL.Common.DbModels.Parser;
@@ -40,7 +39,7 @@ namespace Rocket.Parser.Parsers
             try
             {
                 // получаем настроейки парсера
-                var settings = _parserUoW.GetParserSettingsByResourceName("Album Info"); //todo в ресурсы
+                var settings = _parserUoW.GetParserSettingsByResourceName(Properties.Resources.AlbumInfoSettings);
 
                 // для каждой настройки выполняем парсинг
                 foreach (var setting in settings)
