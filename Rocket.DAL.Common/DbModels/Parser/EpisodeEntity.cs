@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rocket.DAL.Common.DbModels.Parser
 {
@@ -33,9 +29,14 @@ namespace Rocket.DAL.Common.DbModels.Parser
         public int Number { get; set; }
 
         /// <summary>
-        /// Название серии.
+        /// Название серии(рус).
         /// </summary>
-        public string Title { get; set; }
+        public string TitleRu { get; set; }
+
+        /// <summary>
+        /// Название серии(англ).
+        /// </summary>
+        public string TitleEn { get; set; }
 
         /// <summary>
         /// Продолжительность серии.
@@ -43,9 +44,9 @@ namespace Rocket.DAL.Common.DbModels.Parser
         public TimeSpan? Duration { get; set; }
 
         /// <summary>
-        /// Краткое описание серии.
+        /// Ссылка на серию.
         /// </summary>
-        public string Summary { get; set; }
+        public string UrlForEpisodeSource { get; set; }
 
         /// <summary>
         /// Id сезона к которому относится эта серия.

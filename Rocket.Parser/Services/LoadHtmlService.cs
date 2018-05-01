@@ -20,21 +20,21 @@ namespace Rocket.Parser.Services
         /// <exception cref = "NotGetTextByUrlException" >"Не удалось загрузить текст по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        public async Task<string> GetTextByUrlAsync(string url)
+        public string GetTextByUrl(string url)
         {
             try
             {
                 HttpResponseMessage response;
                 using (var httpClient = new HttpClient())
                 {
-                    response = await httpClient.GetAsync(url);
+                    response = Task.Run(() => httpClient.GetAsync(url)).Result;
                 }
 
                 string source = string.Empty;
 
                 if (response != null && response.StatusCode == HttpStatusCode.OK)
                 {
-                    source = await response.Content.ReadAsStringAsync();
+                    source = Task.Run(() => response.Content.ReadAsStringAsync()).Result;
                 }
 
                 return source;
@@ -51,15 +51,15 @@ namespace Rocket.Parser.Services
         /// <exception cref = "NotGetHtmlDocumentByUrlException">"Не удалось загрузить HtmlDocument по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>HtmlDocument</returns>
-        public async Task<IHtmlDocument> GetHtmlDocumentByUrlAsync(string url)
+        public IHtmlDocument GetHtmlDocumentByUrl(string url)
         {
             try
             {
-                var source = await GetTextByUrlAsync(url);
+                var source = GetTextByUrl(url);
 
                 var domParser = new HtmlParser();
 
-                var htmldocument = await domParser.ParseAsync(source);
+                var htmldocument = domParser.Parse(source);
 
                 return htmldocument;
             }

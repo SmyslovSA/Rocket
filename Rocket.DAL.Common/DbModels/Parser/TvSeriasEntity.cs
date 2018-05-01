@@ -30,11 +30,46 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// Url изображения постера сериала.
         /// </summary>
         public string PosterImageUrl { get; set; }
-        
+
+        /// <summary>
+        /// Рейтинг сериала на Lostfilm.
+        /// </summary>
+        public double LostfilmRate { get; set; }
+
+        /// <summary>
+        /// Рейтинг сериала на IMDb.
+        /// </summary>
+        public double RateImDb { get; set; }
+
+        /// <summary>
+        /// Ссылка на официальный сайт.
+        /// </summary>
+        public string UrlToOfficialSite { get; set; }
+
+        /// <summary>
+        /// Текущий статус сериала.
+        /// </summary>
+        public string CurrentStatus { get; set; }
+
+        /// <summary>
+        /// Теливизионный канал на котором показывают сериал.
+        /// </summary>
+        public string TvSerialCanal { get; set; }
+
+        /// <summary>
+        /// Год начала показа сериала.
+        /// </summary>
+        public string TvSerialYearStart { get; set; }
+
         /// <summary>
         /// Краткое описание сериала.
         /// </summary>
         public string Summary { get; set; }
+
+        /// <summary>
+        /// Ссылка на адрес загрузки.
+        /// </summary>
+        public string UrlToSource { get; set; }
 
         /// <summary>
         /// Список актеров.
@@ -64,6 +99,6 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// <summary>
         /// Возвращает или задает коллекцию сезонов сериала
         /// </summary>
-        public ICollection<DbSeason> DbSeasons { get; set; }
+        public ICollection<SeasonEntity> ListSeasons { get; set; }
     }
 }

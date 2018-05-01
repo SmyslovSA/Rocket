@@ -6,7 +6,6 @@ using Rocket.Parser.Jobs;
 using Topshelf;
 using Topshelf.Quartz;
 using Topshelf.ServiceConfigurators;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace Rocket.Parser
 {
@@ -30,7 +29,7 @@ namespace Rocket.Parser
                         serviceConfigurator.WhenStopped((service, control) => service.Stop(control));
 
                         //Запуск парсера для Lostfilm
-                        //LostfilmParseProcess(serviceConfigurator, kernel);
+                        LostfilmParseProcess(serviceConfigurator, kernel);
 
                         //Запуск парсера для AlbumInfo  
                         AlbumInfoParseProcess(serviceConfigurator, kernel);
