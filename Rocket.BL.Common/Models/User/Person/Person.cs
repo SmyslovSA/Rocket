@@ -25,7 +25,7 @@
         /// <summary>
         /// Возвращает или задает язык и гражданство пользователя
         /// </summary>
-        public Locallization Locallization { get; set; }
+        public Localization Locallization { get; set; }
 
         /// <summary>
         /// Возвращает или задает дату рождения и пол
