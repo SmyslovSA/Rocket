@@ -77,8 +77,8 @@
     <Compile Include="Models\User\Person\Communication\Communication.cs" />
     <Compile Include="Models\User\Person\Communication\HowToCall.cs" />
     <Compile Include="Models\User\Person\Personality\Personality.cs" />
-    <Compile Include="Models\User\Person\Locallization\Language.cs" />
-    <Compile Include="Models\User\Person\Locallization\Locallization.cs" />
+    <Compile Include="Models\User\Person\Localization\Language.cs" />
+    <Compile Include="Models\User\Person\Localization\Localization.cs" />
     <Compile Include="Models\User\Person\Person.cs" />
     <Compile Include="Models\User\Person\Identity\Identity.cs" />
     <Compile Include="Models\User\Person\Identity\Gender.cs" />

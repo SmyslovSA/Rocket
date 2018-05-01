@@ -5,16 +5,16 @@ namespace Rocket.BL.Common.Models.User
     /// <summary>
     /// Локализация пользователя
     /// </summary>
-    public class Locallization
+    public class Localization
     {
         /// <summary>
         /// Задает или возвращает гражданство пользователя
         /// </summary>
-        Country Sitizenship { get; set; }
-        
+        public Country Sitizenship { get; set; }
+            
         /// <summary>
         /// Задает или возвращает язык пользователя
         /// </summary>
-        Language Language { get; set; }
+        public Language Language { get; set; }
     }
 }

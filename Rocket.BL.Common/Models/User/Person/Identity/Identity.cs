@@ -10,11 +10,11 @@
         /// <summary>
         /// Задает или возвращает дату рождения пользователя
         /// </summary>
-        DateTime? DateOfBirth { get; set; }
+        public  DateTime? DateOfBirth { get; set; }
 
         /// <summary>
         /// Задает или возвращает пол пользователя
         /// </summary>
-        Gender? Gender { get; set; }
+        public Gender? Gender { get; set; }
     }
 }
