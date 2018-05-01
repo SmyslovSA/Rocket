@@ -117,8 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlbumInfoBaseUrl" xml:space="preserve">
+    <value>http://www.album-info.ru/</value>
+    <comment>адрес сайта album-info.ru</comment>
+  </data>
+  <data name="AlbumInfoInternalPrefixId" xml:space="preserve">
+    <value>albumview.aspx?ID=</value>
+    <comment>префикс адреса страницы релиза сайта album-info.ru</comment>
+  </data>
+  <data name="AlbumInfoReleaseDateSelector" xml:space="preserve">
+    <value>#aspnetForm &gt; table &gt; tbody &gt; tr:nth-child(1) &gt; th &gt; div</value>
+    <comment>CSS селектор для даты релиза на сайте album-info.ru</comment>
+  </data>
+  <data name="AlbumInfoReleaseGenreSelector" xml:space="preserve">
+    <value>#conGenres</value>
+    <comment>CSS селектор для жанров релиза на сайте album-info.ru</comment>
+  </data>
+  <data name="AlbumInfoReleaseImageUrlSelector" xml:space="preserve">
+    <value>#aspnetForm &gt; table &gt; tbody &gt; tr:nth-child(1) &gt; th &gt; a</value>
+    <comment>CSS селектор для url изображения релиза на сайте album-info.ru</comment>
+  </data>
+  <data name="AlbumInfoReleaseLinkSelector" xml:space="preserve">
+    <value>#ctl00_CPH_conAlbums_conAlbums &gt; tbody &gt; tr:nth-child({0}) &gt; td:nth-child({1}) &gt; a</value>
+    <comment>CSS селектор для ссылки на релиз на сайте album-info.ru</comment>
+  </data>
+  <data name="AlbumInfoReleaseNameSelector" xml:space="preserve">
+    <value>#dvContent &gt; h1</value>
+    <comment>CSS селектор для названия релиза на сайте album-info.ru</comment>
+  </data>
   <data name="AlbumInfoSettings" xml:space="preserve">
     <value>Album Info</value>
     <comment>Для получения настроек парсера album-info.ru</comment>
+  </data>
+  <data name="HrefAttribute" xml:space="preserve">
+    <value>href</value>
+    <comment>Атрибут html href</comment>
   </data>
 </root>

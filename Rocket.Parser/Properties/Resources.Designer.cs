@@ -61,11 +61,83 @@ namespace Rocket.Parser.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://www.album-info.ru/.
+        /// </summary>
+        internal static string AlbumInfoBaseUrl {
+            get {
+                return ResourceManager.GetString("AlbumInfoBaseUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to albumview.aspx?ID=.
+        /// </summary>
+        internal static string AlbumInfoInternalPrefixId {
+            get {
+                return ResourceManager.GetString("AlbumInfoInternalPrefixId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #aspnetForm &gt; table &gt; tbody &gt; tr:nth-child(1) &gt; th &gt; div.
+        /// </summary>
+        internal static string AlbumInfoReleaseDateSelector {
+            get {
+                return ResourceManager.GetString("AlbumInfoReleaseDateSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #conGenres.
+        /// </summary>
+        internal static string AlbumInfoReleaseGenreSelector {
+            get {
+                return ResourceManager.GetString("AlbumInfoReleaseGenreSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #aspnetForm &gt; table &gt; tbody &gt; tr:nth-child(1) &gt; th &gt; a.
+        /// </summary>
+        internal static string AlbumInfoReleaseImageUrlSelector {
+            get {
+                return ResourceManager.GetString("AlbumInfoReleaseImageUrlSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #ctl00_CPH_conAlbums_conAlbums &gt; tbody &gt; tr:nth-child({0}) &gt; td:nth-child({1}) &gt; a.
+        /// </summary>
+        internal static string AlbumInfoReleaseLinkSelector {
+            get {
+                return ResourceManager.GetString("AlbumInfoReleaseLinkSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #dvContent &gt; h1.
+        /// </summary>
+        internal static string AlbumInfoReleaseNameSelector {
+            get {
+                return ResourceManager.GetString("AlbumInfoReleaseNameSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Album Info.
         /// </summary>
         internal static string AlbumInfoSettings {
             get {
                 return ResourceManager.GetString("AlbumInfoSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to href.
+        /// </summary>
+        internal static string HrefAttribute {
+            get {
+                return ResourceManager.GetString("HrefAttribute", resourceCulture);
             }
         }
     }

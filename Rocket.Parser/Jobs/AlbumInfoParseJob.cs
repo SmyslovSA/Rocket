@@ -1,6 +1,7 @@
 ﻿using System;
 using Ninject;
 using Quartz;
+using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
 
 namespace Rocket.Parser.Jobs
@@ -21,7 +22,7 @@ namespace Rocket.Parser.Jobs
             try
             {
                 var schedulerContext = context.JobDetail.JobDataMap;
-                var kernel = (IKernel)schedulerContext.Get("container");
+                var kernel = (IKernel)schedulerContext.Get(CommonHelper.ContainerKey);
 
                 var parser = kernel.Get<IAlbumInfoParser>();
                 parser.Parse();

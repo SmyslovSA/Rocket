@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AngleSharp.Dom.Html;
 using Rocket.Parser.Interfaces;
 using Rocket.Parser.Models;
@@ -25,11 +26,11 @@ namespace Rocket.Parser.Services
                 for (int j = 1; j < 5; j++) // строки таблицы
                 {
                     var item = document.QuerySelector(
-                        $"#ctl00_CPH_conAlbums_conAlbums > tbody > tr:nth-child({i}) > td:nth-child({j}) > a");
+                        String.Format(Properties.Resources.AlbumInfoReleaseLinkSelector, i, j));
 
                     if (item != null)
                     {
-                        list.Add(item.GetAttribute("href"));
+                        list.Add(item.GetAttribute(Properties.Resources.HrefAttribute));
                     }
                 }
             }
@@ -46,12 +47,11 @@ namespace Rocket.Parser.Services
         {
             var release = new AlbumInfoRelease
             {
-                Name = document.QuerySelector("#dvContent > h1").TextContent,
-                Date = document.QuerySelector("#aspnetForm > table > tbody > tr:nth-child(1) > th > div")
-                    .TextContent,
-                ImageUrl = document.QuerySelector("#aspnetForm > table > tbody > tr:nth-child(1) > th > a")
-                    .GetAttribute("href"),
-                Genre = document.QuerySelector("#conGenres").TextContent
+                Name = document.QuerySelector(Properties.Resources.AlbumInfoReleaseNameSelector).TextContent,
+                Date = document.QuerySelector(Properties.Resources.AlbumInfoReleaseDateSelector).TextContent,
+                ImageUrl = document.QuerySelector(Properties.Resources.AlbumInfoReleaseImageUrlSelector)
+                    .GetAttribute(Properties.Resources.HrefAttribute),
+                Genre = document.QuerySelector(Properties.Resources.AlbumInfoReleaseGenreSelector).TextContent
             };
 
             return release;

@@ -50,7 +50,7 @@ namespace Rocket.Parser.Parsers
                     //обрабатываем постранично (на каждую страницу свой поток)
                     Parallel.For(setting.StartPoint, setting.EndPoint + 1, index =>
                     {
-                        var linksPageUrl = $"{setting.BaseUrl}{setting.Prefix.Replace("{CurrentId}", index.ToString())}";
+                        var linksPageUrl = $"{setting.BaseUrl}{setting.Prefix}{index.ToString()}";
 
                         //загружаем страницу со ссылками на релизы
                         var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl).Result;
@@ -61,12 +61,13 @@ namespace Rocket.Parser.Parsers
                         //каждый релиз на странице обрабатываем в своем потоке
                         Parallel.ForEach(releaseLinkList, releaseLink =>
                         {
-                            var releaseUrl = "http://www.album-info.ru/" + releaseLink;
+                            var releaseUrl = Properties.Resources.AlbumInfoBaseUrl + releaseLink;
 
                             resourceItemsBc.Add(new ResourceItemEntity
                             {
                                 ResourceId = setting.ResourceId,
-                                ResourceInternalId = releaseLink.Replace("albumview.aspx?ID=", ""),
+                                ResourceInternalId = releaseLink.Replace(
+                                    Properties.Resources.AlbumInfoInternalPrefixId, ""),
                                 ResourceItemLink = releaseLink,
                                 CreateDateTime = DateTime.Now
                             });
