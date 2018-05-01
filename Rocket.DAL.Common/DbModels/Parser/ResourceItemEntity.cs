@@ -30,12 +30,12 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// <summary>
         /// Дата и веремя создания
         /// </summary>
-        public DateTime CreatedDateTime { get; } //todo default value 
+        public DateTime CreatedDateTime { get; private set; } //todo default value 
 
         /// <summary>
         /// Дата и веремя последней обработки
         /// </summary>
-        public DateTime LastModified { get; } //todo add trigger on table
+        public DateTime LastModified { get; private set; } //todo add trigger on table
 
         /// <summary>
         /// Ссылка на ресурс

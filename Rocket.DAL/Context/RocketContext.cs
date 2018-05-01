@@ -31,6 +31,7 @@ namespace Rocket.DAL.Context
         {
             modelBuilder.Configurations.Add(new ResourceMap());
             modelBuilder.Configurations.Add(new ParserSettingsMap());
+            modelBuilder.Configurations.Add(new ResourceItemMap());
         }
     }
 }

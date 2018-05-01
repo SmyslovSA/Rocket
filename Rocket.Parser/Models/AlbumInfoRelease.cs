@@ -6,6 +6,11 @@
     public class AlbumInfoRelease
     {
         /// <summary>
+        /// Id внутри ресурса
+        /// </summary>
+        public string ResourceInternalId { get; set; }
+
+        /// <summary>
         /// Id элемента ресурса
         /// </summary>
         public int ResourceItemId { get; set; }
