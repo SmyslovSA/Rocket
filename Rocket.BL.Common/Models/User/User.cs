@@ -6,6 +6,11 @@
     public class User
     {
         /// <summary>
+        /// Возвращает или задает уникальный идентификатор пользователя
+        /// </summary>
+        public int Id { get; set; }
+        
+        /// <summary>
         /// Возвращает или задает информацию о человеке
         /// </summary>
         public Person Person { get; set; }

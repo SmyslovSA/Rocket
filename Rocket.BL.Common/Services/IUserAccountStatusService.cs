@@ -3,47 +3,37 @@
 namespace Rocket.BL.Common.Services
 {
     /// <summary>
-    /// Устанавливает и получает значение статуса 
-    /// аккаунта, значения статуса аккаунта заданы
-    /// перечислением 'StatusType', принимающее значение
-    /// Registered = 1, Activated = 2, и так далее...
+    /// Представляет сервис для работы со статусом аккаунта
+    /// аккаунта
     /// </summary>
     public interface IUserAccountStatusService
     {
         /// <summary>
-        /// Получает статус аккаунта пользователя с
-        /// определенным идентификатором.
-        /// Реализуем принцип чтение-записи параметра.
-        /// Account сложное свойство типа User
+        /// Получает статус аккаунта пользователя с определенным идентификатором
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
         /// <returns>Статус аккаунта пользователя</returns>
-        StatusType GetUserAccountStatus(int id);
+        AccountStatus GetUserAccountStatus(int id);
 
         /// <summary>
-        /// Перегрузка метода по получению статуса аккаунта,
-        /// где вместо идентификатора пользователя используется 
-        /// экземпляр пользователя.
+        /// Получает статус аккаунта пользователя
         /// </summary>
         /// <param name="user">Экземпляр пользователя</param>
         /// <returns>Статус аккаунта пользователя</returns>
-        StatusType GetUserAccountStatus(IUser user);
+        AccountStatus GetUserAccountStatus(User user);
 
         /// <summary>
-        /// Задаем значение статуса экземпляра пользователя
-        /// на основании идентификатора.
-        /// Реализуем принцип чтение-записи параметра.
+        /// Задает статус аккаунта пользователя с определенным идентификатором
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
         /// <param name="statusType">Статус аккаунта пользователя</param>
-        void SetUserAccoutStatus(int id, StatusType statusType);
+        void SetUserAccoutStatus(int id, AccountStatus AccountStatus);
 
         /// <summary>
-        /// Перегрузка метода. Задаем статус пользователя на основании 
-        /// его экземпляра.
+        /// Задает статус аккаунта пользователя
         /// </summary>
         /// <param name="user">Экземпляр пользователя</param>
         /// <param name="statusType">Статус аккаунта пользователя</param>
-        void SetUserAccountStatus(IUser user, StatusType statusType);
+        void SetUserAccountStatus(User user, AccountStatus AccountStatus);
     }
 }

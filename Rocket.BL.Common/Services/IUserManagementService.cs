@@ -1,43 +1,37 @@
-﻿using System;
-using Rocket.BL.Common.Models.User;
+﻿using Rocket.BL.Common.Models.User;
 
 namespace Rocket.BL.Common.Services
 {
     /// <summary>
-    /// Сервис управления пользователем. Набор CRUD 
-    /// операций. Рестрация пользователя (Create), получение или чтение (Read) по 
-    /// идентификатору, обновление (Update) и удаление (Delete), соответственно.
+    /// Представляет сервис для работы с пользователем
     /// </summary>
     public interface IUserManagementService
     {
         /// <summary>
-        /// Добавляет пользователям в хранилище данных
-        /// и возвращает идентификатор добавленного пользователя.
-        /// То есть, фактически, операция регистрации.
-        /// Create операция в CRUD.
-        /// </summary>
-        /// <param name="user">Экземпляр пользователя</param>
-        /// <returns></returns>
-        int AddUser(User user);
-
-        /// <summary>
         /// Возвращает пользователя с заданным идентификатором
-        /// из хранилища данных.
-        /// Read операция CRUD.
+        /// из хранилища данных
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
-        /// <returns></returns>
+        /// <returns>Экземпляр пользователя</returns>
         User GetUser(int id);
 
         /// <summary>
-        /// Обновляет информацию заданного пользователя в хранилище данных.
+        /// Добавляет заданного пользователя в хранилище данных
+        /// и возвращает идентификатор добавленного пользователя
+        /// </summary>
+        /// <param name="user">Экземпляр пользователя</param>
+        /// <returns>Уникальный идентификатор пользователя</returns>
+        int AddUser(User user);
+
+        /// <summary>
+        /// Обновляет информацию заданного пользователя в хранилище данных
         /// </summary>
         /// <param name="user">Экземпляр пользователя</param>
         void UpdateUser(User user);
 
         /// <summary>
         /// Удаляет пользователя с заданным идентификатором
-        /// из хранилища данных.
+        /// из хранилища данных
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
         void DeleteUser(int id);

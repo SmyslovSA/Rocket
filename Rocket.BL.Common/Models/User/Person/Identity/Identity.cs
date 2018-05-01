@@ -1,21 +1,20 @@
 ﻿namespace Rocket.BL.Common.Models.User
 {
+    using System;
+
     /// <summary>
-    /// Содержит идентификатор личности. Как правило,
-    /// это константа в течение жизни (для мужчин, так точно),
-    /// позволяющая однозначно идентифицировать личность.
-    /// Ради смеха, но пол, уже часто не является такой идентификацией.
+    /// Представляет сведения, неотъемлемые от личности
     /// </summary>
     public class Identity
     {
         /// <summary>
-        /// Имя
+        /// Задает или возвращает дату рождения пользователя
         /// </summary>
-        public string FirstName { get; set; }
+        DateTime? DateOfBirth { get; set; }
 
         /// <summary>
-        /// Фамилия
+        /// Задает или возвращает пол пользователя
         /// </summary>
-        public string Sirname { get; set; }
+        Gender? Gender { get; set; }
     }
 }

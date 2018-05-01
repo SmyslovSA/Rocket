@@ -10,7 +10,7 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Задает или возвращает почтовый индекс
         /// </summary>
-        public string Index { get; set; }
+        public string ZipCode { get; set; }
 
         /// <summary>
         /// Возвращает или задает страну

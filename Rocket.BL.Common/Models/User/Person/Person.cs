@@ -2,31 +2,34 @@
 {
     /// <summary>
     /// Все, что относится к личности человека.
-    /// Что, более менее неизменно в рамках небольших
-    /// отрезков жизни, характеризует, как личность.
+    /// То, что более менее неизменно в рамках небольших
+    /// отрезков жизни и характеризует, как личность.
     /// </summary>
     public class Person
     {
+        /// <summary>
+        /// Задает или возвращает уникальный идентификатор пользователя
+        /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Имя и фамилия
+        /// Возвращает или задает имя и фамилию пользователя
         /// </summary>
-        public Identity Identity { get; set; }
+        public Personality Personality { get; set; }
 
         /// <summary>
-        /// Контактная информация (телефоны, Email, др.)
+        /// Возвращает или задает контактную информацию пользователя (телефон, Email, адрес и так далее)
         /// </summary>
         public Communication Communication { get; set; }
 
         /// <summary>
-        /// Возвращает или задает язык и национальность
+        /// Возвращает или задает язык и гражданство пользователя
         /// </summary>
-        public Nationality Nationality { get; set; }
+        public Locallization Locallization { get; set; }
 
         /// <summary>
         /// Возвращает или задает дату рождения и пол
         /// </summary>
-        public Personality Personality { get; set; }
+        public Identity Identity { get; set; }
     }
 }

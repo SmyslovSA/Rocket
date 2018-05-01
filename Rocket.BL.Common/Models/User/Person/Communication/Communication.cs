@@ -6,24 +6,24 @@ namespace Rocket.BL.Common.Models.User
     /// Представляет точку входа для контактной информации
     /// </summary>
     public class Communication
-    {   
+    {
         /// <summary>
         /// Задает или возвращает сведения о том, как обращаться к пользователю
         /// </summary>
         public HowToCall HowToCall { get; set; }
         
         /// <summary>
-        /// Задает или возвращает коллекцию телефонных номеров
+        /// Задает или возвращает коллекцию телефонных номеров пользователя
         /// </summary>
         public ICollection<string> Phones { get; set; }
 
         /// <summary>
-        /// Задает или возвращает коллекцию Eamil
+        /// Задает или возвращает коллекцию Email
         /// </summary>
         public ICollection<string> EMailAddresses { get; set; }
 
         /// <summary>
-        /// Возвращает или задает почтовый адрес
+        /// Возвращает или задает почтовый адрес пользователя
         /// </summary>
         public Address MailAddress { get; set; }
     }

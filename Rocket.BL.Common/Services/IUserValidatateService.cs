@@ -4,7 +4,7 @@ using Rocket.BL.Common.Models.User;
 namespace Rocket.BL.Common.Services
 {
     /// <summary>
-    /// Валидирует (проверяет) значение экземпляра 
+    /// Представляет сервис для валидации сведений о пользователе
     /// пользователя при его регистрации, а также изменении.
     /// </summary>
     public interface IUserValidateService
@@ -12,6 +12,7 @@ namespace Rocket.BL.Common.Services
         /// <summary>
         /// Валидирует (проверяет) экземпляр пользователя
         /// при его (вернее, перед) добавлении (регистрации) в хранилище данных.
+        /// Минимальный набор данных
         /// </summary>
         /// <param name="user">Экземпляр пользователя, который проверяется</param>
         /// <returns>Возвращает <see langword='true'/>, если проверка завершена успешно</returns>

@@ -4,12 +4,12 @@ using Rocket.BL.Common.Models.UserRoles;
 namespace Rocket.BL.Common.Models.User
 {
     /// <summary>
-    /// Представляет информацию об аккануте.
+    /// Представляет информацию об аккаунте
     /// </summary>
     public class Account
     {
         /// <summary>
-        /// Возвращает или задает идентификационный номер аккаунта
+        /// Возвращает или задает уникальный идентификационный номер аккаунта
         /// </summary>
         public int Id { get; set; }
 
@@ -24,8 +24,8 @@ namespace Rocket.BL.Common.Models.User
         public string Password { get; set; }
 
         /// <summary>
-        /// Возвращает или задает статус акканута
-        /// (активирован, не активирован, деактивирован, забанен)
+        /// Возвращает или задает статус аккаунта
+        /// (активирован, не активирован, деактивирован, забанен и так далее)
         /// </summary>
         public AccountStatus AccountStatus { get; set; }
 
@@ -33,18 +33,18 @@ namespace Rocket.BL.Common.Models.User
         /// Возвращает или задает уровень пользователя
         /// (пока что это - обычный и премиум пользователь)
         /// </summary>
-        public AccountLevel AccountLevel { get; set; } // Уровень аккаунта, золотой и т д.)).
+        public AccountLevel AccountLevel { get; set; }
 
         /// <summary>
         /// Возвращает или задает необходимость подтверждения регистрации
         /// путем активации Email
         /// </summary>
-        public bool ActivationNeeded { get; set; } // Требуется ли активация Email.
-        
+        public bool ActivationNeeded { get; set; }
+
         /// <summary>
-        /// Возвращает или задачт дату и время создания
+        /// Возвращает или задаёт дату и время создания
         /// или изменения статуса аккаунта.
         /// </summary>
-        public DateTime DateTimeStamp { get; set; } // Дата создания.
+        public DateTime DateTimeStamp { get; set; }
     }
 }
