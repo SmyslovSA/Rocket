@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.UoW;
@@ -46,7 +47,7 @@ namespace Rocket.Parser.Parsers
                 {
                     var resourceItemsBc = new BlockingCollection<ResourceItemEntity>();
                     var releasesBc = new BlockingCollection<AlbumInfoRelease>();
-
+                    
                     //обрабатываем постранично (на каждую страницу свой поток)
                     Parallel.For(setting.StartPoint, setting.EndPoint + 1, index =>
                     {
@@ -68,8 +69,7 @@ namespace Rocket.Parser.Parsers
                                 ResourceId = setting.ResourceId,
                                 ResourceInternalId = releaseLink.Replace(
                                     Properties.Resources.AlbumInfoInternalPrefixId, ""),
-                                ResourceItemLink = releaseLink,
-                                CreateDateTime = DateTime.Now
+                                ResourceItemLink = releaseLink
                             });
 
                             //парсим страницу релиза
@@ -103,6 +103,30 @@ namespace Rocket.Parser.Parsers
             }
             
             //todo логирование парсер отработал
+        }
+
+        /// <summary>
+        /// Сохраняет в БД список элементов ресурса
+        /// </summary>
+        /// <returns></returns>
+        private void SaveResourceItems(BlockingCollection<ResourceItemEntity> resourceItemsBc)
+        {
+            if (!resourceItemsBc.Any()) throw new NotImplementedException();  //todo
+
+            var resourceItems = resourceItemsBc.ToList();
+
+            foreach (var resourceItem in resourceItems)
+            {
+                var resourceInternalId = resourceItem.ResourceInternalId;
+                var param = Expression.Parameter(typeof(ResourceItemEntity), "ri");
+                Expression boby = Expression.Equal(Expression.PropertyOrField(param, "ResourceInternalId"),
+                    Expression.Constant(resourceInternalId, typeof(string)));
+                var filter = Expression.Lambda<Func<ResourceItemEntity, bool>>(boby, param);
+
+                var resourceItemEntity = _parserUoW.ResourceItems.Get(filter);
+            }
+            
+
         }
     }
 }

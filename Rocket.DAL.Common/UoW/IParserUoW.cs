@@ -20,6 +20,11 @@ namespace Rocket.DAL.Common.UoW
         IParserSettingsRepository ParserSettings { get; }
 
         /// <summary>
+        /// Возвращает репозиторий элементов ресурса
+        /// </summary>
+        IResourceItemRepository ResourceItems { get; }
+
+        /// <summary>
         /// Возвращает список настроек парсера
         /// </summary>
         /// <param name="resourceName">Название ресурса для парсинга</param>

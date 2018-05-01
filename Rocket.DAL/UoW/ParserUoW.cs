@@ -16,16 +16,20 @@ namespace Rocket.DAL.UoW
         public ParserUoW(
             IRocketContext rocketContext, 
             IResourceRepository resourceRepository,
-            IParserSettingsRepository parserSettingsRepository)
+            IParserSettingsRepository parserSettingsRepository,
+            IResourceItemRepository resourceItemRepository)
         {
             _rocketContext = rocketContext;
             Resources = resourceRepository;
             ParserSettings = parserSettingsRepository;
+            ResourceItems = resourceItemRepository;
         }   
 
         public IResourceRepository Resources { get; }
 
         public IParserSettingsRepository ParserSettings { get; }
+
+        public IResourceItemRepository ResourceItems { get; }
 
         public void Save()
         {

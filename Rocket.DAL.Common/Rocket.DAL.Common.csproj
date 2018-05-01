@@ -91,6 +91,7 @@
     <Compile Include="Repositories\IDbVideoGenreRepository.cs" />
     <Compile Include="Repositories\IParserSettingsRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IResourceItemRepository.cs" />
     <Compile Include="Repositories\IResourceRepository.cs" />
     <Compile Include="UoW\IDbFilmUnitOfWork.cs" />
     <Compile Include="UoW\IDbMusicUnitOfWork.cs" />

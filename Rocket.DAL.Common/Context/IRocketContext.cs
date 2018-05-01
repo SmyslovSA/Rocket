@@ -14,8 +14,13 @@ namespace Rocket.DAL.Common.Context
         DbSet<ResourceEntity> Resources { get; set; }
 
         /// <summary>
-        /// Настройки парсера
+        /// DbSet настроек парсера
         /// </summary>
         DbSet<ParserSettingsEntity> ParserSettings { get; set; }
+
+        /// <summary>
+        /// DbSet элемента ресурса
+        /// </summary>
+        DbSet<ResourceItemEntity> ResourceItems { get; set; }
     }
 }
