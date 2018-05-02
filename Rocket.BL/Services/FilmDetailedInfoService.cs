@@ -13,9 +13,10 @@ namespace Rocket.BL.Services
     /// Представляет сервис для работы с детальной информацией
     /// о фильмах в хранилище данных
     /// </summary>
-    public class FilmDetailedInfoService : IFilmDetailedInfoService
+    public class FilmDetailedInfoService : IFilmDetailedInfoService, IDisposable
     {
         private IDbFilmUnitOfWork _unitOfWork;
+        private bool disposedValue = false;
 
         /// <summary>
         /// Создает новый экземпляр <see cref="FilmDetailedInfoService"/>
@@ -84,6 +85,31 @@ namespace Rocket.BL.Services
             return this._unitOfWork.FilmRepository.Get(
                 Mapper.Map<Expression<Func<DbFilm, bool>>>(filter))
                 .FirstOrDefault() != null;
+        }
+
+        /// <summary>
+        /// Освобождает управляемые ресурсы
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        /// <summary>
+        /// Освобождает управляемые ресурсы
+        /// </summary>
+        /// <param name="disposing">Указывает был ли уже вызван метода Dispose ранее</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    this._unitOfWork.Dispose();
+                }
+
+                disposedValue = true;
+            }
         }
     }
 }

@@ -74,9 +74,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbCountriesData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeDbFilmsData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeCountriesData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbEpisodesData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeEpisodesData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeFilmsData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbPersonsData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbSeasonsData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeSeasonsData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbVideoGenresData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbTVSerialsData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeVideoGenresData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakePersonsData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeTVSerialsData.cs" />
     <Compile Include="ReleaseList\FilmDetailedInfoServiceTest.cs" />
+    <Compile Include="ReleaseList\TVSeriesDetailedInfoServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

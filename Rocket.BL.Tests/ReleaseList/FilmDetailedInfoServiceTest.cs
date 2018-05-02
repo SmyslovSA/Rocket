@@ -30,6 +30,7 @@ namespace Rocket.BL.Tests.ReleaseList
         [OneTimeSetUp]
         public void SetUp()
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfiles("Rocket.BL.Common");
@@ -41,16 +42,16 @@ namespace Rocket.BL.Tests.ReleaseList
             mockDbFilmRepository.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbFilm, bool>>>(), null, ""))
                 .Returns((Expression<Func<DbFilm, bool>> filter,
                     Func<IQueryable<DbFilm>, IOrderedQueryable<DbFilm>> orderBy,
-                    string includeProperties) => this._fakeDbFilmsData.DbFilms.Where(filter.Compile()));
+                    string includeProperties) => this._fakeDbFilmsData.Films.Where(filter.Compile()));
             mockDbFilmRepository.Setup(mock => mock.GetById(It.IsAny<object>()))
-                .Returns((object id) => this._fakeDbFilmsData.DbFilms.Find(f => f.Id == (int)id));
+                .Returns((object id) => this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id));
             mockDbFilmRepository.Setup(mock => mock.Insert(It.IsAny<DbFilm>()))
-                .Callback((DbFilm f) => this._fakeDbFilmsData.DbFilms.Add(f));
+                .Callback((DbFilm f) => this._fakeDbFilmsData.Films.Add(f));
             mockDbFilmRepository.Setup(mock => mock.Update(It.IsAny<DbFilm>()))
-                .Callback((DbFilm f) => this._fakeDbFilmsData.DbFilms.Find(d => d.Id == f.Id).Title = f.Title);
+                .Callback((DbFilm f) => this._fakeDbFilmsData.Films.Find(d => d.Id == f.Id).Title = f.Title);
             mockDbFilmRepository.Setup(mock => mock.Delete(It.IsAny<object>()))
-                .Callback((object id) => this._fakeDbFilmsData.DbFilms
-                    .Remove(this._fakeDbFilmsData.DbFilms.Find(f => f.Id == (int)id)));
+                .Callback((object id) => this._fakeDbFilmsData.Films
+                    .Remove(this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id)));
 
             var mockDbFilmUnitOfWork = new Mock<IDbFilmUnitOfWork>();
             mockDbFilmUnitOfWork.Setup(mock => mock.FilmRepository)
@@ -67,7 +68,7 @@ namespace Rocket.BL.Tests.ReleaseList
         [Test, Order(1)]
         public void GetExistedFilmTest([Random(0, FilmsCount - 1, 5)] int id)
         {
-            var expectedFilm = this._fakeDbFilmsData.DbFilms.Find(f => f.Id == id);
+            var expectedFilm = this._fakeDbFilmsData.Films.Find(f => f.Id == id);
 
             var actualFilm = this._filmDetailedInfoService.GetFilm(id);
 
@@ -103,7 +104,7 @@ namespace Rocket.BL.Tests.ReleaseList
         public void AddFilmTest()
         {
             var film = new FakeFilmsData(50, 10, 10, 0).FilmFaker.Generate();
-            film.Id = this._fakeDbFilmsData.DbFilms.Last().Id + 1;
+            film.Id = this._fakeDbFilmsData.Films.Last().Id + 1;
 
             var actualId = this._filmDetailedInfoService.AddFilm(film);
             var actualFilm = this._filmDetailedInfoService.GetFilm(actualId);
@@ -122,7 +123,7 @@ namespace Rocket.BL.Tests.ReleaseList
             film.Title = new Bogus.Faker().Lorem.Word();
 
             this._filmDetailedInfoService.UpdateFilm(film);
-            var actualFilm = this._fakeDbFilmsData.DbFilms.Find(f => f.Id == id);
+            var actualFilm = this._fakeDbFilmsData.Films.Find(f => f.Id == id);
 
             actualFilm.Title.Should().Be(film.Title);
         }
@@ -136,7 +137,7 @@ namespace Rocket.BL.Tests.ReleaseList
         {
             this._filmDetailedInfoService.DeleteFilm(id);
 
-            var actualFilm = this._fakeDbFilmsData.DbFilms.Find(film => film.Id == id);
+            var actualFilm = this._fakeDbFilmsData.Films.Find(film => film.Id == id);
 
             actualFilm.Should().BeNull();
         }
@@ -149,7 +150,7 @@ namespace Rocket.BL.Tests.ReleaseList
         [Test, Order(2)]
         public void FilmExistsTest([Random(0, FilmsCount - 1, 5)] int id)
         {
-            var titleToFind = this._fakeDbFilmsData.DbFilms.Find(dbf => dbf.Id == id).Title;
+            var titleToFind = this._fakeDbFilmsData.Films.Find(dbf => dbf.Id == id).Title;
 
             var actual = this._filmDetailedInfoService
                 .FilmExists(f => f.Title == titleToFind);
