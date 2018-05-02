@@ -14,7 +14,12 @@
         /// Задает или возвращает гражданство пользователя
         /// </summary>
         public Dbcountry Sitizenship { get; set; }
-
+        
+        /// <summary>
+        /// Задает или возвращает язык пользователя
+        /// </summary>
+        public DbLanguage Language { get; set; }
+        
         /// <summary>
         /// Задает или возвращает человека пользователя
         /// </summary>

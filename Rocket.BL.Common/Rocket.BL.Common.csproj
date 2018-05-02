@@ -51,6 +51,15 @@
     <Compile Include="Mappings\PersonMappingProfile.cs" />
     <Compile Include="Mappings\SeasonMappingProfile.cs" />
     <Compile Include="Mappings\TVSeriesMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\personMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\HowToCallMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\PersonalityMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\IdentityMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\AddressMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\LocalizationMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\CommunicationMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\LanguageMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\сountryMappingProfile.cs" />
     <Compile Include="Mappings\VideoGenreMappingProfile.cs" />
     <Compile Include="Models\Notification\ConnectionSettings.cs" />
     <Compile Include="Models\Notification\Message.cs" />
@@ -104,7 +113,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mappings\UserMappingProfile\" />
+    <Folder Include="Mappings\UserMappingProfile\UserAccountMappingProfile\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

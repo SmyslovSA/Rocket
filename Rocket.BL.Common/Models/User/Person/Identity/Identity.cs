@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.Models
+﻿namespace Rocket.BL.Common.Models.User
 {
     using System;
     using Rocket.DAL.Common.DbModels;
