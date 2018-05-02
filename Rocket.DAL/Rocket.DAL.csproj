@@ -102,6 +102,10 @@
     <Compile Include="Migrations\201804302111036_add_ParserSettings.Designer.cs">
       <DependentUpon>201804302111036_add_ParserSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805012005294_AddResourceItem.cs" />
+    <Compile Include="Migrations\201805012005294_AddResourceItem.Designer.cs">
+      <DependentUpon>201805012005294_AddResourceItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ParserSettingsRepository.cs" />
@@ -126,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804302111036_add_ParserSettings.resx">
       <DependentUpon>201804302111036_add_ParserSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805012005294_AddResourceItem.resx">
+      <DependentUpon>201805012005294_AddResourceItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

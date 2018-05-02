@@ -14,27 +14,34 @@ namespace Rocket.Parser.Services
     /// </summary>
     public class LoadHtmlService : ILoadHtmlService
     {
+        private readonly HttpClient _httpClient;
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="httpClient"></param>
+        public LoadHtmlService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
         /// <summary>
         /// Получает Html в виде строки по ссылке.
         /// </summary>
         /// <exception cref = "NotGetTextByUrlException" >"Не удалось загрузить текст по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        public string GetTextByUrl(string url)
+        public string GetTextByUrlAsync(string url) //todo rename async
         {
             try
             {
-                HttpResponseMessage response;
-                using (var httpClient = new HttpClient())
-                {
-                    response = Task.Run(() => httpClient.GetAsync(url)).Result;
-                }
+                var response = _httpClient.GetAsync(url).Result;
 
-                string source = string.Empty;
+                var source = string.Empty;
 
                 if (response != null && response.StatusCode == HttpStatusCode.OK)
                 {
-                    source = Task.Run(() => response.Content.ReadAsStringAsync()).Result;
+                    source =  response.Content.ReadAsStringAsync().Result;
                 }
 
                 return source;
@@ -51,15 +58,15 @@ namespace Rocket.Parser.Services
         /// <exception cref = "NotGetHtmlDocumentByUrlException">"Не удалось загрузить HtmlDocument по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>HtmlDocument</returns>
-        public IHtmlDocument GetHtmlDocumentByUrl(string url)
+        public IHtmlDocument GetHtmlDocumentByUrlAsync(string url)
         {
             try
             {
-                var source = GetTextByUrl(url);
+                var source = GetTextByUrlAsync(url);
 
                 var domParser = new HtmlParser();
 
-                var htmldocument = domParser.Parse(source);
+                var htmldocument = domParser.ParseAsync(source).Result;
 
                 return htmldocument;
             }

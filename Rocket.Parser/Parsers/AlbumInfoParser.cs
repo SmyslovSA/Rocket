@@ -54,7 +54,7 @@ namespace Rocket.Parser.Parsers
                         var linksPageUrl = $"{setting.BaseUrl}{setting.Prefix}{index.ToString()}";
 
                         //загружаем страницу со ссылками на релизы
-                        var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrl(linksPageUrl);
+                        var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl);
 
                         //получаем ссылки на страницы релизов
                         var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
@@ -63,36 +63,30 @@ namespace Rocket.Parser.Parsers
                         Parallel.ForEach(releaseLinkList, releaseLink =>
                         {
                             var releaseUrl = Properties.Resources.AlbumInfoBaseUrl + releaseLink;
+                            var resourceInternalId = releaseLink.Replace(
+                                Properties.Resources.AlbumInfoInternalPrefixId, "");
 
                             resourceItemsBc.Add(new ResourceItemEntity
                             {
                                 ResourceId = setting.ResourceId,
-                                ResourceInternalId = releaseLink.Replace(
-                                    Properties.Resources.AlbumInfoInternalPrefixId, ""),
+                                ResourceInternalId = resourceInternalId,
                                 ResourceItemLink = releaseLink
                             });
 
                             //парсим страницу релиза
-                            var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrl(releaseUrl);
+                            var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl);
                             var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
 
                             if (release != null)
                             {
-                                release.ResourceItemId = setting.ResourceId;
+                                release.ResourceInternalId = resourceInternalId;
                                 releasesBc.Add(release);
                             }
                         });
                     });
 
-                    if (resourceItemsBc.Any())
-                    {
-                        //todo сохранение в БД
-                    }
-
-                    if (releasesBc.Any())
-                    {
-                        //todo сохранение в БД
-                    }
+                    //фиксация данных в БД
+                    SaveResults(resourceItemsBc, releasesBc);
                 }
 
             }
@@ -109,23 +103,61 @@ namespace Rocket.Parser.Parsers
         /// Сохраняет в БД список элементов ресурса
         /// </summary>
         /// <returns></returns>
-        private void SaveResourceItems(BlockingCollection<ResourceItemEntity> resourceItemsBc)
+        private void SaveResults(BlockingCollection<ResourceItemEntity> resourceItemsBc,
+            BlockingCollection<AlbumInfoRelease> releasesBc)
         {
-            if (!resourceItemsBc.Any()) throw new NotImplementedException();  //todo
+            if (!resourceItemsBc.Any() && !releasesBc.Any()) throw new NotImplementedException();  //todo
 
             var resourceItems = resourceItemsBc.ToList();
 
             foreach (var resourceItem in resourceItems)
             {
-                var resourceInternalId = resourceItem.ResourceInternalId;
-                var param = Expression.Parameter(typeof(ResourceItemEntity), "ri");
-                Expression boby = Expression.Equal(Expression.PropertyOrField(param, "ResourceInternalId"),
-                    Expression.Constant(resourceInternalId, typeof(string)));
-                var filter = Expression.Lambda<Func<ResourceItemEntity, bool>>(boby, param);
+                //var resourceInternalId = resourceItem.ResourceInternalId;
+                //var param = Expression.Parameter(typeof(ResourceItemEntity), "ri");
+                //Expression boby = Expression.Equal(Expression.PropertyOrField(param, "ResourceInternalId"),
+                //    Expression.Constant(resourceInternalId, typeof(string)));
+                //var filter = Expression.Lambda<Func<ResourceItemEntity, bool>>(boby, param);
 
-                var resourceItemEntity = _parserUoW.ResourceItems.Get(filter);
+                //var resourceItemEntity = _parserUoW.ResourceItems.Get(filter);
+
+                //находим соответствующий релиз
+                var release = releasesBc.FirstOrDefault(r => r.ResourceInternalId == resourceItem.ResourceInternalId);
+
+                if (release != null)
+                {
+                    var resourceItemEntity = _parserUoW.ResourceItems.Get(
+                            r => r.ResourceId == resourceItem.ResourceId &&
+                                 r.ResourceInternalId == resourceItem.ResourceInternalId).
+                        FirstOrDefault();
+
+                    if (resourceItemEntity != null)
+                    {
+                        // обновляем запись если существует
+                        resourceItem.Id = resourceItemEntity.Id;
+                        _parserUoW.ResourceItems.Update(resourceItem);
+                    }
+                    else
+                    {
+                        _parserUoW.ResourceItems.Insert(resourceItem);
+                    }
+
+                    //todo сохраняем релиз
+
+
+
+                    _parserUoW.Save();
+                }
+                else
+                {
+                    //todo пишем в лог что не существует релиза / релиз не распаршен
+                }
+
+
             }
-            
+
+            //очищаем коллекции
+            resourceItemsBc = null;
+            releasesBc = null;
 
         }
     }

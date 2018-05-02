@@ -46,11 +46,21 @@ namespace Rocket.DAL.Repositories
 
         public void Insert(ResourceItemEntity entity)
         {
-            throw new NotImplementedException();
+            _rocketContext.ResourceItems.Add(entity);
         }
 
         public void Update(ResourceItemEntity entity)
         {
+            var resourceItem = _rocketContext.ResourceItems.Find(entity.Id);
+            if (resourceItem != null)
+            {
+                resourceItem = entity;
+            }
+            else
+            {
+                throw new NotImplementedException();  //todo
+            }
+
             throw new NotImplementedException();
         }
     }
