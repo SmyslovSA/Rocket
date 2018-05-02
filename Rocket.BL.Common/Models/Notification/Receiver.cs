@@ -7,12 +7,12 @@
     public class Receiver
     {
         /// <summary>
-        /// Возвращает либо задает имя гостя или пользователя
+        /// Возвращает или задает имя гостя или пользователя
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Возвращает либо задает email адрес гостя или пользователя
+        /// Возвращает или задает email адрес гостя или пользователя
         /// </summary>
         public string Email { get; set; }
     }
