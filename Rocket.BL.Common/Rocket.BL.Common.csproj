@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\IMailNotificationService.cs" />
     <Compile Include="Mappings\CountryMappingProfile.cs" />
     <Compile Include="Mappings\EpisodeMappingProfile.cs" />
     <Compile Include="Mappings\FilmMappingProfile.cs" />
@@ -55,14 +56,20 @@
     <Compile Include="Interfaces\IEmailManager.cs" />
     <Compile Include="Interfaces\IGenreManager.cs" />
     <Compile Include="Interfaces\IPersonalData.cs" />
+    <Compile Include="Models\Notification\BillingMessage.cs" />
+    <Compile Include="Models\Notification\ConfirmationMessage.cs" />
+    <Compile Include="Models\Notification\CustomMessage.cs" />
+    <Compile Include="Models\Notification\FilmForNotification.cs" />
+    <Compile Include="Models\Notification\MessageAboutFilm.cs" />
+    <Compile Include="Models\Notification\MessageAboutMusic.cs" />
+    <Compile Include="Models\Notification\MessageAboutTVSeries.cs" />
+    <Compile Include="Models\Notification\MusicForNotification.cs" />
+    <Compile Include="Models\Notification\TVSeriesForNotification.cs" />
     <Compile Include="Models\PersonalArea\Category.cs" />
     <Compile Include="Models\PersonalArea\Genre.cs" />
     <Compile Include="Models\PersonalArea\PersonalizedTape.cs" />
     <Compile Include="Models\PersonalArea\PremiumUser.cs" />
-    <Compile Include="Models\Notification\ConnectionSettings.cs" />
-    <Compile Include="Models\Notification\Message.cs" />
-    <Compile Include="Models\Notification\Reciever.cs" />
-    <Compile Include="Models\Notification\Sender.cs" />
+    <Compile Include="Models\Notification\Receiver.cs" />
     <Compile Include="Mappings\CustomMappingProfile.cs" />
     <Compile Include="Models\ReleaseList\Country.cs" />
     <Compile Include="Models\ReleaseList\Episode.cs" />
