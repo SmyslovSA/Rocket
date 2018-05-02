@@ -1,23 +1,23 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿namespace Rocket.DAL.Common.DbModels
 {
     /// <summary>
-    /// Локализация пользователя
+    /// Представляет модель хранения данных о локализации человека пользователя
     /// </summary>
-    public class Localization
+    public class DbLocalization
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификационный номер локализации
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Задает или возвращает гражданство пользователя
         /// </summary>
-        public Country Sitizenship { get; set; }
-            
+        public Dbcountry Sitizenship { get; set; }
+
         /// <summary>
         /// Задает или возвращает язык пользователя
         /// </summary>
-        public Language Language { get; set; }
+        public DbLanguage Language { get; set; }
     }
 }

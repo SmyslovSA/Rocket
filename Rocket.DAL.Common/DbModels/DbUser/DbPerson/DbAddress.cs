@@ -1,15 +1,15 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿namespace Rocket.DAL.Common.DbModels
 {
     /// <summary>
-    /// Тип адреса. Классика.
+    /// Представляет модель хранениея данных адреса для сведений о человеке пользователя
     /// </summary>
-    public class Address
+    public class DbAddress
     {
         /// <summary>
         /// Задает или возвращает уникальный идентификационный номер адреса
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Задает или возвращает почтовый индекс
         /// </summary>
@@ -18,7 +18,7 @@
         /// <summary>
         /// Возвращает или задает страну
         /// </summary>
-        public Country Country { get; set; }
+        public Dbcountry Country { get; set; }
 
         /// <summary>
         /// Возвращает или задает город
