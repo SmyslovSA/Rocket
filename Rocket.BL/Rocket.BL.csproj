@@ -64,7 +64,8 @@
     <Compile Include="BLModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Service.cs" />
-    <Compile Include="Services\UserServices\RoleManagerService.cs" />
+    <Compile Include="Services\UserServices\PermissionManagerService.cs" />
+    <Compile Include="Services\UserServices\SetUserRoleService.cs" />
     <Compile Include="Services\UserServices\UserHasPermissionService.cs" />
   </ItemGroup>
   <ItemGroup>

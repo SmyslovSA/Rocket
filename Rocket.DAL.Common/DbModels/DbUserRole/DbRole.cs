@@ -4,6 +4,8 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
 {
     public class DbRole
     {
+        // класс для получения всего списка ролей с пропертями и пермишенами
+
         /// <summary>
         /// Уникальный идентификатор роли пользователя
         /// </summary>
