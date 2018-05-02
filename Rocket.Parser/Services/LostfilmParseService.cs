@@ -98,7 +98,7 @@ namespace Rocket.Parser.Services
                 try
                 {
                     //Получаем элемент со списком сериалов
-                    var htmlDocumentSerialList = _loadHtmlService.GetHtmlDocumentByUrl(
+                    var htmlDocumentSerialList = _loadHtmlService.GetHtmlDocumentByUrlAsync(
                         baseUrl + LostfilmHelper.GetAdditionalUrlToSerialList() +
                         $"?act=serial&type=search&o={getSerialListIteration}&s=3&t=0");
                     elSerialList = htmlDocumentSerialList.QuerySelector(LostfilmHelper.GetTvSerailListHeaderBase());
@@ -223,7 +223,7 @@ namespace Rocket.Parser.Services
         private void ParseTvSerialOverviewDetails(LostfilmSerialModel lostfilmSerialModel)
         {
             var htmlDocumentSerialOverviewDetails =
-                _loadHtmlService.GetHtmlDocumentByUrl(lostfilmSerialModel.TvSeriasEntity.UrlToSource);
+                _loadHtmlService.GetHtmlDocumentByUrlAsync(lostfilmSerialModel.TvSeriasEntity.UrlToSource);
 
             var serialOverviewElement =
                 htmlDocumentSerialOverviewDetails.QuerySelector(LostfilmHelper.GetTvSerialOverview());
@@ -265,7 +265,7 @@ namespace Rocket.Parser.Services
         {
             try
             {
-                var htmlDocumentTvSerialAllEpisodes = _loadHtmlService.GetHtmlDocumentByUrl(
+                var htmlDocumentTvSerialAllEpisodes = _loadHtmlService.GetHtmlDocumentByUrlAsync(
                                 lostfilmSerialModel.TvSeriasEntity.UrlToSource + LostfilmHelper.AdditionalUrlToTvSerialEpisodes());
 
                 var tvSerialAllEpisodesElement =
