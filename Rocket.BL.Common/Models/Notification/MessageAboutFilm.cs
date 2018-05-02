@@ -1,9 +1,9 @@
 ﻿namespace Rocket.BL.Common.Models.Notification
 {
     /// <summary>
-    /// Описывает сообщение о музыкальном релизе
+    /// Описывает сообщение о релизе фильма
     /// </summary>
-    public class MessageAboutMusic
+    public class MessageAboutFilm
     {
         /// <summary>
         /// Возвращает или задает получателя сообщения
@@ -11,8 +11,8 @@
         public Receiver Receiver { get; set; }
 
         /// <summary>
-        /// Возвращает или задает музыкальный релиз для целей нотификации
+        /// Возвращает или задает релиз фильма для целей нотификации 
         /// </summary>
-        public MusicForNotification Music { get; set; }
+        public FilmForNotification Film { get; set; }
     }
 }
