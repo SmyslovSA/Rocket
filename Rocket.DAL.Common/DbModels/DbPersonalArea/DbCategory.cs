@@ -19,7 +19,5 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// список связанных жанров с данной категорией
         /// </summary>
         public virtual ICollection<DbGenre> Genres { get; set; }
-
-        public virtual ICollection<DbPersonalizedTape> PersonalizedTape { get; set; }
     }
 }

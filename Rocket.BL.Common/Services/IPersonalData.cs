@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.Models
+﻿namespace Rocket.BL.Common.Services
 {
     /// <summary>
     /// интерфейс для работы с личными данными User

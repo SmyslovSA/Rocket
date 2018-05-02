@@ -1,7 +1,7 @@
 ﻿using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using System.Data.Entity.ModelConfiguration;
 
-namespace Rocket.DAL.Configurations
+namespace Rocket.DAL.Configurations.PersonalArea
 {
     public class DbUserConfiguration : EntityTypeConfiguration<DbUser>
     {
