@@ -55,6 +55,8 @@
     <Compile Include="Interfaces\IEmailManager.cs" />
     <Compile Include="Interfaces\IGenreManager.cs" />
     <Compile Include="Interfaces\IPersonalData.cs" />
+    <Compile Include="Models\Notification\FilmForNotification.cs" />
+    <Compile Include="Models\Notification\MusicForNotification.cs" />
     <Compile Include="Models\PersonalArea\Category.cs" />
     <Compile Include="Models\PersonalArea\Genre.cs" />
     <Compile Include="Models\PersonalArea\PersonalizedTape.cs" />
