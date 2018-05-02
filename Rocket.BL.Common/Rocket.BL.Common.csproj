@@ -60,6 +60,7 @@
     <Compile Include="Models\Notification\FilmForNotification.cs" />
     <Compile Include="Models\Notification\MessageAboutFilm.cs" />
     <Compile Include="Models\Notification\MessageAboutMusic.cs" />
+    <Compile Include="Models\Notification\MessageAboutTVSeries.cs" />
     <Compile Include="Models\Notification\MusicForNotification.cs" />
     <Compile Include="Models\Notification\TVSeriesForNotification.cs" />
     <Compile Include="Models\PersonalArea\Category.cs" />
