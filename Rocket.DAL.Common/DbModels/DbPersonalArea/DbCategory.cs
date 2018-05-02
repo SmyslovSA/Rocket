@@ -16,7 +16,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// связь многие-ко-многим с таблицей DbGenre
+        /// список связанных жанров с данной категорией
         /// </summary>
         public ICollection<DbGenre> Genres { get; set; }
     }
