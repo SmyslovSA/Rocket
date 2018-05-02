@@ -1,8 +1,8 @@
-﻿namespace Rocket.BL.Common.Models.User
-{
-    using System;
-    using Rocket.DAL.Common.DbModels;
+﻿using System;
+using Rocket.DAL.Common.DbModels;
 
+namespace Rocket.BL.Common.Models.User
+{
     /// <summary>
     /// Представляет сведения, неотъемлемые от личности
     /// </summary>

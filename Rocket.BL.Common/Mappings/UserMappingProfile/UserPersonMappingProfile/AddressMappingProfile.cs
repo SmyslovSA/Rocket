@@ -2,7 +2,7 @@
 using Rocket.BL.Common.Models.User;
 using Rocket.DAL.Common.DbModels;
 
-namespace Rocket.BL.Common.Mappings
+namespace Rocket.BL.Common.Mappings.UserMappingProfile.UserPersonMappingProfile
 {
     /// <summary>
     /// Профиль сопоставления доменной модели адреса пользователя с моделью хранения адреса пользователя
