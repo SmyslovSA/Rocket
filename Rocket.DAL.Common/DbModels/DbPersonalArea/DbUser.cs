@@ -40,8 +40,10 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// список e-mail пользователя
         /// </summary>
-        public virtual ICollection<DbEmail> Emails { get; set; }
-
-        public virtual ICollection<DbPersonalizedTape> PersonalizedTape { get; set; }
+        public ICollection<DbEmail> Email { get; set; }
+        /// <summary>
+        /// коллекция выбранных жанров пользователя
+        /// </summary>
+        public ICollection<DbGenre> Genres { get; set; }
     }
 }
