@@ -64,7 +64,7 @@
     <Compile Include="DbModels\DbUser\DbPerson\DbIdentity.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbLanguage.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbLocalization.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbPerson.cs" />
+    <Compile Include="DbModels\DbUser\DbPerson\Dbperson.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbPersonality.cs" />
     <Compile Include="DbModels\DbVideoGenre.cs" />
     <Compile Include="Enums\Gender.cs" />
