@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\IMailNotificationService.cs" />
     <Compile Include="Mappings\CountryMappingProfile.cs" />
     <Compile Include="Mappings\EpisodeMappingProfile.cs" />
     <Compile Include="Mappings\FilmMappingProfile.cs" />
