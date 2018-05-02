@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Models
+﻿using System.Collections.Generic;
+
+namespace Rocket.BL.Common.Models
 {
     /// <summary>
     /// класс, содержащий данные о категории (фильм, сериал или музыка)
@@ -13,5 +15,9 @@
         /// Имя категории
         /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// список жанров данной категории
+        /// </summary>
+        public ICollection<Genre> Genres { get; set; }
     }
 }

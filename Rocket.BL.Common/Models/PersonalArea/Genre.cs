@@ -13,5 +13,9 @@
         /// Имя жанра
         /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// категория к которой относится данный жанр
+        /// </summary>
+        public Category Category { get; set; }
     }
 }

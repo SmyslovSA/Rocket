@@ -65,6 +65,10 @@
     <Compile Include="Repositories\IDbMusicianRepository.cs" />
     <Compile Include="Repositories\IDbMusicRepository.cs" />
     <Compile Include="Repositories\IDbMusicTrackRepository.cs" />
+    <Compile Include="Repositories\IDbPersonalAreaRepository\IDbCategoryRepository.cs" />
+    <Compile Include="Repositories\IDbPersonalAreaRepository\IDbEmailRepository.cs" />
+    <Compile Include="Repositories\IDbPersonalAreaRepository\IDbGenreRepository.cs" />
+    <Compile Include="Repositories\IDbPersonalAreaRepository\IDbUserRepository.cs" />
     <Compile Include="Repositories\IDbPersonRepository.cs" />
     <Compile Include="Repositories\IDbFilmRepository.cs" />
     <Compile Include="Repositories\IDbUserRoleRepository\IDbPermissionRepository.cs" />
