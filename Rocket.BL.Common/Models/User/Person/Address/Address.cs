@@ -8,6 +8,11 @@ namespace Rocket.BL.Common.Models.User
     public class Address
     {
         /// <summary>
+        /// Задает или возвращает уникальный идентификатор адреса
+        /// </summary>
+        public int Id { get; set; }
+        
+        /// <summary>
         /// Задает или возвращает почтовый индекс
         /// </summary>
         public string ZipCode { get; set; }

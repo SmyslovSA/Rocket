@@ -8,6 +8,11 @@ namespace Rocket.BL.Common.Models.User
     public class Communication
     {
         /// <summary>
+        /// Возвращает или задает уникальный идентификационный номер контактной информации
+        /// </summary>
+        public int Id { get; set; }
+        
+        /// <summary>
         /// Задает или возвращает сведения о том, как обращаться к пользователю
         /// </summary>
         public HowToCall HowToCall { get; set; }
