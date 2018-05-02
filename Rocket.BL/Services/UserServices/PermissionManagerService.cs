@@ -17,16 +17,16 @@ namespace Rocket.BL.Services.UserServices
             _permission = permission;
         }
 
-        public void AddPermissionToRole(IRole roleId, IPermission permission)
+        public void AddPermissionToRole(IRole role, IPermission permission)
         {
             // докидываем пермишен в роль
-            // roleId?.Add(permission);
+            // role?.Add(permission);
         }
 
-        public void RemovePermissionFromRole(IRole roleId, IPermission permission)
+        public void RemovePermissionFromRole(IRole role, IPermission permission)
         {
             // удаляем пермишен у роли
-            // roleId?.Remove(permission);
+            // role?.Remove(permission);
         }
     }
 }
