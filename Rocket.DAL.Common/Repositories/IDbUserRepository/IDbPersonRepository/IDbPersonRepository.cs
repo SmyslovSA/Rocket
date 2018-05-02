@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories
     /// <summary>
     /// Представляет репозитарий для сведений о человеке пользователя
     /// </summary>
-    public interface IDbPersonRepositary : IRepository<DbPerson>
+    public interface IDbpersonRepositary : IRepository<Dbperson>
     { 
 
     }

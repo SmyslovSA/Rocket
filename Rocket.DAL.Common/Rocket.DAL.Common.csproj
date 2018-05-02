@@ -89,7 +89,7 @@
     <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbIdentityRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbLanguageRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbLocalizationRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbPersonRepository.cs" />
+    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbpersonRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbPersonalityRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbAccountRepository\IDbAccountRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbAccountRepository\IDbAccountLevelRepository.cs" />
