@@ -59,7 +59,7 @@
     <Compile Include="DbModels\DbUser\DbAccount\DbAccountStatus.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbAddress.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbCommunication.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbCountry.cs" />
+    <Compile Include="DbModels\DbUser\DbPerson\Dbсountry.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbHowToCall.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbIdentity.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbLanguage.cs" />

@@ -31,5 +31,10 @@
         /// Возвращает или задает почтовый адрес пользователя
         /// </summary>
         public DbAddress MailAddress { get; set; }
+
+        /// <summary>
+        /// Задает или возвращает человека пользователя
+        /// </summary>
+        public Dbperson Dbperson { get; set; }
     }
 }

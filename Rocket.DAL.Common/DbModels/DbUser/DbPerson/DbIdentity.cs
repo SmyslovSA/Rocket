@@ -1,6 +1,7 @@
 ﻿namespace Rocket.DAL.Common.DbModels
 { 
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Представляет модель хранения данных о персоналии пользователя
@@ -21,5 +22,11 @@
         /// Задает или возвращает пол пользователя
         /// </summary>
         public Gender? Gender { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает человека (компонент пользователя),
+        /// в которых указан данная индивидум
+        /// </summary>
+        public Dbperson Dbperson { get; set; }
     }
 }

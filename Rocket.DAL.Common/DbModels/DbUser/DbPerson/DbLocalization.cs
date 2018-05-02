@@ -16,8 +16,8 @@
         public Dbcountry Sitizenship { get; set; }
 
         /// <summary>
-        /// Задает или возвращает язык пользователя
+        /// Задает или возвращает человека пользователя
         /// </summary>
-        public DbLanguage Language { get; set; }
+        public Dbperson Dbperson { get; set; }
     }
 }

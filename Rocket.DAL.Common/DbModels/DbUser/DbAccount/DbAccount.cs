@@ -45,5 +45,11 @@
         /// или изменения статуса аккаунта.
         /// </summary>
         public DateTime DateTimeStamp { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает пользователя,
+        /// к которому относится данный аккаунт
+        /// </summary>
+        public DbUser DbUser { get; set; }
     }
 }

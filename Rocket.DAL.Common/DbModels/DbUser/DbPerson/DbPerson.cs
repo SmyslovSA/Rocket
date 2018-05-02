@@ -1,5 +1,7 @@
 ﻿namespace Rocket.DAL.Common.DbModels
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Представляет модель хранения данных о человеке
     /// </summary>
@@ -29,5 +31,11 @@
         /// Возвращает или задает дату рождения и пол
         /// </summary>
         public DbIdentity Identity { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает пользователя,
+        /// к которому относится данный человек
+        /// </summary>
+        public DbUser DbUser { get; set; }
     }
 }

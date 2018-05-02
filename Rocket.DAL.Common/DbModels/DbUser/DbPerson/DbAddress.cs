@@ -39,5 +39,10 @@
         /// Возвращает или задает номер квартиры
         /// </summary>
         public string Flat { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает контактные данные, к которым относится адрес
+        /// </summary>
+        public DbCommunication DbCommunication { get; set; }
     }
 }
