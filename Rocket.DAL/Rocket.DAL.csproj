@@ -79,9 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\PersonalArea\DbCategoryConfiguration.cs" />
     <Compile Include="Configurations\DbCountryConfiguration.cs" />
+    <Compile Include="Configurations\PersonalArea\DbEmailConfiguration.cs" />
     <Compile Include="Configurations\DbEpisodeConfiguration.cs" />
     <Compile Include="Configurations\DbFilmConfiguration.cs" />
+    <Compile Include="Configurations\PersonalArea\DbGenreConfiguration.cs" />
     <Compile Include="Configurations\DbMusicConfiguration.cs" />
     <Compile Include="Configurations\DbMusicGenreConfiguration.cs" />
     <Compile Include="Configurations\DbMusicianConfiguration.cs" />
@@ -89,6 +92,7 @@
     <Compile Include="Configurations\DbPersonConfiguration.cs" />
     <Compile Include="Configurations\DbSeasonConfiguration.cs" />
     <Compile Include="Configurations\DbTVSeriesConfiguration.cs" />
+    <Compile Include="Configurations\PersonalArea\DbUserConfiguration.cs" />
     <Compile Include="Configurations\DbVideoGenreConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />

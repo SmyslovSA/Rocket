@@ -12,8 +12,8 @@ namespace Rocket.BL.Common.Models
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// персональный список релизов в виде: категория продукта - список жанров продукта
+        /// персональный список релизов в виде списка жанров 
         /// </summary>
-        public IDictionary<Category, ICollection<Genre>> Categories { get; set; }    
+        public ICollection<Genre> Genres { get; set; }    
     }
 }
