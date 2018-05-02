@@ -8,6 +8,11 @@
     public class Identity
     {
         /// <summary>
+        /// Возвращает или задает уникальный идентификационный номер сведений о личности
+        /// </summary>
+        public int Id { get; set; }
+        
+        /// <summary>
         /// Задает или возвращает дату рождения пользователя
         /// </summary>
         public  DateTime? DateOfBirth { get; set; }
