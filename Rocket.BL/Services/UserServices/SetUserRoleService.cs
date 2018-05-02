@@ -2,6 +2,10 @@
 
 namespace Rocket.BL.Services.UserServices
 {
+    /// <summary>
+    /// установки роли для пользователя
+    /// если не указана, то дефолтовая
+    /// </summary>
     public class SetUserRoleService
     {
         private readonly IUser _user;

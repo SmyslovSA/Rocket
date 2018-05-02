@@ -3,6 +3,9 @@ using Rocket.BL.Common.Services;
 
 namespace Rocket.BL.Services.UserServices
 {
+    /// <summary>
+    /// Добавление/удаление пермишенов у ролей + логирование
+    /// </summary>
     public class PermissionManagerService : IPermissionService
     {
         private readonly IRole _role;

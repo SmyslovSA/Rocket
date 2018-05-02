@@ -2,6 +2,9 @@
 
 namespace Rocket.BL.Services.UserServices
 {
+    /// <summary>
+    /// проверяем юзера на наличие пермишена
+    /// </summary>
     public class UserHasPermissionService
     {
         private readonly IUser _user;
