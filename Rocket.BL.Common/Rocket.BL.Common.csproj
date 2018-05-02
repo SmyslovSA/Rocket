@@ -78,6 +78,7 @@
     <Compile Include="Models\PersonalArea\SimpleUser.cs" />
     <Compile Include="Models\PersonalArea\AuthorisedUser.cs" />
     <Compile Include="Models\UserRoles\IPermission.cs" />
+    <Compile Include="Models\UserRoles\IRole.cs" />
     <Compile Include="Models\UserRoles\IUser.cs" />
     <Compile Include="Models\UserRoles\Permission.cs" />
     <Compile Include="Models\UserRoles\Role.cs" />

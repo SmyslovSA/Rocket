@@ -1,11 +1,11 @@
 namespace Rocket.BL.Common.Models.UserRoles
 {
-    public class Permission
+    public class Permission : IPermission
     {
         /// <summary>
         /// uniq identificator of permission
         /// </summary>
-        public ushort PermisssionId { get; set; }
+        public ushort PermissionId { get; set; }
 
         /// <summary>
         /// description of permission

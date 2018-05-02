@@ -3,8 +3,8 @@
     public interface IPermission
     {
         /// <summary>
-        /// id пермишена. // todo но можем взять и модельку
+        /// id пермишена.
         /// </summary>
-        short PermissionId { get; set; }
+        ushort PermissionId { get; set; }
     }
 }
