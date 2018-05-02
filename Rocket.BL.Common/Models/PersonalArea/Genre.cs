@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.Models
+﻿namespace Rocket.BL.Common.Models.PersonalArea
 {
     /// <summary>
     /// класс, содержащий данные о жанрах фильма, сериала или музыки

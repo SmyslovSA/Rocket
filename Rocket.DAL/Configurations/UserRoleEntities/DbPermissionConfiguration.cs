@@ -12,7 +12,7 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
             ToTable("t_user_permission")
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
-                .HasColumnName("permission_id");
+                .HasColumnName("prm_id");
 
             Property(t => t.Description)
                 .IsOptional()
@@ -22,7 +22,7 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
 
             Property(t => t.ValueName)
                 .IsRequired()
-                .HasColumnName("valueName")
+                .HasColumnName("value_name")
                 .HasMaxLength(50)
                 .IsVariableLength();
 

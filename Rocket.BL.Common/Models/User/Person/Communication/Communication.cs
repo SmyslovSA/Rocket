@@ -10,7 +10,7 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Возвращает или задает уникальный идентификационный номер контактной информации
         /// </summary>
-        public int Id { get; set }
+        public int Id { get; set; }
         
         /// <summary>
         /// Задает или возвращает сведения о том, как обращаться к пользователю

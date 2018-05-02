@@ -10,7 +10,7 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Задает или возвращает уникальный идентификатор адреса
         /// </summary>
-        public int Id { get; set }
+        public int Id { get; set; }
         
         /// <summary>
         /// Задает или возвращает почтовый индекс
