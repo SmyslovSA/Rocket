@@ -19,13 +19,8 @@ namespace Rocket.DAL.Configurations
                 HasColumnName("Name");
 
             HasMany(g => g.Genres).
-                WithMany(c => c.Categories).
-                Map(m =>
-                {
-                    m.ToTable("CategoriesGenres").
-                    MapLeftKey("CategoryId").
-                    MapRightKey("GenreId");
-                });
+                WithRequired(c => c.Category).
+                HasForeignKey(c => c.CategoryId);
         }
     }
 }

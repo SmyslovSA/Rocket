@@ -17,6 +17,9 @@ namespace Rocket.DAL.Configurations
                 HasMaxLength(30).
                 IsVariableLength().
                 HasColumnName("Name");
+
+            Property(p => p.CategoryId).
+                HasColumnName("CategoryId");
         }
     }
 }

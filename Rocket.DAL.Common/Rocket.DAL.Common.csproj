@@ -45,7 +45,6 @@
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbUser.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbGenre.cs" />
-    <Compile Include="DbModels\DbPersonalArea\DbPersonalizedTape.cs" />
     <Compile Include="DbModels\DbCountry.cs" />
     <Compile Include="DbModels\DbEpisode.cs" />
     <Compile Include="DbModels\DbFilm.cs" />
