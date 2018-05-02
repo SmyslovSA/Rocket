@@ -57,6 +57,7 @@
     <Compile Include="Interfaces\IPersonalData.cs" />
     <Compile Include="Models\Notification\BillingMessage.cs" />
     <Compile Include="Models\Notification\ConfirmationMessage.cs" />
+    <Compile Include="Models\Notification\CustomMessage.cs" />
     <Compile Include="Models\Notification\FilmForNotification.cs" />
     <Compile Include="Models\Notification\MessageAboutFilm.cs" />
     <Compile Include="Models\Notification\MessageAboutMusic.cs" />
