@@ -1,12 +1,11 @@
 ﻿using System;
-using Rocket.BL.Common.Models.User.Account.StatusAndLevel;
 
-namespace Rocket.BL.Common.Models.User.Account
+namespace Rocket.DAL.Common.DbModels.DbUser.DbAccount
 {
     /// <summary>
-    /// Представляет информацию об аккаунте
+    /// Представляет модель хранения данных об аккаунта пользователя
     /// </summary>
-    public class Account
+    public class DbAccount
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификационный номер аккаунта
@@ -27,13 +26,13 @@ namespace Rocket.BL.Common.Models.User.Account
         /// Возвращает или задает статус аккаунта
         /// (активирован, не активирован, деактивирован, забанен и так далее)
         /// </summary>
-        public AccountStatus AccountStatus { get; set; }
+        public DbAccountStatus AccountStatus { get; set; }
 
         /// <summary>
         /// Возвращает или задает уровень пользователя
         /// (пока что это - обычный и премиум пользователь)
         /// </summary>
-        public AccountLevel AccountLevel { get; set; }
+        public DbAccountLevel AccountLevel { get; set; }
 
         /// <summary>
         /// Возвращает или задает необходимость подтверждения регистрации
@@ -46,5 +45,11 @@ namespace Rocket.BL.Common.Models.User.Account
         /// или изменения статуса аккаунта.
         /// </summary>
         public DateTime DateTimeStamp { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает пользователя,
+        /// к которому относится данный аккаунт
+        /// </summary>
+        public DbUser DbUser { get; set; }
     }
 }

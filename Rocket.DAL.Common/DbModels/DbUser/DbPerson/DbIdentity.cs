@@ -1,26 +1,31 @@
 ﻿using System;
-using Rocket.DAL.Common.DbModels;
 
-namespace Rocket.BL.Common.Models.User.Person.Identity
-{
+namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
+{ 
     /// <summary>
-    /// Представляет сведения, неотъемлемые от личности
+    /// Представляет модель хранения данных о персоналии пользователя
     /// </summary>
-    public class Identity
+    public class DbIdentity
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификационный номер сведений о личности
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Задает или возвращает дату рождения пользователя
         /// </summary>
-        public  DateTime? DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
         /// Задает или возвращает пол пользователя
         /// </summary>
         public Gender? Gender { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает человека (компонент пользователя),
+        /// в которых указан данная индивидум
+        /// </summary>
+        public DbPerson DbPerson { get; set; }
     }
 }

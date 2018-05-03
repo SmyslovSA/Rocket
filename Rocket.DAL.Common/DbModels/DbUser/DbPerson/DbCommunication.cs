@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 
-namespace Rocket.BL.Common.Models.User.Person.Communication
+namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
 {
     /// <summary>
-    /// Представляет точку входа для контактной информации
+    /// Представляет модель хранения контактных данных человека
     /// </summary>
-    public class Communication
+    public class DbCommunication
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификационный номер контактной информации
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Задает или возвращает сведения о том, как обращаться к пользователю
         /// </summary>
-        public HowToCall HowToCall { get; set; }
-        
+        public DbHowToCall HowToCall { get; set; }
+
         /// <summary>
         /// Задает или возвращает коллекцию телефонных номеров пользователя
         /// </summary>
@@ -30,6 +30,11 @@ namespace Rocket.BL.Common.Models.User.Person.Communication
         /// <summary>
         /// Возвращает или задает почтовый адрес пользователя
         /// </summary>
-        public Rocket.BL.Common.Models.User.Person.Address.Address MailAddress { get; set; }
+        public DbAddress MailAddress { get; set; }
+
+        /// <summary>
+        /// Задает или возвращает человека пользователя
+        /// </summary>
+        public DbPerson DbPerson { get; set; }
     }
 }

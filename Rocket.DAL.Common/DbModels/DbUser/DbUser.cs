@@ -1,25 +1,23 @@
-﻿using Rocket.BL.Common.Models.User;
-
-namespace Rocket.BL.Common.Models.User
+﻿namespace Rocket.DAL.Common.DbModels.DbUser
 {
     /// <summary>
-    /// Представляет информацию о пользователе
+    /// Представляет модель хранения данных о пользователе
     /// </summary>
-    public class User
+    public class DbUser
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификатор пользователя
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Возвращает или задает информацию о человеке
         /// </summary>
-        public Person.Person Person { get; set; }
+        public DbPerson.DbPerson Person { get; set; }
 
         /// <summary>
         /// Возвращает или задает информацию об аккаунте
         /// </summary>
-        public Account.Account Account { get; set; }
+        public DbAccount.DbAccount Account { get; set; }
     }
 }
