@@ -6,30 +6,34 @@ namespace Rocket.BL.Services.UserServices
     /// установки роли для пользователя
     /// если не указана, то дефолтовая
     /// </summary>
-    public class SetUserRoleService
+    public class UserRoleService
     {
         private readonly IUser _user;
         private readonly IRole _role;
 
-        private const IRole DefaultRole = null;
-
-        public SetUserRoleService(IUser user, IRole role)
+        public UserRoleService(IUser user, IRole role)
         {
             _user = user;
             _role = role;
         }
 
         // todo добавить роль по умолчанию в куда-нибудь
+        private const IRole DefaultRole = null;
 
-        public void ChangeUserRole(IUser user)
+        // принимаем юзера и флаг для действия
+        public void RequestUserRole(IUser user, bool changeRole)
         {
-            ChangeUserRole(user, DefaultRole);
+            if (changeRole)
+                ChangeUserRole(_user, DefaultRole);
+
+            else
+                _user?.GetUserRole();
         }
 
         public void ChangeUserRole(IUser user, IRole role)
         {
             // todo сетапим роль нашему юзверю
-            // user?.SetUserRole(role);
+            // _user?.SetUserRole(_role);
         }
     }
 }

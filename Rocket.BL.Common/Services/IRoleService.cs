@@ -15,7 +15,5 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <returns></returns>
         IEnumerable FetchAllByRole(IRole role);
-
-
     }
 }
