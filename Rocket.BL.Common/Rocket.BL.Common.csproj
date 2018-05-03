@@ -56,9 +56,6 @@
     <Compile Include="Mappings\SeasonMappingProfile.cs" />
     <Compile Include="Mappings\TVSeriesMappingProfile.cs" />
     <Compile Include="Mappings\VideoGenreMappingProfile.cs" />
-    <Compile Include="Interfaces\IEmailManager.cs" />
-    <Compile Include="Interfaces\IGenreManager.cs" />
-    <Compile Include="Interfaces\IPersonalData.cs" />
     <Compile Include="Models\Notification\BillingMessage.cs" />
     <Compile Include="Models\Notification\ConfirmationMessage.cs" />
     <Compile Include="Models\Notification\CustomMessage.cs" />
@@ -68,6 +65,9 @@
     <Compile Include="Models\Notification\MessageAboutTVSeries.cs" />
     <Compile Include="Models\Notification\MusicForNotification.cs" />
     <Compile Include="Models\Notification\TVSeriesForNotification.cs" />
+    <Compile Include="Services\IEmailManager.cs" />
+    <Compile Include="Services\IGenreManager.cs" />
+    <Compile Include="Services\IPersonalData.cs" />
     <Compile Include="Models\PersonalArea\Category.cs" />
     <Compile Include="Models\PersonalArea\Genre.cs" />
     <Compile Include="Models\PersonalArea\PersonalizedTape.cs" />
