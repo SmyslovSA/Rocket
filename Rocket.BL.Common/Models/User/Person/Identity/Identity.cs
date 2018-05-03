@@ -1,12 +1,18 @@
-﻿namespace Rocket.BL.Common.Models.User
-{
-    using System;
+﻿using System;
+using Rocket.DAL.Common.DbModels;
 
+namespace Rocket.BL.Common.Models.User.Person.Identity
+{
     /// <summary>
     /// Представляет сведения, неотъемлемые от личности
     /// </summary>
     public class Identity
     {
+        /// <summary>
+        /// Возвращает или задает уникальный идентификационный номер сведений о личности
+        /// </summary>
+        public int Id { get; set; }
+        
         /// <summary>
         /// Задает или возвращает дату рождения пользователя
         /// </summary>

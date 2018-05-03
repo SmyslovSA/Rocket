@@ -16,8 +16,16 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// связь многие-ко-многим с таблицей DbCategory
+        /// внешний  ключ к таблице Category
         /// </summary>
-        public ICollection<DbCategory> Categories { get; set; }
+        public int? CategoryId { get; set; }
+        /// <summary>
+        /// ссылка на связанную Category
+        /// </summary>
+        public DbCategory Category { get; set; }
+        /// <summary>
+        /// коллекция User подписанных на данный жанр
+        /// </summary>
+        public ICollection<DbUser> Users { get; set; }
     }
 }

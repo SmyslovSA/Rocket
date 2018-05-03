@@ -35,5 +35,9 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// список e-mail пользователя
         /// </summary>
         public ICollection<DbEmail> Email { get; set; }
+        /// <summary>
+        /// коллекция выбранных жанров пользователя
+        /// </summary>
+        public ICollection<DbGenre> Genres { get; set; }
     }
 }

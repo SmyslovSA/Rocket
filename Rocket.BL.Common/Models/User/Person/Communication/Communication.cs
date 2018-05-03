@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace Rocket.BL.Common.Models.User
+namespace Rocket.BL.Common.Models.User.Person.Communication
 {
     /// <summary>
     /// Представляет точку входа для контактной информации
     /// </summary>
     public class Communication
     {
+        /// <summary>
+        /// Возвращает или задает уникальный идентификационный номер контактной информации
+        /// </summary>
+        public int Id { get; set; }
+        
         /// <summary>
         /// Задает или возвращает сведения о том, как обращаться к пользователю
         /// </summary>
@@ -25,6 +30,6 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Возвращает или задает почтовый адрес пользователя
         /// </summary>
-        public Address MailAddress { get; set; }
+        public Rocket.BL.Common.Models.User.Person.Address.Address MailAddress { get; set; }
     }
 }

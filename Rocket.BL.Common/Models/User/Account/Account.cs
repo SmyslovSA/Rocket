@@ -1,7 +1,7 @@
 ﻿using System;
-using Rocket.BL.Common.Models.UserRoles;
+using Rocket.BL.Common.Models.User.Account.StatusAndLevel;
 
-namespace Rocket.BL.Common.Models.User
+namespace Rocket.BL.Common.Models.User.Account
 {
     /// <summary>
     /// Представляет информацию об аккаунте
