@@ -18,9 +18,14 @@ namespace Rocket.DAL.Common.UoW
         /// </summary>
         IDbTVSeriesRepository TVSeriesRepository { get; }
 
-        /// <summary>
-        /// Сохраняет изменения в хранилище данных
-        /// </summary>
-        void Save();
+		/// <summary>
+		/// Возвращает репозиторий для сериалов
+		/// </summary>
+		IDbMusicRepository MusicRepository { get; }
+
+		/// <summary>
+		/// Сохраняет изменения в хранилище данных
+		/// </summary>
+		void Save();
     }
 }

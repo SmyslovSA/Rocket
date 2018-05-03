@@ -78,16 +78,25 @@
     <Compile Include="ReleaseList\FakeData\FakeDbFilmsData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeCountriesData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeDbEpisodesData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbMusicData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbMusicGenreData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbMusicianData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeDbMusicTrackData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeEpisodesData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeFilmsData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeDbPersonsData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeDbSeasonsData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeMusicData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeMusicGenreData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeMusicianData.cs" />
+    <Compile Include="ReleaseList\FakeData\FakeMusicTrackData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeSeasonsData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeDbVideoGenresData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeDbTVSerialsData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeVideoGenresData.cs" />
     <Compile Include="ReleaseList\FakeData\FakePersonsData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeTVSerialsData.cs" />
+    <Compile Include="ReleaseList\FakeData\MusicDetailedInfoServiceTest.cs" />
     <Compile Include="ReleaseList\FilmDetailedInfoServiceTest.cs" />
     <Compile Include="ReleaseList\TVSeriesDetailedInfoServiceTest.cs" />
   </ItemGroup>
