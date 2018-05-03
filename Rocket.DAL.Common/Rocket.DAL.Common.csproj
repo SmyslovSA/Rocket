@@ -84,7 +84,7 @@
     <Compile Include="Repositories\IDbUserRepository\IDbUserRepositary.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbAddressRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbCommunicationRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbcountryRepository.cs" />
+    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbCountryRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbHowToCallRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbIdentityRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbLanguageRepository.cs" />

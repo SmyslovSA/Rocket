@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Rocket.BL.Common.Models.User.Person.Personality;
-using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.DbUser.DbPerson;
 
 namespace Rocket.BL.Common.Mappings.UserMappingProfile.UserPersonMappingProfile
 {
