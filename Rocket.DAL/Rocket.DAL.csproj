@@ -89,7 +89,6 @@
     <Compile Include="Configurations\DbMusicGenreConfiguration.cs" />
     <Compile Include="Configurations\DbMusicianConfiguration.cs" />
     <Compile Include="Configurations\DbMusicTrackConfiguration.cs" />
-    <Compile Include="Configurations\DbPersonalizedTapeConfiguration.cs" />
     <Compile Include="Configurations\DbPersonConfiguration.cs" />
     <Compile Include="Configurations\DbSeasonConfiguration.cs" />
     <Compile Include="Configurations\DbTVSeriesConfiguration.cs" />
