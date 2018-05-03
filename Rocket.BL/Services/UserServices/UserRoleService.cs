@@ -17,17 +17,17 @@ namespace Rocket.BL.Services.UserServices
             _role = role;
         }
 
+        public void RequestUserRole(IUser user)
+        {
+                _user?.GetUserRole();
+        }
+
         // todo добавить роль по умолчанию в куда-нибудь
         private const IRole DefaultRole = null;
 
-        // принимаем юзера и флаг для действия
-        public void RequestUserRole(IUser user, bool changeRole)
+        public void ChangeUserRole(IUser user)
         {
-            if (changeRole)
-                ChangeUserRole(_user, DefaultRole);
-
-            else
-                _user?.GetUserRole();
+            ChangeUserRole(_user, DefaultRole);
         }
 
         public void ChangeUserRole(IUser user, IRole role)
