@@ -13,19 +13,16 @@ namespace Rocket.BL.Services
     /// Представляет сервис для работы с детальной информацией
     /// о сериалах в хранилище данных
     /// </summary>
-    public class TVSeriesDetailedInfoService : ITVSeriesDetailedInfoService
+    public class TVSeriesDetailedInfoService : DisposableService, ITVSeriesDetailedInfoService
     {
-        private ITVSeriesUnitOfWork _unitOfWork;
-        private bool disposedValue = false;
-
         /// <summary>
         /// Создает новый экземпляр <see cref="TVSeriesDetailedInfoService"/>
         /// с заданным unit of work
         /// </summary>
         /// <param name="unitOfWork">Экземпляр unit of work</param>
-        public TVSeriesDetailedInfoService(ITVSeriesUnitOfWork unitOfWork)
+        public TVSeriesDetailedInfoService(IUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
-            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -85,32 +82,6 @@ namespace Rocket.BL.Services
             return this._unitOfWork.TVSeriesRepository.Get(
                 Mapper.Map<Expression<Func<DbTVSeries, bool>>>(filter))
                 .FirstOrDefault() != null;
-        }
-
-        /// <summary>
-        /// Освобождает управляемые ресурсы
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Освобождает управляемые ресурсы
-        /// </summary>
-        /// <param name="disposing">Указывает был ли уже вызван метода Dispose ранее</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    this._unitOfWork.Dispose();
-                }
-
-                disposedValue = true;
-            }
         }
     }
 }

@@ -104,9 +104,7 @@
     <Compile Include="Repositories\IDbUserRepository\IDbAccountRepository\IDbAccountStatusRepository.cs" />
     <Compile Include="Repositories\IDbVideoGenreRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="UoW\IDbFilmUnitOfWork.cs" />
     <Compile Include="UoW\IDbMusicUnitOfWork.cs" />
-    <Compile Include="UoW\ITVSeriesUnitOfWork.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -53,7 +53,7 @@ namespace Rocket.BL.Tests.ReleaseList
                 .Callback((object id) => this._fakeDbFilmsData.Films
                     .Remove(this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id)));
 
-            var mockDbFilmUnitOfWork = new Mock<IDbFilmUnitOfWork>();
+            var mockDbFilmUnitOfWork = new Mock<IUnitOfWork>();
             mockDbFilmUnitOfWork.Setup(mock => mock.FilmRepository)
                 .Returns(() => mockDbFilmRepository.Object);
 
