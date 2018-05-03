@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿using Rocket.BL.Common.Models.User.Person.Localization;
+
+namespace Rocket.BL.Common.Models.User.Person.Address
 {
     /// <summary>
     /// Тип адреса. Классика.

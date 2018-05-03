@@ -1,7 +1,7 @@
-﻿namespace Rocket.DAL.Common.DbModels
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Rocket.DAL.Common.DbModels.DbUser.DbAccount
+{
     /// <summary>
     /// Представляет модель хранения данных об уровне аккаунта пользователя
     /// </summary>

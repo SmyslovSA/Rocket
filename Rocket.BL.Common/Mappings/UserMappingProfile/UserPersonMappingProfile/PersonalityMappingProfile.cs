@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Rocket.BL.Common.Models.User;
+using Rocket.BL.Common.Models.User.Person.Personality;
 using Rocket.DAL.Common.DbModels;
 
-namespace Rocket.BL.Common.Mappings
+namespace Rocket.BL.Common.Mappings.UserMappingProfile.UserPersonMappingProfile
 {
     /// <summary>
     /// Профиль сопоставления доменной модели идентификатора личности пользователя с моделью хранения данных идентификатора личности

@@ -1,4 +1,4 @@
-﻿namespace Rocket.DAL.Common.DbModels
+﻿namespace Rocket.DAL.Common.DbModels.DbUser.DbAccount
 {
     /// <summary>
     /// Представляет модель хранения данных о пользователе
@@ -13,7 +13,7 @@
         /// <summary>
         /// Возвращает или задает информацию о человеке
         /// </summary>
-        public Dbperson Person { get; set; }
+        public DbPerson.DbPerson Person { get; set; }
 
         /// <summary>
         /// Возвращает или задает информацию об аккаунте

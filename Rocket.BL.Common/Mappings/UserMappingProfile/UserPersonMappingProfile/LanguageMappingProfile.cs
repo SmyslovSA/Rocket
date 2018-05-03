@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Rocket.BL.Common.Models.User;
+using Rocket.BL.Common.Models.User.Person.Localization;
 using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.BL.Common.Mappings.UserMappingProfile.UserPersonMappingProfile

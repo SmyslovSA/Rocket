@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿namespace Rocket.BL.Common.Models.User.Person.Personality
 {
     /// <summary>
     /// Содержит идентификатор личности. Как правило,

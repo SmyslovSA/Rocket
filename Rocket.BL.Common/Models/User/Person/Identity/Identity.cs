@@ -1,7 +1,7 @@
 ﻿using System;
 using Rocket.DAL.Common.DbModels;
 
-namespace Rocket.BL.Common.Models.User
+namespace Rocket.BL.Common.Models.User.Person.Identity
 {
     /// <summary>
     /// Представляет сведения, неотъемлемые от личности

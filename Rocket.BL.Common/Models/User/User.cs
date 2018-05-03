@@ -13,11 +13,11 @@
         /// <summary>
         /// Возвращает или задает информацию о человеке
         /// </summary>
-        public Person Person { get; set; }
+        public Person.Person Person { get; set; }
 
         /// <summary>
         /// Возвращает или задает информацию об аккаунте
         /// </summary>
-        public Account Account { get; set; }
+        public Account.Account Account { get; set; }
     }
 }

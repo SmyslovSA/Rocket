@@ -1,8 +1,7 @@
-﻿namespace Rocket.DAL.Common.DbModels
+﻿using System.Collections.Generic;
+
+namespace Rocket.DAL.Common.DbModels.DbUser.DbAccount
 {
-
-    using System.Collections.Generic;
-
     /// <summary>
     /// Представляет модель хранения данных о статусе аккаунта
     /// </summary>

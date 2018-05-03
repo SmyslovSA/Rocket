@@ -1,7 +1,5 @@
-﻿namespace Rocket.DAL.Common.DbModels
+﻿namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// Представляет модель хранения данных о личности
     /// </summary>
@@ -25,6 +23,6 @@
         /// <summary>
         /// Возвращает или задает человека
         /// </summary>
-        public Dbperson Dbperson { get; set; }
+        public DbPerson Dbperson { get; set; }
     }
 }

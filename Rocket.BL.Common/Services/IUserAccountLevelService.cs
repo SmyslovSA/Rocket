@@ -1,4 +1,4 @@
-﻿using Rocket.BL.Common.Models.User;
+﻿using Rocket.BL.Common.Models.User.Account;
 
 namespace Rocket.BL.Common.Services
 {

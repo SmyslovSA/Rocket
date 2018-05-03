@@ -1,12 +1,11 @@
-﻿using Rocket.DAL.Common.DbModels;
+﻿using Rocket.DAL.Common.DbModels.DbUser.DbAccount;
 
-    namespace Rocket.DAL.Common.Repositories
+    namespace Rocket.DAL.Common.Repositories.IDbUserRepository.IDbAccountRepository
     {
-    /// <summary>
-    /// Представляет репозитарий для данных аккаунта пользователя
-    /// </summary>
-    public interface IDbAccountRepository : IRepository<DbAccount>
-    {
-        
+        /// <summary>
+        /// Представляет репозитарий для данных аккаунта пользователя
+        /// </summary>
+        public interface IDbAccountRepository : IRepository<DbAccount>
+        { 
+        }
     }
-}

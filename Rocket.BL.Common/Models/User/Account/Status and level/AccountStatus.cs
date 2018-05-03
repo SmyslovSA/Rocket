@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rocket.BL.Common.Models.User
+namespace Rocket.BL.Common.Models.User.Account
 {
     /// <summary>
     /// Представляет информацию о статусе аккаунта пользователя

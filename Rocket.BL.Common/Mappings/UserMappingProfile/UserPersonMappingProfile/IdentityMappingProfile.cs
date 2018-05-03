@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Rocket.BL.Common.Models.User;
-using Rocket.DAL.Common.DbModels;
+using Rocket.BL.Common.Models.User.Person.Identity;
+using Rocket.DAL.Common.DbModels.DbUser.DbPerson;
 
-namespace Rocket.BL.Common.Mappings
+namespace Rocket.BL.Common.Mappings.UserMappingProfile.UserPersonMappingProfile
 {
     /// <summary>
     /// Профиль сопоставления доменной модели сведений, неотъемлемые от личности
-    /// с моделью хранения данных о сведениях, неотъемлемые от личности
+    /// с моделью хранения данных о сведениях, неотъемлемых от личности
     /// </summary>
     public class IdentityMappingProfile : Profile
     {

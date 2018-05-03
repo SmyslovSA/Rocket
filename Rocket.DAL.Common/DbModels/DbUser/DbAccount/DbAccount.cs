@@ -1,7 +1,7 @@
-﻿namespace Rocket.DAL.Common.DbModels
+﻿using System;
+
+namespace Rocket.DAL.Common.DbModels.DbUser.DbAccount
 {
-    using System;
-    
     /// <summary>
     /// Представляет модель хранения данных об аккаунта пользователя
     /// </summary>

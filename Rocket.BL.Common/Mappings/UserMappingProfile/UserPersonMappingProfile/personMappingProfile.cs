@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using Rocket.BL.Common.Models.User;
-using Rocket.DAL.Common.DbModels;
+using Rocket.BL.Common.Models.User.Person;
+using Rocket.DAL.Common.DbModels.DbUser.DbPerson;
 
-namespace Rocket.BL.Common.Mappings
+namespace Rocket.BL.Common.Mappings.UserMappingProfile.UserPersonMappingProfile
 {
     /// <summary>
     /// Профиль сопоставления доменной модели человека (личности) пользователя с моделью хранения личности (человека) пользователя
     /// </summary>
-    public class personMappingProfile : Profile
+    public class PersonMappingProfile : Profile
     {
-        public personMappingProfile()
+        public PersonMappingProfile()
         {
-            CreateMap<Person, Dbperson>()
+            CreateMap<Person, DbPerson>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Personality, opt => opt.MapFrom(src => src.Personality))
                 .ForMember(dest => dest.Communication, opt => opt.MapFrom(src => src.Communication))

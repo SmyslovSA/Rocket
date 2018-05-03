@@ -1,11 +1,9 @@
-﻿namespace Rocket.DAL.Common.DbModels
+﻿namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// Представляет модель хранения данных о человеке
     /// </summary>
-    public class Dbperson
+    public class DbPerson
     {
         /// <summary>
         /// Задает или возвращает уникальный идентификатор пользователя

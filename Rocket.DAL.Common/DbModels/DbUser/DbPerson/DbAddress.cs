@@ -1,4 +1,4 @@
-﻿namespace Rocket.DAL.Common.DbModels
+﻿namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
 {
     /// <summary>
     /// Представляет модель хранениея данных адреса для сведений о человеке пользователя
@@ -18,7 +18,7 @@
         /// <summary>
         /// Возвращает или задает страну
         /// </summary>
-        public Dbcountry Country { get; set; }
+        public DbCountry Country { get; set; }
 
         /// <summary>
         /// Возвращает или задает город

@@ -1,7 +1,7 @@
-﻿namespace Rocket.DAL.Common.DbModels
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
+{
     /// <summary>
     /// Представляет модель хранения данных о языке пользователя
     /// </summary>
