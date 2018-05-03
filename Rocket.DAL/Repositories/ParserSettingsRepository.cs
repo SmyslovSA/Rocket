@@ -17,7 +17,7 @@ namespace Rocket.DAL.Repositories
             _rocketContext = rocketContext;
         }
 
-        public void Delete(object id)
+        public void Delete<T>(T id)
         {
             throw new NotImplementedException();
         }
@@ -32,9 +32,9 @@ namespace Rocket.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public ParserSettingsEntity GetById(object id)
+        public ParserSettingsEntity GetById<T>(T id)
         {
-            return _rocketContext.ParserSettings.Find((int)id) 
+            return _rocketContext.ParserSettings.Find(id) 
                 ?? throw new InvalidOperationException();  // todo customize ex
         }
 

@@ -19,7 +19,7 @@ namespace Rocket.DAL.Repositories
             _rocketContext = rocketContext;
         }
 
-        public void Delete(object id)
+        public void Delete<T>(T id)
         {
             throw new NotImplementedException();
         }
@@ -39,7 +39,7 @@ namespace Rocket.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public ResourceItemEntity GetById(object id)
+        public ResourceItemEntity GetById<T>(T id)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,6 @@
 ﻿namespace Rocket.Parser.Heplers
 {
-    internal static class SectionGroupHelper
+    internal static class ProjectNameConstants
     {
         public const string LostfilmSectionGroupName = "lostfilm";
         public const string AlbumInfoSectionGroupName = "albumInfo";
@@ -12,7 +12,8 @@
 
         public const string TvSerailListHeaderSelectorsSectionName = "tvSerailListHeaderSelectors";
         public const string TvSerailSelectorsSelectorsSectionName = "tvSerailSelectors";
-        public const string EpisodeSelectorsSectionName = "Episode";
-        
+        public const string EpisodeSelectorsSectionName = "episode";
+        public const string CastSectionName = "cast";
+
     }
 }

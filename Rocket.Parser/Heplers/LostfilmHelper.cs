@@ -15,6 +15,7 @@ namespace Rocket.Parser.Heplers
         private static readonly NameValueCollection TvSerailListHeaderSelectors;
         private static readonly NameValueCollection TvSerailSelectors;
         private static readonly NameValueCollection EpisodeSelectors;
+        private static readonly NameValueCollection CastSelectors;
 
         //настройки запуска
         private const string ParseIsSwitchOnKey = "ParseIsSwitchOn";
@@ -67,8 +68,19 @@ namespace Rocket.Parser.Heplers
         private const string RuKeywordKey = "RuKeyword";
         private const string EngKeywordKey = "EngKeyword";
         private const string DateFormatKey = "DateFormat";
-        
 
+        //настройки парсинга актерского и режисерского составов
+        private const string ClassHeaderSimpleKey = "ClassHeaderSimple";
+        private const string ClassRowKey = "ClassRow";
+        private const string ClassAloadThumbKey = "ClassAloadThumb";
+        private const string ClassNameRuKey = "ClassNameRu";
+        private const string ClassNameEnKey = "ClassNameEn";
+        private const string SelectorCastElementKey = "SelectorCastElement";
+        private const string SelectorHrefCastElementKey = "SelectorHrefCastElement";
+        private const string KeywordActorsKey = "KeywordActors";
+        private const string KeywordDirectorsKey = "KeywordDirectors";
+        private const string KeywordProducersKey = "KeywordProducers";
+        private const string KeywordWritersKey = "KeywordWriters";
 
         /// <summary>
         /// Инициализируем все необходимые коллекции настроек для парсинга(Singlton).
@@ -76,25 +88,29 @@ namespace Rocket.Parser.Heplers
         static LostfilmHelper()
         {
             RunSettings =(NameValueCollection)ConfigurationManager.GetSection(
-                    SectionGroupHelper.LostfilmSectionGroupName + "/" + SectionGroupHelper.RunSettingsSectionName);
+                    ProjectNameConstants.LostfilmSectionGroupName + "/" + ProjectNameConstants.RunSettingsSectionName);
 
             Urls = (NameValueCollection)ConfigurationManager.GetSection(
-                SectionGroupHelper.LostfilmSectionGroupName + "/" + SectionGroupHelper.UrlsSectionName);
+                ProjectNameConstants.LostfilmSectionGroupName + "/" + ProjectNameConstants.UrlsSectionName);
 
             TakeSettings = (NameValueCollection)ConfigurationManager.GetSection(
-                SectionGroupHelper.LostfilmSectionGroupName + "/" + SectionGroupHelper.TakeSettingsSectionName);
+                ProjectNameConstants.LostfilmSectionGroupName + "/" + ProjectNameConstants.TakeSettingsSectionName);
 
             TvSerailListHeaderSelectors = (NameValueCollection)ConfigurationManager.GetSection(
-                SectionGroupHelper.LostfilmSectionGroupName + "/" + 
-                SectionGroupHelper.TvSerailListHeaderSelectorsSectionName);
+                ProjectNameConstants.LostfilmSectionGroupName + "/" + 
+                ProjectNameConstants.TvSerailListHeaderSelectorsSectionName);
 
             TvSerailSelectors = (NameValueCollection)ConfigurationManager.GetSection(
-                SectionGroupHelper.LostfilmSectionGroupName + "/" +
-                SectionGroupHelper.TvSerailSelectorsSelectorsSectionName);
+                ProjectNameConstants.LostfilmSectionGroupName + "/" +
+                ProjectNameConstants.TvSerailSelectorsSelectorsSectionName);
 
             EpisodeSelectors = (NameValueCollection)ConfigurationManager.GetSection(
-                SectionGroupHelper.LostfilmSectionGroupName + "/" +
-                SectionGroupHelper.EpisodeSelectorsSectionName);
+                ProjectNameConstants.LostfilmSectionGroupName + "/" +
+                ProjectNameConstants.EpisodeSelectorsSectionName);
+
+            CastSelectors = (NameValueCollection)ConfigurationManager.GetSection(
+                ProjectNameConstants.LostfilmSectionGroupName + "/" +
+                ProjectNameConstants.CastSectionName);
         }
 
         public static string GetParseIsSwitchOn()
@@ -142,7 +158,7 @@ namespace Rocket.Parser.Heplers
             return TakeSettings.Get(WaitBeforRetryInSecondsKey);
         }
 
-        public static string GetTakeTvSerialByRequest()
+        public static string GetTakeTvSeriasByRequest()
         {
             return TakeSettings.Get(TakeTvSerialByRequestKey);
         }
@@ -296,6 +312,60 @@ namespace Rocket.Parser.Heplers
         {
             return EpisodeSelectors.Get(DateFormatKey);
         }
-        
+
+        public static string GetClassHeaderSimple()
+        {
+            return CastSelectors.Get(ClassHeaderSimpleKey);
+        }
+
+        public static string GetClassRow()
+        {
+            return CastSelectors.Get(ClassRowKey);
+        }
+
+        public static string GetClassAloadThumb()
+        {
+            return CastSelectors.Get(ClassAloadThumbKey);
+        }
+
+        public static string GetClassNameRu()
+        {
+            return CastSelectors.Get(ClassNameRuKey);
+        }
+
+        public static string GetClassNameEn()
+        {
+            return CastSelectors.Get(ClassNameEnKey);
+        }
+
+        public static string GetSelectorCastElement()
+        {
+            return CastSelectors.Get(SelectorCastElementKey);
+        }
+
+        public static string GetSelectorHrefCastElement()
+        {
+            return CastSelectors.Get(SelectorHrefCastElementKey);
+        }
+
+        public static string GetKeywordActors()
+        {
+            return CastSelectors.Get(KeywordActorsKey);
+        }
+
+        public static string GetKeywordDirectors()
+        {
+            return CastSelectors.Get(KeywordDirectorsKey);
+        }
+
+        public static string GetKeywordProducers()
+        {
+            return CastSelectors.Get(KeywordProducersKey);
+        }
+
+        public static string GetKeywordWriters()
+        {
+            return CastSelectors.Get(KeywordWritersKey);
+        }
     }
 }

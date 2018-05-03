@@ -79,7 +79,7 @@
     <Compile Include="Heplers\BootstrapHelper.cs" />
     <Compile Include="Heplers\CommonHelper.cs" />
     <Compile Include="Heplers\LostfilmHelper.cs" />
-    <Compile Include="Heplers\SectionGroupHelper.cs" />
+    <Compile Include="Heplers\ProjectNameConstants.cs" />
     <Compile Include="Heplers\StringHelper.cs" />
     <Compile Include="Interfaces\INinjectModuleBootstrapper.cs" />
     <Compile Include="Interfaces\IParser.cs" />
@@ -87,7 +87,6 @@
     <Compile Include="Jobs\LostfilmParseJob.cs" />
     <Compile Include="Jobs\AlbumInfoParseJob.cs" />
     <Compile Include="Models\AlbumInfoRelease.cs" />
-    <Compile Include="Models\LostfilmSerialModel.cs" />
     <Compile Include="Parsers\AlbumInfoParser.cs" />
     <Compile Include="Interfaces\IAlbumInfoParser.cs" />
     <Compile Include="Program.cs" />

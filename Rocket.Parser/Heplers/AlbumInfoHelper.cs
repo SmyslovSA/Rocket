@@ -16,10 +16,10 @@ namespace Rocket.Parser.Heplers
         static AlbumInfoHelper()
         {
             RunSettings = (NameValueCollection)ConfigurationManager.GetSection(
-                SectionGroupHelper.AlbumInfoSectionGroupName + "/" + SectionGroupHelper.RunSettingsSectionName);
+                ProjectNameConstants.AlbumInfoSectionGroupName + "/" + ProjectNameConstants.RunSettingsSectionName);
 
             Urls = (NameValueCollection)ConfigurationManager.GetSection(
-                SectionGroupHelper.AlbumInfoSectionGroupName + "/" + SectionGroupHelper.UrlsSectionName);
+                ProjectNameConstants.AlbumInfoSectionGroupName + "/" + ProjectNameConstants.UrlsSectionName);
         }
 
         public static string GetParseIsSwitchOn()

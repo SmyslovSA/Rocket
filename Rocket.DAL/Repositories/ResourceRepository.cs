@@ -19,9 +19,9 @@ namespace Rocket.DAL.Repositories
             _rocketContext = rocketContext;
         }
 
-        public void Delete(object id)
+        public void Delete<T>(T id)
         {
-            _rocketContext.Resources.Remove(_rocketContext.Resources.Find((int) id) 
+            _rocketContext.Resources.Remove(_rocketContext.Resources.Find(id) 
                 ?? throw new InvalidOperationException());
         }
 
@@ -35,9 +35,9 @@ namespace Rocket.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public ResourceEntity GetById(object id)
+        public ResourceEntity GetById<T>(T id)
         {
-            return _rocketContext.Resources.Find((int)id) ?? throw new InvalidOperationException();
+            return _rocketContext.Resources.Find(id) ?? throw new InvalidOperationException();
         }
 
         public void Insert(ResourceEntity entity)

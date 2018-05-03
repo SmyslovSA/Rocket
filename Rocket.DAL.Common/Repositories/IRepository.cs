@@ -30,9 +30,9 @@ namespace Rocket.DAL.Common.Repositories
         /// Возвращает экземпляр <see cref="TEntity"/>,
         /// соответствующий заданному идентификатору, из хранилища данных
         /// </summary>
-        /// <param name="id">Идентификатор</param>
+        /// <param name="id">Идентификатор<see cref="TKey"/></param>
         /// <returns>Экземпляр <see cref="TEntity"/></returns>
-        TEntity GetById(object id);
+        TEntity GetById<TKey>(TKey id);
 
         /// <summary>
         /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
@@ -50,8 +50,8 @@ namespace Rocket.DAL.Common.Repositories
         /// Удаляет экземпляр <see cref="TEntity"/>,
         /// соответствующий заданному идентификатору, из хранилища данных
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        void Delete(object id);
+        /// <param name="id">Идентификатор<see cref="TKey"/></param>
+        void Delete<TKey>(TKey id);
 
         /// <summary>
         /// Удаляет заданный экземпляр <see cref="TEntity"/> из хранилища данных

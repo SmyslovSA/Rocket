@@ -18,6 +18,7 @@
         public const string TrAttribute = "tr";
         public const string DivAttribute = "div";
         public const string BrAttribute = "br";
+        public const string AutoloadAttribute = "autoload";
         
         public const string ContainerKey = "container";
     }

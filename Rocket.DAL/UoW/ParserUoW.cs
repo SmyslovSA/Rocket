@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using Rocket.DAL.Common.Context;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Repositories;
@@ -36,9 +37,9 @@ namespace Rocket.DAL.UoW
             _rocketContext.SaveChanges();
         }
 
-        public void SaveAsync()
+        public async Task SaveAsync()
         {
-            _rocketContext.SaveChangesAsync();
+            await _rocketContext.SaveChangesAsync();
         }
 
         public void Dispose()

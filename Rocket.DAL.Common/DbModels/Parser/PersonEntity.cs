@@ -21,6 +21,11 @@
         public string FullNameEn { get; set; }
 
         /// <summary>
+        /// Lostfilm-ссылка на личную сраницу.
+        /// </summary>
+        public string LostfilmPersonalPageUrl { get; set; }
+
+        /// <summary>
         /// Фото превью человека.
         /// </summary>
         public string PhotoThumbnailUrl { get; set; }
