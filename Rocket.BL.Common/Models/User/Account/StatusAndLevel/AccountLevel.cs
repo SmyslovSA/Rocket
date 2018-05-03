@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.Models.User.Account
+﻿namespace Rocket.BL.Common.Models.User.Account.StatusAndLevel
 {
     /// <summary>
     /// Представляет информацию об уровне пользователя: обыкнованный, премиум

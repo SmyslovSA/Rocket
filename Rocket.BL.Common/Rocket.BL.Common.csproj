@@ -80,8 +80,8 @@
     <Compile Include="Models\UserRoles\Permission.cs" />
     <Compile Include="Models\UserRoles\Role.cs" />
     <Compile Include="Models\User\Account\Account.cs" />
-    <Compile Include="Models\User\Account\Status and level\AccountLevel.cs" />
-    <Compile Include="Models\User\Account\Status and level\AccountStatus.cs" />
+    <Compile Include="Models\User\Account\StatusAndLevel\AccountLevel.cs" />
+    <Compile Include="Models\User\Account\StatusAndLevel\AccountStatus.cs" />
     <Compile Include="Models\User\Person\Address\Address.cs" />
     <Compile Include="Models\User\Person\Communication\Communication.cs" />
     <Compile Include="Models\User\Person\Communication\HowToCall.cs" />

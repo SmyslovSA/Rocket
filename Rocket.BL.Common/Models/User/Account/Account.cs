@@ -1,4 +1,5 @@
 ﻿using System;
+using Rocket.BL.Common.Models.User.Account.StatusAndLevel;
 
 namespace Rocket.BL.Common.Models.User.Account
 {

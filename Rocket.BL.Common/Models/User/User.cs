@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿using Rocket.BL.Common.Models.User;
+
+namespace Rocket.BL.Common.Models.User
 {
     /// <summary>
     /// Представляет информацию о пользователе

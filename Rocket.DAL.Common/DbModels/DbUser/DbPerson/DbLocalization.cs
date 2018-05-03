@@ -23,6 +23,6 @@
             /// <summary>
             /// Задает или возвращает человека пользователя
             /// </summary>
-            public DbPerson Dbperson { get; set; }
+            public DbPerson DbPerson { get; set; }
         }
 }

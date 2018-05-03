@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories.IDbUserRepository.IDbPersonRepository
     /// <summary>
     /// Представляет репозитарий страны для пользователя
     /// </summary>
-    public interface IDbcountryRepositary : IRepository<DbCountry>
+    public interface IDbCountryRepositary : IRepository<DbCountry>
     {
     }
 }

@@ -1,4 +1,4 @@
-﻿using Rocket.BL.Common.Models.User.Account;
+﻿using Rocket.BL.Common.Models.User.Account.StatusAndLevel;
 
 namespace Rocket.BL.Common.Services
 {
