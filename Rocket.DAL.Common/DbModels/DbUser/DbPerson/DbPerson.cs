@@ -1,11 +1,9 @@
-﻿namespace Rocket.BL.Common.Models.User.Person
+﻿namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
 {
     /// <summary>
-    /// Все, что относится к личности человека.
-    /// То, что более менее неизменно в рамках небольших
-    /// отрезков жизни и характеризует, как личность.
+    /// Представляет модель хранения данных о человеке
     /// </summary>
-    public class Person
+    public class DbPerson
     {
         /// <summary>
         /// Задает или возвращает уникальный идентификатор пользователя
@@ -15,21 +13,27 @@
         /// <summary>
         /// Возвращает или задает имя и фамилию пользователя
         /// </summary>
-        public Personality.Personality Personality { get; set; }
+        public DbPersonality Personality { get; set; }
 
         /// <summary>
         /// Возвращает или задает контактную информацию пользователя (телефон, Email, адрес и так далее)
         /// </summary>
-        public Communication.Communication Communication { get; set; }
+        public DbCommunication Communication { get; set; }
 
         /// <summary>
         /// Возвращает или задает язык и гражданство пользователя
         /// </summary>
-        public Localization.Localization Locallization { get; set; }
+        public DbLocalization Locallization { get; set; }
 
         /// <summary>
         /// Возвращает или задает дату рождения и пол
         /// </summary>
-        public Identity.Identity Identity { get; set; }
+        public DbIdentity Identity { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает пользователя,
+        /// к которому относится данный человек
+        /// </summary>
+        public DbUser DbUser { get; set; }
     }
 }

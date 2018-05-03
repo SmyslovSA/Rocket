@@ -1,17 +1,15 @@
-﻿using Rocket.BL.Common.Models.User.Person.Localization;
-
-namespace Rocket.BL.Common.Models.User.Person.Address
+﻿namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
 {
     /// <summary>
-    /// Тип адреса. Классика.
+    /// Представляет модель хранениея данных адреса для сведений о человеке пользователя
     /// </summary>
-    public class Address
+    public class DbAddress
     {
         /// <summary>
         /// Задает или возвращает уникальный идентификационный номер адреса
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Задает или возвращает почтовый индекс
         /// </summary>
@@ -20,7 +18,7 @@ namespace Rocket.BL.Common.Models.User.Person.Address
         /// <summary>
         /// Возвращает или задает страну
         /// </summary>
-        public Country Country { get; set; }
+        public DbCountry Country { get; set; }
 
         /// <summary>
         /// Возвращает или задает город
@@ -41,5 +39,10 @@ namespace Rocket.BL.Common.Models.User.Person.Address
         /// Возвращает или задает номер квартиры
         /// </summary>
         public string Flat { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает контактные данные, к которым относится адрес
+        /// </summary>
+        public DbCommunication DbCommunication { get; set; }
     }
 }

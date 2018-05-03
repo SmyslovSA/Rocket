@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿namespace Rocket.DAL.Common.DbModels
 {
     /// <summary>
     /// Перечисление типов гендерной принадлежности

@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿namespace Rocket.BL.Common.Models.User.Person.Communication
 {
     /// <summary>
     /// Представляет сведения о том, как обращаться к пользователю
