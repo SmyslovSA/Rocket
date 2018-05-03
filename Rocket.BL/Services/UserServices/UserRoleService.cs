@@ -17,9 +17,13 @@ namespace Rocket.BL.Services.UserServices
             _role = role;
         }
 
-        public void RequestUserRole(IUser user)
+        public Role RequestUserRole(IUser user)
         {
-                _user?.GetUserRole();
+            // todo возвращаем роль юзера
+            // return _user?.GetUserRole();
+
+            // todo hello crunch
+             return new Role();
         }
 
         // todo добавить роль по умолчанию в куда-нибудь
