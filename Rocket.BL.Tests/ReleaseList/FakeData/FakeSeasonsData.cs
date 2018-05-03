@@ -11,19 +11,19 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakeSeasonsData
     {
         /// <summary>
-        /// Возвращает или задает набор данных о сериях
+        /// Возвращает набор данных о сериях
         /// </summary>
-        public FakeEpisodesData FakeEpisodesData { get; set; }
+        public FakeEpisodesData FakeEpisodesData { get; }
 
         /// <summary>
-        /// Возвращает или задает генератор данных о сезонах
+        /// Возвращает генератор данных о сезонах
         /// </summary>
-        public Faker<Season> SeasonFaker { get; set; }
+        public Faker<Season> SeasonFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных сезонов
+        /// Возвращает коллекцию сгенерированных сезонов
         /// </summary>
-        public List<Season> Seasons { get; set; }
+        public List<Season> Seasons { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о сезонах

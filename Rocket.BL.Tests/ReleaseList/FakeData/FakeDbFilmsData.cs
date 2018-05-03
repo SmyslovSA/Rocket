@@ -13,44 +13,44 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakeDbFilmsData
     {
         /// <summary>
-        /// Возвращает или задает генератор данных о людях
+        /// Возвращает генератор данных о людях
         /// </summary>
-        public Faker<DbPerson> PersonFaker { get; set; }
+        public Faker<DbPerson> PersonFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает генератор данных о странах
+        /// Возвращает генератор данных о странах
         /// </summary>
-        public Faker<DbCountry> CountryFaker { get; set; }
+        public Faker<DbCountry> CountryFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает генератор данных о жанрах видео
+        /// Возвращает генератор данных о жанрах видео
         /// </summary>
-        public Faker<DbVideoGenre> VideoGenreFaker { get; set; }
+        public Faker<DbVideoGenre> VideoGenreFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает генератор данных о фильмах
+        /// Возвращает генератор данных о фильмах
         /// </summary>
-        public Faker<DbFilm> FilmFaker { get; set; }
+        public Faker<DbFilm> FilmFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных людей
+        /// Возвращает коллекцию сгенерированных людей
         /// </summary>
-        public List<DbPerson> Persons { get; set; }
+        public List<DbPerson> Persons { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных стран
+        /// Возвращает коллекцию сгенерированных стран
         /// </summary>
-        public List<DbCountry> Countries { get; set; }
+        public List<DbCountry> Countries { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных жанров видео
+        /// Возвращает коллекцию сгенерированных жанров видео
         /// </summary>
-        public List<DbVideoGenre> VideoGenres { get; set; }
+        public List<DbVideoGenre> VideoGenres { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных фильмов
+        /// Возвращает коллекцию сгенерированных фильмов
         /// </summary>
-        public List<DbFilm> Films { get; set; }
+        public List<DbFilm> Films { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о фильмах

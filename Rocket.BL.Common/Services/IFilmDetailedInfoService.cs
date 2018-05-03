@@ -8,7 +8,7 @@ namespace Rocket.BL.Common.Services
     /// Представляет сервис для работы с детальной информацией
     /// о фильмах в хранилище данных
     /// </summary>
-    public interface IFilmDetailedInfoService
+    public interface IFilmDetailedInfoService : IDisposable
     {
         /// <summary>
         /// Возвращает фильма с заданным идентификатором из хранилища данных

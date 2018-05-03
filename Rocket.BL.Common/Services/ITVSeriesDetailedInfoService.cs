@@ -8,7 +8,7 @@ namespace Rocket.BL.Common.Services
     /// Представляет сервис для работы с детальной информацией
     /// о сериалах в хранилище данных
     /// </summary>
-    public interface ITVSeriesDetailedInfoService
+    public interface ITVSeriesDetailedInfoService : IDisposable
     {
         /// <summary>
         /// Возвращает сериал с заданным идентификатором из хранилища данных

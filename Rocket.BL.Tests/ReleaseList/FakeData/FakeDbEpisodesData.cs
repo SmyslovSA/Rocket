@@ -12,14 +12,14 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakeDbEpisodesData
     {
         /// <summary>
-        /// Возвращает или задает генератор данных о сериях
+        /// Возвращает генератор данных о сериях
         /// </summary>
-        public Faker<DbEpisode> EpisodeFaker { get; set; }
+        public Faker<DbEpisode> EpisodeFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных серий
+        /// Возвращает коллекцию сгенерированных серий
         /// </summary>
-        public List<DbEpisode> Episodes { get; set; }
+        public List<DbEpisode> Episodes { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о сериях

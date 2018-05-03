@@ -13,7 +13,7 @@ namespace Rocket.BL.Services
     /// Представляет сервис для работы с детальной информацией
     /// о фильмах в хранилище данных
     /// </summary>
-    public class FilmDetailedInfoService : IFilmDetailedInfoService, IDisposable
+    public class FilmDetailedInfoService : IFilmDetailedInfoService
     {
         private IDbFilmUnitOfWork _unitOfWork;
         private bool disposedValue = false;
@@ -93,6 +93,7 @@ namespace Rocket.BL.Services
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>

@@ -11,14 +11,14 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakeDbVideoGenresData
     {
         /// <summary>
-        /// Возвращает или задает генератор данных о жанрах видео
+        /// Возвращает генератор данных о жанрах видео
         /// </summary>
-        public Faker<DbVideoGenre> VideoGenreFaker { get; set; }
+        public Faker<DbVideoGenre> VideoGenreFaker { get; }
         
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных жанров видео
+        /// Возвращает коллекцию сгенерированных жанров видео
         /// </summary>
-        public List<DbVideoGenre> VideoGenres { get; set; }
+        public List<DbVideoGenre> VideoGenres { get; }
         
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о жанрах видео

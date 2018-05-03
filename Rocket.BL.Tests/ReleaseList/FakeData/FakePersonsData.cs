@@ -10,14 +10,14 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakePersonsData
     {
         /// <summary>
-        /// Возвращает или задает генератор данных о людях
+        /// Возвращает генератор данных о людях
         /// </summary>
-        public Faker<Common.Models.ReleaseList.Person> PersonFaker { get; set; }
+        public Faker<Common.Models.ReleaseList.Person> PersonFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных людей
+        /// Возвращает коллекцию сгенерированных людей
         /// </summary>
-        public List<Common.Models.ReleaseList.Person> Persons { get; set; }
+        public List<Common.Models.ReleaseList.Person> Persons { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о людях

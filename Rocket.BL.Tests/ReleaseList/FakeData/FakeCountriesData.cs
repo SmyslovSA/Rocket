@@ -11,14 +11,14 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakeCountriesData
     {
         /// <summary>
-        /// Возвращает или задает генератор данных о странах
+        /// Возвращает генератор данных о странах
         /// </summary>
-        public Faker<Country> CountryFaker { get; set; }
+        public Faker<Country> CountryFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных стран
+        /// Возвращает коллекцию сгенерированных стран
         /// </summary>
-        public List<Country> Countries { get; set; }
+        public List<Country> Countries { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о странах

@@ -14,47 +14,47 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <summary>
         /// Возвращает набор сгенерированных данных о сезонах
         /// </summary>
-        public FakeDbSeasonsData FakeDbSeasonsData { get; set; }
+        public FakeDbSeasonsData FakeDbSeasonsData { get; }
 
         /// <summary>
-        /// Возвращает или задает генератор данных о людях
+        /// Возвращает генератор данных о людях
         /// </summary>
-        public Faker<DbPerson> PersonFaker { get; set; }
+        public Faker<DbPerson> PersonFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает генератор данных о странах
+        /// Возвращает генератор данных о странах
         /// </summary>
-        public Faker<DbCountry> CountryFaker { get; set; }
+        public Faker<DbCountry> CountryFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает генератор данных о жанрах видео
+        /// Возвращает генератор данных о жанрах видео
         /// </summary>
-        public Faker<DbVideoGenre> VideoGenreFaker { get; set; }
+        public Faker<DbVideoGenre> VideoGenreFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает генератор данных о сериалах
+        /// Возвращает генератор данных о сериалах
         /// </summary>
-        public Faker<DbTVSeries> TVSeriesFaker { get; set; }
+        public Faker<DbTVSeries> TVSeriesFaker { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных людей
+        /// Возвращает коллекцию сгенерированных людей
         /// </summary>
-        public List<DbPerson> Persons { get; set; }
+        public List<DbPerson> Persons { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных стран
+        /// Возвращает коллекцию сгенерированных стран
         /// </summary>
-        public List<DbCountry> Countries { get; set; }
+        public List<DbCountry> Countries { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных жанров видео
+        /// Возвращает коллекцию сгенерированных жанров видео
         /// </summary>
-        public List<DbVideoGenre> VideoGenres { get; set; }
+        public List<DbVideoGenre> VideoGenres { get; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию сгенерированных сериалов
+        /// Возвращает коллекцию сгенерированных сериалов
         /// </summary>
-        public List<DbTVSeries> TVSerials { get; set; }
+        public List<DbTVSeries> TVSerials { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о сериалах
