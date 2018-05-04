@@ -1,4 +1,6 @@
-﻿using Rocket.BL.Common.Models.ReleaseList;
+﻿using System;
+using System.Linq.Expressions;
+using Rocket.BL.Common.Models.ReleaseList;
 
 namespace Rocket.BL.Common.Services
 {
@@ -6,7 +8,7 @@ namespace Rocket.BL.Common.Services
 	/// Представляет сервис для работы с детальной информацией
 	/// о музыкальных релизах в хранилище данных
 	/// </summary>
-	interface IMusicDetailedInfoService
+	public interface IMusicDetailedInfoService
 	{
 		/// <summary>
 		/// Возвращает музыкальный релиз с заданным идентификатором из хранилища данных
@@ -38,8 +40,8 @@ namespace Rocket.BL.Common.Services
 		/// <summary>
 		/// Проверяет наличие заданного музыкального релиза в хранилище данных
 		/// </summary>
-		/// <param name="music">Экземпляр музыкального релиза для проверки</param>
+		/// <param name="filter">Лямбда-выражение определяющее фильтр для поиска музыки</param>
 		/// <returns>Возвращает <see langword="true"/>, если музыкальный релиз существует в хранилище данных</returns>
-		bool MusicExists(Music music);
+		bool MusicExists(Expression<Func<Music, bool>> filter);
 	}
 }

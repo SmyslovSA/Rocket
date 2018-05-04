@@ -1,4 +1,6 @@
 ﻿using Rocket.BL.Common.Models.ReleaseList;
+using System;
+using System.Linq.Expressions;
 
 namespace Rocket.BL.Common.Services
 {
@@ -6,7 +8,7 @@ namespace Rocket.BL.Common.Services
     /// Представляет сервис для работы с детальной информацией
     /// о фильмах в хранилище данных
     /// </summary>
-    public interface IFilmDetailedInfoService
+    public interface IFilmDetailedInfoService : IDisposable
     {
         /// <summary>
         /// Возвращает фильма с заданным идентификатором из хранилища данных
@@ -36,10 +38,11 @@ namespace Rocket.BL.Common.Services
         void DeleteFilm(int id);
 
         /// <summary>
-        /// Проверяет наличие заданного фильма в хранилище данных
+        /// Проверяет наличие фильма в хранилище данных
+        /// соответствующего заданному фильтру
         /// </summary>
-        /// <param name="film">Экземпляр фильма для проверки</param>
+        /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска фильма</param>
         /// <returns>Возвращает <see langword="true"/>, если фильм существует в хранилище данных</returns>
-        bool FilmExists(Film film);
+        bool FilmExists(Expression<Func<Film, bool>> filter);
     }
 }

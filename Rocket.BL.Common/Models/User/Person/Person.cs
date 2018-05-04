@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿namespace Rocket.BL.Common.Models.User.Person
 {
     /// <summary>
     /// Все, что относится к личности человека.
@@ -15,21 +15,21 @@
         /// <summary>
         /// Возвращает или задает имя и фамилию пользователя
         /// </summary>
-        public Personality Personality { get; set; }
+        public Personality.Personality Personality { get; set; }
 
         /// <summary>
         /// Возвращает или задает контактную информацию пользователя (телефон, Email, адрес и так далее)
         /// </summary>
-        public Communication Communication { get; set; }
+        public Communication.Communication Communication { get; set; }
 
         /// <summary>
         /// Возвращает или задает язык и гражданство пользователя
         /// </summary>
-        public Localization Locallization { get; set; }
+        public Localization.Localization Locallization { get; set; }
 
         /// <summary>
         /// Возвращает или задает дату рождения и пол
         /// </summary>
-        public Identity Identity { get; set; }
+        public Identity.Identity Identity { get; set; }
     }
 }

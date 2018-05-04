@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rocket.DAL.Common.Repositories;
+using System;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -8,8 +9,23 @@ namespace Rocket.DAL.Common.UoW
     public interface IUnitOfWork : IDisposable
     {
         /// <summary>
-        /// Сохраняет изменения в хранилище данных
+        /// Возвращает репозиторий для фильмов
         /// </summary>
-        void Save();
+        IDbFilmRepository FilmRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для сериалов
+        /// </summary>
+        IDbTVSeriesRepository TVSeriesRepository { get; }
+
+		/// <summary>
+		/// Возвращает репозиторий для сериалов
+		/// </summary>
+		IDbMusicRepository MusicRepository { get; }
+
+		/// <summary>
+		/// Сохраняет изменения в хранилище данных
+		/// </summary>
+		void Save();
     }
 }

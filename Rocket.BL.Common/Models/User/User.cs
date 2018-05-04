@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿using Rocket.BL.Common.Models.User;
+
+namespace Rocket.BL.Common.Models.User
 {
     /// <summary>
     /// Представляет информацию о пользователе
@@ -13,11 +15,11 @@
         /// <summary>
         /// Возвращает или задает информацию о человеке
         /// </summary>
-        public Person Person { get; set; }
+        public Person.Person Person { get; set; }
 
         /// <summary>
         /// Возвращает или задает информацию об аккаунте
         /// </summary>
-        public Account Account { get; set; }
+        public Account.Account Account { get; set; }
     }
 }

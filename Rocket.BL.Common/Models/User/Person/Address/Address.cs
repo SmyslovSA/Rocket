@@ -1,6 +1,6 @@
-﻿using Rocket.BL.Common.Models.ReleaseList;
+﻿using Rocket.BL.Common.Models.User.Person.Localization;
 
-namespace Rocket.BL.Common.Models.User
+namespace Rocket.BL.Common.Models.User.Person.Address
 {
     /// <summary>
     /// Тип адреса. Классика.
@@ -8,7 +8,7 @@ namespace Rocket.BL.Common.Models.User
     public class Address
     {
         /// <summary>
-        /// Задает или возвращает уникальный идентификатор адреса
+        /// Задает или возвращает уникальный идентификационный номер адреса
         /// </summary>
         public int Id { get; set; }
         
