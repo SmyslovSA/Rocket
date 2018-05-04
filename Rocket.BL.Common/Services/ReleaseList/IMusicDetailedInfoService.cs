@@ -2,13 +2,13 @@
 using System.Linq.Expressions;
 using Rocket.BL.Common.Models.ReleaseList;
 
-namespace Rocket.BL.Common.Services
+namespace Rocket.BL.Common.Services.ReleaseList
 {
 	/// <summary>
 	/// Представляет сервис для работы с детальной информацией
 	/// о музыкальных релизах в хранилище данных
 	/// </summary>
-	public interface IMusicDetailedInfoService
+	public interface IMusicDetailedInfoService : IDisposable
 	{
 		/// <summary>
 		/// Возвращает музыкальный релиз с заданным идентификатором из хранилища данных

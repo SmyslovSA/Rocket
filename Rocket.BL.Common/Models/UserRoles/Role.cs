@@ -2,7 +2,7 @@
 
 namespace Rocket.BL.Common.Models.UserRoles
 {
-    public class Role
+    public class Role : IRole
     {
         /// <summary>
         /// Уникальный идентификатор роли пользователя

@@ -3,8 +3,7 @@ using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.DAL.Configurations.UserRoleEntities
 {
-    // Конфигурация хранения данных прав доступа 
-    // и функциональных возможностей (пермишенов)
+    // Конфигурация хранения данных прав доступа (пермишенов)
     public class DbPermissionConfiguration : EntityTypeConfiguration<DbPermission>
     {
         public DbPermissionConfiguration()
@@ -25,10 +24,6 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
                 .HasColumnName("value_name")
                 .HasMaxLength(50)
                 .IsVariableLength();
-
-            // уточнить является ли это дублированием
-            //HasMany(t => t.Roles)
-            //    .WithMany(x => x.Permissions);
         }
     }
 }

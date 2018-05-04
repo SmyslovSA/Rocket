@@ -2,7 +2,8 @@
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using Rocket.BL.Services;
+using Rocket.BL.Services.ReleaseList;
+using Rocket.BL.Tests.ReleaseList.FakeData;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.UoW;
@@ -10,12 +11,12 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Rocket.BL.Tests.ReleaseList.FakeData
+namespace Rocket.BL.Tests.ReleaseList
 {
-	/// <summary>
-	/// Unit-тесты для сервиса <see cref="MusicDetailedInfoService"/>
-	/// </summary>
-	[TestFixture]
+    /// <summary>
+    /// Unit-тесты для сервиса <see cref="MusicDetailedInfoService"/>
+    /// </summary>
+    [TestFixture]
 	public class MusicDetailedInfoServiceTest
 	{
 		private const int MusicCount = 300;

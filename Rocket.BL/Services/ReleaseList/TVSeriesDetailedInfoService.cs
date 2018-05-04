@@ -1,19 +1,19 @@
 ﻿using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
-using Rocket.BL.Common.Services;
+using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Rocket.BL.Services
+namespace Rocket.BL.Services.ReleaseList
 {
     /// <summary>
     /// Представляет сервис для работы с детальной информацией
     /// о сериалах в хранилище данных
     /// </summary>
-    public class TVSeriesDetailedInfoService : DisposableService, ITVSeriesDetailedInfoService
+    public class TVSeriesDetailedInfoService : BaseService, ITVSeriesDetailedInfoService
     {
         /// <summary>
         /// Создает новый экземпляр <see cref="TVSeriesDetailedInfoService"/>

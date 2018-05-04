@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using Rocket.BL.Services;
+using Rocket.BL.Services.ReleaseList;
 using Rocket.BL.Tests.ReleaseList.FakeData;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.Repositories;
