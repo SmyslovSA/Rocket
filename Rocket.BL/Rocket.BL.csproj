@@ -67,6 +67,10 @@
     <Compile Include="Services\UserServices\PermissionManagerService.cs" />
     <Compile Include="Services\UserServices\UserRoleService.cs" />
     <Compile Include="Services\UserServices\UserHasPermissionService.cs" />
+    <Compile Include="Services\FilmDetailedInfoService.cs" />
+    <Compile Include="Services\DisposableService.cs" />
+    <Compile Include="Services\TVSeriesDetailedInfoService.cs" />
+    <Compile Include="Services\MusicDetailedInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

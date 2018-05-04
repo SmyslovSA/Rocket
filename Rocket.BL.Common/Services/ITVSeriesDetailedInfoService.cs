@@ -1,4 +1,6 @@
 ﻿using Rocket.BL.Common.Models.ReleaseList;
+using System;
+using System.Linq.Expressions;
 
 namespace Rocket.BL.Common.Services
 {
@@ -6,7 +8,7 @@ namespace Rocket.BL.Common.Services
     /// Представляет сервис для работы с детальной информацией
     /// о сериалах в хранилище данных
     /// </summary>
-    interface ITVSeriesDetailedInfoService
+    public interface ITVSeriesDetailedInfoService : IDisposable
     {
         /// <summary>
         /// Возвращает сериал с заданным идентификатором из хранилища данных
@@ -36,10 +38,11 @@ namespace Rocket.BL.Common.Services
         void DeleteTVSeries(int id);
 
         /// <summary>
-        /// Проверяет наличие заданного сериала в хранилище данных
+        /// Проверяет наличие сериала в хранилище данных
+        /// соответствующего заданному фильтру
         /// </summary>
-        /// <param name="tvSeries">Экземпляр сериала для проверки</param>
+        /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска сериала</param>
         /// <returns>Возвращает <see langword="true"/>, если сериал существует в хранилище данных</returns>
-        bool TVSeriesExists(TVSeries tvSeries);
+        bool TVSeriesExists(Expression<Func<TVSeries, bool>> filter);
     }
 }
