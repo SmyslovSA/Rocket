@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\PermissionMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\RoleMappingProfile.cs" />
     <Compile Include="Services\IMailNotificationService.cs" />
     <Compile Include="Mappings\CountryMappingProfile.cs" />
     <Compile Include="Mappings\EpisodeMappingProfile.cs" />
@@ -55,10 +57,10 @@
     <Compile Include="Mappings\PersonMappingProfile.cs" />
     <Compile Include="Mappings\SeasonMappingProfile.cs" />
     <Compile Include="Mappings\TVSeriesMappingProfile.cs" />
-	<Compile Include="Mappings\MusicMappingProfile.cs" />
-	<Compile Include="Mappings\MusicTrackMappingProfile.cs" />
-	<Compile Include="Mappings\MusicGenreMappingProfile.cs" />
-	<Compile Include="Mappings\MusicianMappingProfile.cs" />
+    <Compile Include="Mappings\MusicMappingProfile.cs" />
+    <Compile Include="Mappings\MusicTrackMappingProfile.cs" />
+    <Compile Include="Mappings\MusicGenreMappingProfile.cs" />
+    <Compile Include="Mappings\MusicianMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\PersonMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\HowToCallMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\PersonalityMappingProfile.cs" />
