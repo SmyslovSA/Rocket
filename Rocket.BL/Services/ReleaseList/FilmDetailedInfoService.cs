@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
 using Rocket.BL.Common.Services.ReleaseList;
-using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Linq;

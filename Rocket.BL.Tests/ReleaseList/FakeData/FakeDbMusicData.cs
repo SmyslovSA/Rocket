@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Bogus;
+using Rocket.DAL.Common.DbModels.ReleaseList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bogus;
-using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.BL.Tests.ReleaseList.FakeData
 {
-	/// <summary>
-	/// Представляет набор сгенерированных данных о музыке,
-	/// в моделях хранения данных
-	/// </summary>
-	public class FakeDbMusicData
+    /// <summary>
+    /// Представляет набор сгенерированных данных о музыке,
+    /// в моделях хранения данных
+    /// </summary>
+    public class FakeDbMusicData
 	{
 
 		/// <summary>
