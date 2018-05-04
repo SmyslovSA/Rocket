@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Services
+﻿using Rocket.BL.Common.Models.UserRoles;
+
+namespace Rocket.BL.Common.Services
 {
     public interface IPermissionService
     {
@@ -6,12 +8,12 @@
         /// Добавить существующую функц возможность для выбранной роли
         /// </summary>
         /// <returns></returns>
-        bool AddPermissionToRole(ushort roleId, ushort permissionId);
+        void AddPermissionToRole(IRole roleId, IPermission permission);
 
         /// <summary>
         /// Удалить функц возможность из текущего списка у роли
         /// </summary>
         /// <returns></returns>
-        bool RemovePermissionFromRole(ushort roleId, ushort permissionId);
+        void RemovePermissionFromRole(IRole roleId, IPermission permission);
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="DbModels\DbUser\DbUser.cs" />
     <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
     <Compile Include="DbModels\DbUserRole\DbRole.cs" />
+    <Compile Include="DbModels\DbUserRole\DbUserRole.cs" />
     <Compile Include="DbModels\DbUser\DbAccount\DbAccount.cs" />
     <Compile Include="DbModels\DbUser\DbAccount\DbAccountLevel.cs" />
     <Compile Include="DbModels\DbUser\DbAccount\DbAccountStatus.cs" />
