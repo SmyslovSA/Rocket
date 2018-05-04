@@ -1,6 +1,6 @@
 ﻿using Rocket.BL.Common.Models.PersonalArea;
 
-namespace Rocket.BL.Common.Services
+namespace Rocket.BL.Common.Services.PersonalArea
 {
     /// <summary>
     /// интерфейс для работы с личными данными User

@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Rocket.BL.Common.Models.PersonalArea;
-using Rocket.BL.Common.Services;
+using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.UoW;
 using FluentValidation;
 using System.Linq;
 
-namespace Rocket.BL.Services
+namespace Rocket.BL.Services.PersonalArea
 {
-    public class ChangePersonalDataService : DisposableService, IPersonalData
+    public class ChangePersonalDataService : BaseService, IPersonalData
     {
         private readonly IValidator _validator;
 

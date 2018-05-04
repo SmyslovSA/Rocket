@@ -80,9 +80,9 @@
     <Compile Include="Models\Notification\MessageAboutTVSeries.cs" />
     <Compile Include="Models\Notification\MusicForNotification.cs" />
     <Compile Include="Models\Notification\TVSeriesForNotification.cs" />
-    <Compile Include="Services\IEmailManager.cs" />
-    <Compile Include="Services\IGenreManager.cs" />
-    <Compile Include="Services\IPersonalData.cs" />
+    <Compile Include="Services\PersonalArea\IEmailManager.cs" />
+    <Compile Include="Services\PersonalArea\IGenreManager.cs" />
+    <Compile Include="Services\PersonalArea\IPersonalData.cs" />
     <Compile Include="Models\PersonalArea\Category.cs" />
     <Compile Include="Models\PersonalArea\Genre.cs" />
     <Compile Include="Models\PersonalArea\PersonalizedTape.cs" />
