@@ -58,9 +58,7 @@
     <Compile Include="DbModels\DbUser\DbUser.cs" />
     <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
     <Compile Include="DbModels\DbUserRole\DbRole.cs" />
-<<<<<<< HEAD
     <Compile Include="DbModels\DbUserRole\DbUserRole.cs" />
-=======
     <Compile Include="DbModels\DbUser\DbAccount\DbAccount.cs" />
     <Compile Include="DbModels\DbUser\DbAccount\DbAccountLevel.cs" />
     <Compile Include="DbModels\DbUser\DbAccount\DbAccountStatus.cs" />
@@ -73,7 +71,6 @@
     <Compile Include="DbModels\DbUser\DbPerson\DbLocalization.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbPerson.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbPersonality.cs" />
->>>>>>> b7272492292e4c50541bdc7a1aa050075ca5215f
     <Compile Include="DbModels\DbVideoGenre.cs" />
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
