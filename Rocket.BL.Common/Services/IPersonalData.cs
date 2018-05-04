@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Services
+﻿using Rocket.BL.Common.Models.PersonalArea;
+
+namespace Rocket.BL.Common.Services
 {
     /// <summary>
     /// интерфейс для работы с личными данными User
@@ -8,14 +10,8 @@
         /// <summary>
         /// изменение личных данных (ФИО, аватар)
         /// </summary>
-        /// <param name="userId">id пользователя, инициировавшего смену личных данных</param>
-        /// <param name="firstName">новое имя пользователя</param>
-        /// <param name="lastName">новая фамилия пользователя</param>
-        /// <param name="avatar">новый относительный путь к аватару пользователя</param>
-        /// <returns>
-        /// true - при успешном изменении данных пользователя
-        /// </returns>
-        bool ChangePersonalData(int userId, string firstName, string lastName, string avatar);
+        /// <param name="user">модель пользователя, инициировавшего смену личных данных</param>
+        void ChangePersonalData(SimpleUser user);
         /// <summary>
         /// изменение пароля на новый
         /// </summary>
