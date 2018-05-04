@@ -2,7 +2,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Rocket.BL.Common.Services
+namespace Rocket.BL.Common.Services.ReleaseList
 {
     /// <summary>
     /// Представляет сервис для работы с детальной информацией

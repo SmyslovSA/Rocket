@@ -3,16 +3,16 @@ using System;
 
 namespace Rocket.BL.Services
 {
-    public abstract class DisposableService : IDisposable
+    public abstract class BaseService : IDisposable
     {
         protected IUnitOfWork _unitOfWork;
-        private bool disposedValue = false;
+        private bool _disposedValue = false;
 
         /// <summary>
         /// Инициализирует поле unitOfWork заданным экземпляром
         /// </summary>
         /// <param name="unitOfWork">Экземпляр unit of work</param>
-        protected DisposableService(IUnitOfWork unitOfWork)
+        protected BaseService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
         }
@@ -22,25 +22,31 @@ namespace Rocket.BL.Services
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            this.Dispose(true);
         }
 
         /// <summary>
         /// Освобождает управляемые ресурсы
         /// </summary>
-        /// <param name="disposing">Указывает был ли уже вызван метода Dispose ранее</param>
+        /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!this._disposedValue)
             {
                 if (disposing)
                 {
-                    this._unitOfWork.Dispose();
+                    GC.SuppressFinalize(this);
                 }
 
-                disposedValue = true;
+                this._unitOfWork?.Dispose();
+                this._unitOfWork = null;
+                this._disposedValue = true;
             }
+        }
+
+        ~BaseService()
+        {
+            this.Dispose(false);
         }
     }
 }
