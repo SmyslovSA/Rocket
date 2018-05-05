@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Rocket.DAL.Common.DbModels.Parser
 {
@@ -84,31 +80,31 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// <summary>
         /// Список актеров.
         /// </summary>
-        public ICollection<PersonEntity> ListActor { get; set; }
+        public ICollection<PersonEntity> ListActor { get; set; } = new List<PersonEntity>();
 
         /// <summary>
         /// Список режисеров.
         /// </summary>
-        public ICollection<PersonEntity> ListDirector { get; set; }
+        public ICollection<PersonEntity> ListDirector { get; set; } = new List<PersonEntity>();
 
         /// <summary>
         /// Список продюсеров.
         /// </summary>
-        public ICollection<PersonEntity> ListProducer { get; set; }
+        public ICollection<PersonEntity> ListProducer { get; set; } = new List<PersonEntity>();
 
         /// <summary>
         /// Список сценаристов.
         /// </summary>
-        public ICollection<PersonEntity> ListWriter { get; set; }
+        public ICollection<PersonEntity> ListWriter { get; set; } = new List<PersonEntity>();
 
         /// <summary>
         /// Возвращает или задает коллекцию жанров, к которым относится сериал
         /// </summary>
-        public ICollection<GenreEntity> ListGenreEntity { get; set; }
+        public ICollection<GenreEntity> ListGenreEntity { get; set; } = new List<GenreEntity>();
 
         /// <summary>
         /// Возвращает или задает коллекцию сезонов сериала
         /// </summary>
-        public ICollection<SeasonEntity> ListSeasons { get; set; }
+        public ICollection<SeasonEntity> ListSeasons { get; set; } = new List<SeasonEntity>();
     }
 }
