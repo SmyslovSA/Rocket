@@ -24,8 +24,8 @@ namespace Rocket.Parser.Jobs
                 var schedulerContext = context.JobDetail.JobDataMap;
                 var kernel = (IKernel)schedulerContext.Get(CommonHelper.ContainerKey);
 
-                var lostfilmParseService = kernel.Get<ILostfilmParseService>();
-                lostfilmParseService.Parse();
+                var lostfilmParseService = kernel.Get<ILostfilmParser>();
+                lostfilmParseService.ParseAsync();
             }
             catch (Exception excpt)
             {

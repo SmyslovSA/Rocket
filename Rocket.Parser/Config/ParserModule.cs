@@ -19,7 +19,7 @@ namespace Rocket.Parser.Config
             Bind<HtmlParser>().ToMethod(ctx => new HtmlParser()).InSingletonScope();
             Bind<ILoadHtmlService>().To<LoadHtmlService>().InSingletonScope();
             Bind<IAlbumInfoParser>().To<AlbumInfoParser>();
-            //Bind<ILostfilmParseService>().To<LostfilmParseService>();
+            Bind<ILostfilmParser>().To<LostfilmParser>();
         }
     }
 }
