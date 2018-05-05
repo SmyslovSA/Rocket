@@ -98,9 +98,9 @@
     </Compile>
     <Compile Include="Service.cs" />
     <Compile Include="Interfaces\ILoadHtmlService.cs" />
-    <Compile Include="Interfaces\ILostfilmParseService.cs" />
+    <Compile Include="Interfaces\ILostfilmParser.cs" />
     <Compile Include="Services\LoadHtmlService.cs" />
-    <Compile Include="Services\LostfilmParseService.cs" />
+    <Compile Include="Parsers\LostfilmParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

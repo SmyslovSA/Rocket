@@ -1,30 +1,25 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using AngleSharp.Dom;
-using AngleSharp.Dom.Html;
-using Rocket.DAL.Common.DbModels.Parser;
-using Rocket.Parser.Exceptions;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
 
-namespace Rocket.Parser.Services
+namespace Rocket.Parser.Parsers
 {
     /// <summary>
     /// Парсер Lostfilm
     /// </summary>
-    internal class LostfilmParseService : ILostfilmParseService
+    internal class LostfilmParser : ILostfilmParser
     {
         private readonly ILoadHtmlService _loadHtmlService;
+
         private readonly string _baseUrl;
         private readonly string _messageNotFoundByRequest;
         private readonly int _takeTvSeriasByRequest;
 
-        public LostfilmParseService(ILoadHtmlService loadHtmlService)
+        public LostfilmParser(ILoadHtmlService loadHtmlService)
         {
             _loadHtmlService = loadHtmlService;
 
@@ -33,10 +28,13 @@ namespace Rocket.Parser.Services
             //Получаем текст сообщения достижения конца списка сериалов на сайте
             _messageNotFoundByRequest = LostfilmHelper.GetMessageNotFoundByRequest();
             //Получаем кол-во сериалов которые сайт выдает за раз
-            int.TryParse(LostfilmHelper.GetTakeTvSeriasByRequest(), out int _takeTvSeriasByRequest);
+            int.TryParse(LostfilmHelper.GetTakeTvSeriasByRequest(), out _takeTvSeriasByRequest);
         }
 
-        public void Parse()
+        /// <summary>
+        /// Парсим сайт Lostfilm
+        /// </summary>
+        public async Task ParseAsync()
         {
             try
             {
@@ -135,9 +133,6 @@ namespace Rocket.Parser.Services
         private async Task<IElement> GetTvSeriasListElement(int getSerialListIteration)
         {
 
-            int.TryParse(LostfilmHelper.GetRetryCountIfNotResponse(), out int retryCountIfNotResponse);
-            int.TryParse(LostfilmHelper.GetWaitBeforRetryInSeconds(), out int waitBeforRetryInSeconds);
-
             IElement serialListElement = null;
             int currentRetryCount = 0;
             do
@@ -151,11 +146,10 @@ namespace Rocket.Parser.Services
 
                     serialListElement = htmlDocumentSerialList.QuerySelector(LostfilmHelper.GetTvSerailListHeaderBase());
                 }
-                catch (NotGetHtmlDocumentByUrlException)
+                catch (Exception e)
                 {
                     //todo запись в лог о неудачной попытке обратиться к сайту
-                    if (currentRetryCount > retryCountIfNotResponse) throw;
-                    Thread.Sleep(waitBeforRetryInSeconds * 1000);
+                    //todo использовать cancellationToken для таймаута
                 }
 
                 currentRetryCount++;

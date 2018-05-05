@@ -31,8 +31,6 @@ namespace Rocket.Parser.Heplers
 
         //настройки получения списка сериала
         private const string MaxRequestCountKey = "MaxRequestCount";
-        private const string RetryCountIfNotResponseKey = "RetryCountIfNotResponse";
-        private const string WaitBeforRetryInSecondsKey = "WaitBeforRetryInSeconds";
         private const string TakeTvSerialByRequestKey = "TakeTvSerialByRequest";
         private const string MessageNotFoundByRequestKey = "MessageNotFoundByRequest";
         
@@ -158,16 +156,6 @@ namespace Rocket.Parser.Heplers
         public static string GetMaxRequestCount()
         {
             return TakeSettings.Get(MaxRequestCountKey);
-        }
-
-        public static string GetRetryCountIfNotResponse()
-        {
-            return TakeSettings.Get(RetryCountIfNotResponseKey);
-        }
-        
-        public static string GetWaitBeforRetryInSeconds()
-        {
-            return TakeSettings.Get(WaitBeforRetryInSecondsKey);
         }
 
         public static string GetTakeTvSeriasByRequest()
