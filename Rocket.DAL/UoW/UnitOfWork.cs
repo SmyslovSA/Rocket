@@ -86,25 +86,31 @@ namespace Rocket.DAL.UoW
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            this.Dispose(true);
         }
 
         /// <summary>
         /// Освобождает управляемые ресурсы
         /// </summary>
-        /// <param name="disposing">Указывает был ли уже вызван метода Dispose ранее</param>
+        /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
-                    this._dbContext.Dispose();
+                    GC.SuppressFinalize(this);
                 }
 
+                this._dbContext?.Dispose();
+                this._dbContext = null;
                 disposedValue = true;
             }
+        }
+
+        ~UnitOfWork()
+        {
+            this.Dispose(false);
         }
     }
 }
