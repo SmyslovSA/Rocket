@@ -44,12 +44,12 @@ namespace Rocket.Parser.Parsers
         /// <summary>
         /// Запуск парсинга сайта album-info.ru 
         /// </summary>
-        public void Parse()
+        public async Task ParseAsync()
         {
             //todo логирование парсер запущен
             try
             {
-                // получаем настроейки парсера
+                // получаем настройки парсера
                 var resource = _resourceRepository
                     .Queryable().FirstOrDefault(r => r.Name.Equals(Resources.AlbumInfoSettings));
                 var settings = _parserSettingsRepository.Queryable().
@@ -60,43 +60,17 @@ namespace Rocket.Parser.Parsers
                 {
                     var resourceItemsBc = new BlockingCollection<ResourceItemEntity>();
                     var releasesBc = new BlockingCollection<AlbumInfoRelease>();
-                    
-                    //обрабатываем постранично (на каждую страницу свой поток)
-                    Parallel.For(setting.StartPoint, setting.EndPoint + 1, index =>
+
+                    var taskList = new List<Task>();
+
+                    for (int index = setting.StartPoint; index <= setting.EndPoint; index++)
                     {
-                        var linksPageUrl = $"{setting.BaseUrl}{setting.Prefix}{index.ToString()}";
+                        var task = GetLinksToReleasesAsync(setting, index, resourceItemsBc, releasesBc);
 
-                        //загружаем страницу со ссылками на релизы
-                        var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl);
+                        taskList.Add(task);
+                    }
 
-                        //получаем ссылки на страницы релизов
-                        var releaseLinkList = ParseAlbumlist(linksPageHtmlDoc);
-
-                        //каждый релиз на странице обрабатываем в своем потоке
-                        Parallel.ForEach(releaseLinkList, releaseLink =>
-                        {
-                            var releaseUrl = Resources.AlbumInfoBaseUrl + releaseLink;
-                            var resourceInternalId = releaseLink.Replace(
-                                Resources.AlbumInfoInternalPrefixId, "");
-
-                            resourceItemsBc.Add(new ResourceItemEntity
-                            {
-                                ResourceId = setting.ResourceId,
-                                ResourceInternalId = resourceInternalId,
-                                ResourceItemLink = releaseLink
-                            });
-
-                            //парсим страницу релиза
-                            var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl);
-                            var release = ParseRelease(releaseHtmlDoc);
-
-                            if (release != null)
-                            {
-                                release.ResourceInternalId = resourceInternalId;
-                                releasesBc.Add(release);
-                            }
-                        });
-                    });
+                    await Task.WhenAll(taskList.ToArray());
 
                     //фиксация данных в БД
                     SaveResults(resourceItemsBc, releasesBc);
@@ -110,6 +84,57 @@ namespace Rocket.Parser.Parsers
             }
             
             //todo логирование парсер отработал
+        }
+
+        private async Task GetLinksToReleasesAsync(ParserSettingsEntity setting, int index, 
+            BlockingCollection<ResourceItemEntity> resourceItemsBc, BlockingCollection<AlbumInfoRelease> releasesBc)
+        {
+            var linksPageUrl = $"{setting.BaseUrl}{setting.Prefix}{index}";
+
+            //загружаем страницу со ссылками на релизы
+            var linksPageHtmlDoc = await _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl).
+                ConfigureAwait(false);
+
+            //получаем ссылки на страницы релизов
+            var releaseLinkList = ParseAlbumlist(linksPageHtmlDoc);
+
+            var taskList = new List<Task>();
+
+            foreach (var releaseLink in releaseLinkList)
+            {
+                var task = GetRelease(setting, releaseLink, resourceItemsBc, releasesBc);
+
+                taskList.Add(task);
+            }
+
+            await Task.WhenAll(taskList.ToArray()).ConfigureAwait(false);
+
+        }
+
+        private async Task GetRelease(ParserSettingsEntity setting, string releaseLink, 
+            BlockingCollection<ResourceItemEntity> resourceItemsBc, BlockingCollection<AlbumInfoRelease> releasesBc)
+        {
+            var releaseUrl = Resources.AlbumInfoBaseUrl + releaseLink;
+            var resourceInternalId = releaseLink.Replace(
+                Resources.AlbumInfoInternalPrefixId, "");
+
+            resourceItemsBc.Add(new ResourceItemEntity
+            {
+                ResourceId = setting.ResourceId,
+                ResourceInternalId = resourceInternalId,
+                ResourceItemLink = releaseLink
+            });
+
+            //парсим страницу релиза
+            var releaseHtmlDoc = await _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl).ConfigureAwait(false);
+            var release = ParseRelease(releaseHtmlDoc);
+
+            if (release != null)
+            {
+                release.ResourceInternalId = resourceInternalId;
+                releasesBc.Add(release);
+            }
+
         }
 
         /// <summary>
@@ -159,11 +184,6 @@ namespace Rocket.Parser.Parsers
             }
 
             _unitOfWork.SaveChanges();
-
-            //очищаем коллекции
-            resourceItemsBc = null;
-            releasesBc = null;
-            
         }
 
         /// <summary>
