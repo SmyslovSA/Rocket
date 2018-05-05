@@ -16,7 +16,6 @@ namespace Rocket.Parser.Config
 
             Bind<HttpClient>().ToMethod(ctx => new HttpClient()).InSingletonScope();
             Bind<ILoadHtmlService>().To<LoadHtmlService>().InSingletonScope();
-            Bind<IParseAlbumInfoService>().To<ParseAlbumInfoService>();
             Bind<IAlbumInfoParser>().To<AlbumInfoParser>();
             Bind<ILostfilmParseService>().To<LostfilmParseService>();
         }

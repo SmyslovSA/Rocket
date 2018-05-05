@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\IDbContext.cs" />
     <Compile Include="Context\IRocketContext.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbCategory.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />

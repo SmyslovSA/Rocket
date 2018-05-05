@@ -7,13 +7,14 @@ using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.UoW;
 using Rocket.Parser.Interfaces;
 using Rocket.Parser.Models;
+using AngleSharp.Dom.Html;
+using System.Collections.Generic;
 
 namespace Rocket.Parser.Parsers
 {
     internal class AlbumInfoParser : IAlbumInfoParser
     {
         private readonly ILoadHtmlService _loadHtmlService;
-        private readonly IParseAlbumInfoService _parseAlbumInfoService;
         private readonly IParserUoW _parserUoW;
         
         /// <summary>
@@ -23,10 +24,9 @@ namespace Rocket.Parser.Parsers
         /// <param name="parseAlbumInfoService">Сервис парсинга сайта album-info.ru</param>
         /// <param name="parserUoW">UoW для парсера</param>
         public AlbumInfoParser(ILoadHtmlService loadHtmlService,
-            IParseAlbumInfoService parseAlbumInfoService, IParserUoW parserUoW)
+            IParserUoW parserUoW)
         {
             _loadHtmlService = loadHtmlService;
-            _parseAlbumInfoService = parseAlbumInfoService;
             _parserUoW = parserUoW;
         }
 
@@ -57,7 +57,7 @@ namespace Rocket.Parser.Parsers
                         var linksPageHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(linksPageUrl);
 
                         //получаем ссылки на страницы релизов
-                        var releaseLinkList = _parseAlbumInfoService.ParseAlbumlist(linksPageHtmlDoc);
+                        var releaseLinkList = ParseAlbumlist(linksPageHtmlDoc);
 
                         //каждый релиз на странице обрабатываем в своем потоке
                         Parallel.ForEach(releaseLinkList, releaseLink =>
@@ -75,7 +75,7 @@ namespace Rocket.Parser.Parsers
 
                             //парсим страницу релиза
                             var releaseHtmlDoc = _loadHtmlService.GetHtmlDocumentByUrlAsync(releaseUrl);
-                            var release = _parseAlbumInfoService.ParseRelease(releaseHtmlDoc);
+                            var release = ParseRelease(releaseHtmlDoc);
 
                             if (release != null)
                             {
@@ -160,5 +160,52 @@ namespace Rocket.Parser.Parsers
             releasesBc = null;
 
         }
+
+        /// <summary>
+        /// Парсинг страницы содержащей ссылки на релизы
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns>Массив ссылок на страницы релизов</returns>
+        private string[] ParseAlbumlist(IHtmlDocument document)
+        {
+            var list = new List<string>();
+
+            // парсинг таблицы содержащей релизы
+            for (int i = 1; i < 4; i++) // столбцы таблицы
+            {
+                for (int j = 1; j < 5; j++) // строки таблицы
+                {
+                    var item = document.QuerySelector(
+                        String.Format(Properties.Resources.AlbumInfoReleaseLinkSelector, i, j));
+
+                    if (item != null)
+                    {
+                        list.Add(item.GetAttribute(Properties.Resources.HrefAttribute));
+                    }
+                }
+            }
+
+            return list.ToArray();
+        }
+
+        /// <summary>
+        /// Парсинг страницы релиза
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns>Модель релиза на сайте album-info.ru</returns>
+        private AlbumInfoRelease ParseRelease(IHtmlDocument document)
+        {
+            var release = new AlbumInfoRelease
+            {
+                Name = document.QuerySelector(Properties.Resources.AlbumInfoReleaseNameSelector).TextContent,
+                Date = document.QuerySelector(Properties.Resources.AlbumInfoReleaseDateSelector).TextContent,
+                ImageUrl = document.QuerySelector(Properties.Resources.AlbumInfoReleaseImageUrlSelector)
+                    .GetAttribute(Properties.Resources.HrefAttribute),
+                Genre = document.QuerySelector(Properties.Resources.AlbumInfoReleaseGenreSelector).TextContent
+            };
+
+            return release;
+        }
+
     }
 }

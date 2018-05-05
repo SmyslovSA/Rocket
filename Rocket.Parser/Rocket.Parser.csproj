@@ -98,10 +98,8 @@
     </Compile>
     <Compile Include="Service.cs" />
     <Compile Include="Interfaces\ILoadHtmlService.cs" />
-    <Compile Include="Interfaces\IParseAlbumInfoService.cs" />
     <Compile Include="Interfaces\ILostfilmParseService.cs" />
     <Compile Include="Services\LoadHtmlService.cs" />
-    <Compile Include="Services\ParseAlbumInfoService.cs" />
     <Compile Include="Services\LostfilmParseService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,7 @@ namespace Rocket.DAL.Common.Context
     /// <summary>
     /// Контекст данных Rocket
     /// </summary>
-    public interface IRocketContext : IDbContext
+    public interface IRocketContext
     {
         /// <summary>
         /// DbSet ресурсов для парсинга

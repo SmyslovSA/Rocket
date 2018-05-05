@@ -32,21 +32,6 @@ namespace Rocket.DAL.UoW
 
         public IResourceItemRepository ResourceItems { get; }
 
-        public void Save()
-        {
-            _rocketContext.SaveChanges();
-        }
-
-        public async Task SaveAsync()
-        {
-            await _rocketContext.SaveChangesAsync();
-        }
-
-        public void Dispose()
-        {
-            _rocketContext.Dispose();
-        }
-
         /// <summary>
         /// Возвращает список настроек парсера
         /// </summary>
