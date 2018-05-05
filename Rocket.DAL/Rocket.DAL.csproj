@@ -99,7 +99,11 @@
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UoW\UoW.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\ReleaseList\DbFilmRepository.cs" />
+    <Compile Include="Repositories\ReleaseList\DbMusicRepository.cs" />
+    <Compile Include="Repositories\ReleaseList\DbTVSeriesRepository.cs" />
+    <Compile Include="UoW\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
