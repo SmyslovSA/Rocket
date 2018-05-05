@@ -14,13 +14,11 @@ namespace Rocket.DAL.UoW
     {
         private RocketContext _rocketContext;
         private bool _disposed;
-        private Dictionary<string, dynamic> _repositories;
 
         public UnitOfWork(RocketContext rocketContext)
         {
             _rocketContext = rocketContext;
-            _repositories = new Dictionary<string, dynamic>();
-        }
+       }
 
         public IDbFilmRepository FilmRepository => throw new NotImplementedException();
 
