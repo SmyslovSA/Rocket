@@ -23,12 +23,14 @@ namespace Rocket.Parser.Heplers
         
         //ссылки, начальная и частичные
         private const string ParseBaseUrlKey = "ParseBaseUrl";
+        private const string AdditionalUrlToSerialListBatchKey = "AdditionalUrlToSerialListBatch";
         private const string AdditionalUrlToSerialListKey = "AdditionalUrlToSerialList";
         private const string AdditionalUrlToTvSerialEpisodesKey = "AdditionalUrlToTvSerialEpisodes";
         private const string AdditionalUrlToTvSerialPhotesKey = "AdditionalUrlToTvSerialPhotes";
         private const string AdditionalUrlToTvSerialCastsKey = "AdditionalUrlToTvSerialCasts";
-        
+
         //настройки получения списка сериала
+        private const string MaxRequestCountKey = "MaxRequestCount";
         private const string RetryCountIfNotResponseKey = "RetryCountIfNotResponse";
         private const string WaitBeforRetryInSecondsKey = "WaitBeforRetryInSeconds";
         private const string TakeTvSerialByRequestKey = "TakeTvSerialByRequest";
@@ -133,6 +135,11 @@ namespace Rocket.Parser.Heplers
             return Urls.Get(AdditionalUrlToSerialListKey);
         }
 
+        public static string GetAdditionalUrlToSerialBatchList()
+        {
+            return Urls.Get(AdditionalUrlToSerialListBatchKey);
+        }
+
         public static string AdditionalUrlToTvSerialEpisodes()
         {
             return Urls.Get(AdditionalUrlToTvSerialEpisodesKey);
@@ -147,12 +154,17 @@ namespace Rocket.Parser.Heplers
         {
             return Urls.Get(AdditionalUrlToTvSerialCastsKey);
         }
-        
+
+        public static string GetMaxRequestCount()
+        {
+            return TakeSettings.Get(MaxRequestCountKey);
+        }
+
         public static string GetRetryCountIfNotResponse()
         {
             return TakeSettings.Get(RetryCountIfNotResponseKey);
         }
-
+        
         public static string GetWaitBeforRetryInSeconds()
         {
             return TakeSettings.Get(WaitBeforRetryInSecondsKey);
