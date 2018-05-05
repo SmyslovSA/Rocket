@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Configurations;
 
@@ -26,11 +27,17 @@ namespace Rocket.DAL.Context
         /// </summary>
         public DbSet<ResourceItemEntity> ResourceItems { get; set; }
 
+        /// <summary>
+        /// DbSet настроек парсера
+        /// </summary>
+        public DbSet<DbMusic> DbMusics { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ResourceMap());
             modelBuilder.Configurations.Add(new ParserSettingsMap());
             modelBuilder.Configurations.Add(new ResourceItemMap());
+            modelBuilder.Configurations.Add(new DbMusicConfiguration());
         }
     }
 }
