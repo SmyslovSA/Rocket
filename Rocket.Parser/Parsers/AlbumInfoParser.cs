@@ -65,7 +65,7 @@ namespace Rocket.Parser.Parsers
 
                     for (int index = setting.StartPoint; index <= setting.EndPoint; index++)
                     {
-                        var task = GetLinksToReleasesAsync(setting, index, resourceItemsBc, releasesBc);
+                        var task = ParseAlbumInfo(setting, index, resourceItemsBc, releasesBc);
 
                         taskList.Add(task);
                     }
@@ -86,7 +86,7 @@ namespace Rocket.Parser.Parsers
             //todo логирование парсер отработал
         }
 
-        private async Task GetLinksToReleasesAsync(ParserSettingsEntity setting, int index, 
+        private async Task ParseAlbumInfo(ParserSettingsEntity setting, int index, 
             BlockingCollection<ResourceItemEntity> resourceItemsBc, BlockingCollection<AlbumInfoRelease> releasesBc)
         {
             var linksPageUrl = $"{setting.BaseUrl}{setting.Prefix}{index}";
@@ -102,7 +102,7 @@ namespace Rocket.Parser.Parsers
 
             foreach (var releaseLink in releaseLinkList)
             {
-                var task = GetRelease(setting, releaseLink, resourceItemsBc, releasesBc);
+                var task = ParseReleasInfo(setting, releaseLink, resourceItemsBc, releasesBc);
 
                 taskList.Add(task);
             }
@@ -111,7 +111,7 @@ namespace Rocket.Parser.Parsers
 
         }
 
-        private async Task GetRelease(ParserSettingsEntity setting, string releaseLink, 
+        private async Task ParseReleasInfo(ParserSettingsEntity setting, string releaseLink, 
             BlockingCollection<ResourceItemEntity> resourceItemsBc, BlockingCollection<AlbumInfoRelease> releasesBc)
         {
             var releaseUrl = Resources.AlbumInfoBaseUrl + releaseLink;

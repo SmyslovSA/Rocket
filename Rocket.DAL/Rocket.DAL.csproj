@@ -118,11 +118,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ParserSettingsRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\ResourceItemRepository.cs" />
-    <Compile Include="Repositories\ResourceRepository.cs" />
-    <Compile Include="UoW\ParserUoW.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
     <Compile Include="UoW\UoW.cs" />
   </ItemGroup>
