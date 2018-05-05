@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using Rocket.DAL.Common.Context;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Repositories;
-using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Context;
 
 namespace Rocket.DAL.UoW
 {
     public class ParserUoW/* : IParserUoW*/
     {
-        private readonly IRocketContext _rocketContext;
+        private readonly RocketContext _rocketContext;
 
         public ParserUoW(
-            IRocketContext rocketContext, 
+            RocketContext rocketContext, 
             IResourceRepository resourceRepository,
             IParserSettingsRepository parserSettingsRepository,
             IResourceItemRepository resourceItemRepository)

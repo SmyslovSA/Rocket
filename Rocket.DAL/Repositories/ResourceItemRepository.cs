@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Rocket.DAL.Common.Context;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Context;
 
 namespace Rocket.DAL.Repositories
 {
     public class ResourceItemRepository : IResourceItemRepository
     {
-        private readonly IRocketContext _rocketContext;
+        private readonly RocketContext _rocketContext;
 
-        public ResourceItemRepository(IRocketContext rocketContext)
+        public ResourceItemRepository(RocketContext rocketContext)
         {
             _rocketContext = rocketContext;
         }

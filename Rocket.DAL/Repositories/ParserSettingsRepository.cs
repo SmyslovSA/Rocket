@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Rocket.DAL.Common.Context;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Context;
 
 namespace Rocket.DAL.Repositories
 {
     public class ParserSettingsRepository : IParserSettingsRepository
     {
-        private readonly IRocketContext _rocketContext;
+        private readonly RocketContext _rocketContext;
 
-        public ParserSettingsRepository(IRocketContext rocketContext)
+        public ParserSettingsRepository(RocketContext rocketContext)
         {
             _rocketContext = rocketContext;
         }

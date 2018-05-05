@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Rocket.DAL.Common.Context;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Context;
@@ -12,9 +10,9 @@ namespace Rocket.DAL.Repositories
 {
     public class ResourceRepository : IResourceRepository
     {
-        private readonly IRocketContext _rocketContext;
+        private readonly RocketContext _rocketContext;
 
-        public ResourceRepository(IRocketContext rocketContext)
+        public ResourceRepository(RocketContext rocketContext)
         {
             _rocketContext = rocketContext;
         }
