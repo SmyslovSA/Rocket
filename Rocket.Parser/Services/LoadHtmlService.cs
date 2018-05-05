@@ -15,14 +15,17 @@ namespace Rocket.Parser.Services
     public class LoadHtmlService : ILoadHtmlService
     {
         private readonly HttpClient _httpClient;
+        private readonly HtmlParser _domParser;
 
         /// <summary>
         /// Ctor
         /// </summary>
         /// <param name="httpClient"></param>
-        public LoadHtmlService(HttpClient httpClient)
+        /// <param name="domParser"></param>
+        public LoadHtmlService(HttpClient httpClient, HtmlParser domParser)
         {
             _httpClient = httpClient;
+            _domParser = domParser;
         }
 
         /// <summary>
@@ -31,17 +34,17 @@ namespace Rocket.Parser.Services
         /// <exception cref = "NotGetTextByUrlException" >"Не удалось загрузить текст по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
-        public string GetTextByUrlAsync(string url) //todo rename async
+        public async Task<string> GetTextByUrlAsync(string url)
         {
             try
             {
-                var response = _httpClient.GetAsync(url).Result;
+                var response = await _httpClient.GetAsync(url).ConfigureAwait(false);
 
                 var source = string.Empty;
 
                 if (response != null && response.StatusCode == HttpStatusCode.OK)
                 {
-                    source =  response.Content.ReadAsStringAsync().Result;
+                    source =  await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 }
 
                 return source;
@@ -58,15 +61,13 @@ namespace Rocket.Parser.Services
         /// <exception cref = "NotGetHtmlDocumentByUrlException">"Не удалось загрузить HtmlDocument по ссылке {0}."</exception >
         /// <param name="url">URL</param>
         /// <returns>HtmlDocument</returns>
-        public IHtmlDocument GetHtmlDocumentByUrlAsync(string url)
+        public async Task<IHtmlDocument> GetHtmlDocumentByUrlAsync(string url)
         {
             try
             {
-                var source = GetTextByUrlAsync(url);
+                var source = await GetTextByUrlAsync(url).ConfigureAwait(false);
 
-                var domParser = new HtmlParser();
-
-                var htmldocument = domParser.ParseAsync(source).Result;
+                var htmldocument = await _domParser.ParseAsync(source).ConfigureAwait(false);
 
                 return htmldocument;
             }

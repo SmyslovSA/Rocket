@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using AngleSharp.Parser.Html;
 using Ninject.Modules;
 using Rocket.Parser.Interfaces;
 using Rocket.Parser.Parsers;
@@ -15,6 +16,7 @@ namespace Rocket.Parser.Config
         {
 
             Bind<HttpClient>().ToMethod(ctx => new HttpClient()).InSingletonScope();
+            Bind<HtmlParser>().ToMethod(ctx => new HtmlParser()).InSingletonScope();
             Bind<ILoadHtmlService>().To<LoadHtmlService>().InSingletonScope();
             Bind<IAlbumInfoParser>().To<AlbumInfoParser>();
             Bind<ILostfilmParseService>().To<LostfilmParseService>();

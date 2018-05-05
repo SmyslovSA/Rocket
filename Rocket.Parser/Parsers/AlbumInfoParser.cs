@@ -50,8 +50,6 @@ namespace Rocket.Parser.Parsers
             try
             {
                 // получаем настроейки парсера
-                //var settings = _parserUoW.GetParserSettingsByResourceName(Properties.Resources.AlbumInfoSettings);
-                //_resourceRepository.SelectQuery()
                 var resource = _resourceRepository
                     .Queryable().FirstOrDefault(r => r.Name.Equals(Resources.AlbumInfoSettings));
                 var settings = _parserSettingsRepository.Queryable().
@@ -127,24 +125,11 @@ namespace Rocket.Parser.Parsers
 
             foreach (var resourceItem in resourceItems)
             {
-                //var resourceInternalId = resourceItem.ResourceInternalId;
-                //var param = Expression.Parameter(typeof(ResourceItemEntity), "ri");
-                //Expression boby = Expression.Equal(Expression.PropertyOrField(param, "ResourceInternalId"),
-                //    Expression.Constant(resourceInternalId, typeof(string)));
-                //var filter = Expression.Lambda<Func<ResourceItemEntity, bool>>(boby, param);
-
-                //var resourceItemEntity = _parserUoW.ResourceItems.Get(filter);
-
                 //находим соответствующий релиз
                 var release = releasesBc.FirstOrDefault(r => r.ResourceInternalId == resourceItem.ResourceInternalId);
 
                 if (release != null)
                 {
-                    //var resourceItemEntity = _parserUoW.ResourceItems.Get(
-                    //        r => r.ResourceId == resourceItem.ResourceId &&
-                    //             r.ResourceInternalId == resourceItem.ResourceInternalId).
-                    //    FirstOrDefault();
-
                     var resourceItemEntity = _resourceItemRepository.Queryable().FirstOrDefault(ri =>
                         ri.ResourceId == resourceItem.ResourceId &&
                         ri.ResourceInternalId == resourceItem.ResourceInternalId);
@@ -153,8 +138,9 @@ namespace Rocket.Parser.Parsers
                     {
                         // обновляем запись если существует
                         resourceItemEntity.ResourceItemLink = resourceItem.ResourceItemLink;
-                        resourceItem.Id = resourceItemEntity.Id;
                         _resourceItemRepository.Update(resourceItemEntity);
+
+                        resourceItem.Id = resourceItemEntity.Id;
                     }
                     else
                     {
