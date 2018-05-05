@@ -23,7 +23,7 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
                 .HasColumnName("is_active");
 
             HasMany(t => t.Permissions)
-                .WithMany(x => x.Roles);
+                .WithMany();
         }
     }
 }

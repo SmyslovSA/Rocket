@@ -1,4 +1,4 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿namespace Rocket.BL.Common.Models.User.Person.Personality
 {
     /// <summary>
     /// Содержит идентификатор личности. Как правило,
@@ -7,6 +7,11 @@
     /// </summary>
     public class Personality
     {
+        /// <summary>
+        /// Возвращает или задает уникальный идентификационный номер сведений о личности
+        /// </summary>
+        public int Id { get; set; }
+        
         /// <summary>
         /// Имя
         /// </summary>

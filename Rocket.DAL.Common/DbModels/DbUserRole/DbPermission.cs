@@ -4,6 +4,8 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
 {
     public class DbPermission
     {
+        // класс для управления доавлением пермишенов.
+
         /// <summary>
         /// Уникальный идентификатор значения "право доступа" 
         /// (либо функциональная возможность)
@@ -19,11 +21,5 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// Именование переменной, за которой скрывается реализация фичи
         /// </summary>
         public string ValueName { get; set; }
-
-        /// <summary>
-        /// Задает или получает список ролей, у которых
-        /// есть текущая функциональная возможность
-        /// </summary>
-        public ICollection<DbRole> Roles { get; set; }
     }
 }
