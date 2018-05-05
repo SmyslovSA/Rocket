@@ -24,7 +24,7 @@ namespace Rocket.DAL
             Bind<IResourceItemRepository>().To<ResourceItemRepository>();
 
             //UoW
-            Bind<IParserUoW>().To<ParserUoW>();
+            //Bind<IParserUoW>().To<ParserUoW>();
         }
     }
 }

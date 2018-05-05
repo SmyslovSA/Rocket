@@ -10,7 +10,7 @@ using Rocket.DAL.Common.UoW;
 
 namespace Rocket.DAL.UoW
 {
-    public class ParserUoW : IParserUoW
+    public class ParserUoW/* : IParserUoW*/
     {
         private readonly IRocketContext _rocketContext;
 
