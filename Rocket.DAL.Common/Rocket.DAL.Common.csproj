@@ -116,6 +116,7 @@
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IResourceItemRepository.cs" />
     <Compile Include="Repositories\IResourceRepository.cs" />
+    <Compile Include="Repositories\Temp\IRepository.cs" />
     <Compile Include="UoW\IParserUoW.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>

@@ -8,7 +8,7 @@ namespace Rocket.DAL.Context
     {
         public RocketContext() : base("DefaultConnection")
         {
-            Database.SetInitializer<RocketContext>(null);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<RocketContext, Migrations.Configuration>());
         }
 
         /// <summary>

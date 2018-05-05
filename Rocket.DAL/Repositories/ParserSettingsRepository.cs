@@ -34,8 +34,7 @@ namespace Rocket.DAL.Repositories
 
         public ParserSettingsEntity GetById<T>(T id)
         {
-            return _rocketContext.ParserSettings.Find(id) 
-                ?? throw new InvalidOperationException();  // todo customize ex
+            return _rocketContext.ParserSettings.Find(id);
         }
 
         public void Insert(ParserSettingsEntity entity)

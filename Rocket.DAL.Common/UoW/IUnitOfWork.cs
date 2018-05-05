@@ -1,5 +1,5 @@
-﻿using Rocket.DAL.Common.Repositories;
-using System;
+﻿using System;
+using Rocket.DAL.Common.Repositories;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -18,14 +18,18 @@ namespace Rocket.DAL.Common.UoW
         /// </summary>
         IDbTVSeriesRepository TVSeriesRepository { get; }
 
-		/// <summary>
-		/// Возвращает репозиторий для сериалов
-		/// </summary>
-		IDbMusicRepository MusicRepository { get; }
+        /// <summary>
+        /// Возвращает репозиторий для сериалов
+        /// </summary>
+        IDbMusicRepository MusicRepository { get; }
 
-		/// <summary>
-		/// Сохраняет изменения в хранилище данных
-		/// </summary>
-		void Save();
+        /// <summary>
+        /// Сохраняет изменения в хранилище данных
+        /// </summary>
+        void Save();
+
+        int SaveChanges();
+
+        void Dispose(bool disposing);
     }
 }

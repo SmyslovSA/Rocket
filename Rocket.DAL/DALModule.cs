@@ -1,6 +1,10 @@
 ﻿using Ninject.Modules;
-using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.Repositories.Temp;
+using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Context;
 using Rocket.DAL.Repositories;
+using Rocket.DAL.UoW;
 
 namespace Rocket.DAL
 {
@@ -11,12 +15,16 @@ namespace Rocket.DAL
         /// </summary>
         public override void Load()
         {
-            Bind<IResourceRepository>().To<ResourceRepository>();
-            Bind<IParserSettingsRepository>().To<ParserSettingsRepository>();
-            Bind<IResourceItemRepository>().To<ResourceItemRepository>();
+            //контекст
+            Bind<RocketContext>().ToMethod(ctx => new RocketContext()).InSingletonScope();
+
+            //репозитарии
+            Bind<IRepository<ResourceEntity>>().To<Repository<ResourceEntity>>();
+            Bind<IRepository<ParserSettingsEntity>>().To<Repository<ParserSettingsEntity>>();
+            Bind<IRepository<ResourceItemEntity>>().To<Repository<ResourceItemEntity>>();
 
             //UoW
-            //Bind<IParserUoW>().To<ParserUoW>();
+            Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
         }
     }
 }

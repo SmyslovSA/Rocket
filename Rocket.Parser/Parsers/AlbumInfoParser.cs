@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.UoW;
@@ -9,14 +8,18 @@ using Rocket.Parser.Interfaces;
 using Rocket.Parser.Models;
 using AngleSharp.Dom.Html;
 using System.Collections.Generic;
+using Rocket.DAL.Common.Repositories.Temp;
+using Rocket.Parser.Properties;
 
 namespace Rocket.Parser.Parsers
 {
     internal class AlbumInfoParser : IAlbumInfoParser
     {
         private readonly ILoadHtmlService _loadHtmlService;
-        private readonly IParserUoW _parserUoW;
-        
+        private readonly IRepository<ParserSettingsEntity> _parserSettingsRepository;
+        private readonly IRepository<ResourceEntity> _resourceRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
         /// <summary>
         /// Ctor
         /// </summary>
@@ -24,10 +27,14 @@ namespace Rocket.Parser.Parsers
         /// <param name="parseAlbumInfoService">Сервис парсинга сайта album-info.ru</param>
         /// <param name="parserUoW">UoW для парсера</param>
         public AlbumInfoParser(ILoadHtmlService loadHtmlService,
-            IParserUoW parserUoW)
+            IRepository<ParserSettingsEntity> parserSettingsRepository,
+            IRepository<ResourceEntity> resourceRepository,
+            IUnitOfWork unitOfWork)
         {
             _loadHtmlService = loadHtmlService;
-            _parserUoW = parserUoW;
+            _parserSettingsRepository = parserSettingsRepository;
+            _resourceRepository = resourceRepository;
+            _unitOfWork = unitOfWork;
         }
 
         /// <inheritdoc />
@@ -40,7 +47,11 @@ namespace Rocket.Parser.Parsers
             try
             {
                 // получаем настроейки парсера
-                var settings = _parserUoW.GetParserSettingsByResourceName(Properties.Resources.AlbumInfoSettings);
+                //var settings = _parserUoW.GetParserSettingsByResourceName(Properties.Resources.AlbumInfoSettings);
+                //_resourceRepository.SelectQuery()
+                var resource = _resourceRepository
+                    .Queryable().FirstOrDefault(r => r.Name.Equals(Resources.AlbumInfoSettings));
+                var settings = _parserSettingsRepository.Queryable().Where(ps => ps.ResourceId == resource.Id);
 
                 // для каждой настройки выполняем парсинг
                 foreach (var setting in settings)
@@ -62,9 +73,9 @@ namespace Rocket.Parser.Parsers
                         //каждый релиз на странице обрабатываем в своем потоке
                         Parallel.ForEach(releaseLinkList, releaseLink =>
                         {
-                            var releaseUrl = Properties.Resources.AlbumInfoBaseUrl + releaseLink;
+                            var releaseUrl = Resources.AlbumInfoBaseUrl + releaseLink;
                             var resourceInternalId = releaseLink.Replace(
-                                Properties.Resources.AlbumInfoInternalPrefixId, "");
+                                Resources.AlbumInfoInternalPrefixId, "");
 
                             resourceItemsBc.Add(new ResourceItemEntity
                             {
@@ -106,6 +117,7 @@ namespace Rocket.Parser.Parsers
         private void SaveResults(BlockingCollection<ResourceItemEntity> resourceItemsBc,
             BlockingCollection<AlbumInfoRelease> releasesBc)
         {
+            /*
             if (!resourceItemsBc.Any() && !releasesBc.Any()) throw new NotImplementedException();  //todo
 
             var resourceItems = resourceItemsBc.ToList();
@@ -158,6 +170,7 @@ namespace Rocket.Parser.Parsers
             //очищаем коллекции
             resourceItemsBc = null;
             releasesBc = null;
+            */
 
         }
 
@@ -176,11 +189,11 @@ namespace Rocket.Parser.Parsers
                 for (int j = 1; j < 5; j++) // строки таблицы
                 {
                     var item = document.QuerySelector(
-                        String.Format(Properties.Resources.AlbumInfoReleaseLinkSelector, i, j));
+                        String.Format(Resources.AlbumInfoReleaseLinkSelector, i, j));
 
                     if (item != null)
                     {
-                        list.Add(item.GetAttribute(Properties.Resources.HrefAttribute));
+                        list.Add(item.GetAttribute(Resources.HrefAttribute));
                     }
                 }
             }
@@ -197,11 +210,11 @@ namespace Rocket.Parser.Parsers
         {
             var release = new AlbumInfoRelease
             {
-                Name = document.QuerySelector(Properties.Resources.AlbumInfoReleaseNameSelector).TextContent,
-                Date = document.QuerySelector(Properties.Resources.AlbumInfoReleaseDateSelector).TextContent,
-                ImageUrl = document.QuerySelector(Properties.Resources.AlbumInfoReleaseImageUrlSelector)
-                    .GetAttribute(Properties.Resources.HrefAttribute),
-                Genre = document.QuerySelector(Properties.Resources.AlbumInfoReleaseGenreSelector).TextContent
+                Name = document.QuerySelector(Resources.AlbumInfoReleaseNameSelector).TextContent,
+                Date = document.QuerySelector(Resources.AlbumInfoReleaseDateSelector).TextContent,
+                ImageUrl = document.QuerySelector(Resources.AlbumInfoReleaseImageUrlSelector)
+                    .GetAttribute(Resources.HrefAttribute),
+                Genre = document.QuerySelector(Resources.AlbumInfoReleaseGenreSelector).TextContent
             };
 
             return release;
