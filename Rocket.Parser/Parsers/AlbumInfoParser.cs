@@ -18,6 +18,7 @@ namespace Rocket.Parser.Parsers
         private readonly ILoadHtmlService _loadHtmlService;
         private readonly IRepository<ParserSettingsEntity> _parserSettingsRepository;
         private readonly IRepository<ResourceEntity> _resourceRepository;
+        private readonly IRepository<ResourceItemEntity> _resourceItemRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
@@ -29,11 +30,13 @@ namespace Rocket.Parser.Parsers
         public AlbumInfoParser(ILoadHtmlService loadHtmlService,
             IRepository<ParserSettingsEntity> parserSettingsRepository,
             IRepository<ResourceEntity> resourceRepository,
+            IRepository<ResourceItemEntity> resourceItemRepository,
             IUnitOfWork unitOfWork)
         {
             _loadHtmlService = loadHtmlService;
             _parserSettingsRepository = parserSettingsRepository;
             _resourceRepository = resourceRepository;
+            _resourceItemRepository = resourceItemRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -51,7 +54,8 @@ namespace Rocket.Parser.Parsers
                 //_resourceRepository.SelectQuery()
                 var resource = _resourceRepository
                     .Queryable().FirstOrDefault(r => r.Name.Equals(Resources.AlbumInfoSettings));
-                var settings = _parserSettingsRepository.Queryable().Where(ps => ps.ResourceId == resource.Id);
+                var settings = _parserSettingsRepository.Queryable().
+                    Where(ps => ps.ResourceId == resource.Id).ToList();
 
                 // для каждой настройки выполняем парсинг
                 foreach (var setting in settings)
@@ -117,7 +121,6 @@ namespace Rocket.Parser.Parsers
         private void SaveResults(BlockingCollection<ResourceItemEntity> resourceItemsBc,
             BlockingCollection<AlbumInfoRelease> releasesBc)
         {
-            /*
             if (!resourceItemsBc.Any() && !releasesBc.Any()) throw new NotImplementedException();  //todo
 
             var resourceItems = resourceItemsBc.ToList();
@@ -137,27 +140,29 @@ namespace Rocket.Parser.Parsers
 
                 if (release != null)
                 {
-                    var resourceItemEntity = _parserUoW.ResourceItems.Get(
-                            r => r.ResourceId == resourceItem.ResourceId &&
-                                 r.ResourceInternalId == resourceItem.ResourceInternalId).
-                        FirstOrDefault();
+                    //var resourceItemEntity = _parserUoW.ResourceItems.Get(
+                    //        r => r.ResourceId == resourceItem.ResourceId &&
+                    //             r.ResourceInternalId == resourceItem.ResourceInternalId).
+                    //    FirstOrDefault();
+
+                    var resourceItemEntity = _resourceItemRepository.Queryable().FirstOrDefault(ri =>
+                        ri.ResourceId == resourceItem.ResourceId &&
+                        ri.ResourceInternalId == resourceItem.ResourceInternalId);
 
                     if (resourceItemEntity != null)
                     {
                         // обновляем запись если существует
+                        resourceItemEntity.ResourceItemLink = resourceItem.ResourceItemLink;
                         resourceItem.Id = resourceItemEntity.Id;
-                        _parserUoW.ResourceItems.Update(resourceItem);
+                        _resourceItemRepository.Update(resourceItemEntity);
                     }
                     else
                     {
-                        _parserUoW.ResourceItems.Insert(resourceItem);
+                        _resourceItemRepository.Insert(resourceItem);
                     }
 
                     //todo сохраняем релиз
-
-
-
-                    _parserUoW.Save();
+                    
                 }
                 else
                 {
@@ -167,11 +172,12 @@ namespace Rocket.Parser.Parsers
 
             }
 
+            _unitOfWork.SaveChanges();
+
             //очищаем коллекции
             resourceItemsBc = null;
             releasesBc = null;
-            */
-
+            
         }
 
         /// <summary>

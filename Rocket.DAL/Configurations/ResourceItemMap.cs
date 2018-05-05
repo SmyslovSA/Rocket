@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using Rocket.DAL.Common.DbModels.Parser;
 
 namespace Rocket.DAL.Configurations
@@ -24,11 +25,13 @@ namespace Rocket.DAL.Configurations
 
             Property(p => p.CreatedDateTime)
                 .IsRequired()
-                .HasColumnName("Created Date Time");
+                .HasColumnName("Created Date Time")
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
             Property(p => p.LastModified)
                 .IsRequired()
-                .HasColumnName("Last Modified");
+                .HasColumnName("Last Modified")
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
             this.HasRequired<ResourceEntity>(p => p.Resource).WithMany(r => r.ResourceItems)
                 .HasForeignKey<int>(p => p.ResourceId);

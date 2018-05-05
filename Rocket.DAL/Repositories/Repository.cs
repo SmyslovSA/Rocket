@@ -41,11 +41,6 @@ namespace Rocket.DAL.Repositories
             }
         }
 
-        public virtual void InsertGraphRange(IEnumerable<TEntity> entities)
-        {
-            _dbSet.AddRange(entities);
-        }
-
         public virtual void Update(TEntity entity)
         {
             _dbSet.Attach(entity);
