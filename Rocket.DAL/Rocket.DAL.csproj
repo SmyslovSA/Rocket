@@ -100,6 +100,7 @@
     <Compile Include="DALModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UoW\UoW.cs" />
+    <Compile Include="UoW\User\IDbUserUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -110,6 +111,9 @@
       <Project>{4383C0FF-4C4A-4C42-BB46-5A5137E5E7AD}</Project>
       <Name>Rocket.DAL.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configurations\User\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

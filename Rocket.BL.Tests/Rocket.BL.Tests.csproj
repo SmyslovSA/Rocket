@@ -99,6 +99,9 @@
     <Compile Include="ReleaseList\MusicDetailedInfoServiceTest.cs" />
     <Compile Include="ReleaseList\FilmDetailedInfoServiceTest.cs" />
     <Compile Include="ReleaseList\TVSeriesDetailedInfoServiceTest.cs" />
+    <Compile Include="User\FakeData\FakeUsers.cs" />
+    <Compile Include="User\UserManagementServiceTest.cs" />
+    <Compile Include="User\UserValidateServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
