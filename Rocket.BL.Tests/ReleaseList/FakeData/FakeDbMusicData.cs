@@ -73,7 +73,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
 				.RuleFor(m => m.ReleaseDate, f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
 				.RuleFor(m => m.Genres, f => f.PickRandom(this.MusicGenre, f.Random.Number(1, 2)).ToList())
 				.RuleFor(m => m.Musicians, f => f.PickRandom(this.Musician, f.Random.Number(1, 2)).ToList())
-				.RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(4, 0, 0)))
+				.RuleFor(m => m.Duration, f => f.Random.Number(1, 2))
 				.RuleFor(m => m.MusicTracks, f => this.FakeDbMusicTracksData.Generate(f.Random.Number(1, 13))); ;
 
 			this.Music = MusicFaker.Generate(musicCount);

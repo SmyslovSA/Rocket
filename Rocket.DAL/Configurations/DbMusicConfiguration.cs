@@ -54,6 +54,16 @@ namespace Rocket.DAL.Configurations
 			HasMany(f => f.MusicTracks)
 				.WithRequired(p => p.DbMusic)
 				.HasForeignKey(p => p.DbMusicId);
-		}
+
+		    Property(f => f.Artist)
+		        .IsRequired()
+		        .HasColumnName("Artist")
+		        .HasMaxLength(150);
+
+		    Property(f => f.Type)
+		        .IsRequired()
+		        .HasColumnName("Type")
+		        .HasMaxLength(30);
+        }
 	}
 }

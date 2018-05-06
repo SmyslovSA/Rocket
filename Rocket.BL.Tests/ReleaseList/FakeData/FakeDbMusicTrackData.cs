@@ -26,11 +26,11 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
 		/// </summary>
 		public FakeDbMusicTrackData()
 		{
-			this.MusicTrackFaker = new Faker<DbMusicTrack>()
-				.RuleFor(m => m.Id, f => f.IndexFaker)
-				.RuleFor(m => m.Number, f => f.IndexVariable++)
-				.RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
-				.RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(1, 0, 0)));
+		    this.MusicTrackFaker = new Faker<DbMusicTrack>()
+		        .RuleFor(m => m.Id, f => f.IndexFaker)
+		        .RuleFor(m => m.Number, f => f.IndexVariable++)
+		        .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
+				.RuleFor(m => m.Duration, f => f.Random.Number(1, 2));
 
 			this.MusicTrack = new List<DbMusicTrack>();
 		}
