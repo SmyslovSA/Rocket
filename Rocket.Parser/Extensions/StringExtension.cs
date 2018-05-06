@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Rocket.Parser.Heplers
+namespace Rocket.Parser.Extensions
 {
     /// <summary>
     /// Хелпер для облегчения работы со строками.
     /// </summary>
-    public static class StringHelper
+    public static class StringExtension
     {
         /// <summary>
         /// Получает подстроку на основании исходной строки.
@@ -16,7 +16,7 @@ namespace Rocket.Parser.Heplers
         /// <param name="endString">Строка перед которой надо завершить получение подстроки.</param>
         /// <param name="regExpr"></param>
         /// <returns>Подстрока.</returns>
-        public static string GetSubstring(string source, string startString, string endString, bool regExpr = true)
+        public static string GetSubstring(this string source, string startString, string endString, bool regExpr = true)
         {
             if (endString == null) throw new ArgumentNullException(nameof(endString));
 
