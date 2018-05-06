@@ -1,5 +1,4 @@
 ﻿using Rocket.DAL.Common.DbModels.ReleaseList;
-using Rocket.DAL.Configurations.ReleaseList;
 using System.Data.Entity;
 
 namespace Rocket.DAL.Context
@@ -12,8 +11,8 @@ namespace Rocket.DAL.Context
         /// <summary>
         /// Создает новый экземпляр контекста данных
         /// </summary>
-        public RocketContext(string connectionString)
-            : base(connectionString)
+        public RocketContext()
+            : base("DefaultConnection")
         {
             Database.SetInitializer<RocketContext>(null);
         }
@@ -40,9 +39,7 @@ namespace Rocket.DAL.Context
         /// <param name="modelBuilder">Построитель, который определяет модель для создаваемого контекста.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new DbFilmConfiguration());
-            modelBuilder.Configurations.Add(new DbTVSeriesConfiguration());
-            modelBuilder.Configurations.Add(new DbMusicConfiguration());
+            modelBuilder.Configurations.AddFromAssembly(typeof(RocketContext).Assembly);
         }
     }
 }
