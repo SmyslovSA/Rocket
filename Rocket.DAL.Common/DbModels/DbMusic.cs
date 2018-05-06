@@ -12,10 +12,13 @@ namespace Rocket.DAL.Common.DbModels
 	/// </summary>
 	public class DbMusic
 	{
-		/// <summary>
-		/// Возвращает или задает уникальный идентификатор музыкального релиза
-		/// </summary>
-		public int Id { get; set; }
+	    private ICollection<DbMusician> _dbMusicians;
+	    private ICollection<DbMusicGenre> _dbMusicGenres;
+
+        /// <summary>
+        /// Возвращает или задает уникальный идентификатор музыкального релиза
+        /// </summary>
+        public int Id { get; set; }
 
 		/// <summary>
 		/// Возвращает или задает название музыкального релиза
@@ -41,7 +44,10 @@ namespace Rocket.DAL.Common.DbModels
 		/// <summary>
 		/// Возвращает или задает коллекцию жанров, к которым относится музыкальный релиз
 		/// </summary>
-		public ICollection<DbMusicGenre> Genres { get; set; }
+		public ICollection<DbMusicGenre> Genres {
+		    get => _dbMusicGenres ?? (_dbMusicGenres = new List<DbMusicGenre>());
+		    set => _dbMusicGenres = value;
+		}
 
 		/// <summary>
 		/// Возвращает или задает музыкальные треки которые относятся к релизу
@@ -51,7 +57,10 @@ namespace Rocket.DAL.Common.DbModels
 		/// <summary>
 		/// Возвращает или задает исполнителей музыкального релиза
 		/// </summary>
-		public ICollection<DbMusician> Musicians { get; set; }
+		public ICollection<DbMusician> Musicians {
+		    get => _dbMusicians ?? (_dbMusicians = new List<DbMusician>());
+		    set => _dbMusicians = value;
+		}
 
 	    /// <summary>
 	    /// Исполнитель

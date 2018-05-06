@@ -8,6 +8,7 @@ using Rocket.Parser.Interfaces;
 using Rocket.Parser.Models;
 using AngleSharp.Dom.Html;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using PCRE;
 using Rocket.DAL.Common.DbModels;
@@ -175,16 +176,27 @@ namespace Rocket.Parser.Parsers
 
                     //проверяем существует ли релиз
                     var musicEntity = _musicRepository.Queryable().
+                        Include(a => a.Genres).
+                        Include(m => m.Musicians).
+                        Include(t => t.MusicTracks).
                         FirstOrDefault(mr => mr.Title.Equals(music.Title) && mr.Artist.Equals(music.Artist));
 
                     if (musicEntity != null)
                     {
+                        //var toDel = musicEntity.Genres.Where(c => music.Genres.All(d => c.Id != d.Id)).ToList();
+                        //var toAdd = music.Genres.Where(c => musicEntity.Genres.All(d => c.Id != d.Id)).ToList();
+                        //toDel.ForEach(c => musicEntity.Genres.Remove(c));
+                        //toAdd.ForEach(c => musicEntity.Genres.Add(c));
+                        
                         musicEntity.Genres = music.Genres;
                         musicEntity.Musicians = music.Musicians;
                         musicEntity.ReleaseDate = music.ReleaseDate;
                         musicEntity.Duration = music.Duration;
                         musicEntity.MusicTracks = music.MusicTracks;
                         musicEntity.Type = music.Type;
+
+                        _musicRepository.Update(musicEntity);
+                        _unitOfWork.SaveChanges();
                         //todo musicEntity.PosterImagePath
                         musicId = musicEntity.Id;
                     }
@@ -192,6 +204,7 @@ namespace Rocket.Parser.Parsers
                     {
                         //todo musicEntity.PosterImagePath
                         _musicRepository.Insert(music);
+                        _unitOfWork.SaveChanges();
                         musicId = music.Id;
                     }
 
@@ -207,17 +220,13 @@ namespace Rocket.Parser.Parsers
                         resourceItemEntity.MusicId = resourceItem.MusicId;
 
                         _resourceItemRepository.Update(resourceItemEntity);
-
+                        _unitOfWork.SaveChanges();
                         resourceItem.Id = resourceItemEntity.Id;
                     }
                     else
                     { // сохраняем информацию о релизе
-
-                        //проверяем существует ли уже такой релиз
-                        //_musicRepository.Queryable().Where(m => m.Title.Equals(release.))
-
-
                         _resourceItemRepository.Insert(resourceItem);
+                        _unitOfWork.SaveChanges();
                     }
                 }
                 else
@@ -226,14 +235,14 @@ namespace Rocket.Parser.Parsers
                 }
             }
 
-            _unitOfWork.SaveChanges();
+            //_unitOfWork.SaveChanges();
         }
 
         private DbMusic MapAlbumInfoReleaseToMusic(AlbumInfoRelease release)
         {
             var music = new DbMusic();
 
-            const string releaseNamePattern = @"(?<=\- )[^ ]++";
+            const string releaseNamePattern = @"(?<=\- )(?: ?+[^\(])++";
             const string releaseTypePattern = @"(?<=\()\w++";
             const string releaseGenrePattern = @"\w[^,]*+";
             var releaseName = PcreRegex.Match(release.Name, releaseNamePattern).Value;
@@ -242,10 +251,12 @@ namespace Rocket.Parser.Parsers
             var releaseArtist = release.Name.Substring(0, release.Name.IndexOf("-", StringComparison.Ordinal) - 1);
             var releaseGenres = PcreRegex.Matches(release.Genre, releaseGenrePattern).Select(m => m.Value);
 
-            var format = "d MMMM yyyy г.";
+            var format = release.Date.Length > 4 ? "d MMMM yyyy г." : "yyyy";
+            
             var provider = CultureInfo.CreateSpecificCulture("ru-RU");
             var releaseDate = DateTime.ParseExact(release.Date, format, provider);
 
+            
             //проверяем существует ли исполнитель
             var musicianEntity = _musicianRepository.Queryable().
                 FirstOrDefault(m => m.FullName.Equals(releaseArtist));
@@ -265,6 +276,7 @@ namespace Rocket.Parser.Parsers
 
                 music.Musicians.Add(newMusician);
             }
+            
 
             //проверяем существует ли жанры
             foreach (var releaseGenre in releaseGenres)
@@ -276,16 +288,23 @@ namespace Rocket.Parser.Parsers
                 }
                 else
                 {
-                    music.Genres.Add(new DbMusicGenre
+
+                    var newMusicGenres = new DbMusicGenre
                     {
                         Name = releaseGenre
-                    });
+                    };
+
+                    _musicGenreRepository.Insert(newMusicGenres);
+                    _unitOfWork.SaveChanges();
+
+                    music.Genres.Add(newMusicGenres);
                 }
             }
 
             music.Title = releaseName;
             music.ReleaseDate = releaseDate;
             music.Type = releaseType;
+            music.Artist = releaseArtist;
 
             return music;
         }
