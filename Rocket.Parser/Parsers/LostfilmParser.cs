@@ -10,6 +10,7 @@ using Rocket.Parser.Extensions;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
 
+
 namespace Rocket.Parser.Parsers
 {
     /// <summary>
@@ -22,6 +23,10 @@ namespace Rocket.Parser.Parsers
         private readonly string _baseUrl;
         private readonly int _maxRequestCount;
 
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="loadHtmlService">Сервис для загрузки html</param>
         public LostfilmParser(ILoadHtmlService loadHtmlService)
         {
             _loadHtmlService = loadHtmlService;
@@ -32,17 +37,35 @@ namespace Rocket.Parser.Parsers
             int.TryParse(LostfilmHelper.GetMaxRequestCount(), out _maxRequestCount);
         }
 
+        /// <summary>
+        /// Базовая модель агрегации для сериала.
+        /// </summary>
         private class TvSeriasAgregateModelBase
         {
+            /// <summary>
+            /// Сущность модели хранения данных о сериале.
+            /// </summary>
             public TvSeriasEntity TvSeriasEntity { get; set; } = new TvSeriasEntity();
 
+            /// <summary>
+            /// Html подробной информации о сериале.
+            /// </summary>
             public IHtmlDocument TvSeriasOverviewDetailsHtmlDoc { get; set; }
         }
 
+        /// <summary>
+        /// Расширенная модель агрегации для сериала.
+        /// </summary>
         private class TvSeriasAgregateModelExt : TvSeriasAgregateModelBase
         {
+            /// <summary>
+            /// Html всех серий сериала.
+            /// </summary>
             public IHtmlDocument TvSerialAllEpisodesHtmlDoc { get; set; }
 
+            /// <summary>
+            /// Html всех актеров, режисеров, продюсеров, сценаристов сериала.
+            /// </summary>
             public IHtmlDocument TvSerialCastHtmlDoc { get; set; }
         }
 
@@ -58,31 +81,34 @@ namespace Rocket.Parser.Parsers
                 //Получаем полный список элементов "список сериалов".
                 var listTvSeriasListElement = LoadListTvSeriasListElementAll();
 
-                var listTvSeriasAgregateModelBase = new List<TvSeriasAgregateModelBase>();
-                foreach (var tvSeriasListElement in listTvSeriasListElement)
-                {
-                    listTvSeriasAgregateModelBase.AddRange(ParseSerialListElement(tvSeriasListElement));
-                }
+                //Парсим все элементы "список сериалов" и создаем агрегационные модели сериалов.
+                var listTvSeriasAgregateModelBase = ParseSerialListElementAll(listTvSeriasListElement);
 
                 int skip = 0;
                 int countAll = listTvSeriasAgregateModelBase.Count;
                 for (int i = 0; i < countAll; i += _maxRequestCount)
                 {
-
+                    //Создаем частичный список расширенных агрегационных моделей.
                     var listTvSeriasAgregateModelExt = 
                         CreateListTvSeriasAgregateModelExt(listTvSeriasAgregateModelBase, skip);
                     skip += _maxRequestCount;
 
-                    LoadTvSerialOverviewDetailsHtml(listTvSeriasAgregateModelExt);
+                    //Загружаем html обзорной информации по сериалу в агрегационную модель.
+                    LoadTvSeriasOverviewDetailsHtml(listTvSeriasAgregateModelExt);
 
-                    Parallel.ForEach(listTvSeriasAgregateModelExt, ParseTvSerialOverviewDetails);
+                    //Парсим обзорную информацию по сериалу
+                    Parallel.ForEach(listTvSeriasAgregateModelExt, ParseTvSeriasOverviewDetails);
 
-                    LoadOverviewTvSerialHtml(listTvSeriasAgregateModelExt);
+                    //Загружаем html со списком всех серий в агрегационную модель.
+                    LoadTvSeriasAllEpisodesHtml(listTvSeriasAgregateModelExt);
 
-                    Parallel.ForEach(listTvSeriasAgregateModelExt, ParseOverviewTvSerial);
+                    //Парсим все серии сериала.
+                    Parallel.ForEach(listTvSeriasAgregateModelExt, ParseTvSeriasAllEpisodes);
 
+                    // Загружаем актерский состав сериала.
                     LoadCastTvSeriasHtml(listTvSeriasAgregateModelExt);
 
+                    //Парсим весь актерский и режисерский состав.
                     Parallel.ForEach(listTvSeriasAgregateModelExt, ParseCastTvSerias);
 
                     //todo сделать запихивание данных в бд
@@ -98,29 +124,6 @@ namespace Rocket.Parser.Parsers
             }
         }
 
-        private List<TvSeriasAgregateModelExt> CreateListTvSeriasAgregateModelExt(
-            List<TvSeriasAgregateModelBase> listTvSeriasAgregateModelBase, int skip)
-        {
-            var listTvSeriasAgregateModelExt = new List<TvSeriasAgregateModelExt>();
-
-            var listTvSeriasAgregateModelBaseBatch = listTvSeriasAgregateModelBase
-                .Skip(skip)
-                .Take(_maxRequestCount)
-                .ToList();
-
-            foreach (var tvSeriasAgregateModelBase in listTvSeriasAgregateModelBaseBatch)
-            {
-                var tvSeriasAgregateModelExt = new TvSeriasAgregateModelExt
-                {
-                    TvSeriasEntity = tvSeriasAgregateModelBase.TvSeriasEntity,
-                    TvSeriasOverviewDetailsHtmlDoc = tvSeriasAgregateModelBase.TvSeriasOverviewDetailsHtmlDoc
-                };
-
-                listTvSeriasAgregateModelExt.Add(tvSeriasAgregateModelExt);
-            }
-
-            return listTvSeriasAgregateModelExt;
-        }
 
         /// <summary>
         /// Получаем полный список элементов "список сериалов".
@@ -156,6 +159,8 @@ namespace Rocket.Parser.Parsers
         /// Получаем частичный список элементов "список сериалов" с сайта.
         /// </summary>
         /// <param name="getTvSeriasListIteration">Итерация получения элемента "список сериалов" с сайта.</param>
+        /// <param name="messageNotFoundByRequest">Сообщение что мы достигли конца списка сериалов.</param>
+        /// <param name="takeTvSeriasByRequest">Кол-во сериалов которые сайт отдает за раз.</param>
         /// <returns>Частичный список элементов "список сериалов" с сайта.</returns>
         private List<IElement> LoadListTvSeriasListElementBatch(ref int getTvSeriasListIteration,
             string messageNotFoundByRequest, int takeTvSeriasByRequest)
@@ -206,19 +211,35 @@ namespace Rocket.Parser.Parsers
 
                 return htmlDocumentSerialList.QuerySelector(LostfilmHelper.GetTvSerailListHeaderBase());
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //todo запись в лог о неудачной попытке обратиться к сайту
-                //todo использовать cancellationToken для таймаута
-                throw;
+                throw e;
             }
         }
 
         /// <summary>
-        /// Парсим элемент "список сериалов" и создаем список сущностей сериалов.
+        /// Парсим все элементы "список сериалов" и создаем агрегационные модели сериалов.
+        /// </summary>
+        /// <param name="listTvSeriasListElement">Список элементов "список сериалов".</param>
+        /// <returns>Список агрегационных моделей сериалов.</returns>
+        private List<TvSeriasAgregateModelBase> ParseSerialListElementAll(List<IElement> listTvSeriasListElement)
+        {
+            var listTvSeriasAgregateModelBase = new List<TvSeriasAgregateModelBase>();
+
+            foreach (var tvSeriasListElement in listTvSeriasListElement)
+            {
+                listTvSeriasAgregateModelBase.AddRange(ParseSerialListElement(tvSeriasListElement));
+            }
+
+            return listTvSeriasAgregateModelBase;
+        }
+
+        /// <summary>
+        /// Парсим элемент "список сериалов" и создаем агрегационные модели сериалов.
         /// </summary>
         /// <param name="tvSeriasListElement">Элемент "список сериалов".</param>
-        /// <returns>Список сущностей сериалов.</returns>
+        /// <returns>Список агрегационных моделей сериалов.</returns>
         private List<TvSeriasAgregateModelBase> ParseSerialListElement(IElement tvSeriasListElement)
         {
             var listTvSeriasAgregateModel = new List<TvSeriasAgregateModelBase>();
@@ -228,8 +249,8 @@ namespace Rocket.Parser.Parsers
 
             //Формируем список тасок на выполнение
             var listTaskParseTvSeriasHeader = new List<Task<TvSeriasAgregateModelBase>>();
-            int step = 2; //todo в настройку
-            for (int i = step; i <= takeTvSeriasByRequest * step; i = i + step)
+            int step = 2;
+            for (int i = step; i <= takeTvSeriasByRequest * step; i += step)
             {
                 int selectorIterator = i;
                 var taskParseTvSeriasHeader = 
@@ -255,7 +276,7 @@ namespace Rocket.Parser.Parsers
         /// </summary>
         /// <param name="elSerialList">Элемент список заголовков сериалов.</param>
         /// <param name="selectorIterator">Счетчик.</param>
-        /// <returns>true - если сериал успешно получен, false - не удалось получить следующий сериал.</returns>
+        /// <returns>Агрегационная модель сериала.</returns>
         private TvSeriasAgregateModelBase ParseTvSeriasHeader(IElement elSerialList, int selectorIterator)
         {
             var tvSeriasEntity = new TvSeriasEntity();
@@ -319,34 +340,66 @@ namespace Rocket.Parser.Parsers
             string detailsPane = detailsPaneElement.InnerHtml;
 
             //Получаем текущий статус сериала
-            tvSeriasEntity.CurrentStatus =
-                detailsPane.GetSubstring(LostfilmHelper.GetTvSerialHeaderKeywordStatus(),
-                    CommonHelper.OpenAngleBracket);
+            tvSeriasEntity.CurrentStatus = detailsPane.GetSubstring(
+                LostfilmHelper.GetTvSerialHeaderKeywordStatus(), CommonHelper.OpenAngleBracket);
 
             //Получаем теливизионный канал на котором показывают сериал
-            tvSeriasEntity.TvSerialCanal =
-                detailsPane.GetSubstring(LostfilmHelper.GetTvSerialHeaderKeywordCanal(),
-                    CommonHelper.OpenAngleBracket);
+            tvSeriasEntity.TvSerialCanal = detailsPane.GetSubstring(
+                LostfilmHelper.GetTvSerialHeaderKeywordCanal(), CommonHelper.OpenAngleBracket);
 
             //Получаем список жанров в виде строки для последующего парсинга.
-            tvSeriasEntity.ListGenreForParse =
-                detailsPane.GetSubstring(LostfilmHelper.GetTvSerialHeaderKeywordGenre(),
-                    CommonHelper.OpenAngleBracket);
+            tvSeriasEntity.ListGenreForParse = detailsPane.GetSubstring(
+                LostfilmHelper.GetTvSerialHeaderKeywordGenre(), CommonHelper.OpenAngleBracket);
 
             //Получаем год начала показа сериала.
-            tvSeriasEntity.TvSerialYearStart =
-                detailsPane.GetSubstring(LostfilmHelper.GetTvSerialHeaderKeywordYearStart(),
-                    CommonHelper.OpenAngleBracket);
+            tvSeriasEntity.TvSerialYearStart = detailsPane.GetSubstring(
+                LostfilmHelper.GetTvSerialHeaderKeywordYearStart(), CommonHelper.OpenAngleBracket);
         }
 
-
-        private void LoadTvSerialOverviewDetailsHtml(List<TvSeriasAgregateModelExt> listTvSeriasAgregateModel)
+        /// <summary>
+        /// Создаем частичный список расширенных агрегационных моделей.
+        /// </summary>
+        /// <param name="listTvSeriasAgregateModelBase">Список базовых агрегационных моделей.</param>
+        /// <param name="skip">Кол-во пропускать.</param>
+        /// <returns>Список расширенных агрегационных моделей.</returns>
+        private List<TvSeriasAgregateModelExt> CreateListTvSeriasAgregateModelExt(
+            List<TvSeriasAgregateModelBase> listTvSeriasAgregateModelBase, int skip)
         {
+            var listTvSeriasAgregateModelExt = new List<TvSeriasAgregateModelExt>();
+
+            var listTvSeriasAgregateModelBaseBatch = listTvSeriasAgregateModelBase
+                .Skip(skip)
+                .Take(_maxRequestCount)
+                .ToList();
+
+            foreach (var tvSeriasAgregateModelBase in listTvSeriasAgregateModelBaseBatch)
+            {
+                var tvSeriasAgregateModelExt = new TvSeriasAgregateModelExt
+                {
+                    TvSeriasEntity = tvSeriasAgregateModelBase.TvSeriasEntity,
+                    TvSeriasOverviewDetailsHtmlDoc = tvSeriasAgregateModelBase.TvSeriasOverviewDetailsHtmlDoc
+                };
+
+                listTvSeriasAgregateModelExt.Add(tvSeriasAgregateModelExt);
+            }
+
+            return listTvSeriasAgregateModelExt;
+        }
+
+        /// <summary>
+        /// Загружаем html обзорной информации по сериалу в агрегационную модель.
+        /// </summary>
+        /// <param name="listTvSeriasAgregateModel">Список агрегационных моделей.</param>
+        private void LoadTvSeriasOverviewDetailsHtml(List<TvSeriasAgregateModelExt> listTvSeriasAgregateModel)
+        {
+            //Получаем список Url для загрузки
             var listUrl = listTvSeriasAgregateModel
                 .Select(item => item.TvSeriasEntity.UrlToSource)
                 .ToList();
 
-            var listHtmlDocumentModel = _loadHtmlService.GetListHtmlDocumentModel(listUrl, _maxRequestCount);
+            //Получаем список html моделей
+            var listHtmlDocumentModel = 
+                _loadHtmlService.GetListHtmlDocumentModel(listUrl, listTvSeriasAgregateModel.Count);
 
             //Устанавливаем связку сериала и 
             foreach (var tvSeriasAgregateModel in listTvSeriasAgregateModel)
@@ -361,7 +414,8 @@ namespace Rocket.Parser.Parsers
         /// <summary>
         /// Парсим обзорную информацию по сериалу
         /// </summary>
-        private void ParseTvSerialOverviewDetails(TvSeriasAgregateModelExt tvSeriasAgregateModel)
+        /// <param name="tvSeriasAgregateModel">Агрегационная модель.</param>
+        private void ParseTvSeriasOverviewDetails(TvSeriasAgregateModelExt tvSeriasAgregateModel)
         {
             var tvSeriasEntity = tvSeriasAgregateModel.TvSeriasEntity;
 
@@ -395,18 +449,23 @@ namespace Rocket.Parser.Parsers
 
         }
 
-
-        private void LoadOverviewTvSerialHtml(List<TvSeriasAgregateModelExt> listTvSeriasAgregateModel)
+        /// <summary>
+        /// Загружаем html со списком всех серий в агрегационную модель.
+        /// </summary>
+        /// <param name="listTvSeriasAgregateModel">Список агрегационных моделей.</param>
+        private void LoadTvSeriasAllEpisodesHtml(List<TvSeriasAgregateModelExt> listTvSeriasAgregateModel)
         {
             string additionalUrlToTvSerialEpisodes = LostfilmHelper.AdditionalUrlToTvSerialEpisodes();
 
+            //Получаем список Url для загрузки
             var listUrl = listTvSeriasAgregateModel
                 .Select(item => item.TvSeriasEntity.UrlToSource + additionalUrlToTvSerialEpisodes)
                 .ToList();
 
+            //Получаем список html моделей
             var listHtmlDocumentModel = _loadHtmlService.GetListHtmlDocumentModel(listUrl, _maxRequestCount);
 
-            //Устанавливаем связку сериала и 
+            //Устанавливаем связку сериала и html страница со всеми сериями сериала.
             foreach (var tvSeriasAgregateModel in listTvSeriasAgregateModel)
             {
                 tvSeriasAgregateModel.TvSerialAllEpisodesHtmlDoc =
@@ -420,7 +479,8 @@ namespace Rocket.Parser.Parsers
         /// <summary>
         /// Парсим все серии и сериала.
         /// </summary>
-        private void ParseOverviewTvSerial(TvSeriasAgregateModelExt tvSeriasAgregateModel)
+        /// <param name="tvSeriasAgregateModel">Агрегационная модель.</param>
+        private void ParseTvSeriasAllEpisodes(TvSeriasAgregateModelExt tvSeriasAgregateModel)
         {
             try
             {
@@ -623,28 +683,36 @@ namespace Rocket.Parser.Parsers
                 .First()
                 .OuterHtml;
 
-            string releaseDateRuText = someTextForParseDates.GetSubstring(LostfilmHelper.GetRuKeyword(), CommonHelper.OpenAngleBracket);
+            string releaseDateRuText = someTextForParseDates.GetSubstring(
+                LostfilmHelper.GetRuKeyword(), CommonHelper.OpenAngleBracket);
             DateTime.TryParseExact(releaseDateRuText, LostfilmHelper.GetDateFormat(),
                 new CultureInfo(CommonHelper.CultureInfoText), DateTimeStyles.None, out DateTime releaseDateRu);
             episodeEntity.ReleaseDateRu = releaseDateRu;
 
-            string releaseDateEnText = someTextForParseDates.GetSubstring(LostfilmHelper.GetEngKeyword(), CommonHelper.OpenAngleBracket);
+            string releaseDateEnText = someTextForParseDates.GetSubstring(
+                LostfilmHelper.GetEngKeyword(), CommonHelper.OpenAngleBracket);
             DateTime.TryParseExact(releaseDateEnText, LostfilmHelper.GetDateFormat(),
                 new CultureInfo(CommonHelper.CultureInfoText), DateTimeStyles.None, out DateTime releaseDateEn);
             episodeEntity.ReleaseDateEn = releaseDateEn;
         }
 
+        /// <summary>
+        /// Загружаем актерский состав сериала.
+        /// </summary>
+        /// <param name="listTvSeriasAgregateModel">Агрегационная модель.</param>
         private void LoadCastTvSeriasHtml(List<TvSeriasAgregateModelExt> listTvSeriasAgregateModel)
         {
             string additionalUrlToTvSerialCasts = LostfilmHelper.AdditionalUrlToTvSerialCasts();
 
+            //Получаем список Url для загрузки
             var listUrl = listTvSeriasAgregateModel
                 .Select(item => item.TvSeriasEntity.UrlToSource + additionalUrlToTvSerialCasts)
                 .ToList();
 
+            //Получаем список html моделей
             var listHtmlDocumentModel = _loadHtmlService.GetListHtmlDocumentModel(listUrl, _maxRequestCount);
 
-            //Устанавливаем связку сериала и 
+            //Устанавливаем связку сериала и html страница со всем актерским составом.
             foreach (var tvSeriasAgregateModel in listTvSeriasAgregateModel)
             {
                 tvSeriasAgregateModel.TvSerialCastHtmlDoc =
@@ -658,6 +726,7 @@ namespace Rocket.Parser.Parsers
         /// <summary>
         /// Парсим весь актерский и режисерский состав.
         /// </summary>
+        /// <param name="tvSeriasAgregateModel">Модель агрегации сериала.</param>
         private void ParseCastTvSerias(TvSeriasAgregateModelExt tvSeriasAgregateModel)
         {
             var htmlDocumentCastTvSerias = tvSeriasAgregateModel.TvSerialCastHtmlDoc;
