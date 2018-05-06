@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Repositories.Temp;
 using Rocket.DAL.Common.UoW;
@@ -22,6 +23,10 @@ namespace Rocket.DAL
             Bind<IRepository<ResourceEntity>>().To<Repository<ResourceEntity>>();
             Bind<IRepository<ParserSettingsEntity>>().To<Repository<ParserSettingsEntity>>();
             Bind<IRepository<ResourceItemEntity>>().To<Repository<ResourceItemEntity>>();
+            Bind<IRepository<DbMusic>>().To<Repository<DbMusic>>();
+            Bind<IRepository<DbMusicGenre>>().To<Repository<DbMusicGenre>>();
+            Bind<IRepository<DbMusicTrack>>().To<Repository<DbMusicTrack>>();
+            Bind<IRepository<DbMusician>>().To<Repository<DbMusician>>();
 
             //UoW
             Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();

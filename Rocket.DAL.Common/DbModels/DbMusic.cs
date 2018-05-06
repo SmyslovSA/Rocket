@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rocket.DAL.Common.DbModels.Parser;
 
 namespace Rocket.DAL.Common.DbModels
 {
@@ -35,7 +36,7 @@ namespace Rocket.DAL.Common.DbModels
 		/// <summary>
 		/// Возвращает или задает продолжительность музыкального релиза
 		/// </summary>
-		public TimeSpan Duration { get; set; }
+		public int Duration { get; set; }
 
 		/// <summary>
 		/// Возвращает или задает коллекцию жанров, к которым относится музыкальный релиз
@@ -51,5 +52,20 @@ namespace Rocket.DAL.Common.DbModels
 		/// Возвращает или задает исполнителей музыкального релиза
 		/// </summary>
 		public ICollection<DbMusician> Musicians { get; set; }
-	}
+
+	    /// <summary>
+	    /// Исполнитель
+	    /// </summary>
+	    public string Artist { get; set; }
+
+	    /// <summary>
+	    /// Тип релиза
+	    /// </summary>
+	    public string Type { get; set; }
+
+        /// <summary>
+        /// Источники релиза
+        /// </summary>
+        public ICollection<ResourceItemEntity> ResourceItems { get; set; }
+    }
 }

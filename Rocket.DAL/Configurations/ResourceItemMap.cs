@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
 
 namespace Rocket.DAL.Configurations
@@ -33,8 +34,15 @@ namespace Rocket.DAL.Configurations
                 .HasColumnName("Last Modified")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
+            Property(p => p.MusicId)
+                .IsRequired()
+                .HasColumnName("Music Id");
+
             this.HasRequired<ResourceEntity>(p => p.Resource).WithMany(r => r.ResourceItems)
                 .HasForeignKey<int>(p => p.ResourceId);
+
+            this.HasRequired<DbMusic>(p => p.Music).WithMany(r => r.ResourceItems)
+                .HasForeignKey<int>(p => p.MusicId);
         }
     }
 }

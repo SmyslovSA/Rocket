@@ -30,7 +30,7 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// <summary>
         /// Дата и веремя создания
         /// </summary>
-        public DateTime CreatedDateTime { get; private set; } //todo default value 
+        public DateTime CreatedDateTime { get; private set; }
 
         /// <summary>
         /// Дата и веремя последней обработки
@@ -42,5 +42,14 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// </summary>
         public ResourceEntity Resource { get; set; }
 
+        /// <summary>
+        /// Id музыкального релиза
+        /// </summary>
+        public int MusicId { get; set; }
+
+        /// <summary>
+        /// Музыкальный релиз
+        /// </summary>
+        public DbMusic Music { get; set; }
     }
 }

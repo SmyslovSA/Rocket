@@ -8,6 +8,9 @@ using Rocket.Parser.Interfaces;
 using Rocket.Parser.Models;
 using AngleSharp.Dom.Html;
 using System.Collections.Generic;
+using System.Globalization;
+using PCRE;
+using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.Repositories.Temp;
 using Rocket.Parser.Properties;
 
@@ -19,6 +22,10 @@ namespace Rocket.Parser.Parsers
         private readonly IRepository<ParserSettingsEntity> _parserSettingsRepository;
         private readonly IRepository<ResourceEntity> _resourceRepository;
         private readonly IRepository<ResourceItemEntity> _resourceItemRepository;
+        private readonly IRepository<DbMusic> _musicRepository;
+        private readonly IRepository<DbMusicGenre> _musicGenreRepository;
+        private readonly IRepository<DbMusicTrack> _musicTrackRepository;
+        private readonly IRepository<DbMusician> _musicianRepository;   
         private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
@@ -31,12 +38,20 @@ namespace Rocket.Parser.Parsers
             IRepository<ParserSettingsEntity> parserSettingsRepository,
             IRepository<ResourceEntity> resourceRepository,
             IRepository<ResourceItemEntity> resourceItemRepository,
+            IRepository<DbMusic> musicRepository,
+            IRepository<DbMusicGenre> musicGenreRepository,
+            IRepository<DbMusicTrack> musicTrackRepository,
+            IRepository<DbMusician> musicianRepository,
             IUnitOfWork unitOfWork)
         {
             _loadHtmlService = loadHtmlService;
             _parserSettingsRepository = parserSettingsRepository;
             _resourceRepository = resourceRepository;
             _resourceItemRepository = resourceItemRepository;
+            _musicRepository = musicRepository;
+            _musicGenreRepository = musicGenreRepository;
+            _musicTrackRepository = musicTrackRepository;
+            _musicianRepository = musicianRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -138,7 +153,7 @@ namespace Rocket.Parser.Parsers
         }
 
         /// <summary>
-        /// Сохраняет в БД список элементов ресурса
+        /// Сохраняет в БД результаты парсинга
         /// </summary>
         /// <returns></returns>
         private void SaveResults(BlockingCollection<ResourceItemEntity> resourceItemsBc,
@@ -155,35 +170,124 @@ namespace Rocket.Parser.Parsers
 
                 if (release != null)
                 {
+                    int musicId;
+                    var music = MapAlbumInfoReleaseToMusic(release);
+
+                    //проверяем существует ли релиз
+                    var musicEntity = _musicRepository.Queryable().
+                        FirstOrDefault(mr => mr.Title.Equals(music.Title) && mr.Artist.Equals(music.Artist));
+
+                    if (musicEntity != null)
+                    {
+                        musicEntity.Genres = music.Genres;
+                        musicEntity.Musicians = music.Musicians;
+                        musicEntity.ReleaseDate = music.ReleaseDate;
+                        musicEntity.Duration = music.Duration;
+                        musicEntity.MusicTracks = music.MusicTracks;
+                        musicEntity.Type = music.Type;
+                        //todo musicEntity.PosterImagePath
+                        musicId = musicEntity.Id;
+                    }
+                    else
+                    {
+                        //todo musicEntity.PosterImagePath
+                        _musicRepository.Insert(music);
+                        musicId = music.Id;
+                    }
+
+                    resourceItem.MusicId = musicId;
+
                     var resourceItemEntity = _resourceItemRepository.Queryable().FirstOrDefault(ri =>
                         ri.ResourceId == resourceItem.ResourceId &&
                         ri.ResourceInternalId == resourceItem.ResourceInternalId);
 
                     if (resourceItemEntity != null)
-                    {
-                        // обновляем запись если существует
+                    { // обновляем информацию о релизе
                         resourceItemEntity.ResourceItemLink = resourceItem.ResourceItemLink;
+                        resourceItemEntity.MusicId = resourceItem.MusicId;
+
                         _resourceItemRepository.Update(resourceItemEntity);
 
                         resourceItem.Id = resourceItemEntity.Id;
                     }
                     else
-                    {
+                    { // сохраняем информацию о релизе
+
+                        //проверяем существует ли уже такой релиз
+                        //_musicRepository.Queryable().Where(m => m.Title.Equals(release.))
+
+
                         _resourceItemRepository.Insert(resourceItem);
                     }
-
-                    //todo сохраняем релиз
-                    
                 }
                 else
                 {
                     //todo пишем в лог что не существует релиза / релиз не распаршен
                 }
-
-
             }
 
             _unitOfWork.SaveChanges();
+        }
+
+        private DbMusic MapAlbumInfoReleaseToMusic(AlbumInfoRelease release)
+        {
+            var music = new DbMusic();
+
+            const string releaseNamePattern = @"(?<=\- )[^ ]++";
+            const string releaseTypePattern = @"(?<=\()\w++";
+            const string releaseGenrePattern = @"\w[^,]*+";
+            var releaseName = PcreRegex.Match(release.Name, releaseNamePattern).Value;
+            var releaseType = PcreRegex.Matches(release.Name, releaseTypePattern)
+                .Select(m => m.Value).LastOrDefault();
+            var releaseArtist = release.Name.Substring(0, release.Name.IndexOf("-", StringComparison.Ordinal) - 1);
+            var releaseGenres = PcreRegex.Matches(release.Genre, releaseGenrePattern).Select(m => m.Value);
+
+            var format = "d MMMM yyyy г.";
+            var provider = CultureInfo.CreateSpecificCulture("ru-RU");
+            var releaseDate = DateTime.ParseExact(release.Date, format, provider);
+
+            //проверяем существует ли исполнитель
+            var musicianEntity = _musicianRepository.Queryable().
+                FirstOrDefault(m => m.FullName.Equals(releaseArtist));
+            if (musicianEntity != null)
+            {
+                music.Musicians.Add(musicianEntity);
+            }
+            else
+            {
+                var newMusician = new DbMusician
+                {
+                    FullName = releaseArtist
+                };
+
+                _musicianRepository.Insert(newMusician);
+                _unitOfWork.SaveChanges();
+
+                music.Musicians.Add(newMusician);
+            }
+
+            //проверяем существует ли жанры
+            foreach (var releaseGenre in releaseGenres)
+            {
+                var genreEntity = _musicGenreRepository.Queryable().FirstOrDefault(g => g.Name.Equals(releaseGenre));
+                if (genreEntity != null)
+                {
+                    music.Genres.Add(genreEntity);
+                }
+                else
+                {
+                    music.Genres.Add(new DbMusicGenre
+                    {
+                        Name = releaseGenre
+                    });
+                }
+            }
+
+            music.Title = releaseName;
+            music.ReleaseDate = releaseDate;
+            music.Type = releaseType;
+
+            return music;
         }
 
         /// <summary>
