@@ -1,4 +1,5 @@
 ﻿using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Migrations;
 using System.Data.Entity;
 
 namespace Rocket.DAL.Context
@@ -14,7 +15,7 @@ namespace Rocket.DAL.Context
         public RocketContext()
             : base("DefaultConnection")
         {
-            Database.SetInitializer<RocketContext>(null);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<RocketContext, Configuration>());
         }
 
         /// <summary>
