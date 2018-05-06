@@ -3,6 +3,7 @@ using Ninject;
 using Quartz;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Jobs;
+using Rocket.Parser.Services;
 using Topshelf;
 using Topshelf.Quartz;
 using Topshelf.ServiceConfigurators;
@@ -22,9 +23,9 @@ namespace Rocket.Parser
                 HostFactory.Run(configurator =>
                 {
                     //конфигурируем Topshelf.Quartz
-                    configurator.Service<Service>(serviceConfigurator =>
+                    configurator.Service<TopshelfService>(serviceConfigurator =>
                     {
-                        serviceConfigurator.ConstructUsing(name => new Service());
+                        serviceConfigurator.ConstructUsing(name => new TopshelfService());
                         serviceConfigurator.WhenStarted((service, control) => service.Start(control));
                         serviceConfigurator.WhenStopped((service, control) => service.Stop(control));
 
@@ -50,7 +51,7 @@ namespace Rocket.Parser
         /// </summary>
         /// <param name="serviceConfigurator">Конфигуратор Quartz.</param>
         /// <param name="kernel">DI контейнер</param>
-        private static void LostfilmParseProcess(ServiceConfigurator<Service> serviceConfigurator, IKernel kernel)
+        private static void LostfilmParseProcess(ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
             //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
             bool.TryParse(LostfilmHelper.GetParseIsSwitchOn(), out bool lostfilmParseIsSwitchOn);
@@ -79,7 +80,7 @@ namespace Rocket.Parser
         /// </summary>
         /// <param name="serviceConfigurator">Конфигуратор Quartz.</param>
         /// <param name="kernel">DI контейнер</param>
-        public static void AlbumInfoParseProcess(ServiceConfigurator<Service> serviceConfigurator, IKernel kernel)
+        public static void AlbumInfoParseProcess(ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
             //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
             bool.TryParse(AlbumInfoHelper.GetParseIsSwitchOn(), out bool albumInfoParseIsSwitchOn);
