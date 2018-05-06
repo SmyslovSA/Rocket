@@ -98,6 +98,7 @@
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbFilmRepository.cs" />
