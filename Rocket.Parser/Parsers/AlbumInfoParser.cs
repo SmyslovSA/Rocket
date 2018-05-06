@@ -234,13 +234,13 @@ namespace Rocket.Parser.Parsers
                     //todo пишем в лог что не существует релиза / релиз не распаршен
                 }
             }
-
-            //_unitOfWork.SaveChanges();
         }
 
         private DbMusic MapAlbumInfoReleaseToMusic(AlbumInfoRelease release)
         {
             var music = new DbMusic();
+
+            const string trackSeparator = "<br>";
 
             const string releaseNamePattern = @"(?<=\- )(?: ?+[^\(])++";
             const string releaseTypePattern = @"(?<=\()\w++";
@@ -256,6 +256,31 @@ namespace Rocket.Parser.Parsers
             var provider = CultureInfo.CreateSpecificCulture("ru-RU");
             var releaseDate = DateTime.ParseExact(release.Date, format, provider);
 
+            var tmpTrackList = release.TrackList;
+            var trackList = new List<string>();
+            while (tmpTrackList.Length > 0)
+            {
+                var pos = tmpTrackList.IndexOf(trackSeparator, StringComparison.Ordinal);
+
+                if (pos > 0)
+                {
+                    trackList.Add(tmpTrackList.Substring(3, pos - trackSeparator.Length) + 1);
+                    tmpTrackList = tmpTrackList.Substring(pos + trackSeparator.Length);
+                }
+                else
+                {
+                    trackList.Add(tmpTrackList.Substring(3));
+                    tmpTrackList = "";
+                }
+            }
+
+            foreach (var track in trackList)
+            {
+                music.MusicTracks.Add(new DbMusicTrack
+                {
+                    Title = track
+                });
+            }
             
             //проверяем существует ли исполнитель
             var musicianEntity = _musicianRepository.Queryable().
@@ -288,7 +313,6 @@ namespace Rocket.Parser.Parsers
                 }
                 else
                 {
-
                     var newMusicGenres = new DbMusicGenre
                     {
                         Name = releaseGenre
@@ -349,7 +373,8 @@ namespace Rocket.Parser.Parsers
                 Date = document.QuerySelector(Resources.AlbumInfoReleaseDateSelector).TextContent,
                 ImageUrl = document.QuerySelector(Resources.AlbumInfoReleaseImageUrlSelector)
                     .GetAttribute(Resources.HrefAttribute),
-                Genre = document.QuerySelector(Resources.AlbumInfoReleaseGenreSelector).TextContent
+                Genre = document.QuerySelector(Resources.AlbumInfoReleaseGenreSelector).TextContent,
+                TrackList = document.QuerySelector(Resources.AlbumInfoReleaseTrackListSelector).InnerHtml
             };
 
             return release;

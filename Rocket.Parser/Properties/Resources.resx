@@ -145,6 +145,10 @@
     <value>#dvContent &gt; h1</value>
     <comment>CSS селектор для названия релиза на сайте album-info.ru</comment>
   </data>
+  <data name="AlbumInfoReleaseTrackListSelector" xml:space="preserve">
+    <value>#conTracks</value>
+    <comment>CSS селектор для списка треков релиза на сайте album-info.ru</comment>
+  </data>
   <data name="AlbumInfoSettings" xml:space="preserve">
     <value>Album Info</value>
     <comment>Для получения настроек парсера album-info.ru</comment>

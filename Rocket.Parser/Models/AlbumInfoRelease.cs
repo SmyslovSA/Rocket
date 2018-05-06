@@ -36,5 +36,10 @@
         /// </summary>
         public string Genre { get; set; }
 
+        /// <summary>
+        /// Список треков
+        /// </summary>
+        public string TrackList { get; set; }
+
     }
 }

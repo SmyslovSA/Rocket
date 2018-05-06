@@ -124,6 +124,15 @@ namespace Rocket.Parser.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to #conTracks.
+        /// </summary>
+        internal static string AlbumInfoReleaseTrackListSelector {
+            get {
+                return ResourceManager.GetString("AlbumInfoReleaseTrackListSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Album Info.
         /// </summary>
         internal static string AlbumInfoSettings {

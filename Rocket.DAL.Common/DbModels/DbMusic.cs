@@ -14,6 +14,7 @@ namespace Rocket.DAL.Common.DbModels
 	{
 	    private ICollection<DbMusician> _dbMusicians;
 	    private ICollection<DbMusicGenre> _dbMusicGenres;
+	    private ICollection<DbMusicTrack> _dbMusicTracks;
 
         /// <summary>
         /// Возвращает или задает уникальный идентификатор музыкального релиза
@@ -52,12 +53,16 @@ namespace Rocket.DAL.Common.DbModels
 		/// <summary>
 		/// Возвращает или задает музыкальные треки которые относятся к релизу
 		/// </summary>
-		public ICollection<DbMusicTrack> MusicTracks { get; set; }
+		public ICollection<DbMusicTrack> MusicTracks
+		{
+		    get => _dbMusicTracks ?? (_dbMusicTracks = new List<DbMusicTrack>());
+		    set => _dbMusicTracks = value;
+		}
 
-		/// <summary>
-		/// Возвращает или задает исполнителей музыкального релиза
-		/// </summary>
-		public ICollection<DbMusician> Musicians {
+        /// <summary>
+        /// Возвращает или задает исполнителей музыкального релиза
+        /// </summary>
+        public ICollection<DbMusician> Musicians {
 		    get => _dbMusicians ?? (_dbMusicians = new List<DbMusician>());
 		    set => _dbMusicians = value;
 		}
