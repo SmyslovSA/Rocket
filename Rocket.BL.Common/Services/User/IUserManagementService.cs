@@ -5,7 +5,7 @@ namespace Rocket.BL.Common.Services.User
     /// <summary>
     /// Представляет сервис для работы с пользователем
     /// </summary>
-    public interface IUserManagementService : IUserManagementServiceBase
+    public interface IUserManagementService
     {
         /// <summary>
         /// Возвращает пользователя с заданным идентификатором

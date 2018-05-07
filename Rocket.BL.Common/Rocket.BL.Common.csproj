@@ -122,7 +122,6 @@
     <Compile Include="Services\User\IUserAccountLevelService.cs" />
     <Compile Include="Services\User\IUserAccountStatusService.cs" />
     <Compile Include="Services\User\IUserManagementService.cs" />
-    <Compile Include="Services\User\IUserManagementServiceBase.cs" />
     <Compile Include="Services\User\IUserValidatateService.cs" />
     <Compile Include="Services\ReleaseList\IFilmDetailedInfoService.cs" />
     <Compile Include="Services\ReleaseList\IMusicDetailedInfoService.cs" />
