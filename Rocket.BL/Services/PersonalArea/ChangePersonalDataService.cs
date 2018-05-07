@@ -48,7 +48,7 @@ namespace Rocket.BL.Services.PersonalArea
             {
                 throw new ValidationException($"Error:{ validate.Errors.Select(s => s.ErrorMessage)}");
             }
-            var user = Mapper.Map<DbUser>(this._unitOfWork.UserRepository.GetById(model.Id));
+            var user = Mapper.Map<DbUser>(model);
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Avatar = model.Avatar;
