@@ -1,7 +1,4 @@
-﻿using System;
-using Rocket.BL.Common.Models.User;
-
-namespace Rocket.BL.Common.Services.User
+﻿namespace Rocket.BL.Common.Services.User
 {
     /// <summary>
     /// Представляет сервис для валидации сведений о пользователе
