@@ -89,6 +89,7 @@
     <Compile Include="Services\ReleaseList\TVSeriesDetailedInfoService.cs" />
     <Compile Include="Services\ReleaseList\MusicDetailedInfoService.cs" />
     <Compile Include="Services\User\UserManagementService.cs" />
+    <Compile Include="Services\User\UserManagementServiceFactory.cs" />
     <Compile Include="Services\User\UserValidateService.cs" />
   </ItemGroup>
   <ItemGroup>
