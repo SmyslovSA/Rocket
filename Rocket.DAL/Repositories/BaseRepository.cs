@@ -70,7 +70,7 @@ namespace Rocket.DAL.Repositories
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Экземпляр <see cref="TEntity"/></returns>
-        public TEntity GetById(object id)
+        public TEntity GetById(int id)
         {
             return this._dbSet.Find(id);
         }
@@ -99,7 +99,7 @@ namespace Rocket.DAL.Repositories
         /// соответствующий заданному идентификатору, из хранилища данных
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        public void Delete(object id)
+        public void Delete(int id)
         {
             TEntity entityToDelete = this._dbSet.Find(id);
             Delete(entityToDelete);

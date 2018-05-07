@@ -1,6 +1,5 @@
 ﻿using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.UoW;
-using Rocket.DAL.Repositories.ReleaseList;
 using System;
 using System.Data.Entity;
 
@@ -13,64 +12,41 @@ namespace Rocket.DAL.UoW
     public class UnitOfWork : IUnitOfWork
     {
         private DbContext _dbContext;
-        private IDbFilmRepository _dbFilmRepository;
-        private IDbTVSeriesRepository _dbTVSeriesRepository;
-        private IDbMusicRepository _dbMusicRepository;
         private bool disposedValue = false;
 
         /// <summary>
         /// Возвращает репозиторий для фильмов
         /// </summary>
-        public IDbFilmRepository FilmRepository
-        {
-            get
-            {
-                if (this._dbFilmRepository == null)
-                {
-                    this._dbFilmRepository = new DbFilmRepository(this._dbContext);
-                }
-                return this._dbFilmRepository;
-            }
-        }
+        public IDbFilmRepository FilmRepository { get; private set; }
 
         /// <summary>
         /// Возвращает репозиторий для сериалов
         /// </summary>
-        public IDbTVSeriesRepository TVSeriesRepository
-        {
-            get
-            {
-                if (this._dbTVSeriesRepository == null)
-                {
-                    this._dbTVSeriesRepository = new DbTVSeriesRepository(this._dbContext);
-                }
-                return this._dbTVSeriesRepository;
-            }
-        }
+        public IDbTVSeriesRepository TVSeriesRepository { get; private set; }
 
         /// <summary>
         /// Возвращает репозиторий для музыки
         /// </summary>
-        public IDbMusicRepository MusicRepository
-        {
-            get
-            {
-                if (this._dbMusicRepository == null)
-                {
-                    this._dbMusicRepository = new DbMusicRepository(this._dbContext);
-                }
-                return this._dbMusicRepository;
-            }
-        }
+        public IDbMusicRepository MusicRepository { get; private set; }
 
         /// <summary>
+        /// /// <summary>
         /// Создает новый экземпляр <see cref="UnitOfWork"/>
         /// c заданным контекстом данных
         /// </summary>
         /// <param name="dbContext">Экземпляр контекста данных</param>
-        public UnitOfWork(DbContext dbContext)
+        /// <param name="dbFilmRepository">Экземпляр репозитория фильмов</param>
+        /// <param name="dbTVSeriesRepository">Экземпляр репозитория сериалов</param>
+        /// <param name="dbMusicRepository">Экземпляр репозитория музыки</param>
+        public UnitOfWork(DbContext dbContext,
+            IDbFilmRepository dbFilmRepository,
+            IDbTVSeriesRepository dbTVSeriesRepository,
+            IDbMusicRepository dbMusicRepository)
         {
             this._dbContext = dbContext;
+            this.FilmRepository = dbFilmRepository;
+            this.TVSeriesRepository = dbTVSeriesRepository;
+            this.MusicRepository = dbMusicRepository;
         }
 
         /// <summary>
