@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Rocket.DAL.Common.DbModels.ReleaseList
 {
@@ -26,22 +27,22 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию режиссеров, которые сняли сериал
         /// </summary>
-        public ICollection<DbPerson> Directors { get; set; }
+        public virtual ICollection<DbPerson> Directors { get; set; } = new Collection<DbPerson>();
 
         /// <summary>
         /// Возвращает или задает коллекцию актёров, которые снялись в сериале
         /// </summary>
-        public ICollection<DbPerson> Cast { get; set; }
+        public virtual ICollection<DbPerson> Cast { get; set; } = new Collection<DbPerson>();
 
         /// <summary>
         /// Возвращает или задает коллекцию жанров, к которым относится сериал
         /// </summary>
-        public ICollection<DbVideoGenre> Genres { get; set; }
+        public virtual ICollection<DbVideoGenre> Genres { get; set; } = new Collection<DbVideoGenre>();
 
         /// <summary>
         /// Возвращает или задает коллекцию стран, которые участвовали в создании сериала
         /// </summary>
-        public ICollection<DbCountry> Countries { get; set; }
+        public virtual ICollection<DbCountry> Countries { get; set; } = new Collection<DbCountry>();
 
         /// <summary>
         /// Возвращает или задает краткое описание сериала
@@ -51,6 +52,6 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию сезонов сериала
         /// </summary>
-        public ICollection<DbSeason> DbSeasons { get; set; }
+        public virtual ICollection<DbSeason> DbSeasons { get; set; } = new Collection<DbSeason>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Rocket.DAL.Common.DbModels.ReleaseList
 {
@@ -31,7 +32,7 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию серий сезона
         /// </summary>
-        public ICollection<DbEpisode> Episodes { get; set; }
+        public virtual ICollection<DbEpisode> Episodes { get; set; } = new Collection<DbEpisode>();
 
         /// <summary>
         /// Возвращает или задает идентификатор сериала,

@@ -13,7 +13,7 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         public int Id { get; set; }
 
         /// <summary>
-        /// Возвращает или задает информацию о выходе серии
+        /// Возвращает или задает дату выхода серии
         /// </summary>
         public DateTime ReleaseDate { get; set; }
 
