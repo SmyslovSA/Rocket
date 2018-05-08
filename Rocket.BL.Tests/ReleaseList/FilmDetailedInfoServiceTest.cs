@@ -49,7 +49,7 @@ namespace Rocket.BL.Tests.ReleaseList
                 .Callback((DbFilm f) => this._fakeDbFilmsData.Films.Add(f));
             mockDbFilmRepository.Setup(mock => mock.Update(It.IsAny<DbFilm>()))
                 .Callback((DbFilm f) => this._fakeDbFilmsData.Films.Find(d => d.Id == f.Id).Title = f.Title);
-            mockDbFilmRepository.Setup(mock => mock.Delete(It.IsAny<object>()))
+            mockDbFilmRepository.Setup(mock => mock.Delete((int) It.IsAny<object>()))
                 .Callback((object id) => this._fakeDbFilmsData.Films
                     .Remove(this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id)));
 

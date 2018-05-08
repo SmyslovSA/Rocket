@@ -49,7 +49,7 @@ namespace Rocket.BL.Tests.ReleaseList
 				.Callback((DbMusic f) => this._fakeDbMusicData.Music.Add(f));
 			mockDbMusicRepository.Setup(mock => mock.Update(It.IsAny<DbMusic>()))
 				.Callback((DbMusic f) => this._fakeDbMusicData.Music.Find(d => d.Id == f.Id).Title = f.Title);
-			mockDbMusicRepository.Setup(mock => mock.Delete(It.IsAny<object>()))
+			mockDbMusicRepository.Setup(mock => mock.Delete((int) It.IsAny<object>()))
 				.Callback((object id) => this._fakeDbMusicData.Music
 					.Remove(this._fakeDbMusicData.Music.Find(f => f.Id == (int)id)));
 

@@ -7,7 +7,7 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
     {
         public DbRoleConfiguration()
         {
-            ToTable("t_user_role")
+            ToTable("t_role")
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
                 .HasColumnName("role_id");

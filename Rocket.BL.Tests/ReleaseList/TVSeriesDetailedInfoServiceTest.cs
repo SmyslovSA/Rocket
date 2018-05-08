@@ -46,7 +46,7 @@ namespace Rocket.BL.Tests.ReleaseList
                 .Callback((DbTVSeries f) => this._fakeDbTVSerialsData.TVSerials.Add(f));
             mockDbTVSeriesRepository.Setup(mock => mock.Update(It.IsAny<DbTVSeries>()))
                 .Callback((DbTVSeries f) => this._fakeDbTVSerialsData.TVSerials.Find(d => d.Id == f.Id).Title = f.Title);
-            mockDbTVSeriesRepository.Setup(mock => mock.Delete(It.IsAny<object>()))
+            mockDbTVSeriesRepository.Setup(mock => mock.Delete((int) It.IsAny<object>()))
                 .Callback((object id) => this._fakeDbTVSerialsData.TVSerials
                     .Remove(this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == (int)id)));
 

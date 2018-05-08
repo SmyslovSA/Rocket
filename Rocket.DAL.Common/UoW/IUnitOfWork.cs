@@ -23,9 +23,24 @@ namespace Rocket.DAL.Common.UoW
 		/// </summary>
 		IDbMusicRepository MusicRepository { get; }
 
-		/// <summary>
-		/// Сохраняет изменения в хранилище данных
-		/// </summary>
-		void Save();
+        /// <summary>
+        /// Возвращает репозиторий для юзеров
+        /// </summary>
+        Repositories.IDbUserRepository.IDbUserRepository UserRepository { get; }
+
+        /// <summary>
+        /// ВОзвращает репозиторий ролей
+        /// </summary>
+        Repositories.IDbUserRoleRepository.IDbRoleRepository RoleRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий пермишенов
+        /// </summary>
+        Repositories.IDbUserRoleRepository.IDbPermissionRepository PermissionRepository { get; }
+
+        /// <summary>
+        /// Сохраняет изменения в хранилище данных
+        /// </summary>
+        void Save();
     }
 }

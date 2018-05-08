@@ -58,6 +58,16 @@ namespace Rocket.DAL.Configurations.PersonalArea
                     MapLeftKey("UserId").
                     MapRightKey("GenreId");
                 });
+
+            HasMany(p => p.Roles)
+                .WithMany(e => e.Users)
+                .Map(m =>
+                {
+                    m.ToTable("t_user_role")
+                        .MapLeftKey("UserId")
+                        .MapRightKey("RoleId");
+                });
+
         }
     }
 }

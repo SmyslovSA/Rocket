@@ -19,6 +19,6 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// <summary>
         /// Список пермишенов для соответствующего user Id
         /// </summary>
-        public ICollection<DbPermission> Permissions;
+        public virtual ICollection<DbPermission> Permissions { get; set; }
     }
 }

@@ -21,5 +21,10 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// Именование переменной, за которой скрывается реализация фичи
         /// </summary>
         public string ValueName { get; set; }
+
+        /// <summary>
+        /// Список ролей с заданным пермишеном
+        /// </summary>
+        public virtual ICollection<DbRole> Roles { get; set; }
     }
 }

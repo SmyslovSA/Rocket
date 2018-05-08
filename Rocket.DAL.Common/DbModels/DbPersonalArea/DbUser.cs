@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
@@ -31,13 +32,20 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// относительный путь от корневой папки приложения к изображению аватара пользователя
         /// </summary>
         public string Avatar { get; set; }
+
         /// <summary>
         /// список e-mail пользователя
         /// </summary>
-        public ICollection<DbEmail> Email { get; set; }
+        public virtual ICollection<DbEmail> Email { get; set; }
+
         /// <summary>
         /// коллекция выбранных жанров пользователя
         /// </summary>
-        public ICollection<DbGenre> Genres { get; set; }
+        public virtual ICollection<DbGenre> Genres { get; set; }
+
+        /// <summary>
+        /// Список ролей юзера
+        /// </summary>
+        public virtual ICollection<DbRole> Roles { get; set; }
     }
 }
