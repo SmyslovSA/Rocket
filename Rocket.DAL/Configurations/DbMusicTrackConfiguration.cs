@@ -13,7 +13,7 @@ namespace Rocket.DAL.Configurations
 				.HasColumnName("Id");
 
 			Property(c => c.Number)
-				.IsRequired()
+				.IsOptional()
 				.HasColumnName("Number");
 
 			Property(c => c.Duration)

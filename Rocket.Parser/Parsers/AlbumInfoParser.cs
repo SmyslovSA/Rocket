@@ -183,11 +183,6 @@ namespace Rocket.Parser.Parsers
 
                     if (musicEntity != null)
                     {
-                        //var toDel = musicEntity.Genres.Where(c => music.Genres.All(d => c.Id != d.Id)).ToList();
-                        //var toAdd = music.Genres.Where(c => musicEntity.Genres.All(d => c.Id != d.Id)).ToList();
-                        //toDel.ForEach(c => musicEntity.Genres.Remove(c));
-                        //toAdd.ForEach(c => musicEntity.Genres.Add(c));
-                        
                         musicEntity.Genres = music.Genres;
                         musicEntity.Musicians = music.Musicians;
                         musicEntity.ReleaseDate = music.ReleaseDate;
@@ -240,12 +235,12 @@ namespace Rocket.Parser.Parsers
         {
             var music = new DbMusic();
 
-            const string trackSeparator = "<br>";
+            //const string trackSeparator = "<br>";
 
             const string releaseNamePattern = @"(?<=\- )(?: ?+[^\(])++";
             const string releaseTypePattern = @"(?<=\()\w++";
             const string releaseGenrePattern = @"\w[^,]*+";
-            const string releaseTrackListPattern = @"\w(\d*+[^\.])++"; //todo
+            const string releaseTrackListPattern = @"\w(\d*+[^\.])++"; 
             var releaseName = PcreRegex.Match(release.Name, releaseNamePattern).Value;
             var releaseType = PcreRegex.Matches(release.Name, releaseTypePattern)
                 .Select(m => m.Value).LastOrDefault();
@@ -257,32 +252,23 @@ namespace Rocket.Parser.Parsers
             var provider = CultureInfo.CreateSpecificCulture("ru-RU");
             var releaseDate = DateTime.ParseExact(release.Date, format, provider);
 
-            var tmpTrackList = release.TrackList;
-            var trackList = new List<string>();
-            while (tmpTrackList.Length > 0)
-            {
-                var pos = tmpTrackList.IndexOf(trackSeparator, StringComparison.Ordinal);
+            var trackList = PcreRegex.Matches(release.TrackList, releaseTrackListPattern)
+                .Select(m => m.Value).ToList();
 
-                if (pos > 0)
-                {
-                    trackList.Add(tmpTrackList.Substring(3, pos - trackSeparator.Length) + 1);
-                    tmpTrackList = tmpTrackList.Substring(pos + trackSeparator.Length);
-                }
-                else
-                {
-                    trackList.Add(tmpTrackList.Substring(3));
-                    tmpTrackList = "";
-                }
-            }
-
+            //обрабатываем треклист
             foreach (var track in trackList)
             {
-                music.MusicTracks.Add(new DbMusicTrack
+                var trackEntity = _musicTrackRepository.Queryable().FirstOrDefault(t => t.Title.Equals(track));
+                if (trackEntity != null)
+                {
+                    music.MusicTracks.Add(trackEntity);
+                }
+                music.MusicTracks.Add( new DbMusicTrack
                 {
                     Title = track
                 });
             }
-            
+
             //проверяем существует ли исполнитель
             var musicianEntity = _musicianRepository.Queryable().
                 FirstOrDefault(m => m.FullName.Equals(releaseArtist));
