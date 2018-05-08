@@ -1,4 +1,5 @@
-﻿using Rocket.DAL.Common.Repositories.ReleaseList;
+﻿using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Data.Entity;
@@ -30,6 +31,11 @@ namespace Rocket.DAL.UoW
         public IDbMusicRepository MusicRepository { get; private set; }
 
         /// <summary>
+        /// Возвращает репозиторий для работы с пользователями
+        /// </summary>
+        public IDbAuthorisedUserRepository UserRepository { get; private set; }
+
+        /// <summary>
         /// /// <summary>
         /// Создает новый экземпляр <see cref="UnitOfWork"/>
         /// c заданным контекстом данных
@@ -38,15 +44,18 @@ namespace Rocket.DAL.UoW
         /// <param name="dbFilmRepository">Экземпляр репозитория фильмов</param>
         /// <param name="dbTVSeriesRepository">Экземпляр репозитория сериалов</param>
         /// <param name="dbMusicRepository">Экземпляр репозитория музыки</param>
+        /// <param name="dbAuthorisedUserRepository">Экземпляр репозитория пользователей</param>
         public UnitOfWork(DbContext dbContext,
             IDbFilmRepository dbFilmRepository,
             IDbTVSeriesRepository dbTVSeriesRepository,
-            IDbMusicRepository dbMusicRepository)
+            IDbMusicRepository dbMusicRepository,
+            IDbAuthorisedUserRepository dbAuthorisedUserRepository)
         {
             this._dbContext = dbContext;
             this.FilmRepository = dbFilmRepository;
             this.TVSeriesRepository = dbTVSeriesRepository;
             this.MusicRepository = dbMusicRepository;
+            this.UserRepository = dbAuthorisedUserRepository;
         }
 
         /// <summary>
