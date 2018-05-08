@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using System;
 using System.Collections.Generic;
 using System.Linq;

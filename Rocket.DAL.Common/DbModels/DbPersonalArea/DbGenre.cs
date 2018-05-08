@@ -26,6 +26,6 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// коллекция User подписанных на данный жанр
         /// </summary>
-        public ICollection<DbUser> Users { get; set; }
+        public ICollection<DbAuthorisedUser> Users { get; set; }
     }
 }

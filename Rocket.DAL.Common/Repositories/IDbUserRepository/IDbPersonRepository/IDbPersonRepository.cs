@@ -1,4 +1,4 @@
-﻿using Rocket.DAL.Common.DbModels;
+﻿using Rocket.DAL.Common.DbModels.DbUser.DbPerson;
 
 namespace Rocket.DAL.Common.Repositories.IDbUserRepository.IDbPersonRepository
 {
