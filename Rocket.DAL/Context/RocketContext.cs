@@ -47,6 +47,31 @@ namespace Rocket.DAL.Context
         /// </summary>
         public DbSet<DbMusician> ВDbMusicians { get; set; }
 
+        /// <summary>
+        /// Набор сущностей сериала.
+        /// </summary>
+        public DbSet<TvSeriasEntity> TvSeriasEntities { get; set; }
+
+        /// <summary>
+        /// Набор сущностей серии сериала.
+        /// </summary>
+        public DbSet<EpisodeEntity> EpisodeEntities { get; set; }
+
+        /// <summary>
+        /// Набор сущностей жанров сериала.
+        /// </summary>
+        public DbSet<TvSeriasGenreEntity> TvSeriasGenreEntities { get; set; }
+
+        /// <summary>
+        /// Набор сущностей сезонов сериала.
+        /// </summary>
+        public DbSet<SeasonEntity> SeasonEntities { get; set; }
+
+        /// <summary>
+        /// Набор сущностей персон.
+        /// </summary>
+        public DbSet<PersonEntity> PersonEntities { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ResourceMap());
