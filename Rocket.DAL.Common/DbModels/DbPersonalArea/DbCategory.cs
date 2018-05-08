@@ -18,6 +18,6 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// список связанных жанров с данной категорией
         /// </summary>
-        public ICollection<DbGenre> Genres { get; set; }
+        public virtual ICollection<DbGenre> Genres { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Rocket.DAL.Common.Repositories.ReleaseList;
+﻿using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+using Rocket.DAL.Common.Repositories.ReleaseList;
 using System;
 
 namespace Rocket.DAL.Common.UoW
@@ -22,6 +23,11 @@ namespace Rocket.DAL.Common.UoW
 		/// Возвращает репозиторий для музыки
 		/// </summary>
 		IDbMusicRepository MusicRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для авторизованного пользователя
+        /// </summary>
+        IDbAuthorisedUserRepository UserRepository { get; }
 
 		/// <summary>
 		/// Сохраняет изменения в хранилище данных
