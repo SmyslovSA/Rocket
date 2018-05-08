@@ -20,10 +20,20 @@ namespace Rocket.DAL.Configurations.Parser
                 .HasColumnName("Title Ru")
                 .HasMaxLength(250);
 
-            //Property(p => p.Prefix)
-            //    .IsOptional()
-            //    .HasColumnName("Prefix")
-            //    .HasMaxLength(200);
+            Property(p => p.TitleEn)
+                .IsRequired()
+                .HasColumnName("Title En")
+                .HasMaxLength(250);
+
+            Property(p => p.PosterImageUrl)
+                .IsOptional()
+                .HasColumnName("Poster Image Url")
+                .IsMaxLength();
+
+            Property(p => p.LostfilmRate)
+                .IsOptional()
+                .HasColumnName("Lostfilm Rate")
+                ;
 
             //this.HasRequired<ResourceEntity>(p => p.Resource).WithMany(r => r.ParserSettings)
             //    .HasForeignKey<int>(p => p.ResourceId);
