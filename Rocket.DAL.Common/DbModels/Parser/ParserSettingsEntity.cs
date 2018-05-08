@@ -21,7 +21,7 @@
         public ResourceEntity Resource { get; set; }
 
         /// <summary>
-        /// URL сата
+        /// URL сайта
         /// </summary>
         public string BaseUrl { get; set; }
 

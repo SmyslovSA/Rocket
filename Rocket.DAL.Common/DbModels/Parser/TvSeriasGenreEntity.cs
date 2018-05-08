@@ -3,7 +3,7 @@
     /// <summary>
     /// Сущность модели жанра.
     /// </summary>
-    public class GenreEntity
+    public class TvSeriasGenreEntity
     {
         /// <summary>
         /// Уникальный идентификатор.

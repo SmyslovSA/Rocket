@@ -100,7 +100,7 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// <summary>
         /// Возвращает или задает коллекцию жанров, к которым относится сериал
         /// </summary>
-        public ICollection<GenreEntity> ListGenreEntity { get; set; } = new List<GenreEntity>();
+        public ICollection<TvSeriasGenreEntity> ListGenreEntity { get; set; } = new List<TvSeriasGenreEntity>();
 
         /// <summary>
         /// Возвращает или задает коллекцию сезонов сериала

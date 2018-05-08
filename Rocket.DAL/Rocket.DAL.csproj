@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\Parser\TvSeriasEntityMap.cs" />
     <Compile Include="Configurations\PersonalArea\DbCategoryConfiguration.cs" />
     <Compile Include="Configurations\DbCountryConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbEmailConfiguration.cs" />
