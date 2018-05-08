@@ -4,8 +4,6 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
 {
     public class DbRole
     {
-        // класс содержащий в себе всю информацию об уникальной роли
-
         /// <summary>
         /// Уникальный идентификатор роли пользователя
         /// </summary>
@@ -30,6 +28,6 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// <summary>
         /// список юзеров с этой ролью
         /// </summary>
-        public virtual ICollection<DbPersonalArea.DbUser> Users { get; set; }
+        public virtual ICollection<DbUser.DbUser> Users { get; set; }
     }
 }

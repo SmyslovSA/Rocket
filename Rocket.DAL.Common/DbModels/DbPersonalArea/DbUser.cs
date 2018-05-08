@@ -42,10 +42,5 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// коллекция выбранных жанров пользователя
         /// </summary>
         public virtual ICollection<DbGenre> Genres { get; set; }
-
-        /// <summary>
-        /// Список ролей юзера
-        /// </summary>
-        public virtual ICollection<DbRole> Roles { get; set; }
     }
 }

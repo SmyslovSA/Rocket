@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
+using Rocket.DAL.Common.UoW;
 
 namespace Rocket.BL.Services.UserServices
 {
@@ -16,7 +17,7 @@ namespace Rocket.BL.Services.UserServices
     {
 
 
-        public UserRoleService(IUser user, IRole role)
+        public UserRoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
         }
@@ -35,7 +36,7 @@ namespace Rocket.BL.Services.UserServices
 
         public void ChangeUserRole(IUser user)
         {
-            ChangeUserRole(_user, DefaultRole);
+            ChangeUserRole(user, DefaultRole);
         }
 
         public void ChangeUserRole(IUser user, IRole role)
@@ -52,7 +53,7 @@ namespace Rocket.BL.Services.UserServices
             throw new NotImplementedException();
         }
 
-        public DbRole GetById(object id)
+        public DbRole GetById(int id)
         {
             throw new NotImplementedException();
         }
