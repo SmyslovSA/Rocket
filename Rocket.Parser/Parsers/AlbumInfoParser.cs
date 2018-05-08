@@ -245,6 +245,7 @@ namespace Rocket.Parser.Parsers
             const string releaseNamePattern = @"(?<=\- )(?: ?+[^\(])++";
             const string releaseTypePattern = @"(?<=\()\w++";
             const string releaseGenrePattern = @"\w[^,]*+";
+            const string releaseTrackListPattern = @"\w(\d*+[^\.])++"; //todo
             var releaseName = PcreRegex.Match(release.Name, releaseNamePattern).Value;
             var releaseType = PcreRegex.Matches(release.Name, releaseTypePattern)
                 .Select(m => m.Value).LastOrDefault();
