@@ -53,7 +53,7 @@
     <Compile Include="Mappings\ReleaseList\FilmMappingProfile.cs" />
     <Compile Include="Mappings\PersonalAreaMappings\CategoryMappingProfile.cs" />
     <Compile Include="Mappings\PersonalAreaMappings\GenreMappingProfile.cs" />
-    <Compile Include="Mappings\PersonalAreaMappings\UserMappingProfile.cs" />
+    <Compile Include="Mappings\PersonalAreaMappings\AuthorisedUserMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\PersonMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\SeasonMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\TVSeriesMappingProfile.cs" />
@@ -80,9 +80,9 @@
     <Compile Include="Models\Notification\MessageAboutTVSeries.cs" />
     <Compile Include="Models\Notification\MusicForNotification.cs" />
     <Compile Include="Models\Notification\TVSeriesForNotification.cs" />
-    <Compile Include="Services\IEmailManager.cs" />
-    <Compile Include="Services\IGenreManager.cs" />
-    <Compile Include="Services\IPersonalData.cs" />
+    <Compile Include="Services\PersonalArea\IEmailManager.cs" />
+    <Compile Include="Services\PersonalArea\IGenreManager.cs" />
+    <Compile Include="Services\PersonalArea\IPersonalData.cs" />
     <Compile Include="Models\PersonalArea\Category.cs" />
     <Compile Include="Models\PersonalArea\Genre.cs" />
     <Compile Include="Models\PersonalArea\PersonalizedTape.cs" />
