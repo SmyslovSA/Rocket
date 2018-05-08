@@ -20,18 +20,18 @@ namespace Rocket.BL.Services.PersonalArea
         /// <summary>
         /// смена пароля
         /// </summary>
-        /// <param name="userId">Id юзера инициировавшего смену</param>
+        /// <param name="model">принимает модель пользователя, инициировавшего смену пароля</param>
         /// <param name="newPassword">новый пароль</param>
         /// <param name="newPasswordConfirm">подтверждение пароля</param>
         /// <returns>true - при смене пароля, false - при ошибках валидации</returns>
-        public bool ChangePasswordData(int userId, string newPassword, string newPasswordConfirm)
+        public bool ChangePasswordData(SimpleUser model, string newPassword, string newPasswordConfirm)
         {
             if (!PasswordValidate(newPassword, newPasswordConfirm))
             {
                 return false;
             }
-            var user = Mapper.Map<DbUser>(this._unitOfWork.UserRepository.GetById(userId));
-            user.Password = newPassword;
+            var user = Mapper.Map<DbAuthorisedUser>(model);
+            user.DbAccount.Password = newPassword;
             _unitOfWork.UserRepository.Update(user);
             _unitOfWork.Save();
             return true;
@@ -48,9 +48,9 @@ namespace Rocket.BL.Services.PersonalArea
             {
                 throw new ValidationException($"Error:{ validate.Errors.Select(s => s.ErrorMessage)}");
             }
-            var user = Mapper.Map<DbUser>(model);
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
+            var user = Mapper.Map<DbAuthorisedUser>(model);
+            user.DbPersonality.FirstName = model.FirstName;
+            user.DbPersonality.LastName = model.LastName;
             user.Avatar = model.Avatar;
             _unitOfWork.UserRepository.Update(user);
             _unitOfWork.Save();
@@ -64,6 +64,7 @@ namespace Rocket.BL.Services.PersonalArea
         /// <returns>true - если пароль прошел валидацию, false - если не прошел</returns>
         private bool PasswordValidate(string password, string passwordConfirm)
         {
+            //TODO: нааписать нормальный метод валидации
             if (password == null || passwordConfirm == null)
                 return false;
             return password == passwordConfirm && password.Length > 6;

@@ -53,7 +53,7 @@
     <Compile Include="Mappings\ReleaseList\FilmMappingProfile.cs" />
     <Compile Include="Mappings\PersonalAreaMappings\CategoryMappingProfile.cs" />
     <Compile Include="Mappings\PersonalAreaMappings\GenreMappingProfile.cs" />
-    <Compile Include="Mappings\PersonalAreaMappings\UserMappingProfile.cs" />
+    <Compile Include="Mappings\PersonalAreaMappings\AuthorisedUserMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\PersonMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\SeasonMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\TVSeriesMappingProfile.cs" />

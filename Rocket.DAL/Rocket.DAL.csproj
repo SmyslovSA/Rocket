@@ -92,7 +92,7 @@
     <Compile Include="Configurations\ReleaseList\DbPersonConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbSeasonConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbTVSeriesConfiguration.cs" />
-    <Compile Include="Configurations\PersonalArea\DbUserConfiguration.cs" />
+    <Compile Include="Configurations\PersonalArea\DbAuthorisedUserConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbVideoGenreConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />

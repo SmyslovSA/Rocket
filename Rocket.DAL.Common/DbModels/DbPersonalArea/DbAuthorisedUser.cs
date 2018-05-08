@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Rocket.DAL.Common.DbModels.DbUser.DbAccount;
+using Rocket.DAL.Common.DbModels.DbUser.DbPerson;
+using System.Collections.Generic;
 
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
     /// <summary>
     /// модель хранения данных пользователя
     /// </summary>
-    public class DbUser
+    public class DbAuthorisedUser
     {
         /// <summary>
         /// Id пользователя
@@ -13,24 +15,24 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         public int Id { get; set; }
 
         /// <summary>
-        /// имя пользователя
+        /// внешний ключ к таблице DbAccount
         /// </summary>
-        public string FirstName { get; set; }
+        public int DbAccountId { get; set; }
 
         /// <summary>
-        /// фамилия пользователя
+        /// ссылка на DbAccount
         /// </summary>
-        public string LastName { get; set; }
+        public DbAccount DbAccount { get; set; }
 
         /// <summary>
-        /// логин пользователя
+        /// внешний ключ к таблице DbPersonality
         /// </summary>
-        public string Login { get; set; }
+        public int DbPersonalityId { get; set; }
 
         /// <summary>
-        /// пароль пользователя
+        /// ссылка на DbPersonality
         /// </summary>
-        public string Password { get; set; }
+        public DbPersonality DbPersonality { get; set; }
 
         /// <summary>
         /// относительный путь от корневой папки приложения к изображению аватара пользователя
@@ -41,6 +43,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// список e-mail пользователя
         /// </summary>
         public ICollection<DbEmail> Email { get; set; }
+
         /// <summary>
         /// коллекция выбранных жанров пользователя
         /// </summary>
