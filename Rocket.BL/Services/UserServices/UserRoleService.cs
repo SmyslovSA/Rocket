@@ -53,9 +53,10 @@ namespace Rocket.BL.Services.UserServices
             throw new NotImplementedException();
         }
 
-        public DbRole GetById(int id)
+        public DbRole GetRoleById(int id)
         {
-            throw new NotImplementedException();
+            return Mapper.Map<Role>(
+                this._unitOfWork.RoleRepository.GetById(id));
         }
 
         public void Insert(DbRole entity)

@@ -11,7 +11,7 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
             ToTable("t_permission")
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
-                .HasColumnName("prm_id");
+                .HasColumnName("permission_id");
 
             Property(t => t.Description)
                 .IsOptional()

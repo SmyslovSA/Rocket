@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 namespace Rocket.BL.Common.Models.UserRoles
 {
-    public class Permission : IPermission
+    public class Permission
     {
         /// <summary>
         /// uniq identificator of permission
@@ -13,8 +15,13 @@ namespace Rocket.BL.Common.Models.UserRoles
         public string Description { get; set; }
 
         /// <summary>
-        /// name of permission 
+        /// name of Value
         /// </summary>
         public string ValueName { get; set; }
+
+        /// <summary>
+        /// roleList with permission
+        /// </summary>
+        public ICollection<Role> Roles { get; set; }
     }
 }
