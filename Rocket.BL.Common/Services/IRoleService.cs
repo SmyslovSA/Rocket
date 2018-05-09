@@ -8,8 +8,7 @@ namespace Rocket.BL.Common.Services
         /// <summary>
         /// Меняет значение IsActive для роли на противоположное
         /// </summary>
-        void SwitchRoleVisibility(IRole role);
-
+        void SwitchRoleVisibility(Role role);
 
 
         // todo добавить роль по умолчанию в куда-нибудь
