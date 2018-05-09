@@ -32,7 +32,7 @@ namespace Rocket.BL.Services.PersonalArea
                 //проверка на валидный имейл (содержит@ и все такое)
                 //TODO: нааписать  метод проверки валидности email
 
-                if (email //выбрасить сообщение о не валидности добавляемого email; )
+                if (string.IsNullOrEmpty(email)) //выбрасить сообщение о не валидности добавляемого email; )
                 {
                     return false;
                 }
@@ -73,7 +73,7 @@ namespace Rocket.BL.Services.PersonalArea
                 //проверка на валидный имейл (содержит@ и все такое)
                 //TODO: нааписать  метод проверки валидности email
 
-                if (email //выбрасить сообщение о не валидности добавляемого email; )
+                if (string.IsNullOrEmpty(email)) //выбрасить сообщение о не валидности добавляемого email; )
                 {
                     return false;
                 }

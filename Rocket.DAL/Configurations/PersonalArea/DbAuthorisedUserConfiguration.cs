@@ -25,17 +25,18 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 HasMaxLength(200).
                 IsVariableLength();
 
-            HasMany(p => p.Email).
-                WithRequired(e => e.User).
-                HasForeignKey(e => e.UserId);
+            //HasMany(p => p.Email).
+                
+            //    WithRequired(e => e.Users).
+            //    HasForeignKey(e => e.UserId);
 
-            HasMany(p => p.Genres).
-                WithMany(e => e.Users).
-                Map(m => {
-                    m.ToTable("UserGenres").
-                    MapLeftKey("UserId").
-                    MapRightKey("GenreId");
-                });
+            //HasMany(p => p.Genres).
+            //    WithMany(e => e.Users).
+            //    Map(m => {
+            //        m.ToTable("UserGenres").
+            //        MapLeftKey("UserId").
+            //        MapRightKey("GenreId");
+            //    });
         }
     }
 }
