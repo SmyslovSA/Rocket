@@ -23,36 +23,39 @@ namespace Rocket.BL.Services.UserServices
 
         }
 
-
-
-        public IEnumerable<DbRole> Get(Expression<Func<DbRole, bool>> filter = null, 
+        public IEnumerable<DbRole> Get(Expression<Func<DbRole, bool>> filter = null,  // ?2
                 Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, string includeProperties = "")
         {
             throw new NotImplementedException();
         }
 
-        public DbRole GetRoleById(int id)
+        public DbRole GetById(int id)  // ?1
         {
-            return Mapper.Map<Role>(
-                _unitOfWork.RoleRepository.GetById(id));
+            return _unitOfWork.RoleRepository.GetById(id);
         }
 
-        public void Insert(DbRole entity)
+        public int AddRole(DbRole role)
         {
-            throw new NotImplementedException();
+            var dbRole = Mapper.Map<DbRole>(role);
+            this._unitOfWork.RoleRepository.Insert(dbRole);
+            this._unitOfWork.Save();
+            return dbRole.Id;
         }
 
-        public void Update(DbRole entity)
+        public void UpdateRole(Role role)
         {
-            throw new NotImplementedException();
+            var dbRole = Mapper.Map<DbRole>(role);
+            _unitOfWork.RoleRepository.Update(dbRole);
+            _unitOfWork.Save();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _unitOfWork.RoleRepository.Delete(id);
+            _unitOfWork.Save();
         }
 
-        public void Delete(DbRole entity)
+        public void Delete(DbRole entity) // лишний.
         {
             throw new NotImplementedException();
         }
