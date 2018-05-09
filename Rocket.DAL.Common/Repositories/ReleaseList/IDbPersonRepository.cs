@@ -1,4 +1,4 @@
-﻿using Rocket.DAL.Common.DbModels.User.DbPerson;
+﻿using Rocket.DAL.Common.DbModels.ReleaseList;
 
 namespace Rocket.DAL.Common.Repositories.ReleaseList
 {
