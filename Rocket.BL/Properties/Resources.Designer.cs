@@ -97,6 +97,15 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot; символов&quot;.
+        /// </summary>
+        internal static string USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION {
+            get {
+                return ResourceManager.GetString("USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 5.
         /// </summary>
         internal static string USERACCOUNTPASSWORDMINLENGHT {

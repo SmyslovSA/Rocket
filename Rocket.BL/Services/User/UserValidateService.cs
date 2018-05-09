@@ -9,7 +9,7 @@ namespace Rocket.BL.Services.User
     /// Представляет сервис для валидации сведений о пользователе
     /// пользователя при его регистрации, а также изменении.
     /// </summary>
-    public class UserValidateService : BaseService, Common.Services.User.IUserValidateService
+    public class UserValidateService : Common.Services.User.IUserValidateService
     {
         /// <summary>
         /// Создает новый экземпляр <see cref="UserValidateService"/>
