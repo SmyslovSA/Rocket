@@ -29,9 +29,19 @@ namespace Rocket.DAL.Common.UoW
         /// </summary>
         IDbAuthorisedUserRepository UserRepository { get; }
 
-		/// <summary>
-		/// Сохраняет изменения в хранилище данных
-		/// </summary>
-		void Save();
+        /// <summary>
+        /// Возвращает репозиторий для emails
+        /// </summary>
+        IDbEmailRepository EmailRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для genre
+        /// </summary>
+        IDbGenreRepository GenreRepository { get; }
+
+        /// <summary>
+        /// Сохраняет изменения в хранилище данных
+        /// </summary>
+        void Save();
     }
 }
