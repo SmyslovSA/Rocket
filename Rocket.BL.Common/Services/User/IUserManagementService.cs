@@ -1,9 +1,11 @@
-﻿namespace Rocket.BL.Common.Services.User
+﻿using System;
+
+namespace Rocket.BL.Common.Services.User
 {
     /// <summary>
     /// Представляет сервис для работы с пользователем
     /// </summary>
-    public interface IUserManagementService
+    public interface IUserManagementService : IDisposable
     {
         /// <summary>
         /// Возвращает пользователя с заданным идентификатором

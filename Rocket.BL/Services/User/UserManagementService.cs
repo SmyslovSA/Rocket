@@ -48,7 +48,7 @@ namespace Rocket.BL.Services.User
             }
             
             // Экземпляр сервиса для валидации экземпляра пользователя
-            var userValidateService = new UserValidateService();
+            var userValidateService = new UserValidateService(new );
 
             // Валидация экземпляра пользователя
             if (!userValidateService.UserValidateOnAddition(user))
