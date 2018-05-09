@@ -17,12 +17,12 @@ namespace Rocket.DAL.Repositories
             _dbSet = _rocketContext.Set<TEntity>();
         }
 
-        public virtual TEntity Find<Tkey>(params Tkey[] keyValues)
+        public virtual TEntity Find<TKey>(params TKey[] keyValues)
         {
             return _dbSet.Find(keyValues);
         }
 
-        public virtual IQueryable<TEntity> SelectQuery<Tkey>(string query, params Tkey[] parameters)
+        public virtual IQueryable<TEntity> SelectQuery<TKey>(string query, params TKey[] parameters)
         {
             return _dbSet.SqlQuery(query, parameters).AsQueryable();
         }
@@ -47,7 +47,7 @@ namespace Rocket.DAL.Repositories
             _rocketContext.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Delete<Tkey>(Tkey id)
+        public virtual void Delete<TKey>(TKey id)
         {
             var entity = _dbSet.Find(id);
             Delete(entity);
