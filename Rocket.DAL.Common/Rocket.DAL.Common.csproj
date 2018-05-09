@@ -45,6 +45,12 @@
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbAuthorisedUser.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbGenre.cs" />
+    <Compile Include="DbModels\Notification\DbBillingMessage.cs" />
+    <Compile Include="DbModels\Notification\DbCustomMessage.cs" />
+    <Compile Include="DbModels\Notification\DbMessageAboutFilm.cs" />
+    <Compile Include="DbModels\Notification\DbMessageAboutMusic.cs" />
+    <Compile Include="DbModels\Notification\DbMessageAboutTVSeries.cs" />
+    <Compile Include="DbModels\Notification\DbReceiver.cs" />
     <Compile Include="DbModels\ReleaseList\DbCountry.cs" />
     <Compile Include="DbModels\ReleaseList\DbEpisode.cs" />
     <Compile Include="DbModels\ReleaseList\DbFilm.cs" />
