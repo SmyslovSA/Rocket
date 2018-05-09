@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using Rocket.DAL.Common.UoW;
-using Rocket.BL.Properties;
-using Rocket.BL.Validators.User;
+﻿using Rocket.BL.Validators.User;
 
 namespace Rocket.BL.Services.User
 {

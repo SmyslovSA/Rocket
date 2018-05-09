@@ -135,6 +135,12 @@
   <data name="USERACCOUNTPASSWORDMINLENGHT" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="USEREXISTS" xml:space="preserve">
+    <value>-2</value>
+  </data>
+  <data name="USERISNOTVALID" xml:space="preserve">
+    <value>-1</value>
+  </data>
   <data name="USERPERSONFIRSTNAMEISEMPTY" xml:space="preserve">
     <value>Test</value>
   </data>

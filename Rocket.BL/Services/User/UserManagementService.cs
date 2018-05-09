@@ -2,6 +2,8 @@
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
+using System;
+using Rocket.BL.Properties;
 
 namespace Rocket.BL.Services.User
 {
@@ -42,32 +44,9 @@ namespace Rocket.BL.Services.User
         /// <returns>Идентификатор пользователя</returns>
         public int AddUser(Common.Models.User.User user)
         {
-            if (user == null)
-            {
-                return -1;
-            }
-            
-            // Экземпляр сервиса для валидации экземпляра пользователя
-            var userValidateService = new UserValidateService(new );
-
-            // Валидация экземпляра пользователя
-            if (!userValidateService.UserValidateOnAddition(user))
-            {
-                return -1;
-            }
-
-            // Проверка дубля
-            if (this.UserExists(user))
-            {
-                return -1;
-            }
-
-            // Добавление пользователя в репозитарий
             var dbUser = Mapper.Map<DbUser>(user);
             this._unitOfWork.UserRepository.Insert(dbUser);
             this._unitOfWork.Save();
-
-            // Получение добавленного пользователя, чтобы скопировать его Id
             return dbUser.Id;
         }
 

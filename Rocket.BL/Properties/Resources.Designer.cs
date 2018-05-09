@@ -115,6 +115,24 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -2.
+        /// </summary>
+        internal static string USEREXISTS {
+            get {
+                return ResourceManager.GetString("USEREXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -1.
+        /// </summary>
+        internal static string USERISNOTVALID {
+            get {
+                return ResourceManager.GetString("USERISNOTVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test.
         /// </summary>
         internal static string USERPERSONFIRSTNAMEISEMPTY {
