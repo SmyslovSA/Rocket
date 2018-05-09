@@ -10,10 +10,21 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         void SwitchRoleVisibility(IRole role);
 
-        /// <summary>
-        /// Получить список прав по роли
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable FetchAllByRole(IRole role);
+
+
+        // todo добавить роль по умолчанию в куда-нибудь
+        // private const IRole DefaultRole = null;
+
+        // public void ChangeUserRole(IUser user)
+        // {
+        //    ChangeUserRole(user, DefaultRole);
+        // }
+
+        // public void ChangeUserRole(IUser user, IRole role)
+        // {
+        //    // todo сетапим роль нашему юзверю
+        //    // _user?.SetUserRole(_role);
+        // }
+
     }
 }

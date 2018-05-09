@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using AutoMapper;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
@@ -13,36 +14,13 @@ namespace Rocket.BL.Services.UserServices
     /// получение роли, установка роли для пользователя
     /// если не указана, то дефолтовая
     /// </summary>
-    public class UserRoleService : BaseService, IDbRoleRepository
+    public class UserRoleService : BaseService, IDbRoleRepository //todo add ilogger
     {
 
 
         public UserRoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
-        }
-
-        public Role RequestUserRole(IUser user)
-        {
-            // todo возвращаем роль юзера
-            // return _user?.GetUserRole();
-
-            // todo hello crunch
-            return new Role();
-        }
-
-        // todo добавить роль по умолчанию в куда-нибудь
-        private const IRole DefaultRole = null;
-
-        public void ChangeUserRole(IUser user)
-        {
-            ChangeUserRole(user, DefaultRole);
-        }
-
-        public void ChangeUserRole(IUser user, IRole role)
-        {
-            // todo сетапим роль нашему юзверю
-            // _user?.SetUserRole(_role);
         }
 
 
@@ -56,7 +34,7 @@ namespace Rocket.BL.Services.UserServices
         public DbRole GetRoleById(int id)
         {
             return Mapper.Map<Role>(
-                this._unitOfWork.RoleRepository.GetById(id));
+                _unitOfWork.RoleRepository.GetById(id));
         }
 
         public void Insert(DbRole entity)
