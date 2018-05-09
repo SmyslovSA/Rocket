@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using System;
 using Rocket.DAL.Common.UoW;
 using Rocket.BL.Properties;
+using Rocket.BL.Validators.User;
 
 namespace Rocket.BL.Services.User
 {
@@ -11,16 +11,6 @@ namespace Rocket.BL.Services.User
     /// </summary>
     public class UserValidateService : Common.Services.User.IUserValidateService
     {
-        /// <summary>
-        /// Создает новый экземпляр <see cref="UserValidateService"/>
-        /// с заданным unit of work
-        /// </summary>
-        /// <param name="unitOfWork">Экземпляр unit of work</param>
-        public UserValidateService(IUnitOfWork unitOfWork)
-            : base(unitOfWork)
-        {
-        }
-
         /// <summary>
         /// Валидирует (проверяет) экземпляр пользователя
         /// при его (вернее, перед) добавлении (регистрации) в хранилище данных.
@@ -76,64 +66,6 @@ namespace Rocket.BL.Services.User
             UserValidatorLogicAndFormat validator = new UserValidatorLogicAndFormat();
 
             return validator.Validate(user).IsValid ? true : false;
-        }
-
-        /// <summary>
-        /// Задаем условия для валидатора данных аккаунта
-        /// </summary>
-        internal class UserValidatorLogicAndFormat : AbstractValidator<Common.Models.User.User>
-        {
-            internal UserValidatorLogicAndFormat()
-            {
-                /// <summary>
-                /// Содержит строку с сообщением и минимальным количеством символов,
-                /// которые должны быть в пароле
-                /// </summary>
-                string UserAccountPasswordLenghtAssembleFullMessage = Resources.USERACCOUNTPASSWORDLENGHT +
-                        Resources.USERACCOUNTPASSWORDMINLENGHT.ToString() + " символов";
-
-                /// <summary>
-                /// Содержит строку с сообщением и минимальным количеством символов,
-                /// которые должны быть в логине
-                /// </summary>
-                string UserAccountLoginLenghtAssembleFullMessage = Properties.Resources.USERACCOUNTPASSWORDLENGHT +
-                       Resources.USERACCOUNTPASSWORDMINLENGHT.ToString() + " символов";
-
-                RuleFor(x => x.Login)
-                    .NotEmpty()
-                    .WithMessage(Resources.USERACCOUNTLOGINISEMPTY)
-                    .NotNull()
-                    .WithMessage(Resources.USERACCOUNTLOGINISEMPTY)
-                    .MinimumLength(Convert.ToInt32(Resources.USERACCOUNTLOGINMINLENGTH))
-                    .WithMessage(UserAccountLoginLenghtAssembleFullMessage);
-                RuleFor(x => x.Password)
-                    .NotEmpty()
-                    .WithMessage(Resources.USERACCOUNTPASSWORDISEMPTY)
-                    .NotNull()
-                    .WithMessage(Resources.USERACCOUNTPASSWORDISEMPTY)
-                    .MinimumLength(Convert.ToInt32(Resources.USERACCOUNTPASSWORDMINLENGHT))
-                    .WithMessage(UserAccountPasswordLenghtAssembleFullMessage);
-            }
-        }
-
-        /// <summary>
-        /// Задаем условия для валидатора данных о человеке
-        /// </summary>
-        internal class UserValidatorCheckRequiredFields : AbstractValidator<Common.Models.User.User>
-        {
-            internal UserValidatorCheckRequiredFields()
-            {
-                RuleFor(p => p.FirstName)
-                    .NotEmpty()
-                    .WithMessage(Resources.USERPERSONFIRSTNAMEISEMPTY)
-                    .NotNull()
-                    .WithMessage(Resources.USERPERSONFIRSTNAMEISEMPTY);
-                RuleFor(p => p.LastName)
-                    .NotEmpty()
-                    .WithMessage(Resources.USERPERSONSECONDNAMEISEMPTY)
-                    .NotNull()
-                    .WithMessage(Resources.USERPERSONSECONDNAMEISEMPTY);
-            }
         }
     }
 }

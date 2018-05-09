@@ -89,6 +89,8 @@
     <Compile Include="Services\ReleaseList\MusicDetailedInfoService.cs" />
     <Compile Include="Services\User\UserManagementService.cs" />
     <Compile Include="Services\User\UserValidateService.cs" />
+    <Compile Include="Validators\User\UserValidatorCheckRequiredFields.cs" />
+    <Compile Include="Validators\User\UserValidatorLogicAndFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
