@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using AutoMapper;
+﻿using AutoMapper;
 using Rocket.BL.Common.Models.PersonalArea;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.UoW;
-using FluentValidation;
 using System.Linq;
-using Microsoft.VisualBasic.CompilerServices;
-using AutoMapper;
 
 
 namespace Rocket.BL.Services.PersonalArea
@@ -18,25 +13,21 @@ namespace Rocket.BL.Services.PersonalArea
         public ChangeGenreManagerService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
-
         public bool AddGenre(SimpleUser model, string category, string genre)
         { 
-
             //проверка на валидный данных
             if (model!=null&&string.IsNullOrEmpty(category)&&string.IsNullOrEmpty(genre))
             {
-
                 var user = Mapper.Map<DbAuthorisedUser>(model);
-                user.Genres = new DbGenre()
+                user.Genres.Add(new DbGenre()
                 {
-                   Name = genre,
+                    Name = genre,
                     Category = new DbCategory
                     {
                         Name = category
                     }
-                    
-                };
 
+                });
                 _unitOfWork.UserRepository.Update(user);
                 _unitOfWork.Save();
                 return true;

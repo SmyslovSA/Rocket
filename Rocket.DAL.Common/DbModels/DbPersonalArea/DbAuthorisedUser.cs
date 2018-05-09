@@ -42,11 +42,11 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// список e-mail пользователя
         /// </summary>
-        public DbEmail Email { get; set; }
+        public ICollection<DbEmail> Email { get; set; }
 
         /// <summary>
         /// коллекция выбранных жанров пользователя
         /// </summary>
-        public DbGenre Genres { get; set; }
+        public ICollection<DbGenre> Genres { get; set; }
     }
 }
