@@ -1,6 +1,4 @@
-﻿using Rocket.BL.Common.Models.User;
-
-namespace Rocket.BL.Common.Services.User
+﻿namespace Rocket.BL.Common.Services.User
 {
     /// <summary>
     /// Представляет сервис для работы с пользователем

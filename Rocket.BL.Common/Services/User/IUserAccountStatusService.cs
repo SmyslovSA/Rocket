@@ -1,4 +1,6 @@
 ﻿using Rocket.BL.Common.Models.User;
+using System;
+
 
 namespace Rocket.BL.Common.Services.User
 {
@@ -6,7 +8,7 @@ namespace Rocket.BL.Common.Services.User
     /// Представляет сервис для работы со статусом аккаунта
     /// аккаунта
     /// </summary>
-    public interface IUserAccountStatusService
+    public interface IUserAccountStatusService : IDisposable
     {
         /// <summary>
         /// Получает статус аккаунта пользователя с определенным идентификатором

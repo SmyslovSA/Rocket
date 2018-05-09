@@ -1,10 +1,11 @@
-﻿namespace Rocket.BL.Common.Services.User
+﻿using System;
+namespace Rocket.BL.Common.Services.User
 {
     /// <summary>
     /// Представляет сервис для валидации сведений о пользователе
     /// пользователя при его регистрации, а также изменении.
     /// </summary>
-    public interface IUserValidateService
+    public interface IUserValidateService : IDisposable
     {
         /// <summary>
         /// Валидирует (проверяет) экземпляр пользователя
