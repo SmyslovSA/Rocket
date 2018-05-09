@@ -7,12 +7,5 @@ namespace Rocket.DAL.Common.Repositories.IDbUserRepository
     /// </summary>
     public interface IDbUserRepository : IRepository<DbUser>
     {
-        DbUser GetByUserLoginFromStore(string login);
-        
-        void AddUserToStore(DbUser dbUser);
-
-        void UpdateUserInStore(DbUser dbUser);
-
-        void DeleteByUserIdFromStore(int Id);
     }
 }
