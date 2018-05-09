@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="DbModels\DbPersonalArea\DbCategory.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />
-    <Compile Include="DbModels\DbPersonalArea\DbUser.cs" />
+    <Compile Include="DbModels\DbPersonalArea\DbAuthorisedUser.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbGenre.cs" />
     <Compile Include="DbModels\Notification\DbBillingMessage.cs" />
     <Compile Include="DbModels\Notification\DbCustomMessage.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="Repositories\IDbPersonalAreaRepository\IDbCategoryRepository.cs" />
     <Compile Include="Repositories\IDbPersonalAreaRepository\IDbEmailRepository.cs" />
     <Compile Include="Repositories\IDbPersonalAreaRepository\IDbGenreRepository.cs" />
-    <Compile Include="Repositories\IDbPersonalAreaRepository\IDbUserRepository.cs" />
+    <Compile Include="Repositories\IDbPersonalAreaRepository\IDbAuthorisedUserRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbPersonRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbFilmRepository.cs" />
     <Compile Include="Repositories\IDbUserRoleRepository\IDbPermissionRepository.cs" />

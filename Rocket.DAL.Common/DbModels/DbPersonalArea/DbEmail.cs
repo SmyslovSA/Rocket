@@ -20,6 +20,6 @@
         /// <summary>
         /// ссылка на Userа
         /// </summary>
-        public DbUser User { get; set; }
+        public virtual DbAuthorisedUser User { get; set; }
     }
 }
