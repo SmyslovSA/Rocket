@@ -12,7 +12,7 @@ namespace Rocket.DAL.Repositories
     /// Код взят из статьи https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
     /// </summary>
     /// <typeparam name="TEntity">Тип, экземплярами которого управляет репозиторий</typeparam>
-    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         private DbContext _dbContext;
         private IDbSet<TEntity> _dbSet;

@@ -17,11 +17,11 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// <summary>
         /// список пермишенов для роли
         /// </summary>
-        public virtual ICollection<Permission> Permissions { get; set; }
+        public ICollection<Permission> Permissions { get; set; }
 
         /// <summary>
         /// список юзеров с ролью
         /// </summary>
-        public virtual ICollection<User.User> Users { get; set; }
+        public ICollection<Permission> Permissions;
     }
 }

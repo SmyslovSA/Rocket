@@ -36,6 +36,16 @@ namespace Rocket.DAL.UoW
         public IDbAuthorisedUserRepository UserRepository { get; private set; }
 
         /// <summary>
+        /// Возвращает репозиторий для emails
+        /// </summary>
+        public IDbEmailRepository EmailRepository { get; private set; }
+
+        /// <summary>
+        /// Возвращает репозиторий для genre
+        /// </summary>
+        public IDbGenreRepository GenreRepository { get; private set; }
+
+        /// <summary>
         /// /// <summary>
         /// Создает новый экземпляр <see cref="UnitOfWork"/>
         /// c заданным контекстом данных
@@ -45,17 +55,23 @@ namespace Rocket.DAL.UoW
         /// <param name="dbTVSeriesRepository">Экземпляр репозитория сериалов</param>
         /// <param name="dbMusicRepository">Экземпляр репозитория музыки</param>
         /// <param name="dbAuthorisedUserRepository">Экземпляр репозитория пользователей</param>
+        /// <param name="dbEmailRepository">Экземпляр репозитория emails</param>
+        /// <param name="dbGenreRepository">Экземпляр репозитория жанров</param>
         public UnitOfWork(DbContext dbContext,
             IDbFilmRepository dbFilmRepository,
             IDbTVSeriesRepository dbTVSeriesRepository,
             IDbMusicRepository dbMusicRepository,
-            IDbAuthorisedUserRepository dbAuthorisedUserRepository)
+            IDbAuthorisedUserRepository dbAuthorisedUserRepository,
+            IDbEmailRepository dbEmailRepository,
+            IDbGenreRepository dbGenreRepository)
         {
             this._dbContext = dbContext;
             this.FilmRepository = dbFilmRepository;
             this.TVSeriesRepository = dbTVSeriesRepository;
             this.MusicRepository = dbMusicRepository;
             this.UserRepository = dbAuthorisedUserRepository;
+            this.EmailRepository = dbEmailRepository;
+            this.GenreRepository = dbGenreRepository;
         }
 
         /// <summary>
