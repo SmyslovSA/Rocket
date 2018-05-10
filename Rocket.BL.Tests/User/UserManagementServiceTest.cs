@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using Rocket.BL.Services.User;
 using Rocket.DAL.Common.Repositories.User;
-using Rocket.DAL.Common.UoW;
 using FluentAssertions;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.BL.Tests.User.FakeData;
