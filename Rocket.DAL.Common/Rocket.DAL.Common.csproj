@@ -51,6 +51,7 @@
     <Compile Include="DbModels\Notification\DbMessageAboutMusic.cs" />
     <Compile Include="DbModels\Notification\DbMessageAboutTVSeries.cs" />
     <Compile Include="DbModels\Notification\DbReceiver.cs" />
+    <Compile Include="DbModels\ReleaseList\DbBaseRelease.cs" />
     <Compile Include="DbModels\ReleaseList\DbCountry.cs" />
     <Compile Include="DbModels\ReleaseList\DbEpisode.cs" />
     <Compile Include="DbModels\ReleaseList\DbFilm.cs" />

@@ -10,19 +10,7 @@ namespace Rocket.DAL.Configurations.ReleaseList
     {
         public DbFilmConfiguration()
         {
-            ToTable("Films")
-                .HasKey(f => f.Id)
-                .Property(f => f.Id)
-                .HasColumnName("Id");
-
-            Property(f => f.ReleaseDate)
-                .IsRequired()
-                .HasColumnName("ReleaseDate");
-
-            Property(f => f.Title)
-                .IsRequired()
-                .HasColumnName("Title")
-                .HasMaxLength(50);
+            ToTable("Films");
 
             Property(f => f.PosterImagePath)
                 .IsOptional()

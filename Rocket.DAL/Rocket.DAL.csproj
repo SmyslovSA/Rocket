@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\PersonalArea\DbCategoryConfiguration.cs" />
+    <Compile Include="Configurations\ReleaseList\DbBaseReleaseConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbCountryConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbEmailConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbEpisodeConfiguration.cs" />
