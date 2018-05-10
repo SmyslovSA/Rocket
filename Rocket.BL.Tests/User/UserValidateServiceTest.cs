@@ -31,7 +31,7 @@ namespace Rocket.BL.Tests.User
         public void UserValidateServiceFirstNameOfUserIsNullOrEmptyTest()
         {
             // Arrange
-            var fakerNewUsers = new FakeUser(
+            var fakerNewUsers = new FakeUsers(
                 usersCount: 1,
                 isFirstNameNullOrEmpty: true,
                 isLastNameNullOrEmpty: false,
@@ -57,7 +57,7 @@ namespace Rocket.BL.Tests.User
         public void UserValidateServiceLastNameOfUserIsNullOrEmptyTest()
         {
             // Arrange
-            var fakerNewUsers = new FakeUser(
+            var fakerNewUsers = new FakeUsers(
                 usersCount: 1,
                 isFirstNameNullOrEmpty: false,
                 isLastNameNullOrEmpty: true,
@@ -81,7 +81,7 @@ namespace Rocket.BL.Tests.User
         public void UserValidateServiceLoginOfUserIsNullOrEmptyTest()
         {
             // Arrange
-            var fakerNewUsers = new FakeUser(
+            var fakerNewUsers = new FakeUsers(
                 usersCount: 1,
                 isFirstNameNullOrEmpty: false,
                 isLastNameNullOrEmpty: false,
@@ -106,7 +106,7 @@ namespace Rocket.BL.Tests.User
         public void UserValidateServicePasswordOfUserIsNullOrEmptyTest()
         {
             // Arrange
-            var fakerNewUsers = new FakeUser(
+            var fakerNewUsers = new FakeUsers(
                 usersCount: 1,
                 isFirstNameNullOrEmpty: false,
                 isLastNameNullOrEmpty: false,
@@ -130,7 +130,7 @@ namespace Rocket.BL.Tests.User
         public void UserValidateServicePasswordOfUserLenthLessThanEstablishedTest()
         {
             // Arrange
-            var fakerNewUsers = new FakeUser(
+            var fakerNewUsers = new FakeUsers(
                 usersCount: 1,
                 isFirstNameNullOrEmpty: false,
                 isLastNameNullOrEmpty: false,
@@ -154,7 +154,7 @@ namespace Rocket.BL.Tests.User
         public void UserValidateServicLoginOfUserLenthLessThanEstablishedTest()
         {
             // Arrange
-            var fakerNewUsers = new FakeUser(
+            var fakerNewUsers = new FakeUsers(
                 usersCount: 1,
                 isFirstNameNullOrEmpty: false,
                 isLastNameNullOrEmpty: false,
@@ -179,7 +179,7 @@ namespace Rocket.BL.Tests.User
         public void UserValidateServicAllConditionsMetTest()
         {
             // Arrange
-            var fakerNewUsers = new FakeUser(
+            var fakerNewUsers = new FakeUsers(
                 usersCount: 1,
                 isFirstNameNullOrEmpty: false,
                 isLastNameNullOrEmpty: false,
