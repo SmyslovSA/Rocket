@@ -13,23 +13,23 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <summary>
         /// Возвращает генератор данных о номерах телефона пользователя
         /// </summary>
-        public Faker<string> PhoneFaker { get; }
+        public Faker PhoneFaker { get; } = new Faker();
 
         /// <summary>
         /// Возвращает коллекцию сгенерированных номеров телефонов пользователей 
         /// </summary>
-        public List<string> Phones { get; }
+        public List<string> Phones { get; } = new List<string>();
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных телефонных номеров пользователей
         /// </summary>
-        /// <param name="countriesCount">Необходимое количество сгенерированных стран</param>
+        /// <param name="countriesCount">Необходимое количество сгенерированных телефонных номеров пользователей</param>
         public FakePhones(int phonesCount)
         {
-            this.PhoneFaker = new Faker<string>()
-                .RuleFor(c => c, f => f.Phone.PhoneNumber());
-
-            this.Phones = this.PhoneFaker.Generate(phonesCount);
+            for (int i = 0; i < phonesCount; i++)
+            {
+                this.Phones.Add(this.PhoneFaker.Phone.PhoneNumber());
+            }
         }
     }
 }

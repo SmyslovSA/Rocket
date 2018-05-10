@@ -13,23 +13,23 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <summary>
         /// Возвращает генератор данных об электронных адресах пользователей
         /// </summary>
-        public Faker<string> EmailAddressFaker { get; }
+        public Faker EmailAddressFaker { get; } = new Faker();
 
         /// <summary>
         /// Возвращает коллекцию сгенерированных электронных адресов пользователей
         /// </summary>
-        public List<string> EmailAddresses { get; }
+        public List<string> EmailAddresses { get; } = new List<string>();
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных электронных адресов пользователей
         /// </summary>
-        /// <param name="emailAddressesCount">Необходимое количество сгенерированных адресов пользователей</param>
+        /// <param name="emailAddressesCount">Необходимое количество сгенерированных адресов электронной почты пользователей</param>
         public FakeEmailAddresses(int emailAddressCount)
         {
-            this.EmailAddressFaker = new Faker<string>()
-                .RuleFor(c => c, f => f.Internet.Email());
-
-            this.EmailAddresses = this.EmailAddressFaker.Generate(emailAddressCount);
+            for (int i = 0; i < emailAddressCount; i++)
+            {
+                this.EmailAddresses.Add(this.EmailAddressFaker.Internet.Email());
+            }
         }
     }
 }

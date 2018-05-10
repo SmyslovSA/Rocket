@@ -13,8 +13,6 @@ namespace Rocket.BL.Services.User
     /// </summary>
     public class UserManagementService : BaseService, Common.Services.User.IUserManagementService
     {   
-        private readonly IDbUserRepository _userRepository;
-
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work

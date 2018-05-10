@@ -21,7 +21,7 @@ namespace Rocket.BL.Tests.User
     {
         private const int UserCount = 300;
         private UserManagementService _userManagementService;
-        private FakeDbUsersData _fakeDbFilmsData;
+        private FakeDbUsers _fakeDbFilmsData;
 
         /// <summary>
         /// Осуществляет настройки
