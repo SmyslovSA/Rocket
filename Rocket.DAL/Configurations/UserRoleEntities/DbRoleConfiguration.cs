@@ -18,10 +18,6 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
                 .HasMaxLength(50)
                 .IsVariableLength();
 
-            Property(t => t.IsActive)
-                .IsRequired()
-                .HasColumnName("is_active");
-
             HasMany(t => t.Permissions)
                 .WithMany();
         }

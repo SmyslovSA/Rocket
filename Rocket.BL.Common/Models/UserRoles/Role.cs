@@ -22,6 +22,6 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// <summary>
         /// список юзеров с ролью
         /// </summary>
-        public ICollection<Permission> Permissions;
+        public ICollection<User.User> Users { get; set; }
     }
 }
