@@ -5,6 +5,6 @@
         /// <summary>
         /// Уникальный идентификатор роли
         /// </summary>
-        ushort RoleId { get; set; }
+        int RoleId { get; set; }
     }
 }

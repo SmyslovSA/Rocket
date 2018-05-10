@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Rocket.BL.Common.Models.ReleaseList
 {
@@ -31,6 +32,6 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию серий сезона
         /// </summary>
-        public ICollection<Episode> Episodes { get; set; }
+        public ICollection<Episode> Episodes { get; set; } = new Collection<Episode>();
     }
 }

@@ -5,6 +5,6 @@
         /// <summary>
         /// id пермишена.
         /// </summary>
-        ushort PermissionId { get; set; }
+        int PermissionId { get; set; }
     }
 }

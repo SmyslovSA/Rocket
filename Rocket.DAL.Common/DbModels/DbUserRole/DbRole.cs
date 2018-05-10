@@ -9,7 +9,7 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// <summary>
         /// Уникальный идентификатор роли пользователя
         /// </summary>
-        public ushort Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Название роли пользователя
@@ -25,6 +25,6 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// <summary>
         /// collection of permissions 
         /// </summary>
-        public ICollection<DbPermission> Permissions;
+        public ICollection<DbPermission> Permissions { get; set; }
     }
 }
