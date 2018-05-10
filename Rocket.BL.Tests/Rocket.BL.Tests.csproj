@@ -99,6 +99,24 @@
     <Compile Include="ReleaseList\MusicDetailedInfoServiceTest.cs" />
     <Compile Include="ReleaseList\FilmDetailedInfoServiceTest.cs" />
     <Compile Include="ReleaseList\TVSeriesDetailedInfoServiceTest.cs" />
+    <Compile Include="User\FakeData\FakeDbAddresses.cs" />
+    <Compile Include="User\FakeData\FakeDbCountries.cs" />
+    <Compile Include="User\FakeData\FakeDbAccountStatuses.cs" />
+    <Compile Include="User\FakeData\FakeDbAccountLevels.cs" />
+    <Compile Include="User\FakeData\FakeAccountLevels.cs" />
+    <Compile Include="User\FakeData\FakeAddresses.cs" />
+    <Compile Include="User\FakeData\FakeDbHowToCalls.cs" />
+    <Compile Include="User\FakeData\FakeHowToCalls.cs" />
+    <Compile Include="User\FakeData\FakeEmailAddresses.cs" />
+    <Compile Include="User\FakeData\FakeDbLanguages.cs" />
+    <Compile Include="User\FakeData\FakePhones.cs" />
+    <Compile Include="User\FakeData\FakeLanguages.cs" />
+    <Compile Include="User\FakeData\FakeCountries.cs" />
+    <Compile Include="User\FakeData\FakeDbUsers.cs" />
+    <Compile Include="User\FakeData\FakeUsers.cs" />
+    <Compile Include="User\FakeData\FakeAccountStatuses.cs" />
+    <Compile Include="User\UserManagementServiceTest.cs" />
+    <Compile Include="User\UserValidateServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

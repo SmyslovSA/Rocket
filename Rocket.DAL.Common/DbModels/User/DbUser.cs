@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rocket.DAL.Common.DbModels;
 
-namespace Rocket.BL.Common.Models.User
+namespace Rocket.DAL.Common.DbModels.User
 {
     /// <summary>
-    /// Представляет информацию о пользователе
+    /// Представляет модель хранения данных о пользователе
     /// </summary>
-    public class User
+    public class DbUser 
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификатор пользователя
@@ -38,13 +37,13 @@ namespace Rocket.BL.Common.Models.User
         /// Возвращает или задает статус аккаунта
         /// (активирован, не активирован, деактивирован, забанен и так далее)
         /// </summary>
-        public AccountStatus AccountStatus { get; set; }
+        public DbAccountStatus AccountStatus { get; set; }
 
         /// <summary>
         /// Возвращает или задает уровень пользователя
         /// (пока что это - обычный и премиум пользователь)
         /// </summary>
-        public AccountLevel AccountLevel { get; set; }
+        public DbAccountLevel AccountLevel { get; set; }
 
         /// <summary>
         /// Возвращает или задает необходимость подтверждения регистрации
@@ -55,12 +54,12 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Задает или возвращает гражданство пользователя
         /// </summary>
-        public Country Sitizenship { get; set; }
+        public DbCountry Sitizenship { get; set; }
 
         /// <summary>
         /// Задает или возвращает язык пользователя
         /// </summary>
-        public Language Language { get; set; }
+        public DbLanguage Language { get; set; }
 
         /// <summary>
         /// Задает или возвращает дату рождения пользователя
@@ -75,7 +74,7 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Задает или возвращает сведения о том, как обращаться к пользователю
         /// </summary>
-        public HowToCall HowToCall { get; set; }
+        public DbHowToCall HowToCall { get; set; }
 
         /// <summary>
         /// Задает или возвращает коллекцию телефонных номеров пользователя
@@ -90,6 +89,6 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Возвращает или задает почтовый адрес пользователя
         /// </summary>
-        public Address MailAddress { get; set; }
+        public DbAddress MailAddress { get; set; }
     }
 }

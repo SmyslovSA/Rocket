@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 ﻿using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.ReleaseList;
+=======
+﻿using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.Repositories.User;
+>>>>>>> feature/ROC-27_Регистрация_пользователя
 using System;
 
 namespace Rocket.DAL.Common.UoW
@@ -25,6 +30,7 @@ namespace Rocket.DAL.Common.UoW
 		IDbMusicRepository MusicRepository { get; }
 
         /// <summary>
+<<<<<<< HEAD
         /// Возвращает репозиторий для авторизованного пользователя
         /// </summary>
         IDbAuthorisedUserRepository UserRepository { get; }
@@ -38,6 +44,11 @@ namespace Rocket.DAL.Common.UoW
         /// Возвращает репозиторий для genre
         /// </summary>
         IDbGenreRepository GenreRepository { get; }
+=======
+        /// Возвращает репозиторий для пользователей
+        /// </summary>
+        IDbUserRepository UserRepository { get; }
+>>>>>>> feature/ROC-27_Регистрация_пользователя
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных

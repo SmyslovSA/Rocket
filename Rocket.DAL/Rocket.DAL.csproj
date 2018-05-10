@@ -121,9 +121,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201805061918112_InitialMigration.resx">
       <DependentUpon>201805061918112_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
+=======
+    <Folder Include="Configurations\User\" />
+>>>>>>> feature/ROC-27_Регистрация_пользователя
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
