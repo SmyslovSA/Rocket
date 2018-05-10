@@ -7,7 +7,7 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// <summary>
         /// Уникальный идентификатор роли пользователя
         /// </summary>
-        public ushort RoleId { get; set; }
+        public int RoleId { get; set; }
 
         /// <summary>
         /// Название роли пользователя
@@ -17,11 +17,11 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// <summary>
         /// список пермишенов для роли
         /// </summary>
-        public ICollection<Permission> Permissions { get; set; }
+        public virtual ICollection<Permission> Permissions { get; set; }
 
         /// <summary>
         /// список юзеров с ролью
         /// </summary>
-        public ICollection<User.User> Users { get; set; }
+        public virtual ICollection<User.User> Users { get; set; }
     }
 }

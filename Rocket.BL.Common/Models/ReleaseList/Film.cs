@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Rocket.BL.Common.Models.ReleaseList
 {
@@ -32,22 +33,22 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию режиссеров, которые сняли фильм
         /// </summary>
-        public ICollection<Person> Directors { get; set; }
+        public ICollection<Person> Directors { get; set; } = new Collection<Person>();
 
         /// <summary>
         /// Возвращает или задает коллекцию актёров, которые снялись в фильме
         /// </summary>
-        public ICollection<Person> Cast { get; set; }
+        public ICollection<Person> Cast { get; set; } = new Collection<Person>();
 
         /// <summary>
         /// Возвращает или задает коллекцию жанров, к которым относится фильм
         /// </summary>
-        public ICollection<VideoGenre> Genres { get; set; }
+        public ICollection<VideoGenre> Genres { get; set; } = new Collection<VideoGenre>();
 
         /// <summary>
         /// Возвращает или задает коллекцию стран, которые участвовали в создании фильма
         /// </summary>
-        public ICollection<Country> Countries { get; set; }
+        public ICollection<Country> Countries { get; set; } = new Collection<Country>();
 
         /// <summary>
         /// Возвращает или задает продолжительность фильма

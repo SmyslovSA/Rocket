@@ -44,14 +44,14 @@ namespace Rocket.BL.Tests.ReleaseList
                     Func<IQueryable<DbFilm>, IOrderedQueryable<DbFilm>> orderBy,
                     string includeProperties) => this._fakeDbFilmsData.Films.Where(filter.Compile()));
             mockDbFilmRepository.Setup(mock => mock.GetById(It.IsAny<int>()))
-                .Returns((object id) => this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id));
+                .Returns((int id) => this._fakeDbFilmsData.Films.Find(f => f.Id == id));
             mockDbFilmRepository.Setup(mock => mock.Insert(It.IsAny<DbFilm>()))
                 .Callback((DbFilm f) => this._fakeDbFilmsData.Films.Add(f));
             mockDbFilmRepository.Setup(mock => mock.Update(It.IsAny<DbFilm>()))
                 .Callback((DbFilm f) => this._fakeDbFilmsData.Films.Find(d => d.Id == f.Id).Title = f.Title);
-            mockDbFilmRepository.Setup(mock => mock.Delete((int) It.IsAny<object>()))
-                .Callback((object id) => this._fakeDbFilmsData.Films
-                    .Remove(this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id)));
+            mockDbFilmRepository.Setup(mock => mock.Delete(It.IsAny<int>()))
+                .Callback((int id) => this._fakeDbFilmsData.Films
+                    .Remove(this._fakeDbFilmsData.Films.Find(f => f.Id == id)));
 
             var mockDbFilmUnitOfWork = new Mock<IUnitOfWork>();
             mockDbFilmUnitOfWork.Setup(mock => mock.FilmRepository)

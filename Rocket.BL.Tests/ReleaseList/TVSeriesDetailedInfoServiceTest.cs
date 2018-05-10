@@ -41,14 +41,14 @@ namespace Rocket.BL.Tests.ReleaseList
                     Func<IQueryable<DbTVSeries>, IOrderedQueryable<DbTVSeries>> orderBy,
                     string includeProperties) => this._fakeDbTVSerialsData.TVSerials.Where(filter.Compile()));
             mockDbTVSeriesRepository.Setup(mock => mock.GetById(It.IsAny<int>()))
-                .Returns((object id) => this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == (int)id));
+                .Returns((int id) => this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id));
             mockDbTVSeriesRepository.Setup(mock => mock.Insert(It.IsAny<DbTVSeries>()))
                 .Callback((DbTVSeries f) => this._fakeDbTVSerialsData.TVSerials.Add(f));
             mockDbTVSeriesRepository.Setup(mock => mock.Update(It.IsAny<DbTVSeries>()))
                 .Callback((DbTVSeries f) => this._fakeDbTVSerialsData.TVSerials.Find(d => d.Id == f.Id).Title = f.Title);
-            mockDbTVSeriesRepository.Setup(mock => mock.Delete((int) It.IsAny<object>()))
-                .Callback((object id) => this._fakeDbTVSerialsData.TVSerials
-                    .Remove(this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == (int)id)));
+            mockDbTVSeriesRepository.Setup(mock => mock.Delete(It.IsAny<int>()))
+                .Callback((int id) => this._fakeDbTVSerialsData.TVSerials
+                    .Remove(this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id)));
 
             var mockTVSeriesUnitOfWork = new Mock<IUnitOfWork>();
             mockTVSeriesUnitOfWork.Setup(mock => mock.TVSeriesRepository)

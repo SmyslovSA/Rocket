@@ -1,0 +1,63 @@
+﻿using AutoMapper;
+using Rocket.BL.Common.Models.PersonalArea;
+using Rocket.BL.Common.Services.PersonalArea;
+using Rocket.DAL.Common.DbModels.DbPersonalArea;
+using Rocket.DAL.Common.UoW;
+using System.Linq;
+
+
+namespace Rocket.BL.Services.PersonalArea
+{
+    class ChangeGenreManagerService : BaseService, IGenreManager
+    {
+        public ChangeGenreManagerService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+        }
+        public bool AddGenre(SimpleUser model, string category, string genre)
+        { 
+            //проверка на валидный данных
+            if (model!=null&&string.IsNullOrEmpty(category)&&string.IsNullOrEmpty(genre))
+            {
+                var user = Mapper.Map<DbAuthorisedUser>(model);
+                user.Genres.Add(new DbGenre()
+                {
+                    Name = genre,
+                    Category = new DbCategory
+                    {
+                        Name = category
+                    }
+
+                });
+                _unitOfWork.UserRepository.Update(user);
+                _unitOfWork.Save();
+                return true;
+            }
+            else
+            {
+                    return false;
+            }
+        }
+
+        public bool DeleteGenre(SimpleUser model, string category, string genre)
+        {
+            if (model != null && string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
+            {
+                if (_unitOfWork.GenreRepository.Get().FirstOrDefault(c => c.Name == genre) != null)
+                {
+                    var ganre = _unitOfWork.GenreRepository.Get().FirstOrDefault(c => c.Name == genre);
+                    _unitOfWork.UserRepository.Delete(ganre);
+                    _unitOfWork.Save();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}

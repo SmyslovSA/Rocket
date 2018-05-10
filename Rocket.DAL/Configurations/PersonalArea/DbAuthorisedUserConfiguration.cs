@@ -31,7 +31,8 @@ namespace Rocket.DAL.Configurations.PersonalArea
 
             HasMany(p => p.Genres).
                 WithMany(e => e.Users).
-                Map(m => {
+                Map(m =>
+                {
                     m.ToTable("UserGenres").
                     MapLeftKey("UserId").
                     MapRightKey("GenreId");

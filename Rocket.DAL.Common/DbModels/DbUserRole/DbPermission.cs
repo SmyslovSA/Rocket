@@ -8,7 +8,7 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// Уникальный идентификатор значения "право доступа" 
         /// (либо функциональная возможность)
         /// </summary>
-        public ushort Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Описание  функц. возможности, соответствующее идентификатору 

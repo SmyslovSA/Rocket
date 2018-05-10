@@ -40,6 +40,16 @@ namespace Rocket.DAL.Common.UoW
         Repositories.IDbUserRoleRepository.IDbPermissionRepository PermissionRepository { get; }
 
         /// <summary>
+        /// Возвращает репозиторий для emails
+        /// </summary>
+        IDbEmailRepository EmailRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для genre
+        /// </summary>
+        IDbGenreRepository GenreRepository { get; }
+
+        /// <summary>
         /// Сохраняет изменения в хранилище данных
         /// </summary>
         void Save();
