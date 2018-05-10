@@ -105,7 +105,7 @@ namespace Rocket.BL.Tests.User
         public void AddUserTest()
         {
             // Arrange
-            var user = new FakeUsers(0, false, false, false, false, 5, 5).UserFaker.Generate();
+            var user = new FakeUsers(0, false, false, false, false, 5, 5).Users[0];
             user.Id = this._fakeDbUsers.Users.Last().Id + 1;
 
             // Act
@@ -118,7 +118,7 @@ namespace Rocket.BL.Tests.User
         }
 
         /// <summary>
-        /// Тест метода обновления данных о фильме
+        /// Тест метода обновления данных о пользователе
         /// </summary>
         /// <param name="id">Идентификатор пользователя для обновления</param>
         [Test, Order(2)]

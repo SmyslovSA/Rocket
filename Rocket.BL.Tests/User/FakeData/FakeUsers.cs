@@ -21,7 +21,7 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных пользователей
         /// </summary>
-        public List<Common.Models.User.User> UsersFaker { get; }
+        public List<Common.Models.User.User> Users { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о пользователях
@@ -52,7 +52,7 @@ namespace Rocket.BL.Tests.User.FakeData
                 .RuleFor(p => p.Login, f => { return isLoginNullOrEmpty ? string.Empty : f.Lorem.Letter(minLoginLenght); })
                 .RuleFor(p => p.Password, f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); });
 
-            this.UsersFaker = result.Generate(usersCount);
+            this.Users = result.Generate(usersCount);
         }
     }
 }
