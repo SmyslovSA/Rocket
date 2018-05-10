@@ -105,7 +105,7 @@ namespace Rocket.BL.Tests.User
         public void AddUserTest()
         {
             // Arrange
-            var user = new FakeUsers(1, false, false, false, false, 5, 5).Users[0];
+            var user = new FakeUsers(0, false, false, false, false, 5, 5).Users[0];
             user.Id = this._fakeDbUsers.Users.Last().Id + 1;
 
             // Act
