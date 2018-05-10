@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
+using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 using Rocket.BL.Services.User;
-using Rocket.DAL.Common.Repositories.User;
-using FluentAssertions;
-using Rocket.DAL.Common.DbModels.User;
 using Rocket.BL.Tests.User.FakeData;
+using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Common.Repositories.User;
+using Rocket.DAL.Common.UoW;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Moq;
 
 namespace Rocket.BL.Tests.User
 {
@@ -18,9 +19,9 @@ namespace Rocket.BL.Tests.User
     [TestFixture]
     public class UserManagementServiceTest
     {
-        private const int UserCount = 300;
+        private const int UsersCount = 300;
         private UserManagementService _userManagementService;
-        private FakeDbUsers _fakeDbFilmsData;
+        private FakeDbUsers _fakeDbUsers;
 
         /// <summary>
         /// Осуществляет настройки
@@ -37,19 +38,22 @@ namespace Rocket.BL.Tests.User
             moq.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbUser, bool>>>(), null, ""))
                 .Returns((Expression<Func<DbUser, bool>> filter,
                     Func<IQueryable<DbUser>, IOrderedQueryable<DbUser>> orderBy,
-                    string includeProperties) => this._fakeDbFilmsData.Films.Where(filter.Compile()));
+                    string includeProperties) => this._fakeDbUsers.Users.Where(filter.Compile()));
             moq.Setup(mock => mock.GetById(It.IsAny<object>()))
-                .Returns((object id) => this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id));
+                .Returns((object id) => this._fakeDbUsers.Users.Find(f => f.Id == (int)id));
             moq.Setup(mock => mock.Insert(It.IsAny<DbUser>()))
-                .Callback((DbUser f) => this._fakeDbFilmsData.Films.Add(f));
+                .Callback((DbUser f) => this._fakeDbUsers.Users.Add(f));
             moq.Setup(mock => mock.Update(It.IsAny<DbUser>()))
-                .Callback((DbUser f) => this._fakeDbFilmsData.Films.Find(d => d.Id == f.Id).Title = f.Title);
+                .Callback((DbUser f) => this._fakeDbUsers.Users.Find(d => d.Id == f.Id).Login = f.Login);
             moq.Setup(mock => mock.Delete(It.IsAny<object>()))
-                .Callback((object id) => this._fakeDbFilmsData.Films
-                    .Remove(this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id)));
+                .Callback((object id) => this._fakeDbUsers.Users
+                    .Remove(this._fakeDbUsers.Users.Find(f => f.Id == (int)id)));
 
+            var mockDbUserUnitOfWork = new Mock<IUnitOfWork>();
+            mockDbUserUnitOfWork.Setup(mock => mock.UserRepository)
+                .Returns(() => moq.Object);
 
-            this._userManagementService = new UserManagementService(moq.Object);
+            this._userManagementService = new UserManagementService(mockDbUserUnitOfWork.Object);
         }
 
         /// <summary>
@@ -70,55 +74,114 @@ namespace Rocket.BL.Tests.User
         }
 
         /// <summary>
-        /// Метод AddUser() сервиса UserManagementService должен возвращать
-        /// -1, если пользователь если значение User-а не валидно, например,
-        /// логин пустая строка.
+        /// Тест метода получения экземпляра пользователя по заданному идентификатору.
+        /// пользователь с передаваемым идентификатором существует
         /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
         [Test, Order(1)]
-        public void UserManagementServiceAddUserUserInvalidTest()
+        public void GetExistedUserTest([Random(0, UsersCount - 1, 5)] int id)
         {
-            // Arrange
-            var fakerNewUsers = new FakeUser(
-                usersCount: 1,
-                isFirstNameNullOrEmpty: true,
-                isLastNameNullOrEmpty: false,
-                isLoginNullOrEmpty: false,
-                isPasswordNullOrEmpty: false,
-                minLoginLenght: 5,
-                minPasswordLenght: 5);
-            var user = fakerNewUsers.UsersFaker[0];
+            var expectedUser = this._fakeDbUsers.Users.Find(f => f.Id == id);
 
-            // Act
-            var result = this._userManagementService.AddUser(user);
+            var actualUser = this._userManagementService.GetUser(id);
 
-            // Assert
-            result.Should().Equals(-1);
+            actualUser.Should().BeEquivalentTo(expectedUser,
+                options => options.ExcludingMissingMembers());
+            actualUser.Phones.Should().BeEquivalentTo(expectedUser.Phones,
+                options => options.ExcludingMissingMembers());
+            actualUser.EMailAddresses.Should().BeEquivalentTo(expectedUser.EMailAddresses,
+                options => options.ExcludingMissingMembers());
+            actualUser.Login.Should().BeEquivalentTo(expectedUser.Login);
+            actualUser.FirstName.Should().BeEquivalentTo(expectedUser.FirstName);
+            actualUser.LastName.Should().BeEquivalentTo(expectedUser.LastName);
         }
 
         /// <summary>
-        /// Метод AddUser() сервиса UserManagementService должен возвращать
-        /// -1, если пользователь если значение User-а не валидно, например,
-        /// логин пустая строка.
+        /// Тест метода получения экземпляра пользователя по заданному идентификатору.
+        /// пользователь с передаваемым идентификатором не существует
         /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
         [Test, Order(1)]
-        public void UserManagementServiceAddUserIfUserValid()
+        public void GetNotExistedUserTest([Random(UsersCount, UsersCount + 300, 5)] int id)
         {
-            // Arrange
-            var fakerNewUsers = new FakeUser(
-                usersCount: 1,
-                isFirstNameNullOrEmpty: false,
-                isLastNameNullOrEmpty: false,
-                isLoginNullOrEmpty: false,
-                isPasswordNullOrEmpty: false,
-                minLoginLenght: 5,
-                minPasswordLenght: 5);
-            var user = fakerNewUsers.UsersFaker[0];
+            var actualUser = this._userManagementService.GetUser(id);
 
-            // Act
-            var result = this._userManagementService.AddUser(user);
+            actualUser.Should().BeNull();
+        }
 
-            // Assert
-            result.Should().Equals(1);
+        /// <summary>
+        /// Тест метода добавления пользователя в хранилище данных
+        /// </summary>
+        [Test, Repeat(5), Order(2)]
+        public void AddUserTest()
+        {
+            var film = new FakeUsers(0, false, false, false, false, 5, 5).UserFaker.Generate();
+            film.Id = this._fakeDbUsers.Users.Last().Id + 1;
+
+            var actualId = this._userManagementService.AddUser(film);
+            var actualUser = this._userManagementService.GetUser(actualId);
+
+            actualUser.Should().BeEquivalentTo(film);
+        }
+
+        /// <summary>
+        /// Тест метода обновления данных о фильме
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя для обновления</param>
+        [Test, Order(2)]
+        public void UpdateUserTest([Random(0, UsersCount - 1, 5)] int id)
+        {
+            var film = this._userManagementService.GetUser(id);
+            film.Title = new Bogus.Faker().Lorem.Word();
+
+            this._userManagementService.UpdateUser(film);
+            var actualUser = this._fakeDbUsers.Users.Find(f => f.Id == id);
+
+            actualUser.Title.Should().Be(film.Title);
+        }
+
+        /// <summary>
+        /// Тест метода удаления пользователя из хранилища данных
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя для удаления</param>
+        [Test, Order(3)]
+        public void DeleteUserTest([Random(0, UsersCount - 1, 5)] int id)
+        {
+            this._userManagementService.DeleteUser(id);
+
+            var actualUser = this._fakeDbUsers.Users.Find(film => film.Id == id);
+
+            actualUser.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Тест метода проверки наличия пользователя в хранилище данных.
+        /// пользователь существует
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя для поиска</param>
+        [Test, Order(2)]
+        public void UserExistsTest([Random(0, UsersCount - 1, 5)] int id)
+        {
+            var titleToFind = this._fakeDbUsers.Users.Find(dbf => dbf.Id == id).Title;
+
+            var actual = this._userManagementService
+                .UserExists(f => f.Title == titleToFind);
+
+            actual.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Тест метода проверки наличия пользователя в хранилище данных.
+        /// пользователь не существует
+        /// </summary>
+        /// <param name="title">Название пользователя для поиска</param>
+        [Test, Order(2)]
+        public void UserNotExistsTest([Values("1 1 1", "2 22 2", "", "4 word 4", "three words title")] string title)
+        {
+            var actual = this._userManagementService
+                .UserExists(f => f.Title == title);
+
+            actual.Should().BeFalse();
         }
     }
 }
