@@ -1,5 +1,5 @@
 ﻿using Rocket.DAL.Common.Repositories.ReleaseList;
-using Rocket.DAL.Common.Repositories.User;
+using Rocket.DAL.Common.Repositories.ReleaseList;
 using System;
 
 namespace Rocket.DAL.Common.UoW
@@ -27,7 +27,7 @@ namespace Rocket.DAL.Common.UoW
         /// <summary>
         /// Возвращает репозиторий для пользователей
         /// </summary>
-        IDbUserRepository UserRepository { get; }
+        IDbFilmRepository FilmRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных

@@ -6,7 +6,7 @@ namespace Rocket.BL.Common.Models.ReleaseList
     /// <summary>
     /// Представляет информацию о конкретном фильме
     /// </summary>
-    public class Film
+    public class User
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификатор фильма

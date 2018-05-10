@@ -13,14 +13,14 @@ namespace Rocket.BL.Services.ReleaseList
     /// Представляет сервис для работы с детальной информацией
     /// о фильмах в хранилище данных
     /// </summary>
-    public class FilmDetailedInfoService : BaseService, IFilmDetailedInfoService
+    public class UserDetailedInfoService : BaseService, IUserDetailedInfoService
     {
         /// <summary>
-        /// Создает новый экземпляр <see cref="FilmDetailedInfoService"/>
+        /// Создает новый экземпляр <see cref="UserDetailedInfoService"/>
         /// с заданным unit of work
         /// </summary>
         /// <param name="unitOfWork">Экземпляр unit of work</param>
-        public FilmDetailedInfoService(IUnitOfWork unitOfWork)
+        public UserDetailedInfoService(IUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }
@@ -30,10 +30,10 @@ namespace Rocket.BL.Services.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор фильма</param>
         /// <returns>Экземпляр фильма</returns>
-        public Film GetFilm(int id)
+        public User GetUser(int id)
         {
-            return Mapper.Map<Film>(
-                this._unitOfWork.FilmRepository.GetById(id));
+            return Mapper.Map<User>(
+                this._unitOfWork.UserRepository.GetById(id));
         }
 
         /// <summary>
@@ -42,22 +42,22 @@ namespace Rocket.BL.Services.ReleaseList
         /// </summary>
         /// <param name="film">Экземпляр фильма для добавления</param>
         /// <returns>Идентификатор фильма</returns>
-        public int AddFilm(Film film)
+        public int AddUser(User film)
         {
-            var dbFilm = Mapper.Map<DbFilm>(film);
-            this._unitOfWork.FilmRepository.Insert(dbFilm);
+            var dbUser = Mapper.Map<DbUser>(film);
+            this._unitOfWork.UserRepository.Insert(dbUser);
             this._unitOfWork.Save();
-            return dbFilm.Id;
+            return dbUser.Id;
         }
 
         /// <summary>
         /// Обновляет информацию заданного фильма в хранилище данных
         /// </summary>
         /// <param name="film">Экземпляр фильма для обновления</param>
-        public void UpdateFilm(Film film)
+        public void UpdateUser(User film)
         {
-            var dbFilm = Mapper.Map<DbFilm>(film);
-            this._unitOfWork.FilmRepository.Update(dbFilm);
+            var dbUser = Mapper.Map<DbUser>(film);
+            this._unitOfWork.UserRepository.Update(dbUser);
             this._unitOfWork.Save();
         }
 
@@ -65,9 +65,9 @@ namespace Rocket.BL.Services.ReleaseList
         /// Удаляет фильм с заданным идентификатором из хранилища данных.
         /// </summary>
         /// <param name="id">Идентификатор фильма</param>
-        public void DeleteFilm(int id)
+        public void DeleteUser(int id)
         {
-            this._unitOfWork.FilmRepository.Delete(id);
+            this._unitOfWork.UserRepository.Delete(id);
             this._unitOfWork.Save();
         }
 
@@ -77,10 +77,10 @@ namespace Rocket.BL.Services.ReleaseList
         /// </summary>
         /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска фильма</param>
         /// <returns>Возвращает <see langword="true"/>, если фильм существует в хранилище данных</returns>
-        public bool FilmExists(Expression<Func<Film, bool>> filter)
+        public bool UserExists(Expression<Func<User, bool>> filter)
         {
-            return this._unitOfWork.FilmRepository.Get(
-                Mapper.Map<Expression<Func<DbFilm, bool>>>(filter))
+            return this._unitOfWork.UserRepository.Get(
+                Mapper.Map<Expression<Func<DbUser, bool>>>(filter))
                 .FirstOrDefault() != null;
         }
     }

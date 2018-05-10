@@ -10,7 +10,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     /// Представляет набор сгенерированных данных о фильмах,
     /// в моделях домена
     /// </summary>
-    public class FakeFilmsData
+    public class FakeUsersData
     {
         /// <summary>
         /// Возвращает генератор данных о людях
@@ -30,7 +30,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <summary>
         /// Возвращает генератор данных о фильмах
         /// </summary>
-        public Faker<Film> FilmFaker { get; }
+        public Faker<User> UserFaker { get; }
 
         /// <summary>
         /// Возвращает коллекцию сгенерированных людей
@@ -50,7 +50,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных фильмов
         /// </summary>
-        public List<Film> Films { get; }
+        public List<User> Users { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о фильмах
@@ -59,7 +59,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <param name="countriesCount">Необходимое количество сгенерированных стран</param>
         /// <param name="genresCount">Необходимое количество сгенерированных жанров видео</param>
         /// <param name="filmsCount">Необходимое количество сгенерированных фильмов</param>
-        public FakeFilmsData(int personsCount, int countriesCount, int genresCount, int filmsCount)
+        public FakeUsersData(int personsCount, int countriesCount, int genresCount, int filmsCount)
         {
             var fakePersonsData = new FakePersonsData(personsCount);
             this.PersonFaker = fakePersonsData.PersonFaker;
@@ -73,7 +73,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
             this.VideoGenreFaker = fakeVideoGenresData.VideoGenreFaker;
             this.VideoGenres = fakeVideoGenresData.VideoGenres;
 
-            this.FilmFaker = new Faker<Film>()
+            this.UserFaker = new Faker<User>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
                 .RuleFor(m => m.ReleaseDate, f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
                 .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
@@ -84,7 +84,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
                 .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(4, 0, 0)))
                 .RuleFor(m => m.Summary, f => f.Lorem.Text());
 
-            this.Films = FilmFaker.Generate(filmsCount);
+            this.Users = UserFaker.Generate(filmsCount);
         }
     }
 }

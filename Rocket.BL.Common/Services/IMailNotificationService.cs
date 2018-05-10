@@ -29,7 +29,7 @@ namespace Rocket.BL.Common.Services
         /// Отправка сообщения о релизе фильма
         /// </summary>
         /// <param name="film">Описывает сообщение о релизе фильма</param>
-        void NotifyAboutFilm(MessageAboutFilm film);
+        void NotifyAboutUser(MessageAboutUser film);
 
         /// <summary>
         /// Отправка сообщения о музыкальном релизе

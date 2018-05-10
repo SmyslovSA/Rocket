@@ -20,7 +20,7 @@ namespace Rocket.BL.Tests.User
     {
         private const int UserCount = 300;
         private UserManagementService _userManagementService;
-        private FakeDbUsers _fakeDbFilmsData;
+        private FakeDbUsers _fakeDbUsers;
 
         /// <summary>
         /// Осуществляет настройки
@@ -37,16 +37,16 @@ namespace Rocket.BL.Tests.User
             moq.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbUser, bool>>>(), null, ""))
                 .Returns((Expression<Func<DbUser, bool>> filter,
                     Func<IQueryable<DbUser>, IOrderedQueryable<DbUser>> orderBy,
-                    string includeProperties) => this._fakeDbFilmsData.Films.Where(filter.Compile()));
+                    string includeProperties) => this._fakeDbUsers.Users.Where(filter.Compile()));
             moq.Setup(mock => mock.GetById(It.IsAny<object>()))
-                .Returns((object id) => this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id));
+                .Returns((object id) => this._fakeDbUsers.Users.Find(f => f.Id == (int)id));
             moq.Setup(mock => mock.Insert(It.IsAny<DbUser>()))
-                .Callback((DbUser f) => this._fakeDbFilmsData.Films.Add(f));
+                .Callback((DbUser f) => this._fakeDbUsers.Users.Add(f));
             moq.Setup(mock => mock.Update(It.IsAny<DbUser>()))
-                .Callback((DbUser f) => this._fakeDbFilmsData.Films.Find(d => d.Id == f.Id).Title = f.Title);
+                .Callback((DbUser f) => this._fakeDbUsers.Users.Find(d => d.Id == f.Id).Title = f.Title);
             moq.Setup(mock => mock.Delete(It.IsAny<object>()))
-                .Callback((object id) => this._fakeDbFilmsData.Films
-                    .Remove(this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id)));
+                .Callback((object id) => this._fakeDbUsers.Users
+                    .Remove(this._fakeDbUsers.Users.Find(f => f.Id == (int)id)));
 
 
             this._userManagementService = new UserManagementService(moq.Object);

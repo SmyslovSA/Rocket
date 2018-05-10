@@ -6,11 +6,11 @@ namespace Rocket.DAL.Configurations.ReleaseList
     /// <summary>
     /// Конфигурация хранения данных о фильмах
     /// </summary>
-    public class DbFilmConfiguration : EntityTypeConfiguration<DbFilm>
+    public class DbUserConfiguration : EntityTypeConfiguration<DbUser>
     {
-        public DbFilmConfiguration()
+        public DbUserConfiguration()
         {
-            ToTable("Films")
+            ToTable("Users")
                 .HasKey(f => f.Id)
                 .Property(f => f.Id)
                 .HasColumnName("Id");
@@ -42,38 +42,38 @@ namespace Rocket.DAL.Configurations.ReleaseList
                 .HasColumnName("TrailerLink");
 
             HasMany(f => f.Directors)
-                .WithMany(p => p.DbFilmsDirector)
+                .WithMany(p => p.DbUsersDirector)
                 .Map(m =>
                 {
-                    m.ToTable("FilmsDirectors");
-                    m.MapLeftKey("FilmId");
+                    m.ToTable("UsersDirectors");
+                    m.MapLeftKey("UserId");
                     m.MapRightKey("DirectorId");
                 });
 
             HasMany(f => f.Cast)
-                .WithMany(p => p.DbFilmsActor)
+                .WithMany(p => p.DbUsersActor)
                 .Map(m =>
                 {
-                    m.ToTable("FilmsActors");
-                    m.MapLeftKey("FilmId");
+                    m.ToTable("UsersActors");
+                    m.MapLeftKey("UserId");
                     m.MapRightKey("ActorId");
                 });
 
             HasMany(f => f.Genres)
-                .WithMany(g => g.DbFilms)
+                .WithMany(g => g.DbUsers)
                 .Map(m =>
                 {
-                    m.ToTable("FilmsVideoGenres");
-                    m.MapLeftKey("FilmId");
+                    m.ToTable("UsersVideoGenres");
+                    m.MapLeftKey("UserId");
                     m.MapRightKey("VideoGenreId");
                 });
 
             HasMany(f => f.Countries)
-                .WithMany(c => c.DbFilms)
+                .WithMany(c => c.DbUsers)
                 .Map(m =>
                 {
-                    m.ToTable("FilmsCountries");
-                    m.MapLeftKey("FilmId");
+                    m.ToTable("UsersCountries");
+                    m.MapLeftKey("UserId");
                     m.MapRightKey("CountryId");
                 });
         }
