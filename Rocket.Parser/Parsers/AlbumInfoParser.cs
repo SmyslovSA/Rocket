@@ -72,6 +72,8 @@ namespace Rocket.Parser.Parsers
             //todo логирование парсер запущен
             try
             {
+                //var a = Helper.GetAlbumInfoResource();
+
                 // получаем настройки парсера
                 var resource = _resourceRepository
                     .Queryable().First(r => r.Name.Equals(Resources.AlbumInfoSettings));
@@ -98,7 +100,6 @@ namespace Rocket.Parser.Parsers
                     //фиксация данных в БД
                     SaveResults(resourceItemsBc, releasesBc);
                 }
-
             }
             catch (Exception excpt)
             {
@@ -109,6 +110,15 @@ namespace Rocket.Parser.Parsers
             //todo логирование парсер отработал
         }
 
+        /// <summary>
+        /// Парсинг сайта
+        /// </summary>
+        /// <param name="setting">Настройки парсера</param>
+        /// <param name="resourceLink">Ссылка на ресурс</param>
+        /// <param name="index">Текущая страница со списком релизов</param>
+        /// <param name="resourceItemsBc">Потокобезопасная коллекция элементов ресурса</param>
+        /// <param name="releasesBc">Потокобезопасная коллекция релизов сайта</param>
+        /// <returns></returns>
         private async Task ParseAlbumInfo(ParserSettingsEntity setting, string resourceLink, int index, 
             BlockingCollection<ResourceItemEntity> resourceItemsBc, BlockingCollection<AlbumInfoRelease> releasesBc)
         {
@@ -125,6 +135,15 @@ namespace Rocket.Parser.Parsers
                 releaseLink, resourceItemsBc, releasesBc)).ToArray()).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Парсинг релиза
+        /// </summary>
+        /// <param name="setting">Настройки парсера</param>
+        /// <param name="resourceLink">Ссылка на ресурс</param>
+        /// <param name="releaseLink">Ссылка на релиз</param>
+        /// <param name="resourceItemsBc">Потокобезопасная коллекция элементов ресурса</param>
+        /// <param name="releasesBc">Потокобезопасная коллекция релизов сайта</param>
+        /// <returns></returns>
         private async Task ParseReleasInfo(ParserSettingsEntity setting, string resourceLink, string releaseLink, 
             BlockingCollection<ResourceItemEntity> resourceItemsBc, BlockingCollection<AlbumInfoRelease> releasesBc)
         {
@@ -151,7 +170,6 @@ namespace Rocket.Parser.Parsers
 
                 releasesBc.Add(release);
             }
-
         }
 
         /// <summary>
@@ -172,60 +190,13 @@ namespace Rocket.Parser.Parsers
 
                 if (release != null)
                 {
-                    int musicId;
                     var music = MapAlbumInfoReleaseToMusic(release);
-
-                    //проверяем существует ли релиз
-                    var musicEntity = _musicRepository.Queryable().
-                        Include(a => a.Genres).
-                        Include(m => m.Musicians).
-                        FirstOrDefault(mr => mr.Title.Equals(music.Title) && mr.Artist.Equals(music.Artist));
-
-                    if (musicEntity != null)
-                    {
-                        musicEntity.Genres = music.Genres;
-                        musicEntity.Musicians = music.Musicians;
-                        musicEntity.ReleaseDate = music.ReleaseDate;
-                        musicEntity.Duration = music.Duration;
-                        musicEntity.Type = music.Type;
-                        musicEntity.PosterImagePath = music.PosterImagePath;
-
-                        _musicRepository.Update(musicEntity);
-                        _unitOfWork.SaveChanges();
-                        
-                        musicId = musicEntity.Id;
-                    }
-                    else
-                    {
-                        _musicRepository.Insert(music);
-                        _unitOfWork.SaveChanges();
-                        musicId = music.Id;
-                    }
-
+                    var musicId = SaveRelease(music);
                     resourceItem.MusicId = musicId;
 
-                    //обновление списка треков релиза
                     UpdateMusicTrack(release.TrackList, musicId);
 
-                    //обрабатываем элемент ресурса
-                    var resourceItemEntity = _resourceItemRepository.Queryable().FirstOrDefault(ri =>
-                        ri.ResourceId == resourceItem.ResourceId &&
-                        ri.ResourceInternalId == resourceItem.ResourceInternalId);
-
-                    if (resourceItemEntity != null)
-                    { // обновляем информацию о релизе
-                        resourceItemEntity.ResourceItemLink = resourceItem.ResourceItemLink;
-                        resourceItemEntity.MusicId = resourceItem.MusicId;
-
-                        _resourceItemRepository.Update(resourceItemEntity);
-                        _unitOfWork.SaveChanges();
-                        resourceItem.Id = resourceItemEntity.Id;
-                    }
-                    else
-                    { // сохраняем информацию о релизе
-                        _resourceItemRepository.Insert(resourceItem);
-                        _unitOfWork.SaveChanges();
-                    }
+                    SaveResourceItem(resourceItem);
                 }
                 else
                 {
@@ -234,12 +205,77 @@ namespace Rocket.Parser.Parsers
             }
         }
 
+        /// <summary>
+        /// Сохраняет релиз
+        /// </summary>
+        /// <param name="music">Музыкальный релиз</param>
+        /// <returns></returns>
+        private int SaveRelease(DbMusic music)
+        {
+            //проверяем существует ли релиз
+            var musicEntity = _musicRepository.Queryable().
+                Include(a => a.Genres).
+                Include(m => m.Musicians).
+                FirstOrDefault(mr => mr.Title.Equals(music.Title) && mr.Artist.Equals(music.Artist));
+
+            if (musicEntity != null)
+            {
+                //обновляем релиз
+                musicEntity.Genres = music.Genres;
+                musicEntity.Musicians = music.Musicians;
+                musicEntity.ReleaseDate = music.ReleaseDate;
+                musicEntity.Duration = music.Duration;
+                musicEntity.Type = music.Type;
+                musicEntity.PosterImagePath = music.PosterImagePath;
+
+                _musicRepository.Update(musicEntity);
+                _unitOfWork.SaveChanges();
+
+                return musicEntity.Id;
+            }
+
+            //создаем новый релиз
+            _musicRepository.Insert(music);
+            _unitOfWork.SaveChanges();
+            return music.Id;
+        }
+
+        /// <summary>
+        /// Сохранение элемента ресурса
+        /// </summary>
+        /// <param name="resourceItem">Элемент ресурса</param>
+        private void SaveResourceItem(ResourceItemEntity resourceItem)
+        {
+            //обрабатываем элемент ресурса
+            var resourceItemEntity = _resourceItemRepository.Queryable().FirstOrDefault(ri =>
+                ri.ResourceId == resourceItem.ResourceId &&
+                ri.ResourceInternalId == resourceItem.ResourceInternalId);
+
+            if (resourceItemEntity != null)
+            { // обновляем информацию о релизе
+                resourceItemEntity.ResourceItemLink = resourceItem.ResourceItemLink;
+                resourceItemEntity.MusicId = resourceItem.MusicId;
+
+                _resourceItemRepository.Update(resourceItemEntity);
+                _unitOfWork.SaveChanges();
+                resourceItem.Id = resourceItemEntity.Id;
+            }
+            else
+            { // сохраняем информацию о релизе
+                _resourceItemRepository.Insert(resourceItem);
+                _unitOfWork.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Мапирует релиз сайта album-info в музыкальный релиз
+        /// </summary>
+        /// <param name="release">Релиз сайта album-info</param>
+        /// <returns>Музыкальный релиз</returns>
         private DbMusic MapAlbumInfoReleaseToMusic(AlbumInfoRelease release)
         {
             var music = new DbMusic();
-
-            //const string trackSeparator = "<br>";
-
+            
             const string releaseNamePattern = @"(?<=\- )(?: ?+[^\(])++";
             const string releaseTypePattern = @"(?<=\()\w++";
             const string releaseGenrePattern = @"\w[^,]*+";
@@ -254,7 +290,6 @@ namespace Rocket.Parser.Parsers
             
             var provider = CultureInfo.CreateSpecificCulture("ru-RU");
             var releaseDate = DateTime.ParseExact(release.Date, format, provider);
-
 
             //проверяем существует ли исполнитель
             var musicianEntity = _musicianRepository.Queryable().
@@ -308,6 +343,11 @@ namespace Rocket.Parser.Parsers
             return music;
         }
 
+        /// <summary>
+        /// Обновление музыкальных треков
+        /// </summary>
+        /// <param name="trakList">Список треков одного релиза</param>
+        /// <param name="musicId">ID релиза</param>
         private void UpdateMusicTrack(string trakList, int musicId)
         {
             const string releaseTrackListPattern = @"\w(\d*+[^\.])++";
@@ -363,7 +403,7 @@ namespace Rocket.Parser.Parsers
         /// <summary>
         /// Парсинг страницы релиза
         /// </summary>
-        /// <param name="document"></param>
+        /// <param name="document">HTML-страница релиза</param>
         /// <returns>Модель релиза на сайте album-info.ru</returns>
         private AlbumInfoRelease ParseRelease(IHtmlDocument document)
         {

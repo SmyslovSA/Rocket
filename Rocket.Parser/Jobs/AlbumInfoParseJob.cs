@@ -6,12 +6,14 @@ using Rocket.Parser.Interfaces;
 
 namespace Rocket.Parser.Jobs
 {   
+    /// <inheritdoc />
     /// <summary>
     /// Джоба для парсинга сайта album-info.ru
     /// </summary>
     [DisallowConcurrentExecution]
     internal class AlbumInfoParseJob : IJob
     {
+        /// <inheritdoc />
         /// <summary>
         /// Запуск парсинга сайта album-info.ru 
         /// </summary>

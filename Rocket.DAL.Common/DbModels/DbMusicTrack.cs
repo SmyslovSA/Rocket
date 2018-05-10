@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Rocket.DAL.Common.DbModels
+﻿namespace Rocket.DAL.Common.DbModels
 {
 	/// <summary>
 	/// Представляет модель хранения данных о треках музыкального релиза
