@@ -34,6 +34,9 @@ namespace Rocket.BL.Tests.User
             {
                 cfg.AddProfiles("Rocket.BL.Common");
             });
+
+            this._fakeDbUsers = new FakeDbUsers(UsersCount, false, false, false, false, 5, 5);
+
             var moq = new Mock<IDbUserRepository>();
             moq.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbUser, bool>>>(), null, ""))
                 .Returns((Expression<Func<DbUser, bool>> filter,
