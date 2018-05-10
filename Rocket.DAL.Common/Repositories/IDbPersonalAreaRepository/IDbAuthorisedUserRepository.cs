@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository
     /// <summary>
     /// Репозиторий для  работы с user
     /// </summary>
-    public interface IDbAuthorisedUserRepository : IRepository<DbAuthorisedUser>
+    public interface IDbAuthorisedUserRepository : IBaseRepository<DbAuthorisedUser>
     {
     }
 }

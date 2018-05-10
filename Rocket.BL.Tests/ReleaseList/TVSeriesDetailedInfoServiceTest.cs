@@ -40,7 +40,7 @@ namespace Rocket.BL.Tests.ReleaseList
                 .Returns((Expression<Func<DbTVSeries, bool>> filter,
                     Func<IQueryable<DbTVSeries>, IOrderedQueryable<DbTVSeries>> orderBy,
                     string includeProperties) => this._fakeDbTVSerialsData.TVSerials.Where(filter.Compile()));
-            mockDbTVSeriesRepository.Setup(mock => mock.GetById(It.IsAny<object>()))
+            mockDbTVSeriesRepository.Setup(mock => mock.GetById(It.IsAny<int>()))
                 .Returns((object id) => this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == (int)id));
             mockDbTVSeriesRepository.Setup(mock => mock.Insert(It.IsAny<DbTVSeries>()))
                 .Callback((DbTVSeries f) => this._fakeDbTVSerialsData.TVSerials.Add(f));

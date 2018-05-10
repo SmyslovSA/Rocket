@@ -15,12 +15,6 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         public string Name { get; set; }
 
         /// <summary>
-        /// Свойство позволяет управлять возможностью
-        /// менять доступ к использованию роли
-        /// </summary>
-        public bool IsActive { get; set; }
-
-        /// <summary>
         /// список пермишенов для роли
         /// </summary>
         public virtual ICollection<DbPermission> Permissions { get; set; }

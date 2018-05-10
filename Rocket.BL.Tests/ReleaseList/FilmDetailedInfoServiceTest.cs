@@ -43,7 +43,7 @@ namespace Rocket.BL.Tests.ReleaseList
                 .Returns((Expression<Func<DbFilm, bool>> filter,
                     Func<IQueryable<DbFilm>, IOrderedQueryable<DbFilm>> orderBy,
                     string includeProperties) => this._fakeDbFilmsData.Films.Where(filter.Compile()));
-            mockDbFilmRepository.Setup(mock => mock.GetById(It.IsAny<object>()))
+            mockDbFilmRepository.Setup(mock => mock.GetById(It.IsAny<int>()))
                 .Returns((object id) => this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id));
             mockDbFilmRepository.Setup(mock => mock.Insert(It.IsAny<DbFilm>()))
                 .Callback((DbFilm f) => this._fakeDbFilmsData.Films.Add(f));

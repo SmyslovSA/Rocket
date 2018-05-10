@@ -15,12 +15,6 @@ namespace Rocket.BL.Common.Models.UserRoles
         public string Name { get; set; }
 
         /// <summary>
-        /// Свойство позволяет управлять возможностью
-        /// менять доступ к использованию роли
-        /// </summary>
-        public bool IsActive { get; set; }
-
-        /// <summary>
         /// список пермишенов для роли
         /// </summary>
         public ICollection<Permission> Permissions { get; set; }
