@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Services.PersonalArea
+﻿using Rocket.BL.Common.Models.PersonalArea;
+
+namespace Rocket.BL.Common.Services.PersonalArea
 {
     /// <summary>
     /// интерфейс для работы с email-адресами
@@ -13,7 +15,7 @@
         /// <returns>
         /// true - если e-mail успешно добавлен
         /// </returns>
-        bool AddEmail(int userId, string email);
+        bool AddEmail(SimpleUser model, string email);
         /// <summary>
         /// удаление из приложения одного из имеющихся e-mail пользователя 
         /// </summary>
@@ -22,6 +24,6 @@
         /// <returns>
         /// true - если e-mail успешно удален
         /// </returns>
-        bool DeleteEmail(int userId, string email);
+        bool DeleteEmail(SimpleUser model, string email);
     }
 }

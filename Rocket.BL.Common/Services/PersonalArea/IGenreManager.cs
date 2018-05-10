@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Services.PersonalArea
+﻿using Rocket.BL.Common.Models.PersonalArea;
+
+namespace Rocket.BL.Common.Services.PersonalArea
 {
     /// <summary>
     /// интерфейс для работы с жанрами
@@ -14,7 +16,7 @@
         /// <returns>
         /// true - при успешном добавлении жанра в список пользователя
         /// </returns>
-        bool AddGenre(int userId, string category, string genre);
+        bool AddGenre(SimpleUser model, string category, string genre);
         /// <summary>
         /// удаление жанра определенной категории из персонального списка ожидания релизов
         /// </summary>
@@ -24,6 +26,6 @@
         /// <returns>
         /// true - при успешном удалении жанра из списка пользователя
         /// </returns>
-        bool DeleteGenre(int userId, string category, string genre);
+        bool DeleteGenre(SimpleUser model, string category, string genre);
     }
 }
