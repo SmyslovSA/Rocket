@@ -32,7 +32,7 @@ namespace Rocket.BL.Services.User
         public Common.Models.User.User GetUser(int id)
         {
             return Mapper.Map<Common.Models.User.User>(
-               this._unitOfWork.FilmRepository.GetById(id));
+               this._unitOfWork.UserRepository.GetById(id));
         }
 
         /// <summary>
