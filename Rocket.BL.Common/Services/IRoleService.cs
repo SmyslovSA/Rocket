@@ -8,7 +8,6 @@ namespace Rocket.BL.Common.Services
     {
         /// <summary>
         /// сетапим роль по умолчанию нашему юзеру
-        /// private const Role DefaultRole = null;
         /// </summary>
         void SetDefaultRole();
 

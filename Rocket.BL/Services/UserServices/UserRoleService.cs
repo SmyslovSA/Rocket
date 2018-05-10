@@ -13,7 +13,7 @@ namespace Rocket.BL.Services.UserServices
     /// получение роли, установка роли для пользователя
     /// если не указана, то дефолтовая
     /// </summary>
-    public class UserRoleService : BaseService //todo add ilogger
+    public class UserRoleService : BaseService // todo add ilogger
     {
 
         public UserRoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
@@ -58,11 +58,6 @@ namespace Rocket.BL.Services.UserServices
         {
             _unitOfWork.RoleRepository.Delete(id);
             _unitOfWork.Save();
-        }
-
-        public void Delete(DbRole entity) // пока не нужен
-        {
-            throw new NotImplementedException();
         }
     }
 }
