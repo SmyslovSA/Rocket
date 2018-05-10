@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 
 namespace Rocket.BL.Common.Services.User
 {
@@ -48,11 +47,11 @@ namespace Rocket.BL.Common.Services.User
         string CreateConfirmationLink(Models.User.User user);
 
         /// <summary>
-        /// Проверяет наличие пользователя в хранилище данных
-        /// соответствующего заданному фильтру
+        /// Проверяет наличие заданного пользователя в 
+        /// хранилище данных
         /// </summary>
-        /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска пользователя</param>
-        /// <returns>Возвращает <see langword="true"/>, если пользователь существует в хранилище данных</returns>
-        bool UserExists(Expression<Func<Models.User.User, bool>> filter);
+        /// <param name="user">Экземпляр пользователя для проверки</param>
+        /// <returns>Возвращает <see langword='true'/>, если пользователь существует в хранилище данных</returns>
+        bool UserExists(Models.User.User user);
     }
 }

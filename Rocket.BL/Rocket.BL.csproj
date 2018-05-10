@@ -80,6 +80,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\UserServices\PermissionManagerService.cs" />
+    <Compile Include="Services\UserServices\UserRoleService.cs" />
+    <Compile Include="Services\UserServices\UserHasPermissionService.cs" />
+    <Compile Include="Services\ReleaseList\FilmDetailedInfoService.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\ReleaseList\TVSeriesDetailedInfoService.cs" />
+    <Compile Include="Services\ReleaseList\MusicDetailedInfoService.cs" />
+    <Compile Include="Services\User\UserManagementService.cs" />
+    <Compile Include="Services\User\UserValidateService.cs" />
     <Compile Include="Validators\User\UserValidatorCheckRequiredFields.cs" />
     <Compile Include="Validators\User\UserValidatorLogicAndFormat.cs" />
   </ItemGroup>

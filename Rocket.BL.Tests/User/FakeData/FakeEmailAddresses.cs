@@ -11,9 +11,14 @@ namespace Rocket.BL.Tests.User.FakeData
     public class FakeEmailAddresses
     {
         /// <summary>
+        /// Возвращает генератор данных об электронных адресах пользователей
+        /// </summary>
+        public Faker<string> EmailAddressFaker { get; }
+
+        /// <summary>
         /// Возвращает коллекцию сгенерированных электронных адресов пользователей
         /// </summary>
-        public List<string> EmailAddresses { get; } = new List<string>();
+        public List<string> EmailAddresses { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных электронных адресов пользователей
@@ -21,14 +26,10 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <param name="emailAddressesCount">Необходимое количество сгенерированных адресов пользователей</param>
         public FakeEmailAddresses(int emailAddressCount)
         {
-            var FakerEmailAddress = new Faker();
+            this.EmailAddressFaker = new Faker<string>()
+                .RuleFor(c => c, f => f.Internet.Email());
 
-            this.EmailAddresses.Clear();
-
-            for (int i = 0; i < emailAddressCount; i++)
-            {
-                this.EmailAddresses.Add(FakerEmailAddress.Internet.Email());
-            }
+            this.EmailAddresses = this.EmailAddressFaker.Generate(emailAddressCount);
         }
     }
 }
