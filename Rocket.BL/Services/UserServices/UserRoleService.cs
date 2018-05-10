@@ -14,8 +14,7 @@ namespace Rocket.BL.Services.UserServices
     /// получение роли, установка роли для пользователя
     /// если не указана, то дефолтовая
     /// </summary>
-    public class UserRoleService : BaseService, IBaseRepository<DbRole>
-    //todo add ilogger
+    public class UserRoleService : BaseService //todo add ilogger
     {
 
         public UserRoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
@@ -27,12 +26,12 @@ namespace Rocket.BL.Services.UserServices
         {
             return _unitOfWork.RoleRepository
                        .Get(Mapper.Map<Expression<Func<DbRole, bool>>>(filter))
-                       .FirstOrDefault() != null;
+                       .Any();
         }
         
         public IEnumerable<DbRole> Get(Expression<Func<DbRole, bool>> filter = null, Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, string includeProperties = "")
         {
-            throw new NotImplementedException();
+           return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties);
         }
 
         
