@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\PermissionMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\RoleMappingProfile.cs" />
+    <Compile Include="Models\Pagination\PageInfo.cs" />
     <Compile Include="Models\ReleaseList\BaseRelease.cs" />
     <Compile Include="Services\IMailNotificationService.cs" />
     <Compile Include="Mappings\ReleaseList\CountryMappingProfile.cs" />
