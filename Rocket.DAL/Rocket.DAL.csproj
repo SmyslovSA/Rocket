@@ -108,6 +108,7 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbFilmRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbMusicRepository.cs" />
+    <Compile Include="Repositories\ReleaseList\DbReleaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbTVSeriesRepository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
   </ItemGroup>

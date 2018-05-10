@@ -95,6 +95,7 @@
     <Compile Include="Repositories\ReleaseList\IDbFilmRepository.cs" />
     <Compile Include="Repositories\IDbUserRoleRepository\IDbPermissionRepository.cs" />
     <Compile Include="Repositories\IDbUserRoleRepository\IDbRoleRepository.cs" />
+    <Compile Include="Repositories\ReleaseList\IDbReleaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbSeasonRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbTVSeriesRepository.cs" />
     <Compile Include="Repositories\IDbUserRepository\IDbUserRepositary.cs" />
