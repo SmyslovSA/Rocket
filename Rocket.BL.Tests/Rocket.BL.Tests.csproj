@@ -96,6 +96,7 @@
     <Compile Include="ReleaseList\FakeData\FakeVideoGenresData.cs" />
     <Compile Include="ReleaseList\FakeData\FakePersonsData.cs" />
     <Compile Include="ReleaseList\FakeData\FakeTVSerialsData.cs" />
+    <Compile Include="ReleaseList\GuestReleaseListServiceTest.cs" />
     <Compile Include="ReleaseList\MusicDetailedInfoServiceTest.cs" />
     <Compile Include="ReleaseList\FilmDetailedInfoServiceTest.cs" />
     <Compile Include="ReleaseList\TVSeriesDetailedInfoServiceTest.cs" />
