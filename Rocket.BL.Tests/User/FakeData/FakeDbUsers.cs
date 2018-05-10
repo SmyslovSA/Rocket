@@ -9,9 +9,9 @@ namespace Rocket.BL.Tests.User.FakeData
 {
     /// <summary>
     /// Представляет набор сгенерированных данных о пользователях,
-    /// в моделях домена
+    /// в моделях хранения данных
     /// </summary>
-    public class FakeDbUser
+    public class FakeDbUsers
     {
         /// <summary>
         /// Возвращает генератор данных о пользователях
@@ -21,7 +21,7 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных пользователей
         /// </summary>
-        public List<DbUser> UsersFaker { get; }
+        public List<DbUser> Users { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о пользователях
@@ -33,7 +33,7 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <param name="isPasswordNullOrEmpty">Возвращает true, если пароль не указан</param>
         /// <param name="minLoginLenght">Задает минимальное количество символов в логине</param>
         /// <param name="minPasswordLenght">Задает минимальное количество символов в пароле</param>
-        public FakeDbUser(int usersCount, bool isFirstNameNullOrEmpty, bool isLastNameNullOrEmpty, bool isLoginNullOrEmpty, bool isPasswordNullOrEmpty,  int minLoginLenght, int minPasswordLenght)
+        public FakeDbUsers(int usersCount, bool isFirstNameNullOrEmpty, bool isLastNameNullOrEmpty, bool isLoginNullOrEmpty, bool isPasswordNullOrEmpty,  int minLoginLenght, int minPasswordLenght)
         {
             var result = new Faker<DbUser>()
                 .RuleFor(p => p.Id, f => f.IndexFaker)
@@ -52,7 +52,7 @@ namespace Rocket.BL.Tests.User.FakeData
                 .RuleFor(p => p.Login, f => { return isLoginNullOrEmpty ? string.Empty : f.Lorem.Letter(minLoginLenght); })
                 .RuleFor(p => p.Password, f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); });
 
-            this.UsersFaker = result.Generate(usersCount);
+            this.Users = result.Generate(usersCount);
         }
     }
 }

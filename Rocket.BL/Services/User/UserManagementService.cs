@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
-using Rocket.DAL.Common.Repositories.User;
+using Rocket.BL.Common.Models.User;
+using Rocket.BL.Common.Services.User;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
 using System;
-using Rocket.BL.Properties;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Rocket.BL.Services.User
 {
@@ -11,10 +13,8 @@ namespace Rocket.BL.Services.User
     /// Представляет сервис для работы с пользователями
     /// в хранилище данных
     /// </summary>
-    public class UserManagementService : BaseService, Common.Services.User.IUserManagementService
+    public class UserManagementService : BaseService, IUserManagementService
     {   
-        private readonly IDbUserRepository _userRepository;
-
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work
@@ -73,13 +73,15 @@ namespace Rocket.BL.Services.User
 
         /// <summary>
         /// Проверяет наличие пользователя в хранилище данных
-        /// соответствующего заданному экземпляру
+        /// соответствующего заданному фильтру
         /// </summary>
-        /// <param name="user">Экземпляр пользователя</param>
+        /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска пользователя</param>
         /// <returns>Возвращает <see langword="true"/>, если пользователь существует в хранилище данных</returns>
-        public bool UserExists(Common.Models.User.User user)
+        public bool UserExists(Expression<Func<Common.Models.User.User, bool>> filter)
         {
-            return false;
+            return this._unitOfWork.UserRepository.Get(
+                Mapper.Map<Expression<Func<DbUser, bool>>>(filter))
+                .FirstOrDefault() != null;
         }
 
         /// <summary>
