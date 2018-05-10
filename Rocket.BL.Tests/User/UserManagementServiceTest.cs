@@ -115,13 +115,13 @@ namespace Rocket.BL.Tests.User
         [Test, Repeat(5), Order(2)]
         public void AddUserTest()
         {
-            var film = new FakeUsers(0, false, false, false, false, 5, 5).UserFaker.Generate();
-            film.Id = this._fakeDbUsers.Users.Last().Id + 1;
+            var user = new FakeUsers(0, false, false, false, false, 5, 5).UserFaker.Generate();
+            user.Id = this._fakeDbUsers.Users.Last().Id + 1;
 
-            var actualId = this._userManagementService.AddUser(film);
+            var actualId = this._userManagementService.AddUser(user);
             var actualUser = this._userManagementService.GetUser(actualId);
 
-            actualUser.Should().BeEquivalentTo(film);
+            actualUser.Should().BeEquivalentTo(user);
         }
 
         /// <summary>
@@ -131,13 +131,13 @@ namespace Rocket.BL.Tests.User
         [Test, Order(2)]
         public void UpdateUserTest([Random(0, UsersCount - 1, 5)] int id)
         {
-            var film = this._userManagementService.GetUser(id);
-            film.Title = new Bogus.Faker().Lorem.Word();
+            var user = this._userManagementService.GetUser(id);
+            user.Login = new Bogus.Faker().Internet.UserName();
 
-            this._userManagementService.UpdateUser(film);
+            this._userManagementService.UpdateUser(user);
             var actualUser = this._fakeDbUsers.Users.Find(f => f.Id == id);
 
-            actualUser.Title.Should().Be(film.Title);
+            actualUser.Login.Should().Be(user.Login);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Rocket.BL.Tests.User
         {
             this._userManagementService.DeleteUser(id);
 
-            var actualUser = this._fakeDbUsers.Users.Find(film => film.Id == id);
+            var actualUser = this._fakeDbUsers.Users.Find(user => user.Id == id);
 
             actualUser.Should().BeNull();
         }
