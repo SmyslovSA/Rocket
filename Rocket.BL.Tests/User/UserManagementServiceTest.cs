@@ -178,7 +178,7 @@ namespace Rocket.BL.Tests.User
         /// </summary>
         /// <param name="login">Логин пользователя для поиска</param>
         [Test, Order(2)]
-        public void UserNotExistsTest([Values("1 1 1", "2 22 2", "", "4 word 4", "three words title")] string login)
+        public void UserNotExistsTest([Values("shameonyou", "qwer", "", "befastandclearver", "strangelogin")] string login)
         {
             var actual = this._userManagementService
                 .UserExists(f => f.Login == login);
