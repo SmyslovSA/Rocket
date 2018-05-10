@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories.ReleaseList
     /// <summary>
     /// Представляет репозиторий для сериалов
     /// </summary>
-    public interface IDbTVSeriesRepository : IRepository<DbTVSeries>
+    public interface IDbTVSeriesRepository : IBaseRepository<DbTVSeries>
     {
     }
 }

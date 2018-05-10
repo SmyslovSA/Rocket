@@ -70,7 +70,7 @@ namespace Rocket.BL.Services.PersonalArea
                         .FirstOrDefault(c => c.Name==email);
 
                     //прибиваем и сохраняем
-                    _unitOfWork.UserRepository.Delete(emailUserEmail);
+                    _unitOfWork.EmailRepository.Delete(emailUserEmail);
                     _unitOfWork.Save();
                     return true;
                 }
