@@ -21,13 +21,13 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// Возвращает или задает коллекцию фильмов,
         /// в которых этот человек был режиссером
         /// </summary>
-        public ICollection<DbUser> DbUsersDirector { get; set; }
+        public ICollection<DbFilm> DbFilmsDirector { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию фильмов,
         /// в которых этот человек был актёром
         /// </summary>
-        public ICollection<DbUser> DbUsersActor { get; set; }
+        public ICollection<DbFilm> DbFilmsActor { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию сериалов,

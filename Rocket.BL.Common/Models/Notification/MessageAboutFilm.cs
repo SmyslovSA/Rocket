@@ -3,7 +3,7 @@
     /// <summary>
     /// Описывает сообщение о релизе фильма
     /// </summary>
-    public class MessageAboutUser
+    public class MessageAboutFilm
     {
         /// <summary>
         /// Возвращает или задает получателя сообщения
@@ -13,6 +13,6 @@
         /// <summary>
         /// Возвращает или задает релиз фильма для целей нотификации 
         /// </summary>
-        public UserForNotification User { get; set; }
+        public FilmForNotification Film { get; set; }
     }
 }

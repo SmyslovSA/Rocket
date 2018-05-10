@@ -7,11 +7,11 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
     /// <summary>
     /// Профиль сопоставления доменной модели фильма с моделью хранения данных фильма
     /// </summary>
-    public class UserMappingProfile : Profile
+    public class FilmMappingProfile : Profile
     {
-        public UserMappingProfile()
+        public FilmMappingProfile()
         {
-            CreateMap<User, DbUser>()
+            CreateMap<Film, DbFilm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate))
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))

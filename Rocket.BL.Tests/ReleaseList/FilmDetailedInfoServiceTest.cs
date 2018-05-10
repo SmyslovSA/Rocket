@@ -14,18 +14,18 @@ using System.Linq.Expressions;
 namespace Rocket.BL.Tests.ReleaseList
 {
     /// <summary>
-    /// Unit-тесты для сервиса <see cref="UserDetailedInfoService"/>
+    /// Unit-тесты для сервиса <see cref="FilmDetailedInfoService"/>
     /// </summary>
     [TestFixture]
-    public class UserDetailedInfoServiceTest
+    public class FilmDetailedInfoServiceTest
     {
-        private const int UsersCount = 300;
-        private UserDetailedInfoService _filmDetailedInfoService;
-        private FakeDbUsersData _fakeDbUsersData;
+        private const int FilmsCount = 300;
+        private FilmDetailedInfoService _filmDetailedInfoService;
+        private FakeDbFilmsData _fakeDbFilmsData;
 
         /// <summary>
         /// Осуществляет все необходимые настройки для тестов.
-        /// AutoMapper, Bogus (FakeDbUserData), Moq
+        /// AutoMapper, Bogus (FakeDbFilmData), Moq
         /// </summary>
         [OneTimeSetUp]
         public void SetUp()
@@ -36,28 +36,28 @@ namespace Rocket.BL.Tests.ReleaseList
                 cfg.AddProfiles("Rocket.BL.Common");
             });
 
-            this._fakeDbUsersData = new FakeDbUsersData(100, 10, 10, UsersCount);
+            this._fakeDbFilmsData = new FakeDbFilmsData(100, 10, 10, FilmsCount);
 
-            var mockDbUserRepository = new Mock<IDbUserRepository>();
-            mockDbUserRepository.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbUser, bool>>>(), null, ""))
-                .Returns((Expression<Func<DbUser, bool>> filter,
-                    Func<IQueryable<DbUser>, IOrderedQueryable<DbUser>> orderBy,
-                    string includeProperties) => this._fakeDbUsersData.Users.Where(filter.Compile()));
-            mockDbUserRepository.Setup(mock => mock.GetById(It.IsAny<object>()))
-                .Returns((object id) => this._fakeDbUsersData.Users.Find(f => f.Id == (int)id));
-            mockDbUserRepository.Setup(mock => mock.Insert(It.IsAny<DbUser>()))
-                .Callback((DbUser f) => this._fakeDbUsersData.Users.Add(f));
-            mockDbUserRepository.Setup(mock => mock.Update(It.IsAny<DbUser>()))
-                .Callback((DbUser f) => this._fakeDbUsersData.Users.Find(d => d.Id == f.Id).Title = f.Title);
-            mockDbUserRepository.Setup(mock => mock.Delete(It.IsAny<object>()))
-                .Callback((object id) => this._fakeDbUsersData.Users
-                    .Remove(this._fakeDbUsersData.Users.Find(f => f.Id == (int)id)));
+            var mockDbFilmRepository = new Mock<IDbFilmRepository>();
+            mockDbFilmRepository.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbFilm, bool>>>(), null, ""))
+                .Returns((Expression<Func<DbFilm, bool>> filter,
+                    Func<IQueryable<DbFilm>, IOrderedQueryable<DbFilm>> orderBy,
+                    string includeProperties) => this._fakeDbFilmsData.Films.Where(filter.Compile()));
+            mockDbFilmRepository.Setup(mock => mock.GetById(It.IsAny<object>()))
+                .Returns((object id) => this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id));
+            mockDbFilmRepository.Setup(mock => mock.Insert(It.IsAny<DbFilm>()))
+                .Callback((DbFilm f) => this._fakeDbFilmsData.Films.Add(f));
+            mockDbFilmRepository.Setup(mock => mock.Update(It.IsAny<DbFilm>()))
+                .Callback((DbFilm f) => this._fakeDbFilmsData.Films.Find(d => d.Id == f.Id).Title = f.Title);
+            mockDbFilmRepository.Setup(mock => mock.Delete(It.IsAny<object>()))
+                .Callback((object id) => this._fakeDbFilmsData.Films
+                    .Remove(this._fakeDbFilmsData.Films.Find(f => f.Id == (int)id)));
 
-            var mockDbUserUnitOfWork = new Mock<IUnitOfWork>();
-            mockDbUserUnitOfWork.Setup(mock => mock.UserRepository)
-                .Returns(() => mockDbUserRepository.Object);
+            var mockDbFilmUnitOfWork = new Mock<IUnitOfWork>();
+            mockDbFilmUnitOfWork.Setup(mock => mock.FilmRepository)
+                .Returns(() => mockDbFilmRepository.Object);
 
-            this._filmDetailedInfoService = new UserDetailedInfoService(mockDbUserUnitOfWork.Object);
+            this._filmDetailedInfoService = new FilmDetailedInfoService(mockDbFilmUnitOfWork.Object);
         }
 
         /// <summary>
@@ -66,21 +66,21 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор фильма</param>
         [Test, Order(1)]
-        public void GetExistedUserTest([Random(0, UsersCount - 1, 5)] int id)
+        public void GetExistedFilmTest([Random(0, FilmsCount - 1, 5)] int id)
         {
-            var expectedUser = this._fakeDbUsersData.Users.Find(f => f.Id == id);
+            var expectedFilm = this._fakeDbFilmsData.Films.Find(f => f.Id == id);
 
-            var actualUser = this._filmDetailedInfoService.GetUser(id);
+            var actualFilm = this._filmDetailedInfoService.GetFilm(id);
 
-            actualUser.Should().BeEquivalentTo(expectedUser,
+            actualFilm.Should().BeEquivalentTo(expectedFilm,
                 options => options.ExcludingMissingMembers());
-            actualUser.Directors.Should().BeEquivalentTo(expectedUser.Directors,
+            actualFilm.Directors.Should().BeEquivalentTo(expectedFilm.Directors,
                 options => options.ExcludingMissingMembers());
-            actualUser.Cast.Should().BeEquivalentTo(expectedUser.Cast,
+            actualFilm.Cast.Should().BeEquivalentTo(expectedFilm.Cast,
                 options => options.ExcludingMissingMembers());
-            actualUser.Genres.Should().BeEquivalentTo(expectedUser.Genres,
+            actualFilm.Genres.Should().BeEquivalentTo(expectedFilm.Genres,
                 options => options.ExcludingMissingMembers());
-            actualUser.Countries.Should().BeEquivalentTo(expectedUser.Countries,
+            actualFilm.Countries.Should().BeEquivalentTo(expectedFilm.Countries,
                 options => options.ExcludingMissingMembers());
         }
 
@@ -90,26 +90,26 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор фильма</param>
         [Test, Order(1)]
-        public void GetNotExistedUserTest([Random(UsersCount, UsersCount + 300, 5)] int id)
+        public void GetNotExistedFilmTest([Random(FilmsCount, FilmsCount + 300, 5)] int id)
         {
-            var actualUser = this._filmDetailedInfoService.GetUser(id);
+            var actualFilm = this._filmDetailedInfoService.GetFilm(id);
 
-            actualUser.Should().BeNull();
+            actualFilm.Should().BeNull();
         }
 
         /// <summary>
         /// Тест метода добавления фильма в хранилище данных
         /// </summary>
         [Test, Repeat(5), Order(2)]
-        public void AddUserTest()
+        public void AddFilmTest()
         {
-            var film = new FakeUsersData(50, 10, 10, 0).UserFaker.Generate();
-            film.Id = this._fakeDbUsersData.Users.Last().Id + 1;
+            var film = new FakeFilmsData(50, 10, 10, 0).FilmFaker.Generate();
+            film.Id = this._fakeDbFilmsData.Films.Last().Id + 1;
 
-            var actualId = this._filmDetailedInfoService.AddUser(film);
-            var actualUser = this._filmDetailedInfoService.GetUser(actualId);
+            var actualId = this._filmDetailedInfoService.AddFilm(film);
+            var actualFilm = this._filmDetailedInfoService.GetFilm(actualId);
             
-            actualUser.Should().BeEquivalentTo(film);
+            actualFilm.Should().BeEquivalentTo(film);
         }
 
         /// <summary>
@@ -117,15 +117,15 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор фильма для обновления</param>
         [Test, Order(2)]
-        public void UpdateUserTest([Random(0, UsersCount - 1, 5)] int id)
+        public void UpdateFilmTest([Random(0, FilmsCount - 1, 5)] int id)
         {
-            var film = this._filmDetailedInfoService.GetUser(id);
+            var film = this._filmDetailedInfoService.GetFilm(id);
             film.Title = new Bogus.Faker().Lorem.Word();
 
-            this._filmDetailedInfoService.UpdateUser(film);
-            var actualUser = this._fakeDbUsersData.Users.Find(f => f.Id == id);
+            this._filmDetailedInfoService.UpdateFilm(film);
+            var actualFilm = this._fakeDbFilmsData.Films.Find(f => f.Id == id);
 
-            actualUser.Title.Should().Be(film.Title);
+            actualFilm.Title.Should().Be(film.Title);
         }
 
         /// <summary>
@@ -133,13 +133,13 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор фильма для удаления</param>
         [Test, Order(3)]
-        public void DeleteUserTest([Random(0, UsersCount - 1, 5)] int id)
+        public void DeleteFilmTest([Random(0, FilmsCount - 1, 5)] int id)
         {
-            this._filmDetailedInfoService.DeleteUser(id);
+            this._filmDetailedInfoService.DeleteFilm(id);
 
-            var actualUser = this._fakeDbUsersData.Users.Find(film => film.Id == id);
+            var actualFilm = this._fakeDbFilmsData.Films.Find(film => film.Id == id);
 
-            actualUser.Should().BeNull();
+            actualFilm.Should().BeNull();
         }
 
         /// <summary>
@@ -148,12 +148,12 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор фильма для поиска</param>
         [Test, Order(2)]
-        public void UserExistsTest([Random(0, UsersCount - 1, 5)] int id)
+        public void FilmExistsTest([Random(0, FilmsCount - 1, 5)] int id)
         {
-            var titleToFind = this._fakeDbUsersData.Users.Find(dbf => dbf.Id == id).Title;
+            var titleToFind = this._fakeDbFilmsData.Films.Find(dbf => dbf.Id == id).Title;
 
             var actual = this._filmDetailedInfoService
-                .UserExists(f => f.Title == titleToFind);
+                .FilmExists(f => f.Title == titleToFind);
 
             actual.Should().BeTrue();
         }
@@ -164,10 +164,10 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="title">Название фильма для поиска</param>
         [Test, Order(2)]
-        public void UserNotExistsTest([Values("1 1 1", "2 22 2", "", "4 word 4", "three words title")] string title)
+        public void FilmNotExistsTest([Values("1 1 1", "2 22 2", "", "4 word 4", "three words title")] string title)
         {
             var actual = this._filmDetailedInfoService
-                .UserExists(f => f.Title == title);
+                .FilmExists(f => f.Title == title);
 
             actual.Should().BeFalse();
         }

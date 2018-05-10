@@ -5,7 +5,7 @@ namespace Rocket.BL.Common.Models.Notification
     /// <summary>
     /// Описывает релиз фильма для целей нотификации
     /// </summary>
-    public class UserForNotification
+    public class FilmForNotification
     {
         /// <summary>
         /// Возвращает или задает название фильма

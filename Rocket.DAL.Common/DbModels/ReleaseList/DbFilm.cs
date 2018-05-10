@@ -6,7 +6,7 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
     /// <summary>
     /// Представляет модель хранения данных о фильмах
     /// </summary>
-    public class DbUser
+    public class DbFilm
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификатор фильма

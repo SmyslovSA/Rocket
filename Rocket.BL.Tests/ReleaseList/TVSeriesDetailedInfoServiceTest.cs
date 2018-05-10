@@ -22,7 +22,7 @@ namespace Rocket.BL.Tests.ReleaseList
 
         /// <summary>
         /// Осуществляет все необходимые настройки для тестов.
-        /// AutoMapper, Bogus (FakeDbUserData), Moq
+        /// AutoMapper, Bogus (FakeDbFilmData), Moq
         /// </summary>
         [OneTimeSetUp]
         public void SetUp()
