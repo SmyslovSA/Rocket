@@ -41,5 +41,10 @@
         /// </summary>
         public string TrackList { get; set; }
 
+        /// <summary>
+        /// Путь к файлу обложки релиза в файловой системе
+        /// </summary>
+        public string CoverPath { get; set; }
+
     }
 }

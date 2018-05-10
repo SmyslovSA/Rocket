@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using AngleSharp.Dom.Html;
 using Rocket.Parser.Models;
@@ -16,6 +17,14 @@ namespace Rocket.Parser.Interfaces
         /// <param name="url">URL</param>
         /// <returns>Html в виде строки</returns>
         Task<string> GetTextByUrlAsync(string url);
+
+        /// <summary>
+        /// Получает файл по ссылке и сохраняет по указанному пути
+        /// </summary>
+        /// <param name="url">Ссылка на файл</param>
+        /// <param name="path">Путь для сохранения</param>
+        /// <returns></returns>
+        Task DownloadFile(string url, string path);
 
         /// <summary>
         /// Получает Html по ссылке.

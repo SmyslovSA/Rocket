@@ -41,7 +41,7 @@ namespace Rocket.DAL.Context
         /// DbSet музыкального трека
         /// </summary>
         public DbSet<DbMusicTrack> DbMusicTracks { get; set; }
-
+        /*
         /// <summary>
         /// DbSet исполнителя музыкального релиза
         /// </summary>
@@ -71,7 +71,7 @@ namespace Rocket.DAL.Context
         /// Набор сущностей персон.
         /// </summary>
         public DbSet<PersonEntity> PersonEntities { get; set; }
-
+        */
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ResourceMap());

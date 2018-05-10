@@ -61,15 +61,6 @@ namespace Rocket.Parser.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://www.album-info.ru/.
-        /// </summary>
-        internal static string AlbumInfoBaseUrl {
-            get {
-                return ResourceManager.GetString("AlbumInfoBaseUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to albumview.aspx?ID=.
         /// </summary>
         internal static string AlbumInfoInternalPrefixId {

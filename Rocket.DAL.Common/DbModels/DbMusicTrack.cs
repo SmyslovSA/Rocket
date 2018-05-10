@@ -14,11 +14,6 @@ namespace Rocket.DAL.Common.DbModels
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Возвращает или задает номер трека
-		/// </summary>
-		public int Number { get; set; }
-
-		/// <summary>
 		/// Возвращает или задает название музыкального трека
 		/// </summary>
 		public string Title { get; set; }

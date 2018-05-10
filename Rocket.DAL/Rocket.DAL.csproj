@@ -129,6 +129,10 @@
     <Compile Include="Migrations\201805061330383_UpdMusic_2.Designer.cs">
       <DependentUpon>201805061330383_UpdMusic_2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805082131147_UpdByParser.cs" />
+    <Compile Include="Migrations\201805082131147_UpdByParser.Designer.cs">
+      <DependentUpon>201805082131147_UpdByParser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Repository.cs" />
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805061330383_UpdMusic_2.resx">
       <DependentUpon>201805061330383_UpdMusic_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805082131147_UpdByParser.resx">
+      <DependentUpon>201805082131147_UpdByParser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
