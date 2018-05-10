@@ -1,16 +1,21 @@
 ﻿using System;
 
-namespace Rocket.BL.Common.Models.Notification
+namespace Rocket.DAL.Common.DbModels.Notification
 {
     /// <summary>
-    /// Описывает релиз сериала для целей нотификации
+    /// Описывает модель хранения данных о релизе сериала
     /// </summary>
-    public class TVSeriesForNotification
+    public class DbMessageAboutTVSeries
     {
+        /// <summary>
+        /// Возвращает или задает идентификационный номер сообщения
+        /// </summary>
+        public int Id { get; set; }
+
         /// <summary>
         /// Возвращает или задает идентификационный номер сериала
         /// </summary>
-        public int Id { get; set; }
+        public int TVSeriesId { get; set; }
 
         /// <summary>
         /// Возвращает или задает название сериала
@@ -31,5 +36,10 @@ namespace Rocket.BL.Common.Models.Notification
         /// Возвращает или задает дату выхода серии
         /// </summary>
         public DateTime ReleaseDate { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает время создания сообщения
+        /// </summary>
+        public DateTime CreationTime { get; set; }
     }
 }

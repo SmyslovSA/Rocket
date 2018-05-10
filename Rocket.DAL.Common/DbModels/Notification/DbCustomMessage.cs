@@ -1,16 +1,21 @@
 ﻿using System;
 
-namespace Rocket.BL.Common.Models.Notification
+namespace Rocket.DAL.Common.DbModels.Notification
 {
     /// <summary>
-    /// Описывает сообщение произвольного содержания
+    /// Описывает модель хранения данных о сообщении произвольного содержания
     /// </summary>
-    public class CustomMessage
+    public class DbCustomMessage
     {
+        /// <summary>
+        /// Возвращает или задает идентификационный номер сообщения
+        /// </summary>
+        public int Id { get; set; }
+
         /// <summary>
         /// Возвращает или задает получателя сообщения
         /// </summary>
-        public Receiver Receiver { get; set; }
+        public DbReceiver Receiver { get; set; }
 
         /// <summary>
         /// Возвращает или задает имя отправителя сообщения
