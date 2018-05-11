@@ -45,14 +45,12 @@
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbAuthorisedUser.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbGenre.cs" />
-<<<<<<< HEAD
     <Compile Include="DbModels\Notification\DbBillingMessage.cs" />
     <Compile Include="DbModels\Notification\DbCustomMessage.cs" />
     <Compile Include="DbModels\Notification\DbMessageAboutFilm.cs" />
     <Compile Include="DbModels\Notification\DbMessageAboutMusic.cs" />
     <Compile Include="DbModels\Notification\DbMessageAboutTVSeries.cs" />
     <Compile Include="DbModels\Notification\DbReceiver.cs" />
-=======
     <Compile Include="DbModels\User\DbAccountLevel.cs" />
     <Compile Include="DbModels\User\DbAccountStatus.cs" />
     <Compile Include="DbModels\User\DbAddress.cs" />
@@ -60,7 +58,6 @@
     <Compile Include="DbModels\User\DbHowToCall.cs" />
     <Compile Include="DbModels\User\DbLanguage.cs" />
     <Compile Include="DbModels\User\DbUser.cs" />
->>>>>>> feature/ROC-27_Регистрация_пользователя
     <Compile Include="DbModels\ReleaseList\DbCountry.cs" />
     <Compile Include="DbModels\ReleaseList\DbEpisode.cs" />
     <Compile Include="DbModels\ReleaseList\DbFilm.cs" />

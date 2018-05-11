@@ -37,14 +37,9 @@
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
-<<<<<<< HEAD
       <HintPath>..\packages\FluentValidation.7.5.2\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-=======
-      <HintPath>..\packages\FluentValidation.7.6.0-preview1\lib\net45\FluentValidation.dll</HintPath>
-    </Reference>
->>>>>>> feature/ROC-27_Регистрация_пользователя
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
     </Reference>
@@ -81,16 +76,13 @@
   <ItemGroup>
     <Compile Include="BLModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
     <Compile Include="Services\PersonalArea\ChangeEmailManagerService.cs" />
     <Compile Include="Services\PersonalArea\ChangeGenreManagerService.cs" />
-=======
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
->>>>>>> feature/ROC-27_Регистрация_пользователя
     <Compile Include="Services\UserServices\PermissionManagerService.cs" />
     <Compile Include="Services\UserServices\UserRoleService.cs" />
     <Compile Include="Services\UserServices\UserHasPermissionService.cs" />
@@ -98,15 +90,12 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\ReleaseList\TVSeriesDetailedInfoService.cs" />
     <Compile Include="Services\ReleaseList\MusicDetailedInfoService.cs" />
-<<<<<<< HEAD
     <Compile Include="Services\PersonalArea\ChangePersonalDataService.cs" />
     <Compile Include="Validators\UserDataValidator.cs" />
-=======
     <Compile Include="Services\User\UserManagementService.cs" />
     <Compile Include="Services\User\UserValidateService.cs" />
     <Compile Include="Validators\User\UserValidatorCheckRequiredFields.cs" />
     <Compile Include="Validators\User\UserValidatorLogicAndFormat.cs" />
->>>>>>> feature/ROC-27_Регистрация_пользователя
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

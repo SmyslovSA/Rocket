@@ -42,18 +42,18 @@ namespace Rocket.BL.Tests.User
                 .Returns((Expression<Func<DbUser, bool>> filter,
                     Func<IQueryable<DbUser>, IOrderedQueryable<DbUser>> orderBy,
                     string includeProperties) => this._fakeDbUsers.Users.Where(filter.Compile()));
-            moq.Setup(mock => mock.GetById(It.IsAny<object>()))
-                .Returns((object id) => this._fakeDbUsers.Users.Find(f => f.Id == (int)id));
+            moq.Setup(mock => mock.GetById(It.IsAny<int>()))
+                .Returns((int id) => this._fakeDbUsers.Users.Find(f => f.Id == id));
             moq.Setup(mock => mock.Insert(It.IsAny<DbUser>()))
                 .Callback((DbUser f) => this._fakeDbUsers.Users.Add(f));
             moq.Setup(mock => mock.Update(It.IsAny<DbUser>()))
                 .Callback((DbUser f) => this._fakeDbUsers.Users.Find(d => d.Id == f.Id).Login = f.Login);
-            moq.Setup(mock => mock.Delete(It.IsAny<object>()))
-                .Callback((object id) => this._fakeDbUsers.Users
-                    .Remove(this._fakeDbUsers.Users.Find(f => f.Id == (int)id)));
+            moq.Setup(mock => mock.Delete(It.IsAny<int>()))
+                .Callback((int id) => this._fakeDbUsers.Users
+                    .Remove(this._fakeDbUsers.Users.Find(f => f.Id == id)));
 
             var mockDbUserUnitOfWork = new Mock<IUnitOfWork>();
-            mockDbUserUnitOfWork.Setup(mock => mock.UserRepository)
+            mockDbUserUnitOfWork.Setup(mock => mock.UserRegRepository)
                 .Returns(() => moq.Object);
 
             this._userManagementService = new UserManagementService(mockDbUserUnitOfWork.Object);

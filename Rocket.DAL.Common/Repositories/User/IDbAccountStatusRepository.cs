@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories.User
     /// <summary>
     /// Представляет репозитарий статуса аккаунта пользователя
     /// </summary>
-    public interface IDbAccountStatusRepositary : IRepository<DbAccountStatus>
+    public interface IDbAccountStatusRepositary : IBaseRepository<DbAccountStatus>
     {
     }
 }
