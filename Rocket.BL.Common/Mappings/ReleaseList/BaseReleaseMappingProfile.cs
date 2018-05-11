@@ -12,9 +12,9 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
         public BaseReleaseMappingProfile()
         {
             CreateMap<BaseRelease, DbBaseRelease>()
-                .Include<Film, DbFilm>()
-                .Include<Episode, DbEpisode>()
-                .Include<Music, DbMusic>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
                 .ReverseMap();
         }
     }
