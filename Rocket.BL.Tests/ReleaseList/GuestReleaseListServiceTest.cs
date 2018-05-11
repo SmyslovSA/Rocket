@@ -2,6 +2,8 @@
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using Rocket.BL.Common.Models.Pagination;
+using Rocket.BL.Common.Models.ReleaseList;
 using Rocket.BL.Services.ReleaseList;
 using Rocket.BL.Tests.ReleaseList.FakeData;
 using Rocket.DAL.Common.DbModels.ReleaseList;
@@ -22,9 +24,6 @@ namespace Rocket.BL.Tests.ReleaseList
     {
         private const int FakeCount = 150;
         private GuestReleaseListService _guestReleaseListService;
-        private FakeDbFilmsData _fakeDbFilmsData;
-        private FakeDbTVSerialsData _fakeDbTVSerialsData;
-        private FakeDbMusicData _fakeDbMusicData;
         private List<DbBaseRelease> _fakeDbReleases;
 
         /// <summary>
@@ -39,12 +38,9 @@ namespace Rocket.BL.Tests.ReleaseList
             {
                 cfg.AddProfiles("Rocket.BL.Common");
             });
-            this._fakeDbFilmsData = new FakeDbFilmsData(100, 10, 10, FakeCount);
-            this._fakeDbTVSerialsData = new FakeDbTVSerialsData(100, 10, 10, FakeCount);
-            this._fakeDbMusicData = new FakeDbMusicData(100, 10, FakeCount);
-            this._fakeDbReleases = new List<DbBaseRelease>(this._fakeDbFilmsData.Films);
-            this._fakeDbReleases.AddRange(this._fakeDbTVSerialsData.FakeDbSeasonsData.FakeDbEpisodesData.Episodes);
-            this._fakeDbReleases.AddRange(this._fakeDbMusicData.Music);
+            this._fakeDbReleases = new List<DbBaseRelease>(new FakeDbFilmsData(100, 10, 10, FakeCount).Films);
+            this._fakeDbReleases.AddRange(new FakeDbTVSerialsData(100, 10, 10, FakeCount).FakeDbSeasonsData.FakeDbEpisodesData.Episodes);
+            this._fakeDbReleases.AddRange(new FakeDbMusicData(100, 10, FakeCount).Music);
 
             var mockDbReleaseRepository = new Mock<IDbReleaseRepository>();
             mockDbReleaseRepository.Setup(mock => mock.GetPage(
@@ -80,11 +76,44 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="pageSize">Размер страницы</param>
         /// <param name="pageNumber">Номер страницы</param>
-        [Test]
-        public void GetPublishedReleasesPageTest([Random(4, 100, 5)] int pageSize,
-            [Random(1, 20, 5)] int pageNumber)
+        [Test, Combinatorial]
+        public void GetPublishedReleasesPageTest([Values(4, 15, 43)] int pageSize,
+            [Values(1, 20, 100000)] int pageNumber)
         {
+            var expectedPage = new ReleasesPageInfo();
+            expectedPage.TotalItemsCount = this._fakeDbReleases.Count(r => r.ReleaseDate <= DateTime.Now);
+            expectedPage.TotalPagesCount = (int)Math.Ceiling((double)expectedPage.TotalItemsCount / pageSize);
+            expectedPage.PageItems = Mapper.Map<IEnumerable<BaseRelease>>(this._fakeDbReleases
+                .OrderByDescending(r => r.ReleaseDate)
+                .Where(r => r.ReleaseDate <= DateTime.Now)
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize));
             var actualPage = this._guestReleaseListService.GetPublishedReleasesPage(pageSize, pageNumber);
+
+            actualPage.Should().BeEquivalentTo(expectedPage);
+        }
+
+        /// <summary>
+        /// Тест метода получения страницы релизов с заданными
+        /// размером и номером страницы
+        /// </summary>
+        /// <param name="pageSize">Размер страницы</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        [Test, Combinatorial]
+        public void GetFutureReleasesPageTest([Values(6, 20, 77)] int pageSize,
+            [Values(1, 132, 100000)] int pageNumber)
+        {
+            var expectedPage = new ReleasesPageInfo();
+            expectedPage.TotalItemsCount = this._fakeDbReleases.Count(r => r.ReleaseDate > DateTime.Now);
+            expectedPage.TotalPagesCount = (int)Math.Ceiling((double)expectedPage.TotalItemsCount / pageSize);
+            expectedPage.PageItems = Mapper.Map<IEnumerable<BaseRelease>>(this._fakeDbReleases
+                .OrderBy(r => r.ReleaseDate)
+                .Where(r => r.ReleaseDate > DateTime.Now)
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize));
+            var actualPage = this._guestReleaseListService.GetFutureReleasesPage(pageSize, pageNumber);
+
+            actualPage.Should().BeEquivalentTo(expectedPage);
         }
     }
 }
