@@ -44,8 +44,8 @@ namespace Rocket.BL.Tests.ReleaseList
 
             var mockDbReleaseRepository = new Mock<IDbReleaseRepository>();
             mockDbReleaseRepository.Setup(mock => mock.GetPage(
-                It.IsInRange<int>(1, FakeCount * 3, Range.Inclusive),
-                It.IsInRange<int>(1, FakeCount * 3, Range.Inclusive),
+                It.IsInRange<int>(1, 1000, Range.Inclusive),
+                It.IsInRange<int>(1, 100000, Range.Inclusive),
                 It.IsAny<Expression<Func<DbBaseRelease, bool>>>(),
                 It.IsAny< Func<IQueryable<DbBaseRelease>, IOrderedQueryable<DbBaseRelease>>>(),
                 ""))

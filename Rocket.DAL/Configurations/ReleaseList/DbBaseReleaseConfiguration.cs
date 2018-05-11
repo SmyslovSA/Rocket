@@ -3,6 +3,9 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Rocket.DAL.Configurations.ReleaseList
 {
+    /// <summary>
+    /// Конфигурация хранения данных о релизах
+    /// </summary>
     public class DbBaseReleaseConfiguration : EntityTypeConfiguration<DbBaseRelease>
     {
         public DbBaseReleaseConfiguration()

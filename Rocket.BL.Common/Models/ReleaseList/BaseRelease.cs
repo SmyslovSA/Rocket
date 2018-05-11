@@ -9,9 +9,9 @@ namespace Rocket.BL.Common.Models.ReleaseList
     public abstract class BaseRelease
     {
         /// <summary>
-		/// Возвращает или задает уникальный идентификатор релиза
-		/// </summary>
-		public int Id { get; set; }
+        /// Возвращает или задает уникальный идентификатор релиза
+        /// </summary>
+        public int Id { get; set; }
 
         /// <summary>
         /// Возвращает или задает дату выхода релиза

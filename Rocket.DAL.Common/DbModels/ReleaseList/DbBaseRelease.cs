@@ -9,9 +9,9 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
     public abstract class DbBaseRelease
     {
         /// <summary>
-		/// Возвращает или задает уникальный идентификатор релиза
-		/// </summary>
-		public int Id { get; set; }
+        /// Возвращает или задает уникальный идентификатор релиза
+        /// </summary>
+        public int Id { get; set; }
 
         /// <summary>
         /// Возвращает или задает дату выхода релиза

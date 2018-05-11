@@ -50,8 +50,8 @@ namespace Rocket.DAL.Repositories
         /// Применяет фильтр, сортировку и загрузку связанных свойств,
         /// если заданы соответствующие значения параметров
         /// </summary>
-        /// <param name="pageSize"></param>
-        /// <param name="pageNumber">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
+        /// <param name="pageSize">Размер страницы</param>
+        /// <param name="pageNumber">Номер страницы</param>
         /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
         /// <param name="orderBy">Лямбда-выражение определяющее сортировку экземпляров <see cref="TEntity"/></param>
         /// <param name="includeProperties">Список связанных свойств экземпляров <see cref="TEntity"/>, разделенный запятыми</param>
