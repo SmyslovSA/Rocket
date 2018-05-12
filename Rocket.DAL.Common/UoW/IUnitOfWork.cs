@@ -1,5 +1,6 @@
 ﻿using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.Repositories.User;
 using System;
 
 namespace Rocket.DAL.Common.UoW
@@ -38,6 +39,10 @@ namespace Rocket.DAL.Common.UoW
         /// Возвращает репозиторий для genre
         /// </summary>
         IDbGenreRepository GenreRepository { get; }
+
+        /// Возвращает репозиторий для пользователей
+        /// </summary>
+        IDbUserRepository UserRegRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных
