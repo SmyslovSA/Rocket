@@ -39,6 +39,7 @@ namespace Rocket.BL.Tests.User.FakeData
                 .RuleFor(p => p.Id, f => f.IndexFaker)
                 .RuleFor(p => p.AccountStatus, f => f.PickRandomParam((new FakeDbAccountStatuses(5)).AccountStatuses.ToArray()))
                 .RuleFor(p => p.AccountLevel, f => f.PickRandomParam((new FakeDbAccountLevels(5)).AccountLevels.ToArray()))
+                .RuleFor(p => p.Roles, f => { return (new FakeDbRoles((new Random()).Next(1, 5))).Roles.ToArray(); })
                 .RuleFor(p => p.Language, f => f.PickRandomParam((new FakeDbLanguages(30)).Languages.ToArray()))
                 .RuleFor(p => p.Sitizenship, f => f.PickRandomParam((new FakeDbCountries(15)).Countries.ToArray()))
                 .RuleFor(p => p.HowToCall, f => f.PickRandomParam((new FakeDbHowToCalls(3)).HowToCalls.ToArray()))
