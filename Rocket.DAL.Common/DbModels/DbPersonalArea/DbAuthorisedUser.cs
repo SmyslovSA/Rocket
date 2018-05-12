@@ -1,6 +1,4 @@
-﻿using Rocket.DAL.Common.DbModels.DbUser.DbAccount;
-using Rocket.DAL.Common.DbModels.DbUser.DbPerson;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
@@ -23,7 +21,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// ссылка на DbAccount
         /// </summary>
-        public DbAccount DbAccount { get; set; }
+        //public DbAccount DbAccount { get; set; }
 
         /// <summary>
         /// внешний ключ к таблице DbPersonality
@@ -33,7 +31,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// ссылка на DbPersonality
         /// </summary>
-        public DbPersonality DbPersonality { get; set; }
+        //public DbPersonality DbPersonality { get; set; }
 
         /// <summary>
         /// относительный путь от корневой папки приложения к изображению аватара пользователя

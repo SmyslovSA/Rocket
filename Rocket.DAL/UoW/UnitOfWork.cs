@@ -1,5 +1,6 @@
 ﻿using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Data.Entity;
@@ -48,6 +49,11 @@ namespace Rocket.DAL.UoW
         public IDbGenreRepository GenreRepository { get; private set; }
 
         /// <summary>
+        /// Возвращает репозиторий для пользователя
+        /// </summary>
+        public IDbUserRepository UserRegRepository { get; private set; }
+
+        /// <summary>
         /// Репозиторий для работы с пользователями
         /// </summary>
         public IDbUserRepository UserRepository { get; private set; }
@@ -74,6 +80,7 @@ namespace Rocket.DAL.UoW
         /// <param name="dbAuthorisedUserRepository">Экземпляр репозитория пользователей</param>
         /// <param name="dbEmailRepository">Экземпляр репозитория emails</param>
         /// <param name="dbGenreRepository">Экземпляр репозитория жанров</param>
+        /// <param name="dbUserRepository">Экземпляр репозитория пользователей</param>
         public UnitOfWork(DbContext dbContext,
             IDbFilmRepository dbFilmRepository,
             IDbTVSeriesRepository dbTVSeriesRepository,
@@ -92,6 +99,7 @@ namespace Rocket.DAL.UoW
             this.AuthorizedUserRepository = dbAuthorisedUserRepository;
             this.EmailRepository = dbEmailRepository;
             this.GenreRepository = dbGenreRepository;
+            this.UserRegRepository = dbUserRepository;
             this.UserRepository = dbUserRepository;
             this.RoleRepository = dbRoleRepository;
             this.PermissionRepository = dbPermissionRepository;

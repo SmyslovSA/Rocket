@@ -51,6 +51,13 @@
     <Compile Include="DbModels\Notification\DbMessageAboutMusic.cs" />
     <Compile Include="DbModels\Notification\DbMessageAboutTVSeries.cs" />
     <Compile Include="DbModels\Notification\DbReceiver.cs" />
+    <Compile Include="DbModels\User\DbAccountLevel.cs" />
+    <Compile Include="DbModels\User\DbAccountStatus.cs" />
+    <Compile Include="DbModels\User\DbAddress.cs" />
+    <Compile Include="DbModels\User\DbCountry.cs" />
+    <Compile Include="DbModels\User\DbHowToCall.cs" />
+    <Compile Include="DbModels\User\DbLanguage.cs" />
+    <Compile Include="DbModels\User\DbUser.cs" />
     <Compile Include="DbModels\ReleaseList\DbCountry.cs" />
     <Compile Include="DbModels\ReleaseList\DbEpisode.cs" />
     <Compile Include="DbModels\ReleaseList\DbFilm.cs" />
@@ -61,7 +68,6 @@
     <Compile Include="DbModels\ReleaseList\DbPerson.cs" />
     <Compile Include="DbModels\ReleaseList\DbSeason.cs" />
     <Compile Include="DbModels\ReleaseList\DbTVSeries.cs" />
-    <Compile Include="DbModels\DbUser\DbUser.cs" />
     <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
     <Compile Include="DbModels\DbUserRole\DbRole.cs" />
     <Compile Include="DbModels\DbUser\DbAccount\DbAccount.cs" />
@@ -95,21 +101,15 @@
     <Compile Include="Repositories\IDbUserRoleRepository\IDbRoleRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbSeasonRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbTVSeriesRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbUserRepositary.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbAddressRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbCommunicationRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbCountryRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbHowToCallRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbIdentityRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbLanguageRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbLocalizationRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbPersonRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbPersonRepository\IDbPersonalityRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbAccountRepository\IDbAccountRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbAccountRepository\IDbAccountLevelRepository.cs" />
-    <Compile Include="Repositories\IDbUserRepository\IDbAccountRepository\IDbAccountStatusRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbVideoGenreRepository.cs" />
     <Compile Include="Repositories\IBaseRepository.cs" />
+    <Compile Include="Repositories\User\IDbAccountLevelRepository.cs" />
+    <Compile Include="Repositories\User\IDbAccountStatusRepository.cs" />
+    <Compile Include="Repositories\User\IDbAddressRepository.cs" />
+    <Compile Include="Repositories\User\IDbCountryRepository.cs" />
+    <Compile Include="Repositories\User\IDbHowToCallRepository.cs" />
+    <Compile Include="Repositories\User\IDbLanguageRepository.cs" />
+    <Compile Include="Repositories\User\IDbUserRepositary.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
