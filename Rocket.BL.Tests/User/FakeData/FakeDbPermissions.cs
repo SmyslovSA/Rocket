@@ -29,8 +29,9 @@ namespace Rocket.BL.Tests.User.FakeData
         {
             this.PermissionFaker = new Faker<DbPermission>()
                 .RuleFor(c => c.Id, f => f.IndexFaker)
-                .RuleFor(c => c.Description, f => f.Lorem.Sentences((new Random()).Next(1, 5)))
-                .RuleFor(c => c.ValueName, f => f.Lorem.Letter(5));
+                .RuleFor(c => c.Description, f => f.Lorem.Sentences(5))
+                .RuleFor(c => c.ValueName, f => f.Lorem.Letter(5))
+                .RuleFor(c => c.Roles, f => null);
 
             this.Permissions = this.PermissionFaker.Generate(permissionsCount);
         }

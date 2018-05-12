@@ -19,7 +19,7 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных разрешений ролей пользователя
         /// </summary>
-        public List<Permission> Permissions { get; }
+        public ICollection<Permission> Permissions { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о разрешенийях ролей пользователя
@@ -29,8 +29,9 @@ namespace Rocket.BL.Tests.User.FakeData
         {
             this.PermissionFaker = new Faker<Permission>()
                 .RuleFor(c => c.PermissionId, f => f.IndexFaker)
-                .RuleFor(c => c.Description, f => f.Lorem.Sentences((new Random()).Next(1, 5)))
-                .RuleFor(c => c.ValueName, f => f.Lorem.Letter(5));
+                .RuleFor(c => c.Description, f => f.Lorem.Sentences(5))
+                .RuleFor(c => c.ValueName, f => f.Lorem.Letter(5))
+                .RuleFor(c => c.Roles, f => { return (new FakeRoles(5)).Roles; });
 
             this.Permissions = this.PermissionFaker.Generate(permissionsCount);
         }
