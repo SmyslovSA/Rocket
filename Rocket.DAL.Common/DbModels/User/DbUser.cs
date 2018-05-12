@@ -96,5 +96,10 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Возвращает или задает почтовый адрес пользователя
         /// </summary>
         public DbAddress MailAddress { get; set; }
+
+        /// <summary>
+        /// Список ролей для пользователя
+        /// </summary>
+        public virtual ICollection<DbRole> Roles { get; set; }
     }
 }
