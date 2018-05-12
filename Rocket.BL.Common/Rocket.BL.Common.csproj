@@ -128,7 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
-      <Project>{4383C0FF-4C4A-4C42-BB46-5A5137E5E7AD}</Project>
+      <Project>{4383c0ff-4c4a-4c42-bb46-5a5137e5e7ad}</Project>
       <Name>Rocket.DAL.Common</Name>
     </ProjectReference>
   </ItemGroup>

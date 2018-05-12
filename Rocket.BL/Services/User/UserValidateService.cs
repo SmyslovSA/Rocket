@@ -17,17 +17,8 @@ namespace Rocket.BL.Services.User
         /// <returns>Возвращает <see langword='true'/>, если проверка завершена успешно</returns>
         public bool UserValidateOnAddition(Common.Models.User.User user)
         {
-            if (!UserValidateOnAdditionCheckRequiredFields(user))
-            {
-                return false;
-            }
-
-            if (!UserValidateOnAdditionCheckLogicAndFormat(user))
-            {
-                return false;
-            }
-
-            return true;
+            return UserValidateOnAdditionCheckRequiredFields(user)
+                && UserValidateOnAdditionCheckLogicAndFormat(user);
         }
 
         /// <summary>
@@ -50,7 +41,7 @@ namespace Rocket.BL.Services.User
         {
             UserValidatorCheckRequiredFields validator = new UserValidatorCheckRequiredFields();
 
-            return validator.Validate(user).IsValid ? true : false;
+            return validator.Validate(user).IsValid;
         }
 
         /// <summary>
@@ -62,7 +53,7 @@ namespace Rocket.BL.Services.User
         {
             UserValidatorLogicAndFormat validator = new UserValidatorLogicAndFormat();
 
-            return validator.Validate(user).IsValid ? true : false;
+            return validator.Validate(user).IsValid;
         }
     }
 }
