@@ -19,6 +19,7 @@ namespace Rocket.BL.Common.Mappings.UserMappingProfile
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password))
                 .ForMember(dest => dest.AccountStatus, opt => opt.MapFrom(src => src.AccountStatus))
                 .ForMember(dest => dest.AccountLevel, opt => opt.MapFrom(src => src.AccountLevel))
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles))
                 .ForMember(dest => dest.ActivationNeeded, opt => opt.MapFrom(src => src.ActivationNeeded))
                 .ForMember(dest => dest.Sitizenship, opt => opt.MapFrom(src => src.Sitizenship))
                 .ForMember(dest => dest.Language, opt => opt.MapFrom(src => src.Language))
