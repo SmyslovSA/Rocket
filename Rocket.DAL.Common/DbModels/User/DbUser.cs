@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.DAL.Common.DbModels.User
 {
@@ -44,6 +45,11 @@ namespace Rocket.DAL.Common.DbModels.User
         /// (пока что это - обычный и премиум пользователь)
         /// </summary>
         public DbAccountLevel AccountLevel { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает коллекцию ролей пользователя
+        /// </summary>
+        public ICollection<DbRole> Roles { get; set; }
 
         /// <summary>
         /// Возвращает или задает необходимость подтверждения регистрации
