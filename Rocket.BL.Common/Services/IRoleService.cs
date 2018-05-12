@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq.Expressions;
 using Rocket.BL.Common.Models.UserRoles;
 
 namespace Rocket.BL.Common.Services
@@ -6,14 +7,14 @@ namespace Rocket.BL.Common.Services
     public interface IRoleService
     {
         /// <summary>
-        /// Меняет значение IsActive для роли на противоположное
+        /// сетапим роль по умолчанию нашему юзеру
         /// </summary>
-        void SwitchRoleVisibility(IRole role);
+        void SetDefaultRole();
 
         /// <summary>
-        /// Получить список прав по роли
+        ///  сетапим выбранную роль нашему юзверю
         /// </summary>
-        /// <returns></returns>
-        IEnumerable FetchAllByRole(IRole role);
+        /// <param name="role"></param>
+        void ChangeUserRole(Role role);
     }
 }

@@ -12,10 +12,8 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
         public EpisodeMappingProfile()
         {
             CreateMap<Episode, DbEpisode>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate))
+                .IncludeBase<BaseRelease, DbBaseRelease>()
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
                 .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
                 .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => src.Summary))
                 .ReverseMap();

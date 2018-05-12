@@ -29,6 +29,7 @@ namespace Rocket.BL.Common.Mappings.UserMappingProfile
                 .ForMember(dest => dest.Phones, opt => opt.MapFrom(src => src.Phones))
                 .ForMember(dest => dest.EMailAddresses, opt => opt.MapFrom(src => src.EMailAddresses))
                 .ForMember(dest => dest.MailAddress, opt => opt.MapFrom(src => src.MailAddress))
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles))
                 .ReverseMap();
         }
     }

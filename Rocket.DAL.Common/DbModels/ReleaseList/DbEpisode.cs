@@ -5,28 +5,13 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
     /// <summary>
     /// Представляет модель хранения данных о сериях сериалов
     /// </summary>
-    public class DbEpisode
+    public class DbEpisode : DbBaseRelease
     {
-        /// <summary>
-        /// Возвращает или задает уникальный идентификатор серии
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает дату выхода серии
-        /// </summary>
-        public DateTime ReleaseDate { get; set; }
-
         /// <summary>
         /// Возвращает или задает номер серии в сезоне
         /// </summary>
         public int Number { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает название серии
-        /// </summary>
-        public string Title { get; set; }
-
+        
         /// <summary>
         /// Возвращает или задает продолжительность серии
         /// </summary>

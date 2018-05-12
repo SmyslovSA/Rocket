@@ -51,6 +51,7 @@
     <Compile Include="DbModels\Notification\DbMessageAboutMusic.cs" />
     <Compile Include="DbModels\Notification\DbMessageAboutTVSeries.cs" />
     <Compile Include="DbModels\Notification\DbReceiver.cs" />
+    <Compile Include="DbModels\ReleaseList\DbBaseRelease.cs" />
     <Compile Include="DbModels\User\DbAccountLevel.cs" />
     <Compile Include="DbModels\User\DbAccountStatus.cs" />
     <Compile Include="DbModels\User\DbAddress.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="DbModels\ReleaseList\DbTVSeries.cs" />
     <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
     <Compile Include="DbModels\DbUserRole\DbRole.cs" />
-    <Compile Include="DbModels\DbUserRole\DbUserRole.cs" />
     <Compile Include="DbModels\ReleaseList\DbVideoGenre.cs" />
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +88,7 @@
     <Compile Include="Repositories\ReleaseList\IDbFilmRepository.cs" />
     <Compile Include="Repositories\IDbUserRoleRepository\IDbPermissionRepository.cs" />
     <Compile Include="Repositories\IDbUserRoleRepository\IDbRoleRepository.cs" />
+    <Compile Include="Repositories\ReleaseList\IDbReleaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbSeasonRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbTVSeriesRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbVideoGenreRepository.cs" />
@@ -98,7 +99,7 @@
     <Compile Include="Repositories\User\IDbCountryRepository.cs" />
     <Compile Include="Repositories\User\IDbHowToCallRepository.cs" />
     <Compile Include="Repositories\User\IDbLanguageRepository.cs" />
-    <Compile Include="Repositories\User\IDbUserRepositary.cs" />
+    <Compile Include="Repositories\User\IDbUserRepository.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

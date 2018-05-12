@@ -4,6 +4,7 @@ using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Data.Entity;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 
 namespace Rocket.DAL.UoW
 {
@@ -15,6 +16,11 @@ namespace Rocket.DAL.UoW
     {
         private DbContext _dbContext;
         private bool disposedValue = false;
+
+        /// <summary>
+        /// Возвращает репозиторий для релизов
+        /// </summary>
+        public IDbReleaseRepository ReleaseRepository { get; private set; }
 
         /// <summary>
         /// Возвращает репозиторий для фильмов
@@ -32,11 +38,6 @@ namespace Rocket.DAL.UoW
         public IDbMusicRepository MusicRepository { get; private set; }
 
         /// <summary>
-        /// Возвращает репозиторий для работы с пользователями
-        /// </summary>
-        public IDbAuthorisedUserRepository UserRepository { get; private set; }
-
-        /// <summary>
         /// Возвращает репозиторий для emails
         /// </summary>
         public IDbEmailRepository EmailRepository { get; private set; }
@@ -47,9 +48,25 @@ namespace Rocket.DAL.UoW
         public IDbGenreRepository GenreRepository { get; private set; }
 
         /// <summary>
-        /// Возвращает репозиторий для пользователя
+        /// Репозиторий для работы с пользователями
         /// </summary>
-        public IDbUserRepository UserRegRepository { get; private set; }
+        public IDbUserRepository UserRepository { get; private set; }
+
+        /// <summary>
+        /// Репозиторий для работы с ролями
+        /// </summary>
+        public IDbRoleRepository RoleRepository { get; private set; }
+
+        /// <summary>
+        /// Репозиторий для работы с пермишенами
+        /// </summary>
+        public IDbPermissionRepository PermissionRepository { get; private set; }
+
+        /// <summary>
+        /// репозиотрий для юзеров
+        /// </summary>
+        public IDbAuthorisedUserRepository UserAuthorisedRepository { get; private set; }
+
 
         /// <summary>
         /// /// <summary>
@@ -57,6 +74,7 @@ namespace Rocket.DAL.UoW
         /// c заданным контекстом данных
         /// </summary>
         /// <param name="dbContext">Экземпляр контекста данных</param>
+        /// <param name="dbReleaseRepository">Экземпляр репозитория релизов</param>
         /// <param name="dbFilmRepository">Экземпляр репозитория фильмов</param>
         /// <param name="dbTVSeriesRepository">Экземпляр репозитория сериалов</param>
         /// <param name="dbMusicRepository">Экземпляр репозитория музыки</param>
@@ -64,23 +82,31 @@ namespace Rocket.DAL.UoW
         /// <param name="dbEmailRepository">Экземпляр репозитория emails</param>
         /// <param name="dbGenreRepository">Экземпляр репозитория жанров</param>
         /// <param name="dbUserRepository">Экземпляр репозитория пользователей</param>
+        /// <param name="dbRoleRepository">Экземпляр репозитория ролей</param>
+        /// <param name="dbPermissionRepository">Экземпляр репозитория разрешений</param>
         public UnitOfWork(DbContext dbContext,
+            IDbReleaseRepository dbReleaseRepository,
             IDbFilmRepository dbFilmRepository,
             IDbTVSeriesRepository dbTVSeriesRepository,
             IDbMusicRepository dbMusicRepository,
             IDbAuthorisedUserRepository dbAuthorisedUserRepository,
             IDbEmailRepository dbEmailRepository,
             IDbGenreRepository dbGenreRepository,
-            IDbUserRepository dbUserRepository)
+            IDbUserRepository dbUserRepository,
+            IDbRoleRepository dbRoleRepository,
+            IDbPermissionRepository dbPermissionRepository)
         {
             this._dbContext = dbContext;
+            this.ReleaseRepository = dbReleaseRepository;
             this.FilmRepository = dbFilmRepository;
             this.TVSeriesRepository = dbTVSeriesRepository;
             this.MusicRepository = dbMusicRepository;
-            this.UserRepository = dbAuthorisedUserRepository;
+            this.UserAuthorisedRepository = dbAuthorisedUserRepository;
             this.EmailRepository = dbEmailRepository;
             this.GenreRepository = dbGenreRepository;
-            this.UserRegRepository = dbUserRepository;
+            this.UserRepository = dbUserRepository;
+            this.RoleRepository = dbRoleRepository;
+            this.PermissionRepository = dbPermissionRepository;
         }
 
         /// <summary>

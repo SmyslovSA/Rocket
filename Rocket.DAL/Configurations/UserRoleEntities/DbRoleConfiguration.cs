@@ -7,7 +7,7 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
     {
         public DbRoleConfiguration()
         {
-            ToTable("t_user_role")
+            ToTable("t_role")
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
                 .HasColumnName("role_id");
@@ -17,10 +17,6 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
                 .HasColumnName("name")
                 .HasMaxLength(50)
                 .IsVariableLength();
-
-            Property(t => t.IsActive)
-                .IsRequired()
-                .HasColumnName("is_active");
 
             HasMany(t => t.Permissions)
                 .WithMany();

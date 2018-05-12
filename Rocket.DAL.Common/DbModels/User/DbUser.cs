@@ -85,16 +85,21 @@ namespace Rocket.DAL.Common.DbModels.User
         /// <summary>
         /// Задает или возвращает коллекцию телефонных номеров пользователя
         /// </summary>
-        public ICollection<string> Phones { get; set; }
+        public virtual ICollection<string> Phones { get; set; }
 
         /// <summary>
         /// Задает или возвращает коллекцию Email
         /// </summary>
-        public ICollection<string> EMailAddresses { get; set; }
+        public virtual ICollection<string> EMailAddresses { get; set; }
 
         /// <summary>
         /// Возвращает или задает почтовый адрес пользователя
         /// </summary>
         public DbAddress MailAddress { get; set; }
+
+        /// <summary>
+        /// Список ролей для пользователя
+        /// </summary>
+        public virtual ICollection<DbRole> Roles { get; set; }
     }
 }

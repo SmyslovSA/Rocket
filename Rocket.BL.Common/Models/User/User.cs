@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Rocket.BL.Common.Models.UserRoles;
 using Rocket.DAL.Common.DbModels;
 using Rocket.BL.Common.Models.UserRoles;
 
@@ -97,5 +98,10 @@ namespace Rocket.BL.Common.Models.User
         /// Возвращает или задает почтовый адрес пользователя
         /// </summary>
         public Address MailAddress { get; set; }
+
+        /// <summary>
+        /// список ролей для пользователя
+        /// </summary>
+        public ICollection<Role> Roles { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace Rocket.BL.Common.Mappings.UserMappingProfile.UserRoleMappingProfile
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PermissionId))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.ValueName, opt => opt.MapFrom(src => src.ValueName))
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles))
                 .ReverseMap();
         }
     }

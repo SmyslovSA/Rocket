@@ -2,6 +2,7 @@
 using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.Repositories.User;
 using System;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -10,6 +11,11 @@ namespace Rocket.DAL.Common.UoW
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
+        /// <summary>
+        /// Возвращает репозиторий для релизов
+        /// </summary>
+        IDbReleaseRepository ReleaseRepository { get; }
+
         /// <summary>
         /// Возвращает репозиторий для фильмов
         /// </summary>
@@ -26,9 +32,19 @@ namespace Rocket.DAL.Common.UoW
 		IDbMusicRepository MusicRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для авторизованного пользователя
+        /// Возвращает репозиторий для юзеров
         /// </summary>
-        IDbAuthorisedUserRepository UserRepository { get; }
+        IDbUserRepository UserRepository { get; }
+
+        /// <summary>
+        /// ВОзвращает репозиторий ролей
+        /// </summary>
+        IDbRoleRepository RoleRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий пермишенов
+        /// </summary>
+        IDbPermissionRepository PermissionRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для emails
@@ -42,7 +58,7 @@ namespace Rocket.DAL.Common.UoW
 
         /// Возвращает репозиторий для пользователей
         /// </summary>
-        IDbUserRepository UserRegRepository { get; }
+        IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных

@@ -7,23 +7,8 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
     /// <summary>
     /// Представляет модель хранения данных музыкального релиза
     /// </summary>
-    public class DbMusic
+    public class DbMusic : DbBaseRelease
 	{
-		/// <summary>
-		/// Возвращает или задает уникальный идентификатор музыкального релиза
-		/// </summary>
-		public int Id { get; set; }
-
-		/// <summary>
-		/// Возвращает или задает название музыкального релиза
-		/// </summary>
-		public string Title { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает дату выхода музыкального релиза
-        /// </summary>
-        public DateTime ReleaseDate { get; set; }
-
 		/// <summary>
 		/// Возвращает или задает относительный путь
 		/// от корневой папки приложения к файлу изображения постера музыкального релиза

@@ -4,8 +4,6 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
 {
     public class DbRole
     {
-        // класс для получения всего списка ролей с пропертями и пермишенами
-
         /// <summary>
         /// Уникальный идентификатор роли пользователя
         /// </summary>
@@ -17,14 +15,13 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         public string Name { get; set; }
 
         /// <summary>
-        /// Свойство позволяет управлять возможностью
-        /// менять доступ к использованию роли
+        /// список пермишенов для роли
         /// </summary>
-        public bool IsActive { get; set; }
+        public virtual ICollection<DbPermission> Permissions { get; set; } 
 
         /// <summary>
-        /// collection of permissions 
+        /// список юзеров с этой ролью
         /// </summary>
-        public ICollection<DbPermission> Permissions { get; set; }
+        public virtual ICollection<User.DbUser> Users { get; set; }
     }
 }

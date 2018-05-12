@@ -28,7 +28,7 @@ namespace Rocket.BL.Services.PersonalArea
                     }
 
                 });
-                _unitOfWork.UserRepository.Update(user);
+                _unitOfWork.UserAuthorisedRepository.Update(user);
                 _unitOfWork.Save();
                 return true;
             }
