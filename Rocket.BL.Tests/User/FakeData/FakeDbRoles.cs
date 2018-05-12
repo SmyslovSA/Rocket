@@ -30,8 +30,7 @@ namespace Rocket.BL.Tests.User.FakeData
             this.RoleFaker = new Faker<DbRole>()
                 .RuleFor(c => c.Id, f => f.IndexFaker)
                 .RuleFor(c => c.Name, f => f.Lorem.Word())
-                .RuleFor(c => c.IsActive, f => f.PickRandomParam(new bool[] { true, false, false, true, true }))
-                .RuleFor(c => c.Permissions, f => { return (new FakeDbPermissions((new Random()).Next(1, 5))).Permissions.ToArray(); });
+                .RuleFor(c => c.Permissions, f => { return (new FakeDbPermissions((new Random()).Next(1, 5))).Permissions; });
 
             this.Roles = this.RoleFaker.Generate(rolesCount);
         }
