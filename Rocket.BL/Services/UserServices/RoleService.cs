@@ -13,10 +13,10 @@ namespace Rocket.BL.Services.UserServices
     /// получение роли, установка роли для пользователя
     /// если не указана, то дефолтовая
     /// </summary>
-    public class UserRoleService : BaseService // todo add ilogger
+    public class RoleService : BaseService // todo add ilogger
     {
 
-        public UserRoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public RoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
         }
