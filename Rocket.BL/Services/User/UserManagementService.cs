@@ -32,7 +32,7 @@ namespace Rocket.BL.Services.User
         public Common.Models.User.User GetUser(int id)
         {
             return Mapper.Map<Common.Models.User.User>(
-               this._unitOfWork.UserRegRepository.GetById(id));
+               this._unitOfWork.UserRepository.GetById(id));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Rocket.BL.Services.User
         public int AddUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
-            this._unitOfWork.UserRegRepository.Insert(dbUser);
+            this._unitOfWork.UserRepository.Insert(dbUser);
             this._unitOfWork.Save();
             return dbUser.Id;
         }
@@ -56,7 +56,7 @@ namespace Rocket.BL.Services.User
         public void UpdateUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
-            this._unitOfWork.UserRegRepository.Update(dbUser);
+            this._unitOfWork.UserRepository.Update(dbUser);
             this._unitOfWork.Save();
         }
 
@@ -66,7 +66,7 @@ namespace Rocket.BL.Services.User
         /// <param name="id">Идентификатор пользователя</param>
         public void DeleteUser(int id)
         {
-            this._unitOfWork.UserRegRepository.Delete(id);
+            this._unitOfWork.UserRepository.Delete(id);
             this._unitOfWork.Save();
         }
 
@@ -78,7 +78,7 @@ namespace Rocket.BL.Services.User
         /// <returns>Возвращает <see langword="true"/>, если пользователь существует в хранилище данных</returns>
         public bool UserExists(Expression<Func<Common.Models.User.User, bool>> filter)
         {
-            return this._unitOfWork.UserRegRepository.Get(
+            return this._unitOfWork.UserRepository.Get(
                 Mapper.Map<Expression<Func<DbUser, bool>>>(filter))
                 .FirstOrDefault() != null;
         }
