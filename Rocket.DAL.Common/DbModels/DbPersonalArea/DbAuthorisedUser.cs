@@ -14,25 +14,25 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// </summary>
         public int Id { get; set; }
 
-        /// <summary>
-        /// внешний ключ к таблице DbAccount
-        /// </summary>
-        public int DbAccountId { get; set; }
+        ///// <summary>
+        ///// внешний ключ к таблице DbAccount
+        ///// </summary>
+        //public int? DbAccountId { get; set; }
 
-        /// <summary>
-        /// ссылка на DbAccount
-        /// </summary>
-        public DbAccount DbAccount { get; set; }
+        ///// <summary>
+        ///// ссылка на DbAccount
+        ///// </summary>
+        //public DbAccount DbAccount { get; set; }
 
-        /// <summary>
-        /// внешний ключ к таблице DbPersonality
-        /// </summary>
-        public int DbPersonalityId { get; set; }
+        ///// <summary>
+        ///// внешний ключ к таблице DbPersonality
+        ///// </summary>
+        //public int? DbPersonalityId { get; set; }
 
-        /// <summary>
-        /// ссылка на DbPersonality
-        /// </summary>
-        public DbPersonality DbPersonality { get; set; }
+        ///// <summary>
+        ///// ссылка на DbPersonality
+        ///// </summary>
+        //public DbPersonality DbPersonality { get; set; }
 
         /// <summary>
         /// относительный путь от корневой папки приложения к изображению аватара пользователя
@@ -44,9 +44,9 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// </summary>
         public ICollection<DbEmail> Email { get; set; }
 
-        /// <summary>
-        /// коллекция выбранных жанров пользователя
-        /// </summary>
-        public ICollection<DbGenre> Genres { get; set; }
+        ///// <summary>
+        ///// коллекция выбранных жанров пользователя
+        ///// </summary>
+        //public ICollection<DbGenre> Genres { get; set; }
     }
 }

@@ -12,11 +12,11 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 Property(p => p.Id).
                 HasColumnName("Id");
 
-            Property(p => p.DbAccountId).
-                HasColumnName("DbAccountId");
+            //Property(p => p.DbAccountId).
+            //    HasColumnName("DbAccountId");
 
-            Property(p => p.DbPersonalityId).
-                HasColumnName("DbPersonalityId");
+            //Property(p => p.DbPersonalityId).
+            //    HasColumnName("DbPersonalityId");
 
             Property(p => p.Avatar).
                 IsOptional().
@@ -29,14 +29,14 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 WithRequired(e => e.User).
                 HasForeignKey(e => e.UserId);
 
-            HasMany(p => p.Genres).
-                WithMany(e => e.Users).
-                Map(m =>
-                {
-                    m.ToTable("UserGenres").
-                    MapLeftKey("UserId").
-                    MapRightKey("GenreId");
-                });
+            //HasMany(p => p.Genres).
+            //    WithMany(e => e.Users).
+            //    Map(m =>
+            //    {
+            //        m.ToTable("UserGenres").
+            //        MapLeftKey("UserId").
+            //        MapRightKey("GenreId");
+            //    });
         }
     }
 }
