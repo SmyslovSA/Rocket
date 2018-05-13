@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using Rocket.DAL.Common.DbModels.DbUser;
+using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.DAL.Configurations.UserRoleEntities
 {

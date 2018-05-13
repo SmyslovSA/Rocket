@@ -22,6 +22,6 @@ namespace Rocket.DAL.Common.DbModels.DbUserRole
         /// <summary>
         /// список юзеров с этой ролью
         /// </summary>
-        public virtual ICollection<DbUser.DbUser> Users { get; set; }
+        public virtual ICollection<User.DbUser> Users { get; set; }
     }
 }
