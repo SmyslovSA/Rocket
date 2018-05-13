@@ -209,6 +209,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ChangePersonalAreaControllers\ChangeEmailManagerServiceController.cs" />
+    <Compile Include="Controllers\ChangePersonalAreaControllers\ChangeGenreManagerServiceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonalArea\ChangePersonalDataController.cs" />
     <Compile Include="Global.asax.cs">
