@@ -72,8 +72,6 @@ namespace Rocket.Parser.Parsers
             //todo логирование парсер запущен
             try
             {
-                //var a = Helper.GetAlbumInfoResource();
-
                 // получаем настройки парсера
                 var resource = _resourceRepository
                     .Queryable().First(r => r.Name.Equals(Resources.AlbumInfoSettings));
