@@ -34,7 +34,7 @@ namespace Rocket.Parser
                         serviceConfigurator.WhenStopped((service, control) => service.Stop(control));
 
                         //Запуск парсера для Lostfilm
-                        LostfilmParseProcess(serviceConfigurator, kernel);
+                        //LostfilmParseProcess(serviceConfigurator, kernel);
 
                         //Запуск парсера для AlbumInfo  
                         AlbumInfoParseProcess(serviceConfigurator, kernel);

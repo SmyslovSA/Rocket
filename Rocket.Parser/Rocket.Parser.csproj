@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Bootstrapper\ParserBootstrapper.cs" />
     <Compile Include="Config\ParserModule.cs" />
+    <Compile Include="Exceptions\AlbumInfoReleaseException.cs" />
     <Compile Include="Exceptions\NotGetHtmlDocumentByUrlException.cs" />
     <Compile Include="Exceptions\NotGetTextByUrlException.cs" />
     <Compile Include="Heplers\AlbumInfoHelper.cs" />

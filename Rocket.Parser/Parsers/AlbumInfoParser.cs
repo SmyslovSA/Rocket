@@ -14,6 +14,7 @@ using System.IO;
 using PCRE;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.Repositories.Temp;
+using Rocket.Parser.Exceptions;
 using Helper = Rocket.Parser.Heplers.AlbumInfoHelper;
 using Const = Rocket.Parser.Heplers.CommonHelper;
 using Rocket.Parser.Properties;
@@ -80,6 +81,11 @@ namespace Rocket.Parser.Parsers
                 var settings = _parserSettingsRepository.Queryable().
                     Where(ps => ps.ResourceId == resource.Id).ToList();
 
+                if (!settings.Any())
+                {
+                    //todo log нет активныйх настроек для парсера Resources.AlbumInfoSettings
+                }
+
                 // по каждой настройке выполняем парсинг
                 foreach (var setting in settings)
                 {
@@ -96,6 +102,8 @@ namespace Rocket.Parser.Parsers
                     }
 
                     await Task.WhenAll(taskList.ToArray());
+
+                    //todo log для настройки setting.Id количество полученных релизов: resourceItemsBc.Count
 
                     //фиксация данных в БД
                     SaveResults(resourceItemsBc, releasesBc);
@@ -179,7 +187,8 @@ namespace Rocket.Parser.Parsers
         private void SaveResults(BlockingCollection<ResourceItemEntity> resourceItemsBc,
             BlockingCollection<AlbumInfoRelease> releasesBc)
         {
-            if (!resourceItemsBc.Any() && !releasesBc.Any()) throw new NotImplementedException();  //todo
+            if (!resourceItemsBc.Any() && !releasesBc.Any())
+                throw new AlbumInfoReleaseException(Helper.EmptyReleaseException);
 
             var resourceItems = resourceItemsBc.ToList();
 
@@ -200,7 +209,8 @@ namespace Rocket.Parser.Parsers
                 }
                 else
                 {
-                    //todo пишем в лог что не существует релиза / релиз не распаршен
+                    throw new AlbumInfoReleaseException(
+                        string.Format(Helper.ParsReleaseException, resourceItem.ResourceInternalId));
                 }
             }
         }
@@ -279,7 +289,7 @@ namespace Rocket.Parser.Parsers
             var releaseName = PcreRegex.Match(release.Name, Helper.ReleaseNamePattern).Value;
             var releaseType = PcreRegex.Matches(release.Name, Helper.ReleaseTypePattern)
                 .Select(m => m.Value).LastOrDefault();
-            var releaseArtist = release.Name.Substring(0, release.Name.IndexOf("-", StringComparison.Ordinal) - 1);
+            var releaseArtist = release.Name.Substring(0, release.Name.IndexOf(" - ", StringComparison.Ordinal));
             var releaseGenres = PcreRegex.Matches(release.Genre, Helper.ReleaseGenrePattern).Select(m => m.Value);
             var dateFormat = release.Date.Length > 4 ? Helper.LongDateFormat : Helper.ShortDateFormat;
             var provider = CultureInfo.CreateSpecificCulture(Const.CultureInfoText);
@@ -288,10 +298,10 @@ namespace Rocket.Parser.Parsers
             SaveMusician(music, releaseArtist);
             SaveGenre(music, releaseGenres);
 
-            music.Title = releaseName;
+            music.Title = string.IsNullOrEmpty(releaseName) ? Helper.UnknownName: releaseName;
             music.ReleaseDate = releaseDate;
             music.Type = releaseType;
-            music.Artist = releaseArtist;
+            music.Artist = string.IsNullOrEmpty(releaseArtist) ? Helper.UnknownArtist : releaseArtist;
             music.PosterImagePath = release.CoverPath;
 
             return music;
@@ -401,7 +411,7 @@ namespace Rocket.Parser.Parsers
 
                     if (item != null)
                     {
-                        list.Add(item.GetAttribute(Resources.HrefAttribute));
+                        list.Add(item.GetAttribute(Const.HrefAttribute));
                     }
                 }
             }
@@ -420,7 +430,7 @@ namespace Rocket.Parser.Parsers
                 Name = document.QuerySelector(Resources.AlbumInfoReleaseNameSelector).TextContent,
                 Date = document.QuerySelector(Resources.AlbumInfoReleaseDateSelector).TextContent,
                 ImageUrl = document.QuerySelector(Resources.AlbumInfoReleaseImageUrlSelector)
-                    .GetAttribute(Resources.HrefAttribute),
+                    .GetAttribute(Const.HrefAttribute),
                 Genre = document.QuerySelector(Resources.AlbumInfoReleaseGenreSelector).TextContent,
                 TrackList = document.QuerySelector(Resources.AlbumInfoReleaseTrackListSelector).TextContent
             };

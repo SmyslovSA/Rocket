@@ -131,14 +131,5 @@ namespace Rocket.Parser.Properties {
                 return ResourceManager.GetString("AlbumInfoSettings", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to href.
-        /// </summary>
-        internal static string HrefAttribute {
-            get {
-                return ResourceManager.GetString("HrefAttribute", resourceCulture);
-            }
-        }
     }
 }

@@ -149,8 +149,4 @@
     <value>Album Info</value>
     <comment>Для получения настроек парсера album-info.ru</comment>
   </data>
-  <data name="HrefAttribute" xml:space="preserve">
-    <value>href</value>
-    <comment>Атрибут html href</comment>
-  </data>
 </root>
