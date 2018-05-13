@@ -2,6 +2,7 @@
 using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.Repositories.User;
 using System;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -33,17 +34,17 @@ namespace Rocket.DAL.Common.UoW
         /// <summary>
         /// Возвращает репозиторий для юзеров
         /// </summary>
-        Repositories.IDbUserRepository.IDbUserRepository UserRepository { get; }
+        IDbUserRepository UserRepository { get; }
 
         /// <summary>
         /// ВОзвращает репозиторий ролей
         /// </summary>
-        Repositories.IDbUserRoleRepository.IDbRoleRepository RoleRepository { get; }
+        IDbRoleRepository RoleRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий пермишенов
         /// </summary>
-        Repositories.IDbUserRoleRepository.IDbPermissionRepository PermissionRepository { get; }
+        IDbPermissionRepository PermissionRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для emails
@@ -57,7 +58,7 @@ namespace Rocket.DAL.Common.UoW
 
         /// Возвращает репозиторий для пользователей
         /// </summary>
-        IDbUserRepository UserRegRepository { get; }
+        IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных

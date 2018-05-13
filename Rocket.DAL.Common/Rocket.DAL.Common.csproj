@@ -71,18 +71,6 @@
     <Compile Include="DbModels\ReleaseList\DbTVSeries.cs" />
     <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
     <Compile Include="DbModels\DbUserRole\DbRole.cs" />
-    <Compile Include="DbModels\DbUser\DbAccount\DbAccount.cs" />
-    <Compile Include="DbModels\DbUser\DbAccount\DbAccountLevel.cs" />
-    <Compile Include="DbModels\DbUser\DbAccount\DbAccountStatus.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbAddress.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbCommunication.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\Dbсountry.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbHowToCall.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbIdentity.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbLanguage.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbLocalization.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbPerson.cs" />
-    <Compile Include="DbModels\DbUser\DbPerson\DbPersonality.cs" />
     <Compile Include="DbModels\ReleaseList\DbVideoGenre.cs" />
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,7 +99,7 @@
     <Compile Include="Repositories\User\IDbCountryRepository.cs" />
     <Compile Include="Repositories\User\IDbHowToCallRepository.cs" />
     <Compile Include="Repositories\User\IDbLanguageRepository.cs" />
-    <Compile Include="Repositories\User\IDbUserRepositary.cs" />
+    <Compile Include="Repositories\User\IDbUserRepository.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

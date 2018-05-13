@@ -53,7 +53,7 @@ namespace Rocket.BL.Tests.User
                     .Remove(this._fakeDbUsers.Users.Find(f => f.Id == id)));
 
             var mockDbUserUnitOfWork = new Mock<IUnitOfWork>();
-            mockDbUserUnitOfWork.Setup(mock => mock.UserRegRepository)
+            mockDbUserUnitOfWork.Setup(mock => mock.UserRepository)
                 .Returns(() => moq.Object);
 
             this._userManagementService = new UserManagementService(mockDbUserUnitOfWork.Object);
