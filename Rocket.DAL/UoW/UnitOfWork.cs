@@ -73,6 +73,12 @@ namespace Rocket.DAL.UoW
         public IDbPermissionRepository PermissionRepository { get; private set; }
 
         /// <summary>
+        /// репозиотрий для юзеров
+        /// </summary>
+        public IDbAuthorisedUserRepository UserAuthorisedRepository { get; private set; }
+
+
+        /// <summary>
         /// /// <summary>
         /// Создает новый экземпляр <see cref="UnitOfWork"/>
         /// c заданным контекстом данных
