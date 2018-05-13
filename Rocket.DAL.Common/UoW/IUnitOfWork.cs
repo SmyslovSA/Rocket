@@ -61,11 +61,6 @@ namespace Rocket.DAL.Common.UoW
         IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
 
         /// <summary>
-        /// больше репозитариев. каждому ведь нужен свой, одним никак
-        /// </summary>
-        IDbUserRepository UserRegRepository { get; }
-
-        /// <summary>
         /// Сохраняет изменения в хранилище данных
         /// </summary>
         void Save();

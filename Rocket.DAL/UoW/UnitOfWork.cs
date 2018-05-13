@@ -38,11 +38,6 @@ namespace Rocket.DAL.UoW
         public IDbMusicRepository MusicRepository { get; private set; }
 
         /// <summary>
-        /// Возвращает репозиторий для работы с пользователями Authorized
-        /// </summary>
-        public IDbAuthorisedUserRepository AuthorizedUserRepository { get; private set; }
-
-        /// <summary>
         /// Возвращает репозиторий для emails
         /// </summary>
         public IDbEmailRepository EmailRepository { get; private set; }
@@ -51,11 +46,6 @@ namespace Rocket.DAL.UoW
         /// Возвращает репозиторий для genre
         /// </summary>
         public IDbGenreRepository GenreRepository { get; private set; }
-
-        /// <summary>
-        /// Возвращает репозиторий для пользователя
-        /// </summary>
-        public IDbUserRepository UserRegRepository { get; private set; }
 
         /// <summary>
         /// Репозиторий для работы с пользователями
@@ -92,7 +82,8 @@ namespace Rocket.DAL.UoW
         /// <param name="dbEmailRepository">Экземпляр репозитория emails</param>
         /// <param name="dbGenreRepository">Экземпляр репозитория жанров</param>
         /// <param name="dbUserRepository">Экземпляр репозитория пользователей</param>
-        ///dbUserRegRepository затычка todo
+        /// <param name="dbRoleRepository">Экземпляр репозитория ролей</param>
+        /// <param name="dbPermissionRepository">Экземпляр репозитория разрешений</param>
         public UnitOfWork(DbContext dbContext,
             IDbReleaseRepository dbReleaseRepository,
             IDbFilmRepository dbFilmRepository,
@@ -103,18 +94,16 @@ namespace Rocket.DAL.UoW
             IDbGenreRepository dbGenreRepository,
             IDbUserRepository dbUserRepository,
             IDbRoleRepository dbRoleRepository,
-            IDbPermissionRepository dbPermissionRepository,
-            IDbUserRepository dbUserRegRepository)
+            IDbPermissionRepository dbPermissionRepository)
         {
             this._dbContext = dbContext;
             this.ReleaseRepository = dbReleaseRepository;
             this.FilmRepository = dbFilmRepository;
             this.TVSeriesRepository = dbTVSeriesRepository;
             this.MusicRepository = dbMusicRepository;
-            this.AuthorizedUserRepository = dbAuthorisedUserRepository;
+            this.UserAuthorisedRepository = dbAuthorisedUserRepository;
             this.EmailRepository = dbEmailRepository;
             this.GenreRepository = dbGenreRepository;
-            this.UserRegRepository = dbUserRegRepository;
             this.UserRepository = dbUserRepository;
             this.RoleRepository = dbRoleRepository;
             this.PermissionRepository = dbPermissionRepository;
