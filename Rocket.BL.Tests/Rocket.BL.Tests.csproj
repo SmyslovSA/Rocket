@@ -118,6 +118,8 @@
     <Compile Include="User\FakeData\FakeLanguages.cs" />
     <Compile Include="User\FakeData\FakeCountries.cs" />
     <Compile Include="User\FakeData\FakeDbUsers.cs" />
+    <Compile Include="User\FakeData\FakeDbUserDetails.cs" />
+    <Compile Include="User\FakeData\FakeUserDetails.cs" />
     <Compile Include="User\FakeData\FakeUsers.cs" />
     <Compile Include="User\FakeData\FakeAccountStatuses.cs" />
     <Compile Include="User\UserManagementServiceTest.cs" />

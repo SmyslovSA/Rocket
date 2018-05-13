@@ -72,6 +72,7 @@
     <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
     <Compile Include="DbModels\DbUserRole\DbRole.cs" />
     <Compile Include="DbModels\ReleaseList\DbVideoGenre.cs" />
+    <Compile Include="DbModels\User\DbUserDetails.cs" />
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ReleaseList\IDbCountryRepository.cs" />

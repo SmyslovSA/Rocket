@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Rocket.BL.Common.Models.UserRoles;
-using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.BL.Common.Models.User
 {
@@ -53,49 +51,8 @@ namespace Rocket.BL.Common.Models.User
         public ICollection<Role> Roles { get; set; }
 
         /// <summary>
-        /// Возвращает или задает необходимость подтверждения регистрации
-        /// путем активации Email
+        /// Детальная информация пользователя
         /// </summary>
-        public bool ActivationNeeded { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает гражданство пользователя
-        /// </summary>
-        public Country Sitizenship { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает язык пользователя
-        /// </summary>
-        public Language Language { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает дату рождения пользователя
-        /// </summary>
-        public DateTime? DateOfBirth { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает пол пользователя
-        /// </summary>
-        public Gender? Gender { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает сведения о том, как обращаться к пользователю
-        /// </summary>
-        public HowToCall HowToCall { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает коллекцию телефонных номеров пользователя
-        /// </summary>
-        public ICollection<string> Phones { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает коллекцию Email
-        /// </summary>
-        public ICollection<string> EMailAddresses { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает почтовый адрес пользователя
-        /// </summary>
-        public Address MailAddress { get; set; }
+        public UserDetails UserDetails { get; set; }
     }
 }

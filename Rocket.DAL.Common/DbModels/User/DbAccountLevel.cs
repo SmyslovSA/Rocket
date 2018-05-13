@@ -18,8 +18,8 @@ namespace Rocket.DAL.Common.DbModels.User
         public string Name { get; set; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию аккаунтов,
-        /// в которых указан данный уровень аккаунта пользователя
+        /// Возвращает или задает коллекцию прльзователей,
+        /// в которых указан данный уровень пользователя
         /// </summary>
         public ICollection<DbUser> DbUsers { get; set; }
     }

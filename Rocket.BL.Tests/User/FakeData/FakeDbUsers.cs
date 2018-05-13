@@ -40,18 +40,11 @@ namespace Rocket.BL.Tests.User.FakeData
                 .RuleFor(p => p.AccountStatus, f => f.PickRandomParam((new FakeDbAccountStatuses(5)).AccountStatuses.ToArray()))
                 .RuleFor(p => p.AccountLevel, f => f.PickRandomParam((new FakeDbAccountLevels(5)).AccountLevels.ToArray()))
                 .RuleFor(p => p.Roles, f => { return (new FakeDbRoles((new Random()).Next(1, 5))).Roles; })
-                .RuleFor(p => p.Language, f => f.PickRandomParam((new FakeDbLanguages(30)).Languages.ToArray()))
-                .RuleFor(p => p.Sitizenship, f => f.PickRandomParam((new FakeDbCountries(15)).Countries.ToArray()))
-                .RuleFor(p => p.HowToCall, f => f.PickRandomParam((new FakeDbHowToCalls(3)).HowToCalls.ToArray()))
-                .RuleFor(p => p.MailAddress, f => { return (new FakeDbAddresses(1)).Addresses[0]; })
-                .RuleFor(p => p.Phones, f => {  return (new FakePhones((new Random()).Next(1, 5))).Phones.ToList(); })
-                .RuleFor(p => p.EMailAddresses, f => { return (new FakeEmailAddresses((new Random()).Next(1, 5))).EmailAddresses.ToList(); })
                 .RuleFor(p => p.FirstName, f => { return isFirstNameNullOrEmpty ? string.Empty : f.Person.FirstName; })
                 .RuleFor(p => p.LastName, f => { return isLastNameNullOrEmpty ? string.Empty : f.Person.LastName; })
-                .RuleFor(p => p.Gender, f => f.PickRandomParam(new Gender[] { Gender.Male, Gender.Female }))
-                .RuleFor(p => p.DateOfBirth, f => f.Person.DateOfBirth)
                 .RuleFor(p => p.Login, f => { return isLoginNullOrEmpty ? string.Empty : f.Lorem.Letter(minLoginLenght); })
-                .RuleFor(p => p.Password, f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); });
+                .RuleFor(p => p.Password, f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); })
+                .RuleFor(p => p.UserDetails, f => { return (new FakeDbUserDetails(1)).UserDetails[0]; }); ;
 
             this.Users = result.Generate(usersCount);
         }

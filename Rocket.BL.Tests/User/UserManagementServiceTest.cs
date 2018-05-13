@@ -74,9 +74,9 @@ namespace Rocket.BL.Tests.User
             var actualUser = this._userManagementService.GetUser(id);
 
             // Assert
-            actualUser.Phones.Should().BeEquivalentTo(expectedUser.Phones,
+            actualUser.UserDetails.Phones.Should().BeEquivalentTo(expectedUser.UserDetails.Phones,
                 options => options.ExcludingMissingMembers());
-            actualUser.EMailAddresses.Should().BeEquivalentTo(expectedUser.EMailAddresses,
+            actualUser.UserDetails.EMailAddresses.Should().BeEquivalentTo(expectedUser.UserDetails.EMailAddresses,
                 options => options.ExcludingMissingMembers());
             actualUser.Login.Should().BeEquivalentTo(expectedUser.Login);
             actualUser.FirstName.Should().BeEquivalentTo(expectedUser.FirstName);
@@ -112,7 +112,7 @@ namespace Rocket.BL.Tests.User
             var actualUser = this._userManagementService.GetUser(actualId);
 
             // Assert
-            actualUser.EMailAddresses.Should().BeEquivalentTo(user.EMailAddresses,
+            actualUser.UserDetails.EMailAddresses.Should().BeEquivalentTo(user.UserDetails.EMailAddresses,
                 options => options.ExcludingMissingMembers());
             actualUser.Login.Should().BeEquivalentTo(user.Login);
             actualUser.FirstName.Should().BeEquivalentTo(user.FirstName);

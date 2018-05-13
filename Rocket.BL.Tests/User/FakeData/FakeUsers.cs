@@ -28,7 +28,7 @@ namespace Rocket.BL.Tests.User.FakeData
         /// </summary>
         /// <param name="userCount">Возвращает количество генерируемых пользователей</param>
         /// <param name="isFirstNameNullOrEmpty">Возвращает true, если имя пользователя не указано</param>
-        /// <param name="isLastNameNullOrEmpty">Возвращает true, если фамилия пользователя не указана</param>667.южж
+        /// <param name="isLastNameNullOrEmpty">Возвращает true, если фамилия пользователя не указана</param>
         /// <param name="isLoginNullOrEmpty">Возвращает true, если логин не указан</param>
         /// <param name="isPasswordNullOrEmpty">Возвращает true, если пароль не указан</param>
         /// <param name="minLoginLenght">Задает минимальное количество символов в логине</param>
@@ -40,18 +40,11 @@ namespace Rocket.BL.Tests.User.FakeData
                 .RuleFor(p => p.AccountStatus, f => f.PickRandomParam((new FakeAccountStatuses(5)).AccountStatuses.ToArray()))
                 .RuleFor(p => p.AccountLevel, f => f.PickRandomParam((new FakeAccountLevels(5)).AccountLevels.ToArray()))
                 .RuleFor(p => p.Roles, f => { return (new FakeRoles((new Random()).Next(1, 5))).Roles; })
-                .RuleFor(p => p.Language, f => f.PickRandomParam((new FakeLanguages(30)).Languages.ToArray()))
-                .RuleFor(p => p.Sitizenship, f => f.PickRandomParam((new FakeCountries(15)).Countries.ToArray()))
-                .RuleFor(p => p.HowToCall, f => f.PickRandomParam((new FakeHowToCalls(3)).HowToCalls.ToArray()))
-                .RuleFor(p => p.MailAddress, f => { return (new FakeAddresses(1)).Addresses[0]; })
-                .RuleFor(p => p.Phones, f => {  return (new FakePhones((new Random()).Next(1, 5))).Phones.ToList(); })
-                .RuleFor(p => p.EMailAddresses, f => { return (new FakeEmailAddresses((new Random()).Next(1, 5))).EmailAddresses.ToList(); })
                 .RuleFor(p => p.FirstName, f => { return isFirstNameNullOrEmpty ? string.Empty : f.Person.FirstName; })
                 .RuleFor(p => p.LastName, f => { return isLastNameNullOrEmpty ? string.Empty : f.Person.LastName; })
-                .RuleFor(p => p.Gender, f => f.PickRandomParam(new Gender[] { Gender.Male, Gender.Female }))
-                .RuleFor(p => p.DateOfBirth, f => f.Person.DateOfBirth)
                 .RuleFor(p => p.Login, f => { return isLoginNullOrEmpty ? string.Empty : f.Lorem.Letter(minLoginLenght); })
-                .RuleFor(p => p.Password, f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); });
+                .RuleFor(p => p.Password, f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); })
+                .RuleFor(p => p.UserDetails, f => { return (new FakeUserDetails(1)).UserDetails[0]; });
 
             this.Users = result.Generate(usersCount);
         }
