@@ -11,6 +11,11 @@ namespace Rocket.DAL.Common.UoW
     public interface IUnitOfWork : IDisposable
     {
         /// <summary>
+        /// Возвращает репозиторий для релизов
+        /// </summary>
+        IDbReleaseRepository ReleaseRepository { get; }
+
+        /// <summary>
         /// Возвращает репозиторий для фильмов
         /// </summary>
         IDbFilmRepository FilmRepository { get; }

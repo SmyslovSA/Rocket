@@ -19,6 +19,11 @@ namespace Rocket.DAL.UoW
         private bool disposedValue = false;
 
         /// <summary>
+        /// Возвращает репозиторий для релизов
+        /// </summary>
+        public IDbReleaseRepository ReleaseRepository { get; private set; }
+
+        /// <summary>
         /// Возвращает репозиторий для фильмов
         /// </summary>
         public IDbFilmRepository FilmRepository { get; private set; }
@@ -74,6 +79,7 @@ namespace Rocket.DAL.UoW
         /// c заданным контекстом данных
         /// </summary>
         /// <param name="dbContext">Экземпляр контекста данных</param>
+        /// <param name="dbReleaseRepository">Экземпляр репозитория релизов</param>
         /// <param name="dbFilmRepository">Экземпляр репозитория фильмов</param>
         /// <param name="dbTVSeriesRepository">Экземпляр репозитория сериалов</param>
         /// <param name="dbMusicRepository">Экземпляр репозитория музыки</param>
@@ -82,6 +88,7 @@ namespace Rocket.DAL.UoW
         /// <param name="dbGenreRepository">Экземпляр репозитория жанров</param>
         /// <param name="dbUserRepository">Экземпляр репозитория пользователей</param>
         public UnitOfWork(DbContext dbContext,
+            IDbReleaseRepository dbReleaseRepository,
             IDbFilmRepository dbFilmRepository,
             IDbTVSeriesRepository dbTVSeriesRepository,
             IDbMusicRepository dbMusicRepository,
@@ -93,6 +100,7 @@ namespace Rocket.DAL.UoW
             IDbPermissionRepository dbPermissionRepository)
         {
             this._dbContext = dbContext;
+            this.ReleaseRepository = dbReleaseRepository;
             this.FilmRepository = dbFilmRepository;
             this.TVSeriesRepository = dbTVSeriesRepository;
             this.MusicRepository = dbMusicRepository;

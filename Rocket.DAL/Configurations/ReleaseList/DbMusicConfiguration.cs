@@ -10,19 +10,7 @@ namespace Rocket.DAL.Configurations.ReleaseList
 	{
 		public DbMusicConfiguration()
 		{
-			ToTable("Music")
-				.HasKey(f => f.Id)
-				.Property(f => f.Id)
-				.HasColumnName("Id");
-
-			Property(f => f.ReleaseDate)
-				.IsRequired()
-				.HasColumnName("ReleaseDate");
-
-			Property(f => f.Title)
-				.IsRequired()
-				.HasColumnName("Title")
-				.HasMaxLength(50);
+			ToTable("Music");
 
 			Property(f => f.PosterImagePath)
 				.IsOptional()

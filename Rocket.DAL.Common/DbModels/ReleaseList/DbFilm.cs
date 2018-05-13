@@ -7,23 +7,8 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
     /// <summary>
     /// Представляет модель хранения данных о фильмах
     /// </summary>
-    public class DbFilm
+    public class DbFilm : DbBaseRelease
     {
-        /// <summary>
-        /// Возвращает или задает уникальный идентификатор фильма
-        /// </summary>
-        public int Id { get; set; }
-        
-        /// <summary>
-        /// Возвращает или задает дату выхода фильма
-        /// </summary>
-        public DateTime ReleaseDate { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает название фильма
-        /// </summary>
-        public string Title { get; set; }
-
         /// <summary>
         /// Возвращает или задает относительный путь
         /// от корневой папки приложения к файлу изображения постера фильма
