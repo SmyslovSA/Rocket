@@ -58,6 +58,11 @@ namespace Rocket.DAL.Common.UoW
 
         /// Возвращает репозиторий для пользователей
         /// </summary>
+        IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+
+        /// <summary>
+        /// больше репозитариев. каждому ведь нужен свой, одним никак
+        /// </summary>
         IDbUserRepository UserRegRepository { get; }
 
         /// <summary>

@@ -99,7 +99,7 @@
     <Compile Include="Repositories\User\IDbCountryRepository.cs" />
     <Compile Include="Repositories\User\IDbHowToCallRepository.cs" />
     <Compile Include="Repositories\User\IDbLanguageRepository.cs" />
-    <Compile Include="Repositories\User\IDbUserRepositary.cs" />
+    <Compile Include="Repositories\User\IDbUserRepository.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

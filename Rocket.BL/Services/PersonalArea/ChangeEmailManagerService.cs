@@ -39,7 +39,7 @@ namespace Rocket.BL.Services.PersonalArea
                     {
                         Name = email
                     });                   
-                    _unitOfWork.UserRepository.Update(user);
+                    _unitOfWork.UserAuthorisedRepository.Update(user);
                     _unitOfWork.Save();
                     return true;
                 }

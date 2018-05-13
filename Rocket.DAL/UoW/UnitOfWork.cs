@@ -86,6 +86,7 @@ namespace Rocket.DAL.UoW
         /// <param name="dbEmailRepository">Экземпляр репозитория emails</param>
         /// <param name="dbGenreRepository">Экземпляр репозитория жанров</param>
         /// <param name="dbUserRepository">Экземпляр репозитория пользователей</param>
+        ///dbUserRegRepository затычка todo
         public UnitOfWork(DbContext dbContext,
             IDbReleaseRepository dbReleaseRepository,
             IDbFilmRepository dbFilmRepository,
@@ -96,7 +97,8 @@ namespace Rocket.DAL.UoW
             IDbGenreRepository dbGenreRepository,
             IDbUserRepository dbUserRepository,
             IDbRoleRepository dbRoleRepository,
-            IDbPermissionRepository dbPermissionRepository)
+            IDbPermissionRepository dbPermissionRepository,
+            IDbUserRepository dbUserRegRepository)
         {
             this._dbContext = dbContext;
             this.ReleaseRepository = dbReleaseRepository;
@@ -106,7 +108,7 @@ namespace Rocket.DAL.UoW
             this.AuthorizedUserRepository = dbAuthorisedUserRepository;
             this.EmailRepository = dbEmailRepository;
             this.GenreRepository = dbGenreRepository;
-            this.UserRegRepository = dbUserRepository;
+            this.UserRegRepository = dbUserRegRepository;
             this.UserRepository = dbUserRepository;
             this.RoleRepository = dbRoleRepository;
             this.PermissionRepository = dbPermissionRepository;
