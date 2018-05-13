@@ -10,23 +10,11 @@ namespace Rocket.DAL.Configurations.ReleaseList
     {
         public DbEpisodeConfiguration()
         {
-            ToTable("Episodes")
-                .HasKey(e => e.Id)
-                .Property(e => e.Id)
-                .HasColumnName("Id");
-
-            Property(e => e.ReleaseDate)
-                .IsRequired()
-                .HasColumnName("ReleaseDate");
+            ToTable("Episodes");
 
             Property(e => e.Number)
                 .IsRequired()
                 .HasColumnName("Number");
-
-            Property(e => e.Title)
-                .IsOptional()
-                .HasColumnName("Title")
-                .HasMaxLength(50);
 
             Property(e => e.Duration)
                 .IsOptional()

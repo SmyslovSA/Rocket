@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\PersonalArea\DbCategoryConfiguration.cs" />
+    <Compile Include="Configurations\ReleaseList\DbBaseReleaseConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbCountryConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbEmailConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbEpisodeConfiguration.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbFilmRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbMusicRepository.cs" />
+    <Compile Include="Repositories\ReleaseList\DbReleaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbTVSeriesRepository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
   </ItemGroup>

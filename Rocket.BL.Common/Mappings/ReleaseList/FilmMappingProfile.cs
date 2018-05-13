@@ -12,9 +12,7 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
         public FilmMappingProfile()
         {
             CreateMap<Film, DbFilm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate))
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                .IncludeBase<BaseRelease, DbBaseRelease>()
                 .ForMember(dest => dest.PosterImagePath, opt => opt.MapFrom(src => src.PosterImagePath))
                 .ForMember(dest => dest.Directors, opt => opt.MapFrom(src => src.Directors))
                 .ForMember(dest => dest.Cast, opt => opt.MapFrom(src => src.Cast))

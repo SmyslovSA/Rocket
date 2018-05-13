@@ -41,27 +41,30 @@ namespace Rocket.DAL.Repositories
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = this._dbSet;
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
-            }
+            return GetFilteredQuery(filter, orderBy, includeProperties).ToList();
+        }
+        
+        /// <summary>
+        /// Возвращает страницу заданного размера с заданным номером
+        /// в виде перечисления экземпляров <see cref="TEntity"/> из хранилища данных.
+        /// Применяет фильтр, сортировку и загрузку связанных свойств,
+        /// если заданы соответствующие значения параметров
+        /// </summary>
+        /// <param name="pageSize">Размер страницы</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
+        /// <param name="orderBy">Лямбда-выражение определяющее сортировку экземпляров <see cref="TEntity"/></param>
+        /// <param name="includeProperties">Список связанных свойств экземпляров <see cref="TEntity"/>, разделенный запятыми</param>
+        /// <returns>Перечисление экземпляров <see cref="TEntity"/></returns>
+        public IEnumerable<TEntity> GetPage(
+            int pageSize,
+            int pageNumber,
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
+        {
+            var query = GetFilteredQuery(filter, orderBy, includeProperties);
+            return query.Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToList();
         }
 
         /// <summary>
@@ -116,6 +119,50 @@ namespace Rocket.DAL.Repositories
                 this._dbSet.Attach(entity);
             }
             this._dbSet.Remove(entity);
+        }
+
+        /// <summary>
+        /// Возвращает количество элементов в репозитории,
+        /// соответствующих заданному фильтру
+        /// </summary>
+        /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
+        /// <returns>Количество элементов</returns>
+        public int ItemsCount(Expression<Func<TEntity, bool>> filter = null)
+        {
+            if (filter != null)
+            {
+                return this._dbSet.Count(filter);
+            }
+
+            return this._dbSet.Count();
+        }
+
+        private IQueryable<TEntity> GetFilteredQuery(
+            Expression<Func<TEntity, bool>> filter,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+            string includeProperties)
+        {
+            IQueryable<TEntity> query = this._dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query);
+            }
+            else
+            {
+                return query;
+            }
         }
     }
 }
