@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -10,6 +11,7 @@ using Rocket.Parser.Models;
 
 namespace Rocket.Parser.Services
 {
+    /// <inheritdoc />
     /// <summary>
     /// Сервис для загрузки html
     /// </summary>
@@ -29,6 +31,7 @@ namespace Rocket.Parser.Services
             _domParser = domParser;
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Получает Html в виде строки по ссылке.
         /// </summary>
@@ -38,16 +41,39 @@ namespace Rocket.Parser.Services
         {
             var response = await _httpClient.GetAsync(url).ConfigureAwait(false);
 
+            response.EnsureSuccessStatusCode();
+
             var source = string.Empty;
 
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                source = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
+            source = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             return source;
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Получает файл по ссылке и сохраняет по указанному пути
+        /// </summary>
+        /// <param name="url">Ссылка на файл</param>
+        /// <param name="path">Путь для сохранения</param>
+        /// <returns></returns>
+        public async Task DownloadFile(string url, string path)
+        {
+            var response = await _httpClient.GetAsync(url).ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCode();
+
+            {
+                using (
+                    Stream contentStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false),
+                        stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    await contentStream.CopyToAsync(stream);
+                }
+            }
+        }
+
+        /// <inheritdoc />
         /// <summary>
         /// Получает Html по ссылке.
         /// </summary>
@@ -62,6 +88,7 @@ namespace Rocket.Parser.Services
             return htmldocument;
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Получает список моделей html по списку ссылок.
         /// </summary>

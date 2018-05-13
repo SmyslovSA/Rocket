@@ -5,36 +5,42 @@ namespace Rocket.Parser.Heplers
 {
     internal static class AlbumInfoHelper
     {
+        //regEx
+        public const string ReleaseNamePattern = @"(?<=\- )(?: ?+[^\(])++";
+        public const string ReleaseTypePattern = @"(?<=\()\w++";
+        public const string ReleaseGenrePattern = @"\w[^,]*+";
+        public const string ReleaseTrackListPattern = @"([^\. ]\w?+[^\.][^\d]*+)++";
 
-        private static readonly NameValueCollection RunSettings;
-        private static readonly NameValueCollection Urls;
+        //formats
+        public const string LongDateFormat = "d MMMM yyyy г.";
+        public const string ShortDateFormat = "yyyy";
 
-        private const string ParseIsSwitchOnKey = "ParseIsSwitchOn";
-        private const string ParsePeriodInMinutesKey = "ParsePeriodInMinutes";
-        private const string ParseBaseUrlKey = "ParseBaseUrl";
+        //path
+        public const string CoversPath = @"c:\tmp\MusicCovers\";
+
+        //exception
+        public const string EmptyReleaseException = "Отсутствуют данные в коллекции релизов.";
+        public const string ParsReleaseException = "Релиз {0} не распаршен.";
+
+        //unknown release
+        public const string UnknownArtist = "unknownArtist";
+        public const string UnknownName = "unknownName";
+
+        private static readonly NameValueCollection ResourceSettings;
+
+        //настройки ресурса
+        private const string AlbumInfoResourceKey = "AlbumInfoResource";
 
         static AlbumInfoHelper()
         {
-            RunSettings = (NameValueCollection)ConfigurationManager.GetSection(
-                ProjectNameConstants.AlbumInfoSectionGroupName + "/" + ProjectNameConstants.RunSettingsSectionName);
-
-            Urls = (NameValueCollection)ConfigurationManager.GetSection(
-                ProjectNameConstants.AlbumInfoSectionGroupName + "/" + ProjectNameConstants.UrlsSectionName);
+            ResourceSettings = (NameValueCollection)ConfigurationManager.GetSection(
+                ProjectNameConstants.AlbumInfoSectionGroupName + "/" + 
+                ProjectNameConstants.ResourceSettingsSectionName);
         }
 
-        public static string GetParseIsSwitchOn()
+        public static string GetAlbumInfoResource()
         {
-            return RunSettings.Get(ParseIsSwitchOnKey);
-        }
-
-        public static string GetParsePeriodInMinutes()
-        {
-            return RunSettings.Get(ParsePeriodInMinutesKey);
-        }
-
-        public static string GetBaseUrl()
-        {
-            return Urls.Get(ParseBaseUrlKey);
+            return ResourceSettings.Get(AlbumInfoResourceKey);
         }
     }
 }

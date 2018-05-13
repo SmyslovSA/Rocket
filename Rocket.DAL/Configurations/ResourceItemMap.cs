@@ -12,31 +12,31 @@ namespace Rocket.DAL.Configurations
     {
         public ResourceItemMap()
         {
-            ToTable("Resource Item")
+            ToTable("ResourceItem")
                 .HasKey(p => p.Id);
 
             Property(p => p.ResourceId)
                 .IsRequired()
-                .HasColumnName("Resource Id");
+                .HasColumnName("ResourceId");
 
             Property(p => p.ResourceInternalId)
                 .IsRequired()
-                .HasColumnName("Resource Internal Id")
+                .HasColumnName("ResourceInternalId")
                 .HasMaxLength(50);
 
             Property(p => p.CreatedDateTime)
                 .IsRequired()
-                .HasColumnName("Created Date Time")
+                .HasColumnName("CreatedDateTime")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
             Property(p => p.LastModified)
                 .IsRequired()
-                .HasColumnName("Last Modified")
+                .HasColumnName("LastModified")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
             Property(p => p.MusicId)
                 .IsRequired()
-                .HasColumnName("Music Id");
+                .HasColumnName("MusicId");
 
             this.HasRequired<ResourceEntity>(p => p.Resource).WithMany(r => r.ResourceItems)
                 .HasForeignKey<int>(p => p.ResourceId);

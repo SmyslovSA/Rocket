@@ -12,10 +12,6 @@ namespace Rocket.DAL.Configurations
 				.Property(v => v.Id)
 				.HasColumnName("Id");
 
-			Property(c => c.Number)
-				.IsOptional()
-				.HasColumnName("Number");
-
 			Property(c => c.Duration)
 				.IsOptional()
 				.HasColumnName("Duration");
@@ -23,7 +19,7 @@ namespace Rocket.DAL.Configurations
 			Property(c => c.Title)
 				.IsRequired()
 				.HasColumnName("Title")
-				.HasMaxLength(50);
+				.HasMaxLength(200);
 
 			Property(p => p.DbMusicId)
 				.HasColumnName("MusicId");

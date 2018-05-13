@@ -135,6 +135,18 @@
     <Compile Include="Migrations\201805061330383_UpdMusic_2.Designer.cs">
       <DependentUpon>201805061330383_UpdMusic_2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805082131147_UpdByParser.cs" />
+    <Compile Include="Migrations\201805082131147_UpdByParser.Designer.cs">
+      <DependentUpon>201805082131147_UpdByParser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805131220154_UpdByParser1.cs" />
+    <Compile Include="Migrations\201805131220154_UpdByParser1.Designer.cs">
+      <DependentUpon>201805131220154_UpdByParser1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805131249219_UpdByParser2.cs" />
+    <Compile Include="Migrations\201805131249219_UpdByParser2.Designer.cs">
+      <DependentUpon>201805131249219_UpdByParser2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201805131749148_AddCategoryEntity.cs" />
     <Compile Include="Migrations\201805131749148_AddCategoryEntity.Designer.cs">
       <DependentUpon>201805131749148_AddCategoryEntity.cs</DependentUpon>
@@ -184,6 +196,18 @@
     <EmbeddedResource Include="Migrations\201805061330383_UpdMusic_2.resx">
       <DependentUpon>201805061330383_UpdMusic_2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805082131147_UpdByParser.resx">
+      <DependentUpon>201805082131147_UpdByParser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131220154_UpdByParser1.resx">
+      <DependentUpon>201805131220154_UpdByParser1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131249219_UpdByParser2.resx">
+      <DependentUpon>201805131249219_UpdByParser2.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
     <EmbeddedResource Include="Migrations\201805131749148_AddCategoryEntity.resx">
       <DependentUpon>201805131749148_AddCategoryEntity.cs</DependentUpon>
     </EmbeddedResource>

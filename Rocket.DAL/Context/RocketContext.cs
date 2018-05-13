@@ -42,7 +42,7 @@ namespace Rocket.DAL.Context
         /// DbSet музыкального трека
         /// </summary>
         public DbSet<DbMusicTrack> DbMusicTracks { get; set; }
-
+        /*
         /// <summary>
         /// DbSet исполнителя музыкального релиза
         /// </summary>

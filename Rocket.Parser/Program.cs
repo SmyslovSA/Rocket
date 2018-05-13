@@ -1,12 +1,16 @@
 ﻿using System;
 using Ninject;
 using Quartz;
+using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.Repositories;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Jobs;
+using Rocket.Parser.Properties;
 using Rocket.Parser.Services;
 using Topshelf;
 using Topshelf.Quartz;
 using Topshelf.ServiceConfigurators;
+using System.Linq;
 
 namespace Rocket.Parser
 {
@@ -16,7 +20,7 @@ namespace Rocket.Parser
         {
             try
             {
-                //Подключаем Ioc
+                //Подключаем IoC
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 var kernel = BootstrapHelper.LoadNinjectKernel(assemblies);
 
@@ -30,7 +34,7 @@ namespace Rocket.Parser
                         serviceConfigurator.WhenStopped((service, control) => service.Stop(control));
 
                         //Запуск парсера для Lostfilm
-                        //LostfilmParseProcess(serviceConfigurator, kernel);
+                        LostfilmParseProcess(serviceConfigurator, kernel);
 
                         //Запуск парсера для AlbumInfo  
                         AlbumInfoParseProcess(serviceConfigurator, kernel);
@@ -82,27 +86,29 @@ namespace Rocket.Parser
         /// <param name="kernel">DI контейнер</param>
         public static void AlbumInfoParseProcess(ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
-            //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
-            bool.TryParse(AlbumInfoHelper.GetParseIsSwitchOn(), out bool albumInfoParseIsSwitchOn);
-            int.TryParse(AlbumInfoHelper.GetParsePeriodInMinutes(), out int albumInfoParsingPeriodInMinutes);
+            var resourceRepository = kernel.Get<IRepository<ResourceEntity>>();
+            var resource = resourceRepository
+                .Queryable().First(r => r.Name.Equals(Resources.AlbumInfoSettings));
 
-            if (albumInfoParseIsSwitchOn)
-            {
-                ITrigger AlbumInfoParseTrigger() => TriggerBuilder.Create()
-                    .WithSimpleSchedule(builder => builder.WithIntervalInMinutes(albumInfoParsingPeriodInMinutes)
-                        .WithMisfireHandlingInstructionIgnoreMisfires()
-                        .RepeatForever())
-                    .Build();
+            var albumInfoParseIsSwitchOn = resource.ParseIsSwitchOn;
+            var albumInfoParsingPeriodInMinutes = resource.ParsePeriodInMinutes;
 
-                // Запускает парсер album-info.ru
-                IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<AlbumInfoParseJob>().Build();
-                albumInfoParseTriggerJob.JobDataMap.Put(CommonHelper.ContainerKey, kernel);
+            if (!albumInfoParseIsSwitchOn) return;
 
-                serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
-                    jobConfigurator
-                        .WithJob(() => albumInfoParseTriggerJob)
-                        .AddTrigger(AlbumInfoParseTrigger));
-            }
+            ITrigger AlbumInfoParseTrigger() => TriggerBuilder.Create()
+                .WithSimpleSchedule(builder => builder.WithIntervalInMinutes(albumInfoParsingPeriodInMinutes)
+                    .WithMisfireHandlingInstructionIgnoreMisfires()
+                    .RepeatForever())
+                .Build();
+            
+            IJobDetail albumInfoParseTriggerJob = JobBuilder.Create<AlbumInfoParseJob>().Build();
+            albumInfoParseTriggerJob.JobDataMap.Put(CommonHelper.ContainerKey, kernel);
+
+            // Запускает парсер album-info.ru
+            serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
+                jobConfigurator
+                    .WithJob(() => albumInfoParseTriggerJob)
+                    .AddTrigger(AlbumInfoParseTrigger));
         }
     }
 }

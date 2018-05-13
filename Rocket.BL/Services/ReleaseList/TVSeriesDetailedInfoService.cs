@@ -46,7 +46,7 @@ namespace Rocket.BL.Services.ReleaseList
         {
             var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
             this._unitOfWork.TVSeriesRepository.Insert(dbTVSeries);
-            this._unitOfWork.Save();
+            this._unitOfWork.SaveChanges();
             return dbTVSeries.Id;
         }
 
@@ -58,7 +58,7 @@ namespace Rocket.BL.Services.ReleaseList
         {
             var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
             this._unitOfWork.TVSeriesRepository.Update(dbTVSeries);
-            this._unitOfWork.Save();
+            this._unitOfWork.SaveChanges();
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Rocket.BL.Services.ReleaseList
         public void DeleteTVSeries(int id)
         {
             this._unitOfWork.TVSeriesRepository.Delete(id);
-            this._unitOfWork.Save();
+            this._unitOfWork.SaveChanges();
         }
 
         /// <summary>

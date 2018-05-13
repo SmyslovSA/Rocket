@@ -10,12 +10,12 @@ namespace Rocket.DAL.Configurations
     {
         public ParserSettingsMap()
         {
-            ToTable("Parser Settings")
+            ToTable("ParserSettings")
                 .HasKey(p => p.Id);
 
             Property(p => p.BaseUrl)
                 .IsRequired()
-                .HasColumnName("Base Url")
+                .HasColumnName("BaseUrl")
                 .HasMaxLength(250);
 
             Property(p => p.Prefix)
@@ -25,11 +25,11 @@ namespace Rocket.DAL.Configurations
 
             Property(p => p.StartPoint)
                 .IsOptional()
-                .HasColumnName("Start Point");
+                .HasColumnName("StartPoint");
 
             Property(p => p.EndPoint)
                 .IsOptional()
-                .HasColumnName("End Point");
+                .HasColumnName("EndPoint");
 
             this.HasRequired<ResourceEntity>(p => p.Resource).WithMany(r => r.ParserSettings)
                 .HasForeignKey<int>(p => p.ResourceId);

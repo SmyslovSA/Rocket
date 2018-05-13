@@ -1,8 +1,10 @@
-﻿using Rocket.DAL.Common.Repositories.Temp;
+﻿using Rocket.DAL.Common.Repositories;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Rocket.DAL.Context;
+using System;
+using System.Linq.Expressions;
 
 namespace Rocket.DAL.Repositories
 {
@@ -62,6 +64,16 @@ namespace Rocket.DAL.Repositories
         public IQueryable<TEntity> Queryable()
         {
             return _dbSet;
+        }
+
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity GetById<TKey>(TKey id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,7 +7,6 @@ namespace Rocket.DAL.Common.Repositories
 {
     /// <summary>
     /// Представляет обобщенный репозиторий
-    /// Код взят из статьи https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
     /// </summary>
     /// <typeparam name="TEntity">Тип, экземплярами которого управляет репозиторий</typeparam>
     public interface IRepository<TEntity> where TEntity : class
@@ -58,6 +57,35 @@ namespace Rocket.DAL.Common.Repositories
         /// </summary>
         /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
         void Delete(TEntity entity);
+
+        /// <summary>
+        /// Поиск по первичному ключу
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="keyValues"></param>
+        /// <returns></returns>
+        TEntity Find<TKey>(params TKey[] keyValues);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        IQueryable<TEntity> SelectQuery<TKey>(string query, params TKey[] parameters);
+
+        /// <summary>
+        /// Вставка коллекции
+        /// </summary>
+        /// <param name="entities">Коллекция записей для вставки</param>
+        void InsertRange(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Возвращает Queryable сущности
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntity> Queryable();
     }
 
 }

@@ -117,36 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlbumInfoInternalPrefixId" xml:space="preserve">
-    <value>albumview.aspx?ID=</value>
-    <comment>префикс адреса страницы релиза сайта album-info.ru</comment>
+  <data name="Target" xml:space="preserve">
+    <value>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</value>
   </data>
-  <data name="AlbumInfoReleaseDateSelector" xml:space="preserve">
-    <value>#aspnetForm &gt; table &gt; tbody &gt; tr:nth-child(1) &gt; th &gt; div</value>
-    <comment>CSS селектор для даты релиза на сайте album-info.ru</comment>
-  </data>
-  <data name="AlbumInfoReleaseGenreSelector" xml:space="preserve">
-    <value>#conGenres</value>
-    <comment>CSS селектор для жанров релиза на сайте album-info.ru</comment>
-  </data>
-  <data name="AlbumInfoReleaseImageUrlSelector" xml:space="preserve">
-    <value>#aspnetForm &gt; table &gt; tbody &gt; tr:nth-child(1) &gt; th &gt; a</value>
-    <comment>CSS селектор для url изображения релиза на сайте album-info.ru</comment>
-  </data>
-  <data name="AlbumInfoReleaseLinkSelector" xml:space="preserve">
-    <value>#ctl00_CPH_conAlbums_conAlbums &gt; tbody &gt; tr:nth-child({0}) &gt; td:nth-child({1}) &gt; a</value>
-    <comment>CSS селектор для ссылки на релиз на сайте album-info.ru</comment>
-  </data>
-  <data name="AlbumInfoReleaseNameSelector" xml:space="preserve">
-    <value>#dvContent &gt; h1</value>
-    <comment>CSS селектор для названия релиза на сайте album-info.ru</comment>
-  </data>
-  <data name="AlbumInfoReleaseTrackListSelector" xml:space="preserve">
-    <value>#conTracks</value>
-    <comment>CSS селектор для списка треков релиза на сайте album-info.ru</comment>
-  </data>
-  <data name="AlbumInfoSettings" xml:space="preserve">
-    <value>Album Info</value>
-    <comment>Для получения настроек парсера album-info.ru</comment>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>dbo</value>
   </data>
 </root>

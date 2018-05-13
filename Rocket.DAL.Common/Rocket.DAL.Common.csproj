@@ -115,7 +115,6 @@
     <Compile Include="Repositories\IDbUserRepository\IDbAccountRepository\IDbAccountStatusRepository.cs" />
     <Compile Include="Repositories\IDbVideoGenreRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\Temp\IRepository.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
