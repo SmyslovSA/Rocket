@@ -4,7 +4,6 @@ using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Data.Entity;
-using Rocket.DAL.Common.Repositories.IDbUserRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 
 namespace Rocket.DAL.UoW
