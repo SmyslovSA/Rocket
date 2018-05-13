@@ -23,6 +23,16 @@ namespace Rocket.DAL.Common.DbModels.Parser
         public string ResourceLink { get; set; }
 
         /// <summary>
+        /// Вкл/откл джобы
+        /// </summary>
+        public bool ParseIsSwitchOn { get; set; }
+
+        /// <summary>
+        /// Интервал запуска джобы в минутах
+        /// </summary>
+        public int ParsePeriodInMinutes { get; set; }
+
+        /// <summary>
         /// Коллекция настроек
         /// </summary>
         public ICollection<ParserSettingsEntity> ParserSettings { get; set; }
