@@ -51,11 +51,11 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// <summary>
         /// Id сезона к которому относится эта серия.
         /// </summary>
-        public int DbSeasonId { get; set; }
+        public int SeasonId { get; set; }
 
         /// <summary>
         /// Сезон к которому относится эта серия.
         /// </summary>
-        public DbSeason DbSeason { get; set; }
+        public SeasonEntity Season { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// <summary>
         /// Id cериала к которому относится этот сезон.
         /// </summary>
-        public int DbTvSeriesId { get; set; }
+        public int TvSeriesId { get; set; }
 
     }
 }

@@ -72,11 +72,13 @@
     <Compile Include="DbModels\DbUser\DbPerson\DbPerson.cs" />
     <Compile Include="DbModels\DbUser\DbPerson\DbPersonality.cs" />
     <Compile Include="DbModels\DbVideoGenre.cs" />
+    <Compile Include="DbModels\Parser\CategoryEntity.cs" />
+    <Compile Include="DbModels\Parser\PersonTypeEntity.cs" />
     <Compile Include="DbModels\Parser\ResourceEntity.cs" />
     <Compile Include="DbModels\Parser\ParserSettingsEntity.cs" />
     <Compile Include="DbModels\Parser\ResourceItemEntity.cs" />
     <Compile Include="DbModels\Parser\EpisodeEntity.cs" />
-    <Compile Include="DbModels\Parser\TvSeriasGenreEntity.cs" />
+    <Compile Include="DbModels\Parser\GenreEntity.cs" />
     <Compile Include="DbModels\Parser\PersonEntity.cs" />
     <Compile Include="DbModels\Parser\SeasonEntity.cs" />
     <Compile Include="DbModels\Parser\TvSeriasEntity.cs" />

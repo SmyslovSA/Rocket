@@ -2,6 +2,7 @@
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Configurations;
+using Rocket.DAL.Configurations.Parser;
 
 namespace Rocket.DAL.Context
 {
@@ -48,29 +49,21 @@ namespace Rocket.DAL.Context
         public DbSet<DbMusician> ВDbMusicians { get; set; }
 
         /// <summary>
-        /// Набор сущностей сериала.
+        /// Набор сущностей категорий.
         /// </summary>
+        public DbSet<CategoryEntity> CategoryEntities { get; set; }
+
         public DbSet<TvSeriasEntity> TvSeriasEntities { get; set; }
 
-        /// <summary>
-        /// Набор сущностей серии сериала.
-        /// </summary>
+        public DbSet<PersonTypeEntity> PersonTypeEntities { get; set; }
+
+        public DbSet<GenreEntity> GenreEntities { get; set; }
+
+        public DbSet<PersonEntity> PersonEntities { get; set; }
+
         public DbSet<EpisodeEntity> EpisodeEntities { get; set; }
 
-        /// <summary>
-        /// Набор сущностей жанров сериала.
-        /// </summary>
-        public DbSet<TvSeriasGenreEntity> TvSeriasGenreEntities { get; set; }
-
-        /// <summary>
-        /// Набор сущностей сезонов сериала.
-        /// </summary>
         public DbSet<SeasonEntity> SeasonEntities { get; set; }
-
-        /// <summary>
-        /// Набор сущностей персон.
-        /// </summary>
-        public DbSet<PersonEntity> PersonEntities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -81,6 +74,14 @@ namespace Rocket.DAL.Context
             modelBuilder.Configurations.Add(new DbMusicGenreConfiguration());
             modelBuilder.Configurations.Add(new DbMusicTrackConfiguration());
             modelBuilder.Configurations.Add(new DbMusicianConfiguration());
+
+            modelBuilder.Configurations.Add(new CategoryEntityMap());
+            modelBuilder.Configurations.Add(new TvSeriasEntityMap());
+            modelBuilder.Configurations.Add(new PersonTypeEntityMap());
+            modelBuilder.Configurations.Add(new GenreEntityMap());
+            modelBuilder.Configurations.Add(new PersonEntityMap());
+            modelBuilder.Configurations.Add(new EpisodeEntityMap());
+            modelBuilder.Configurations.Add(new SeasonEntityMap());
         }
     }
 }
