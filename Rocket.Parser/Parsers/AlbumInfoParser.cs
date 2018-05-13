@@ -14,6 +14,8 @@ using System.IO;
 using PCRE;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.Repositories.Temp;
+using Helper = Rocket.Parser.Heplers.AlbumInfoHelper;
+using Const = Rocket.Parser.Heplers.CommonHelper;
 using Rocket.Parser.Properties;
 
 namespace Rocket.Parser.Parsers
@@ -192,7 +194,7 @@ namespace Rocket.Parser.Parsers
                     var musicId = SaveRelease(music);
                     resourceItem.MusicId = musicId;
 
-                    UpdateMusicTrack(release.TrackList, musicId);
+                    SaveMusicTrack(release.TrackList, musicId);
 
                     SaveResourceItem(resourceItem);
                 }
@@ -273,22 +275,65 @@ namespace Rocket.Parser.Parsers
         private DbMusic MapAlbumInfoReleaseToMusic(AlbumInfoRelease release)
         {
             var music = new DbMusic();
-            
-            const string releaseNamePattern = @"(?<=\- )(?: ?+[^\(])++";
-            const string releaseTypePattern = @"(?<=\()\w++";
-            const string releaseGenrePattern = @"\w[^,]*+";
-            
-            var releaseName = PcreRegex.Match(release.Name, releaseNamePattern).Value;
-            var releaseType = PcreRegex.Matches(release.Name, releaseTypePattern)
+
+            var releaseName = PcreRegex.Match(release.Name, Helper.ReleaseNamePattern).Value;
+            var releaseType = PcreRegex.Matches(release.Name, Helper.ReleaseTypePattern)
                 .Select(m => m.Value).LastOrDefault();
             var releaseArtist = release.Name.Substring(0, release.Name.IndexOf("-", StringComparison.Ordinal) - 1);
-            var releaseGenres = PcreRegex.Matches(release.Genre, releaseGenrePattern).Select(m => m.Value);
+            var releaseGenres = PcreRegex.Matches(release.Genre, Helper.ReleaseGenrePattern).Select(m => m.Value);
+            var dateFormat = release.Date.Length > 4 ? Helper.LongDateFormat : Helper.ShortDateFormat;
+            var provider = CultureInfo.CreateSpecificCulture(Const.CultureInfoText);
+            var releaseDate = DateTime.ParseExact(release.Date, dateFormat, provider);
 
-            var format = release.Date.Length > 4 ? "d MMMM yyyy г." : "yyyy";
-            
-            var provider = CultureInfo.CreateSpecificCulture("ru-RU");
-            var releaseDate = DateTime.ParseExact(release.Date, format, provider);
+            SaveMusician(music, releaseArtist);
+            SaveGenre(music, releaseGenres);
 
+            music.Title = releaseName;
+            music.ReleaseDate = releaseDate;
+            music.Type = releaseType;
+            music.Artist = releaseArtist;
+            music.PosterImagePath = release.CoverPath;
+
+            return music;
+        }
+
+        /// <summary>
+        /// Сохранение жанров релиза
+        /// </summary>
+        /// <param name="music">Музыкальный релиз</param>
+        /// <param name="releaseGenres">Список жанров релиза</param>
+        private void SaveGenre(DbMusic music, IEnumerable<string> releaseGenres)
+        {
+            foreach (var releaseGenre in releaseGenres)
+            {
+                //проверяем существует ли жанр
+                var genreEntity = _musicGenreRepository.Queryable().FirstOrDefault(g => g.Name.Equals(releaseGenre));
+                if (genreEntity != null)
+                {
+                    music.Genres.Add(genreEntity);
+                }
+                else
+                {
+                    var newMusicGenres = new DbMusicGenre
+                    {
+                        Name = releaseGenre
+                    };
+
+                    _musicGenreRepository.Insert(newMusicGenres);
+                    _unitOfWork.SaveChanges();
+
+                    music.Genres.Add(newMusicGenres);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Сохранение исполнителя релиза
+        /// </summary>
+        /// <param name="music">Музыкальный релиз</param>
+        /// <param name="releaseArtist">Исполнитель релиза</param>
+        private void SaveMusician(DbMusic music, string releaseArtist)
+        {
             //проверяем существует ли исполнитель
             var musicianEntity = _musicianRepository.Queryable().
                 FirstOrDefault(m => m.FullName.Equals(releaseArtist));
@@ -308,49 +353,16 @@ namespace Rocket.Parser.Parsers
 
                 music.Musicians.Add(newMusician);
             }
-            
-
-            //проверяем существует ли жанры
-            foreach (var releaseGenre in releaseGenres)
-            {
-                var genreEntity = _musicGenreRepository.Queryable().FirstOrDefault(g => g.Name.Equals(releaseGenre));
-                if (genreEntity != null)
-                {
-                    music.Genres.Add(genreEntity);
-                }
-                else
-                {
-                    var newMusicGenres = new DbMusicGenre
-                    {
-                        Name = releaseGenre
-                    };
-
-                    _musicGenreRepository.Insert(newMusicGenres);
-                    _unitOfWork.SaveChanges();
-
-                    music.Genres.Add(newMusicGenres);
-                }
-            }
-
-            music.Title = releaseName;
-            music.ReleaseDate = releaseDate;
-            music.Type = releaseType;
-            music.Artist = releaseArtist;
-            music.PosterImagePath = release.CoverPath;
-
-            return music;
         }
 
         /// <summary>
-        /// Обновление музыкальных треков
+        /// Сохранение музыкальных треков
         /// </summary>
         /// <param name="trakList">Список треков одного релиза</param>
         /// <param name="musicId">ID релиза</param>
-        private void UpdateMusicTrack(string trakList, int musicId)
+        private void SaveMusicTrack(string trakList, int musicId)
         {
-            const string releaseTrackListPattern = @"\w(\d*+[^\.])++";
-
-            var trackListRelease = PcreRegex.Matches(trakList, releaseTrackListPattern)
+            var trackListRelease = PcreRegex.Matches(trakList, Helper.ReleaseTrackListPattern)
                 .Select(m => m.Value).ToList();
 
             //обрабатываем треклист
@@ -367,7 +379,6 @@ namespace Rocket.Parser.Parsers
                     });
                 }
             }
-
             _unitOfWork.SaveChanges();
         }
 
@@ -381,12 +392,12 @@ namespace Rocket.Parser.Parsers
             var list = new List<string>();
 
             // парсинг таблицы содержащей релизы
-            for (int i = 1; i < 4; i++) // столбцы таблицы
+            for (var i = 1; i < 4; i++) // столбцы таблицы
             {
-                for (int j = 1; j < 5; j++) // строки таблицы
+                for (var j = 1; j < 5; j++) // строки таблицы
                 {
                     var item = document.QuerySelector(
-                        String.Format(Resources.AlbumInfoReleaseLinkSelector, i, j));
+                        string.Format(Resources.AlbumInfoReleaseLinkSelector, i, j));
 
                     if (item != null)
                     {
@@ -394,7 +405,6 @@ namespace Rocket.Parser.Parsers
                     }
                 }
             }
-
             return list.ToArray();
         }
 
@@ -427,10 +437,8 @@ namespace Rocket.Parser.Parsers
         /// <returns></returns>
         private async Task LoadAndSaveReleaseCover(AlbumInfoRelease release, string resourceLink, int resourceId)
         {
-            var pathConst = @"c:\tmp\MusicCovers\"; // todo move to constants
-
             var url = resourceLink + release.ImageUrl;
-            var folderPath = $"{pathConst}{resourceId}{@"\"}{DateTime.Now:yyyy_MM}{@"\"}";
+            var folderPath = $"{Helper.CoversPath}{resourceId}{@"\"}{DateTime.Now:yyyy_MM}{@"\"}";
             var fileName = $"{release.ResourceInternalId}{Path.GetExtension(release.ImageUrl)}";
             var fillPath = folderPath + fileName;
             var exists = Directory.Exists(folderPath);
@@ -444,6 +452,5 @@ namespace Rocket.Parser.Parsers
 
             release.CoverPath = fillPath;
         }
-
     }
 }

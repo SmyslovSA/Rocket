@@ -20,7 +20,7 @@ namespace Rocket.DAL.Configurations
 
             Property(p => p.ResourceLink)
                 .IsRequired()
-                .HasColumnName("Resource Link")
+                .HasColumnName("ResourceLink")
                 .HasMaxLength(150);
         }
     }

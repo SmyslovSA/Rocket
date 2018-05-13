@@ -5,6 +5,15 @@ namespace Rocket.Parser.Heplers
 {
     internal static class AlbumInfoHelper
     {
+        public const string ReleaseNamePattern = @"(?<=\- )(?: ?+[^\(])++";
+        public const string ReleaseTypePattern = @"(?<=\()\w++";
+        public const string ReleaseGenrePattern = @"\w[^,]*+";
+        public const string ReleaseTrackListPattern = @"\w(\d*+[^\.])++";
+
+        public const string LongDateFormat = "d MMMM yyyy г.";
+        public const string ShortDateFormat = "yyyy";
+
+        public const string CoversPath = @"c:\tmp\MusicCovers\";
 
         private static readonly NameValueCollection RunSettings;
         private static readonly NameValueCollection ResourceSettings;
