@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories.User
     /// <summary>
     /// Представляет репозитарий для дополнительной информации пользователей
     /// </summary>
-    public interface IDbUserDetailsRepository : IBaseRepository<DbUser>
+    public interface IDbUserDetailsRepository : IBaseRepository<DbUserDetails>
     {
     }
 }
