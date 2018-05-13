@@ -2,7 +2,7 @@
 using Ninject;
 using Quartz;
 using Rocket.DAL.Common.DbModels.Parser;
-using Rocket.DAL.Common.Repositories.Temp;
+using Rocket.DAL.Common.Repositories;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Jobs;
 using Rocket.Parser.Properties;
@@ -34,7 +34,7 @@ namespace Rocket.Parser
                         serviceConfigurator.WhenStopped((service, control) => service.Stop(control));
 
                         //Запуск парсера для Lostfilm
-                        //LostfilmParseProcess(serviceConfigurator, kernel);
+                        LostfilmParseProcess(serviceConfigurator, kernel);
 
                         //Запуск парсера для AlbumInfo  
                         AlbumInfoParseProcess(serviceConfigurator, kernel);

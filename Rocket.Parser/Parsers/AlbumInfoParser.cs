@@ -13,7 +13,6 @@ using System.Globalization;
 using System.IO;
 using PCRE;
 using Rocket.DAL.Common.DbModels;
-using Rocket.DAL.Common.Repositories.Temp;
 using Rocket.Parser.Exceptions;
 using Helper = Rocket.Parser.Heplers.AlbumInfoHelper;
 using Const = Rocket.Parser.Heplers.CommonHelper;
@@ -24,45 +23,16 @@ namespace Rocket.Parser.Parsers
     internal class AlbumInfoParser : IAlbumInfoParser
     {
         private readonly ILoadHtmlService _loadHtmlService;
-        private readonly IRepository<ParserSettingsEntity> _parserSettingsRepository;
-        private readonly IRepository<ResourceEntity> _resourceRepository;
-        private readonly IRepository<ResourceItemEntity> _resourceItemRepository;
-        private readonly IRepository<DbMusic> _musicRepository;
-        private readonly IRepository<DbMusicGenre> _musicGenreRepository;
-        private readonly IRepository<DbMusicTrack> _musicTrackRepository;
-        private readonly IRepository<DbMusician> _musicianRepository;   
         private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Ctor
         /// </summary>
         /// <param name="loadHtmlService">Сервис загрузки HTML</param>
-        /// <param name="parserSettingsRepository">Репозиторий настроек парсера</param>
-        /// <param name="resourceRepository">Репозиторий ресурса</param>
-        /// <param name="resourceItemRepository">Репозиторий элемента ресурса</param>
-        /// <param name="musicRepository">Репозиторий релиза</param>
-        /// <param name="musicGenreRepository">Репозиторий жанра</param>
-        /// <param name="musicTrackRepository">Репозиторий трека</param>
-        /// <param name="musicianRepository">Репозиторий исполнителя</param>
         /// <param name="unitOfWork">UoW</param>
-        public AlbumInfoParser(ILoadHtmlService loadHtmlService,
-            IRepository<ParserSettingsEntity> parserSettingsRepository,
-            IRepository<ResourceEntity> resourceRepository,
-            IRepository<ResourceItemEntity> resourceItemRepository,
-            IRepository<DbMusic> musicRepository,
-            IRepository<DbMusicGenre> musicGenreRepository,
-            IRepository<DbMusicTrack> musicTrackRepository,
-            IRepository<DbMusician> musicianRepository,
-            IUnitOfWork unitOfWork)
+        public AlbumInfoParser(ILoadHtmlService loadHtmlService,IUnitOfWork unitOfWork)
         {
             _loadHtmlService = loadHtmlService;
-            _parserSettingsRepository = parserSettingsRepository;
-            _resourceRepository = resourceRepository;
-            _resourceItemRepository = resourceItemRepository;
-            _musicRepository = musicRepository;
-            _musicGenreRepository = musicGenreRepository;
-            _musicTrackRepository = musicTrackRepository;
-            _musicianRepository = musicianRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -76,9 +46,9 @@ namespace Rocket.Parser.Parsers
             try
             {
                 // получаем настройки парсера
-                var resource = _resourceRepository
+                var resource = _unitOfWork.ResourceRepository
                     .Queryable().First(r => r.Name.Equals(Resources.AlbumInfoSettings));
-                var settings = _parserSettingsRepository.Queryable().
+                var settings = _unitOfWork.ParserSettingsRepository.Queryable().
                     Where(ps => ps.ResourceId == resource.Id).ToList();
 
                 if (!settings.Any())
@@ -223,7 +193,7 @@ namespace Rocket.Parser.Parsers
         private int SaveRelease(DbMusic music)
         {
             //проверяем существует ли релиз
-            var musicEntity = _musicRepository.Queryable().
+            var musicEntity = _unitOfWork.MusicRepository.Queryable().
                 Include(a => a.Genres).
                 Include(m => m.Musicians).
                 FirstOrDefault(mr => mr.Title.Equals(music.Title) && mr.Artist.Equals(music.Artist));
@@ -238,14 +208,14 @@ namespace Rocket.Parser.Parsers
                 musicEntity.Type = music.Type;
                 musicEntity.PosterImagePath = music.PosterImagePath;
 
-                _musicRepository.Update(musicEntity);
+                _unitOfWork.MusicRepository.Update(musicEntity);
                 _unitOfWork.SaveChanges();
 
                 return musicEntity.Id;
             }
 
             //создаем новый релиз
-            _musicRepository.Insert(music);
+            _unitOfWork.MusicRepository.Insert(music);
             _unitOfWork.SaveChanges();
             return music.Id;
         }
@@ -257,7 +227,7 @@ namespace Rocket.Parser.Parsers
         private void SaveResourceItem(ResourceItemEntity resourceItem)
         {
             //обрабатываем элемент ресурса
-            var resourceItemEntity = _resourceItemRepository.Queryable().FirstOrDefault(ri =>
+            var resourceItemEntity = _unitOfWork.ResourceItemRepository.Queryable().FirstOrDefault(ri =>
                 ri.ResourceId == resourceItem.ResourceId &&
                 ri.ResourceInternalId == resourceItem.ResourceInternalId);
 
@@ -266,13 +236,13 @@ namespace Rocket.Parser.Parsers
                 resourceItemEntity.ResourceItemLink = resourceItem.ResourceItemLink;
                 resourceItemEntity.MusicId = resourceItem.MusicId;
 
-                _resourceItemRepository.Update(resourceItemEntity);
+                _unitOfWork.ResourceItemRepository.Update(resourceItemEntity);
                 _unitOfWork.SaveChanges();
                 resourceItem.Id = resourceItemEntity.Id;
             }
             else
             { // сохраняем информацию о релизе
-                _resourceItemRepository.Insert(resourceItem);
+                _unitOfWork.ResourceItemRepository.Insert(resourceItem);
                 _unitOfWork.SaveChanges();
             }
         }
@@ -317,7 +287,7 @@ namespace Rocket.Parser.Parsers
             foreach (var releaseGenre in releaseGenres)
             {
                 //проверяем существует ли жанр
-                var genreEntity = _musicGenreRepository.Queryable().FirstOrDefault(g => g.Name.Equals(releaseGenre));
+                var genreEntity = _unitOfWork.MusicGenreRepository.Queryable().FirstOrDefault(g => g.Name.Equals(releaseGenre));
                 if (genreEntity != null)
                 {
                     music.Genres.Add(genreEntity);
@@ -329,7 +299,7 @@ namespace Rocket.Parser.Parsers
                         Name = releaseGenre
                     };
 
-                    _musicGenreRepository.Insert(newMusicGenres);
+                    _unitOfWork.MusicGenreRepository.Insert(newMusicGenres);
                     _unitOfWork.SaveChanges();
 
                     music.Genres.Add(newMusicGenres);
@@ -345,7 +315,7 @@ namespace Rocket.Parser.Parsers
         private void SaveMusician(DbMusic music, string releaseArtist)
         {
             //проверяем существует ли исполнитель
-            var musicianEntity = _musicianRepository.Queryable().
+            var musicianEntity = _unitOfWork.MusicianRepository.Queryable().
                 FirstOrDefault(m => m.FullName.Equals(releaseArtist));
             if (musicianEntity != null)
             {
@@ -358,7 +328,7 @@ namespace Rocket.Parser.Parsers
                     FullName = releaseArtist
                 };
 
-                _musicianRepository.Insert(newMusician);
+                _unitOfWork.MusicianRepository.Insert(newMusician);
                 _unitOfWork.SaveChanges();
 
                 music.Musicians.Add(newMusician);
@@ -378,11 +348,11 @@ namespace Rocket.Parser.Parsers
             //обрабатываем треклист
             foreach (var track in trackListRelease)
             {
-                var trackEntity = _musicTrackRepository.Queryable().
+                var trackEntity = _unitOfWork.MusicTrackRepository.Queryable().
                     FirstOrDefault(t => t.Title.Equals(track) && t.DbMusicId == musicId);
                 if (trackEntity == null)
                 {
-                    _musicTrackRepository.Insert(new DbMusicTrack
+                    _unitOfWork.MusicTrackRepository.Insert(new DbMusicTrack
                     {
                         Title = track,
                         DbMusicId = musicId
