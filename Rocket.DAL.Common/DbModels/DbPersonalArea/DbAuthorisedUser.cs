@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
@@ -40,11 +41,11 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// список e-mail пользователя
         /// </summary>
-        public ICollection<DbEmail> Email { get; set; }
+        public virtual ICollection<DbEmail> Email { get; set; }
 
         /// <summary>
         /// коллекция выбранных жанров пользователя
         /// </summary>
-        public ICollection<DbGenre> Genres { get; set; }
+        public virtual ICollection<DbGenre> Genres { get; set; }
     }
 }

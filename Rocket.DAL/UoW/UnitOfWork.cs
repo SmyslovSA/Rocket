@@ -4,6 +4,8 @@ using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Data.Entity;
+using Rocket.DAL.Common.Repositories.IDbUserRepository;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 
 namespace Rocket.DAL.UoW
 {
@@ -32,9 +34,9 @@ namespace Rocket.DAL.UoW
         public IDbMusicRepository MusicRepository { get; private set; }
 
         /// <summary>
-        /// Возвращает репозиторий для работы с пользователями
+        /// Возвращает репозиторий для работы с пользователями Authorized
         /// </summary>
-        public IDbAuthorisedUserRepository UserRepository { get; private set; }
+        public IDbAuthorisedUserRepository AuthorizedUserRepository { get; private set; }
 
         /// <summary>
         /// Возвращает репозиторий для emails
@@ -50,6 +52,21 @@ namespace Rocket.DAL.UoW
         /// Возвращает репозиторий для пользователя
         /// </summary>
         public IDbUserRepository UserRegRepository { get; private set; }
+
+        /// <summary>
+        /// Репозиторий для работы с пользователями
+        /// </summary>
+        public IDbUserRepository UserRepository { get; private set; }
+
+        /// <summary>
+        /// Репозиторий для работы с ролями
+        /// </summary>
+        public IDbRoleRepository RoleRepository { get; private set; }
+
+        /// <summary>
+        /// Репозиторий для работы с пермишенами
+        /// </summary>
+        public IDbPermissionRepository PermissionRepository { get; private set; }
 
         /// <summary>
         /// /// <summary>
@@ -71,16 +88,21 @@ namespace Rocket.DAL.UoW
             IDbAuthorisedUserRepository dbAuthorisedUserRepository,
             IDbEmailRepository dbEmailRepository,
             IDbGenreRepository dbGenreRepository,
-            IDbUserRepository dbUserRepository)
+            IDbUserRepository dbUserRepository,
+            IDbRoleRepository dbRoleRepository,
+            IDbPermissionRepository dbPermissionRepository)
         {
             this._dbContext = dbContext;
             this.FilmRepository = dbFilmRepository;
             this.TVSeriesRepository = dbTVSeriesRepository;
             this.MusicRepository = dbMusicRepository;
-            this.UserRepository = dbAuthorisedUserRepository;
+            this.AuthorizedUserRepository = dbAuthorisedUserRepository;
             this.EmailRepository = dbEmailRepository;
             this.GenreRepository = dbGenreRepository;
             this.UserRegRepository = dbUserRepository;
+            this.UserRepository = dbUserRepository;
+            this.RoleRepository = dbRoleRepository;
+            this.PermissionRepository = dbPermissionRepository;
         }
 
         /// <summary>

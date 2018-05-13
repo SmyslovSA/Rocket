@@ -81,8 +81,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\UserServices\PermissionManagerService.cs" />
-    <Compile Include="Services\UserServices\UserRoleService.cs" />
-    <Compile Include="Services\UserServices\UserHasPermissionService.cs" />
+    <Compile Include="Services\UserServices\UserRoleManager.cs" />
+    <Compile Include="Services\UserServices\RoleService.cs" />
     <Compile Include="Services\ReleaseList\FilmDetailedInfoService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\ReleaseList\TVSeriesDetailedInfoService.cs" />
