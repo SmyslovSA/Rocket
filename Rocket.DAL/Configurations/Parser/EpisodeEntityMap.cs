@@ -7,7 +7,7 @@ namespace Rocket.DAL.Configurations.Parser
     {
         public EpisodeEntityMap()
         {
-            ToTable("Episode", "seria")
+            ToTable("Episode")
                 .HasKey(p => p.Id);
 
             Property(p => p.ReleaseDateRu)
@@ -44,6 +44,10 @@ namespace Rocket.DAL.Configurations.Parser
             Property(p => p.SeasonId)
                 .IsRequired()
                 .HasColumnName("SeasonId");
+
+            HasRequired(p => p.Season)
+                .WithMany(r => r.ListEpisode)
+                .HasForeignKey(p => p.SeasonId);
 
         }
     }

@@ -32,5 +32,7 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// </summary>
         public int TvSeriesId { get; set; }
 
+        public TvSeriasEntity TvSeries { get; set; }
+
     }
 }

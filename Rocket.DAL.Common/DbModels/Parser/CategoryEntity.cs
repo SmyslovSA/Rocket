@@ -4,10 +4,10 @@ namespace Rocket.DAL.Common.DbModels.Parser
 {
     public class CategoryEntity
     {
-        public int Id { get; set; }
+        public int Code { get; set; }
 
         public string Name { get; set; }
 
-        //public ICollection<GenreEntity> ListGenre { get; set; }
+        public ICollection<GenreEntity> ListGenre { get; set; }
     }
 }

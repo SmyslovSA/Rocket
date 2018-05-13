@@ -8,10 +8,10 @@ namespace Rocket.DAL.Configurations.Parser
     {
         public CategoryEntityMap()
         {
-            ToTable("Category", "seria")
-                .HasKey(p => p.Id);
+            ToTable("Category")
+                .HasKey(p => p.Code);
 
-            Property(t => t.Id)
+            Property(t => t.Code)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             Property(p => p.Name)

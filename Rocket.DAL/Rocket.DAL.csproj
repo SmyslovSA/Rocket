@@ -147,17 +147,13 @@
     <Compile Include="Migrations\201805131249219_UpdByParser2.Designer.cs">
       <DependentUpon>201805131249219_UpdByParser2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805131749148_AddCategoryEntity.cs" />
-    <Compile Include="Migrations\201805131749148_AddCategoryEntity.Designer.cs">
-      <DependentUpon>201805131749148_AddCategoryEntity.cs</DependentUpon>
+    <Compile Include="Migrations\201805132214591_AddTvSerias.cs" />
+    <Compile Include="Migrations\201805132214591_AddTvSerias.Designer.cs">
+      <DependentUpon>201805132214591_AddTvSerias.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805131905526_AddTvSeriasTables.cs" />
-    <Compile Include="Migrations\201805131905526_AddTvSeriasTables.Designer.cs">
-      <DependentUpon>201805131905526_AddTvSeriasTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805131911008_AddTvSeriasTables2.cs" />
-    <Compile Include="Migrations\201805131911008_AddTvSeriasTables2.Designer.cs">
-      <DependentUpon>201805131911008_AddTvSeriasTables2.cs</DependentUpon>
+    <Compile Include="Migrations\201805132216221_AddSqlScriptsTvSerias.cs" />
+    <Compile Include="Migrations\201805132216221_AddSqlScriptsTvSerias.Designer.cs">
+      <DependentUpon>201805132216221_AddSqlScriptsTvSerias.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -205,18 +201,18 @@
     <EmbeddedResource Include="Migrations\201805131249219_UpdByParser2.resx">
       <DependentUpon>201805131249219_UpdByParser2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805132214591_AddTvSerias.resx">
+      <DependentUpon>201805132214591_AddTvSerias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805132216221_AddSqlScriptsTvSerias.resx">
+      <DependentUpon>201805132216221_AddSqlScriptsTvSerias.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Migrations\SQLQueries\InitCategory.sql" />
+    <Content Include="Migrations\SQLQueries\InitPersonTypes.sql" />
+    <Content Include="Migrations\SQLQueries\InitLostfilmParserSettings.sql" />
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
-    <EmbeddedResource Include="Migrations\201805131749148_AddCategoryEntity.resx">
-      <DependentUpon>201805131749148_AddCategoryEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805131905526_AddTvSeriasTables.resx">
-      <DependentUpon>201805131905526_AddTvSeriasTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805131911008_AddTvSeriasTables2.resx">
-      <DependentUpon>201805131911008_AddTvSeriasTables2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.Enums;
 using Rocket.Parser.Extensions;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
@@ -827,31 +828,24 @@ namespace Rocket.Parser.Parsers
         {
             //Если актер добавляем в список актеров
             if (castType == LostfilmHelper.GetKeywordActors())
-            {
-                tvSeriasEntity.ListActor.Add(personEntity);
-                return;
-            }
+                personEntity.PersonTypeCode = (int)PersonType.Actor;
+            
 
             //Если режисер добавляем в список режисеров
             if (castType == LostfilmHelper.GetKeywordDirectors())
-            {
-                tvSeriasEntity.ListDirector.Add(personEntity);
-                return;
-            }
+                personEntity.PersonTypeCode = (int)PersonType.Director;
 
             //Если продюссер добавляем в список продюссеров
             if (castType == LostfilmHelper.GetKeywordProducers())
-            {
-                tvSeriasEntity.ListProducer.Add(personEntity);
-                return;
-            }
+                personEntity.PersonTypeCode = (int)PersonType.Producer;
 
             //Если сценарист добавляем в список сценаристов
             if (castType == LostfilmHelper.GetKeywordWriters())
-            {
-                tvSeriasEntity.ListWriter.Add(personEntity);
-                return;
-            }
+                personEntity.PersonTypeCode = (int)PersonType.Writer;
+
+            if (personEntity.PersonTypeCode == 0) return;
+
+            tvSeriasEntity.ListPerson.Add(personEntity);
         }
     }
 }

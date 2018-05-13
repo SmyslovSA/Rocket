@@ -14,6 +14,9 @@
         /// Название.
         /// </summary>
         public string Name { get; set; }
-    
+
+        public int CategoryCode { get; set; }
+
+        public CategoryEntity Category { get; set; }
     }
 }

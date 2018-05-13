@@ -1,4 +1,6 @@
-﻿namespace Rocket.DAL.Common.DbModels.Parser
+﻿using System.Collections.Generic;
+
+namespace Rocket.DAL.Common.DbModels.Parser
 {
     /// <summary>
     /// Сущность модели человека (режиссере, актёре или музыканте).
@@ -29,5 +31,13 @@
         /// Фото превью человека.
         /// </summary>
         public string PhotoThumbnailUrl { get; set; }
+
+        public int PersonTypeCode { get; set; }
+
+        public PersonTypeEntity PersonType { get; set; }
+
+        public int TvSeriasId { get; set; }
+
+        public ICollection<TvSeriasEntity> ListTvSerias { get; set; }
     }
 }

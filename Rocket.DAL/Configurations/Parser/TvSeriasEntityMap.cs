@@ -7,7 +7,7 @@ namespace Rocket.DAL.Configurations.Parser
     {
         public TvSeriasEntityMap()
         {
-            ToTable("TvSerias", "seria")
+            ToTable("TvSerias")
                 .HasKey(p => p.Id);
 
             Property(p => p.TitleRu)
@@ -62,6 +62,15 @@ namespace Rocket.DAL.Configurations.Parser
                 .IsOptional()
                 .HasColumnName("UrlToSource")
                 .IsMaxLength();
+
+            HasMany(f => f.ListPerson)
+                .WithMany(p => p.ListTvSerias)
+                .Map(m =>
+                {
+                    m.ToTable("PersonsToTvSerias");
+                    m.MapLeftKey("PersonId");
+                    m.MapRightKey("TvSeriasId");
+                });
 
             ///// <summary>
             ///// Год начала показа сериала.

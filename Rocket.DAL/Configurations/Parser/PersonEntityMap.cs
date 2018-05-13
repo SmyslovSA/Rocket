@@ -7,7 +7,7 @@ namespace Rocket.DAL.Configurations.Parser
     {
         public PersonEntityMap()
         {
-            ToTable("Person", "seria")
+            ToTable("Person")
                 .HasKey(p => p.Id);
 
             Property(p => p.FullNameRu)
@@ -29,6 +29,23 @@ namespace Rocket.DAL.Configurations.Parser
                 .IsOptional()
                 .HasColumnName("PhotoThumbnailUrl")
                 .IsMaxLength();
+
+            Property(p => p.PersonTypeCode)
+                .IsRequired()
+                .HasColumnName("PersonTypeCode");
+
+            Property(p => p.PersonTypeCode)
+                .IsRequired()
+                .HasColumnName("PersonTypeCode");
+
+            Property(p => p.TvSeriasId)
+                .IsRequired()
+                .HasColumnName("TvSeriasId")
+                ;
+
+            HasRequired(p => p.PersonType)
+                .WithMany(r => r.ListPerson)
+                .HasForeignKey(p => p.PersonTypeCode);
         }
     }
 }

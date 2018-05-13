@@ -7,13 +7,13 @@ namespace Rocket.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddCategoryEntity : IMigrationMetadata
+    public sealed partial class AddTvSerias : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCategoryEntity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTvSerias));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805131749148_AddCategoryEntity"; }
+            get { return "201805132214591_AddTvSerias"; }
         }
         
         string IMigrationMetadata.Source

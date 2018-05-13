@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using Rocket.DAL.Common.DbModels.Parser;
 
 namespace Rocket.DAL.Configurations.Parser
@@ -7,8 +8,11 @@ namespace Rocket.DAL.Configurations.Parser
     {
         public PersonTypeEntityMap()
         {
-            ToTable("PersonType", "seria")
-                .HasKey(p => p.Id);
+            ToTable("PersonType")
+                .HasKey(p => p.Code);
+
+            Property(t => t.Code)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             Property(p => p.Name)
                 .IsRequired()
