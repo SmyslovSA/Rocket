@@ -110,10 +110,16 @@
     <Compile Include="User\FakeData\FakeHowToCalls.cs" />
     <Compile Include="User\FakeData\FakeEmailAddresses.cs" />
     <Compile Include="User\FakeData\FakeDbLanguages.cs" />
+    <Compile Include="User\FakeData\FakeDbPermissions.cs" />
+    <Compile Include="User\FakeData\FakeDbRoles.cs" />
+    <Compile Include="User\FakeData\FakeRoles.cs" />
+    <Compile Include="User\FakeData\FakePermissions.cs" />
     <Compile Include="User\FakeData\FakePhones.cs" />
     <Compile Include="User\FakeData\FakeLanguages.cs" />
     <Compile Include="User\FakeData\FakeCountries.cs" />
     <Compile Include="User\FakeData\FakeDbUsers.cs" />
+    <Compile Include="User\FakeData\FakeDbUserDetails.cs" />
+    <Compile Include="User\FakeData\FakeUserDetails.cs" />
     <Compile Include="User\FakeData\FakeUsers.cs" />
     <Compile Include="User\FakeData\FakeAccountStatuses.cs" />
     <Compile Include="User\UserManagementServiceTest.cs" />

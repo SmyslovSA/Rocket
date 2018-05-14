@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.DAL.Common.DbModels.User
@@ -38,63 +38,22 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Возвращает или задает статус аккаунта
         /// (активирован, не активирован, деактивирован, забанен и так далее)
         /// </summary>
-        public DbAccountStatus AccountStatus { get; set; }
+        public virtual DbAccountStatus AccountStatus { get; set; }
 
         /// <summary>
         /// Возвращает или задает уровень пользователя
         /// (пока что это - обычный и премиум пользователь)
         /// </summary>
-        public DbAccountLevel AccountLevel { get; set; }
+        public virtual DbAccountLevel AccountLevel { get; set; }
 
         /// <summary>
-        /// Возвращает или задает необходимость подтверждения регистрации
-        /// путем активации Email
+        /// Возвращает или задает коллекцию ролей пользователя
         /// </summary>
-        public bool ActivationNeeded { get; set; }
+        public virtual ICollection<DbRole> Roles { get; set; } = new Collection<DbRole>();
 
         /// <summary>
-        /// Задает или возвращает гражданство пользователя
+        /// Возвращает или задает детальную информация пользователя
         /// </summary>
-        public DbCountry Sitizenship { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает язык пользователя
-        /// </summary>
-        public DbLanguage Language { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает дату рождения пользователя
-        /// </summary>
-        public DateTime? DateOfBirth { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает пол пользователя
-        /// </summary>
-        public Gender? Gender { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает сведения о том, как обращаться к пользователю
-        /// </summary>
-        public DbHowToCall HowToCall { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает коллекцию телефонных номеров пользователя
-        /// </summary>
-        public virtual ICollection<string> Phones { get; set; }
-
-        /// <summary>
-        /// Задает или возвращает коллекцию Email
-        /// </summary>
-        public virtual ICollection<string> EMailAddresses { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает почтовый адрес пользователя
-        /// </summary>
-        public DbAddress MailAddress { get; set; }
-
-        /// <summary>
-        /// Список ролей для пользователя
-        /// </summary>
-        public virtual ICollection<DbRole> Roles { get; set; }
+        public virtual DbUserDetails UserDetails { get; set; }
     }
 }

@@ -72,6 +72,7 @@
     <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
     <Compile Include="DbModels\DbUserRole\DbRole.cs" />
     <Compile Include="DbModels\ReleaseList\DbVideoGenre.cs" />
+    <Compile Include="DbModels\User\DbUserDetails.cs" />
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ReleaseList\IDbCountryRepository.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Repositories\User\IDbCountryRepository.cs" />
     <Compile Include="Repositories\User\IDbHowToCallRepository.cs" />
     <Compile Include="Repositories\User\IDbLanguageRepository.cs" />
+    <Compile Include="Repositories\User\IDbUserDetailsRepository.cs" />
     <Compile Include="Repositories\User\IDbUserRepository.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
   </ItemGroup>

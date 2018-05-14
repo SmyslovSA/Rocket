@@ -1,4 +1,4 @@
-﻿namespace Rocket.DAL.Common.DbModels
+﻿namespace Rocket.DAL.Common.DbModels.Enum
 {
     /// <summary>
     /// Перечисление типов гендерной принадлежности

@@ -24,9 +24,9 @@ namespace Rocket.DAL.Common.DbModels.User
         public ICollection<DbAddress> DbAddresses {get; set;}
 
         /// <summary>
-        /// Возвращает или задает коллекцию локализаций,
-        /// в которых указана данная страна
+        /// Задает или возвращает коллекцию дополнительной информации пользователя,
+        /// к которой относится эта страна
         /// </summary>
-        public ICollection<DbUser> DbUsers { get; set; }
+        public ICollection<DbUserDetails> DbUserDetails { get; set; }
     }
 }
