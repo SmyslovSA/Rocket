@@ -6,12 +6,18 @@ namespace Rocket.DAL.Common.DbModels.Notification
     /// <summary>
     /// Описывает модель хранения данных о музыкальном релизе
     /// </summary>
-    public class DbMessageAboutMusic
+    public class DbMusicMessage
     {
         /// <summary>
         /// Возвращает или задает идентификационный номер сообщения
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает коллекцию объектов, содержащих 
+        /// сводные данные о получателе и сообщении о музыкальном релизе
+        /// </summary>
+        public ICollection<ReceiversJoinMusics> ReceiversJoinMusics { get; set; }
 
         /// <summary>
         /// Возвращает или задает идентификационный номер музыкального релиза
@@ -29,9 +35,9 @@ namespace Rocket.DAL.Common.DbModels.Notification
         public DateTime ReleaseDate { get; set; }
 
         /// <summary>
-        /// Возвращает или задает имена исполнителей музыкального релиза
+        /// Возвращает или задает коллекцию исполнителей музыкального релиза
         /// </summary>
-        public ICollection<string> Musicians { get; set; }
+        public ICollection<DbPerformer> Performers { get; set; }
 
         /// <summary>
         /// Возвращает или задает время создания сообщения
