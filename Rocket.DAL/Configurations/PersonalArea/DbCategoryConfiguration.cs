@@ -19,8 +19,8 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 HasColumnName("Name");
 
             HasMany(g => g.Genres).
-                WithRequired(c => c.Category).
-                HasForeignKey(c => c.CategoryId);
+                WithRequired(c => c.DbCategory).
+                HasForeignKey(c => c.DbCategoryId);
         }
     }
 }

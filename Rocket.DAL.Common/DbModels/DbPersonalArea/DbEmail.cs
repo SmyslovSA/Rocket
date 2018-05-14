@@ -14,12 +14,12 @@
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// внешний ключ к таблице User
+        /// внешний ключ к таблице DbAuthorisedUser
         /// </summary>
-        public int? UserId { get; set; }
+        public int? DbAuthorisedUserId { get; set; }
         /// <summary>
-        /// ссылка на Userа
+        /// ссылка на DbAuthorisedUser
         /// </summary>
-        public virtual DbAuthorisedUser User { get; set; }
+        public virtual DbAuthorisedUser DbAuthorisedUser { get; set; }
     }
 }

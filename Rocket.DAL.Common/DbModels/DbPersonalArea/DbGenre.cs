@@ -18,14 +18,14 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// внешний  ключ к таблице Category
         /// </summary>
-        public int? CategoryId { get; set; }
+        public int? DbCategoryId { get; set; }
         /// <summary>
         /// ссылка на связанную Category
         /// </summary>
-        public DbCategory Category { get; set; }
+        public DbCategory DbCategory { get; set; }
         /// <summary>
-        /// коллекция User подписанных на данный жанр
+        /// коллекция AuthorisedUser подписанных на данный жанр
         /// </summary>
-        public ICollection<DbAuthorisedUser> Users { get; set; }
+        public ICollection<DbAuthorisedUser> AuthorisedUsers { get; set; }
     }
 }
