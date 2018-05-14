@@ -41,7 +41,7 @@ namespace Rocket.DAL.Migrations
                         Number = c.Int(nullable: false),
                         TitleRu = c.String(nullable: false, maxLength: 250),
                         TitleEn = c.String(nullable: false, maxLength: 250),
-                        Duration = c.Time(precision: 7),
+                        DurationInMinutes = c.Double(),
                         UrlForEpisodeSource = c.String(nullable: false),
                         SeasonId = c.Int(nullable: false),
                     })

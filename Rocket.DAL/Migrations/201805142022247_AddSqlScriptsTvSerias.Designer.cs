@@ -7,13 +7,13 @@ namespace Rocket.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddTvSerias : IMigrationMetadata
+    public sealed partial class AddSqlScriptsTvSerias : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTvSerias));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddSqlScriptsTvSerias));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805132214591_AddTvSerias"; }
+            get { return "201805142022247_AddSqlScriptsTvSerias"; }
         }
         
         string IMigrationMetadata.Source

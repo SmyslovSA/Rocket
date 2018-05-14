@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using AngleSharp.Dom;
+﻿using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Enums;
@@ -13,7 +7,12 @@ using Rocket.Parser.Extensions;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
 using Rocket.Parser.Properties;
-
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rocket.Parser.Parsers
 {
@@ -42,7 +41,7 @@ namespace Rocket.Parser.Parsers
                 .First(r => r.Name.Equals(Resources.LostfilmSettings));
 
             //Получаем базовую ссылку
-            _baseUrl = resource.ResourceLink; //todo эта настройка должна лежать в базе в админке
+            _baseUrl = resource.ResourceLink;
             //Получаем максимальное кол-во запросов к сайту
             int.TryParse(LostfilmHelper.GetMaxRequestCount(), out _maxRequestCount);
         }

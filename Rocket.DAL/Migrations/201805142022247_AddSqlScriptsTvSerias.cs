@@ -4,7 +4,7 @@ namespace Rocket.DAL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddSqlScriptsTvSerias : DbMigration
     {
         public override void Up()
@@ -24,7 +24,7 @@ namespace Rocket.DAL.Migrations
                                       "../../Migrations/SQLQueries/InitCategory.sql";
             Sql(File.ReadAllText(sqlFileInitCategory));
         }
-        
+
         public override void Down()
         {
         }

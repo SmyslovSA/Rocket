@@ -147,17 +147,13 @@
     <Compile Include="Migrations\201805131249219_UpdByParser2.Designer.cs">
       <DependentUpon>201805131249219_UpdByParser2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805132214591_AddTvSerias.cs" />
-    <Compile Include="Migrations\201805132214591_AddTvSerias.Designer.cs">
-      <DependentUpon>201805132214591_AddTvSerias.cs</DependentUpon>
+    <Compile Include="Migrations\201805142021382_AddTvSerias.cs" />
+    <Compile Include="Migrations\201805142021382_AddTvSerias.Designer.cs">
+      <DependentUpon>201805142021382_AddTvSerias.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805132216221_AddSqlScriptsTvSerias.cs" />
-    <Compile Include="Migrations\201805132216221_AddSqlScriptsTvSerias.Designer.cs">
-      <DependentUpon>201805132216221_AddSqlScriptsTvSerias.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805142003381_UpdateEpisode.cs" />
-    <Compile Include="Migrations\201805142003381_UpdateEpisode.Designer.cs">
-      <DependentUpon>201805142003381_UpdateEpisode.cs</DependentUpon>
+    <Compile Include="Migrations\201805142022247_AddSqlScriptsTvSerias.cs" />
+    <Compile Include="Migrations\201805142022247_AddSqlScriptsTvSerias.Designer.cs">
+      <DependentUpon>201805142022247_AddSqlScriptsTvSerias.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -205,14 +201,11 @@
     <EmbeddedResource Include="Migrations\201805131249219_UpdByParser2.resx">
       <DependentUpon>201805131249219_UpdByParser2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805132214591_AddTvSerias.resx">
-      <DependentUpon>201805132214591_AddTvSerias.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805142021382_AddTvSerias.resx">
+      <DependentUpon>201805142021382_AddTvSerias.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805132216221_AddSqlScriptsTvSerias.resx">
-      <DependentUpon>201805132216221_AddSqlScriptsTvSerias.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805142003381_UpdateEpisode.resx">
-      <DependentUpon>201805142003381_UpdateEpisode.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805142022247_AddSqlScriptsTvSerias.resx">
+      <DependentUpon>201805142022247_AddSqlScriptsTvSerias.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
