@@ -10,6 +10,7 @@ namespace Rocket.Web.Controllers.PersonalArea
     public class ChangeGenreManagerServiceController : ApiController
     {
         private IGenreManager _genreManager;
+
         public ChangeGenreManagerServiceController(IGenreManager emailManager)
         {
             _genreManager = emailManager;
@@ -31,10 +32,10 @@ namespace Rocket.Web.Controllers.PersonalArea
             }
 
             _genreManager.AddGenre(model, category,genre);
-            
+
             //заменить null за конечный результат , т.к. не билдится проект
             return null; //Created(/*$"____/{model.Id}", model*/);
-        }     
+        }
 
         [HttpDelete]
         public IHttpActionResult DeleteGenre([FromBody]SimpleUser model, string category, string genre)
