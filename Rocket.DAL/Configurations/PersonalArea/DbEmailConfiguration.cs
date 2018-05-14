@@ -19,8 +19,8 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 IsVariableLength().
                 HasColumnName("Name");
 
-            Property(p => p.UserId).
-                HasColumnName("UserId");
+            Property(p => p.DbAuthorisedUserId).
+                HasColumnName("AuthorisedUserId");
         }
     }
 }
