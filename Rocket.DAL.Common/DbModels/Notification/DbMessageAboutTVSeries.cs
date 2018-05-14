@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.DbModels.Notification
     /// <summary>
     /// Описывает модель хранения данных о релизе сериала
     /// </summary>
-    public class DbTVSeriesMessage
+    public class DbMessageAboutTVSeries
     {
         /// <summary>
         /// Возвращает или задает идентификационный номер сообщения
@@ -16,8 +16,6 @@ namespace Rocket.DAL.Common.DbModels.Notification
         /// Возвращает или задает идентификационный номер сериала
         /// </summary>
         public int TVSeriesId { get; set; }
-
-        public ICollection<ReceiversJoinTVSeries> ReceiversJoinTVSeries { get; set; }
 
         /// <summary>
         /// Возвращает или задает название сериала
