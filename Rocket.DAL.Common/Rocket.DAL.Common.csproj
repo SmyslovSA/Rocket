@@ -55,6 +55,8 @@
     <Compile Include="DbModels\Notification\DbPerformer.cs" />
     <Compile Include="DbModels\Notification\DbTVSeriesMessage.cs" />
     <Compile Include="DbModels\Notification\DbReceiver.cs" />
+    <Compile Include="DbModels\Notification\ReceiversJoinFilms.cs" />
+    <Compile Include="DbModels\Notification\ReceiversJoinMusics.cs" />
     <Compile Include="DbModels\ReleaseList\DbBaseRelease.cs" />
     <Compile Include="DbModels\User\DbAccountLevel.cs" />
     <Compile Include="DbModels\User\DbAccountStatus.cs" />
