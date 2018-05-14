@@ -18,6 +18,11 @@ namespace Rocket.DAL.Common.DbModels.Notification
         public DbReceiver Receiver { get; set; }
 
         /// <summary>
+        /// Возвращает или задает идентификационный номер получателя сообщения
+        /// </summary>
+        public int ReceiverId { get; set; }
+
+        /// <summary>
         /// Возвращает или задает имя отправителя сообщения
         /// </summary>
         public string SenderName { get; set; }
