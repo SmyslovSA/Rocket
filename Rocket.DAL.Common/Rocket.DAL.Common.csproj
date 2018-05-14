@@ -47,9 +47,11 @@
     <Compile Include="DbModels\DbPersonalArea\DbGenre.cs" />
     <Compile Include="DbModels\Notification\DbBillingMessage.cs" />
     <Compile Include="DbModels\Notification\DbCustomMessage.cs" />
-    <Compile Include="DbModels\Notification\DbMessageAboutFilm.cs" />
-    <Compile Include="DbModels\Notification\DbMessageAboutMusic.cs" />
-    <Compile Include="DbModels\Notification\DbMessageAboutTVSeries.cs" />
+    <Compile Include="DbModels\Notification\DbEmail.cs" />
+    <Compile Include="DbModels\Notification\DbFilmMessage.cs" />
+    <Compile Include="DbModels\Notification\DbMusicMessage.cs" />
+    <Compile Include="DbModels\Notification\DbPerformer.cs" />
+    <Compile Include="DbModels\Notification\DbTVSeriesMessage.cs" />
     <Compile Include="DbModels\Notification\DbReceiver.cs" />
     <Compile Include="DbModels\ReleaseList\DbBaseRelease.cs" />
     <Compile Include="DbModels\User\DbAccountLevel.cs" />
