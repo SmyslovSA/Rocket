@@ -41,8 +41,9 @@
         public string Flat { get; set; }
 
         /// <summary>
-        /// Возвращает или задает контактные данные, к которым относится адрес
+        /// Задает или возвращает дополнительную информацию пользователя,
+        /// к которой относится этот адрес
         /// </summary>
-        public DbUser DbUser { get; set; }
+        public DbUserDetails DbUserDetails { get; set; }
     }
 }
