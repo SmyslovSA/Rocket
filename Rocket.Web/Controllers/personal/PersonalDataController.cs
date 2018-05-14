@@ -10,7 +10,7 @@ using System.Web.Http.Results;
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
-    [RoutePrefix("PersonalArea/UserInfo")]
+    [RoutePrefix("personal/user/info")]
     public class ChangePersonalDataController : ApiController
     {       
         private IPersonalData _ipersonaldata;

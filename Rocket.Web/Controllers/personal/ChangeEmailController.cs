@@ -6,50 +6,54 @@ using Rocket.BL.Common.Models.PersonalArea;
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
-    [RoutePrefix("changePersonalArea/genre")]
-    public class ChangeGenreManagerServiceController : ApiController
+    [RoutePrefix("personal/change/email")]
+    public class ChangeEmailController : ApiController
     {
-        private IGenreManager _genreManager;
-        public ChangeGenreManagerServiceController(IGenreManager emailManager)
+        private IEmailManager _emailEmailManager;
+
+        public ChangeEmailController(IEmailManager emailManager)
         {
-            _genreManager = emailManager;
+            _emailEmailManager = emailManager;
         }
 
         [HttpPost]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(SimpleUser))]
-        public IHttpActionResult SaveGenre([FromBody]SimpleUser model, string category, string genre)
+        public IHttpActionResult SaveEmail([FromBody]SimpleUser model,string email)
         {
             if (model == null)
             {
                 return BadRequest("Model cannot be empty");
             }
-            else if (string.IsNullOrEmpty(genre)&&string.IsNullOrEmpty(category))
+            else if(string.IsNullOrEmpty(email))
             {
-                return BadRequest("genre cannot be empty");
+                return BadRequest("email cannot be empty");
             }
 
-            _genreManager.AddGenre(model, category,genre);
-            
+            _emailEmailManager.AddEmail(model, email);
+
             //заменить null за конечный результат , т.к. не билдится проект
+
             return null; //Created(/*$"____/{model.Id}", model*/);
-        }     
+        }
 
         [HttpDelete]
-        public IHttpActionResult DeleteGenre([FromBody]SimpleUser model, string category, string genre)
+        public IHttpActionResult DeleteEmail([FromBody]SimpleUser model, string email)
         {
             if (model == null)
             {
                 return BadRequest("Model cannot be empty");
             }
-            else if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
+            else if (string.IsNullOrEmpty(email))
             {
-                return BadRequest("email or genre cannot be empty");
+                return BadRequest("email cannot be empty");
             }
 
-            _genreManager.DeleteGenre(model,category,genre);
+            _emailEmailManager.DeleteEmail(model, email);
             return Ok();
         }
     }
+
+    
 }
