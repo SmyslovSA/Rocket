@@ -1,8 +1,8 @@
-﻿using System.Net;
-using System.Web.Http;
+﻿using Rocket.BL.Common.Models.PersonalArea;
 using Rocket.BL.Common.Services.PersonalArea;
 using Swashbuckle.Swagger.Annotations;
-using Rocket.BL.Common.Models.PersonalArea;
+using System.Net;
+using System.Web.Http;
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
@@ -26,12 +26,12 @@ namespace Rocket.Web.Controllers.PersonalArea
             {
                 return BadRequest("Model cannot be empty");
             }
-            else if (string.IsNullOrEmpty(genre)&&string.IsNullOrEmpty(category))
+            else if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
             {
                 return BadRequest("genre cannot be empty");
             }
 
-            _genreManager.AddGenre(model, category,genre);
+            _genreManager.AddGenre(model, category, genre);
 
             //заменить null за конечный результат , т.к. не билдится проект
             return null; //Created(/*$"____/{model.Id}", model*/);
@@ -49,7 +49,7 @@ namespace Rocket.Web.Controllers.PersonalArea
                 return BadRequest("email or genre cannot be empty");
             }
 
-            _genreManager.DeleteGenre(model,category,genre);
+            _genreManager.DeleteGenre(model, category, genre);
             return Ok();
         }
     }
