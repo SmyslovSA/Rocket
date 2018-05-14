@@ -30,7 +30,7 @@ namespace Rocket.BL.Services.PersonalArea
                 return false;
             }
             var user = Mapper.Map<DbAuthorisedUser>(model);
-            //user.DbAccount.Password = newPassword;
+             user.DbUser.Password = newPassword;
             _unitOfWork.UserAuthorisedRepository.Update(user);
             _unitOfWork.Save();
             return true;
@@ -48,8 +48,8 @@ namespace Rocket.BL.Services.PersonalArea
                 throw new ValidationException($"Error:{ validate.Errors.Select(s => s.ErrorMessage)}");
             }
             var user = Mapper.Map<DbAuthorisedUser>(model);
-            //user.DbPersonality.FirstName = model.FirstName;
-            //user.DbPersonality.LastName = model.LastName;
+            user.DbUser.FirstName = model.FirstName;
+            user.DbUser.LastName = model.LastName;
             user.Avatar = model.Avatar;
             _unitOfWork.UserAuthorisedRepository.Update(user);
             _unitOfWork.Save();

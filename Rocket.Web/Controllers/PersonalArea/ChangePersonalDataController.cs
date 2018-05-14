@@ -7,36 +7,20 @@ using Rocket.DAL.Common.UoW;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
-using Moq;
-using Ninject;
-using Rocket.BL.Services.PersonalArea;
-
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
     [RoutePrefix("PersonalArea/UserInfo")]
     public class ChangePersonalDataController : ApiController
-    {
-        
+    {       
         private IPersonalData _ipersonaldata;
         private IUnitOfWork _unitOfWork;
-
-        public ChangePersonalDataController()
-        {
-            Mapper.Initialize(cfg => cfg.CreateMissingTypeMaps = true);
-            var container = new StandardKernel();
-            container.Bind<IPersonalData>().To<ChangePersonalDataService>();
-            var moq = new Mock<IUnitOfWork>();
-            moq.Setup(x => x.UserRepository.Insert(It.IsAny<DbAuthorisedUser>()));
-            container.Bind<IUnitOfWork>().ToMethod(r => moq.Object);
-            _unitOfWork = moq.Object;
-        }
 
         [HttpGet]
         [Route("{id:int:min(1)}")]
         public IHttpActionResult GetUserPersonalDataById(int id)
         {
-            var model = _unitOfWork.UserRepository.GetById(id);
+            var model = _unitOfWork.UserAuthorisedRepository.GetById(id);
             return model == null ? (IHttpActionResult)NotFound() : Ok(model);
         }
 
@@ -48,7 +32,7 @@ namespace Rocket.Web.Controllers.PersonalArea
                 return BadRequest("User data cannot be empty");
             }          
             var model = Mapper.Map<DbAuthorisedUser>(user);
-            _unitOfWork.UserRepository.Insert(model);
+            _unitOfWork.UserAuthorisedRepository.Insert(model);
             return Created($"users/{model.Id}",model);
         }
 
@@ -77,7 +61,7 @@ namespace Rocket.Web.Controllers.PersonalArea
             {
                 return BadRequest("User data cannot be empty");
             }
-            _unitOfWork.UserRepository.Delete(user);
+            _unitOfWork.UserAuthorisedRepository.Delete(user.Id);
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
     }

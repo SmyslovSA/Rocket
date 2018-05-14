@@ -1,15 +1,10 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Results;
 using Rocket.BL.Common.Services.PersonalArea;
-using Swashbuckle.Examples;
 using Swashbuckle.Swagger.Annotations;
-using Rocket.BL.Services.PersonalArea;
 using Rocket.BL.Common.Models.PersonalArea;
 
-
-namespace Rocket.Web.Controllers
+namespace Rocket.Web.Controllers.PersonalArea
 {
     [RoutePrefix("changePersonalArea/email")]
     public class ChangeEmailManagerServiceController : ApiController

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
     /// <summary>
-    /// модель хранения данных пользователя
+    /// модель хранения данных авторизованного пользователя
     /// </summary>
     public class DbAuthorisedUser
     {
@@ -13,25 +13,15 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// </summary>
         public int Id { get; set; }
 
-        ///// <summary>
-        ///// внешний ключ к таблице DbAccount
-        ///// </summary>
-        //public int? DbAccountId { get; set; }
+        /// <summary>
+        /// внешний ключ к таблице DbUser
+        /// </summary>
+        public int? DbUserId { get; set; }
 
         /// <summary>
-        /// ссылка на DbAccount
+        /// ссылка на DbUser
         /// </summary>
-        //public DbAccount DbAccount { get; set; }
-
-        ///// <summary>
-        ///// внешний ключ к таблице DbPersonality
-        ///// </summary>
-        //public int? DbPersonalityId { get; set; }
-
-        /// <summary>
-        /// ссылка на DbPersonality
-        /// </summary>
-        //public DbPersonality DbPersonality { get; set; }
+        public DbUser DbUser { get; set; }
 
         /// <summary>
         /// относительный путь от корневой папки приложения к изображению аватара пользователя

@@ -58,6 +58,7 @@
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\RoleMappingProfile.cs" />
     <Compile Include="Models\Pagination\PageInfo.cs" />
     <Compile Include="Models\Pagination\ReleasesPageInfo.cs" />
+    <Compile Include="Models\PersonalArea\Email.cs" />
     <Compile Include="Models\ReleaseList\BaseRelease.cs" />
     <Compile Include="Models\User\AccountLevel.cs" />
     <Compile Include="Models\User\AccountStatus.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="Services\PersonalArea\IPersonalData.cs" />
     <Compile Include="Models\PersonalArea\Category.cs" />
     <Compile Include="Models\PersonalArea\Genre.cs" />
-    <Compile Include="Models\PersonalArea\PersonalizedTape.cs" />
     <Compile Include="Models\PersonalArea\PremiumUser.cs" />
     <Compile Include="Models\Notification\Receiver.cs" />
     <Compile Include="Models\ReleaseList\Country.cs" />

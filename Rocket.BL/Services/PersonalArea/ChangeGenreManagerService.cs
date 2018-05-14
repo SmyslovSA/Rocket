@@ -5,10 +5,9 @@ using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.UoW;
 using System.Linq;
 
-
 namespace Rocket.BL.Services.PersonalArea
 {
-    class ChangeGenreManagerService : BaseService, IGenreManager
+    public class ChangeGenreManagerService : BaseService, IGenreManager
     {
         public ChangeGenreManagerService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -19,14 +18,13 @@ namespace Rocket.BL.Services.PersonalArea
             if (model!=null&&string.IsNullOrEmpty(category)&&string.IsNullOrEmpty(genre))
             {
                 var user = Mapper.Map<DbAuthorisedUser>(model);
-                //user.Genres.Add(new DbGenre()
-                //{
-                //    Name = genre,
-                //    Category = new DbCategory
-                //    {
-                //        Name = category
-                //    }
-
+                user.Genres.Add(new DbGenre()
+                {
+                    Name = genre,
+                    DbCategory = new DbCategory
+                    {
+                        Name = category
+                    }
                 });
                 _unitOfWork.UserAuthorisedRepository.Update(user);
                 _unitOfWork.Save();

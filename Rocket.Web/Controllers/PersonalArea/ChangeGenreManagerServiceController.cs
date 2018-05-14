@@ -1,15 +1,10 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Results;
 using Rocket.BL.Common.Services.PersonalArea;
-using Swashbuckle.Examples;
 using Swashbuckle.Swagger.Annotations;
-using Rocket.BL.Services.PersonalArea;
 using Rocket.BL.Common.Models.PersonalArea;
 
-
-namespace Rocket.Web.Controllers.ChangePersonalAreaControllers
+namespace Rocket.Web.Controllers.PersonalArea
 {
     [RoutePrefix("changePersonalArea/genre")]
     public class ChangeGenreManagerServiceController : ApiController
@@ -39,9 +34,7 @@ namespace Rocket.Web.Controllers.ChangePersonalAreaControllers
             
             //заменить null за конечный результат , т.к. не билдится проект
             return null; //Created(/*$"____/{model.Id}", model*/);
-        }
-
-       
+        }     
 
         [HttpDelete]
         public IHttpActionResult DeleteGenre([FromBody]SimpleUser model, string category, string genre)
