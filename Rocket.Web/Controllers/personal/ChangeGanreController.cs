@@ -32,10 +32,10 @@ namespace Rocket.Web.Controllers.PersonalArea
             }
 
             _genreManager.AddGenre(model, category,genre);
-            
+
             //заменить null за конечный результат , т.к. не билдится проект
             return null; //Created(/*$"____/{model.Id}", model*/);
-        }     
+        }
 
         [HttpDelete]
         public IHttpActionResult DeleteGenre([FromBody]SimpleUser model, string category, string genre)
