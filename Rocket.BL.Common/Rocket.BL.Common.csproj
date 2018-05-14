@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\PersonalAreaMappings\EmailMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\BaseReleaseMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\AccountLevelMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\AccountStatusMappingProfile.cs" />
