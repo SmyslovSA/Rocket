@@ -131,5 +131,14 @@ namespace Rocket.Parser.Properties {
                 return ResourceManager.GetString("AlbumInfoSettings", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lostfilm.
+        /// </summary>
+        internal static string LostfilmSettings {
+            get {
+                return ResourceManager.GetString("LostfilmSettings", resourceCulture);
+            }
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// <summary>
         /// Продолжительность серии.
         /// </summary>
-        public TimeSpan? Duration { get; set; }
+        public double DurationInMinutes { get; set; }
 
         /// <summary>
         /// Ссылка на серию.

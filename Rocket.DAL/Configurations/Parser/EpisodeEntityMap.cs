@@ -32,9 +32,9 @@ namespace Rocket.DAL.Configurations.Parser
                 .HasColumnName("TitleEn")
                 .HasMaxLength(250);
 
-            Property(p => p.Duration)
+            Property(p => p.DurationInMinutes)
                 .IsOptional()
-                .HasColumnName("Duration");
+                .HasColumnName("DurationInMinutes");
 
             Property(p => p.UrlForEpisodeSource)
                 .IsRequired()

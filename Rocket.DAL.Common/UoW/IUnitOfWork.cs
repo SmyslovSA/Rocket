@@ -55,6 +55,7 @@ namespace Rocket.DAL.Common.UoW
         /// </summary>
         IRepository<DbMusician> MusicianRepository { get; }
 
+        IRepository<GenreEntity> GenreRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных

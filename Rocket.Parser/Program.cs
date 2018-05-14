@@ -37,7 +37,7 @@ namespace Rocket.Parser
                         LostfilmParseProcess(serviceConfigurator, kernel);
 
                         //Запуск парсера для AlbumInfo  
-                        AlbumInfoParseProcess(serviceConfigurator, kernel);
+                        //AlbumInfoParseProcess(serviceConfigurator, kernel);
                     });
 
                     configurator.StartAutomatically();
@@ -58,8 +58,12 @@ namespace Rocket.Parser
         private static void LostfilmParseProcess(ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
             //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
-            bool.TryParse(LostfilmHelper.GetParseIsSwitchOn(), out bool lostfilmParseIsSwitchOn);
-            int.TryParse(LostfilmHelper.GetParsePeriodInMinutes(), out int lostfilmParsePeriodInMinutes);
+            var resourceRepository = kernel.Get<IRepository<ResourceEntity>>();
+            var resource = resourceRepository
+                .Queryable().First(r => r.Name.Equals(Resources.LostfilmSettings));
+
+            var lostfilmParseIsSwitchOn = resource.ParseIsSwitchOn;
+            var lostfilmParsePeriodInMinutes = resource.ParsePeriodInMinutes;
 
             if (!lostfilmParseIsSwitchOn) return;
 

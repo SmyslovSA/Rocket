@@ -59,6 +59,7 @@ namespace Rocket.DAL.Context
         public DbSet<EpisodeEntity> EpisodeEntities { get; set; }
 
         public DbSet<SeasonEntity> SeasonEntities { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ResourceMap());

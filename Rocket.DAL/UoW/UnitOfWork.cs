@@ -88,6 +88,8 @@ namespace Rocket.DAL.UoW
         /// </summary>
         public IRepository<DbMusician> MusicianRepository { get; }
 
+        public IRepository<GenreEntity> GenreRepository { get; }
+
 
         public void Dispose()
         {

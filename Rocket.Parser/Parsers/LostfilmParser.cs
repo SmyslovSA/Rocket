@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +8,11 @@ using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Enums;
+using Rocket.DAL.Common.UoW;
 using Rocket.Parser.Extensions;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
+using Rocket.Parser.Properties;
 
 
 namespace Rocket.Parser.Parsers
@@ -20,6 +23,7 @@ namespace Rocket.Parser.Parsers
     internal class LostfilmParser : ILostfilmParser
     {
         private readonly ILoadHtmlService _loadHtmlService;
+        private readonly IUnitOfWork _unitOfWork;
 
         private readonly string _baseUrl;
         private readonly int _maxRequestCount;
@@ -28,12 +32,17 @@ namespace Rocket.Parser.Parsers
         /// .ctor
         /// </summary>
         /// <param name="loadHtmlService">Сервис для загрузки html</param>
-        public LostfilmParser(ILoadHtmlService loadHtmlService)
+        /// <param name="unitOfWork"></param>
+        public LostfilmParser(ILoadHtmlService loadHtmlService, IUnitOfWork unitOfWork)
         {
             _loadHtmlService = loadHtmlService;
+            _unitOfWork = unitOfWork;
+
+            var resource = _unitOfWork.ResourceRepository.Queryable()
+                .First(r => r.Name.Equals(Resources.LostfilmSettings));
 
             //Получаем базовую ссылку
-            _baseUrl = LostfilmHelper.GetBaseUrl(); //todo эта настройка должна лежать в базе в админке
+            _baseUrl = resource.ResourceLink; //todo эта настройка должна лежать в базе в админке
             //Получаем максимальное кол-во запросов к сайту
             int.TryParse(LostfilmHelper.GetMaxRequestCount(), out _maxRequestCount);
         }
@@ -227,10 +236,11 @@ namespace Rocket.Parser.Parsers
         private List<TvSeriasAgregateModelBase> ParseSerialListElementAll(List<IElement> listTvSeriasListElement)
         {
             var listTvSeriasAgregateModelBase = new List<TvSeriasAgregateModelBase>();
+            var listGenreEntity = _unitOfWork.GenreRepository.Queryable().AsNoTracking().ToList();
 
             foreach (var tvSeriasListElement in listTvSeriasListElement)
             {
-                listTvSeriasAgregateModelBase.AddRange(ParseSerialListElement(tvSeriasListElement));
+                listTvSeriasAgregateModelBase.AddRange(ParseSerialListElement(tvSeriasListElement, listGenreEntity));
             }
 
             return listTvSeriasAgregateModelBase;
@@ -240,8 +250,10 @@ namespace Rocket.Parser.Parsers
         /// Парсим элемент "список сериалов" и создаем агрегационные модели сериалов.
         /// </summary>
         /// <param name="tvSeriasListElement">Элемент "список сериалов".</param>
+        /// <param name="listGenreEntity"></param>
         /// <returns>Список агрегационных моделей сериалов.</returns>
-        private List<TvSeriasAgregateModelBase> ParseSerialListElement(IElement tvSeriasListElement)
+        private List<TvSeriasAgregateModelBase> ParseSerialListElement(IElement tvSeriasListElement,
+            List<GenreEntity> listGenreEntity)
         {
             var listTvSeriasAgregateModel = new List<TvSeriasAgregateModelBase>();
 
@@ -255,7 +267,7 @@ namespace Rocket.Parser.Parsers
             {
                 int selectorIterator = i;
                 var taskParseTvSeriasHeader = 
-                    Task.Run(() => ParseTvSeriasHeader(tvSeriasListElement, selectorIterator));
+                    Task.Run(() => ParseTvSeriasHeader(tvSeriasListElement, selectorIterator, listGenreEntity));
                 listTaskParseTvSeriasHeader.Add(taskParseTvSeriasHeader);
             }
 
@@ -277,8 +289,10 @@ namespace Rocket.Parser.Parsers
         /// </summary>
         /// <param name="elSerialList">Элемент список заголовков сериалов.</param>
         /// <param name="selectorIterator">Счетчик.</param>
+        /// <param name="listGenreEntity"></param>
         /// <returns>Агрегационная модель сериала.</returns>
-        private TvSeriasAgregateModelBase ParseTvSeriasHeader(IElement elSerialList, int selectorIterator)
+        private TvSeriasAgregateModelBase ParseTvSeriasHeader(IElement elSerialList, int selectorIterator,
+            List<GenreEntity> listGenreEntity)
         {
             var tvSeriasEntity = new TvSeriasEntity();
 
@@ -319,7 +333,7 @@ namespace Rocket.Parser.Parsers
             tvSeriasEntity.LostfilmRate = lostfilmRate;
 
             //Парсим заголовок сериала из списка сериалов панель детализации
-            ParseTvSeriasHeaderDetailsPane(serialTopElement, tvSeriasEntity, selectorIterator);
+            ParseTvSeriasHeaderDetailsPane(serialTopElement, tvSeriasEntity, selectorIterator, listGenreEntity);
 
             var tvSeriasAgregateModel = new TvSeriasAgregateModelBase { TvSeriasEntity = tvSeriasEntity };
 
@@ -332,8 +346,9 @@ namespace Rocket.Parser.Parsers
         /// <param name="serialTopElement">Элемент заголовка сериала.</param>
         /// <param name="tvSeriasEntity"></param>
         /// <param name="selectorIterator">Счетчик елементов заголовка сериала.</param>
+        /// <param name="listGenreEntity"></param>
         private void ParseTvSeriasHeaderDetailsPane(IElement serialTopElement,
-            TvSeriasEntity tvSeriasEntity, int selectorIterator)
+            TvSeriasEntity tvSeriasEntity, int selectorIterator, List<GenreEntity> listGenreEntity)
         {
             //Получаем панель деталей
             var detailsPaneElement = serialTopElement.QuerySelector(
@@ -342,15 +357,17 @@ namespace Rocket.Parser.Parsers
 
             //Получаем текущий статус сериала
             tvSeriasEntity.CurrentStatus = detailsPane.GetSubstring(
-                LostfilmHelper.GetTvSerialHeaderKeywordStatus(), CommonHelper.OpenAngleBracket);
+                LostfilmHelper.GetTvSerialHeaderKeywordStatus(), CommonHelper.OpenAngleBracket, false);
 
             //Получаем теливизионный канал на котором показывают сериал
             tvSeriasEntity.TvSerialCanal = detailsPane.GetSubstring(
                 LostfilmHelper.GetTvSerialHeaderKeywordCanal(), CommonHelper.OpenAngleBracket);
 
             //Получаем список жанров в виде строки для последующего парсинга.
-            tvSeriasEntity.ListGenreForParse = detailsPane.GetSubstring(
+            string genreForParse = detailsPane.GetSubstring(
                 LostfilmHelper.GetTvSerialHeaderKeywordGenre(), CommonHelper.OpenAngleBracket);
+            string[] listGenre = genreForParse.Split(',');
+
 
             //Получаем год начала показа сериала.
             tvSeriasEntity.TvSerialYearStart = detailsPane.GetSubstring(
