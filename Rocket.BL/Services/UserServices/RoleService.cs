@@ -47,7 +47,7 @@ namespace Rocket.BL.Services.UserServices
             _unitOfWork.Save();
         }
 
-        public void Update(DbRole role)
+        public void Update(Role role)
         {
             var dbRole = Mapper.Map<DbRole>(role);
             _unitOfWork.RoleRepository.Update(dbRole);
