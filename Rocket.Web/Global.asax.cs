@@ -1,9 +1,9 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Http;
-using Ninject;
+﻿using Ninject;
 using Ninject.Web.Common.WebHost;
 using Rocket.Web.Attribute;
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Rocket.Web
 {

@@ -11,6 +11,7 @@ namespace Rocket.Web.Controllers.UserRole
     public class RoleController : ApiController
     {
         private readonly RoleService _roleService;
+
         public RoleController(RoleService roleService)
         {
             _roleService = roleService;
