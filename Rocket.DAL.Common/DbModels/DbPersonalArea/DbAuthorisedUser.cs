@@ -14,11 +14,6 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         public int Id { get; set; }
 
         /// <summary>
-        /// внешний ключ к таблице DbUser
-        /// </summary>
-        public int? DbUserId { get; set; }
-
-        /// <summary>
         /// ссылка на DbUser
         /// </summary>
         public DbUser DbUser { get; set; }

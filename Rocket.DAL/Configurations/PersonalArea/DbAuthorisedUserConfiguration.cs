@@ -12,32 +12,6 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 Property(p => p.Id).
                 HasColumnName("Id");
 
-            Property(p => p.DbUser.FirstName).
-                HasColumnName("FirstName").
-                IsOptional().
-                IsUnicode().
-                HasMaxLength(50).
-                IsVariableLength();
-
-            Property(p => p.DbUser.LastName).
-                HasColumnName("LastName").
-                IsOptional().
-                IsUnicode().
-                HasMaxLength(50).
-                IsVariableLength();
-
-            Property(p => p.DbUser.Login).
-                HasColumnName("Login").
-                IsRequired().
-                HasMaxLength(30).
-                IsVariableLength();
-
-            Property(p => p.DbUser.Password).
-                HasColumnName("Password").
-                IsRequired().
-                HasMaxLength(50).
-                IsVariableLength();
-
             Property(p => p.Avatar).
                 IsOptional().
                 HasColumnName("AvatarPath").

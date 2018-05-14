@@ -21,7 +21,5 @@ namespace Rocket.BL.Common.Models.PersonalArea
         /// персональный список релизов в виде списка жанров 
         /// </summary>
         public ICollection<Genre> Genres { get; set; }
-
-        public User.User User { get; set; }
     }
 }
