@@ -2,12 +2,12 @@
 
 namespace Rocket.BL.Common.Models.UserRoles
 {
-    public class Role : IRole
+    public class Role
     {
         /// <summary>
         /// Уникальный идентификатор роли пользователя
         /// </summary>
-        public ushort RoleId { get; set; }
+        public int RoleId { get; set; }
 
         /// <summary>
         /// Название роли пользователя
@@ -15,14 +15,13 @@ namespace Rocket.BL.Common.Models.UserRoles
         public string Name { get; set; }
 
         /// <summary>
-        /// Свойство позволяет управлять возможностью
-        /// менять доступ к использованию роли
+        /// список пермишенов для роли
         /// </summary>
-        public bool IsActive { get; set; }
+        public ICollection<Permission> Permissions { get; set; }
 
         /// <summary>
-        /// collection of permissions 
+        /// список юзеров с ролью
         /// </summary>
-        public ICollection<Permission> Permissions;
+        public ICollection<User.User> Users { get; set; }
     }
 }

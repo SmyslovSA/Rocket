@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Models.Notification
+﻿using System;
+
+namespace Rocket.BL.Common.Models.Notification
 {
     /// <summary>
     /// Описывает сообщение произвольного содержания
@@ -29,5 +31,10 @@
         /// Возвращает или задает флаг тела сообщения в формате HTML
         /// </summary>
         public bool HtmlBody { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает время создания сообщения
+        /// </summary>
+        public DateTime CreationTime { get; set; }
     }
 }

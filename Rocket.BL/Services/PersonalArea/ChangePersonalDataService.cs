@@ -31,7 +31,7 @@ namespace Rocket.BL.Services.PersonalArea
             }
             var user = Mapper.Map<DbAuthorisedUser>(model);
             //user.DbAccount.Password = newPassword;
-            _unitOfWork.UserRepository.Update(user);
+            _unitOfWork.UserAuthorisedRepository.Update(user);
             _unitOfWork.Save();
             return true;
         }
@@ -51,7 +51,7 @@ namespace Rocket.BL.Services.PersonalArea
             //user.DbPersonality.FirstName = model.FirstName;
             //user.DbPersonality.LastName = model.LastName;
             user.Avatar = model.Avatar;
-            _unitOfWork.UserRepository.Update(user);
+            _unitOfWork.UserAuthorisedRepository.Update(user);
             _unitOfWork.Save();
         }
 

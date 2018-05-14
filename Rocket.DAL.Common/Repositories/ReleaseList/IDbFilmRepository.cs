@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories.ReleaseList
     /// <summary>
     /// Представляет репозиторий для фильмов
     /// </summary>
-    public interface IDbFilmRepository : IRepository<DbFilm>
+    public interface IDbFilmRepository : IBaseRepository<DbFilm>
     {
     }
 }

@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories.ReleaseList
     /// <summary>
     /// Представляет репозиторий для треков музыкального релиза
     /// </summary>
-    public interface IDbMusicTrackRepository : IRepository<DbMusicTrack>
+    public interface IDbMusicTrackRepository : IBaseRepository<DbMusicTrack>
 	{
 	}
 }

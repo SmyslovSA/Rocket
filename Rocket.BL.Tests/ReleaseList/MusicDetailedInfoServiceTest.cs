@@ -43,15 +43,15 @@ namespace Rocket.BL.Tests.ReleaseList
 				.Returns((Expression<Func<DbMusic, bool>> filter,
 					Func<IQueryable<DbMusic>, IOrderedQueryable<DbMusic>> orderBy,
 					string includeProperties) => this._fakeDbMusicData.Music.Where(filter.Compile()));
-			mockDbMusicRepository.Setup(mock => mock.GetById(It.IsAny<object>()))
-				.Returns((object id) => this._fakeDbMusicData.Music.Find(f => f.Id == (int)id));
+			mockDbMusicRepository.Setup(mock => mock.GetById(It.IsAny<int>()))
+				.Returns((int id) => this._fakeDbMusicData.Music.Find(f => f.Id == id));
 			mockDbMusicRepository.Setup(mock => mock.Insert(It.IsAny<DbMusic>()))
 				.Callback((DbMusic f) => this._fakeDbMusicData.Music.Add(f));
 			mockDbMusicRepository.Setup(mock => mock.Update(It.IsAny<DbMusic>()))
 				.Callback((DbMusic f) => this._fakeDbMusicData.Music.Find(d => d.Id == f.Id).Title = f.Title);
-			mockDbMusicRepository.Setup(mock => mock.Delete(It.IsAny<object>()))
-				.Callback((object id) => this._fakeDbMusicData.Music
-					.Remove(this._fakeDbMusicData.Music.Find(f => f.Id == (int)id)));
+			mockDbMusicRepository.Setup(mock => mock.Delete(It.IsAny<int>()))
+				.Callback((int id) => this._fakeDbMusicData.Music
+					.Remove(this._fakeDbMusicData.Music.Find(f => f.Id == id)));
 
 			var mockDbMusicUnitOfWork = new Mock<IUnitOfWork>();
 			mockDbMusicUnitOfWork.Setup(mock => mock.MusicRepository)

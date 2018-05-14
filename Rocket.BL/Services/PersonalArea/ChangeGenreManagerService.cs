@@ -27,8 +27,8 @@ namespace Rocket.BL.Services.PersonalArea
                 //        Name = category
                 //    }
 
-                //});
-                _unitOfWork.UserRepository.Update(user);
+                });
+                _unitOfWork.UserAuthorisedRepository.Update(user);
                 _unitOfWork.Save();
                 return true;
             }
@@ -45,7 +45,7 @@ namespace Rocket.BL.Services.PersonalArea
                 if (_unitOfWork.GenreRepository.Get().FirstOrDefault(c => c.Name == genre) != null)
                 {
                     var ganre = _unitOfWork.GenreRepository.Get().FirstOrDefault(c => c.Name == genre);
-                    _unitOfWork.UserRepository.Delete(ganre);
+                    _unitOfWork.GenreRepository.Delete(ganre);
                     _unitOfWork.Save();
                     return true;
                 }

@@ -5,7 +5,7 @@
         /// <summary>
         /// Представляет репозитарий для данных аккаунта пользователя
         /// </summary>
-        public interface IDbAccountRepository : IRepository<DbAccount>
+        public interface IDbAccountRepository : IBaseRepository<DbAccount>
         { 
         }
     }

@@ -1,6 +1,5 @@
-﻿using Rocket.DAL.Common.DbModels.DbUser.DbAccount;
-using Rocket.DAL.Common.DbModels.DbUser.DbPerson;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
@@ -19,9 +18,9 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         ///// </summary>
         //public int? DbAccountId { get; set; }
 
-        ///// <summary>
-        ///// ссылка на DbAccount
-        ///// </summary>
+        /// <summary>
+        /// ссылка на DbAccount
+        /// </summary>
         //public DbAccount DbAccount { get; set; }
 
         ///// <summary>
@@ -29,9 +28,9 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         ///// </summary>
         //public int? DbPersonalityId { get; set; }
 
-        ///// <summary>
-        ///// ссылка на DbPersonality
-        ///// </summary>
+        /// <summary>
+        /// ссылка на DbPersonality
+        /// </summary>
         //public DbPersonality DbPersonality { get; set; }
 
         /// <summary>
@@ -42,11 +41,11 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// список e-mail пользователя
         /// </summary>
-        public ICollection<DbEmail> Email { get; set; }
+        public virtual ICollection<DbEmail> Email { get; set; }
 
-        ///// <summary>
-        ///// коллекция выбранных жанров пользователя
-        ///// </summary>
-        //public ICollection<DbGenre> Genres { get; set; }
+        /// <summary>
+        /// коллекция выбранных жанров пользователя
+        /// </summary>
+        public virtual ICollection<DbGenre> Genres { get; set; }
     }
 }

@@ -45,8 +45,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\ReleaseList\BaseReleaseMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\AccountLevelMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\AccountStatusMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\AddressMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\CountryMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\HowToCallMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\LanguageMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserDetailsMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\PermissionMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\RoleMappingProfile.cs" />
+    <Compile Include="Models\Pagination\PageInfo.cs" />
+    <Compile Include="Models\Pagination\ReleasesPageInfo.cs" />
+    <Compile Include="Models\ReleaseList\BaseRelease.cs" />
+    <Compile Include="Models\User\AccountLevel.cs" />
+    <Compile Include="Models\User\AccountStatus.cs" />
+    <Compile Include="Models\User\Address.cs" />
+    <Compile Include="Models\User\Country.cs" />
+    <Compile Include="Models\User\HowToCall.cs" />
+    <Compile Include="Models\User\Language.cs" />
+    <Compile Include="Models\User\User.cs" />
+    <Compile Include="Models\User\UserDetails.cs" />
     <Compile Include="Services\IMailNotificationService.cs" />
     <Compile Include="Mappings\ReleaseList\CountryMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\EpisodeMappingProfile.cs" />
@@ -61,15 +81,6 @@
     <Compile Include="Mappings\ReleaseList\MusicTrackMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\MusicGenreMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\MusicianMappingProfile.cs" />
-    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\PersonMappingProfile.cs" />
-    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\HowToCallMappingProfile.cs" />
-    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\PersonalityMappingProfile.cs" />
-    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\IdentityMappingProfile.cs" />
-    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\AddressMappingProfile.cs" />
-    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\LocalizationMappingProfile.cs" />
-    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\CommunicationMappingProfile.cs" />
-    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\LanguageMappingProfile.cs" />
-    <Compile Include="Mappings\UserMappingProfile\UserPersonMappingProfile\CountryMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\VideoGenreMappingProfile.cs" />
     <Compile Include="Models\Notification\BillingMessage.cs" />
     <Compile Include="Models\Notification\ConfirmationMessage.cs" />
@@ -101,34 +112,23 @@
     <Compile Include="Models\ReleaseList\VideoGenre.cs" />
     <Compile Include="Models\PersonalArea\SimpleUser.cs" />
     <Compile Include="Models\PersonalArea\AuthorisedUser.cs" />
-    <Compile Include="Models\UserRoles\IPermission.cs" />
-    <Compile Include="Models\UserRoles\IRole.cs" />
-    <Compile Include="Models\UserRoles\IUser.cs" />
     <Compile Include="Models\UserRoles\Permission.cs" />
     <Compile Include="Models\UserRoles\Role.cs" />
-    <Compile Include="Models\User\Account\Account.cs" />
-    <Compile Include="Models\User\Account\StatusAndLevel\AccountLevel.cs" />
-    <Compile Include="Models\User\Account\StatusAndLevel\AccountStatus.cs" />
-    <Compile Include="Models\User\Person\Address\Address.cs" />
-    <Compile Include="Models\User\Person\Communication\Communication.cs" />
-    <Compile Include="Models\User\Person\Communication\HowToCall.cs" />
-    <Compile Include="Models\User\Person\Localization\Country.cs" />
-    <Compile Include="Models\User\Person\Personality\Personality.cs" />
-    <Compile Include="Models\User\Person\Localization\Language.cs" />
-    <Compile Include="Models\User\Person\Localization\Localization.cs" />
-    <Compile Include="Models\User\Person\Person.cs" />
-    <Compile Include="Models\User\Person\Identity\Identity.cs" />
-    <Compile Include="Models\User\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPermissionService.cs" />
     <Compile Include="Services\IRoleService.cs" />
+    <Compile Include="Services\User\IUserAccountLevelService.cs" />
+    <Compile Include="Services\User\IUserAccountStatusService.cs" />
+    <Compile Include="Services\User\IUserManagementService.cs" />
+    <Compile Include="Services\User\IUserValidatateService.cs" />
     <Compile Include="Services\ReleaseList\IFilmDetailedInfoService.cs" />
+    <Compile Include="Services\ReleaseList\IGuestReleaseListService.cs" />
     <Compile Include="Services\ReleaseList\IMusicDetailedInfoService.cs" />
     <Compile Include="Services\ReleaseList\ITVSeriesDetailedInfoService.cs" />
-    <Compile Include="Services\IUserAccountLevelService.cs" />
-    <Compile Include="Services\IUserAccountStatusService.cs" />
-    <Compile Include="Services\IUserManagementService.cs" />
-    <Compile Include="Services\IUserValidatateService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
@@ -136,10 +136,5 @@
       <Name>Rocket.DAL.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
