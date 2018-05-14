@@ -28,19 +28,19 @@ namespace Rocket.BL.Services.UserServices
                        .Any();
         }
         
-        public IEnumerable<DbRole> Get(Expression<Func<DbRole, bool>> filter = null, Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, string includeProperties = "")
+        public IEnumerable<Role> Get(Expression<Func<DbRole, bool>> filter = null, Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, string includeProperties = "")
         {
-           return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties);
+           return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
         }
 
         
-        public DbRole GetById(int id)
+        public Role GetById(int id)
         {
-            return Mapper.Map<DbRole>(
+            return Mapper.Map<Role>(
                 _unitOfWork.TVSeriesRepository.GetById(id));
         }
 
-        public void Insert(DbRole role)
+        public void Insert(Role role)
         {
             var dbRole = Mapper.Map<DbRole>(role);
             _unitOfWork.RoleRepository.Insert(dbRole);
