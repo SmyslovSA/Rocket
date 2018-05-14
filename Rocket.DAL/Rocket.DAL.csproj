@@ -81,6 +81,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\Notification\BillingsConfiguration.cs" />
+    <Compile Include="Configurations\Notification\CustomsConfiguration.cs" />
+    <Compile Include="Configurations\Notification\EmailConfiguration.cs" />
+    <Compile Include="Configurations\Notification\FilmMessageConfiguration.cs" />
+    <Compile Include="Configurations\Notification\MusicMessageConfiguration.cs" />
+    <Compile Include="Configurations\Notification\PerformerConfiguration.cs" />
+    <Compile Include="Configurations\Notification\ReceiverConfiguration .cs" />
+    <Compile Include="Configurations\Notification\ReceiverFilmsConfiguration.cs" />
+    <Compile Include="Configurations\Notification\ReceiverMusicsConfiguration.cs" />
+    <Compile Include="Configurations\Notification\ReceiverTVSeriesConfiguration.cs" />
+    <Compile Include="Configurations\Notification\TVSeriesMessageConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbCategoryConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbBaseReleaseConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbCountryConfiguration.cs" />
