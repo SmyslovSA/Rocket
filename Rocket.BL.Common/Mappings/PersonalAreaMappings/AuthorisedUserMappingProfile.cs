@@ -5,7 +5,7 @@ using Rocket.DAL.Common.DbModels.DbPersonalArea;
 namespace Rocket.BL.Common.Mappings.PersonalAreaMappings
 {
     /// <summary>
-    /// настройка маппинга между доменной моделью User и моделью хранения DbAuthorisedUser
+    /// настройка маппинга между доменной моделью SimpleUser и моделью хранения DbAuthorisedUser
     /// </summary>
     public class AuthorisedUserMappingProfile : Profile
     {
@@ -13,12 +13,12 @@ namespace Rocket.BL.Common.Mappings.PersonalAreaMappings
         {
             CreateMap<SimpleUser, DbAuthorisedUser>().
                 ForMember(dbu => dbu.Id, u => u.MapFrom(src => src.Id)).
-                //ForPath(dbu => dbu.DbPersonality.FirstName, u => u.MapFrom(src => src.FirstName)).
-                //ForPath(dbu => dbu.DbPersonality.LastName, u => u.MapFrom(src => src.LastName)).
-                //ForPath(dbu => dbu.DbAccount.Login, u => u.MapFrom(src => src.Login)).
+                ForPath(dbu => dbu.DbUser.FirstName, u => u.MapFrom(src => src.FirstName)).
+                ForPath(dbu => dbu.DbUser.LastName, u => u.MapFrom(src => src.LastName)).
+                ForPath(dbu => dbu.DbUser.Login, u => u.MapFrom(src => src.Login)).
                 ForMember(dbu => dbu.Avatar, u => u.MapFrom(src => src.Avatar)).
-                ForMember(dbu => dbu.Email, u => u.MapFrom(src => src.Email)).
-                ForMember(dbu => dbu.Genres, u => u.MapFrom(src => src.Personalized.Genres)).
+                ForMember(dbu => dbu.Email, u => u.MapFrom(src => src.Emails)).
+               // ForMember(dbu => dbu.Genres, u => u.MapFrom(src => src.Genres)).
                 ReverseMap();
         }
     }

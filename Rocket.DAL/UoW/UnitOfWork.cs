@@ -78,7 +78,7 @@ namespace Rocket.DAL.UoW
         /// <param name="dbFilmRepository">Экземпляр репозитория фильмов</param>
         /// <param name="dbTVSeriesRepository">Экземпляр репозитория сериалов</param>
         /// <param name="dbMusicRepository">Экземпляр репозитория музыки</param>
-        /// <param name="dbAuthorisedUserRepository">Экземпляр репозитория пользователей</param>
+        /// <param name="dbAuthorisedUserRepository">Экземпляр репозитория пользователей личного кабинета</param>
         /// <param name="dbEmailRepository">Экземпляр репозитория emails</param>
         /// <param name="dbGenreRepository">Экземпляр репозитория жанров</param>
         /// <param name="dbUserRepository">Экземпляр репозитория пользователей</param>
