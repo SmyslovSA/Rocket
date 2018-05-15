@@ -1,7 +1,6 @@
 ﻿using Rocket.BL.Common.Models.User;
 using System;
 
-
 namespace Rocket.BL.Common.Services.User
 {
     /// <summary>
