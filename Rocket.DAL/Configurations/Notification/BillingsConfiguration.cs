@@ -16,6 +16,8 @@ namespace Rocket.DAL.Configurations.Notification
 
             Property(x => x.Sum).IsRequired();
 
+            Property(x => x.Viewed).IsRequired();
+
             Property(x => x.CreationTime).IsRequired();
         }
     }
