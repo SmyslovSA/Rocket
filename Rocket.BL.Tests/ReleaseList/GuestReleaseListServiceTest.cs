@@ -43,12 +43,12 @@ namespace Rocket.BL.Tests.ReleaseList
             this._fakeDbReleases.AddRange(new FakeDbMusicData(100, 10, FakeCount).Music);
 
             var mockDbReleaseRepository = new Mock<IDbReleaseRepository>();
-            mockDbReleaseRepository.Setup(mock => mock.GetPage(
-                It.IsInRange<int>(1, 1000, Range.Inclusive),
-                It.IsInRange<int>(1, 100000, Range.Inclusive),
-                It.IsAny<Expression<Func<DbBaseRelease, bool>>>(),
-                It.IsAny< Func<IQueryable<DbBaseRelease>, IOrderedQueryable<DbBaseRelease>>>(),
-                ""))
+            mockDbReleaseRepository.Setup(mock => 
+                    mock.GetPage(
+                        It.IsInRange<int>(1, 1000, Range.Inclusive),
+                        It.IsInRange<int>(1, 100000, Range.Inclusive),
+                        It.IsAny<Expression<Func<DbBaseRelease, bool>>>(), 
+                        It.IsAny<Func<IQueryable<DbBaseRelease>, IOrderedQueryable<DbBaseRelease>>>(), string.Empty))
                 .Returns((int pageSize, int pageNumber, 
                     Expression<Func<DbBaseRelease, bool>> filter,
                     Func<IQueryable<DbBaseRelease>, IOrderedQueryable<DbBaseRelease>> orderBy,

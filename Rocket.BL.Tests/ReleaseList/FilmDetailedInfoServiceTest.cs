@@ -39,7 +39,7 @@ namespace Rocket.BL.Tests.ReleaseList
             this._fakeDbFilmsData = new FakeDbFilmsData(100, 10, 10, FilmsCount);
 
             var mockDbFilmRepository = new Mock<IDbFilmRepository>();
-            mockDbFilmRepository.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbFilm, bool>>>(), null, ""))
+            mockDbFilmRepository.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbFilm, bool>>>(), null, string.Empty))
                 .Returns((Expression<Func<DbFilm, bool>> filter,
                     Func<IQueryable<DbFilm>, IOrderedQueryable<DbFilm>> orderBy,
                     string includeProperties) => this._fakeDbFilmsData.Films.Where(filter.Compile()));

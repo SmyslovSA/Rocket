@@ -1,9 +1,9 @@
 ﻿using Bogus;
-using System.Collections.Generic;
-using System;
 using Rocket.DAL.Common.DbModels;
-using System.Linq;
 using Rocket.DAL.Common.DbModels.User;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rocket.BL.Tests.User.FakeData
 {
@@ -21,7 +21,7 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных пользователей
         /// </summary>
-        public List<DbUser> Users{ get; }
+        public List<DbUser> Users { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о пользователях
@@ -43,7 +43,7 @@ namespace Rocket.BL.Tests.User.FakeData
                 .RuleFor(p => p.Sitizenship, f => f.PickRandomParam((new FakeDbCountries(15)).Countries.ToArray()))
                 .RuleFor(p => p.HowToCall, f => f.PickRandomParam((new FakeDbHowToCalls(3)).HowToCalls.ToArray()))
                 .RuleFor(p => p.MailAddress, f => { return (new FakeDbAddresses(1)).Addresses[0]; })
-                .RuleFor(p => p.Phones, f => {  return (new FakePhones((new Random()).Next(1, 5))).Phones.ToList(); })
+                .RuleFor(p => p.Phones, f => { return (new FakePhones((new Random()).Next(1, 5))).Phones.ToList(); })
                 .RuleFor(p => p.EMailAddresses, f => { return (new FakeEmailAddresses((new Random()).Next(1, 5))).EmailAddresses.ToList(); })
                 .RuleFor(p => p.FirstName, f => { return isFirstNameNullOrEmpty ? string.Empty : f.Person.FirstName; })
                 .RuleFor(p => p.LastName, f => { return isLastNameNullOrEmpty ? string.Empty : f.Person.LastName; })

@@ -36,7 +36,7 @@ namespace Rocket.BL.Tests.ReleaseList
             this._fakeDbTVSerialsData = new FakeDbTVSerialsData(100, 10, 10, TVSeriesCount);
 
             var mockDbTVSeriesRepository = new Mock<IDbTVSeriesRepository>();
-            mockDbTVSeriesRepository.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbTVSeries, bool>>>(), null, ""))
+            mockDbTVSeriesRepository.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbTVSeries, bool>>>(), null, string.Empty))
                 .Returns((Expression<Func<DbTVSeries, bool>> filter,
                     Func<IQueryable<DbTVSeries>, IOrderedQueryable<DbTVSeries>> orderBy,
                     string includeProperties) => this._fakeDbTVSerialsData.TVSerials.Where(filter.Compile()));

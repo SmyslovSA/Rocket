@@ -12,6 +12,21 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakeDbEpisodesData
     {
         /// <summary>
+        /// Создает новый экземпляр сгенерированных данных о сериях
+        /// </summary>
+        public FakeDbEpisodesData()
+        {
+            this.EpisodeFaker = new Faker<DbEpisode>()
+                .RuleFor(m => m.Id, f => f.IndexFaker)
+                .RuleFor(m => m.ReleaseDate, f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
+                .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
+                .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(1, 0, 0)))
+                .RuleFor(m => m.Summary, f => f.Lorem.Text());
+
+            this.Episodes = new List<DbEpisode>();
+        }
+
+        /// <summary>
         /// Возвращает генератор данных о сериях
         /// </summary>
         public Faker<DbEpisode> EpisodeFaker { get; }
@@ -20,22 +35,6 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// Возвращает коллекцию сгенерированных серий
         /// </summary>
         public List<DbEpisode> Episodes { get; }
-
-        /// <summary>
-        /// Создает новый экземпляр сгенерированных данных о сериях
-        /// </summary>
-        public FakeDbEpisodesData()
-        {
-            this.EpisodeFaker = new Faker<DbEpisode>()
-                .RuleFor(m => m.Id, f => f.IndexFaker)
-                .RuleFor(m => m.ReleaseDate,
-                    f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
-                .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
-                .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(1, 0, 0)))
-                .RuleFor(m => m.Summary, f => f.Lorem.Text());
-
-            this.Episodes = new List<DbEpisode>();
-        }
 
         /// <summary>
         /// Генерирует и возвращает коллекцию серий в заданном количестве

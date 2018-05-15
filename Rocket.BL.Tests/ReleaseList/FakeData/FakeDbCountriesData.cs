@@ -11,16 +11,6 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakeDbCountriesData
     {
         /// <summary>
-        /// Возвращает генератор данных о странах
-        /// </summary>
-        public Faker<DbCountry> CountryFaker { get; }
-
-        /// <summary>
-        /// Возвращает коллекцию сгенерированных стран
-        /// </summary>
-        public List<DbCountry> Countries { get; }
-
-        /// <summary>
         /// Создает новый экземпляр сгенерированных данных о странах
         /// </summary>
         /// <param name="countriesCount">Необходимое количество сгенерированных стран</param>
@@ -32,5 +22,15 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
 
             this.Countries = this.CountryFaker.Generate(countriesCount);
         }
+
+        /// <summary>
+        /// Возвращает генератор данных о странах
+        /// </summary>
+        public Faker<DbCountry> CountryFaker { get; }
+
+        /// <summary>
+        /// Возвращает коллекцию сгенерированных стран
+        /// </summary>
+        public List<DbCountry> Countries { get; }
     }
 }

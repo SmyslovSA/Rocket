@@ -32,7 +32,7 @@ namespace Rocket.BL.Tests.User.FakeData
                 .RuleFor(c => c.Country, f => f.PickRandomParam((new FakeDbCountries(15)).Countries.ToArray()))
                 .RuleFor(c => c.City, f => f.Address.City())
                 .RuleFor(c => c.Building, f => f.Address.BuildingNumber())
-                .RuleFor(c => c.BuildingBlock, f => f.PickRandomParam(new string[] { "", "A", "B", "C", "D", "1", "2", "3", "4", "5" }))
+                .RuleFor(c => c.BuildingBlock, f => f.PickRandomParam(new string[] { string.Empty, "A", "B", "C", "D", "1", "2", "3", "4", "5" }))
                 .RuleFor(c => c.Flat, f => f.Address.Random.Number(1, 320).ToString());
             this.Addresses = this.AddressFaker.Generate(addressesCount);
         }

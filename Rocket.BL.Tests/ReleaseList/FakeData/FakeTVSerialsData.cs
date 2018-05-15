@@ -89,7 +89,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
                 .RuleFor(m => m.Summary, f => f.Lorem.Text())
                 .RuleFor(m => m.Seasons, f => this.FakeSeasonsData.Generate(f.Random.Number(1, 13)));
 
-            this.TVSerials = TVSeriesFaker.Generate(tvSerialsCount);
+            TVSerials = TVSeriesFaker.Generate(tvSerialsCount);
         }
     }
 }

@@ -84,7 +84,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
                 .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(4, 0, 0)))
                 .RuleFor(m => m.Summary, f => f.Lorem.Text());
 
-            this.Films = FilmFaker.Generate(filmsCount);
+            Films = FilmFaker.Generate(filmsCount);
         }
     }
 }
