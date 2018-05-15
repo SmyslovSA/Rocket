@@ -14,44 +14,44 @@ namespace Rocket.BL.Common.Models.User
         public int Id { get; set; }
 
         /// <summary>
-        /// Имя
+        /// Имя пользователя.
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Фамилия
+        /// Фамилия пользователя.
         /// </summary>
         public string LastName { get; set; }
 
         /// <summary>
-        /// Возвращает или задает логин пользователя
+        /// Возвращает или задает логин пользователя.
         /// </summary>
         public string Login { get; set; }
 
         /// <summary>
-        /// Возвращает или задает пароль
+        /// Возвращает или задает пароль.
         /// </summary>
         public string Password { get; set; }
 
         /// <summary>
         /// Возвращает или задает статус аккаунта
-        /// (активирован, не активирован, деактивирован, забанен и так далее)
+        /// (активирован, не активирован, деактивирован, забанен и так далее).
         /// </summary>
         public AccountStatus AccountStatus { get; set; }
 
         /// <summary>
         /// Возвращает или задает уровень пользователя
-        /// (пока что это - обычный и премиум пользователь)
+        /// (пока что это - обычный и премиум пользователь).
         /// </summary>
         public AccountLevel AccountLevel { get; set; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию ролей пользователя
+        /// Возвращает или задает коллекцию ролей пользователя.
         /// </summary>
         public ICollection<Role> Roles { get; set; }
 
         /// <summary>
-        /// Детальная информация пользователя
+        /// Детальная информация пользователя.
         /// </summary>
         public UserDetails UserDetails { get; set; }
     }
