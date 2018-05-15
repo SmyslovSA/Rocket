@@ -29,6 +29,12 @@ namespace Rocket.DAL.Common.DbModels.Notification
         public decimal Sum { get; set; }
 
         /// <summary>
+        /// Возвращает или задает флаг просмотра пользователем
+        /// push нотификации
+        /// </summary>
+        public bool Viewed { get; set; }
+
+        /// <summary>
         /// Возвращает или задает время создания сообщения
         /// </summary>
         public DateTime CreationTime { get; set; }
