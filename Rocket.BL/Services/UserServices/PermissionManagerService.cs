@@ -27,17 +27,17 @@ namespace Rocket.BL.Services.UserServices
         public void AddPermissionToRole(int idRole, int idPermission)
         {
             // докидываем пермишен в роль
-            DbRole aRole =  Mapper.Map<DbRole>(_unitOfWork.RoleRepository.GetById(idRole));
-            DbPermission aPermission = Mapper.Map<DbPermission>(_unitOfWork.RoleRepository.GetById(idRole));
-            aRole.Permissions.Add(aPermission);
+            DbRole role =  Mapper.Map<DbRole>(_unitOfWork.RoleRepository.GetById(idRole));
+            DbPermission permission = Mapper.Map<DbPermission>(_unitOfWork.RoleRepository.GetById(idRole));
+            role.Permissions.Add(permission);
         }
 
         public void RemovePermissionFromRole(int idRole, int idPermission)
         {
             // удаляем пермишен у роли
-            DbRole aRole = Mapper.Map<DbRole>(_unitOfWork.RoleRepository.GetById(idRole));
-            DbPermission aPermission = Mapper.Map<DbPermission>(_unitOfWork.RoleRepository.GetById(idRole));
-            aRole.Permissions.Remove(aPermission);
+            DbRole role = Mapper.Map<DbRole>(_unitOfWork.RoleRepository.GetById(idRole));
+            DbPermission permission = Mapper.Map<DbPermission>(_unitOfWork.RoleRepository.GetById(idRole));
+            role.Permissions.Remove(permission);
         }
     }
 }
