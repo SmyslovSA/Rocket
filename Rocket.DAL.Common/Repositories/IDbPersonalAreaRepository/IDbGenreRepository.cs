@@ -3,7 +3,7 @@
 namespace Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository
 {
     /// <summary>
-    /// Репозиторий для работы с жанрами
+    /// Репозиторий для работы с жанрами.
     /// </summary>
     public interface IDbGenreRepository : IBaseRepository<DbGenre>
     {

@@ -8,13 +8,6 @@ namespace Rocket.BL.Services.UserServices
     /// </summary>
     public class PermissionManagerService : IPermissionService
     {
-
-
-        public PermissionManagerService() // todo add ilogger
-        {
-
-        }
-
         public void AddPermissionToRole()
         {
             // докидываем пермишен в роль

@@ -20,7 +20,7 @@ namespace Rocket.Web
         protected override IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
-            kernel.Load(new[] { "Rocket.BL*", "Rocket.DAL*" });
+            kernel.Load(new[] {"Rocket.BL*", "Rocket.DAL*"});
             return kernel;
         }
     }

@@ -49,7 +49,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateRole([FromBody]Role role)
+        public IHttpActionResult UpdateRole([FromBody] Role role)
         {
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }

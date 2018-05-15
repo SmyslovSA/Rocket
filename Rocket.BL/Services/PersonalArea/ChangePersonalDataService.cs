@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Rocket.BL.Common.Models.PersonalArea;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.UoW;
-using FluentValidation;
 using System.Linq;
 
 namespace Rocket.BL.Services.PersonalArea
@@ -12,41 +12,44 @@ namespace Rocket.BL.Services.PersonalArea
     {
         private readonly IValidator _validator;
 
-        public ChangePersonalDataService(IUnitOfWork unitOfWork,IValidator<SimpleUser> validator) : base(unitOfWork)
+        public ChangePersonalDataService(IUnitOfWork unitOfWork, IValidator<SimpleUser> validator) : base(unitOfWork)
         {
             _validator = validator;
         }
+
         /// <summary>
-        /// смена пароля
+        /// Смена пароля.
         /// </summary>
-        /// <param name="model">принимает модель пользователя, инициировавшего смену пароля</param>
-        /// <param name="newPassword">новый пароль</param>
-        /// <param name="newPasswordConfirm">подтверждение пароля</param>
-        /// <returns>true - при смене пароля, false - при ошибках валидации</returns>
+        /// <param name="model">Принимает модель пользователя, инициировавшего смену пароля.</param>
+        /// <param name="newPassword">Новый пароль.</param>
+        /// <param name="newPasswordConfirm">Подтверждение пароля.</param>
+        /// <returns>True - при смене пароля, false - при ошибках валидации.</returns>
         public bool ChangePasswordData(SimpleUser model, string newPassword, string newPasswordConfirm)
         {
             if (!PasswordValidate(newPassword, newPasswordConfirm))
             {
                 return false;
             }
+
             var user = Mapper.Map<DbAuthorisedUser>(model);
-             user.DbUser.Password = newPassword;
+            user.DbUser.Password = newPassword;
             _unitOfWork.UserAuthorisedRepository.Update(user);
             _unitOfWork.Save();
             return true;
         }
 
         /// <summary>
-        /// смена персональных данных
+        /// Смена персональных данных.
         /// </summary>
-        /// <param name="model">принимает модель пользователя, инициировавшего смену данных</param>
+        /// <param name="model">Принимает модель пользователя, инициировавшего смену данных.</param>
         public void ChangePersonalData(SimpleUser model)
         {
             var validate = _validator.Validate(model);
             if (!validate.IsValid)
             {
-                throw new ValidationException($"Error:{ validate.Errors.Select(s => s.ErrorMessage)}");
+                throw new ValidationException($"Error:{validate.Errors.Select(s => s.ErrorMessage)}");
             }
+
             var user = Mapper.Map<DbAuthorisedUser>(model);
             user.DbUser.FirstName = model.FirstName;
             user.DbUser.LastName = model.LastName;
@@ -56,16 +59,19 @@ namespace Rocket.BL.Services.PersonalArea
         }
 
         /// <summary>
-        /// приватный метод для проверки валидности пароля
+        /// Приватный метод для проверки валидности пароля.
         /// </summary>
-        /// <param name="password">пароль</param>
-        /// <param name="passwordConfirm">подтверждение пароля</param>
-        /// <returns>true - если пароль прошел валидацию, false - если не прошел</returns>
+        /// <param name="password">Новый пароль.</param>
+        /// <param name="passwordConfirm">Подтверждение пароля.</param>
+        /// <returns>True - если пароль прошел валидацию, false - если не прошел.</returns>
         private bool PasswordValidate(string password, string passwordConfirm)
         {
-            //TODO: нааписать нормальный метод валидации
+            //TODO: написать нормальный метод валидации
             if (password == null || passwordConfirm == null)
+            {
                 return false;
+            }
+
             return password == passwordConfirm && password.Length > 6;
         }
     }

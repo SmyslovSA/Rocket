@@ -30,13 +30,13 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// </summary>
         public FakeDbSeasonsData()
         {
-            this.FakeDbEpisodesData = new FakeDbEpisodesData();
+            FakeDbEpisodesData = new FakeDbEpisodesData();
 
-            this.SeasonFaker = new Faker<DbSeason>()
+            SeasonFaker = new Faker<DbSeason>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
                 .RuleFor(m => m.Summary, f => f.Lorem.Text());
 
-            this.Seasons = new List<DbSeason>();
+            Seasons = new List<DbSeason>();
         }
 
         /// <summary>
@@ -48,10 +48,10 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <returns>Коллекция сезонов</returns>
         public List<DbSeason> Generate(int count, int startSeasonNumber = 1)
         {
-            this.SeasonFaker.RuleFor(m => m.Number, startSeasonNumber++)
-                .RuleFor(m => m.Episodes, f => this.FakeDbEpisodesData.Generate(f.Random.Number(8, 22)));
-            var seasons = this.SeasonFaker.Generate(count);
-            this.Seasons.AddRange(seasons);
+            SeasonFaker.RuleFor(m => m.Number, startSeasonNumber++)
+                .RuleFor(m => m.Episodes, f => FakeDbEpisodesData.Generate(f.Random.Number(8, 22)));
+            var seasons = SeasonFaker.Generate(count);
+            Seasons.AddRange(seasons);
             return seasons;
         }
     }

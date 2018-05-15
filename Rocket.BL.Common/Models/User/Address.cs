@@ -1,5 +1,5 @@
 ﻿namespace Rocket.BL.Common.Models.User
-{ 
+{
     /// <summary>
     /// Тип адреса. Классика.
     /// </summary>
@@ -9,7 +9,7 @@
         /// Задает или возвращает уникальный идентификационный номер адреса
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
         /// Задает или возвращает почтовый индекс
         /// </summary>

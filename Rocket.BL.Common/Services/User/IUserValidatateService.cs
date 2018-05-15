@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Rocket.BL.Common.Services.User
 {
     /// <summary>

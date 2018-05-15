@@ -6,7 +6,6 @@ namespace Rocket.DAL.Common.Repositories.ReleaseList
     /// Представляет репозиторий для музыкальных жанров
     /// </summary>
     public interface IDbMusicGenreRepository : IBaseRepository<DbMusicGenre>
-	{
-		
-	}
+    {
+    }
 }

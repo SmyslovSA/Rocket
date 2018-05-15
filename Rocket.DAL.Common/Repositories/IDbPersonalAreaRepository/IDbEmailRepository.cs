@@ -3,7 +3,7 @@
 namespace Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository
 {
     /// <summary>
-    /// Репозиторий для e-mail адресов
+    /// Репозиторий для e-mail адресов.
     /// </summary>
     public interface IDbEmailRepository : IBaseRepository<DbEmail>
     {

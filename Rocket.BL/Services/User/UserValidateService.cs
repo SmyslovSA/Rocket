@@ -18,7 +18,7 @@ namespace Rocket.BL.Services.User
         public bool UserValidateOnAddition(Common.Models.User.User user)
         {
             return UserValidateOnAdditionCheckRequiredFields(user)
-                && UserValidateOnAdditionCheckLogicAndFormat(user);
+                   && UserValidateOnAdditionCheckLogicAndFormat(user);
         }
 
         /// <summary>

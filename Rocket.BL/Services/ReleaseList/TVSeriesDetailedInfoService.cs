@@ -33,7 +33,7 @@ namespace Rocket.BL.Services.ReleaseList
         public TVSeries GetTVSeries(int id)
         {
             return Mapper.Map<TVSeries>(
-                this._unitOfWork.TVSeriesRepository.GetById(id));
+                _unitOfWork.TVSeriesRepository.GetById(id));
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace Rocket.BL.Services.ReleaseList
         public int AddTVSeries(TVSeries tvSeries)
         {
             var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
-            this._unitOfWork.TVSeriesRepository.Insert(dbTVSeries);
-            this._unitOfWork.Save();
+            _unitOfWork.TVSeriesRepository.Insert(dbTVSeries);
+            _unitOfWork.Save();
             return dbTVSeries.Id;
         }
 
@@ -57,8 +57,8 @@ namespace Rocket.BL.Services.ReleaseList
         public void UpdateTVSeries(TVSeries tvSeries)
         {
             var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
-            this._unitOfWork.TVSeriesRepository.Update(dbTVSeries);
-            this._unitOfWork.Save();
+            _unitOfWork.TVSeriesRepository.Update(dbTVSeries);
+            _unitOfWork.Save();
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ namespace Rocket.BL.Services.ReleaseList
         /// <param name="id">Идентификатор сериала</param>
         public void DeleteTVSeries(int id)
         {
-            this._unitOfWork.TVSeriesRepository.Delete(id);
-            this._unitOfWork.Save();
+            _unitOfWork.TVSeriesRepository.Delete(id);
+            _unitOfWork.Save();
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Возвращает <see langword="true"/>, если сериал существует в хранилище данных</returns>
         public bool TVSeriesExists(Expression<Func<TVSeries, bool>> filter)
         {
-            return this._unitOfWork.TVSeriesRepository.Get(
-                Mapper.Map<Expression<Func<DbTVSeries, bool>>>(filter))
-                .FirstOrDefault() != null;
+            return _unitOfWork.TVSeriesRepository.Get(
+                           Mapper.Map<Expression<Func<DbTVSeries, bool>>>(filter))
+                       .FirstOrDefault() != null;
         }
     }
 }

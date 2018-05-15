@@ -19,11 +19,18 @@ namespace Rocket.BL.Validators.User
                                                                       .USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
 
             /// Содержит строку с сообщением и минимальным количеством символов,
+<<<<<<< HEAD
             /// которые должны быть в логине.
+            string UserAccountLoginLenghtAssembleFullMessage = Properties.Resources.USERACCOUNTPASSWORDLENGHT +
+                   Resources.USERACCOUNTPASSWORDMINLENGHT.ToString() + Resources.USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
+=======
+            /// которые должны быть в логине
+            /// </summary>
             string UserAccountLoginLenghtAssembleFullMessage = Resources.USERACCOUNTPASSWORDLENGHT +
                                                                Resources.USERACCOUNTPASSWORDMINLENGHT +
                                                                Resources
                                                                    .USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
+>>>>>>> develop
 
             RuleFor(x => x.Login)
                 .NotEmpty()
