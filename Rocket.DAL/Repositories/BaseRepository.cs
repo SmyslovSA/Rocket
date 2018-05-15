@@ -151,7 +151,7 @@ namespace Rocket.DAL.Repositories
             }
 
             foreach (var includeProperty in includeProperties.Split
-                (new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }
