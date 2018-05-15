@@ -10,7 +10,6 @@ namespace Rocket.BL.Services.UserServices
     {
         public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
 
         private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
@@ -62,7 +61,6 @@ namespace Rocket.BL.Services.UserServices
         {
             var dbUser = _unitOfWork.UserRepository.Get(t => t.Id == userId, includeProperties: "Roles").First();
             return dbUser.Roles;
-
         }
 
         /// <summary>

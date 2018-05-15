@@ -11,10 +11,8 @@ namespace Rocket.BL.Common.Mappings.PersonalAreaMappings
     {
         public GenreMappingProfile()
         {
-            CreateMap<Genre, DbGenre>().
-                ForMember(dbg => dbg.Id, g => g.MapFrom(src => src.Id)).
-                ForMember(dbg => dbg.Name, g => g.MapFrom(src => src.Name)).
-                ReverseMap();
+            CreateMap<Genre, DbGenre>().ForMember(dbg => dbg.Id, g => g.MapFrom(src => src.Id))
+                .ForMember(dbg => dbg.Name, g => g.MapFrom(src => src.Name)).ReverseMap();
         }
     }
 }

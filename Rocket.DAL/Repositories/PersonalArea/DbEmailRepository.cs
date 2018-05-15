@@ -7,7 +7,7 @@ namespace Rocket.DAL.Repositories.PersonalArea
     /// <summary>
     /// репозиторий e-mail
     /// </summary>
-    public class DbEmailRepository : BaseRepository<DbEmail>,IDbEmailRepository
+    public class DbEmailRepository : BaseRepository<DbEmail>, IDbEmailRepository
     {
         /// <summary>
         /// Создает новый экземпляр репозитория для e-mail с заданным контекстом базы данных

@@ -17,6 +17,7 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// true - при успешном добавлении жанра в список пользователя
         /// </returns>
         bool AddGenre(SimpleUser model, string category, string genre);
+
         /// <summary>
         /// удаление жанра определенной категории из персонального списка ожидания релизов
         /// </summary>

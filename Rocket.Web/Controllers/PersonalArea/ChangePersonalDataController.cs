@@ -12,7 +12,7 @@ namespace Rocket.Web.Controllers.PersonalArea
 {
     [RoutePrefix("PersonalArea/UserInfo")]
     public class ChangePersonalDataController : ApiController
-    {       
+    {
         //private IPersonalData _ipersonaldata;
         //private IUnitOfWork _unitOfWork;
 
@@ -30,8 +30,8 @@ namespace Rocket.Web.Controllers.PersonalArea
             if (user == null)
             {
                 return BadRequest("User data cannot be empty");
-            }    
-            
+            }
+
             var model = Mapper.Map<DbAuthorisedUser>(user);
             //_unitOfWork.UserAuthorisedRepository.Insert(model);
 

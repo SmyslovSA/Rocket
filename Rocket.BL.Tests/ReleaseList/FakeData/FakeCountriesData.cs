@@ -16,11 +16,11 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <param name="countriesCount">Необходимое количество сгенерированных стран</param>
         public FakeCountriesData(int countriesCount)
         {
-            this.CountryFaker = new Faker<Country>()
+            CountryFaker = new Faker<Country>()
                 .RuleFor(c => c.Id, f => f.IndexFaker)
                 .RuleFor(c => c.Name, f => f.Address.Country());
 
-            this.Countries = this.CountryFaker.Generate(countriesCount);
+            Countries = CountryFaker.Generate(countriesCount);
         }
 
         /// <summary>

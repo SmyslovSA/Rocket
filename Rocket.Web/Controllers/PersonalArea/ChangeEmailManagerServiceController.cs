@@ -20,18 +20,16 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(SimpleUser))]
-        public IHttpActionResult SaveEmail([FromBody]SimpleUser model, string email)
+        public IHttpActionResult SaveEmail([FromBody] SimpleUser model, string email)
         {
             if (model == null)
             {
                 return BadRequest("Model cannot be empty");
             }
-            else
+
+            if (string.IsNullOrEmpty(email))
             {
-                if (string.IsNullOrEmpty(email))
-                {
-                    return BadRequest("email cannot be empty");
-                }
+                return BadRequest("email cannot be empty");
             }
 
             _emailEmailManager.AddEmail(model, email);
@@ -42,13 +40,14 @@ namespace Rocket.Web.Controllers.PersonalArea
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteEmail([FromBody]SimpleUser model, string email)
+        public IHttpActionResult DeleteEmail([FromBody] SimpleUser model, string email)
         {
             if (model == null)
             {
                 return BadRequest("Model cannot be empty");
             }
-            else if (string.IsNullOrEmpty(email))
+
+            if (string.IsNullOrEmpty(email))
             {
                 return BadRequest("email cannot be empty");
             }
@@ -56,5 +55,5 @@ namespace Rocket.Web.Controllers.PersonalArea
             _emailEmailManager.DeleteEmail(model, email);
             return Ok();
         }
-    }    
+    }
 }

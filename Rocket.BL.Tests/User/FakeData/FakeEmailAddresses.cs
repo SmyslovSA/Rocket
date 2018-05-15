@@ -28,7 +28,7 @@ namespace Rocket.BL.Tests.User.FakeData
         {
             for (int i = 0; i < emailAddressCount; i++)
             {
-                this.EmailAddresses.Add(this.EmailAddressFaker.Internet.Email());
+                EmailAddresses.Add(EmailAddressFaker.Internet.Email());
             }
         }
     }

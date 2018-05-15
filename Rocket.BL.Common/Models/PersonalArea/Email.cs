@@ -6,6 +6,7 @@
         /// Id e-mail
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// Имя e-mail
         /// </summary>

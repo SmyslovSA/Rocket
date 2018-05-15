@@ -16,14 +16,18 @@ namespace Rocket.BL.Validators.User
             /// которые должны быть в пароле
             /// </summary>
             string UserAccountPasswordLenghtAssembleFullMessage = Resources.USERACCOUNTPASSWORDLENGHT +
-                    Resources.USERACCOUNTPASSWORDMINLENGHT.ToString() + Resources.USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
+                                                                  Resources.USERACCOUNTPASSWORDMINLENGHT +
+                                                                  Resources
+                                                                      .USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
 
             /// <summary>
             /// Содержит строку с сообщением и минимальным количеством символов,
             /// которые должны быть в логине
             /// </summary>
-            string UserAccountLoginLenghtAssembleFullMessage = Properties.Resources.USERACCOUNTPASSWORDLENGHT +
-                   Resources.USERACCOUNTPASSWORDMINLENGHT.ToString() + Resources.USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
+            string UserAccountLoginLenghtAssembleFullMessage = Resources.USERACCOUNTPASSWORDLENGHT +
+                                                               Resources.USERACCOUNTPASSWORDMINLENGHT +
+                                                               Resources
+                                                                   .USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
 
             RuleFor(x => x.Login)
                 .NotEmpty()
@@ -41,5 +45,4 @@ namespace Rocket.BL.Validators.User
                 .WithMessage(UserAccountPasswordLenghtAssembleFullMessage);
         }
     }
-
 }

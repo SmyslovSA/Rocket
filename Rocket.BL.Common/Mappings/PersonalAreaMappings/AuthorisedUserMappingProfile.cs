@@ -11,14 +11,13 @@ namespace Rocket.BL.Common.Mappings.PersonalAreaMappings
     {
         public AuthorisedUserMappingProfile()
         {
-            CreateMap<SimpleUser, DbAuthorisedUser>().
-                ForMember(dbu => dbu.Id, u => u.MapFrom(src => src.Id)).
-                ForPath(dbu => dbu.DbUser.FirstName, u => u.MapFrom(src => src.FirstName)).
-                ForPath(dbu => dbu.DbUser.LastName, u => u.MapFrom(src => src.LastName)).
-                ForPath(dbu => dbu.DbUser.Login, u => u.MapFrom(src => src.Login)).
-                ForMember(dbu => dbu.Avatar, u => u.MapFrom(src => src.Avatar)).
-                ForMember(dbu => dbu.Email, u => u.MapFrom(src => src.Emails)).
-               // ForMember(dbu => dbu.Genres, u => u.MapFrom(src => src.Genres)).
+            CreateMap<SimpleUser, DbAuthorisedUser>().ForMember(dbu => dbu.Id, u => u.MapFrom(src => src.Id))
+                .ForPath(dbu => dbu.DbUser.FirstName, u => u.MapFrom(src => src.FirstName))
+                .ForPath(dbu => dbu.DbUser.LastName, u => u.MapFrom(src => src.LastName))
+                .ForPath(dbu => dbu.DbUser.Login, u => u.MapFrom(src => src.Login))
+                .ForMember(dbu => dbu.Avatar, u => u.MapFrom(src => src.Avatar))
+                .ForMember(dbu => dbu.Email, u => u.MapFrom(src => src.Emails)).
+                // ForMember(dbu => dbu.Genres, u => u.MapFrom(src => src.Genres)).
                 ReverseMap();
         }
     }

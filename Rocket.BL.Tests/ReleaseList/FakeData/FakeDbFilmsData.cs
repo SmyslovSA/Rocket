@@ -62,25 +62,26 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         public FakeDbFilmsData(int personsCount, int countriesCount, int genresCount, int filmsCount)
         {
             var fakePersonsData = new FakeDbPersonsData(personsCount);
-            this.PersonFaker = fakePersonsData.PersonFaker;
-            this.Persons = fakePersonsData.Persons;
+            PersonFaker = fakePersonsData.PersonFaker;
+            Persons = fakePersonsData.Persons;
 
             var fakeCountriesData = new FakeDbCountriesData(countriesCount);
-            this.CountryFaker = fakeCountriesData.CountryFaker;
-            this.Countries = fakeCountriesData.Countries;
+            CountryFaker = fakeCountriesData.CountryFaker;
+            Countries = fakeCountriesData.Countries;
 
             var fakeVideoGenresData = new FakeDbVideoGenresData(genresCount);
-            this.VideoGenreFaker = fakeVideoGenresData.VideoGenreFaker;
-            this.VideoGenres = fakeVideoGenresData.VideoGenres;
+            VideoGenreFaker = fakeVideoGenresData.VideoGenreFaker;
+            VideoGenres = fakeVideoGenresData.VideoGenres;
 
-            this.FilmFaker = new Faker<DbFilm>()
+            FilmFaker = new Faker<DbFilm>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
-                .RuleFor(m => m.ReleaseDate, f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
+                .RuleFor(m => m.ReleaseDate,
+                    f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
                 .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
-                .RuleFor(m => m.Directors, f => f.PickRandom(this.Persons, f.Random.Number(1, 3)).ToList())
-                .RuleFor(m => m.Cast, f => f.PickRandom(this.Persons, f.Random.Number(2, 12)).ToList())
-                .RuleFor(m => m.Genres, f => f.PickRandom(this.VideoGenres, f.Random.Number(1, 3)).ToList())
-                .RuleFor(m => m.Countries, f => f.PickRandom(this.Countries, f.Random.Number(1, 3)).ToList())
+                .RuleFor(m => m.Directors, f => f.PickRandom(Persons, f.Random.Number(1, 3)).ToList())
+                .RuleFor(m => m.Cast, f => f.PickRandom(Persons, f.Random.Number(2, 12)).ToList())
+                .RuleFor(m => m.Genres, f => f.PickRandom(VideoGenres, f.Random.Number(1, 3)).ToList())
+                .RuleFor(m => m.Countries, f => f.PickRandom(Countries, f.Random.Number(1, 3)).ToList())
                 .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(4, 0, 0)))
                 .RuleFor(m => m.Summary, f => f.Lorem.Text());
 

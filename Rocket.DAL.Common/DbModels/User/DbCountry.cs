@@ -21,7 +21,7 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Возвращает или задает коллекцию адресов,
         /// в которых указана данная страна
         /// </summary>
-        public ICollection<DbAddress> DbAddresses {get; set;}
+        public ICollection<DbAddress> DbAddresses { get; set; }
 
         /// <summary>
         /// Задает или возвращает коллекцию дополнительной информации пользователя,

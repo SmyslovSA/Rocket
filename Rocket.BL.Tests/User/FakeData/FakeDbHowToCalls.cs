@@ -26,11 +26,11 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <param name="countriesCount">Необходимое количество обращений к пользователю, которые необходимо сгенерировать</param>
         public FakeDbHowToCalls(int howToCallsCount)
         {
-            this.HowToCallFaker = new Faker<DbHowToCall>()
+            HowToCallFaker = new Faker<DbHowToCall>()
                 .RuleFor(c => c.Id, f => f.IndexFaker)
                 .RuleFor(c => c.Name, f => f.Lorem.Word());
 
-            this.HowToCalls = this.HowToCallFaker.Generate(howToCallsCount);
+            HowToCalls = HowToCallFaker.Generate(howToCallsCount);
         }
     }
 }

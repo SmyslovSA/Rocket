@@ -9,14 +9,17 @@
         /// Id email
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// Имя Email
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// внешний ключ к таблице DbAuthorisedUser
         /// </summary>
         public int? DbAuthorisedUserId { get; set; }
+
         /// <summary>
         /// ссылка на DbAuthorisedUser
         /// </summary>

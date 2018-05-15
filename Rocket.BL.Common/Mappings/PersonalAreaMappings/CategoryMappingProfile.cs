@@ -11,11 +11,9 @@ namespace Rocket.BL.Common.Mappings.PersonalAreaMappings
     {
         public CategoryMappingProfile()
         {
-            CreateMap<Category, DbCategory>().
-                ForMember(dbc => dbc.Id, c => c.MapFrom(src => src.Id)).
-                ForMember(dbc => dbc.Name, c => c.MapFrom(src => src.Name)).
-                ForMember(dbc => dbc.Genres, c => c.MapFrom(src => src.Genres)).
-                ReverseMap();
+            CreateMap<Category, DbCategory>().ForMember(dbc => dbc.Id, c => c.MapFrom(src => src.Id))
+                .ForMember(dbc => dbc.Name, c => c.MapFrom(src => src.Name))
+                .ForMember(dbc => dbc.Genres, c => c.MapFrom(src => src.Genres)).ReverseMap();
         }
     }
 }
