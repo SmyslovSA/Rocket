@@ -7,16 +7,36 @@ namespace Rocket.DAL.Configurations.PersonalArea
     {
         public DbAuthorisedUserConfiguration()
         {
-            ToTable("Users").
+            ToTable("AuthorisedUsers").
                 HasKey(k => k.Id).
                 Property(p => p.Id).
                 HasColumnName("Id");
 
-            Property(p => p.DbAccountId).
-                HasColumnName("DbAccountId");
+            Property(p => p.DbUser.FirstName).
+                HasColumnName("FirstName").
+                IsOptional().
+                IsUnicode().
+                HasMaxLength(50).
+                IsVariableLength();
 
-            Property(p => p.DbPersonalityId).
-                HasColumnName("DbPersonalityId");
+            Property(p => p.DbUser.LastName).
+                HasColumnName("LastName").
+                IsOptional().
+                IsUnicode().
+                HasMaxLength(50).
+                IsVariableLength();
+
+            Property(p => p.DbUser.Login).
+                HasColumnName("Login").
+                IsRequired().
+                HasMaxLength(30).
+                IsVariableLength();
+
+            Property(p => p.DbUser.Password).
+                HasColumnName("Password").
+                IsRequired().
+                HasMaxLength(50).
+                IsVariableLength();
 
             Property(p => p.Avatar).
                 IsOptional().
@@ -26,15 +46,15 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 IsVariableLength();
 
             HasMany(p => p.Email).
-                WithRequired(e => e.User).
-                HasForeignKey(e => e.UserId);
+                WithRequired(e => e.DbAuthorisedUser).
+                HasForeignKey(e => e.DbAuthorisedUserId);
 
             HasMany(p => p.Genres).
-                WithMany(e => e.Users).
+                WithMany(e => e.AuthorisedUsers).
                 Map(m =>
                 {
-                    m.ToTable("UserGenres").
-                    MapLeftKey("UserId").
+                    m.ToTable("AuthorisedUserGenres").
+                    MapLeftKey("AuthorisedUserId").
                     MapRightKey("GenreId");
                 });
         }

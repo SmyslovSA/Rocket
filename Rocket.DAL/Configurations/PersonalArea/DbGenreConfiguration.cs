@@ -18,7 +18,7 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 IsVariableLength().
                 HasColumnName("Name");
 
-            Property(p => p.CategoryId).
+            Property(p => p.DbCategoryId).
                 HasColumnName("CategoryId");
         }
     }
