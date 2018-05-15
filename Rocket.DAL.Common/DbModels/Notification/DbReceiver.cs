@@ -10,26 +10,10 @@ namespace Rocket.DAL.Common.DbModels.Notification
     {
         /// <summary>
         /// Возвращает или задает идентификационный номер получателя
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает идентификационный номер получателя
-        /// из модели <see cref="DbAuthorisedUser"/>
+        /// согласно модели <see cref="DbAuthorisedUser"/>
         /// </summary>
         public int UserId { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает имя получателя
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает коллекцию email адресов,
-        /// принадлежащих получателю
-        /// </summary>
-        public ICollection<DbEmail> Emails { get; set; }
-
+        
         /// <summary>
         /// Возвращает или задает флаг подписки на email нотификацию
         /// </summary>
@@ -54,20 +38,8 @@ namespace Rocket.DAL.Common.DbModels.Notification
 
         /// <summary>
         /// Возвращает или задает коллекцию объектов, содержащих 
-        /// сводные данные о получателе и сообщении о релизе фильма
+        /// сводные данные о получателе и сообщении о релизе
         /// </summary>
-        public ICollection<ReceiversJoinFilms> ReceiversJoinFilms { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает коллекцию объектов, содержащих 
-        /// сводные данные о получателе и сообщении о музыкальном релизе
-        /// </summary>
-        public ICollection<ReceiversJoinMusics> ReceiversJoinMusics { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает коллекцию объектов, содержащих 
-        /// сводные данные о получателе и сообщении релизе сериала
-        /// </summary>
-        public ICollection<ReceiversJoinTVSeries> ReceiversJoinTVSeries { get; set; }
+        public ICollection<DbReceiversJoinReleases> ReceiversJoinReleases { get; set; }
     }
 }
