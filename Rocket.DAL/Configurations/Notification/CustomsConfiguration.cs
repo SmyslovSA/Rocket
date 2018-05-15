@@ -14,15 +14,15 @@ namespace Rocket.DAL.Configurations.Notification
 
             HasKey(x => x.Id);
 
-            Property(x => x.SenderName)
-                .IsRequired()
-                .HasMaxLength(50);
+            Property(x => x.SenderName).IsRequired();
 
             Property(x => x.Subject).IsOptional();
 
             Property(x => x.Body).IsRequired();
 
             Property(x => x.HtmlBody).IsRequired();
+
+            Property(x => x.Viewed).IsRequired();
 
             Property(x => x.CreationTime).IsRequired();
         }
