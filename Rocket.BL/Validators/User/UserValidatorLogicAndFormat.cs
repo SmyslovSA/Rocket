@@ -5,23 +5,19 @@ using Rocket.BL.Properties;
 namespace Rocket.BL.Validators.User
 {
     /// <summary>
-    /// Задаем условия для валидатора данных аккаунта
+    /// Задаем условия для валидатора данных аккаунта.
     /// </summary>
     internal class UserValidatorLogicAndFormat : AbstractValidator<Common.Models.User.User>
     {
         internal UserValidatorLogicAndFormat()
         {
-            /// <summary>
-            /// Содержит строку с сообщением и минимальным количеством символов,
-            /// которые должны быть в пароле
-            /// </summary>
+            // Содержит строку с сообщением и минимальным количеством символов,
+            // которые должны быть в пароле.
             string UserAccountPasswordLenghtAssembleFullMessage = Resources.USERACCOUNTPASSWORDLENGHT +
                     Resources.USERACCOUNTPASSWORDMINLENGHT.ToString() + Resources.USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
 
-            /// <summary>
             /// Содержит строку с сообщением и минимальным количеством символов,
-            /// которые должны быть в логине
-            /// </summary>
+            /// которые должны быть в логине.
             string UserAccountLoginLenghtAssembleFullMessage = Properties.Resources.USERACCOUNTPASSWORDLENGHT +
                    Resources.USERACCOUNTPASSWORDMINLENGHT.ToString() + Resources.USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
 
