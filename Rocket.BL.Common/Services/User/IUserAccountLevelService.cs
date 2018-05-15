@@ -19,7 +19,7 @@ namespace Rocket.BL.Common.Services.User
         /// Задает значение уровня аккаунта пользователя с заданным идентификатором
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
-        /// <param name="AccountLevel">Задаваемый уровень аккаунта</param>
+        /// <param name="accountLevel">Задаваемый уровень аккаунта</param>
         void SetUserAccountLevel(int id, AccountLevel accountLevel);
     }
 }
