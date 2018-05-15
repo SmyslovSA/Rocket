@@ -12,17 +12,7 @@ namespace Rocket.DAL.Configurations.Notification
         {
             ToTable("Receivers");
 
-            HasKey(x => x.Id);
-
-            Property(x => x.UserId).IsRequired();
-
-            Property(x => x.Name)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            HasMany(x => x.Emails)
-                .WithRequired(x => x.Receiver)
-                .HasForeignKey(x => x.ReceiverId);
+            HasKey(x => x.UserId);
 
             Property(x => x.NotifyByEmail).IsRequired();
 
@@ -36,15 +26,7 @@ namespace Rocket.DAL.Configurations.Notification
                 .WithRequired(x => x.Receiver)
                 .HasForeignKey(x => x.ReceiverId);
 
-            HasMany(x => x.ReceiversJoinFilms)
-                .WithRequired(x => x.Receiver)
-                .HasForeignKey(x => x.ReceiverId);
-
-            HasMany(x => x.ReceiversJoinMusics)
-                .WithRequired(x => x.Receiver)
-                .HasForeignKey(x => x.ReceiverId);
-
-            HasMany(x => x.ReceiversJoinTVSeries)
+            HasMany(x => x.ReceiversJoinReleases)
                 .WithRequired(x => x.Receiver)
                 .HasForeignKey(x => x.ReceiverId);
         }
