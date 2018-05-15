@@ -4,7 +4,7 @@ using Rocket.BL.Common.Models.User;
 namespace Rocket.BL.Common.Services.User
 {
     /// <summary>
-    /// Представляет сервис для работы с уровнем пользователя (обычный, премиум)
+    /// Представляет сервис для работы с уровнем пользователя (обычный, премиум).
     /// </summary>
     public interface IUserAccountLevelService : IDisposable
     {
@@ -19,7 +19,7 @@ namespace Rocket.BL.Common.Services.User
         /// Задает значение уровня аккаунта пользователя с заданным идентификатором
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
-        /// <param name="level">Задаваемый уровень аккаунта</param>
-        void SetUserAccountLevel(int id, AccountLevel AccountLevel);
+        /// <param name="AccountLevel">Задаваемый уровень аккаунта</param>
+        void SetUserAccountLevel(int id, AccountLevel accountLevel);
     }
 }

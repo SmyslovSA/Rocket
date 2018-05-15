@@ -28,14 +28,14 @@ namespace Rocket.BL.Common.Services.User
         /// Задает статус аккаунта пользователя с определенным идентификатором
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
-        /// <param name="statusType">Статус аккаунта пользователя</param>
-        void SetUserAccoutStatus(int id, AccountStatus AccountStatus);
+        /// <param name="accountStatus">Статус аккаунта пользователя</param>
+        void SetUserAccoutStatus(int id, AccountStatus accountStatus);
 
         /// <summary>
         /// Задает статус аккаунта пользователя
         /// </summary>
         /// <param name="user">Экземпляр пользователя</param>
-        /// <param name="statusType">Статус аккаунта пользователя</param>
-        void SetUserAccountStatus(Models.User.User user, AccountStatus AccountStatus);
+        /// <param name="accountStatus">Статус аккаунта пользователя</param>
+        void SetUserAccountStatus(Models.User.User user, AccountStatus accountStatus);
     }
 }
