@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Rocket.BL.Common.Services.User
@@ -8,6 +9,13 @@ namespace Rocket.BL.Common.Services.User
     /// </summary>
     public interface IUserManagementService : IDisposable
     {
+        /// <summary>
+        /// Возвращает всех пользователей
+        /// из хранилища данных.
+        /// </summary>
+        /// <returns>Коллекцию всех экземпляров пользователей.</returns>
+        ICollection<Models.User.User> GetAllUsers();
+
         /// <summary>
         /// Возвращает пользователя с заданным идентификатором
         /// из хранилища данных.

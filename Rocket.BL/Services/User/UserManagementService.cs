@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
@@ -13,7 +14,7 @@ namespace Rocket.BL.Services.User
     /// в хранилище данных.
     /// </summary>
     public class UserManagementService : BaseService, IUserManagementService
-    {
+    {   
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work.
@@ -22,6 +23,25 @@ namespace Rocket.BL.Services.User
         public UserManagementService(IUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
+        }
+
+        /// <summary>
+        /// Возвращает всех пользователей
+        /// из хранилища данных.
+        /// </summary>
+        /// <returns>Коллекцию всех экземпляров пользователей.</returns>
+        public ICollection<Common.Models.User.User> GetAllUsers()
+        {
+            var users = new List<Common.Models.User.User>();
+
+            var usersCount = _unitOfWork.UserRepository.Get().Count();
+
+            for (int i = 0; i < usersCount; i++)
+            {
+                users.Add(GetUser(i));
+            }
+
+            return users;
         }
 
         /// <summary>
