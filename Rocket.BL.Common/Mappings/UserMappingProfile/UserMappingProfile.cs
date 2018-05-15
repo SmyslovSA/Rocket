@@ -19,15 +19,6 @@ namespace Rocket.BL.Common.Mappings.UserMappingProfile
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password))
                 .ForMember(dest => dest.AccountStatus, opt => opt.MapFrom(src => src.AccountStatus))
                 .ForMember(dest => dest.AccountLevel, opt => opt.MapFrom(src => src.AccountLevel))
-                .ForMember(dest => dest.ActivationNeeded, opt => opt.MapFrom(src => src.ActivationNeeded))
-                .ForMember(dest => dest.Sitizenship, opt => opt.MapFrom(src => src.Sitizenship))
-                .ForMember(dest => dest.Language, opt => opt.MapFrom(src => src.Language))
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth))
-                .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
-                .ForMember(dest => dest.HowToCall, opt => opt.MapFrom(src => src.HowToCall))
-                .ForMember(dest => dest.Phones, opt => opt.MapFrom(src => src.Phones))
-                .ForMember(dest => dest.EMailAddresses, opt => opt.MapFrom(src => src.EMailAddresses))
-                .ForMember(dest => dest.MailAddress, opt => opt.MapFrom(src => src.MailAddress))
                 .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles))
                 .ReverseMap();
         }

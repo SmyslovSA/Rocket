@@ -18,8 +18,9 @@ namespace Rocket.DAL.Common.DbModels.User
         public string Name { get; set; }
 
         /// <summary>
-        /// Задает или возвращает коллекцию локализаций пользователя
+        /// Задает или возвращает коллекцию дополнительной информации пользователя,
+        /// к которой относится этот язык
         /// </summary>
-        public ICollection<DbUser> DbUsers { get; set; }
+        public ICollection<DbUserDetails> DbUserDetails { get; set; }
     }
 }

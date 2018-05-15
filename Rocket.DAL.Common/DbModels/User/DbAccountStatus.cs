@@ -19,7 +19,7 @@ namespace Rocket.DAL.Common.DbModels.User
         public string Name { get; set; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию аккаунтов,
+        /// Возвращает или задает коллекцию прльзователей,
         /// в которых указан данный статус пользователя
         /// </summary>
         public ICollection<DbUser> DbUsers { get; set; }

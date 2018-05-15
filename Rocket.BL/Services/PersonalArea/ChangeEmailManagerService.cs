@@ -5,10 +5,9 @@ using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.UoW;
 using System.Linq;
 
-
 namespace Rocket.BL.Services.PersonalArea
 {
-    class ChangeEmailManagerService : BaseService, IEmailManager
+    public class ChangeEmailManagerService : BaseService, IEmailManager
     {
         public ChangeEmailManagerService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {

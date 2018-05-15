@@ -11,6 +11,8 @@
     <AssemblyName>Rocket.BL.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,11 +54,13 @@
     <Compile Include="Mappings\UserMappingProfile\CountryMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\HowToCallMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\LanguageMappingProfile.cs" />
+    <Compile Include="Mappings\UserMappingProfile\UserDetailsMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\PermissionMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\RoleMappingProfile.cs" />
     <Compile Include="Models\Pagination\PageInfo.cs" />
     <Compile Include="Models\Pagination\ReleasesPageInfo.cs" />
+    <Compile Include="Models\PersonalArea\Email.cs" />
     <Compile Include="Models\ReleaseList\BaseRelease.cs" />
     <Compile Include="Models\User\AccountLevel.cs" />
     <Compile Include="Models\User\AccountStatus.cs" />
@@ -65,6 +69,7 @@
     <Compile Include="Models\User\HowToCall.cs" />
     <Compile Include="Models\User\Language.cs" />
     <Compile Include="Models\User\User.cs" />
+    <Compile Include="Models\User\UserDetails.cs" />
     <Compile Include="Services\IMailNotificationService.cs" />
     <Compile Include="Mappings\ReleaseList\CountryMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\EpisodeMappingProfile.cs" />
@@ -94,7 +99,6 @@
     <Compile Include="Services\PersonalArea\IPersonalData.cs" />
     <Compile Include="Models\PersonalArea\Category.cs" />
     <Compile Include="Models\PersonalArea\Genre.cs" />
-    <Compile Include="Models\PersonalArea\PersonalizedTape.cs" />
     <Compile Include="Models\PersonalArea\PremiumUser.cs" />
     <Compile Include="Models\Notification\Receiver.cs" />
     <Compile Include="Models\ReleaseList\Country.cs" />
@@ -135,4 +139,11 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets" Condition="Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets'))" />
+  </Target>
 </Project>
