@@ -5,7 +5,7 @@ using Rocket.DAL.Common.DbModels.User;
 namespace Rocket.BL.Common.Mappings.UserMappingProfile
 {
     /// <summary>
-    /// Профиль сопоставления доменной модели пользователя с моделью хранения данных пользователя
+    /// Профиль сопоставления доменной модели пользователя с моделью хранения данных пользователя.
     /// </summary>
     public class UserMappingProfile : Profile
     {

@@ -4,12 +4,12 @@ using Rocket.BL.Common.Models.UserRoles;
 namespace Rocket.BL.Common.Models.User
 {
     /// <summary>
-    /// Представляет информацию о пользователе
+    /// Представляет информацию о пользователе.
     /// </summary>
     public class User
     {
         /// <summary>
-        /// Возвращает или задает уникальный идентификатор пользователя
+        /// Возвращает или задает уникальный идентификатор пользователя.
         /// </summary>
         public int Id { get; set; }
 

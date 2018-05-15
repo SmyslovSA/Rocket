@@ -3,7 +3,7 @@
 namespace Rocket.DAL.Common.Repositories.User
 {
     /// <summary>
-    /// Представляет репозитарий адреса пользователя
+    /// Представляет репозитарий адреса пользователя.
     /// </summary>
     public interface IDbAddressRepositary : IBaseRepository<DbAddress>
     {

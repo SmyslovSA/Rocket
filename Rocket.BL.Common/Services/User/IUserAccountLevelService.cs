@@ -9,17 +9,17 @@ namespace Rocket.BL.Common.Services.User
     public interface IUserAccountLevelService : IDisposable
     {
         /// <summary>
-        /// Получает уровень аккаунта пользователя с заданным идентификатором
+        /// Получает уровень аккаунта пользователя с заданным идентификатором.
         /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
-        /// <returns>Уровень аккаунта пользователя</returns>
+        /// <param name="id">Идентификатор пользователя.</param>
+        /// <returns>Уровень аккаунта пользователя.</returns>
         AccountLevel GetUserAccountLevel(int id);
 
         /// <summary>
-        /// Задает значение уровня аккаунта пользователя с заданным идентификатором
+        /// Задает значение уровня аккаунта пользователя с заданным идентификатором.
         /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
-        /// <param name="accountLevel">Задаваемый уровень аккаунта</param>
+        /// <param name="id">Идентификатор пользователя.</param>
+        /// <param name="accountLevel">Задаваемый уровень аккаунта.</param>
         void SetUserAccountLevel(int id, AccountLevel accountLevel);
     }
 }
