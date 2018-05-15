@@ -36,7 +36,7 @@ namespace Rocket.Web.Controllers.PersonalArea
 
             _emailEmailManager.AddEmail(model, email);
 
-            //заменить null за конечный результат , т.к. не билдится проект
+            //todo заменить null за конечный результат , т.к. не билдится проект
 
             return null; //Created(/*$"____/{model.Id}", model*/);
         }

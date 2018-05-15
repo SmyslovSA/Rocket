@@ -12,7 +12,6 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
 	/// </summary>
 	public class FakeMusicData
 	{
-
 		/// <summary>
 		/// Возвращает набор сгенерированных данных о музыкальных треках
 		/// </summary>

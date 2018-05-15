@@ -59,7 +59,10 @@ namespace Rocket.BL.Tests.ReleaseList
                 .Returns((Expression<Func<DbBaseRelease, bool>> filter) =>
                 {
                     if (filter != null)
-                        return this._fakeDbReleases.AsQueryable().Count(filter);
+                    {
+                        return _fakeDbReleases.AsQueryable().Count(filter);
+                    }
+                    
                     return this._fakeDbReleases.Count;
                 });
 

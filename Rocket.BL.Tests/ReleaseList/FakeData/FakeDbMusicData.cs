@@ -12,7 +12,6 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     /// </summary>
     public class FakeDbMusicData
 	{
-
 		/// <summary>
 		/// Возвращает набор сгенерированных данных о музыкальных треках
 		/// </summary>
@@ -38,8 +37,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
 		/// </summary>
 		public List<DbMusician> Musician { get; }
 
-
-		/// <summary>
+        /// <summary>
 		/// Возвращает коллекцию сгенерированных музыкальных жанров
 		/// </summary>
 		public List<DbMusicGenre> MusicGenre { get; }
