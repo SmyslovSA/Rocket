@@ -12,13 +12,14 @@ namespace Rocket.BL.Services.PersonalArea
         public ChangeGenreManagerService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
+
         public bool AddGenre(SimpleUser model, string category, string genre)
-        { 
+        {
             //проверка на валидный данных
-            if (model!=null&&string.IsNullOrEmpty(category)&&string.IsNullOrEmpty(genre))
+            if (model != null && string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
             {
                 var user = Mapper.Map<DbAuthorisedUser>(model);
-                user.Genres.Add(new DbGenre()
+                user.Genres.Add(new DbGenre
                 {
                     Name = genre,
                     DbCategory = new DbCategory
@@ -30,10 +31,8 @@ namespace Rocket.BL.Services.PersonalArea
                 _unitOfWork.Save();
                 return true;
             }
-            else
-            {
-                    return false;
-            }
+
+            return false;
         }
 
         public bool DeleteGenre(SimpleUser model, string category, string genre)
@@ -47,15 +46,11 @@ namespace Rocket.BL.Services.PersonalArea
                     _unitOfWork.Save();
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
+
                 return false;
             }
+
+            return false;
         }
     }
 }

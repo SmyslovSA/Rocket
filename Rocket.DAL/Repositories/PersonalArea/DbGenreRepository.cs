@@ -7,7 +7,7 @@ namespace Rocket.DAL.Repositories.PersonalArea
     /// <summary>
     /// репозиторий жанров
     /// </summary>
-    public class DbGenreRepository : BaseRepository<DbGenre>,IDbGenreRepository
+    public class DbGenreRepository : BaseRepository<DbGenre>, IDbGenreRepository
     {
         /// <summary>
         /// Создает новый экземпляр репозитория для жанров с заданным контекстом базы данных

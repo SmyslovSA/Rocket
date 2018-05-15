@@ -1,14 +1,14 @@
 namespace Rocket.DAL.Migrations
 {
     using System.Data.Entity.Migrations;
-    
+
     public partial class InitialMigration : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Films",
-                c => new
+                    "dbo.Films",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         ReleaseDate = c.DateTime(nullable: false),
@@ -16,56 +16,56 @@ namespace Rocket.DAL.Migrations
                         PosterImagePath = c.String(maxLength: 200),
                         Duration = c.Time(precision: 7),
                         Summary = c.String(),
-                        TrailerLink = c.String(),
+                        TrailerLink = c.String()
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.Persons",
-                c => new
+                    "dbo.Persons",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FullName = c.String(nullable: false, maxLength: 50),
+                        FullName = c.String(nullable: false, maxLength: 50)
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.TVSerials",
-                c => new
+                    "dbo.TVSerials",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(nullable: false, maxLength: 50),
                         PosterImagePath = c.String(maxLength: 200),
-                        Summary = c.String(),
+                        Summary = c.String()
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.Countries",
-                c => new
+                    "dbo.Countries",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 50),
+                        Name = c.String(nullable: false, maxLength: 50)
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.Seasons",
-                c => new
+                    "dbo.Seasons",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Number = c.Int(nullable: false),
                         PosterImagePath = c.String(maxLength: 200),
                         Summary = c.String(),
-                        TVSeriesId = c.Int(nullable: false),
+                        TVSeriesId = c.Int(nullable: false)
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.TVSerials", t => t.TVSeriesId, cascadeDelete: true)
                 .Index(t => t.TVSeriesId);
-            
+
             CreateTable(
-                "dbo.Episodes",
-                c => new
+                    "dbo.Episodes",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         ReleaseDate = c.DateTime(nullable: false),
@@ -73,289 +73,288 @@ namespace Rocket.DAL.Migrations
                         Title = c.String(maxLength: 50),
                         Duration = c.Time(precision: 7),
                         Summary = c.String(),
-                        SeasonId = c.Int(nullable: false),
+                        SeasonId = c.Int(nullable: false)
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Seasons", t => t.SeasonId, cascadeDelete: true)
                 .Index(t => t.SeasonId);
-            
+
             CreateTable(
-                "dbo.VideoGenres",
-                c => new
+                    "dbo.VideoGenres",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 50),
+                        Name = c.String(nullable: false, maxLength: 50)
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.Music",
-                c => new
+                    "dbo.Music",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(nullable: false, maxLength: 50),
                         ReleaseDate = c.DateTime(nullable: false),
                         PosterImagePath = c.String(maxLength: 200),
-                        Duration = c.Time(precision: 7),
+                        Duration = c.Time(precision: 7)
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.MusicGenres",
-                c => new
+                    "dbo.MusicGenres",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 50),
+                        Name = c.String(nullable: false, maxLength: 50)
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.Musician",
-                c => new
+                    "dbo.Musician",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FullName = c.String(nullable: false),
+                        FullName = c.String(nullable: false)
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.MusicTrack",
-                c => new
+                    "dbo.MusicTrack",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Number = c.Int(nullable: false),
                         Title = c.String(nullable: false, maxLength: 50),
                         Duration = c.Time(precision: 7),
-                        MusicId = c.Int(nullable: false),
+                        MusicId = c.Int(nullable: false)
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Music", t => t.MusicId, cascadeDelete: true)
                 .Index(t => t.MusicId);
-            
+
             CreateTable(
-                "dbo.t_user_permission",
-                c => new
+                    "dbo.t_user_permission",
+                    c => new
                     {
                         permission_id = c.Int(nullable: false, identity: true),
                         description = c.String(maxLength: 250),
-                        valueName = c.String(nullable: false, maxLength: 50),
+                        valueName = c.String(nullable: false, maxLength: 50)
                     })
                 .PrimaryKey(t => t.permission_id);
-            
+
             CreateTable(
-                "dbo.t_user_role",
-                c => new
+                    "dbo.t_user_role",
+                    c => new
                     {
                         role_id = c.Int(nullable: false, identity: true),
                         name = c.String(nullable: false, maxLength: 50),
-                        is_active = c.Boolean(nullable: false),
+                        is_active = c.Boolean(nullable: false)
                     })
                 .PrimaryKey(t => t.role_id);
-            
+
             CreateTable(
-                "dbo.Category",
-                c => new
+                    "dbo.Category",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 30),
+                        Name = c.String(nullable: false, maxLength: 30)
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.Genres",
-                c => new
+                    "dbo.Genres",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 30),
-                        CategoryId = c.Int(nullable: false),
+                        CategoryId = c.Int(nullable: false)
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Category", t => t.CategoryId, cascadeDelete: true)
                 .Index(t => t.CategoryId);
-            
+
             CreateTable(
-                "dbo.Users",
-                c => new
+                    "dbo.Users",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         FirstName = c.String(maxLength: 30),
                         LastName = c.String(maxLength: 50),
                         Login = c.String(nullable: false, maxLength: 30),
                         Password = c.String(nullable: false, maxLength: 30),
-                        AvatarPath = c.String(maxLength: 200),
+                        AvatarPath = c.String(maxLength: 200)
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
-                "dbo.Emails",
-                c => new
+                    "dbo.Emails",
+                    c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 80),
-                        UserId = c.Int(nullable: false),
+                        UserId = c.Int(nullable: false)
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
+
             CreateTable(
-                "dbo.TVSerialsActors",
-                c => new
+                    "dbo.TVSerialsActors",
+                    c => new
                     {
                         TVSeriesId = c.Int(nullable: false),
-                        ActorId = c.Int(nullable: false),
+                        ActorId = c.Int(nullable: false)
                     })
                 .PrimaryKey(t => new { t.TVSeriesId, t.ActorId })
                 .ForeignKey("dbo.TVSerials", t => t.TVSeriesId, cascadeDelete: true)
                 .ForeignKey("dbo.Persons", t => t.ActorId, cascadeDelete: true)
                 .Index(t => t.TVSeriesId)
                 .Index(t => t.ActorId);
-            
+
             CreateTable(
-                "dbo.TVSerialsCountries",
-                c => new
+                    "dbo.TVSerialsCountries",
+                    c => new
                     {
                         TVSeriesId = c.Int(nullable: false),
-                        CountryId = c.Int(nullable: false),
+                        CountryId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.TVSeriesId, t.CountryId })
+                .PrimaryKey(t => new {t.TVSeriesId, t.CountryId})
                 .ForeignKey("dbo.TVSerials", t => t.TVSeriesId, cascadeDelete: true)
                 .ForeignKey("dbo.Countries", t => t.CountryId, cascadeDelete: true)
                 .Index(t => t.TVSeriesId)
                 .Index(t => t.CountryId);
-            
+
             CreateTable(
-                "dbo.TVSerialsDirectors",
-                c => new
+                    "dbo.TVSerialsDirectors",
+                    c => new
                     {
                         TVSeriesId = c.Int(nullable: false),
-                        DirectorId = c.Int(nullable: false),
+                        DirectorId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.TVSeriesId, t.DirectorId })
+                .PrimaryKey(t => new {t.TVSeriesId, t.DirectorId})
                 .ForeignKey("dbo.TVSerials", t => t.TVSeriesId, cascadeDelete: true)
                 .ForeignKey("dbo.Persons", t => t.DirectorId, cascadeDelete: true)
                 .Index(t => t.TVSeriesId)
                 .Index(t => t.DirectorId);
-            
+
             CreateTable(
-                "dbo.TVSerialsVideoGenres",
-                c => new
+                    "dbo.TVSerialsVideoGenres",
+                    c => new
                     {
                         TVSeriesId = c.Int(nullable: false),
-                        VideoGenreId = c.Int(nullable: false),
+                        VideoGenreId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.TVSeriesId, t.VideoGenreId })
+                .PrimaryKey(t => new {t.TVSeriesId, t.VideoGenreId})
                 .ForeignKey("dbo.TVSerials", t => t.TVSeriesId, cascadeDelete: true)
                 .ForeignKey("dbo.VideoGenres", t => t.VideoGenreId, cascadeDelete: true)
                 .Index(t => t.TVSeriesId)
                 .Index(t => t.VideoGenreId);
-            
+
             CreateTable(
-                "dbo.FilmsActors",
-                c => new
+                    "dbo.FilmsActors",
+                    c => new
                     {
                         FilmId = c.Int(nullable: false),
-                        ActorId = c.Int(nullable: false),
+                        ActorId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.FilmId, t.ActorId })
+                .PrimaryKey(t => new {t.FilmId, t.ActorId})
                 .ForeignKey("dbo.Films", t => t.FilmId, cascadeDelete: true)
                 .ForeignKey("dbo.Persons", t => t.ActorId, cascadeDelete: true)
                 .Index(t => t.FilmId)
                 .Index(t => t.ActorId);
-            
+
             CreateTable(
-                "dbo.FilmsCountries",
-                c => new
+                    "dbo.FilmsCountries",
+                    c => new
                     {
                         FilmId = c.Int(nullable: false),
-                        CountryId = c.Int(nullable: false),
+                        CountryId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.FilmId, t.CountryId })
+                .PrimaryKey(t => new {t.FilmId, t.CountryId})
                 .ForeignKey("dbo.Films", t => t.FilmId, cascadeDelete: true)
                 .ForeignKey("dbo.Countries", t => t.CountryId, cascadeDelete: true)
                 .Index(t => t.FilmId)
                 .Index(t => t.CountryId);
-            
+
             CreateTable(
-                "dbo.FilmsDirectors",
-                c => new
+                    "dbo.FilmsDirectors",
+                    c => new
                     {
                         FilmId = c.Int(nullable: false),
-                        DirectorId = c.Int(nullable: false),
+                        DirectorId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.FilmId, t.DirectorId })
+                .PrimaryKey(t => new {t.FilmId, t.DirectorId})
                 .ForeignKey("dbo.Films", t => t.FilmId, cascadeDelete: true)
                 .ForeignKey("dbo.Persons", t => t.DirectorId, cascadeDelete: true)
                 .Index(t => t.FilmId)
                 .Index(t => t.DirectorId);
-            
+
             CreateTable(
-                "dbo.FilmsVideoGenres",
-                c => new
+                    "dbo.FilmsVideoGenres",
+                    c => new
                     {
                         FilmId = c.Int(nullable: false),
-                        VideoGenreId = c.Int(nullable: false),
+                        VideoGenreId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.FilmId, t.VideoGenreId })
+                .PrimaryKey(t => new {t.FilmId, t.VideoGenreId})
                 .ForeignKey("dbo.Films", t => t.FilmId, cascadeDelete: true)
                 .ForeignKey("dbo.VideoGenres", t => t.VideoGenreId, cascadeDelete: true)
                 .Index(t => t.FilmId)
                 .Index(t => t.VideoGenreId);
-            
+
             CreateTable(
-                "dbo.MusicReleaseGenres",
-                c => new
+                    "dbo.MusicReleaseGenres",
+                    c => new
                     {
                         MusicId = c.Int(nullable: false),
-                        MusicGenreId = c.Int(nullable: false),
+                        MusicGenreId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.MusicId, t.MusicGenreId })
+                .PrimaryKey(t => new {t.MusicId, t.MusicGenreId})
                 .ForeignKey("dbo.Music", t => t.MusicId, cascadeDelete: true)
                 .ForeignKey("dbo.MusicGenres", t => t.MusicGenreId, cascadeDelete: true)
                 .Index(t => t.MusicId)
                 .Index(t => t.MusicGenreId);
-            
+
             CreateTable(
-                "dbo.MusicMusicians",
-                c => new
+                    "dbo.MusicMusicians",
+                    c => new
                     {
                         MusicId = c.Int(nullable: false),
-                        MusiciansId = c.Int(nullable: false),
+                        MusiciansId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.MusicId, t.MusiciansId })
+                .PrimaryKey(t => new {t.MusicId, t.MusiciansId})
                 .ForeignKey("dbo.Music", t => t.MusicId, cascadeDelete: true)
                 .ForeignKey("dbo.Musician", t => t.MusiciansId, cascadeDelete: true)
                 .Index(t => t.MusicId)
                 .Index(t => t.MusiciansId);
-            
+
             CreateTable(
-                "dbo.DbRoleDbPermissions",
-                c => new
+                    "dbo.DbRoleDbPermissions",
+                    c => new
                     {
                         DbRole_Id = c.Int(nullable: false),
-                        DbPermission_Id = c.Int(nullable: false),
+                        DbPermission_Id = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.DbRole_Id, t.DbPermission_Id })
+                .PrimaryKey(t => new {t.DbRole_Id, t.DbPermission_Id})
                 .ForeignKey("dbo.t_user_role", t => t.DbRole_Id, cascadeDelete: true)
                 .ForeignKey("dbo.t_user_permission", t => t.DbPermission_Id, cascadeDelete: true)
                 .Index(t => t.DbRole_Id)
                 .Index(t => t.DbPermission_Id);
-            
+
             CreateTable(
-                "dbo.UserGenres",
-                c => new
+                    "dbo.UserGenres",
+                    c => new
                     {
                         UserId = c.Int(nullable: false),
-                        GenreId = c.Int(nullable: false),
+                        GenreId = c.Int(nullable: false)
                     })
-                .PrimaryKey(t => new { t.UserId, t.GenreId })
+                .PrimaryKey(t => new {t.UserId, t.GenreId})
                 .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .ForeignKey("dbo.Genres", t => t.GenreId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.GenreId);
-            
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Genres", "CategoryId", "dbo.Category");
@@ -387,35 +386,35 @@ namespace Rocket.DAL.Migrations
             DropForeignKey("dbo.TVSerialsCountries", "TVSeriesId", "dbo.TVSerials");
             DropForeignKey("dbo.TVSerialsActors", "ActorId", "dbo.Persons");
             DropForeignKey("dbo.TVSerialsActors", "TVSeriesId", "dbo.TVSerials");
-            DropIndex("dbo.UserGenres", new[] { "GenreId" });
-            DropIndex("dbo.UserGenres", new[] { "UserId" });
-            DropIndex("dbo.DbRoleDbPermissions", new[] { "DbPermission_Id" });
-            DropIndex("dbo.DbRoleDbPermissions", new[] { "DbRole_Id" });
-            DropIndex("dbo.MusicMusicians", new[] { "MusiciansId" });
-            DropIndex("dbo.MusicMusicians", new[] { "MusicId" });
-            DropIndex("dbo.MusicReleaseGenres", new[] { "MusicGenreId" });
-            DropIndex("dbo.MusicReleaseGenres", new[] { "MusicId" });
-            DropIndex("dbo.FilmsVideoGenres", new[] { "VideoGenreId" });
-            DropIndex("dbo.FilmsVideoGenres", new[] { "FilmId" });
-            DropIndex("dbo.FilmsDirectors", new[] { "DirectorId" });
-            DropIndex("dbo.FilmsDirectors", new[] { "FilmId" });
-            DropIndex("dbo.FilmsCountries", new[] { "CountryId" });
-            DropIndex("dbo.FilmsCountries", new[] { "FilmId" });
-            DropIndex("dbo.FilmsActors", new[] { "ActorId" });
-            DropIndex("dbo.FilmsActors", new[] { "FilmId" });
-            DropIndex("dbo.TVSerialsVideoGenres", new[] { "VideoGenreId" });
-            DropIndex("dbo.TVSerialsVideoGenres", new[] { "TVSeriesId" });
-            DropIndex("dbo.TVSerialsDirectors", new[] { "DirectorId" });
-            DropIndex("dbo.TVSerialsDirectors", new[] { "TVSeriesId" });
-            DropIndex("dbo.TVSerialsCountries", new[] { "CountryId" });
-            DropIndex("dbo.TVSerialsCountries", new[] { "TVSeriesId" });
-            DropIndex("dbo.TVSerialsActors", new[] { "ActorId" });
-            DropIndex("dbo.TVSerialsActors", new[] { "TVSeriesId" });
-            DropIndex("dbo.Emails", new[] { "UserId" });
-            DropIndex("dbo.Genres", new[] { "CategoryId" });
-            DropIndex("dbo.MusicTrack", new[] { "MusicId" });
-            DropIndex("dbo.Episodes", new[] { "SeasonId" });
-            DropIndex("dbo.Seasons", new[] { "TVSeriesId" });
+            DropIndex("dbo.UserGenres", new[] {"GenreId"});
+            DropIndex("dbo.UserGenres", new[] {"UserId"});
+            DropIndex("dbo.DbRoleDbPermissions", new[] {"DbPermission_Id"});
+            DropIndex("dbo.DbRoleDbPermissions", new[] {"DbRole_Id"});
+            DropIndex("dbo.MusicMusicians", new[] {"MusiciansId"});
+            DropIndex("dbo.MusicMusicians", new[] {"MusicId"});
+            DropIndex("dbo.MusicReleaseGenres", new[] {"MusicGenreId"});
+            DropIndex("dbo.MusicReleaseGenres", new[] {"MusicId"});
+            DropIndex("dbo.FilmsVideoGenres", new[] {"VideoGenreId"});
+            DropIndex("dbo.FilmsVideoGenres", new[] {"FilmId"});
+            DropIndex("dbo.FilmsDirectors", new[] {"DirectorId"});
+            DropIndex("dbo.FilmsDirectors", new[] {"FilmId"});
+            DropIndex("dbo.FilmsCountries", new[] {"CountryId"});
+            DropIndex("dbo.FilmsCountries", new[] {"FilmId"});
+            DropIndex("dbo.FilmsActors", new[] {"ActorId"});
+            DropIndex("dbo.FilmsActors", new[] {"FilmId"});
+            DropIndex("dbo.TVSerialsVideoGenres", new[] {"VideoGenreId"});
+            DropIndex("dbo.TVSerialsVideoGenres", new[] {"TVSeriesId"});
+            DropIndex("dbo.TVSerialsDirectors", new[] {"DirectorId"});
+            DropIndex("dbo.TVSerialsDirectors", new[] {"TVSeriesId"});
+            DropIndex("dbo.TVSerialsCountries", new[] {"CountryId"});
+            DropIndex("dbo.TVSerialsCountries", new[] {"TVSeriesId"});
+            DropIndex("dbo.TVSerialsActors", new[] {"ActorId"});
+            DropIndex("dbo.TVSerialsActors", new[] {"TVSeriesId"});
+            DropIndex("dbo.Emails", new[] {"UserId"});
+            DropIndex("dbo.Genres", new[] {"CategoryId"});
+            DropIndex("dbo.MusicTrack", new[] {"MusicId"});
+            DropIndex("dbo.Episodes", new[] {"SeasonId"});
+            DropIndex("dbo.Seasons", new[] {"TVSeriesId"});
             DropTable("dbo.UserGenres");
             DropTable("dbo.DbRoleDbPermissions");
             DropTable("dbo.MusicMusicians");

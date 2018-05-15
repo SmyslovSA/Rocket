@@ -16,6 +16,7 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// true - если e-mail успешно добавлен
         /// </returns>
         bool AddEmail(SimpleUser model, string email);
+
         /// <summary>
         /// удаление из приложения одного из имеющихся e-mail пользователя 
         /// </summary>

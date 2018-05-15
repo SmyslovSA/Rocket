@@ -26,10 +26,10 @@ namespace Rocket.DAL.Common.UoW
         /// </summary>
         IDbTVSeriesRepository TVSeriesRepository { get; }
 
-		/// <summary>
-		/// Возвращает репозиторий для музыки
-		/// </summary>
-		IDbMusicRepository MusicRepository { get; }
+        /// <summary>
+        /// Возвращает репозиторий для музыки
+        /// </summary>
+        IDbMusicRepository MusicRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для юзеров

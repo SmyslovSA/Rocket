@@ -12,6 +12,7 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// </summary>
         /// <param name="user">модель пользователя, инициировавшего смену личных данных</param>
         void ChangePersonalData(SimpleUser user);
+
         /// <summary>
         /// изменение пароля на новый
         /// </summary>

@@ -15,25 +15,24 @@ namespace Rocket.BL.Services.UserServices
     /// </summary>
     public class RoleService : BaseService // todo add ilogger
     {
-
         public RoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
 
         public bool RoleIsExists(Expression<Func<Role, bool>> filter)
         {
             return _unitOfWork.RoleRepository
-                       .Get(Mapper.Map<Expression<Func<DbRole, bool>>>(filter))
-                       .Any();
-        }
-        
-        public IEnumerable<Role> Get(Expression<Func<DbRole, bool>> filter = null, Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, string includeProperties = "")
-        {
-           return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
+                .Get(Mapper.Map<Expression<Func<DbRole, bool>>>(filter))
+                .Any();
         }
 
-        
+        public IEnumerable<Role> Get(Expression<Func<DbRole, bool>> filter = null,
+            Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, string includeProperties = "")
+        {
+            return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
+        }
+
+
         public Role GetById(int id)
         {
             return Mapper.Map<Role>(

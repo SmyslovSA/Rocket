@@ -11,10 +11,12 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// Id категории
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// название категории
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// список связанных жанров с данной категорией
         /// </summary>

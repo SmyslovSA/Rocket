@@ -23,8 +23,8 @@ namespace Rocket.DAL.Repositories
         /// <param name="dbContext">Экземпляр контекста базы данных</param>
         public BaseRepository(DbContext dbContext)
         {
-            this._dbContext = dbContext;
-            this._dbSet = this._dbContext.Set<TEntity>();
+            _dbContext = dbContext;
+            _dbSet = _dbContext.Set<TEntity>();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Rocket.DAL.Repositories
         {
             return GetFilteredQuery(filter, orderBy, includeProperties).ToList();
         }
-        
+
         /// <summary>
         /// Возвращает страницу заданного размера с заданным номером
         /// в виде перечисления экземпляров <see cref="TEntity"/> из хранилища данных.
@@ -75,7 +75,7 @@ namespace Rocket.DAL.Repositories
         /// <returns>Экземпляр <see cref="TEntity"/></returns>
         public TEntity GetById(int id)
         {
-            return this._dbSet.Find(id);
+            return _dbSet.Find(id);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Rocket.DAL.Repositories
         /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
         public void Insert(TEntity entity)
         {
-            this._dbSet.Add(entity);
+            _dbSet.Add(entity);
         }
 
         /// <summary>
@@ -93,8 +93,8 @@ namespace Rocket.DAL.Repositories
         /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
         public void Update(TEntity entity)
         {
-            this._dbSet.Attach(entity);
-            this._dbContext.Entry(entity).State = EntityState.Modified;
+            _dbSet.Attach(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Rocket.DAL.Repositories
         /// <param name="id">Идентификатор</param>
         public void Delete(int id)
         {
-            TEntity entityToDelete = this._dbSet.Find(id);
+            TEntity entityToDelete = _dbSet.Find(id);
             Delete(entityToDelete);
         }
 
@@ -114,11 +114,12 @@ namespace Rocket.DAL.Repositories
         /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
         public void Delete(TEntity entity)
         {
-            if (this._dbContext.Entry(entity).State == EntityState.Detached)
+            if (_dbContext.Entry(entity).State == EntityState.Detached)
             {
-                this._dbSet.Attach(entity);
+                _dbSet.Attach(entity);
             }
-            this._dbSet.Remove(entity);
+
+            _dbSet.Remove(entity);
         }
 
         /// <summary>
@@ -131,10 +132,10 @@ namespace Rocket.DAL.Repositories
         {
             if (filter != null)
             {
-                return this._dbSet.Count(filter);
+                return _dbSet.Count(filter);
             }
 
-            return this._dbSet.Count();
+            return _dbSet.Count();
         }
 
         private IQueryable<TEntity> GetFilteredQuery(
@@ -142,7 +143,7 @@ namespace Rocket.DAL.Repositories
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
             string includeProperties)
         {
-            IQueryable<TEntity> query = this._dbSet;
+            IQueryable<TEntity> query = _dbSet;
 
             if (filter != null)
             {
@@ -150,7 +151,7 @@ namespace Rocket.DAL.Repositories
             }
 
             foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                (new[] {','}, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }
@@ -159,10 +160,8 @@ namespace Rocket.DAL.Repositories
             {
                 return orderBy(query);
             }
-            else
-            {
-                return query;
-            }
+
+            return query;
         }
     }
 }

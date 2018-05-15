@@ -11,7 +11,7 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// Возвращает или задает номер серии в сезоне
         /// </summary>
         public int Number { get; set; }
-        
+
         /// <summary>
         /// Возвращает или задает продолжительность серии
         /// </summary>

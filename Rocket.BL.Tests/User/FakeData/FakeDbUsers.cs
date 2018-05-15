@@ -1,9 +1,9 @@
 ﻿using Bogus;
-using System.Collections.Generic;
-using System;
 using Rocket.DAL.Common.DbModels;
-using System.Linq;
 using Rocket.DAL.Common.DbModels.User;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rocket.BL.Tests.User.FakeData
 {
@@ -21,7 +21,7 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных пользователей
         /// </summary>
-        public List<DbUser> Users{ get; }
+        public List<DbUser> Users { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о пользователях
@@ -33,20 +33,26 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <param name="isPasswordNullOrEmpty">Возвращает true, если пароль не указан</param>
         /// <param name="minLoginLenght">Задает минимальное количество символов в логине</param>
         /// <param name="minPasswordLenght">Задает минимальное количество символов в пароле</param>
-        public FakeDbUsers(int usersCount, bool isFirstNameNullOrEmpty, bool isLastNameNullOrEmpty, bool isLoginNullOrEmpty, bool isPasswordNullOrEmpty,  int minLoginLenght, int minPasswordLenght)
+        public FakeDbUsers(int usersCount, bool isFirstNameNullOrEmpty, bool isLastNameNullOrEmpty,
+            bool isLoginNullOrEmpty, bool isPasswordNullOrEmpty, int minLoginLenght, int minPasswordLenght)
         {
             var result = new Faker<DbUser>()
                 .RuleFor(p => p.Id, f => f.IndexFaker)
-                .RuleFor(p => p.AccountStatus, f => f.PickRandomParam((new FakeDbAccountStatuses(5)).AccountStatuses.ToArray()))
-                .RuleFor(p => p.AccountLevel, f => f.PickRandomParam((new FakeDbAccountLevels(5)).AccountLevels.ToArray()))
-                .RuleFor(p => p.Roles, f => { return (new FakeDbRoles((new Random()).Next(1, 5))).Roles; })
+                .RuleFor(p => p.AccountStatus,
+                    f => f.PickRandomParam(new FakeDbAccountStatuses(5).AccountStatuses.ToArray()))
+                .RuleFor(p => p.AccountLevel,
+                    f => f.PickRandomParam(new FakeDbAccountLevels(5).AccountLevels.ToArray()))
+                .RuleFor(p => p.Roles, f => { return new FakeDbRoles(new Random().Next(1, 5)).Roles; })
                 .RuleFor(p => p.FirstName, f => { return isFirstNameNullOrEmpty ? string.Empty : f.Person.FirstName; })
                 .RuleFor(p => p.LastName, f => { return isLastNameNullOrEmpty ? string.Empty : f.Person.LastName; })
-                .RuleFor(p => p.Login, f => { return isLoginNullOrEmpty ? string.Empty : f.Lorem.Letter(minLoginLenght); })
-                .RuleFor(p => p.Password, f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); })
-                .RuleFor(p => p.UserDetails, f => { return (new FakeDbUserDetails(1)).UserDetails[0]; }); ;
+                .RuleFor(p => p.Login,
+                    f => { return isLoginNullOrEmpty ? string.Empty : f.Lorem.Letter(minLoginLenght); })
+                .RuleFor(p => p.Password,
+                    f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); })
+                .RuleFor(p => p.UserDetails, f => { return new FakeDbUserDetails(1).UserDetails[0]; });
+            ;
 
-            this.Users = result.Generate(usersCount);
+            Users = result.Generate(usersCount);
         }
     }
 }

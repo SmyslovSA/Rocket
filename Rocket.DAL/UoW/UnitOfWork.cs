@@ -15,7 +15,7 @@ namespace Rocket.DAL.UoW
     public class UnitOfWork : IUnitOfWork
     {
         private DbContext _dbContext;
-        private bool disposedValue = false;
+        private bool disposedValue;
 
         /// <summary>
         /// Возвращает репозиторий для релизов
@@ -96,25 +96,25 @@ namespace Rocket.DAL.UoW
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository)
         {
-            this._dbContext = dbContext;
-            this.ReleaseRepository = dbReleaseRepository;
-            this.FilmRepository = dbFilmRepository;
-            this.TVSeriesRepository = dbTVSeriesRepository;
-            this.MusicRepository = dbMusicRepository;
-            this.UserAuthorisedRepository = dbAuthorisedUserRepository;
-            this.EmailRepository = dbEmailRepository;
-            this.GenreRepository = dbGenreRepository;
-            this.UserRepository = dbUserRepository;
-            this.RoleRepository = dbRoleRepository;
-            this.PermissionRepository = dbPermissionRepository;
+            _dbContext = dbContext;
+            ReleaseRepository = dbReleaseRepository;
+            FilmRepository = dbFilmRepository;
+            TVSeriesRepository = dbTVSeriesRepository;
+            MusicRepository = dbMusicRepository;
+            UserAuthorisedRepository = dbAuthorisedUserRepository;
+            EmailRepository = dbEmailRepository;
+            GenreRepository = dbGenreRepository;
+            UserRepository = dbUserRepository;
+            RoleRepository = dbRoleRepository;
+            PermissionRepository = dbPermissionRepository;
         }
 
         /// <summary>
-		/// Сохраняет изменения в хранилище данных
-		/// </summary>
+        /// Сохраняет изменения в хранилище данных
+        /// </summary>
         public void Save()
         {
-            this._dbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Rocket.DAL.UoW
         /// </summary>
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
         }
 
         /// <summary>
@@ -138,15 +138,15 @@ namespace Rocket.DAL.UoW
                     GC.SuppressFinalize(this);
                 }
 
-                this._dbContext?.Dispose();
-                this._dbContext = null;
+                _dbContext?.Dispose();
+                _dbContext = null;
                 disposedValue = true;
             }
         }
 
         ~UnitOfWork()
         {
-            this.Dispose(false);
+            Dispose(false);
         }
     }
 }
