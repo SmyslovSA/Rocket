@@ -152,8 +152,8 @@ namespace Rocket.Parser.Parsers
             do
             {
                 //Получаем частичный список элементов "список сериалов" с сайта.
-                listTvSeriasListElementBatch = LoadListTvSeriasListElementBatch(ref getTvSeriasListIteration,
-                    messageNotFoundByRequest, takeTvSeriasByRequest);
+                listTvSeriasListElementBatch = LoadListTvSeriasListElementBatch(
+                    ref getTvSeriasListIteration, messageNotFoundByRequest, takeTvSeriasByRequest);
 
                 //Добавляем в общий список
                 listTvSeriasListElementAll.AddRange(listTvSeriasListElementBatch);
@@ -293,8 +293,6 @@ namespace Rocket.Parser.Parsers
         private TvSeriasAgregateModelBase ParseTvSeriasHeader(IElement elSerialList, int selectorIterator,
             List<GenreEntity> listGenreEntity)
         {
-            var tvSeriasEntity = new TvSeriasEntity();
-
             var serialTopElement = elSerialList.QuerySelector(
                 string.Format(LostfilmHelper.GetTvSerialHeader(), selectorIterator));
             if (serialTopElement == null) return null;
@@ -304,10 +302,15 @@ namespace Rocket.Parser.Parsers
                 .QuerySelector(string.Format(LostfilmHelper.GetTvSerialHeaderDetail(), selectorIterator));
 
             //Получаем дополнительную ссылку для получения деталей по сериалу.
-            tvSeriasEntity.UrlToSource = _baseUrl + addUrlForDetailElement.GetAttribute(CommonHelper.HrefAttribute);
+            string urlToSource = _baseUrl + addUrlForDetailElement.GetAttribute(CommonHelper.HrefAttribute);
 
-            //todo сделать проверку на наличие сериала в бд по ссылке, если есть код ниже выполняться не должен
-            //todo кроме обновление рейтинга и текущего статуса сериала!!!
+            var tvSeriasEntityExist = _unitOfWork.TvSeriasRepository.Queryable()
+                .FirstOrDefault(item => string.Equals(item.UrlToSource, urlToSource, StringComparison.Ordinal));
+
+            var tvSeriasEntity = new TvSeriasEntity();
+            if (tvSeriasEntityExist != null) tvSeriasEntity = tvSeriasEntityExist;
+            
+            tvSeriasEntity.UrlToSource = urlToSource;
 
             //Получаем ссылку на изображение-миниатюру для сериала.
             var imageUrlTvSerialThumbElement = serialTopElement.QuerySelector(

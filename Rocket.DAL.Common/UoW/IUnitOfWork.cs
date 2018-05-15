@@ -16,11 +16,6 @@ namespace Rocket.DAL.Common.UoW
         IDbFilmRepository FilmRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для сериалов
-        /// </summary>
-        IDbTVSeriesRepository TVSeriesRepository { get; }
-
-        /// <summary>
         /// Возвращает репозиторий для музыкального релиза
         /// </summary>
         IRepository<DbMusic> MusicRepository { get; }
@@ -55,7 +50,19 @@ namespace Rocket.DAL.Common.UoW
         /// </summary>
         IRepository<DbMusician> MusicianRepository { get; }
 
+        IRepository<CategoryEntity> CategoryRepository { get; }
+
+        IRepository<EpisodeEntity> EpisodeRepository { get; }
+
         IRepository<GenreEntity> GenreRepository { get; }
+
+        IRepository<PersonEntity> PersonRepository { get; }
+
+        IRepository<PersonTypeEntity> PersonTypeRepository { get; }
+
+        IRepository<SeasonEntity> SeasonRepository { get; }
+
+        IRepository<TvSeriasEntity> TvSeriasRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных
