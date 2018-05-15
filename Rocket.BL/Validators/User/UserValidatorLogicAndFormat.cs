@@ -13,14 +13,14 @@ namespace Rocket.BL.Validators.User
         {
             // Содержит строку с сообщением и минимальным количеством символов,
             // которые должны быть в пароле.
-            string UserAccountPasswordLenghtAssembleFullMessage = Resources.USERACCOUNTPASSWORDLENGHT +
+            string userAccountPasswordLenghtAssembleFullMessage = Resources.USERACCOUNTPASSWORDLENGHT +
                                                                   Resources.USERACCOUNTPASSWORDMINLENGHT +
                                                                   Resources
                                                                       .USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
 
-            /// Содержит строку с сообщением и минимальным количеством символов,
-            /// которые должны быть в логине.
-            string UserAccountLoginLenghtAssembleFullMessage = Resources.USERACCOUNTPASSWORDLENGHT +
+            // Содержит строку с сообщением и минимальным количеством символов,
+            // которые должны быть в логине.
+            string userAccountLoginLenghtAssembleFullMessage = Resources.USERACCOUNTPASSWORDLENGHT +
                                                                Resources.USERACCOUNTPASSWORDMINLENGHT +
                                                                Resources
                                                                    .USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION;
@@ -31,14 +31,14 @@ namespace Rocket.BL.Validators.User
                 .NotNull()
                 .WithMessage(Resources.USERACCOUNTLOGINISEMPTY)
                 .MinimumLength(Convert.ToInt32(Resources.USERACCOUNTLOGINMINLENGTH))
-                .WithMessage(UserAccountLoginLenghtAssembleFullMessage);
+                .WithMessage(userAccountLoginLenghtAssembleFullMessage);
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .WithMessage(Resources.USERACCOUNTPASSWORDISEMPTY)
                 .NotNull()
                 .WithMessage(Resources.USERACCOUNTPASSWORDISEMPTY)
                 .MinimumLength(Convert.ToInt32(Resources.USERACCOUNTPASSWORDMINLENGHT))
-                .WithMessage(UserAccountPasswordLenghtAssembleFullMessage);
+                .WithMessage(userAccountPasswordLenghtAssembleFullMessage);
         }
     }
 }

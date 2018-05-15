@@ -8,25 +8,25 @@
         /// <summary>
         /// Задает или возвращает уникальный идентификационный адреса.
         /// </summary>
-        /// <value>Уникальный идентификатор адреса.</value>>
+        /// <value>Уникальный идентификатор адреса пользователя.</value>>
         public int Id { get; set; }
 
         /// <summary>
         /// Задает или возвращает почтовый индекс.
         /// </summary>
-        /// <value>Почтовый индекс.</value>>
+        /// <value>Почтовый индекс адареса пользователя.</value>>
         public string ZipCode { get; set; }
 
         /// <summary>
         /// Возвращает или задает страну.
         /// </summary>
-        /// <value>Страна.</value>>
+        /// <value>Страна адреса пользователя.</value>>
         public DbCountry Country { get; set; }
 
         /// <summary>
         /// Возвращает или задает город.
         /// </summary>
-        /// <value>Город.</value>>
+        /// <value>Город адреса пользователя.</value>>
         public string City { get; set; }
 
         /// <summary>
