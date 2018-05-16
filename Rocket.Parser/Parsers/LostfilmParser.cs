@@ -10,6 +10,7 @@ using Rocket.Parser.Properties;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -120,7 +121,7 @@ namespace Rocket.Parser.Parsers
                     //Парсим весь актерский и режисерский состав.
                     Parallel.ForEach(listTvSeriasAgregateModelExt, ParseCastTvSerias);
 
-                    //todo сделать запихивание данных в бд
+                    SaveResultInDb(listTvSeriasAgregateModelExt);
                 }
 
                 var duration = DateTime.Now - dtStart;
@@ -133,6 +134,149 @@ namespace Rocket.Parser.Parsers
             }
         }
 
+        private void SaveResultInDb(List<TvSeriasAgregateModelExt> listTvSeriasAgregateModelExt)
+        {
+
+            SaveGenresInDb(listTvSeriasAgregateModelExt);
+            SavePersonsInDb(listTvSeriasAgregateModelExt);
+
+            foreach (var tvSeriasAgregateModelExt in listTvSeriasAgregateModelExt)
+            {
+
+                var tvSeriaEntity = tvSeriasAgregateModelExt.TvSeriasEntity;
+
+                var listSeasonsEntity = tvSeriaEntity.ListSeasons;
+                tvSeriaEntity.ListSeasons = new List<SeasonEntity>();
+
+                var listPersonId = tvSeriaEntity.ListPerson.Select(item => item.Id).ToList();
+                tvSeriaEntity.ListPerson = new List<PersonEntity>();
+                tvSeriaEntity.ListPerson = _unitOfWork.PersonRepository.Queryable()
+                    .Where(item => listPersonId.Contains(item.Id))
+                    .ToList();
+                
+                var listGenreId = tvSeriaEntity.ListGenreEntity.Select(item => item.Id).ToList();
+                tvSeriaEntity.ListGenreEntity = new List<GenreEntity>();
+                tvSeriaEntity.ListGenreEntity = _unitOfWork.GenreRepository.Queryable()
+                    .Where(item => listGenreId.Contains(item.Id))
+                    .ToList();
+
+                var tvSeriaEntityInDb = _unitOfWork.TvSeriasRepository.Queryable()
+                    .FirstOrDefault(item => item.UrlToSource == tvSeriaEntity.UrlToSource);
+
+                if (tvSeriaEntityInDb == null)
+                {
+                    //вставка сериала
+                    _unitOfWork.TvSeriasRepository.Insert(tvSeriaEntity);
+                    _unitOfWork.SaveChanges();
+                }
+                //else
+                //{
+                //    //обновление сериала
+                //    tvSeriaEntity.Id = tvSeriaEntityInDb.Id;
+
+                //    tvSeriaEntityInDb.ListGenreEntity = tvSeriaEntity.ListGenreEntity;
+                //    tvSeriaEntityInDb.ListPerson = tvSeriaEntity.ListPerson;
+
+                //    tvSeriaEntityInDb.UrlToSource = tvSeriaEntity.UrlToSource;
+                //    tvSeriaEntityInDb.CurrentStatus = tvSeriaEntity.CurrentStatus;
+                //    tvSeriaEntityInDb.LostfilmRate = tvSeriaEntity.LostfilmRate;
+                //    tvSeriaEntityInDb.PosterImageUrl = tvSeriaEntity.PosterImageUrl;
+                //    tvSeriaEntityInDb.RateImDb = tvSeriaEntity.RateImDb;
+                //    tvSeriaEntityInDb.Summary = tvSeriaEntity.Summary;
+                //    tvSeriaEntityInDb.UrlToOfficialSite = tvSeriaEntity.UrlToOfficialSite;
+
+                //    _unitOfWork.TvSeriasRepository.Update(tvSeriaEntityInDb);
+                //    _unitOfWork.SaveChanges();
+                //}
+                
+                foreach (var seasonEntity in listSeasonsEntity)
+                {
+                    var listEpisodeEntity = new List<EpisodeEntity>();
+                    listEpisodeEntity.AddRange(seasonEntity.ListEpisode);
+
+                    seasonEntity.ListEpisode = new List<EpisodeEntity>();
+                    seasonEntity.TvSeriesId = tvSeriasAgregateModelExt.TvSeriasEntity.Id;
+
+                    _unitOfWork.SeasonRepository.Insert(seasonEntity);
+                    _unitOfWork.SaveChanges();
+
+                    listEpisodeEntity.ForEach(item => item.SeasonId = seasonEntity.Id);
+
+                    _unitOfWork.EpisodeRepository.InsertRange(listEpisodeEntity);
+                    _unitOfWork.SaveChanges();
+                }
+            }
+        }
+
+        private void SaveGenresInDb(List<TvSeriasAgregateModelExt> listTvSeriasAgregateModelExt)
+        {
+            var listGenreEntityDb = _unitOfWork.GenreRepository.Queryable().AsNoTracking().ToList();
+
+            //Получаем список названий новых жанров (нет в бд)
+            var listGenreNameNew = new List<string>();
+            foreach (var tvSeriasAgregateModelExt in listTvSeriasAgregateModelExt)
+            {
+
+                foreach (var genreEntity in tvSeriasAgregateModelExt.TvSeriasEntity.ListGenreEntity)
+                {
+                    if (genreEntity.Id == 0 && listGenreEntityDb.Any(item => item.Name == genreEntity.Name))
+                    {
+                        var genreEntityDb = listGenreEntityDb.First(item => item.Name == genreEntity.Name);
+                        genreEntity.Id = genreEntityDb.Id;
+                    }
+                }
+
+                var listGenreName = tvSeriasAgregateModelExt.TvSeriasEntity.ListGenreEntity
+                    .Where(item => item.Id == 0)
+                    .Select(item => item.Name)
+                    .ToList();
+
+                listGenreNameNew.AddRange(listGenreName);
+            }
+
+            //Получаем полный список жанров
+            var listGenreEntityAll = new List<GenreEntity>();
+            listTvSeriasAgregateModelExt.ForEach(item =>
+                listGenreEntityAll.AddRange(item.TvSeriasEntity.ListGenreEntity));
+
+            //Получаем список жанров для вставки в бд
+            listGenreNameNew = listGenreNameNew.Distinct().ToList();
+            var listGenreEntityNew = new List<GenreEntity>();
+            foreach (var genreNameNew in listGenreNameNew)
+            {
+                var genreEntity = listGenreEntityAll.First(item => item.Name == genreNameNew);
+                listGenreEntityNew.Add(genreEntity);
+            }
+
+            //Вставка жанров в бд
+            if (listGenreEntityNew.Any())
+            {
+                _unitOfWork.GenreRepository.InsertRange(listGenreEntityNew);
+                _unitOfWork.SaveChanges();
+            }
+        }
+
+        private void SavePersonsInDb(List<TvSeriasAgregateModelExt> listTvSeriasAgregateModelExt)
+        {
+
+            foreach (var tvSeriasAgregateModelExt in listTvSeriasAgregateModelExt)
+            {
+                foreach (var personEntity in tvSeriasAgregateModelExt.TvSeriasEntity.ListPerson)
+                {
+                    var personEntityInDb = _unitOfWork.PersonRepository.Queryable()
+                        .FirstOrDefault(item => item.LostfilmPersonalPageUrl == personEntity.LostfilmPersonalPageUrl);
+                    if (personEntityInDb == null)
+                    {
+                        _unitOfWork.PersonRepository.Insert(personEntity);
+                        _unitOfWork.SaveChanges();
+                    }
+                    else
+                    {
+                        personEntity.Id = personEntityInDb.Id;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Получаем полный список элементов "список сериалов".
@@ -235,11 +379,10 @@ namespace Rocket.Parser.Parsers
         private List<TvSeriasAgregateModelBase> ParseSerialListElementAll(List<IElement> listTvSeriasListElement)
         {
             var listTvSeriasAgregateModelBase = new List<TvSeriasAgregateModelBase>();
-            var listGenreEntity = _unitOfWork.GenreRepository.Queryable().AsNoTracking().ToList();
-
+            
             foreach (var tvSeriasListElement in listTvSeriasListElement)
             {
-                listTvSeriasAgregateModelBase.AddRange(ParseSerialListElement(tvSeriasListElement, listGenreEntity));
+                listTvSeriasAgregateModelBase.AddRange(ParseSerialListElement(tvSeriasListElement));
             }
 
             return listTvSeriasAgregateModelBase;
@@ -249,10 +392,7 @@ namespace Rocket.Parser.Parsers
         /// Парсим элемент "список сериалов" и создаем агрегационные модели сериалов.
         /// </summary>
         /// <param name="tvSeriasListElement">Элемент "список сериалов".</param>
-        /// <param name="listGenreEntity"></param>
-        /// <returns>Список агрегационных моделей сериалов.</returns>
-        private List<TvSeriasAgregateModelBase> ParseSerialListElement(IElement tvSeriasListElement,
-            List<GenreEntity> listGenreEntity)
+        private List<TvSeriasAgregateModelBase> ParseSerialListElement(IElement tvSeriasListElement)
         {
             var listTvSeriasAgregateModel = new List<TvSeriasAgregateModelBase>();
 
@@ -266,7 +406,7 @@ namespace Rocket.Parser.Parsers
             {
                 int selectorIterator = i;
                 var taskParseTvSeriasHeader = 
-                    Task.Run(() => ParseTvSeriasHeader(tvSeriasListElement, selectorIterator, listGenreEntity));
+                    Task.Run(() => ParseTvSeriasHeader(tvSeriasListElement, selectorIterator));
                 listTaskParseTvSeriasHeader.Add(taskParseTvSeriasHeader);
             }
 
@@ -288,11 +428,11 @@ namespace Rocket.Parser.Parsers
         /// </summary>
         /// <param name="elSerialList">Элемент список заголовков сериалов.</param>
         /// <param name="selectorIterator">Счетчик.</param>
-        /// <param name="listGenreEntity"></param>
         /// <returns>Агрегационная модель сериала.</returns>
-        private TvSeriasAgregateModelBase ParseTvSeriasHeader(IElement elSerialList, int selectorIterator,
-            List<GenreEntity> listGenreEntity)
+        private TvSeriasAgregateModelBase ParseTvSeriasHeader(IElement elSerialList, int selectorIterator)
         {
+            var tvSeriasEntity = new TvSeriasEntity();
+
             var serialTopElement = elSerialList.QuerySelector(
                 string.Format(LostfilmHelper.GetTvSerialHeader(), selectorIterator));
             if (serialTopElement == null) return null;
@@ -302,15 +442,8 @@ namespace Rocket.Parser.Parsers
                 .QuerySelector(string.Format(LostfilmHelper.GetTvSerialHeaderDetail(), selectorIterator));
 
             //Получаем дополнительную ссылку для получения деталей по сериалу.
-            string urlToSource = _baseUrl + addUrlForDetailElement.GetAttribute(CommonHelper.HrefAttribute);
-
-            var tvSeriasEntityExist = _unitOfWork.TvSeriasRepository.Queryable()
-                .FirstOrDefault(item => string.Equals(item.UrlToSource, urlToSource, StringComparison.Ordinal));
-
-            var tvSeriasEntity = new TvSeriasEntity();
-            if (tvSeriasEntityExist != null) tvSeriasEntity = tvSeriasEntityExist;
+            tvSeriasEntity.UrlToSource = _baseUrl + addUrlForDetailElement.GetAttribute(CommonHelper.HrefAttribute);
             
-            tvSeriasEntity.UrlToSource = urlToSource;
 
             //Получаем ссылку на изображение-миниатюру для сериала.
             var imageUrlTvSerialThumbElement = serialTopElement.QuerySelector(
@@ -335,7 +468,7 @@ namespace Rocket.Parser.Parsers
             tvSeriasEntity.LostfilmRate = lostfilmRate;
 
             //Парсим заголовок сериала из списка сериалов панель детализации
-            ParseTvSeriasHeaderDetailsPane(serialTopElement, tvSeriasEntity, selectorIterator, listGenreEntity);
+            ParseTvSeriasHeaderDetailsPane(serialTopElement, tvSeriasEntity, selectorIterator);
 
             var tvSeriasAgregateModel = new TvSeriasAgregateModelBase { TvSeriasEntity = tvSeriasEntity };
 
@@ -348,9 +481,8 @@ namespace Rocket.Parser.Parsers
         /// <param name="serialTopElement">Элемент заголовка сериала.</param>
         /// <param name="tvSeriasEntity"></param>
         /// <param name="selectorIterator">Счетчик елементов заголовка сериала.</param>
-        /// <param name="listGenreEntity"></param>
         private void ParseTvSeriasHeaderDetailsPane(IElement serialTopElement,
-            TvSeriasEntity tvSeriasEntity, int selectorIterator, List<GenreEntity> listGenreEntity)
+            TvSeriasEntity tvSeriasEntity, int selectorIterator)
         {
             //Получаем панель деталей
             var detailsPaneElement = serialTopElement.QuerySelector(
@@ -368,8 +500,18 @@ namespace Rocket.Parser.Parsers
             //Получаем список жанров в виде строки для последующего парсинга.
             string genreForParse = detailsPane.GetSubstring(
                 LostfilmHelper.GetTvSerialHeaderKeywordGenre(), CommonHelper.OpenAngleBracket);
-            string[] listGenre = genreForParse.Split(',');
+            string[] listGenreName = genreForParse.Split(',');
 
+            //Заполняем список жанров
+            foreach (var genreName in listGenreName)
+            {
+                var genreEntityNew = new GenreEntity()
+                {
+                    Name = genreName,
+                    CategoryCode = (int)CategoryCode.TvSeria
+                };
+                tvSeriasEntity.ListGenreEntity.Add(genreEntityNew);
+            }
 
             //Получаем год начала показа сериала.
             tvSeriasEntity.TvSerialYearStart = detailsPane.GetSubstring(

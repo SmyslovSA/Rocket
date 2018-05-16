@@ -33,6 +33,14 @@ namespace Rocket.DAL.Common.Repositories
         /// <returns>Экземпляр <see cref="TEntity"/></returns>
         TEntity GetById<TKey>(TKey id);
 
+        void SetStatusAdded(TEntity entity);
+
+        void SetStatusAddedRange(IEnumerable<TEntity> entities);
+
+        void SetStatusNotModified(TEntity entity);
+
+        void SetStatusNotModifiedRange(IEnumerable<TEntity> entities);
+
         /// <summary>
         /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
         /// </summary>

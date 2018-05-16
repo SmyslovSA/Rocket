@@ -72,23 +72,24 @@ namespace Rocket.DAL.Configurations.Parser
                     m.MapRightKey("TvSeriasId");
                 });
 
+            HasMany(f => f.ListGenreEntity)
+                .WithMany(p => p.ListTvSerias)
+                .Map(m =>
+                {
+                    m.ToTable("GenresToTvSerias");
+                    m.MapLeftKey("GenreId");
+                    m.MapRightKey("TvSeriasId");
+                });
+
             ///// <summary>
             ///// Год начала показа сериала.
             ///// </summary>
             //public string TvSerialYearStart { get; set; }
 
             ///// <summary>
-            ///// Список жанров в виде строки для последующего парсинга.
-            ///// </summary>
-            //public string ListGenreForParse { get; set; }
-
-            ///// <summary>
             ///// Дата премьеры прописью для последующего парсинга.
             ///// </summary>
             //public string PremiereDateForParse { get; set; }
-
-            //this.HasRequired<ResourceEntity>(p => p.Resource).WithMany(r => r.ParserSettings)
-            //    .HasForeignKey<int>(p => p.ResourceId);
         }
     }
 }

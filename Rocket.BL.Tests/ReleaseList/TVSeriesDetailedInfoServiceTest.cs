@@ -51,8 +51,9 @@ namespace Rocket.BL.Tests.ReleaseList
                     .Remove(this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == (int)id)));
 
             var mockTVSeriesUnitOfWork = new Mock<IUnitOfWork>();
-            mockTVSeriesUnitOfWork.Setup(mock => mock.TVSeriesRepository)
-                .Returns(() => mockDbTVSeriesRepository.Object);
+            //todo (Сычёв) - закоментировал т.к. будет другой репозиторий
+            //mockTVSeriesUnitOfWork.Setup(mock => mock.TVSeriesRepository)
+            //    .Returns(() => mockDbTVSeriesRepository.Object);
 
             this._tvSeriesDetailedInfoService = new TVSeriesDetailedInfoService(mockTVSeriesUnitOfWork.Object);
         }

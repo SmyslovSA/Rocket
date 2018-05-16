@@ -29,6 +29,32 @@ namespace Rocket.DAL.Repositories
             return _dbSet.SqlQuery(query, parameters).AsQueryable();
         }
 
+        public virtual void SetStatusAdded(TEntity entity)
+        {
+            _rocketContext.Entry(entity).State = EntityState.Added;
+        }
+
+        public virtual void SetStatusAddedRange(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                SetStatusAdded(entity);
+            }
+        }
+
+        public virtual void SetStatusNotModified(TEntity entity)
+        {
+            _rocketContext.Entry(entity).State = EntityState.Modified;
+        }
+
+        public virtual void SetStatusNotModifiedRange(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                SetStatusNotModified(entity);
+            }
+        }
+
         public virtual void Insert(TEntity entity)
         {
             _dbSet.Attach(entity);
