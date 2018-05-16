@@ -6,55 +6,53 @@ using System.Web.Http;
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
-    [RoutePrefix("changePersonalArea/email")]
-    public class ChangeEmailManagerServiceController : ApiController
+    [RoutePrefix("personal/change/genre")]
+    public class ChangeGenreController : ApiController
     {
-        private IEmailManager _emailEmailManager;
-
-        public ChangeEmailManagerServiceController(IEmailManager emailManager)
+        private IGenreManager _genreManager;
+        
+        public ChangeGenreController(IGenreManager emailManager)
         {
-            _emailEmailManager = emailManager;
+            _genreManager = emailManager;
         }
 
         [HttpPost]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(SimpleUser))]
-        public IHttpActionResult SaveEmail([FromBody]SimpleUser model, string email)
+        public IHttpActionResult SaveGenre([FromBody] SimpleUser model, string category, string genre)
         {
             if (model == null)
             {
                 return BadRequest("Model cannot be empty");
             }
-            else
+
+            if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
             {
-                if (string.IsNullOrEmpty(email))
-                {
-                    return BadRequest("email cannot be empty");
-                }
+                return BadRequest("genre cannot be empty");
             }
 
-            _emailEmailManager.AddEmail(model, email);
+            _genreManager.AddGenre(model, category, genre);
 
             //заменить null за конечный результат , т.к. не билдится проект
-
             return null; //Created(/*$"____/{model.Id}", model*/);
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteEmail([FromBody]SimpleUser model, string email)
+        public IHttpActionResult DeleteGenre([FromBody] SimpleUser model, string category, string genre)
         {
             if (model == null)
             {
                 return BadRequest("Model cannot be empty");
             }
-            else if (string.IsNullOrEmpty(email))
+
+            if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
             {
-                return BadRequest("email cannot be empty");
+                return BadRequest("email or genre cannot be empty");
             }
 
-            _emailEmailManager.DeleteEmail(model, email);
+            _genreManager.DeleteGenre(model, category, genre);
             return Ok();
         }
-    }    
+    }
 }

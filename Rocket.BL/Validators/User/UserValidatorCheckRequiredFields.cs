@@ -3,8 +3,6 @@ using Rocket.BL.Properties;
 
 namespace Rocket.BL.Validators.User
 {
-
-
     /// <summary>
     /// Задаем условия для валидатора данных о человеке
     /// </summary>

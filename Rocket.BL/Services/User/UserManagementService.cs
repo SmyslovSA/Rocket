@@ -13,7 +13,7 @@ namespace Rocket.BL.Services.User
     /// в хранилище данных
     /// </summary>
     public class UserManagementService : BaseService, IUserManagementService
-    {   
+    {
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work
@@ -32,7 +32,7 @@ namespace Rocket.BL.Services.User
         public Common.Models.User.User GetUser(int id)
         {
             return Mapper.Map<Common.Models.User.User>(
-               this._unitOfWork.UserRepository.GetById(id));
+                _unitOfWork.UserRepository.GetById(id));
         }
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace Rocket.BL.Services.User
         public int AddUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
-            this._unitOfWork.UserRepository.Insert(dbUser);
-            this._unitOfWork.Save();
+            _unitOfWork.UserRepository.Insert(dbUser);
+            _unitOfWork.Save();
             return dbUser.Id;
         }
 
@@ -56,8 +56,8 @@ namespace Rocket.BL.Services.User
         public void UpdateUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
-            this._unitOfWork.UserRepository.Update(dbUser);
-            this._unitOfWork.Save();
+            _unitOfWork.UserRepository.Update(dbUser);
+            _unitOfWork.Save();
         }
 
         /// <summary>
@@ -66,8 +66,8 @@ namespace Rocket.BL.Services.User
         /// <param name="id">Идентификатор пользователя</param>
         public void DeleteUser(int id)
         {
-            this._unitOfWork.UserRepository.Delete(id);
-            this._unitOfWork.Save();
+            _unitOfWork.UserRepository.Delete(id);
+            _unitOfWork.Save();
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace Rocket.BL.Services.User
         /// <returns>Возвращает <see langword="true"/>, если пользователь существует в хранилище данных</returns>
         public bool UserExists(Expression<Func<Common.Models.User.User, bool>> filter)
         {
-            return this._unitOfWork.UserRepository.Get(
-                Mapper.Map<Expression<Func<DbUser, bool>>>(filter))
-                .FirstOrDefault() != null;
+            return _unitOfWork.UserRepository.Get(
+                           Mapper.Map<Expression<Func<DbUser, bool>>>(filter))
+                       .FirstOrDefault() != null;
         }
 
         /// <summary>

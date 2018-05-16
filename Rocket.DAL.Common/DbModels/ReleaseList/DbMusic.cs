@@ -8,17 +8,17 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
     /// Представляет модель хранения данных музыкального релиза
     /// </summary>
     public class DbMusic : DbBaseRelease
-	{
-		/// <summary>
-		/// Возвращает или задает относительный путь
-		/// от корневой папки приложения к файлу изображения постера музыкального релиза
-		/// </summary>
-		public string PosterImagePath { get; set; }
+    {
+        /// <summary>
+        /// Возвращает или задает относительный путь
+        /// от корневой папки приложения к файлу изображения постера музыкального релиза
+        /// </summary>
+        public string PosterImagePath { get; set; }
 
-		/// <summary>
-		/// Возвращает или задает продолжительность музыкального релиза
-		/// </summary>
-		public TimeSpan Duration { get; set; }
+        /// <summary>
+        /// Возвращает или задает продолжительность музыкального релиза
+        /// </summary>
+        public TimeSpan Duration { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию жанров, к которым относится музыкальный релиз
@@ -34,5 +34,5 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// Возвращает или задает исполнителей музыкального релиза
         /// </summary>
         public virtual ICollection<DbMusician> Musicians { get; set; } = new Collection<DbMusician>();
-	}
+    }
 }

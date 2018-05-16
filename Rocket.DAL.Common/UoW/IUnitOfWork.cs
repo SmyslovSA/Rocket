@@ -7,61 +7,62 @@ using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 namespace Rocket.DAL.Common.UoW
 {
     /// <summary>
-    /// Представляет общий интерфейс unit of work
+    /// Представляет общий интерфейс unit of work.
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
         /// <summary>
-        /// Возвращает репозиторий для релизов
+        /// Возвращает репозиторий для релизов.
         /// </summary>
         IDbReleaseRepository ReleaseRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для фильмов
+        /// Возвращает репозиторий для фильмов.
         /// </summary>
         IDbFilmRepository FilmRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для сериалов
+        /// Возвращает репозиторий для сериалов.
         /// </summary>
         IDbTVSeriesRepository TVSeriesRepository { get; }
 
-		/// <summary>
-		/// Возвращает репозиторий для музыки
-		/// </summary>
-		IDbMusicRepository MusicRepository { get; }
+        /// <summary>
+        /// Возвращает репозиторий для музыки.
+        /// </summary>
+        IDbMusicRepository MusicRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для юзеров
+        /// Возвращает репозиторий для юзеров.
         /// </summary>
         IDbUserRepository UserRepository { get; }
 
         /// <summary>
-        /// ВОзвращает репозиторий ролей
+        /// ВОзвращает репозиторий ролей.
         /// </summary>
         IDbRoleRepository RoleRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий пермишенов
+        /// Возвращает репозиторий пермишенов.
         /// </summary>
         IDbPermissionRepository PermissionRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для emails
+        /// Возвращает репозиторий для emails.
         /// </summary>
         IDbEmailRepository EmailRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для genre
+        /// Возвращает репозиторий для genre.
         /// </summary>
         IDbGenreRepository GenreRepository { get; }
 
-        /// Возвращает репозиторий для пользователей
+        /// <summary>
+        /// Возвращает репозиторий для пользователей личного кабинета.
         /// </summary>
         IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
 
         /// <summary>
-        /// Сохраняет изменения в хранилище данных
+        /// Сохраняет изменения в хранилище данных.
         /// </summary>
         void Save();
     }

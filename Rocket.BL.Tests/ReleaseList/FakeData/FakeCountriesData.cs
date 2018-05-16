@@ -11,6 +11,19 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakeCountriesData
     {
         /// <summary>
+        /// Создает новый экземпляр сгенерированных данных о странах
+        /// </summary>
+        /// <param name="countriesCount">Необходимое количество сгенерированных стран</param>
+        public FakeCountriesData(int countriesCount)
+        {
+            CountryFaker = new Faker<Country>()
+                .RuleFor(c => c.Id, f => f.IndexFaker)
+                .RuleFor(c => c.Name, f => f.Address.Country());
+
+            Countries = CountryFaker.Generate(countriesCount);
+        }
+
+        /// <summary>
         /// Возвращает генератор данных о странах
         /// </summary>
         public Faker<Country> CountryFaker { get; }
@@ -19,18 +32,5 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// Возвращает коллекцию сгенерированных стран
         /// </summary>
         public List<Country> Countries { get; }
-
-        /// <summary>
-        /// Создает новый экземпляр сгенерированных данных о странах
-        /// </summary>
-        /// <param name="countriesCount">Необходимое количество сгенерированных стран</param>
-        public FakeCountriesData(int countriesCount)
-        {
-            this.CountryFaker = new Faker<Country>()
-                .RuleFor(c => c.Id, f => f.IndexFaker)
-                .RuleFor(c => c.Name, f => f.Address.Country());
-
-            this.Countries = this.CountryFaker.Generate(countriesCount);
-        }
     }
 }

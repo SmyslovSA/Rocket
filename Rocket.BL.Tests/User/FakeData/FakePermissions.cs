@@ -27,12 +27,12 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <param name="permissionsCount">Необходимое количество сгенерированных разрешений ролей пользоватоля</param>
         public FakePermissions(int permissionsCount)
         {
-            this.PermissionFaker = new Faker<Permission>()
+            PermissionFaker = new Faker<Permission>()
                 .RuleFor(c => c.PermissionId, f => f.IndexFaker)
-                .RuleFor(c => c.Description, f => f.Lorem.Sentences((new Random()).Next(1, 5)))
+                .RuleFor(c => c.Description, f => f.Lorem.Sentences(new Random().Next(1, 5)))
                 .RuleFor(c => c.ValueName, f => f.Lorem.Letter(5));
 
-            this.Permissions = this.PermissionFaker.Generate(permissionsCount);
+            Permissions = PermissionFaker.Generate(permissionsCount);
         }
     }
 }

@@ -25,11 +25,11 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <param name="accountLevelCount">Необходимое количество уровней аккаунта пользователя</param>
         public FakeDbAccountLevels(int accountLevelCount)
         {
-            this.AccountLevelFaker = new Faker<DbAccountLevel>()
+            AccountLevelFaker = new Faker<DbAccountLevel>()
                 .RuleFor(g => g.Id, f => f.IndexFaker)
                 .RuleFor(g => g.Name, f => f.Random.Word());
 
-            this.AccountLevels = this.AccountLevelFaker.Generate(accountLevelCount);
+            AccountLevels = AccountLevelFaker.Generate(accountLevelCount);
         }
     }
 }
