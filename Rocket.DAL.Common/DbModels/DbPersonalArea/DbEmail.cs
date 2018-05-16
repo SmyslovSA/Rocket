@@ -1,27 +1,27 @@
 ﻿namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
     /// <summary>
-    /// модель хранения данных e-mail
+    /// Модель хранения данных e-mail.
     /// </summary>
     public class DbEmail
     {
         /// <summary>
-        /// Id email
+        /// Id email-адреса.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Имя Email
+        /// Имя Email-адреса.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// внешний ключ к таблице DbAuthorisedUser
+        /// Внешний ключ к таблице DbAuthorisedUser.
         /// </summary>
         public int? DbAuthorisedUserId { get; set; }
 
         /// <summary>
-        /// ссылка на DbAuthorisedUser
+        /// Ссылка на DbAuthorisedUser.
         /// </summary>
         public virtual DbAuthorisedUser DbAuthorisedUser { get; set; }
     }

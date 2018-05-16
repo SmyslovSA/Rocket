@@ -10,7 +10,7 @@ namespace Rocket.DAL.UoW
 {
     /// <summary>
     /// Представляет unit of work.
-    /// Содержит репозитории использующие один контекст данных
+    /// Содержит репозитории использующие один контекст данных.
     /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
@@ -18,72 +18,71 @@ namespace Rocket.DAL.UoW
         private bool disposedValue;
 
         /// <summary>
-        /// Возвращает репозиторий для релизов
+        /// Возвращает репозиторий для релизов.
         /// </summary>
         public IDbReleaseRepository ReleaseRepository { get; private set; }
 
         /// <summary>
-        /// Возвращает репозиторий для фильмов
+        /// Возвращает репозиторий для фильмов.
         /// </summary>
         public IDbFilmRepository FilmRepository { get; private set; }
 
         /// <summary>
-        /// Возвращает репозиторий для сериалов
+        /// Возвращает репозиторий для сериалов.
         /// </summary>
         public IDbTVSeriesRepository TVSeriesRepository { get; private set; }
 
         /// <summary>
-        /// Возвращает репозиторий для музыки
+        /// Возвращает репозиторий для музыки.
         /// </summary>
         public IDbMusicRepository MusicRepository { get; private set; }
 
         /// <summary>
-        /// Возвращает репозиторий для emails
+        /// Возвращает репозиторий для emails.
         /// </summary>
         public IDbEmailRepository EmailRepository { get; private set; }
 
         /// <summary>
-        /// Возвращает репозиторий для genre
+        /// Возвращает репозиторий для genre.
         /// </summary>
         public IDbGenreRepository GenreRepository { get; private set; }
 
         /// <summary>
-        /// Репозиторий для работы с пользователями
+        /// Репозиторий для работы с пользователями.
         /// </summary>
         public IDbUserRepository UserRepository { get; private set; }
 
         /// <summary>
-        /// Репозиторий для работы с ролями
+        /// Репозиторий для работы с ролями.
         /// </summary>
         public IDbRoleRepository RoleRepository { get; private set; }
 
         /// <summary>
-        /// Репозиторий для работы с пермишенами
+        /// Репозиторий для работы с пермишенами.
         /// </summary>
         public IDbPermissionRepository PermissionRepository { get; private set; }
 
         /// <summary>
-        /// репозиотрий для юзеров
+        /// Репозиотрий для работы с пользователями личного кабинета.
         /// </summary>
         public IDbAuthorisedUserRepository UserAuthorisedRepository { get; private set; }
-
 
         /// <summary>
         /// /// <summary>
         /// Создает новый экземпляр <see cref="UnitOfWork"/>
-        /// c заданным контекстом данных
+        /// c заданным контекстом данных.
         /// </summary>
-        /// <param name="dbContext">Экземпляр контекста данных</param>
-        /// <param name="dbReleaseRepository">Экземпляр репозитория релизов</param>
-        /// <param name="dbFilmRepository">Экземпляр репозитория фильмов</param>
-        /// <param name="dbTVSeriesRepository">Экземпляр репозитория сериалов</param>
-        /// <param name="dbMusicRepository">Экземпляр репозитория музыки</param>
-        /// <param name="dbAuthorisedUserRepository">Экземпляр репозитория пользователей личного кабинета</param>
-        /// <param name="dbEmailRepository">Экземпляр репозитория emails</param>
-        /// <param name="dbGenreRepository">Экземпляр репозитория жанров</param>
-        /// <param name="dbUserRepository">Экземпляр репозитория пользователей</param>
-        /// <param name="dbRoleRepository">Экземпляр репозитория ролей</param>
-        /// <param name="dbPermissionRepository">Экземпляр репозитория разрешений</param>
+        /// <param name="dbContext">Экземпляр контекста данных.</param>
+        /// <param name="dbReleaseRepository">Экземпляр репозитория релизов.</param>
+        /// <param name="dbFilmRepository">Экземпляр репозитория фильмов.</param>
+        /// <param name="dbTVSeriesRepository">Экземпляр репозитория сериалов.</param>
+        /// <param name="dbMusicRepository">Экземпляр репозитория музыки.</param>
+        /// <param name="dbAuthorisedUserRepository">Экземпляр репозитория пользователей личного кабинета.</param>
+        /// <param name="dbEmailRepository">Экземпляр репозитория emails.</param>
+        /// <param name="dbGenreRepository">Экземпляр репозитория жанров.</param>
+        /// <param name="dbUserRepository">Экземпляр репозитория пользователей.</param>
+        /// <param name="dbRoleRepository">Экземпляр репозитория ролей.</param>
+        /// <param name="dbPermissionRepository">Экземпляр репозитория разрешений.</param>
         public UnitOfWork(DbContext dbContext,
             IDbReleaseRepository dbReleaseRepository,
             IDbFilmRepository dbFilmRepository,
@@ -110,7 +109,7 @@ namespace Rocket.DAL.UoW
         }
 
         /// <summary>
-        /// Сохраняет изменения в хранилище данных
+        /// Сохраняет изменения в хранилище данных.
         /// </summary>
         public void Save()
         {
@@ -118,7 +117,7 @@ namespace Rocket.DAL.UoW
         }
 
         /// <summary>
-        /// Освобождает управляемые ресурсы
+        /// Освобождает управляемые ресурсы.
         /// </summary>
         public void Dispose()
         {
@@ -126,9 +125,9 @@ namespace Rocket.DAL.UoW
         }
 
         /// <summary>
-        /// Освобождает управляемые ресурсы
+        /// Освобождает управляемые ресурсы.
         /// </summary>
-        /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора</param>
+        /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

@@ -3,22 +3,22 @@
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
 {
     /// <summary>
-    /// модель хранения данных категорий фильмов, сериалов и музыки
+    /// Модель хранения данных категорий фильмов, сериалов и музыки.
     /// </summary>
     public class DbCategory
     {
         /// <summary>
-        /// Id категории
+        /// Id категории.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// название категории
+        /// Название категории.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// список связанных жанров с данной категорией
+        /// Список связанных жанров с данной категорией.
         /// </summary>
         public virtual ICollection<DbGenre> Genres { get; set; }
     }
