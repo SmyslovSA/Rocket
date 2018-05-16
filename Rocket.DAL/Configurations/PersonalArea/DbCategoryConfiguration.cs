@@ -7,11 +7,20 @@ namespace Rocket.DAL.Configurations.PersonalArea
     {
         public DbCategoryConfiguration()
         {
-            ToTable("Category").HasKey(k => k.Id).Property(p => p.Id).HasColumnName("Id");
+            ToTable("Category")
+                .HasKey(k => k.Id)
+                .Property(p => p.Id)
+                .HasColumnName("Id");
 
-            Property(p => p.Name).IsRequired().HasMaxLength(30).IsVariableLength().HasColumnName("Name");
+            Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(30)
+                .IsVariableLength()
+                .HasColumnName("Name");
 
-            HasMany(g => g.Genres).WithRequired(c => c.DbCategory).HasForeignKey(c => c.DbCategoryId);
+            HasMany(g => g.Genres)
+                .WithRequired(c => c.DbCategory)
+                .HasForeignKey(c => c.DbCategoryId);
         }
     }
 }

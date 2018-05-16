@@ -3,7 +3,7 @@
 namespace Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository
 {
     /// <summary>
-    /// Репозиторий для работы с категориями
+    /// Репозиторий для работы с категориями.
     /// </summary>
     public interface IDbCategoryRepository : IBaseRepository<DbCategory>
     {

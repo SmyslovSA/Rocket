@@ -6,12 +6,12 @@ using System.Web.Http;
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
-    [RoutePrefix("changePersonalArea/genre")]
-    public class ChangeGenreManagerServiceController : ApiController
+    [RoutePrefix("personal/change/genre")]
+    public class ChangeGenreController : ApiController
     {
         private IGenreManager _genreManager;
-
-        public ChangeGenreManagerServiceController(IGenreManager emailManager)
+        
+        public ChangeGenreController(IGenreManager emailManager)
         {
             _genreManager = emailManager;
         }
