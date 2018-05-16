@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.DbPersonalArea;
 
 namespace Rocket.DAL.Common.DbModels.Notification
 {
@@ -9,8 +10,19 @@ namespace Rocket.DAL.Common.DbModels.Notification
     {
         /// <summary>
         /// Возвращает или задает идентификационный номер получателя
+        /// согласно модели <see cref="DbAuthorisedUser"/>
         /// </summary>
-        public int Id { get; set; }
+        public int UserId { get; set; }
+        
+        /// <summary>
+        /// Возвращает или задает флаг подписки на email нотификацию
+        /// </summary>
+        public bool NotifyByEmail { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает флаг подписки на push нотификацию
+        /// </summary>
+        public bool NotifyByPush { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию сообщений о платежах,
@@ -23,5 +35,11 @@ namespace Rocket.DAL.Common.DbModels.Notification
         /// получателем которых является пользователь
         /// </summary>
         public ICollection<DbCustomMessage> CustomMessages { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает коллекцию объектов, содержащих 
+        /// сводные данные о получателе и сообщении о релизе
+        /// </summary>
+        public ICollection<DbReceiversJoinReleases> ReceiversJoinReleases { get; set; }
     }
 }
