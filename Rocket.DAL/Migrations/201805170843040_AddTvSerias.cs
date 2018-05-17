@@ -23,44 +23,10 @@ namespace Rocket.DAL.Migrations
                         Id = c.Short(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 250),
                         CategoryCode = c.Int(nullable: false),
-                        TvSeriasEntity_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Category", t => t.CategoryCode, cascadeDelete: true)
-                .ForeignKey("dbo.TvSerias", t => t.TvSeriasEntity_Id)
-                .Index(t => t.CategoryCode)
-                .Index(t => t.TvSeriasEntity_Id);
-            
-            CreateTable(
-                "dbo.Episode",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        ReleaseDateRu = c.DateTime(nullable: false),
-                        ReleaseDateEn = c.DateTime(nullable: false),
-                        Number = c.Int(nullable: false),
-                        TitleRu = c.String(nullable: false, maxLength: 250),
-                        TitleEn = c.String(nullable: false, maxLength: 250),
-                        DurationInMinutes = c.Double(),
-                        UrlForEpisodeSource = c.String(nullable: false),
-                        SeasonId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Season", t => t.SeasonId, cascadeDelete: true)
-                .Index(t => t.SeasonId);
-            
-            CreateTable(
-                "dbo.Season",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Number = c.Int(nullable: false),
-                        PosterImageUrl = c.String(),
-                        TvSeriesId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.TvSerias", t => t.TvSeriesId, cascadeDelete: true)
-                .Index(t => t.TvSeriesId);
+                .Index(t => t.CategoryCode);
             
             CreateTable(
                 "dbo.TvSerias",
@@ -78,7 +44,6 @@ namespace Rocket.DAL.Migrations
                         TvSerialYearStart = c.String(),
                         Summary = c.String(),
                         UrlToSource = c.String(),
-                        ListGenreForParse = c.String(),
                         PremiereDateForParse = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
@@ -93,7 +58,6 @@ namespace Rocket.DAL.Migrations
                         LostfilmPersonalPageUrl = c.String(nullable: false),
                         PhotoThumbnailUrl = c.String(),
                         PersonTypeCode = c.Int(nullable: false),
-                        TvSeriasId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.PersonType", t => t.PersonTypeCode, cascadeDelete: true)
@@ -109,42 +73,89 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Code);
             
             CreateTable(
-                "dbo.PersonsToTvSerias",
+                "dbo.Season",
                 c => new
                     {
-                        PersonId = c.Int(nullable: false),
-                        TvSeriasId = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
+                        Number = c.Int(nullable: false),
+                        PosterImageUrl = c.String(),
+                        TvSeriesId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.PersonId, t.TvSeriasId })
-                .ForeignKey("dbo.TvSerias", t => t.PersonId, cascadeDelete: true)
-                .ForeignKey("dbo.Person", t => t.TvSeriasId, cascadeDelete: true)
-                .Index(t => t.PersonId)
-                .Index(t => t.TvSeriasId);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.TvSerias", t => t.TvSeriesId, cascadeDelete: true)
+                .Index(t => t.TvSeriesId);
+            
+            CreateTable(
+                "dbo.Episode",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ReleaseDateRu = c.DateTime(),
+                        ReleaseDateEn = c.DateTime(),
+                        Number = c.Int(nullable: false),
+                        TitleRu = c.String(nullable: false, maxLength: 250),
+                        TitleEn = c.String(nullable: false, maxLength: 250),
+                        DurationInMinutes = c.Double(),
+                        UrlForEpisodeSource = c.String(nullable: false),
+                        SeasonId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Season", t => t.SeasonId, cascadeDelete: true)
+                .Index(t => t.SeasonId);
+            
+            CreateTable(
+                "dbo.TvSeriasToGenres",
+                c => new
+                    {
+                        TvSeriasId = c.Int(nullable: false),
+                        GenreId = c.Short(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.TvSeriasId, t.GenreId })
+                .ForeignKey("dbo.TvSerias", t => t.TvSeriasId, cascadeDelete: true)
+                .ForeignKey("dbo.Genre", t => t.GenreId, cascadeDelete: true)
+                .Index(t => t.TvSeriasId)
+                .Index(t => t.GenreId);
+            
+            CreateTable(
+                "dbo.TvSeriasToPersons",
+                c => new
+                    {
+                        TvSeriasId = c.Int(nullable: false),
+                        PersonId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.TvSeriasId, t.PersonId })
+                .ForeignKey("dbo.TvSerias", t => t.TvSeriasId, cascadeDelete: true)
+                .ForeignKey("dbo.Person", t => t.PersonId, cascadeDelete: true)
+                .Index(t => t.TvSeriasId)
+                .Index(t => t.PersonId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Episode", "SeasonId", "dbo.Season");
             DropForeignKey("dbo.Season", "TvSeriesId", "dbo.TvSerias");
-            DropForeignKey("dbo.PersonsToTvSerias", "TvSeriasId", "dbo.Person");
-            DropForeignKey("dbo.PersonsToTvSerias", "PersonId", "dbo.TvSerias");
+            DropForeignKey("dbo.Episode", "SeasonId", "dbo.Season");
+            DropForeignKey("dbo.TvSeriasToPersons", "PersonId", "dbo.Person");
+            DropForeignKey("dbo.TvSeriasToPersons", "TvSeriasId", "dbo.TvSerias");
             DropForeignKey("dbo.Person", "PersonTypeCode", "dbo.PersonType");
-            DropForeignKey("dbo.Genre", "TvSeriasEntity_Id", "dbo.TvSerias");
+            DropForeignKey("dbo.TvSeriasToGenres", "GenreId", "dbo.Genre");
+            DropForeignKey("dbo.TvSeriasToGenres", "TvSeriasId", "dbo.TvSerias");
             DropForeignKey("dbo.Genre", "CategoryCode", "dbo.Category");
-            DropIndex("dbo.PersonsToTvSerias", new[] { "TvSeriasId" });
-            DropIndex("dbo.PersonsToTvSerias", new[] { "PersonId" });
-            DropIndex("dbo.Person", new[] { "PersonTypeCode" });
-            DropIndex("dbo.Season", new[] { "TvSeriesId" });
+            DropIndex("dbo.TvSeriasToPersons", new[] { "PersonId" });
+            DropIndex("dbo.TvSeriasToPersons", new[] { "TvSeriasId" });
+            DropIndex("dbo.TvSeriasToGenres", new[] { "GenreId" });
+            DropIndex("dbo.TvSeriasToGenres", new[] { "TvSeriasId" });
             DropIndex("dbo.Episode", new[] { "SeasonId" });
-            DropIndex("dbo.Genre", new[] { "TvSeriasEntity_Id" });
+            DropIndex("dbo.Season", new[] { "TvSeriesId" });
+            DropIndex("dbo.Person", new[] { "PersonTypeCode" });
             DropIndex("dbo.Genre", new[] { "CategoryCode" });
-            DropTable("dbo.PersonsToTvSerias");
+            DropTable("dbo.TvSeriasToPersons");
+            DropTable("dbo.TvSeriasToGenres");
+            DropTable("dbo.Episode");
+            DropTable("dbo.Season");
             DropTable("dbo.PersonType");
             DropTable("dbo.Person");
             DropTable("dbo.TvSerias");
-            DropTable("dbo.Season");
-            DropTable("dbo.Episode");
             DropTable("dbo.Genre");
             DropTable("dbo.Category");
         }

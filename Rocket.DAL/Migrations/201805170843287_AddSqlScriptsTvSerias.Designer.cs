@@ -13,7 +13,7 @@ namespace Rocket.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201805142022247_AddSqlScriptsTvSerias"; }
+            get { return "201805170843287_AddSqlScriptsTvSerias"; }
         }
         
         string IMigrationMetadata.Source

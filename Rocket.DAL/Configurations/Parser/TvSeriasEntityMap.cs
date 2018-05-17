@@ -67,18 +67,18 @@ namespace Rocket.DAL.Configurations.Parser
                 .WithMany(p => p.ListTvSerias)
                 .Map(m =>
                 {
-                    m.ToTable("PersonsToTvSerias");
-                    m.MapLeftKey("PersonId");
-                    m.MapRightKey("TvSeriasId");
+                    m.ToTable("TvSeriasToPersons");
+                    m.MapLeftKey("TvSeriasId");
+                    m.MapRightKey("PersonId");
                 });
 
             HasMany(f => f.ListGenreEntity)
                 .WithMany(p => p.ListTvSerias)
                 .Map(m =>
                 {
-                    m.ToTable("GenresToTvSerias");
-                    m.MapLeftKey("GenreId");
-                    m.MapRightKey("TvSeriasId");
+                    m.ToTable("TvSeriasToGenres");
+                    m.MapLeftKey("TvSeriasId");
+                    m.MapRightKey("GenreId");
                 });
 
             ///// <summary>
