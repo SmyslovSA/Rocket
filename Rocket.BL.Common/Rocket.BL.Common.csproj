@@ -71,7 +71,6 @@
     <Compile Include="Models\User\Language.cs" />
     <Compile Include="Models\User\User.cs" />
     <Compile Include="Models\User\UserDetails.cs" />
-    <Compile Include="Services\IMailNotificationService.cs" />
     <Compile Include="Mappings\ReleaseList\CountryMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\EpisodeMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\FilmMappingProfile.cs" />
@@ -95,6 +94,7 @@
     <Compile Include="Models\Notification\MessageAboutTVSeries.cs" />
     <Compile Include="Models\Notification\MusicForNotification.cs" />
     <Compile Include="Models\Notification\TVSeriesForNotification.cs" />
+    <Compile Include="Services\Notification\IMailNotificationService.cs" />
     <Compile Include="Services\PersonalArea\IEmailManager.cs" />
     <Compile Include="Services\PersonalArea\IGenreManager.cs" />
     <Compile Include="Services\PersonalArea\IPersonalData.cs" />

@@ -47,12 +47,13 @@
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbAuthorisedUser.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbGenre.cs" />
-    <Compile Include="DbModels\Notification\DbBillingMessage.cs" />
     <Compile Include="DbModels\Notification\DbCustomMessage.cs" />
     <Compile Include="DbModels\Notification\DbEmailTemplate.cs" />
+    <Compile Include="DbModels\Notification\DbGuestBillingMessage.cs" />
     <Compile Include="DbModels\Notification\DbReceiver.cs" />
     <Compile Include="DbModels\Notification\DbReceiversJoinReleases.cs" />
     <Compile Include="DbModels\Notification\DbReleaseMessage.cs" />
+    <Compile Include="DbModels\Notification\DbUserBillingMessage.cs" />
     <Compile Include="DbModels\ReleaseList\DbBaseRelease.cs" />
     <Compile Include="DbModels\User\DbAccountLevel.cs" />
     <Compile Include="DbModels\User\DbAccountStatus.cs" />
