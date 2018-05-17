@@ -9,7 +9,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
     public class DbAuthorisedUser
     {
         /// <summary>
-        /// Id пользователя.
+        /// Id авторизованного пользователя личного кабинета.
         /// </summary>
         public int Id { get; set; }
 
