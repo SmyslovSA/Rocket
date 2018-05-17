@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Data.Entity;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 
@@ -182,7 +186,8 @@ namespace Rocket.DAL.UoW
                     GC.SuppressFinalize(this);
                 }
 
-            _disposed = true;
+                _disposed = true;
+            }
         }
 
         public int SaveChanges()
