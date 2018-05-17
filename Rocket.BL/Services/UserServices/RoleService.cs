@@ -5,7 +5,10 @@ using System.Linq.Expressions;
 using AutoMapper;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Context;
+using Rocket.DAL.Repositories;
 
 namespace Rocket.BL.Services.UserServices
 {

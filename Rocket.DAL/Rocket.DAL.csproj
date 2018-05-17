@@ -41,6 +41,9 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.3\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="DelegateDecompiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
       <HintPath>..\packages\DelegateDecompiler.0.24.0\lib\net45\DelegateDecompiler.dll</HintPath>
     </Reference>
@@ -81,7 +84,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\Parser\CategoryEntityMap.cs" />
     <Compile Include="Configurations\Notification\CustomConfiguration.cs" />
+    <Compile Include="Configurations\Parser\EpisodeEntityMap.cs" />
+    <Compile Include="Configurations\Parser\PersonEntityMap.cs" />
+    <Compile Include="Configurations\Parser\PersonTypeEntityMap.cs" />
+    <Compile Include="Configurations\Parser\SeasonEntityMap.cs" />
+    <Compile Include="Configurations\Parser\TvSeriasEntityMap.cs" />
+    <Compile Include="Configurations\Parser\GenreEntityMap.cs" />
     <Compile Include="Configurations\Notification\EmailTemplateConfiguration.cs" />
     <Compile Include="Configurations\Notification\GuestBillingConfiguration.cs" />
     <Compile Include="Configurations\Notification\ReceiverConfiguration .cs" />
@@ -95,6 +105,9 @@
     <Compile Include="Configurations\ReleaseList\DbEpisodeConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbFilmConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbGenreConfiguration.cs" />
+    <Compile Include="Configurations\PersonalArea\DbUserConfiguration.cs" />
+    <Compile Include="Configurations\ParserSettingsMap.cs" />
+    <Compile Include="Configurations\ResourceItemMap.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicGenreConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicianConfiguration.cs" />
@@ -107,11 +120,20 @@
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbUserConfiguration.cs" />
+    <Compile Include="Configurations\ResourceMap.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
-    <Compile Include="Migrations\201805061918112_InitialMigration.cs" />
-    <Compile Include="Migrations\201805061918112_InitialMigration.Designer.cs">
-      <DependentUpon>201805061918112_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201805171721071_AddParser.cs" />
+    <Compile Include="Migrations\201805171721071_AddParser.Designer.cs">
+      <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805171728294_InitializeDateForParsers.cs" />
+    <Compile Include="Migrations\201805171728294_InitializeDateForParsers.Designer.cs">
+      <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805171922023_UpdByParser.cs" />
+    <Compile Include="Migrations\201805171922023_UpdByParser.Designer.cs">
+      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,10 +148,14 @@
     <Compile Include="Repositories\ReleaseList\DbMusicRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbReleaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbTVSeriesRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
+    <Compile Include="UoW\UoW.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -139,11 +165,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805061918112_InitialMigration.resx">
-      <DependentUpon>201805061918112_InitialMigration.cs</DependentUpon>
+    <Content Include="Migrations\SQLQueries\InitCategory.sql" />
+    <Content Include="Migrations\SQLQueries\InitPersonTypes.sql" />
+    <Content Include="Migrations\SQLQueries\InitLostfilmParserSettings.sql" />
+    <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805171721071_AddParser.resx">
+      <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805171728294_InitializeDateForParsers.resx">
+      <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805171922023_UpdByParser.resx">
+      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets" Condition="Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

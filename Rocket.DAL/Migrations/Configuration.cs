@@ -1,15 +1,15 @@
-namespace Rocket.DAL.Migrations
+﻿namespace Rocket.DAL.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Context.RocketContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Rocket.DAL.Context.RocketContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Context.RocketContext context)
+        protected override void Seed(Rocket.DAL.Context.RocketContext context)
         {
             //  This method will be called after migrating to the latest version.
 
