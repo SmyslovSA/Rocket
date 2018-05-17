@@ -68,6 +68,10 @@ namespace Rocket.DAL.Common.UoW
         IDbCustomMessageRepository CustomMessageRepository { get; }
 
         /// <summary>
+        /// Возвращает репозиторий для шаблонов email сообщений
+        /// </summary>
+        IDbEmailTemplateRepository EmailTemplateRepository { get; }
+        /// <summary>
         /// Сохраняет изменения в хранилище данных.
         /// </summary>
         void Save();
