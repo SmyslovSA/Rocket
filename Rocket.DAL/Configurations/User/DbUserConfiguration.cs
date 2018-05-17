@@ -54,5 +54,6 @@ namespace Rocket.DAL.Configurations.User
 
             HasOptional(ud => ud.UserDetail)
                 .WithRequired(u => u.DbUser);
-        }}
+        }
+    }
 }

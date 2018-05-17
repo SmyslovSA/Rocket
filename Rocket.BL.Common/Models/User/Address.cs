@@ -1,4 +1,4 @@
-﻿using  Rocket.BL.Common.Models.ReleaseList;
+﻿using Rocket.BL.Common.Models.ReleaseList;
 
 namespace Rocket.BL.Common.Models.User
 {
