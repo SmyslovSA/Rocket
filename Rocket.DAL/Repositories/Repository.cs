@@ -101,5 +101,10 @@ namespace Rocket.DAL.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public int SaveChanges()
+        {
+            return _rocketContext.SaveChanges();
+        }
     }
 }

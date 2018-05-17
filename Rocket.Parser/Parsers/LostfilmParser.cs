@@ -14,6 +14,11 @@ using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Context;
+using Rocket.DAL.Repositories;
+using Rocket.DAL.UoW;
 
 namespace Rocket.Parser.Parsers
 {
@@ -23,7 +28,7 @@ namespace Rocket.Parser.Parsers
     internal class LostfilmParser : ILostfilmParser
     {
         private readonly ILoadHtmlService _loadHtmlService;
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
 
         private readonly string _baseUrl;
         private readonly int _maxRequestCount;
@@ -33,13 +38,19 @@ namespace Rocket.Parser.Parsers
         /// </summary>
         /// <param name="loadHtmlService">Сервис для загрузки html</param>
         /// <param name="unitOfWork"></param>
-        public LostfilmParser(ILoadHtmlService loadHtmlService, IUnitOfWork unitOfWork)
+        public LostfilmParser(ILoadHtmlService loadHtmlService//, IUnitOfWork unitOfWork
+        )
         {
             _loadHtmlService = loadHtmlService;
-            _unitOfWork = unitOfWork;
+            //_unitOfWork = unitOfWork;
 
-            var resource = _unitOfWork.ResourceRepository.Queryable()
-                .First(r => r.Name.Equals(Resources.LostfilmSettings));
+            ResourceEntity resource;
+            using (var rocketContext = new RocketContext())
+            {
+                var resourceRepository = new Repository<ResourceEntity>(rocketContext);
+                resource = resourceRepository.Queryable()
+                    .First(r => r.Name.Equals(Resources.LostfilmSettings));
+            }
 
             //Получаем базовую ссылку
             _baseUrl = resource.ResourceLink;
@@ -136,7 +147,6 @@ namespace Rocket.Parser.Parsers
 
         private void SaveResultInDb(List<TvSeriasAgregateModelExt> listTvSeriasAgregateModelExt)
         {
-
             SaveGenresInDb(listTvSeriasAgregateModelExt);
             SavePersonsInDb(listTvSeriasAgregateModelExt);
 
@@ -144,68 +154,76 @@ namespace Rocket.Parser.Parsers
             {
                 foreach (var tvSeriasAgregateModelExt in listTvSeriasAgregateModelExt)
                 {
-
-                    var tvSeriaEntity = tvSeriasAgregateModelExt.TvSeriasEntity;
-
-                    var listSeasonsEntity = tvSeriaEntity.ListSeasons;
-                    tvSeriaEntity.ListSeasons = new List<SeasonEntity>();
-
-                    var listPersonId = tvSeriaEntity.ListPerson.Select(item => item.Id).ToList();
-                    tvSeriaEntity.ListPerson = new List<PersonEntity>();
-                    tvSeriaEntity.ListPerson = _unitOfWork.PersonRepository.Queryable()
-                        .Where(item => listPersonId.Contains(item.Id))
-                        .ToList();
-
-                    var listGenreId = tvSeriaEntity.ListGenreEntity.Select(item => item.Id).ToList();
-                    tvSeriaEntity.ListGenreEntity = new List<GenreEntity>();
-                    tvSeriaEntity.ListGenreEntity = _unitOfWork.GenreRepository.Queryable()
-                        .Where(item => listGenreId.Contains(item.Id))
-                        .ToList();
-
-                    var tvSeriaEntityInDb = _unitOfWork.TvSeriasRepository.Queryable()
-                        .FirstOrDefault(item => item.UrlToSource == tvSeriaEntity.UrlToSource);
-
-                    if (tvSeriaEntityInDb == null)
+                    using (var rocketContext = new RocketContext())
                     {
-                        //вставка сериала
-                        _unitOfWork.TvSeriasRepository.Insert(tvSeriaEntity);
-                        _unitOfWork.SaveChanges();
-                    }
-                    //else
-                    //{
-                    //    //обновление сериала
-                    //    tvSeriaEntity.Id = tvSeriaEntityInDb.Id;
+                        var personRepository = new Repository<PersonEntity>(rocketContext);
+                        var genreRepository = new Repository<GenreEntity>(rocketContext);
+                        var tvSeriasRepository = new Repository<TvSeriasEntity>(rocketContext);
+                        var seasonRepository = new Repository<SeasonEntity>(rocketContext);
+                        var episodeRepository = new Repository<EpisodeEntity>(rocketContext);
 
-                    //    tvSeriaEntityInDb.ListGenreEntity = tvSeriaEntity.ListGenreEntity;
-                    //    tvSeriaEntityInDb.ListPerson = tvSeriaEntity.ListPerson;
+                        var tvSeriaEntity = tvSeriasAgregateModelExt.TvSeriasEntity;
 
-                    //    tvSeriaEntityInDb.UrlToSource = tvSeriaEntity.UrlToSource;
-                    //    tvSeriaEntityInDb.CurrentStatus = tvSeriaEntity.CurrentStatus;
-                    //    tvSeriaEntityInDb.LostfilmRate = tvSeriaEntity.LostfilmRate;
-                    //    tvSeriaEntityInDb.PosterImageUrl = tvSeriaEntity.PosterImageUrl;
-                    //    tvSeriaEntityInDb.RateImDb = tvSeriaEntity.RateImDb;
-                    //    tvSeriaEntityInDb.Summary = tvSeriaEntity.Summary;
-                    //    tvSeriaEntityInDb.UrlToOfficialSite = tvSeriaEntity.UrlToOfficialSite;
+                        var listSeasonsEntity = tvSeriaEntity.ListSeasons;
+                        tvSeriaEntity.ListSeasons = new List<SeasonEntity>();
 
-                    //    _unitOfWork.TvSeriasRepository.Update(tvSeriaEntityInDb);
-                    //    _unitOfWork.SaveChanges();
-                    //}
+                        var listPersonId = tvSeriaEntity.ListPerson.Select(item => item.Id).ToList();
+                        tvSeriaEntity.ListPerson = new List<PersonEntity>();
+                        tvSeriaEntity.ListPerson = personRepository.Queryable()
+                            .Where(item => listPersonId.Contains(item.Id))
+                            .ToList();
 
-                    foreach (var seasonEntity in listSeasonsEntity)
-                    {
-                        var listEpisodeEntity = new List<EpisodeEntity>();
-                        listEpisodeEntity.AddRange(seasonEntity.ListEpisode);
+                        var listGenreId = tvSeriaEntity.ListGenreEntity.Select(item => item.Id).ToList();
+                        tvSeriaEntity.ListGenreEntity = new List<GenreEntity>();
+                        tvSeriaEntity.ListGenreEntity = genreRepository.Queryable()
+                            .Where(item => listGenreId.Contains(item.Id))
+                            .ToList();
 
-                        seasonEntity.ListEpisode = new List<EpisodeEntity>();
-                        seasonEntity.TvSeriesId = tvSeriasAgregateModelExt.TvSeriasEntity.Id;
+                        var tvSeriaEntityInDb = tvSeriasRepository.Queryable()
+                            .FirstOrDefault(item => item.UrlToSource == tvSeriaEntity.UrlToSource);
 
-                        _unitOfWork.SeasonRepository.Insert(seasonEntity);
-                        _unitOfWork.SaveChanges();
+                        if (tvSeriaEntityInDb == null)
+                        {
+                            //вставка сериала
+                            tvSeriasRepository.Insert(tvSeriaEntity);
+                            tvSeriasRepository.SaveChanges();
+                        }
+                        //else
+                        //{
+                        //    //обновление сериала
+                        //    tvSeriaEntity.Id = tvSeriaEntityInDb.Id;
 
-                        listEpisodeEntity.ForEach(item => item.SeasonId = seasonEntity.Id);
+                        //    tvSeriaEntityInDb.ListGenreEntity = tvSeriaEntity.ListGenreEntity;
+                        //    tvSeriaEntityInDb.ListPerson = tvSeriaEntity.ListPerson;
 
-                        _unitOfWork.EpisodeRepository.InsertRange(listEpisodeEntity);
-                        _unitOfWork.SaveChanges();
+                        //    tvSeriaEntityInDb.UrlToSource = tvSeriaEntity.UrlToSource;
+                        //    tvSeriaEntityInDb.CurrentStatus = tvSeriaEntity.CurrentStatus;
+                        //    tvSeriaEntityInDb.LostfilmRate = tvSeriaEntity.LostfilmRate;
+                        //    tvSeriaEntityInDb.PosterImageUrl = tvSeriaEntity.PosterImageUrl;
+                        //    tvSeriaEntityInDb.RateImDb = tvSeriaEntity.RateImDb;
+                        //    tvSeriaEntityInDb.Summary = tvSeriaEntity.Summary;
+                        //    tvSeriaEntityInDb.UrlToOfficialSite = tvSeriaEntity.UrlToOfficialSite;
+
+                        //    _unitOfWork.TvSeriasRepository.Update(tvSeriaEntityInDb);
+                        //    _unitOfWork.SaveChanges();
+                        //}
+
+                        foreach (var seasonEntity in listSeasonsEntity)
+                        {
+                            var listEpisodeEntity = new List<EpisodeEntity>();
+                            listEpisodeEntity.AddRange(seasonEntity.ListEpisode);
+
+                            seasonEntity.ListEpisode = new List<EpisodeEntity>();
+                            seasonEntity.TvSeriesId = tvSeriasAgregateModelExt.TvSeriasEntity.Id;
+
+                            seasonRepository.Insert(seasonEntity);
+                            seasonRepository.SaveChanges();
+
+                            listEpisodeEntity.ForEach(item => item.SeasonId = seasonEntity.Id);
+
+                            episodeRepository.InsertRange(listEpisodeEntity);
+                            episodeRepository.SaveChanges();
+                        }
                     }
                 }
             }
@@ -220,49 +238,54 @@ namespace Rocket.Parser.Parsers
         {
             try
             {
-                var listGenreEntityDb = _unitOfWork.GenreRepository.Queryable().AsNoTracking().ToList();
-
-                //Получаем список названий новых жанров (нет в бд)
-                var listGenreNameNew = new List<string>();
-                foreach (var tvSeriasAgregateModelExt in listTvSeriasAgregateModelExt)
+                using (var rocketContext = new RocketContext())
                 {
+                    var genreRepository = new Repository<GenreEntity>(rocketContext);
+                    
+                    var listGenreEntityDb = genreRepository.Queryable().AsNoTracking().ToList();
 
-                    foreach (var genreEntity in tvSeriasAgregateModelExt.TvSeriasEntity.ListGenreEntity)
+                    //Получаем список названий новых жанров (нет в бд)
+                    var listGenreNameNew = new List<string>();
+                    foreach (var tvSeriasAgregateModelExt in listTvSeriasAgregateModelExt)
                     {
-                        if (genreEntity.Id == 0 && listGenreEntityDb.Any(item => item.Name == genreEntity.Name))
+
+                        foreach (var genreEntity in tvSeriasAgregateModelExt.TvSeriasEntity.ListGenreEntity)
                         {
-                            var genreEntityDb = listGenreEntityDb.First(item => item.Name == genreEntity.Name);
-                            genreEntity.Id = genreEntityDb.Id;
+                            if (genreEntity.Id == 0 && listGenreEntityDb.Any(item => item.Name == genreEntity.Name))
+                            {
+                                var genreEntityDb = listGenreEntityDb.First(item => item.Name == genreEntity.Name);
+                                genreEntity.Id = genreEntityDb.Id;
+                            }
                         }
+
+                        var listGenreName = tvSeriasAgregateModelExt.TvSeriasEntity.ListGenreEntity
+                            .Where(item => item.Id == 0)
+                            .Select(item => item.Name)
+                            .ToList();
+
+                        listGenreNameNew.AddRange(listGenreName);
                     }
 
-                    var listGenreName = tvSeriasAgregateModelExt.TvSeriasEntity.ListGenreEntity
-                        .Where(item => item.Id == 0)
-                        .Select(item => item.Name)
-                        .ToList();
+                    //Получаем полный список жанров
+                    var listGenreEntityAll = new List<GenreEntity>();
+                    listTvSeriasAgregateModelExt.ForEach(item =>
+                        listGenreEntityAll.AddRange(item.TvSeriasEntity.ListGenreEntity));
 
-                    listGenreNameNew.AddRange(listGenreName);
-                }
+                    //Получаем список жанров для вставки в бд
+                    listGenreNameNew = listGenreNameNew.Distinct().ToList();
+                    var listGenreEntityNew = new List<GenreEntity>();
+                    foreach (var genreNameNew in listGenreNameNew)
+                    {
+                        var genreEntity = listGenreEntityAll.First(item => item.Name == genreNameNew);
+                        listGenreEntityNew.Add(genreEntity);
+                    }
 
-                //Получаем полный список жанров
-                var listGenreEntityAll = new List<GenreEntity>();
-                listTvSeriasAgregateModelExt.ForEach(item =>
-                    listGenreEntityAll.AddRange(item.TvSeriasEntity.ListGenreEntity));
-
-                //Получаем список жанров для вставки в бд
-                listGenreNameNew = listGenreNameNew.Distinct().ToList();
-                var listGenreEntityNew = new List<GenreEntity>();
-                foreach (var genreNameNew in listGenreNameNew)
-                {
-                    var genreEntity = listGenreEntityAll.First(item => item.Name == genreNameNew);
-                    listGenreEntityNew.Add(genreEntity);
-                }
-
-                //Вставка жанров в бд
-                if (listGenreEntityNew.Any())
-                {
-                    _unitOfWork.GenreRepository.InsertRange(listGenreEntityNew);
-                    _unitOfWork.SaveChanges();
+                    //Вставка жанров в бд
+                    if (listGenreEntityNew.Any())
+                    {
+                        genreRepository.InsertRange(listGenreEntityNew);
+                        genreRepository.SaveChanges();
+                    }
                 }
             }
             catch (Exception e)
@@ -276,29 +299,36 @@ namespace Rocket.Parser.Parsers
         {
             try
             {
-                foreach (var tvSeriasAgregateModelExt in listTvSeriasAgregateModelExt)
+                using (var rocketContext = new RocketContext())
                 {
-                    int personCounter = 0;
-                    foreach (var personEntity in tvSeriasAgregateModelExt.TvSeriasEntity.ListPerson)
+                    var personRepository = new Repository<PersonEntity>(rocketContext);
+
+                    foreach (var tvSeriasAgregateModelExt in listTvSeriasAgregateModelExt)
                     {
-                        var personEntityInDb = _unitOfWork.PersonRepository.Queryable()
-                            .FirstOrDefault(item => item.LostfilmPersonalPageUrl == personEntity.LostfilmPersonalPageUrl);
-                        if (personEntityInDb == null)
+                        int personCounter = 0;
+                        foreach (var personEntity in tvSeriasAgregateModelExt.TvSeriasEntity.ListPerson)
                         {
-                            _unitOfWork.PersonRepository.Insert(personEntity);
-                            personCounter++;
-                            if (personCounter == 100)
+                            var personEntityInDb = personRepository.Queryable()
+                                .FirstOrDefault(item =>
+                                    item.LostfilmPersonalPageUrl == personEntity.LostfilmPersonalPageUrl);
+                            if (personEntityInDb == null)
                             {
-                                personCounter = 0;
-                                _unitOfWork.SaveChanges();
+                                personRepository.Insert(personEntity);
+                                personCounter++;
+                                if (personCounter == 100)
+                                {
+                                    personCounter = 0;
+                                    personRepository.SaveChanges();
+                                }
+                            }
+                            else
+                            {
+                                personEntity.Id = personEntityInDb.Id;
                             }
                         }
-                        else
-                        {
-                            personEntity.Id = personEntityInDb.Id;
-                        }
+
+                        personRepository.SaveChanges();
                     }
-                    _unitOfWork.SaveChanges();
                 }
             }
             catch (Exception e)

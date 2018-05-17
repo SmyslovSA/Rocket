@@ -94,6 +94,8 @@ namespace Rocket.DAL.Common.Repositories
         /// </summary>
         /// <returns>IQueryable</returns>
         IQueryable<TEntity> Queryable();
+
+        int SaveChanges();
     }
 
 }
