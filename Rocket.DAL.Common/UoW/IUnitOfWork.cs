@@ -71,6 +71,15 @@ namespace Rocket.DAL.Common.UoW
         /// Возвращает репозиторий для шаблонов email сообщений
         /// </summary>
         IDbEmailTemplateRepository EmailTemplateRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для сообщений с информацией
+        /// о совершенном гостем донате
+        /// </summary>
+        IDbGuestBillingMessageRepository GuestBillingMessageRepository { get; }
+
+
+
         /// <summary>
         /// Сохраняет изменения в хранилище данных.
         /// </summary>
