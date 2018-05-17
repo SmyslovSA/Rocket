@@ -4,7 +4,7 @@ using Rocket.BL.Common.Models.PersonalArea;
 namespace Rocket.BL.Validators
 {
     /// <summary>
-    /// класс для проверок валидации для пользователя
+    /// Класс для проверок валидации для пользователя.
     /// </summary>
     public class UserDataValidator : AbstractValidator<SimpleUser>
     {

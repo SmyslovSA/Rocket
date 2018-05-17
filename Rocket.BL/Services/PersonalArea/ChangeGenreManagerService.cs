@@ -15,7 +15,7 @@ namespace Rocket.BL.Services.PersonalArea
 
         public bool AddGenre(SimpleUser model, string category, string genre)
         {
-            //проверка на валидный данных
+            //проверка на валидность данных
             if (model != null && string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
             {
                 var user = Mapper.Map<DbAuthorisedUser>(model);

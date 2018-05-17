@@ -36,7 +36,7 @@ namespace Rocket.DAL.Common.Repositories
         /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
         /// <param name="orderBy">Лямбда-выражение определяющее сортировку экземпляров <see cref="TEntity"/></param>
         /// <param name="includeProperties">Список связанных свойств экземпляров <see cref="TEntity"/>, разделенный запятыми</param>
-        /// <returns>Перечисление экземпляров <see cref="TEntity"/></returns>
+        /// <returns>Перечисление экземпляров.<see cref="TEntity"/></returns>
         IEnumerable<TEntity> GetPage(
             int pageSize,
             int pageNumber,
@@ -46,42 +46,42 @@ namespace Rocket.DAL.Common.Repositories
 
         /// <summary>
         /// Возвращает экземпляр <see cref="TEntity"/>,
-        /// соответствующий заданному идентификатору, из хранилища данных
+        /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
-        /// <param name="id">Идентификатор<see cref="TKey"/></param>
-        /// <returns>Экземпляр <see cref="TEntity"/></returns>
+        /// <param name="id">Идентификатор экземпляра.</param>
+        /// <returns>Экземпляр <see cref="TEntity"/>.</returns>
         TEntity GetById(int id);
         
         /// <summary>
-        /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
+        /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных.
         /// </summary>
-        /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
+        /// <param name="entity">Экземпляр элемента.<see cref="TEntity"/>.</param>
         void Insert(TEntity entity);
 
         /// <summary>
-        /// Обновляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
+        /// Обновляет заданный экземпляр <see cref="TEntity"/> в хранилище данных.
         /// </summary>
-        /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
+        /// <param name="entity">Экземпляр сущности.<see cref="TEntity"/></param>
         void Update(TEntity entity);
 
         /// <summary>
         /// Удаляет экземпляр <see cref="TEntity"/>,
-        /// соответствующий заданному идентификатору, из хранилища данных
+        /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
-        /// <param name="id">Идентификатор</param>
+        /// <param name="id">Идентификатор экземпляра.</param>
         void Delete(int id);
 
         /// <summary>
         /// Удаляет заданный экземпляр <see cref="TEntity"/> из хранилища данных
         /// </summary>
-        /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
+        /// <param name="entity">Экземпляр сущности.<see cref="TEntity"/></param>
         void Delete(TEntity entity);
 
         /// <summary>
         /// Возвращает количество элементов в репозитории,
-        /// соответствующих заданному фильтру
+        /// соответствующих заданному фильтру.
         /// </summary>
-        /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
+        /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/>.</param>
         /// <returns>Количество элементов</returns>
         int ItemsCount(Expression<Func<TEntity, bool>> filter = null);
     }

@@ -5,7 +5,7 @@ using Rocket.DAL.Common.DbModels.User;
 namespace Rocket.BL.Common.Mappings.UserMappingProfile
 {
     /// <summary>
-    /// Профиль сопоставления доменной модели языка пользователя с моделью хранения языка пользователя
+    /// Профиль сопоставления доменной модели языка пользователя с моделью хранения языка пользователя.
     /// </summary>
     public class LanguageMappingProfile : Profile
     {

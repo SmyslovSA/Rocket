@@ -99,6 +99,12 @@ namespace Rocket.BL.Services.ReleaseList
                 _unitOfWork.TVSeriesRepository.GetById(id));
         }
 
+        /// <summary>
+        /// Добавляет заданный сериал в хранилище данных
+        /// и возвращает идентификатор добавленного сериала.
+        /// </summary>
+        /// <param name="tvSeries">Экземпляр сериала для добавления</param>
+        /// <returns>Идентификатор сериала</returns>
         public int AddTVSeries(TVSeries tvSeries)
         {
             var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
@@ -107,6 +113,10 @@ namespace Rocket.BL.Services.ReleaseList
             return dbTVSeries.Id;
         }
 
+        /// <summary>
+        /// Обновляет информацию заданного сериала в хранилище данных
+        /// </summary>
+        /// <param name="tvSeries">Экземпляр сериала для обновления</param>
         public void UpdateTVSeries(TVSeries tvSeries)
         {
             var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
