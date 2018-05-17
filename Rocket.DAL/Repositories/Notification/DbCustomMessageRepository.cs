@@ -7,7 +7,7 @@ namespace Rocket.DAL.Repositories.Notification
     /// <summary>
     /// Представляет репозиторий для сообщений произвольного содержания
     /// </summary>
-    class DbCustomMessageRepository : BaseRepository<DbCustomMessage>, IDbCustomMessageRepository
+    public class DbCustomMessageRepository : BaseRepository<DbCustomMessage>, IDbCustomMessageRepository
     {
         /// <summary>
         /// Создает новый экземпляр репозитория для сообщений произвольного содержания
