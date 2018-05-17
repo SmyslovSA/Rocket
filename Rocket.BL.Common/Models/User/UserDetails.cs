@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Rocket.BL.Common.Models.ReleaseList;
 using Rocket.DAL.Common.DbModels.Enum;
 
 namespace Rocket.BL.Common.Models.User

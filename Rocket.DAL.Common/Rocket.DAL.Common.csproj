@@ -57,7 +57,6 @@
     <Compile Include="DbModels\User\DbAccountLevel.cs" />
     <Compile Include="DbModels\User\DbAccountStatus.cs" />
     <Compile Include="DbModels\User\DbAddress.cs" />
-    <Compile Include="DbModels\User\DbCountry.cs" />
     <Compile Include="DbModels\User\DbHowToCall.cs" />
     <Compile Include="DbModels\User\DbLanguage.cs" />
     <Compile Include="DbModels\User\DbUser.cs" />
@@ -100,7 +99,6 @@
     <Compile Include="Repositories\User\IDbAccountLevelRepository.cs" />
     <Compile Include="Repositories\User\IDbAccountStatusRepository.cs" />
     <Compile Include="Repositories\User\IDbAddressRepository.cs" />
-    <Compile Include="Repositories\User\IDbCountryRepository.cs" />
     <Compile Include="Repositories\User\IDbHowToCallRepository.cs" />
     <Compile Include="Repositories\User\IDbLanguageRepository.cs" />
     <Compile Include="Repositories\User\IDbUserDetailsRepository.cs" />

@@ -106,6 +106,7 @@
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbUserConfiguration.cs" />
+    <Compile Include="Configurations\User\DbAccountLevelConfiguration.cs" />
     <Compile Include="Configurations\User\DbAccountStatusConfiguration.cs" />
     <Compile Include="Configurations\User\DbUserConfiguration.cs" />
     <Compile Include="Context\RocketContext.cs" />

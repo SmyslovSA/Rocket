@@ -4,13 +4,13 @@ using System.Data.Entity.ModelConfiguration;
 namespace Rocket.DAL.Configurations.User
 {
     /// <summary>
-    /// Конфигурация хранения данных о статусе пользователя.
+    /// Конфигурация хранения данных об уровне пользователя.
     /// </summary>
-    public class DbAccountStatusConfiguration : EntityTypeConfiguration<DbAccountStatus>
+    public class DbAccountLevelConfiguration : EntityTypeConfiguration<DbAccountLevel>
     {
-        public DbAccountStatusConfiguration()
+        public DbAccountLevelConfiguration()
         {
-            ToTable("AccountStatuses")
+            ToTable("AccountLevels")
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
                 .HasColumnName("Id");
@@ -21,7 +21,7 @@ namespace Rocket.DAL.Configurations.User
                 .HasMaxLength(30);
 
             HasMany<DbUser>(t => t.DbUsers)
-                .WithOptional(a => a.AccountStatus);
+                .WithOptional(a => a.AccountLevel);
         }
     }
 }

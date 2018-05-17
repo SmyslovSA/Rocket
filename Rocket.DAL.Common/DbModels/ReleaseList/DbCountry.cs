@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using  Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.DAL.Common.DbModels.ReleaseList
 {
@@ -28,5 +29,11 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// в съёмках которых принимала участие эта страна
         /// </summary>
         public ICollection<DbTVSeries> DbTVSerials { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает коллекцию детальной информации о пользователях,
+        /// гражданинами которой они являются.
+        /// </summary>
+        public ICollection<DbUserDetails> DbUserDetailses { get; set; }
     }
 }

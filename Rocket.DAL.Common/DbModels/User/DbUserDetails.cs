@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Rocket.DAL.Common.DbModels.Enum;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 
 namespace Rocket.DAL.Common.DbModels.User
 {
