@@ -5,13 +5,13 @@ using Rocket.DAL.Common.DbModels.User;
 namespace Rocket.BL.Common.Mappings.UserMappingProfile
 {
     /// <summary>
-    /// Профиль сопоставления доменной модели страны для адреса пользователя с моделью хранения данных страны для адреса пользователя.
+    /// Профиль сопоставления доменной модели пола пользователя с моделью хранения пола пользователя.
     /// </summary>
-    public class CountryMappingProfile : Profile
+    public class GenderMappingProfile : Profile
     {
-        public CountryMappingProfile()
+        public GenderMappingProfile()
         {
-            CreateMap<Country, DbCountry>()
+            CreateMap<Gender, DbGender>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ReverseMap();

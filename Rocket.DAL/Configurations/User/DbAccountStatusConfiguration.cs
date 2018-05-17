@@ -1,5 +1,7 @@
-﻿using Rocket.DAL.Common.DbModels.User;
+﻿using System;
 using System.Data.Entity.ModelConfiguration;
+using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Properties;
 
 namespace Rocket.DAL.Configurations.User
 {
@@ -18,10 +20,7 @@ namespace Rocket.DAL.Configurations.User
             Property(t => t.Name)
                 .IsRequired()
                 .HasColumnName("Name")
-                .HasMaxLength(30);
-
-            HasMany<DbUser>(t => t.DbUsers)
-                .WithOptional(a => a.AccountStatus);
+                .HasMaxLength(Convert.ToInt32(Resources.MAXACCOUNTSTATUSLENGHT));
         }
     }
 }

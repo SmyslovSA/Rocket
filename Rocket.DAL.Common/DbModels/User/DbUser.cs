@@ -54,6 +54,6 @@ namespace Rocket.DAL.Common.DbModels.User
         /// <summary>
         /// Возвращает или задает детальную информация пользователя.
         /// </summary>
-        public virtual DbUserDetails UserDetails { get; set; }
+        public virtual DbUserDetail UserDetail { get; set; }
     }
 }

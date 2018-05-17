@@ -1,82 +1,58 @@
-﻿using Rocket.DAL.Common.DbModels.User;
+﻿using System;
+using Rocket.DAL.Common.DbModels.User;
 using System.Data.Entity.ModelConfiguration;
+using Rocket.DAL.Properties;
 
 namespace Rocket.DAL.Configurations.User
 {
     /// <summary>
-    /// Конфигурация хранения данных о пользователях
+    /// Конфигурация хранения данных о пользователях.
     /// </summary>
     public class DbUserConfiguration : EntityTypeConfiguration<DbUser>
     {
-        //public DbUsersConfiguration()
-        //{
-        //    ToTable("Users")
-        //        .HasKey(t => t.Id)
-        //        .Property(t => t.Id)
-        //        .HasColumnName("Id");
+        public DbUserConfiguration()
+        {
+            ToTable("Users")
+                .HasKey(t => t.Id)
+                .Property(t => t.Id)
+                .HasColumnName("Id");
 
-        //    Property(t => t.FirstName)
-        //        .IsOptional()
-        //        .HasColumnName("FirstName")
-        //        .HasMaxLength(35);
+            Property(t => t.FirstName)
+                .IsOptional()
+                .HasColumnName("FirstName")
+                .HasMaxLength(Convert.ToInt32(Resources.MAXFIRSTNAMELENGHT));
 
-        //    Property(t => t.LastName)
-        //        .IsOptional()
-        //        .HasColumnName("LastName")
-        //        .HasMaxLength(35);
+            Property(t => t.LastName)
+                .IsOptional()
+                .HasColumnName("LastName")
+                .HasMaxLength(Convert.ToInt32(Resources.MAXLASTNAMELENGHT));
 
-        //    Property(t => t.Login)
-        //        .IsRequired()
-        //        .HasColumnName("Login")
-        //        .HasMaxLength(50);
+            Property(t => t.Login)
+                .IsRequired()
+                .HasColumnName("Login")
+                .HasMaxLength(Convert.ToInt32(Resources.MAXLOGINLENGHT));
 
-        //    Property(t => t.Password)
-        //        .IsRequired()
-        //        .HasColumnName("Password")
-        //        .HasMaxLength(50);
+            Property(t => t.Password)
+                .IsRequired()
+                .HasColumnName("Password")
+                .HasMaxLength(Convert.ToInt32(Resources.MAXPASSWORDLENGHT));
 
-        //    HasRequired(s => s.AccountStatus)
-        //        .WithRequiredPrincipal(st => st.DbUsers);
+            HasOptional(s => s.AccountStatus)
+                .WithMany(st => st.DbUsers);
 
-        //    (t => t.Directors)
-        //        .WithMany(p => p.DbTVSerialsDirector)
-        //        .Map(m =>
-        //        {
-        //            m.ToTable("TVSerialsDirectors");
-        //            m.MapLeftKey("TVSeriesId");
-        //            m.MapRightKey("DirectorId");
-        //        });
+            HasOptional(s => s.AccountLevel)
+                .WithMany(st => st.DbUsers);
 
-        //    HasMany(t => t.Cast)
-        //        .WithMany(p => p.DbTVSerialsActor)
-        //        .Map(m =>
-        //        {
-        //            m.ToTable("TVSerialsActors");
-        //            m.MapLeftKey("TVSeriesId");
-        //            m.MapRightKey("ActorId");
-        //        });
+            HasMany(f => f.Roles)
+                .WithMany(c => c.Users)
+                .Map(m =>
+                {
+                    m.ToTable("UsersRoles");
+                    m.MapLeftKey("UserId");
+                    m.MapRightKey("RoleId");
+                });
 
-        //    HasMany(t => t.Genres)
-        //        .WithMany(g => g.DbTVSerials)
-        //        .Map(m =>
-        //        {
-        //            m.ToTable("TVSerialsVideoGenres");
-        //            m.MapLeftKey("TVSeriesId");
-        //            m.MapRightKey("VideoGenreId");
-        //        });
-
-        //    HasMany(t => t.Countries)
-        //        .WithMany(c => c.DbTVSerials)
-        //        .Map(m =>
-        //        {
-        //            m.ToTable("TVSerialsCountries");
-        //            m.MapLeftKey("TVSeriesId");
-        //            m.MapRightKey("CountryId");
-        //        });
-
-        //    HasMany(t => t.DbSeasons)
-        //        .WithRequired(s => s.DbTVSeries)
-        //        .HasForeignKey(s => s.DbTVSeriesId);
-        //}
-    }
+            HasOptional(ud => ud.UserDetail)
+                .WithRequired(u => u.DbUser);
+        }}
 }

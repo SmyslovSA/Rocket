@@ -1,4 +1,6 @@
-﻿namespace Rocket.DAL.Common.DbModels.User
+﻿using Rocket.DAL.Common.DbModels.ReleaseList;
+
+namespace Rocket.DAL.Common.DbModels.User
 {
     /// <summary>
     /// Представляет модель хранениея данных адреса для сведений о пользователе.
@@ -52,6 +54,6 @@
         /// к которой относится этот адрес.
         /// </summary>
         /// <value>Дополнительная информация пользователя, к которой относится этот адрес.</value>>
-        public DbUserDetails DbUserDetails { get; set; }
+        public DbUserDetail DbUserDetail { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Rocket.DAL.Common.DbModels.Enum;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 
 namespace Rocket.DAL.Common.DbModels.User
@@ -9,7 +8,7 @@ namespace Rocket.DAL.Common.DbModels.User
     /// <summary>
     /// Представляет модель хранения детальных данных о пользователе.
     /// </summary>
-    public class DbUserDetails
+    public class DbUserDetail
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификатор дополнительной информации пользователя.
@@ -40,7 +39,7 @@ namespace Rocket.DAL.Common.DbModels.User
         /// <summary>
         /// Задает или возвращает пол пользователя.
         /// </summary>
-        public Gender? Gender { get; set; }
+        public DbGender Gender { get; set; }
 
         /// <summary>
         /// Задает или возвращает сведения о том, как обращаться к пользователю.
@@ -50,12 +49,12 @@ namespace Rocket.DAL.Common.DbModels.User
         /// <summary>
         /// Задает или возвращает коллекцию телефонных номеров пользователя.
         /// </summary>
-        public virtual ICollection<string> Phones { get; set; } = new Collection<string>();
+        public virtual ICollection<DbPhoneNumber> PhoneNumbers { get; set; } = new Collection<DbPhoneNumber>();
 
         /// <summary>
         /// Задает или возвращает коллекцию Email.
         /// </summary>
-        public virtual ICollection<string> EMailAddresses { get; set; } = new Collection<string>();
+        public virtual ICollection<DbEmailAddress> EMailAddresses { get; set; } = new Collection<DbEmailAddress>();
 
         /// <summary>
         /// Возвращает или задает почтовый адрес пользователя.

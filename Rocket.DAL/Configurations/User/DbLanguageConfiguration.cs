@@ -6,13 +6,13 @@ using Rocket.DAL.Properties;
 namespace Rocket.DAL.Configurations.User
 {
     /// <summary>
-    /// Конфигурация хранения данных об уровне пользователя.
+    /// Конфигурация хранения данных о языках дополнительной информации пользователя.
     /// </summary>
-    public class DbAccountLevelConfiguration : EntityTypeConfiguration<DbAccountLevel>
+    public class DbLanguageConfiguration : EntityTypeConfiguration<DbAccountLevel>
     {
-        public DbAccountLevelConfiguration()
+        public DbLanguageConfiguration()
         {
-            ToTable("AccountLevels")
+            ToTable("Languages")
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
                 .HasColumnName("Id");
@@ -20,7 +20,7 @@ namespace Rocket.DAL.Configurations.User
             Property(t => t.Name)
                 .IsRequired()
                 .HasColumnName("Name")
-                .HasMaxLength(Convert.ToInt32(Resources.MAXACCOUNTLEVELLENGHT));
+                .HasMaxLength(Convert.ToInt32(Resources.MAXLANGUAGELENGHT));
         }
     }
 }

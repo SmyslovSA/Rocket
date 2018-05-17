@@ -106,8 +106,15 @@
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbUserConfiguration.cs" />
+    <Compile Include="Configurations\User\DbEmailAddressConfiguratin.cs" />
+    <Compile Include="Configurations\User\DbGenderConfiguration.cs" />
+    <Compile Include="Configurations\User\DbHowToCallConfiguration.cs" />
+    <Compile Include="Configurations\User\DbPhoneNumberConfiguration.cs" />
+    <Compile Include="Configurations\User\DbLanguageConfiguration.cs" />
     <Compile Include="Configurations\User\DbAccountLevelConfiguration.cs" />
     <Compile Include="Configurations\User\DbAccountStatusConfiguration.cs" />
+    <Compile Include="Configurations\User\DbAddressConfiguration.cs" />
+    <Compile Include="Configurations\User\DbUserDetailConfiguration.cs" />
     <Compile Include="Configurations\User\DbUserConfiguration.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
@@ -117,6 +124,11 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbAuthorisedUserRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbCategoryRepository.cs" />
@@ -141,6 +153,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805061918112_InitialMigration.resx">
       <DependentUpon>201805061918112_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

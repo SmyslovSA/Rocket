@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Rocket.BL.Common.Models.ReleaseList;
-using Rocket.DAL.Common.DbModels.Enum;
 
 namespace Rocket.BL.Common.Models.User
 {
     /// <summary>
     /// Детальная информация о пользователе.
     /// </summary>
-    public class UserDetails
+    public class UserDetail
     {
         /// <summary>
         /// Уникальный идентификатор дополнительной информации пользователя.
@@ -39,7 +38,7 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Задает или возвращает пол пользователя.
         /// </summary>
-        public Gender? Gender { get; set; }
+        public Gender Gender { get; set; }
 
         /// <summary>
         /// Задает или возвращает сведения о том, как обращаться к пользователю.
@@ -49,12 +48,12 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Задает или возвращает коллекцию телефонных номеров пользователя.
         /// </summary>
-        public ICollection<string> Phones { get; set; }
+        public ICollection<PhoneNumber> PhoneNumbers { get; set; }
 
         /// <summary>
         /// Задает или возвращает коллекцию Email.
         /// </summary>
-        public ICollection<string> EMailAddresses { get; set; }
+        public ICollection<EmailAddress> EMailAddresses { get; set; }
 
         /// <summary>
         /// Возвращает или задает почтовый адрес пользователя.

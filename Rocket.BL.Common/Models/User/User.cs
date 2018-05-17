@@ -53,6 +53,6 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Детальная информация пользователя.
         /// </summary>
-        public UserDetails UserDetails { get; set; }
+        public UserDetail UserDetail { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Models.User
+﻿using  Rocket.BL.Common.Models.ReleaseList;
+
+namespace Rocket.BL.Common.Models.User
 {
     /// <summary>
     /// Тип адреса. Классика.
