@@ -2,7 +2,6 @@
 using AngleSharp.Dom.Html;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.Enums;
-using Rocket.DAL.Common.UoW;
 using Rocket.Parser.Extensions;
 using Rocket.Parser.Heplers;
 using Rocket.Parser.Interfaces;
@@ -10,15 +9,11 @@ using Rocket.Parser.Properties;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Rocket.DAL.Common.DbModels;
-using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Context;
 using Rocket.DAL.Repositories;
-using Rocket.DAL.UoW;
 
 namespace Rocket.Parser.Parsers
 {
