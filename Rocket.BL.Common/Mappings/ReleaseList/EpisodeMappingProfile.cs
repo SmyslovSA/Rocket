@@ -14,7 +14,7 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
             CreateMap<Episode, DbEpisode>()
                 .IncludeBase<BaseRelease, DbBaseRelease>()
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
-                .ForMember(dest => dest.DurationInMinutes, opt => opt.MapFrom(src => src.Duration))
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
                 .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => src.Summary))
                 .ReverseMap();
         }

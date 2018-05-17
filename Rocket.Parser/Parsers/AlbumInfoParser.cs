@@ -12,7 +12,6 @@ using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using PCRE;
-using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.Parser.Exceptions;
 using Helper = Rocket.Parser.Heplers.AlbumInfoHelper;
