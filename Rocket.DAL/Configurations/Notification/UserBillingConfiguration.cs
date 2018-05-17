@@ -4,13 +4,13 @@ using Rocket.DAL.Common.DbModels.Notification;
 namespace Rocket.DAL.Configurations.Notification
 {
     /// <summary>
-    /// Конфигурация хранения данных по сообщениям о платежах
+    /// Конфигурация хранения данных по сообщениям о платежах пользователя
     /// </summary>
-    public class BillingsConfiguration : EntityTypeConfiguration<DbBillingMessage>
+    public class UserBillingConfiguration : EntityTypeConfiguration<DbUserBillingMessage>
     {
-        public BillingsConfiguration()
+        public UserBillingConfiguration()
         {
-            ToTable("BillingMessages");
+            ToTable("UserBillingMessages");
 
             HasKey(x => x.Id);
 
