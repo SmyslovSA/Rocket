@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
 using Rocket.BL.Common.Services.ReleaseList;
-using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Linq;
@@ -89,27 +89,36 @@ namespace Rocket.BL.Services.ReleaseList
 
         public TVSeries GetTVSeries(int id)
         {
-            throw new NotImplementedException();
+            return Mapper.Map<TVSeries>(
+                _unitOfWork.TVSeriesRepository.GetById(id));
         }
 
         public int AddTVSeries(TVSeries tvSeries)
         {
-            throw new NotImplementedException();
+            var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
+            _unitOfWork.TVSeriesRepository.Insert(dbTVSeries);
+            _unitOfWork.Save();
+            return dbTVSeries.Id;
         }
 
         public void UpdateTVSeries(TVSeries tvSeries)
         {
-            throw new NotImplementedException();
+            var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
+            _unitOfWork.TVSeriesRepository.Update(dbTVSeries);
+            _unitOfWork.Save();
         }
 
         public void DeleteTVSeries(int id)
         {
-            throw new NotImplementedException();
+            _unitOfWork.TVSeriesRepository.Delete(id);
+            _unitOfWork.Save();
         }
 
         public bool TVSeriesExists(Expression<Func<TVSeries, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.TVSeriesRepository.Get(
+                           Mapper.Map<Expression<Func<DbTVSeries, bool>>>(filter))
+                       .FirstOrDefault() != null;
         }
     }
 }

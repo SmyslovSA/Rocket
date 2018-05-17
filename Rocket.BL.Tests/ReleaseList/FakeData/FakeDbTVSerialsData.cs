@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -65,31 +65,31 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <param name="tvSerialsCount">Необходимое количество сгенерированных сериалах</param>
         public FakeDbTVSerialsData(int personsCount, int countriesCount, int genresCount, int tvSerialsCount)
         {
-            this.FakeDbSeasonsData = new FakeDbSeasonsData();
+            FakeDbSeasonsData = new FakeDbSeasonsData();
 
             var fakePersonsData = new FakeDbPersonsData(personsCount);
-            this.PersonFaker = fakePersonsData.PersonFaker;
-            this.Persons = fakePersonsData.Persons;
+            PersonFaker = fakePersonsData.PersonFaker;
+            Persons = fakePersonsData.Persons;
 
             var fakeCountriesData = new FakeDbCountriesData(countriesCount);
-            this.CountryFaker = fakeCountriesData.CountryFaker;
-            this.Countries = fakeCountriesData.Countries;
+            CountryFaker = fakeCountriesData.CountryFaker;
+            Countries = fakeCountriesData.Countries;
 
             var fakeVideoGenresData = new FakeDbVideoGenresData(genresCount);
-            this.VideoGenreFaker = fakeVideoGenresData.VideoGenreFaker;
-            this.VideoGenres = fakeVideoGenresData.VideoGenres;
+            VideoGenreFaker = fakeVideoGenresData.VideoGenreFaker;
+            VideoGenres = fakeVideoGenresData.VideoGenres;
 
-            this.TVSeriesFaker = new Faker<DbTVSeries>()
+            TVSeriesFaker = new Faker<DbTVSeries>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
                 .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
-                .RuleFor(m => m.Directors, f => f.PickRandom(this.Persons, f.Random.Number(1, 3)).ToList())
-                .RuleFor(m => m.Cast, f => f.PickRandom(this.Persons, f.Random.Number(2, 12)).ToList())
-                .RuleFor(m => m.Genres, f => f.PickRandom(this.VideoGenres, f.Random.Number(1, 3)).ToList())
-                .RuleFor(m => m.Countries, f => f.PickRandom(this.Countries, f.Random.Number(1, 3)).ToList())
+                .RuleFor(m => m.Directors, f => f.PickRandom(Persons, f.Random.Number(1, 3)).ToList())
+                .RuleFor(m => m.Cast, f => f.PickRandom(Persons, f.Random.Number(2, 12)).ToList())
+                .RuleFor(m => m.Genres, f => f.PickRandom(VideoGenres, f.Random.Number(1, 3)).ToList())
+                .RuleFor(m => m.Countries, f => f.PickRandom(Countries, f.Random.Number(1, 3)).ToList())
                 .RuleFor(m => m.Summary, f => f.Lorem.Text())
-                .RuleFor(m => m.DbSeasons, f => this.FakeDbSeasonsData.Generate(f.Random.Number(1, 13)));
+                .RuleFor(m => m.DbSeasons, f => FakeDbSeasonsData.Generate(f.Random.Number(1, 13)));
 
-            this.TVSerials = TVSeriesFaker.Generate(tvSerialsCount);
+            TVSerials = TVSeriesFaker.Generate(tvSerialsCount);
         }
     }
 }

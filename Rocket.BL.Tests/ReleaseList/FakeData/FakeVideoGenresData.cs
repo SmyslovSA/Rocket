@@ -14,23 +14,23 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// Возвращает генератор данных о жанрах видео
         /// </summary>
         public Faker<VideoGenre> VideoGenreFaker { get; }
-        
+
         /// <summary>
         /// Возвращает коллекцию сгенерированных жанров видео
         /// </summary>
         public List<VideoGenre> VideoGenres { get; }
-        
+
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о жанрах видео
         /// </summary>
         /// <param name="genresCount">Необходимое количество сгенерированных жанров видео</param>
         public FakeVideoGenresData(int genresCount)
         {
-            this.VideoGenreFaker = new Faker<VideoGenre>()
+            VideoGenreFaker = new Faker<VideoGenre>()
                 .RuleFor(g => g.Id, f => f.IndexFaker)
                 .RuleFor(g => g.Name, f => f.Random.Word());
 
-            this.VideoGenres = this.VideoGenreFaker.Generate(genresCount);
+            VideoGenres = VideoGenreFaker.Generate(genresCount);
         }
     }
 }

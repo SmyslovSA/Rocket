@@ -8,25 +8,14 @@ namespace Rocket.BL.Services.UserServices
     /// </summary>
     public class PermissionManagerService : IPermissionService
     {
-        private readonly IRole _role;
-        private readonly IPermission _permission;
-
-        public PermissionManagerService(IRole role, IPermission permission) // todo add ilogger
-        {
-            _role = role;
-            _permission = permission;
-        }
-
-        public void AddPermissionToRole(IRole role, IPermission permission)
+        public void AddPermissionToRole()
         {
             // докидываем пермишен в роль
-            // _role?.Add(_permission);
         }
 
-        public void RemovePermissionFromRole(IRole role, IPermission permission)
+        public void RemovePermissionFromRole()
         {
             // удаляем пермишен у роли
-            // _role?.Remove(_permission);
         }
     }
 }

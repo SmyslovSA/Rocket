@@ -26,15 +26,16 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// </summary>
         public FakeEpisodesData()
         {
-            this.EpisodeFaker = new Faker<Episode>()
+            EpisodeFaker = new Faker<Episode>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
-                .RuleFor(m => m.ReleaseDate,
+                .RuleFor(
+                    m => m.ReleaseDate,
                     f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
                 .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
                 .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(1, 0, 0)))
                 .RuleFor(m => m.Summary, f => f.Lorem.Text());
 
-            this.Episodes = new List<Episode>();
+            Episodes = new List<Episode>();
         }
 
         /// <summary>
@@ -46,9 +47,9 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <returns>Коллекция серий</returns>
         public List<Episode> Generate(int count, int startEpisodeNumber = 1)
         {
-            this.EpisodeFaker.RuleFor(m => m.Number, startEpisodeNumber++);
-            var episodes = this.EpisodeFaker.Generate(count);
-            this.Episodes.AddRange(episodes);
+            EpisodeFaker.RuleFor(m => m.Number, startEpisodeNumber++);
+            var episodes = EpisodeFaker.Generate(count);
+            Episodes.AddRange(episodes);
             return episodes;
         }
     }

@@ -5,7 +5,7 @@ namespace Rocket.DAL.Common.Repositories.IDbUserRepository.IDbPersonRepository
     /// <summary>
     /// Представляет репозитарий для локализации пользователей
     /// </summary>
-    public interface IDbLocalizationRepositary : IRepository<DbLocalization>
+    public interface IDbLocalizationRepositary : IBaseRepository<DbLocalization>
     {
     }
 }

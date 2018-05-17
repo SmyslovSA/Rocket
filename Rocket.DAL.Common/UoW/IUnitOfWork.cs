@@ -1,7 +1,8 @@
-﻿using System;
-using Rocket.DAL.Common.DbModels;
-using Rocket.DAL.Common.DbModels.Parser;
-using Rocket.DAL.Common.Repositories;
+﻿using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.Repositories.User;
+using System;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -10,6 +11,11 @@ namespace Rocket.DAL.Common.UoW
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
+        /// <summary>
+        /// Возвращает репозиторий для релизов
+        /// </summary>
+        IDbReleaseRepository ReleaseRepository { get; }
+
         /// <summary>
         /// Возвращает репозиторий для фильмов
         /// </summary>
@@ -46,33 +52,42 @@ namespace Rocket.DAL.Common.UoW
         IRepository<DbMusicTrack> MusicTrackRepository { get; }
 
         /// <summary>
-        /// Репозиторий музыканта
+        /// Возвращает репозиторий для музыки
         /// </summary>
-        IRepository<DbMusician> MusicianRepository { get; }
+        IDbMusicRepository MusicRepository { get; }
 
-        IRepository<CategoryEntity> CategoryRepository { get; }
+        /// <summary>
+        /// Возвращает репозиторий для юзеров
+        /// </summary>
+        IDbUserRepository UserRepository { get; }
 
-        IRepository<EpisodeEntity> EpisodeRepository { get; }
+        /// <summary>
+        /// ВОзвращает репозиторий ролей
+        /// </summary>
+        IDbRoleRepository RoleRepository { get; }
 
-        IRepository<GenreEntity> GenreRepository { get; }
+        /// <summary>
+        /// Возвращает репозиторий пермишенов
+        /// </summary>
+        IDbPermissionRepository PermissionRepository { get; }
 
-        IRepository<PersonEntity> PersonRepository { get; }
+        /// <summary>
+        /// Возвращает репозиторий для emails
+        /// </summary>
+        IDbEmailRepository EmailRepository { get; }
 
-        IRepository<PersonTypeEntity> PersonTypeRepository { get; }
+        /// <summary>
+        /// Возвращает репозиторий для genre
+        /// </summary>
+        IDbGenreRepository GenreRepository { get; }
 
-        IRepository<SeasonEntity> SeasonRepository { get; }
-
-        IRepository<TvSeriasEntity> TvSeriasRepository { get; }
+        /// Возвращает репозиторий для пользователей
+        /// </summary>
+        IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных
         /// </summary>
-        int SaveChanges();
-
-        /// <summary>
-        /// Dispose context
-        /// </summary>
-        /// <param name="disposing"></param>
-        void Dispose(bool disposing);
+        void Save();
     }
 }

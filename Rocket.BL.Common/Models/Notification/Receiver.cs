@@ -1,8 +1,10 @@
-﻿namespace Rocket.BL.Common.Models.Notification
+﻿using System.Collections.Generic;
+
+namespace Rocket.BL.Common.Models.Notification
 {
     /// <summary>
     /// Описывает гостя либо пользователя, 
-    /// являющихся получателями сообщения
+    /// являющегося получателем сообщения
     /// </summary>
     public class Receiver
     {
@@ -12,8 +14,8 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// Возвращает или задает email адрес гостя или пользователя
+        /// Возвращает или задает коллекцию email адресов гостя или пользователя
         /// </summary>
-        public string Email { get; set; }
+        public ICollection<string> Emails { get; set; }
     }
 }

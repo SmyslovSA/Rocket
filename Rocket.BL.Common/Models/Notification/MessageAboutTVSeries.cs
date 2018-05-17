@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Models.Notification
+﻿using System;
+
+namespace Rocket.BL.Common.Models.Notification
 {
     /// <summary>
     /// Описывает сообщение о релизе сериала
@@ -14,5 +16,10 @@
         /// Возвращает или задает релиз сериала для целей нотификации 
         /// </summary>
         public TVSeriesForNotification TVSeries { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает время создания сообщения
+        /// </summary>
+        public DateTime CreationTime { get; set; }
     }
 }

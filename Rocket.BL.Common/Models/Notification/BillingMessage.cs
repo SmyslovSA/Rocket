@@ -1,4 +1,6 @@
-﻿namespace Rocket.BL.Common.Models.Notification
+﻿using System;
+
+namespace Rocket.BL.Common.Models.Notification
 {
     /// <summary>
     /// Описывает сообщение с данными о совершенных
@@ -16,5 +18,10 @@
         /// Возвращает или задает оплаченную сумму
         /// </summary>
         public decimal Sum { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает время создания сообщения
+        /// </summary>
+        public DateTime CreationTime { get; set; }
     }
 }
