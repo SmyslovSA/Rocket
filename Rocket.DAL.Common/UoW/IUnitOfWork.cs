@@ -78,6 +78,15 @@ namespace Rocket.DAL.Common.UoW
         /// </summary>
         IDbGuestBillingMessageRepository GuestBillingMessageRepository { get; }
 
+        /// <summary>
+        /// Возвращает репозиторий для пользователей, являющихся получателями сообщений
+        /// </summary>
+        IDbReceiverRepository ReceiverRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для сообщений о релизе
+        /// </summary>
+        IDbReleaseMessageRepository ReleaseMessageRepository { get; }
 
 
         /// <summary>

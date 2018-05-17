@@ -8,9 +8,9 @@ namespace Rocket.DAL.Configurations.PersonalArea
         public DbAuthorisedUserConfiguration()
         {
             ToTable("AuthorisedUsers")
-                .HasKey(k => k.Id)
-                .Property(p => p.Id)
-                .HasColumnName("Id");
+                .HasRequired(p => p.DbUser)
+                .WithRequiredDependent(d => d.DbAuthorisedUser)
+                .Map(m => m.MapKey("DbUserId"));
 
             Property(p => p.Avatar)
                 .IsOptional()
