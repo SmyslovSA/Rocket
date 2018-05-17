@@ -49,6 +49,9 @@
   <ItemGroup>
     <Compile Include="Mappings\PersonalAreaMappings\EmailMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\BaseReleaseMappingProfile.cs" />
+    <Compile Include="Mappings\ReleaseList\CategoryMappingProfile.cs" />
+    <Compile Include="Mappings\ReleaseList\GenreMappingProfile.cs" />
+    <Compile Include="Mappings\ReleaseList\PersonTypeMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\AccountLevelMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\AccountStatusMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\AddressMappingProfile.cs" />
@@ -65,6 +68,8 @@
     <Compile Include="Models\Pagination\ReleasesPageInfo.cs" />
     <Compile Include="Models\PersonalArea\Email.cs" />
     <Compile Include="Models\ReleaseList\BaseRelease.cs" />
+    <Compile Include="Models\ReleaseList\Category.cs" />
+    <Compile Include="Models\ReleaseList\PersonType.cs" />
     <Compile Include="Models\User\AccountLevel.cs" />
     <Compile Include="Models\User\EmailAddress.cs" />
     <Compile Include="Models\User\Gender.cs" />
@@ -89,7 +94,6 @@
     <Compile Include="Mappings\ReleaseList\MusicTrackMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\MusicGenreMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\MusicianMappingProfile.cs" />
-    <Compile Include="Mappings\ReleaseList\VideoGenreMappingProfile.cs" />
     <Compile Include="Models\Notification\BillingMessage.cs" />
     <Compile Include="Models\Notification\ConfirmationMessage.cs" />
     <Compile Include="Models\Notification\CustomMessage.cs" />
@@ -116,7 +120,7 @@
     <Compile Include="Models\ReleaseList\Season.cs" />
     <Compile Include="Models\ReleaseList\MusicTrack.cs" />
     <Compile Include="Models\ReleaseList\TVSeries.cs" />
-    <Compile Include="Models\ReleaseList\VideoGenre.cs" />
+    <Compile Include="Models\ReleaseList\Genre.cs" />
     <Compile Include="Models\PersonalArea\SimpleUser.cs" />
     <Compile Include="Models\PersonalArea\AuthorisedUser.cs" />
     <Compile Include="Models\UserRoles\Permission.cs" />

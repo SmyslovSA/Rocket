@@ -29,11 +29,10 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
             EpisodeFaker = new Faker<Episode>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
                 .RuleFor(
-                    m => m.ReleaseDate,
+                    m => m.ReleaseDateRu,
                     f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
-                .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
-                .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(1, 0, 0)))
-                .RuleFor(m => m.Summary, f => f.Lorem.Text());
+                .RuleFor(m => m.TitleRu, f => string.Join(" ", f.Lorem.Words(2)))
+                .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(1, 0, 0)));
 
             Episodes = new List<Episode>();
         }

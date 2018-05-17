@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Rocket.BL.Common.Models.PersonalArea;
+using Rocket.BL.Properties;
 
 namespace Rocket.BL.Validators
 {
@@ -10,9 +11,9 @@ namespace Rocket.BL.Validators
     {
         public UserDataValidator()
         {
-            RuleFor(x => x.FirstName).NotNull().MinimumLength(2).WithMessage("Name cannot be less than 2 characters");
+            RuleFor(x => x.FirstName).NotNull().MinimumLength(2).WithMessage(Resources.UserRuleForFirstName);
             RuleFor(x => x.LastName).NotNull().MinimumLength(2)
-                .WithMessage("Lastname cannot be less than 2 characters");
+                .WithMessage(Resources.UserRuleForLastName);
             RuleFor(x => x.Avatar).NotNull();
         }
     }

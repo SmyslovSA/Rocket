@@ -42,7 +42,7 @@ namespace Rocket.BL.Services.PersonalArea
                         Name = email
                     });
                     _unitOfWork.UserAuthorisedRepository.Update(user);
-                    _unitOfWork.Save();
+                    _unitOfWork.SaveChanges();
                     return true;
                 }
 
@@ -74,7 +74,7 @@ namespace Rocket.BL.Services.PersonalArea
 
                     //прибиваем и сохраняем
                     _unitOfWork.EmailRepository.Delete(emailUserEmail);
-                    _unitOfWork.Save();
+                    _unitOfWork.SaveChanges();
                     return true;
                 }
 

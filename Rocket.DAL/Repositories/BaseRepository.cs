@@ -1,4 +1,5 @@
 ﻿using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Context;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,17 +15,17 @@ namespace Rocket.DAL.Repositories
     /// <typeparam name="TEntity">Тип, экземплярами которого управляет репозиторий.</typeparam>
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        private DbContext _dbContext;
-        private IDbSet<TEntity> _dbSet;
+        private readonly RocketContext _rocketContext;
+        private readonly DbSet<TEntity> _dbSet;
 
         /// <summary>
         /// Создает новый экземпляр репозитория с заданным контекстом базы данных.
         /// </summary>
-        /// <param name="dbContext">Экземпляр контекста базы данных.</param>
-        public BaseRepository(DbContext dbContext)
+        /// <param name="rocketContext">Экземпляр контекста базы данных.</param>
+        public BaseRepository(RocketContext rocketContext)
         {
-            _dbContext = dbContext;
-            _dbSet = _dbContext.Set<TEntity>();
+            _rocketContext = rocketContext;
+            _dbSet = _rocketContext.Set<TEntity>();
         }
 
         /// <summary>
@@ -73,28 +74,55 @@ namespace Rocket.DAL.Repositories
         /// </summary>
         /// <param name="id">Идентификатор.</param>
         /// <returns>Экземпляр <see cref="TEntity"/>.</returns>
-        public TEntity GetById(int id)
+        public TEntity GetById<TKey>(TKey id)
         {
             return _dbSet.Find(id);
+        }
+
+        public virtual void SetStatusAdded(TEntity entity)
+        {
+            _rocketContext.Entry(entity).State = EntityState.Added;
+        }
+
+        public virtual void SetStatusAddedRange(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                SetStatusAdded(entity);
+            }
+        }
+
+        public virtual void SetStatusNotModified(TEntity entity)
+        {
+            _rocketContext.Entry(entity).State = EntityState.Modified;
+        }
+
+        public virtual void SetStatusNotModifiedRange(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                SetStatusNotModified(entity);
+            }
         }
 
         /// <summary>
         /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных.
         /// </summary>
         /// <param name="entity">Экземпляр <see cref="TEntity"/>.</param>
-        public void Insert(TEntity entity)
+        public virtual void Insert(TEntity entity)
         {
-            _dbSet.Add(entity);
+            _dbSet.Attach(entity);
+            _rocketContext.Entry(entity).State = EntityState.Added;
         }
 
         /// <summary>
         /// Обновляет заданный экземпляр <see cref="TEntity"/> в хранилище данных.
         /// </summary>
         /// <param name="entity">Экземпляр <see cref="TEntity"/>.</param>
-        public void Update(TEntity entity)
+        public virtual void Update(TEntity entity)
         {
             _dbSet.Attach(entity);
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _rocketContext.Entry(entity).State = EntityState.Modified;
         }
 
         /// <summary>
@@ -102,9 +130,9 @@ namespace Rocket.DAL.Repositories
         /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
         /// <param name="id">Идентификатор.</param>
-        public void Delete(int id)
+        public virtual void Delete<TKey>(TKey id)
         {
-            TEntity entityToDelete = _dbSet.Find(id);
+            var entityToDelete = _dbSet.Find(id);
             Delete(entityToDelete);
         }
 
@@ -112,9 +140,9 @@ namespace Rocket.DAL.Repositories
         /// Удаляет заданный экземпляр <see cref="TEntity"/> из хранилища данных.
         /// </summary>
         /// <param name="entity">Экземпляр <see cref="TEntity"/>.</param>
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
-            if (_dbContext.Entry(entity).State == EntityState.Detached)
+            if (_rocketContext.Entry(entity).State == EntityState.Detached)
             {
                 _dbSet.Attach(entity);
             }
@@ -136,6 +164,34 @@ namespace Rocket.DAL.Repositories
             }
 
             return _dbSet.Count();
+        }
+
+        public virtual TEntity Find<TKey>(params TKey[] keyValues)
+        {
+            return _dbSet.Find(keyValues);
+        }
+
+        public virtual IQueryable<TEntity> SelectQuery<TKey>(string query, params TKey[] parameters)
+        {
+            return _dbSet.SqlQuery(query, parameters).AsQueryable();
+        }
+
+        public virtual void InsertRange(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Insert(entity);
+            }
+        }
+
+        public IQueryable<TEntity> Queryable()
+        {
+            return _dbSet;
+        }
+
+        public int SaveChanges()
+        {
+            return _rocketContext.SaveChanges();
         }
 
         private IQueryable<TEntity> GetFilteredQuery(

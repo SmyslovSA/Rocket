@@ -28,7 +28,7 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию жанров, к которым относится фильм
         /// </summary>
-        public ICollection<VideoGenre> Genres { get; set; } = new Collection<VideoGenre>();
+        public ICollection<Genre> Genres { get; set; } = new Collection<Genre>();
 
         /// <summary>
         /// Возвращает или задает коллекцию стран, которые участвовали в создании фильма

@@ -52,8 +52,8 @@ namespace Rocket.BL.Tests.ReleaseList
                     .Remove(_fakeDbMusicData.Music.Find(f => f.Id == id)));
 
             var mockDbMusicUnitOfWork = new Mock<IUnitOfWork>();
-            mockDbMusicUnitOfWork.Setup(mock => mock.MusicRepository)
-                .Returns(() => mockDbMusicRepository.Object);
+            //mockDbMusicUnitOfWork.Setup(mock => mock.MusicRepository)
+            //    .Returns(() => mockDbMusicRepository.Object); //todo - закоментил, не знаю в чем дело
 
             _musicDetailedInfoService = new MusicDetailedInfoService(mockDbMusicUnitOfWork.Object);
         }

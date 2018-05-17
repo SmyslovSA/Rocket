@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.DAL.Common.DbModels.User
@@ -55,5 +56,10 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Возвращает или задает детальную информация пользователя.
         /// </summary>
         public virtual DbUserDetail UserDetail { get; set; }
+
+        /// <summary>
+        /// Ссылка на DbAuthorisedUser.
+        /// </summary>
+        public DbAuthorisedUser DbAuthorisedUser { get; set; }
     }
 }

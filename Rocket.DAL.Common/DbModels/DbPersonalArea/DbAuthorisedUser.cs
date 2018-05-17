@@ -9,14 +9,14 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
     public class DbAuthorisedUser
     {
         /// <summary>
-        /// Id пользователя.
+        /// Id авторизованного пользователя личного кабинета.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
         /// Ссылка на DbUser.
         /// </summary>
-        public DbUser DbUser { get; set; }
+        public User.DbUser DbUser { get; set; }
 
         /// <summary>
         /// Относительный путь от корневой папки приложения к изображению аватара пользователя.

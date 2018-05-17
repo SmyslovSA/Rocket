@@ -7,7 +7,6 @@ namespace Rocket.DAL.Common.Repositories
 {
     /// <summary>
     /// Представляет обобщенный репозиторий
-    /// Код взят из статьи https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
     /// </summary>
     /// <typeparam name="TEntity">Тип, экземплярами которого управляет репозиторий</typeparam>
     public interface IBaseRepository<TEntity> where TEntity : class
@@ -49,9 +48,18 @@ namespace Rocket.DAL.Common.Repositories
         /// Возвращает экземпляр <see cref="TEntity"/>,
         /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
+        /// <typeparam name="TKey">Тип идентификатора.</typeparam>
         /// <param name="id">Идентификатор экземпляра.</param>
         /// <returns>Экземпляр <see cref="TEntity"/>.</returns>
-        TEntity GetById(int id);
+        TEntity GetById<TKey>(TKey id);
+
+        void SetStatusAdded(TEntity entity);
+
+        void SetStatusAddedRange(IEnumerable<TEntity> entities);
+
+        void SetStatusNotModified(TEntity entity);
+
+        void SetStatusNotModifiedRange(IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных.
@@ -69,8 +77,9 @@ namespace Rocket.DAL.Common.Repositories
         /// Удаляет экземпляр <see cref="TEntity"/>,
         /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
+        /// <typeparam name="TKey">Тип идентификатора.</typeparam>
         /// <param name="id">Идентификатор экземпляра.</param>
-        void Delete(int id);
+        void Delete<TKey>(TKey id);
 
         /// <summary>
         /// Удаляет заданный экземпляр <see cref="TEntity"/> из хранилища данных
@@ -85,5 +94,36 @@ namespace Rocket.DAL.Common.Repositories
         /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/>.</param>
         /// <returns>Количество элементов</returns>
         int ItemsCount(Expression<Func<TEntity, bool>> filter = null);
+
+        /// <summary>
+        /// Поиск по первичному ключу
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="keyValues"></param>
+        /// <returns></returns>
+        TEntity Find<TKey>(params TKey[] keyValues);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        IQueryable<TEntity> SelectQuery<TKey>(string query, params TKey[] parameters);
+
+        /// <summary>
+        /// Вставка коллекции
+        /// </summary>
+        /// <param name="entities">Коллекция записей для вставки</param>
+        void InsertRange(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Возвращает Queryable сущности
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntity> Queryable();
+
+        int SaveChanges();
     }
 }

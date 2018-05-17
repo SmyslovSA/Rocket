@@ -206,12 +206,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PersonalArea\ChangeEmailController.cs" />
-    <Compile Include="Controllers\PersonalArea\ChangeGanreController.cs" />
+    <Compile Include="Controllers\PersonalArea\ChangeGenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonalArea\ChangePasswordController.cs" />
     <Compile Include="Controllers\PersonalArea\PersonalDataController.cs" />
     <Compile Include="Controllers\User\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -219,6 +221,11 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attribute\RoleAuthorizeAttribyte.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -267,9 +274,19 @@
       <Project>{4383C0FF-4C4A-4C42-BB46-5A5137E5E7AD}</Project>
       <Name>Rocket.DAL.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rocket.DAL\Rocket.DAL.csproj">
+      <Project>{67c097cc-75da-45ad-95d9-595ccf0a1063}</Project>
+      <Name>Rocket.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

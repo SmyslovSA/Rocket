@@ -48,7 +48,7 @@ namespace Rocket.BL.Services.ReleaseList
         {
             var dbMusic = Mapper.Map<DbMusic>(music);
             _unitOfWork.MusicRepository.Insert(dbMusic);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
             return dbMusic.Id;
         }
 
@@ -61,7 +61,7 @@ namespace Rocket.BL.Services.ReleaseList
         {
             var dbMusic = Mapper.Map<DbMusic>(music);
             _unitOfWork.MusicRepository.Update(dbMusic);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         /// <inheritdoc />
@@ -72,7 +72,7 @@ namespace Rocket.BL.Services.ReleaseList
         public void DeleteMusic(int id)
         {
             _unitOfWork.MusicRepository.Delete(id);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         /// <summary>

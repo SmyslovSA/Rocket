@@ -27,7 +27,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         {
             PersonFaker = new Faker<Common.Models.ReleaseList.Person>()
                 .RuleFor(p => p.Id, f => f.IndexFaker)
-                .RuleFor(p => p.FullName, f => f.Person.FullName);
+                .RuleFor(p => p.FullNameRu, f => f.Person.FullName);
 
             Persons = PersonFaker.Generate(personsCount);
         }

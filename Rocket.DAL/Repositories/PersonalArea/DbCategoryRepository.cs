@@ -1,6 +1,6 @@
 ﻿using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
-using System.Data.Entity;
+using Rocket.DAL.Context;
 
 namespace Rocket.DAL.Repositories.PersonalArea
 {
@@ -13,7 +13,7 @@ namespace Rocket.DAL.Repositories.PersonalArea
         /// Создает новый экземпляр репозитория для категорий с заданным контекстом базы данных.
         /// </summary>
         /// <param name="context">Экземпляр контекста базы данных.</param>
-        public DbCategoryRepository(DbContext context) : base(context)
+        public DbCategoryRepository(RocketContext context) : base(context)
         {
         }
     }

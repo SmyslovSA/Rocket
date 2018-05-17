@@ -14,6 +14,7 @@ namespace Rocket.Web
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            MapperConfig.Initialize();
             GlobalFilters.Filters.Add(new RoleAuthorizeAttribyte());
         }
 

@@ -1,6 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
-using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.Parser;
 
 namespace Rocket.BL.Common.Mappings.ReleaseList
 {
@@ -11,12 +12,10 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
     {
         public EpisodeMappingProfile()
         {
-            CreateMap<Episode, DbEpisode>()
-                .IncludeBase<BaseRelease, DbBaseRelease>()
-                .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
-                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
-                .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => src.Summary))
-                .ReverseMap();
+            CreateMap<Episode, EpisodeEntity>()
+                .ForMember(dest => dest.DurationInMinutes, opt => opt.MapFrom(src => src.Duration.TotalMinutes))
+                .ReverseMap()
+                .ForMember(dest => dest.Duration, opt => opt.ResolveUsing(src => TimeSpan.FromMinutes(src.DurationInMinutes)));
         }
     }
 }
