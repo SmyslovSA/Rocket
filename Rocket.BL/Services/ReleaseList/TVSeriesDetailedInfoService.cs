@@ -1,11 +1,11 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
 using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.UoW;
-using System;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace Rocket.BL.Services.ReleaseList
 {
@@ -83,6 +83,12 @@ namespace Rocket.BL.Services.ReleaseList
         //        Mapper.Map<Expression<Func<DbTVSeries, bool>>>(filter))
         //        .FirstOrDefault() != null;
         //}
+
+
+
+
+
+
         public TVSeriesDetailedInfoService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
@@ -120,5 +126,6 @@ namespace Rocket.BL.Services.ReleaseList
                            Mapper.Map<Expression<Func<DbTVSeries, bool>>>(filter))
                        .FirstOrDefault() != null;
         }
+
     }
 }

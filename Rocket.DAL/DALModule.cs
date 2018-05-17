@@ -1,6 +1,7 @@
 ﻿using Ninject.Modules;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
@@ -36,7 +37,7 @@ namespace Rocket.DAL
             Bind<IRepository<TvSeriasEntity>>().To<Repository<TvSeriasEntity>>();
 
             //UoW
-            Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
+            Bind<IUnitOfWorkP>().To<UnitOfWork>().InSingletonScope();
         }
     }
 }

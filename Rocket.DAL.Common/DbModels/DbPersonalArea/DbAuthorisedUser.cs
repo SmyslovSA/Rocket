@@ -21,7 +21,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// ссылка на DbUser
         /// </summary>
-        public DbUser DbUser { get; set; }
+        public User.DbUser DbUser { get; set; }
 
         /// <summary>
         /// относительный путь от корневой папки приложения к изображению аватара пользователя

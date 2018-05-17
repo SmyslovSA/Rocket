@@ -1,13 +1,15 @@
 ﻿using System;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 
 namespace Rocket.DAL.UoW
 {
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork : IUnitOfWorkP
     {
         private RocketContext _rocketContext;
         private bool _disposed;
@@ -139,7 +141,7 @@ namespace Rocket.DAL.UoW
                     _rocketContext = null;
                 }
             }
-            
+
             _disposed = true;
         }
 

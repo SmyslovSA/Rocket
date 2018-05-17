@@ -9,7 +9,7 @@ namespace Rocket.DAL.Common.Repositories
     /// Представляет обобщенный репозиторий
     /// </summary>
     /// <typeparam name="TEntity">Тип, экземплярами которого управляет репозиторий</typeparam>
-    public interface IBaseRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : class
     {
         /// <summary>
         /// Возвращает перечисление экземпляров <see cref="TEntity"/> из хранилища данных.
@@ -26,32 +26,21 @@ namespace Rocket.DAL.Common.Repositories
             string includeProperties = "");
 
         /// <summary>
-        /// Возвращает страницу заданного размера с заданным номером
-        /// в виде перечисления экземпляров <see cref="TEntity"/> из хранилища данных.
-        /// Применяет фильтр, сортировку и загрузку связанных свойств,
-        /// если заданы соответствующие значения параметров
-        /// </summary>
-        /// <param name="pageSize">Размер страницы</param>
-        /// <param name="pageNumber">Номер страницы</param>
-        /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
-        /// <param name="orderBy">Лямбда-выражение определяющее сортировку экземпляров <see cref="TEntity"/></param>
-        /// <param name="includeProperties">Список связанных свойств экземпляров <see cref="TEntity"/>, разделенный запятыми</param>
-        /// <returns>Перечисление экземпляров <see cref="TEntity"/></returns>
-        IEnumerable<TEntity> GetPage(
-            int pageSize,
-            int pageNumber,
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "");
-
-        /// <summary>
         /// Возвращает экземпляр <see cref="TEntity"/>,
         /// соответствующий заданному идентификатору, из хранилища данных
         /// </summary>
         /// <param name="id">Идентификатор<see cref="TKey"/></param>
         /// <returns>Экземпляр <see cref="TEntity"/></returns>
-        TEntity GetById(int id);
-        
+        TEntity GetById<TKey>(TKey id);
+
+        void SetStatusAdded(TEntity entity);
+
+        void SetStatusAddedRange(IEnumerable<TEntity> entities);
+
+        void SetStatusNotModified(TEntity entity);
+
+        void SetStatusNotModifiedRange(IEnumerable<TEntity> entities);
+
         /// <summary>
         /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
         /// </summary>
@@ -68,8 +57,8 @@ namespace Rocket.DAL.Common.Repositories
         /// Удаляет экземпляр <see cref="TEntity"/>,
         /// соответствующий заданному идентификатору, из хранилища данных
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        void Delete(int id);
+        /// <param name="id">Идентификатор<see cref="TKey"/></param>
+        void Delete<TKey>(TKey id);
 
         /// <summary>
         /// Удаляет заданный экземпляр <see cref="TEntity"/> из хранилища данных
@@ -78,11 +67,35 @@ namespace Rocket.DAL.Common.Repositories
         void Delete(TEntity entity);
 
         /// <summary>
-        /// Возвращает количество элементов в репозитории,
-        /// соответствующих заданному фильтру
+        /// Поиск по первичному ключу
         /// </summary>
-        /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
-        /// <returns>Количество элементов</returns>
-        int ItemsCount(Expression<Func<TEntity, bool>> filter = null);
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="keyValues"></param>
+        /// <returns></returns>
+        TEntity Find<TKey>(params TKey[] keyValues);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        IQueryable<TEntity> SelectQuery<TKey>(string query, params TKey[] parameters);
+
+        /// <summary>
+        /// Вставка коллекции
+        /// </summary>
+        /// <param name="entities">Коллекция записей для вставки</param>
+        void InsertRange(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Возвращает Queryable сущности
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntity> Queryable();
+
+        int SaveChanges();
     }
+
 }

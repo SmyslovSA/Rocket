@@ -7,13 +7,13 @@ namespace Rocket.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class UpdMusic_2 : IMigrationMetadata
+    public sealed partial class AddParser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdMusic_2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddParser));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805061330383_UpdMusic_2"; }
+            get { return "201805171721071_AddParser"; }
         }
         
         string IMigrationMetadata.Source
