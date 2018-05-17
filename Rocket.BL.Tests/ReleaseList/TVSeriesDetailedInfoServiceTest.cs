@@ -49,6 +49,7 @@ namespace Rocket.BL.Tests.ReleaseList
                     .Remove(_fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id)));
 
             var mockTVSeriesUnitOfWork = new Mock<IUnitOfWork>();
+            
             mockTVSeriesUnitOfWork.Setup(mock => mock.TVSeriesRepository)
                 .Returns(() => mockDbTVSeriesRepository.Object);
 

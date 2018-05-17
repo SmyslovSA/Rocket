@@ -10,6 +10,7 @@ namespace Rocket.BL.Services.UserServices
     {
         public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
+            
         }
 
         private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
@@ -22,7 +23,7 @@ namespace Rocket.BL.Services.UserServices
         /// <returns></returns>
         public virtual void AddToRole(int userId, int roleId = DefaultRoleId)
         {
-            //check user
+            // todo check user
 
             if (IsInRole(userId, roleId))
                 return;
@@ -37,7 +38,7 @@ namespace Rocket.BL.Services.UserServices
 
         public virtual bool RemoveFromRole(int userId, int roleId)
         {
-            //  check user
+            // todo check user
 
             if (!IsInRole(userId, roleId))
                 return false;
@@ -50,7 +51,6 @@ namespace Rocket.BL.Services.UserServices
             _unitOfWork.Save();
             return true;
         }
-
 
         /// <summary>
         /// Returns the roles for the user
