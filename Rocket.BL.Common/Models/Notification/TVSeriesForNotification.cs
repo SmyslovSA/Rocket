@@ -8,6 +8,11 @@ namespace Rocket.BL.Common.Models.Notification
     public class TVSeriesForNotification
     {
         /// <summary>
+        /// Возвращает или задает идентификационный номер сериала
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Возвращает или задает название сериала
         /// </summary>
         public string Title { get; set; }

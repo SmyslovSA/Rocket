@@ -8,6 +8,11 @@ namespace Rocket.BL.Common.Models.Notification
     public class FilmForNotification
     {
         /// <summary>
+        /// Возвращает или задает идентификационный номер фильма
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Возвращает или задает название фильма
         /// </summary>
         public string Title { get; set; }

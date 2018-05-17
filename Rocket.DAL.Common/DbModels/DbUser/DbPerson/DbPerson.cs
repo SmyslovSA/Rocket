@@ -34,6 +34,6 @@
         /// Возвращает или задает пользователя,
         /// к которому относится данный человек
         /// </summary>
-        public DbUser DbUser { get; set; }
+        public User.DbUser DbUser { get; set; }
     }
 }

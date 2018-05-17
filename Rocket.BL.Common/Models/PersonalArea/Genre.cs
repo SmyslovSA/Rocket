@@ -9,10 +9,12 @@
         /// Id жанра
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// Имя жанра
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// категория к которой относится данный жанр
         /// </summary>

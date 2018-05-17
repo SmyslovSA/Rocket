@@ -36,8 +36,6 @@ namespace Rocket.DAL.Common.DbModels.Parser
 
         public PersonTypeEntity PersonType { get; set; }
 
-        public int TvSeriasId { get; set; }
-
         public ICollection<TvSeriasEntity> ListTvSerias { get; set; }
     }
 }

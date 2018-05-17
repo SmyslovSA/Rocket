@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Ninject;
 using Quartz;
 using Rocket.Parser.Heplers;
@@ -23,7 +24,7 @@ namespace Rocket.Parser.Jobs
             {
                 var schedulerContext = context.JobDetail.JobDataMap;
                 var kernel = (IKernel)schedulerContext.Get(CommonHelper.ContainerKey);
-
+                
                 var lostfilmParseService = kernel.Get<ILostfilmParser>();
                 lostfilmParseService.ParseAsync();
             }

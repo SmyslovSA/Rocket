@@ -1,13 +1,15 @@
 ﻿using System;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 
 namespace Rocket.DAL.UoW
 {
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork : IUnitOfWorkP
     {
         private RocketContext _rocketContext;
         private bool _disposed;
@@ -23,6 +25,7 @@ namespace Rocket.DAL.UoW
         /// <param name="musicGenreRepository">Репозиторий жанра</param>
         /// <param name="musicTrackRepository">Репозиторий трека</param>
         /// <param name="musicianRepository">Репозиторий исполнителя</param>
+        /// <param name="genreRepository"></param>
         public UnitOfWork(RocketContext rocketContext,
             IRepository<DbMusic> musicRepository,
             IRepository<ParserSettingsEntity> parserSettingsRepository,
@@ -30,7 +33,14 @@ namespace Rocket.DAL.UoW
             IRepository<ResourceItemEntity> resourceItemRepository,
             IRepository<DbMusicGenre> musicGenreRepository,
             IRepository<DbMusicTrack> musicTrackRepository,
-            IRepository<DbMusician> musicianRepository
+            IRepository<DbMusician> musicianRepository,
+            IRepository<CategoryEntity> categoryRepository,
+            IRepository<EpisodeEntity> episodeRepository,
+            IRepository<GenreEntity> genreRepository,
+            IRepository<PersonEntity> personRepository,
+            IRepository<PersonTypeEntity> personTypeRepository,
+            IRepository<SeasonEntity> seasonRepository,
+            IRepository<TvSeriasEntity> tvSeriasRepository
             )
         {
             _rocketContext = rocketContext;
@@ -41,6 +51,13 @@ namespace Rocket.DAL.UoW
             MusicGenreRepository = musicGenreRepository;
             MusicTrackRepository = musicTrackRepository;
             MusicianRepository = musicianRepository;
+            CategoryRepository = categoryRepository;
+            EpisodeRepository = episodeRepository;
+            GenreRepository = genreRepository;
+            PersonRepository = personRepository;
+            PersonTypeRepository = personTypeRepository;
+            SeasonRepository = seasonRepository;
+            TvSeriasRepository = tvSeriasRepository;
         }
 
         /// <summary>
@@ -88,8 +105,22 @@ namespace Rocket.DAL.UoW
         /// </summary>
         public IRepository<DbMusician> MusicianRepository { get; }
 
+        public IRepository<CategoryEntity> CategoryRepository { get; }
+
+        public IRepository<EpisodeEntity> EpisodeRepository { get; }
+
+        /// <summary>
+        /// Репозиторий жанра
+        /// </summary>
         public IRepository<GenreEntity> GenreRepository { get; }
 
+        public IRepository<PersonEntity> PersonRepository { get; }
+
+        public IRepository<PersonTypeEntity> PersonTypeRepository { get; }
+
+        public IRepository<SeasonEntity> SeasonRepository { get; }
+
+        public IRepository<TvSeriasEntity> TvSeriasRepository { get; }
 
         public void Dispose()
         {
@@ -110,7 +141,7 @@ namespace Rocket.DAL.UoW
                     _rocketContext = null;
                 }
             }
-            
+
             _disposed = true;
         }
 

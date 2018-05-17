@@ -1,4 +1,5 @@
 ﻿using System;
+using Rocket.DAL.Common.DbModels.Enum;
 
 namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
 { 

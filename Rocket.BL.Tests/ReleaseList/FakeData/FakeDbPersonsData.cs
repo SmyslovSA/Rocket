@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using System.Collections.Generic;
 
 namespace Rocket.BL.Tests.ReleaseList.FakeData
@@ -26,11 +26,11 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <param name="personsCount">Необходимое количество сгенерированных людей</param>
         public FakeDbPersonsData(int personsCount)
         {
-            this.PersonFaker = new Faker<DbPerson>()
+            PersonFaker = new Faker<DbPerson>()
                 .RuleFor(p => p.Id, f => f.IndexFaker)
                 .RuleFor(p => p.FullName, f => f.Person.FullName);
 
-            this.Persons = this.PersonFaker.Generate(personsCount);
+            Persons = PersonFaker.Generate(personsCount);
         }
     }
 }

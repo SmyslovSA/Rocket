@@ -1,16 +1,25 @@
-﻿using System.Data.Entity;
+﻿using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Migrations;
+using System.Data.Entity;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Configurations;
 using Rocket.DAL.Configurations.Parser;
+using Rocket.DAL.Configurations.ReleaseList;
 
 namespace Rocket.DAL.Context
 {
+    /// <summary>
+    /// Представляет контекст данных приложения
+    /// </summary>
     public class RocketContext : DbContext
     {
+        /// <summary>
+        /// Создает новый экземпляр контекста данных
+        /// </summary>
         public RocketContext() : base("DefaultConnection")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<RocketContext, Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<RocketContext, Configuration>());
         }
 
         /// <summary>
@@ -60,6 +69,11 @@ namespace Rocket.DAL.Context
 
         public DbSet<SeasonEntity> SeasonEntities { get; set; }
 
+        /// <summary>
+        /// Этот метод вызывается, когда модель для производного контекста данных была инициализирована,
+        /// но до того, как модель была заблокирована и использована для инициализации этого контекста.
+        /// </summary>
+        /// <param name="modelBuilder">Построитель, который определяет модель для создаваемого контекста.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ResourceMap());

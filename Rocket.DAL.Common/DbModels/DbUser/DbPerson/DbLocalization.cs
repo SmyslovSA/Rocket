@@ -1,4 +1,6 @@
-﻿namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
+﻿using Rocket.DAL.Common.DbModels.User;
+
+namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
 { 
     /// <summary>
     /// Представляет модель хранения данных о локализации человека пользователя

@@ -10,6 +10,11 @@ namespace Rocket.BL.Common.Models.Notification
     public class MusicForNotification
     {
         /// <summary>
+        /// Возвращает или задает идентификационный номер музыкального релиза
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Возвращает или задает название музыкального релиза
         /// </summary>
         public string Title { get; set; }

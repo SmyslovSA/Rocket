@@ -7,20 +7,11 @@ namespace Rocket.DAL.Configurations.PersonalArea
     {
         public DbEmailConfiguration()
         {
-            ToTable("Emails").
-                HasKey(k => k.Id).
-                Property(p => p.Id).
-                HasColumnName("Id");
+            ToTable("Emails").HasKey(k => k.Id).Property(p => p.Id).HasColumnName("Id");
 
-            Property(p => p.Name).
-                IsRequired().
-                IsUnicode().
-                HasMaxLength(80).
-                IsVariableLength().
-                HasColumnName("Name");
+            Property(p => p.Name).IsRequired().IsUnicode().HasMaxLength(80).IsVariableLength().HasColumnName("Name");
 
-            Property(p => p.UserId).
-                HasColumnName("UserId");
+            Property(p => p.DbAuthorisedUserId).HasColumnName("AuthorisedUserId");
         }
     }
 }

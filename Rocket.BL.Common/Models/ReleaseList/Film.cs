@@ -1,28 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Rocket.BL.Common.Models.ReleaseList
 {
     /// <summary>
     /// Представляет информацию о конкретном фильме
     /// </summary>
-    public class Film
+    public class Film : BaseRelease
     {
-        /// <summary>
-        /// Возвращает или задает уникальный идентификатор фильма
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает дату выхода фильма
-        /// </summary>
-        public DateTime ReleaseDate { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает название фильма
-        /// </summary>
-        public string Title { get; set; }
-
         /// <summary>
         /// Возвращает или задает относительный путь
         /// от корневой папки приложения к файлу изображения постера фильма
@@ -32,22 +18,22 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию режиссеров, которые сняли фильм
         /// </summary>
-        public ICollection<Person> Directors { get; set; }
+        public ICollection<Person> Directors { get; set; } = new Collection<Person>();
 
         /// <summary>
         /// Возвращает или задает коллекцию актёров, которые снялись в фильме
         /// </summary>
-        public ICollection<Person> Cast { get; set; }
+        public ICollection<Person> Cast { get; set; } = new Collection<Person>();
 
         /// <summary>
         /// Возвращает или задает коллекцию жанров, к которым относится фильм
         /// </summary>
-        public ICollection<VideoGenre> Genres { get; set; }
+        public ICollection<VideoGenre> Genres { get; set; } = new Collection<VideoGenre>();
 
         /// <summary>
         /// Возвращает или задает коллекцию стран, которые участвовали в создании фильма
         /// </summary>
-        public ICollection<Country> Countries { get; set; }
+        public ICollection<Country> Countries { get; set; } = new Collection<Country>();
 
         /// <summary>
         /// Возвращает или задает продолжительность фильма

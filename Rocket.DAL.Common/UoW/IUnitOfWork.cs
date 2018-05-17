@@ -1,7 +1,11 @@
-﻿using System;
-using Rocket.DAL.Common.DbModels;
+﻿using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.Repositories.User;
+using System;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -11,14 +15,14 @@ namespace Rocket.DAL.Common.UoW
     public interface IUnitOfWork : IDisposable
     {
         /// <summary>
+        /// Возвращает репозиторий для релизов
+        /// </summary>
+        IDbReleaseRepository ReleaseRepository { get; }
+
+        /// <summary>
         /// Возвращает репозиторий для фильмов
         /// </summary>
         IDbFilmRepository FilmRepository { get; }
-
-        /// <summary>
-        /// Возвращает репозиторий для сериалов
-        /// </summary>
-        IDbTVSeriesRepository TVSeriesRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для музыкального релиза
@@ -51,21 +55,40 @@ namespace Rocket.DAL.Common.UoW
         IRepository<DbMusicTrack> MusicTrackRepository { get; }
 
         /// <summary>
-        /// Репозиторий музыканта
+        /// Возвращает репозиторий для юзеров
         /// </summary>
-        IRepository<DbMusician> MusicianRepository { get; }
+        IDbUserRepository UserRepository { get; }
 
-        IRepository<GenreEntity> GenreRepository { get; }
+        /// <summary>
+        /// ВОзвращает репозиторий ролей
+        /// </summary>
+        IDbRoleRepository RoleRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий пермишенов
+        /// </summary>
+        IDbPermissionRepository PermissionRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для emails
+        /// </summary>
+        IDbEmailRepository EmailRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для genre
+        /// </summary>
+        IDbGenreRepository GenreRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для пользователей
+        /// </summary>
+        IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+
+        IDbTVSeriesRepository TVSeriesRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных
         /// </summary>
-        int SaveChanges();
-
-        /// <summary>
-        /// Dispose context
-        /// </summary>
-        /// <param name="disposing"></param>
-        void Dispose(bool disposing);
+        void Save();
     }
 }

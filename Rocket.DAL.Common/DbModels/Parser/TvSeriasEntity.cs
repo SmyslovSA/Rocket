@@ -68,11 +68,6 @@ namespace Rocket.DAL.Common.DbModels.Parser
         public string UrlToSource { get; set; }
 
         /// <summary>
-        /// Список жанров в виде строки для последующего парсинга.
-        /// </summary>
-        public string ListGenreForParse { get; set; }
-
-        /// <summary>
         /// Дата премьеры прописью для последующего парсинга.
         /// </summary>
         public string PremiereDateForParse { get; set; }

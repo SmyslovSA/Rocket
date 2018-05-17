@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.DAL.Common.DbModels.DbUser.DbPerson
 {

@@ -16,12 +16,12 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// <summary>
         /// Дата выхода серии(рус).
         /// </summary>
-        public DateTime ReleaseDateRu { get; set; }
+        public DateTime? ReleaseDateRu { get; set; }
 
         /// <summary>
         /// Дата выхода серии(англ).
         /// </summary>
-        public DateTime ReleaseDateEn { get; set; }
+        public DateTime? ReleaseDateEn { get; set; }
 
         /// <summary>
         /// Номер серии в сезоне.

@@ -67,9 +67,18 @@ namespace Rocket.DAL.Configurations.Parser
                 .WithMany(p => p.ListTvSerias)
                 .Map(m =>
                 {
-                    m.ToTable("PersonsToTvSerias");
-                    m.MapLeftKey("PersonId");
-                    m.MapRightKey("TvSeriasId");
+                    m.ToTable("TvSeriasToPersons");
+                    m.MapLeftKey("TvSeriasId");
+                    m.MapRightKey("PersonId");
+                });
+
+            HasMany(f => f.ListGenreEntity)
+                .WithMany(p => p.ListTvSerias)
+                .Map(m =>
+                {
+                    m.ToTable("TvSeriasToGenres");
+                    m.MapLeftKey("TvSeriasId");
+                    m.MapRightKey("GenreId");
                 });
 
             ///// <summary>
@@ -78,17 +87,9 @@ namespace Rocket.DAL.Configurations.Parser
             //public string TvSerialYearStart { get; set; }
 
             ///// <summary>
-            ///// Список жанров в виде строки для последующего парсинга.
-            ///// </summary>
-            //public string ListGenreForParse { get; set; }
-
-            ///// <summary>
             ///// Дата премьеры прописью для последующего парсинга.
             ///// </summary>
             //public string PremiereDateForParse { get; set; }
-
-            //this.HasRequired<ResourceEntity>(p => p.Resource).WithMany(r => r.ParserSettings)
-            //    .HasForeignKey<int>(p => p.ResourceId);
         }
     }
 }

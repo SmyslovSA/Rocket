@@ -7,9 +7,14 @@
     public class ConfirmationMessage
     {
         /// <summary>
-        /// Возвращает или задает получателя сообщения
+        /// Возвращает или задает имя получателя сообщения
         /// </summary>
-        public Receiver Receiver { get; set; }
+        public string ReceiverName { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает email адрес получателя сообщения
+        /// </summary>
+        public string ReceiverEmail { get; set; }
 
         /// <summary>
         /// Возвращает или задает ссылку для завершения регистрации

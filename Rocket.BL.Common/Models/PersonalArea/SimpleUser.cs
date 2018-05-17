@@ -11,13 +11,17 @@ namespace Rocket.BL.Common.Models.PersonalArea
         /// относительный путь к аватаре пользователя
         /// </summary>
         public string Avatar { get; set; }
+
         /// <summary>
         /// коллекция e-mail адресов пользователя
         /// </summary>
-        public ICollection<string> Email { get; set; }
+        public ICollection<Email> Emails { get; set; }
+
         /// <summary>
-        /// персональный список ожидания релизов по категориям  
+        /// персональный список релизов в виде списка жанров 
         /// </summary>
-        public PersonalizedTape Personalized { get; set; }
+        public ICollection<Genre> Genres { get; set; }
+
+        public User.User User { get; set; }
     }
 }

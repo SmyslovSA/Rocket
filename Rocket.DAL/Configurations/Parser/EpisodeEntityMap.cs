@@ -11,11 +11,11 @@ namespace Rocket.DAL.Configurations.Parser
                 .HasKey(p => p.Id);
 
             Property(p => p.ReleaseDateRu)
-                .IsRequired()
+                .IsOptional()
                 .HasColumnName("ReleaseDateRu");
 
             Property(p => p.ReleaseDateEn)
-                .IsRequired()
+                .IsOptional()
                 .HasColumnName("ReleaseDateEn");
 
             Property(p => p.Number)

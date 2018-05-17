@@ -1,4 +1,5 @@
 ﻿using System;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 
 namespace Rocket.DAL.Common.DbModels.Parser
 {

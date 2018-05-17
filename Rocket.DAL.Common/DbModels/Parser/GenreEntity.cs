@@ -1,4 +1,6 @@
-﻿namespace Rocket.DAL.Common.DbModels.Parser
+﻿using System.Collections.Generic;
+
+namespace Rocket.DAL.Common.DbModels.Parser
 {
     /// <summary>
     /// Сущность модели жанра.
@@ -18,5 +20,7 @@
         public int CategoryCode { get; set; }
 
         public CategoryEntity Category { get; set; }
+
+        public List<TvSeriasEntity> ListTvSerias { get; set; }
     }
 }

@@ -38,11 +38,6 @@ namespace Rocket.DAL.Configurations.Parser
                 .IsRequired()
                 .HasColumnName("PersonTypeCode");
 
-            Property(p => p.TvSeriasId)
-                .IsRequired()
-                .HasColumnName("TvSeriasId")
-                ;
-
             HasRequired(p => p.PersonType)
                 .WithMany(r => r.ListPerson)
                 .HasForeignKey(p => p.PersonTypeCode);
