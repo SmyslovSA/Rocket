@@ -37,7 +37,7 @@ namespace Rocket.Web.Controllers.PersonalArea
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
 
-        [HttpPut]
+        //[HttpPut]
         public IHttpActionResult UpdateUserPassword(SimpleUser user, string password, string passwordConfirm)
         {
             if (user == null)
