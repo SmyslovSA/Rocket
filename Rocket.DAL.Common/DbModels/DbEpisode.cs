@@ -29,9 +29,9 @@ namespace Rocket.DAL.Common.DbModels
         public string Title { get; set; }
 
         /// <summary>
-        /// Возвращает или задает продолжительность серии
+        /// Продолжительность серии.
         /// </summary>
-        public TimeSpan? Duration { get; set; }
+        public double DurationInMinutes { get; set; }
 
         /// <summary>
         /// Возвращает или задает краткое описание серии

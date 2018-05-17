@@ -28,9 +28,9 @@ namespace Rocket.DAL.Configurations
                 .HasColumnName("Title")
                 .HasMaxLength(50);
 
-            Property(e => e.Duration)
+            Property(e => e.DurationInMinutes)
                 .IsOptional()
-                .HasColumnName("Duration");
+                .HasColumnName("DurationInMinutes");
 
             Property(e => e.Summary)
                 .IsOptional()

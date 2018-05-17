@@ -31,7 +31,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
                 .RuleFor(m => m.ReleaseDate,
                     f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
                 .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
-                .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(1, 0, 0)))
+                //.RuleFor(m => m.DurationInMinutes, f => f.Date.))
                 .RuleFor(m => m.Summary, f => f.Lorem.Text());
 
             this.Episodes = new List<DbEpisode>();

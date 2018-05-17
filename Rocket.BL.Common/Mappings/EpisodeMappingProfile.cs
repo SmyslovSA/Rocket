@@ -16,7 +16,7 @@ namespace Rocket.BL.Common.Mappings
                 .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate))
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
-                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
+                .ForMember(dest => dest.DurationInMinutes, opt => opt.MapFrom(src => src.Duration))
                 .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => src.Summary))
                 .ReverseMap();
         }
