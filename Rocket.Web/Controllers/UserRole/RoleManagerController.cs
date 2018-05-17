@@ -16,14 +16,14 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpPost]
         [Route("add")]
-        public IHttpActionResult AddToRole([FromBody]User user, [FromBody]Role role)
+        public IHttpActionResult AddToRole([FromBody]BL.Common.Models.User.User user, [FromBody]Role role)
         {
             return Ok();
         }
 
         [HttpDelete]
         [Route("delete")]
-        public IHttpActionResult RemoveFromRole([FromBody]User user, [FromBody]Role role)
+        public IHttpActionResult RemoveFromRole([FromBody]BL.Common.Models.User.User user, [FromBody]Role role)
         {
             return Ok();
         }
