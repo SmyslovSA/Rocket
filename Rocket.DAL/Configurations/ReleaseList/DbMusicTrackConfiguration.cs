@@ -12,10 +12,6 @@ namespace Rocket.DAL.Configurations.ReleaseList
                 .Property(v => v.Id)
                 .HasColumnName("Id");
 
-            Property(c => c.Number)
-                .IsRequired()
-                .HasColumnName("Number");
-
             Property(c => c.Duration)
                 .IsOptional()
                 .HasColumnName("Duration");

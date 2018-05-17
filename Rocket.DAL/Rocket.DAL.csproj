@@ -124,6 +124,10 @@
     <Compile Include="Migrations\201805171728294_InitializeDateForParsers.Designer.cs">
       <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805171922023_UpdByParser.cs" />
+    <Compile Include="Migrations\201805171922023_UpdByParser.Designer.cs">
+      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171728294_InitializeDateForParsers.resx">
       <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805171922023_UpdByParser.resx">
+      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
