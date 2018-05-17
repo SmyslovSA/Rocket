@@ -2,6 +2,9 @@
 using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.Repositories.User;
 using System;
+using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 
 namespace Rocket.DAL.Common.UoW
@@ -23,13 +26,34 @@ namespace Rocket.DAL.Common.UoW
 
         /// <summary>
         /// Возвращает репозиторий для сериалов.
+        /// Возвращает репозиторий для музыкального релиза
         /// </summary>
-        IDbTVSeriesRepository TVSeriesRepository { get; }
+        IRepository<DbMusic> MusicRepository { get; }
+
+        /// <summary>
+        /// Репозиторий настроек парсера
+        /// </summary>
+        IRepository<ParserSettingsEntity> ParserSettingsRepository { get; }
+
+        /// <summary>
+        /// Репозиторий ресурса
+        /// </summary>
+        IRepository<ResourceEntity> ResourceRepository { get; }
+
+        /// <summary>
+        /// Репозиторий элемента ресурса
+        /// </summary>
+        IRepository<ResourceItemEntity> ResourceItemRepository { get; }
+
+        /// <summary>
+        /// Репозиторий музыкального жанра
+        /// </summary>
+        IRepository<DbMusicGenre> MusicGenreRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для музыки.
         /// </summary>
-        IDbMusicRepository MusicRepository { get; }
+        IRepository<DbMusicTrack> MusicTrackRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для юзеров.
@@ -60,6 +84,8 @@ namespace Rocket.DAL.Common.UoW
         /// Возвращает репозиторий для пользователей личного кабинета.
         /// </summary>
         IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+
+        IDbTVSeriesRepository TVSeriesRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных.

@@ -72,7 +72,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
                     f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
                 .RuleFor(m => m.Genres, f => f.PickRandom(MusicGenre, f.Random.Number(1, 2)).ToList())
                 .RuleFor(m => m.Musicians, f => f.PickRandom(Musician, f.Random.Number(1, 2)).ToList())
-                .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(4, 0, 0)))
+                //.RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(4, 0, 0)))//todo (!!!) закоментил - не знаю в чем дело
                 .RuleFor(m => m.MusicTracks, f => FakeDbMusicTracksData.Generate(f.Random.Number(1, 13)));
 
             Music = MusicFaker.Generate(musicCount);
