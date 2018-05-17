@@ -6,41 +6,22 @@ namespace Rocket.DAL.Configurations.User
     /// <summary>
     /// Конфигурация хранения данных о пользователях
     /// </summary>
-    public class DbUserConfiguration : EntityTypeConfiguration<DbUser>
+    public class DbAccountStatusConfiguration : EntityTypeConfiguration<DbAccountStatus>
     {
-        public DbUsersConfiguration()
+        public DbAccountStatus()
         {
-            ToTable("Users")
+            ToTable("AccountStatuses")
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
                 .HasColumnName("Id");
 
-            Property(t => t.FirstName)
+            Property(t => t.Name)
                 .IsOptional()
-                .HasColumnName("FirstName")
-                .HasMaxLength(35);
+                .HasColumnName("Name")
+                .HasMaxLength(30);
 
-            Property(t => t.LastName)
-                .IsOptional()
-                .HasColumnName("LastName")
-                .HasMaxLength(35);
-
-            Property(t => t.Login)
-                .IsRequired()
-                .HasColumnName("Login")
-                .HasMaxLength(50);
-
-            Property(t => t.Password)
-                .IsRequired()
-                .HasColumnName("Password")
-                .HasMaxLength(50);
-
-            Property(t => t.Summary)
-                .IsOptional()
-                .HasColumnName("Summary");
-
-            HasMany(t => t.Directors)
-                .WithMany(p => p.DbTVSerialsDirector)
+            HasMany<DbUser>(t => t.DbUsers)
+                .WithRequired(p => p.AccountStatus)
                 .Map(m =>
                 {
                     m.ToTable("TVSerialsDirectors");
@@ -48,34 +29,7 @@ namespace Rocket.DAL.Configurations.User
                     m.MapRightKey("DirectorId");
                 });
 
-            HasMany(t => t.Cast)
-                .WithMany(p => p.DbTVSerialsActor)
-                .Map(m =>
-                {
-                    m.ToTable("TVSerialsActors");
-                    m.MapLeftKey("TVSeriesId");
-                    m.MapRightKey("ActorId");
-                });
-
-            HasMany(t => t.Genres)
-                .WithMany(g => g.DbTVSerials)
-                .Map(m =>
-                {
-                    m.ToTable("TVSerialsVideoGenres");
-                    m.MapLeftKey("TVSeriesId");
-                    m.MapRightKey("VideoGenreId");
-                });
-
-            HasMany(t => t.Countries)
-                .WithMany(c => c.DbTVSerials)
-                .Map(m =>
-                {
-                    m.ToTable("TVSerialsCountries");
-                    m.MapLeftKey("TVSeriesId");
-                    m.MapRightKey("CountryId");
-                });
-
-            HasMany(t => t.DbSeasons)
+            HasMany(t => t.Db)
                 .WithRequired(s => s.DbTVSeries)
                 .HasForeignKey(s => s.DbTVSeriesId);
         }

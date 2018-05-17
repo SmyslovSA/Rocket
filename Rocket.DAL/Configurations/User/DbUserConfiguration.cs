@@ -35,11 +35,10 @@ namespace Rocket.DAL.Configurations.User
                 .HasColumnName("Password")
                 .HasMaxLength(50);
 
-            Property(t => t.Summary)
-                .IsOptional()
-                .HasColumnName("Summary");
+            HasRequired(s => s.AccountStatus)
+                .WithRequiredPrincipal(st => st.DbUsers);
 
-            HasMany(t => t.Directors)
+            (t => t.Directors)
                 .WithMany(p => p.DbTVSerialsDirector)
                 .Map(m =>
                 {

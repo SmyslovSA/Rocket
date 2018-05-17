@@ -106,6 +106,8 @@
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbUserConfiguration.cs" />
+    <Compile Include="Configurations\User\DbAccountStatusConfiguration.cs" />
+    <Compile Include="Configurations\User\DbUserConfiguration.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
     <Compile Include="Migrations\201805061918112_InitialMigration.cs" />
