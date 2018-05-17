@@ -81,6 +81,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\Notification\BillingsConfiguration.cs" />
+    <Compile Include="Configurations\Notification\CustomsConfiguration.cs" />
+    <Compile Include="Configurations\Notification\EmailTemplateConfiguration.cs" />
+    <Compile Include="Configurations\Notification\ReceiverConfiguration .cs" />
+    <Compile Include="Configurations\Notification\ReceiversJoinReleasesConfiguration.cs" />
+    <Compile Include="Configurations\Notification\ReleaseMessageConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbCategoryConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbBaseReleaseConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbCountryConfiguration.cs" />

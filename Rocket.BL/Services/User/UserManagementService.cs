@@ -1,34 +1,54 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using AutoMapper;
 using Rocket.BL.Common.Services.User;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
-using System;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace Rocket.BL.Services.User
 {
     /// <summary>
     /// Представляет сервис для работы с пользователями
-    /// в хранилище данных
+    /// в хранилище данных.
     /// </summary>
     public class UserManagementService : BaseService, IUserManagementService
-    {
+    {   
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
-        /// с заданным unit of work
+        /// с заданным unit of work.
         /// </summary>
-        /// <param name="unitOfWork">Экземпляр unit of work</param>
+        /// <param name="unitOfWork">Экземпляр unit of work.</param>
         public UserManagementService(IUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }
 
         /// <summary>
-        /// Возвращает пользователя с заданным идентификатором из хранилища данных 
+        /// Возвращает всех пользователей
+        /// из хранилища данных.
         /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
-        /// <returns>Экземпляр пользователя</returns>
+        /// <returns>Коллекцию всех экземпляров пользователей.</returns>
+        public ICollection<Common.Models.User.User> GetAllUsers()
+        {
+            var users = new List<Common.Models.User.User>();
+
+            var usersCount = _unitOfWork.UserRepository.Get().Count();
+
+            for (int i = 0; i < usersCount; i++)
+            {
+                users.Add(GetUser(i));
+            }
+
+            return users;
+        }
+
+        /// <summary>
+        /// Возвращает пользователя с заданным идентификатором из хранилища данных.
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя.</param>
+        /// <returns>Экземпляр пользователя.</returns>
         public Common.Models.User.User GetUser(int id)
         {
             return Mapper.Map<Common.Models.User.User>(
@@ -39,8 +59,8 @@ namespace Rocket.BL.Services.User
         /// Добавляет заданного пользователя в хранилище данных
         /// и возвращает идентификатор добавленного пользователя.
         /// </summary>
-        /// <param name="user">Экземпляр пользователя для добавления</param>
-        /// <returns>Идентификатор пользователя</returns>
+        /// <param name="user">Экземпляр пользователя для добавления.</param>
+        /// <returns>Идентификатор пользователя.</returns>
         public int AddUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
@@ -50,9 +70,9 @@ namespace Rocket.BL.Services.User
         }
 
         /// <summary>
-        /// Обновляет информацию заданного пользователя в хранилище данных
+        /// Обновляет информацию заданного пользователя в хранилище данных.
         /// </summary>
-        /// <param name="user">Экземпляр пользователя для обновления</param>
+        /// <param name="user">Экземпляр пользователя для обновления.</param>
         public void UpdateUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
@@ -63,7 +83,7 @@ namespace Rocket.BL.Services.User
         /// <summary>
         /// Удаляет пользователя с заданным идентификатором из хранилища данных.
         /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
+        /// <param name="id">Идентификатор пользователя.</param>
         public void DeleteUser(int id)
         {
             _unitOfWork.UserRepository.Delete(id);
@@ -72,25 +92,25 @@ namespace Rocket.BL.Services.User
 
         /// <summary>
         /// Проверяет наличие пользователя в хранилище данных
-        /// соответствующего заданному фильтру
+        /// соответствующего заданному фильтру.
         /// </summary>
-        /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска пользователя</param>
-        /// <returns>Возвращает <see langword="true"/>, если пользователь существует в хранилище данных</returns>
+        /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска пользователя.</param>
+        /// <returns>Возвращает <see langword="true"/>, если пользователь существует в хранилище данных.</returns>
         public bool UserExists(Expression<Func<Common.Models.User.User, bool>> filter)
         {
             return _unitOfWork.UserRepository.Get(
                            Mapper.Map<Expression<Func<DbUser, bool>>>(filter))
-                       .FirstOrDefault() != null;
+                      .FirstOrDefault() != null;
         }
 
         /// <summary>
         /// После добавление пользователя в репозитарий 
         /// генерирует ссылку, по которой пользователь
         /// в случае получения уведомлении об активации, может 
-        /// активировать аккаунт
+        /// активировать аккаунт.
         /// </summary>
-        /// <param name="user">Экземпляр пользователя</param>
-        /// <returns>Ссылку для активации аккаунта</returns>
+        /// <param name="user">Экземпляр пользователя.</param>
+        /// <returns>Ссылку для активации аккаунта.</returns>
         public string CreateConfirmationLink(Common.Models.User.User user)
         {
             return string.Empty;

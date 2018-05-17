@@ -5,7 +5,7 @@ using Rocket.DAL.Common.DbModels.User;
 namespace Rocket.BL.Common.Mappings.UserMappingProfile
 {
     /// <summary>
-    /// Профиль сопоставления доменной модели страны для адреса пользователя с моделью хранения данных страны для адреса пользователя
+    /// Профиль сопоставления доменной модели страны для адреса пользователя с моделью хранения данных страны для адреса пользователя.
     /// </summary>
     public class CountryMappingProfile : Profile
     {
