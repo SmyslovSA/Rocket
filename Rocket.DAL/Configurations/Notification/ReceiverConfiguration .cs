@@ -18,7 +18,7 @@ namespace Rocket.DAL.Configurations.Notification
 
             Property(x => x.NotifyByPush).IsRequired();
 
-            HasMany(x => x.BillingMessages)
+            HasMany(x => x.UserBillingMessages)
                 .WithRequired(x => x.Receiver)
                 .HasForeignKey(x => x.ReceiverId);
 
