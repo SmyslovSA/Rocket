@@ -3,6 +3,7 @@ using Rocket.DAL.Common.DbModels.ReleaseList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.BL.Tests.ReleaseList.FakeData
 {

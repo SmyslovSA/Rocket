@@ -7,7 +7,6 @@ namespace Rocket.DAL.Common.Repositories
 {
     /// <summary>
     /// Представляет обобщенный репозиторий
-    /// Код взят из статьи https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
     /// </summary>
     /// <typeparam name="TEntity">Тип, экземплярами которого управляет репозиторий</typeparam>
     public interface IBaseRepository<TEntity> where TEntity : class
@@ -52,7 +51,7 @@ namespace Rocket.DAL.Common.Repositories
         /// <param name="id">Идентификатор экземпляра.</param>
         /// <returns>Экземпляр <see cref="TEntity"/>.</returns>
         TEntity GetById(int id);
-
+        
         /// <summary>
         /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных.
         /// </summary>

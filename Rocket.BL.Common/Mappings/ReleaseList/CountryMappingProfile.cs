@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
 using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.BL.Common.Mappings.ReleaseList
 {
