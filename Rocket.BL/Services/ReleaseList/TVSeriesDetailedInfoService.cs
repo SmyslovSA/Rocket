@@ -137,6 +137,5 @@ namespace Rocket.BL.Services.ReleaseList
                            Mapper.Map<Expression<Func<TvSeriasEntity, bool>>>(filter))
                        .FirstOrDefault() != null;
         }
-
     }
 }
