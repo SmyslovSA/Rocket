@@ -27,8 +27,10 @@ namespace Rocket.BL.Services.UserServices
                 .Any();
         }
 
-        public IEnumerable<Role> Get(Expression<Func<DbRole, bool>> filter = null,
-            Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, string includeProperties = "")
+        public IEnumerable<Role> Get(
+            Expression<Func<DbRole, bool>> filter = null, 
+            Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, 
+            string includeProperties = "")
         {
             return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
         }

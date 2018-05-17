@@ -7,7 +7,6 @@ namespace Rocket.DAL.Common.DbModels.Parser
     /// </summary>
     public class EpisodeEntity
     {
-
         /// <summary>
         /// Уникальный идентификатор серии.
         /// </summary>

@@ -40,7 +40,8 @@ namespace Rocket.DAL.UoW
         /// <param name="dbRoleRepository">Репозиторий ролей</param>
         /// <param name="dbPermissionRepository">Репозиторий разрешений</param>
         /// <param name="dbAuthorisedUserRepository">Репозиторий авторизованных пользователей</param>
-        public UnitOfWork(RocketContext rocketContext,
+        public UnitOfWork(
+            RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
             IBaseRepository<ParserSettingsEntity> parserSettingsRepository,
             IBaseRepository<ResourceEntity> resourceRepository,
@@ -60,8 +61,7 @@ namespace Rocket.DAL.UoW
             IDbUserRepository dbUserRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
-            IDbAuthorisedUserRepository dbAuthorisedUserRepository
-            )
+            IDbAuthorisedUserRepository dbAuthorisedUserRepository)
         {
             _rocketContext = rocketContext;
             MusicRepository = musicRepository;
@@ -187,8 +187,7 @@ namespace Rocket.DAL.UoW
         /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
-                return;
+            if (_disposed) return;
 
             if (disposing)
             {

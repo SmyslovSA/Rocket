@@ -9,11 +9,11 @@ namespace Rocket.BL.Services.UserServices
 {
     public class UserRoleManager : BaseService, IUserRoleManager
     {
+        private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
+
         public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
-
-        private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
 
         /// <summary>
         /// add user to role
