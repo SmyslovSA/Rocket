@@ -88,6 +88,11 @@ namespace Rocket.DAL.Common.UoW
         /// </summary>
         IDbReleaseMessageRepository ReleaseMessageRepository { get; }
 
+        /// <summary>
+        /// Возвращает репозиторий для сообщений с информацией о совершенных
+        /// пользователем платежах на сайте (покупка премиум аккаунта, донат)
+        /// </summary>
+        IDbUserBillingMessageRepository UserBillingMessageRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных.
