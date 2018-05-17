@@ -3,6 +3,7 @@ using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.Repositories.User;
 using System;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
+using Rocket.DAL.Common.Repositories.Notification;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -60,6 +61,11 @@ namespace Rocket.DAL.Common.UoW
         /// Возвращает репозиторий для пользователей личного кабинета.
         /// </summary>
         IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для сообщений произвольного содержания
+        /// </summary>
+        IDbCustomMessageRepository CustomMessageRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных.
