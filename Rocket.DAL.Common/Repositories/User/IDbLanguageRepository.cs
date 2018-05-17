@@ -3,7 +3,7 @@
 namespace Rocket.DAL.Common.Repositories.User
 {
     /// <summary>
-    /// Представляет репозитарий для языка пользователей
+    /// Представляет репозитарий для языка пользователей.
     /// </summary>
     public interface IDbLanguageRepositary : IBaseRepository<DbLanguage>
     {

@@ -19,9 +19,20 @@ namespace Rocket.DAL.Common.DbModels.Notification
         public DbReceiver Receiver { get; set; }
 
         /// <summary>
+        /// Возвращает или задает идентификационный номер получателя сообщения
+        /// </summary>
+        public int ReceiverId { get; set; }
+
+        /// <summary>
         /// Возвращает или задает оплаченную сумму
         /// </summary>
         public decimal Sum { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает флаг просмотра пользователем
+        /// push нотификации
+        /// </summary>
+        public bool Viewed { get; set; }
 
         /// <summary>
         /// Возвращает или задает время создания сообщения

@@ -1,41 +1,40 @@
-﻿using Rocket.BL.Common.Models.User;
-using System;
-
+﻿using System;
+using Rocket.BL.Common.Models.User;
 
 namespace Rocket.BL.Common.Services.User
 {
     /// <summary>
     /// Представляет сервис для работы со статусом аккаунта
-    /// аккаунта
+    /// аккаунта.
     /// </summary>
     public interface IUserAccountStatusService : IDisposable
     {
         /// <summary>
-        /// Получает статус аккаунта пользователя с определенным идентификатором
+        /// Получает статус аккаунта пользователя с определенным идентификатором.
         /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
-        /// <returns>Статус аккаунта пользователя</returns>
+        /// <param name="id">Идентификатор пользователя.</param>
+        /// <returns>Статус аккаунта пользователя.</returns>
         AccountStatus GetUserAccountStatus(int id);
 
         /// <summary>
-        /// Получает статус аккаунта пользователя
+        /// Получает статус аккаунта пользователя.
         /// </summary>
-        /// <param name="user">Экземпляр пользователя</param>
-        /// <returns>Статус аккаунта пользователя</returns>
+        /// <param name="user">Экземпляр пользователя.</param>
+        /// <returns>Статус аккаунта пользователя.</returns>
         AccountStatus GetUserAccountStatus(Models.User.User user);
 
         /// <summary>
-        /// Задает статус аккаунта пользователя с определенным идентификатором
+        /// Задает статус аккаунта пользователя с определенным идентификатором.
         /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
-        /// <param name="statusType">Статус аккаунта пользователя</param>
-        void SetUserAccoutStatus(int id, AccountStatus AccountStatus);
+        /// <param name="id">Идентификатор пользователя.</param>
+        /// <param name="accountStatus">Статус аккаунта пользователя.</param>
+        void SetUserAccoutStatus(int id, AccountStatus accountStatus);
 
         /// <summary>
-        /// Задает статус аккаунта пользователя
+        /// Задает статус аккаунта пользователя.
         /// </summary>
-        /// <param name="user">Экземпляр пользователя</param>
-        /// <param name="statusType">Статус аккаунта пользователя</param>
-        void SetUserAccountStatus(Models.User.User user, AccountStatus AccountStatus);
+        /// <param name="user">Экземпляр пользователя.</param>
+        /// <param name="accountStatus">Статус аккаунта пользователя.</param>
+        void SetUserAccountStatus(Models.User.User user, AccountStatus accountStatus);
     }
 }
