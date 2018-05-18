@@ -37,7 +37,7 @@ namespace Rocket.BL.Services.UserServices
         public Role GetById(int id)
         {
             return Mapper.Map<Role>(
-                _unitOfWork.TVSeriesRepository.GetById(id));
+                _unitOfWork.RoleRepository.GetById(id));
         }
 
         public void Insert(Role role)

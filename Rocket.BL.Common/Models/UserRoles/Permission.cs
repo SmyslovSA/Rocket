@@ -18,10 +18,5 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// name of Value
         /// </summary>
         public string ValueName { get; set; }
-
-        /// <summary>
-        /// roleList with permission
-        /// </summary>
-        public ICollection<Role> Roles { get; set; }
     }
 }
