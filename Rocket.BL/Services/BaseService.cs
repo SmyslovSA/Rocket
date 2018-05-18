@@ -17,6 +17,11 @@ namespace Rocket.BL.Services
             _unitOfWork = unitOfWork;
         }
 
+        ~BaseService()
+        {
+            Dispose(false);
+        }
+
         /// <summary>
         /// Освобождает управляемые ресурсы
         /// </summary>
@@ -42,11 +47,6 @@ namespace Rocket.BL.Services
                 _unitOfWork = null;
                 _disposedValue = true;
             }
-        }
-
-        ~BaseService()
-        {
-            Dispose(false);
         }
     }
 }

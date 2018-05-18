@@ -138,7 +138,12 @@
           </RuleSettings>
         </Rule>
       </Rules>
-      <AnalyzerSettings />
+      <AnalyzerSettings>
+        <CollectionProperty Name="Hungarian">
+          <Value>db</Value>
+          <Value>tv</Value>
+        </CollectionProperty>
+      </AnalyzerSettings>
     </Analyzer>
     <Analyzer AnalyzerId="StyleCop.CSharp.LayoutRules">
       <Rules>

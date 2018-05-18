@@ -7,13 +7,11 @@ namespace Rocket.BL.Common.Services
         /// <summary>
         /// Добавить существующую функц возможность для выбранной роли
         /// </summary>
-        /// <returns></returns>
         void AddPermissionToRole();
 
         /// <summary>
         /// Удалить функц возможность из текущего списка у роли
         /// </summary>
-        /// <returns></returns>
         void RemovePermissionFromRole();
     }
 }

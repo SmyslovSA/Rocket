@@ -84,12 +84,7 @@ namespace Rocket.BL.Services.ReleaseList
         //        Mapper.Map<Expression<Func<DbTVSeries, bool>>>(filter))
         //        .FirstOrDefault() != null;
         //}
-
-
-
-
-
-
+        
         public TVSeriesDetailedInfoService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
