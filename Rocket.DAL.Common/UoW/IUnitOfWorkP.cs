@@ -20,51 +20,51 @@ namespace Rocket.DAL.Common.UoW
         /// <summary>
         /// Возвращает репозиторий для музыкального релиза
         /// </summary>
-        IRepository<DbMusic> MusicRepository { get; }
+        IBaseRepository<DbMusic> MusicRepository { get; }
 
         /// <summary>
         /// Репозиторий настроек парсера
         /// </summary>
-        IRepository<ParserSettingsEntity> ParserSettingsRepository { get; }
+        IBaseRepository<ParserSettingsEntity> ParserSettingsRepository { get; }
 
         /// <summary>
         /// Репозиторий ресурса
         /// </summary>
-        IRepository<ResourceEntity> ResourceRepository { get; }
+        IBaseRepository<ResourceEntity> ResourceRepository { get; }
 
         /// <summary>
         /// Репозиторий элемента ресурса
         /// </summary>
-        IRepository<ResourceItemEntity> ResourceItemRepository { get; }
+        IBaseRepository<ResourceItemEntity> ResourceItemRepository { get; }
 
         /// <summary>
         /// Репозиторий музыкального жанра
         /// </summary>
-        IRepository<DbMusicGenre> MusicGenreRepository { get; }
+        IBaseRepository<DbMusicGenre> MusicGenreRepository { get; }
 
         /// <summary>
         /// Репозиторий музыкального трека
         /// </summary>
-        IRepository<DbMusicTrack> MusicTrackRepository { get; }
+        IBaseRepository<DbMusicTrack> MusicTrackRepository { get; }
 
         /// <summary>
         /// Репозиторий музыканта
         /// </summary>
-        IRepository<DbMusician> MusicianRepository { get; }
+        IBaseRepository<DbMusician> MusicianRepository { get; }
 
-        IRepository<CategoryEntity> CategoryRepository { get; }
+        IBaseRepository<CategoryEntity> CategoryRepository { get; }
 
-        IRepository<EpisodeEntity> EpisodeRepository { get; }
+        IBaseRepository<EpisodeEntity> EpisodeRepository { get; }
 
-        IRepository<GenreEntity> GenreRepository { get; }
+        IBaseRepository<GenreEntity> GenreRepository { get; }
 
-        IRepository<PersonEntity> PersonRepository { get; }
+        IBaseRepository<PersonEntity> PersonRepository { get; }
 
-        IRepository<PersonTypeEntity> PersonTypeRepository { get; }
+        IBaseRepository<PersonTypeEntity> PersonTypeRepository { get; }
 
-        IRepository<SeasonEntity> SeasonRepository { get; }
+        IBaseRepository<SeasonEntity> SeasonRepository { get; }
 
-        IRepository<TvSeriasEntity> TvSeriasRepository { get; }
+        IBaseRepository<TvSeriasEntity> TvSeriasRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных

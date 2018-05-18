@@ -58,7 +58,7 @@ namespace Rocket.Parser
         private static void LostfilmParseProcess(ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
             //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
-            var resourceRepository = kernel.Get<IRepository<ResourceEntity>>();
+            var resourceRepository = kernel.Get<IBaseRepository<ResourceEntity>>();
             var resource = resourceRepository
                 .Queryable().First(r => r.Name.Equals(Resources.LostfilmSettings));
 
@@ -90,7 +90,7 @@ namespace Rocket.Parser
         /// <param name="kernel">DI контейнер</param>
         public static void AlbumInfoParseProcess(ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
-            var resourceRepository = kernel.Get<IRepository<ResourceEntity>>();
+            var resourceRepository = kernel.Get<IBaseRepository<ResourceEntity>>();
             var resource = resourceRepository
                 .Queryable().First(r => r.Name.Equals(Resources.AlbumInfoSettings));
 

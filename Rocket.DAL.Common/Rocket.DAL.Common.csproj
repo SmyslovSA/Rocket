@@ -96,7 +96,6 @@
     <Compile Include="Enums\CategoryCode.cs" />
     <Compile Include="Enums\PersonType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbCountryRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbEpisodeRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbMusicGenreRepository.cs" />

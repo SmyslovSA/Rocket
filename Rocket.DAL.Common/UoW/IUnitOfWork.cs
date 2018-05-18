@@ -28,32 +28,32 @@ namespace Rocket.DAL.Common.UoW
         /// Возвращает репозиторий для сериалов.
         /// Возвращает репозиторий для музыкального релиза
         /// </summary>
-        IRepository<DbMusic> MusicRepository { get; }
+        IBaseRepository<DbMusic> MusicRepository { get; }
 
         /// <summary>
         /// Репозиторий настроек парсера
         /// </summary>
-        IRepository<ParserSettingsEntity> ParserSettingsRepository { get; }
+        IBaseRepository<ParserSettingsEntity> ParserSettingsRepository { get; }
 
         /// <summary>
         /// Репозиторий ресурса
         /// </summary>
-        IRepository<ResourceEntity> ResourceRepository { get; }
+        IBaseRepository<ResourceEntity> ResourceRepository { get; }
 
         /// <summary>
         /// Репозиторий элемента ресурса
         /// </summary>
-        IRepository<ResourceItemEntity> ResourceItemRepository { get; }
+        IBaseRepository<ResourceItemEntity> ResourceItemRepository { get; }
 
         /// <summary>
         /// Репозиторий музыкального жанра
         /// </summary>
-        IRepository<DbMusicGenre> MusicGenreRepository { get; }
+        IBaseRepository<DbMusicGenre> MusicGenreRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для музыки.
         /// </summary>
-        IRepository<DbMusicTrack> MusicTrackRepository { get; }
+        IBaseRepository<DbMusicTrack> MusicTrackRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для юзеров.

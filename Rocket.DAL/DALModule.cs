@@ -21,20 +21,20 @@ namespace Rocket.DAL
             Bind<RocketContext>().ToMethod(ctx => new RocketContext()).InSingletonScope();
 
             //репозитарии
-            Bind<IRepository<ResourceEntity>>().To<Repository<ResourceEntity>>();
-            Bind<IRepository<ParserSettingsEntity>>().To<Repository<ParserSettingsEntity>>();
-            Bind<IRepository<ResourceItemEntity>>().To<Repository<ResourceItemEntity>>();
-            Bind<IRepository<DbMusic>>().To<Repository<DbMusic>>();
-            Bind<IRepository<DbMusicGenre>>().To<Repository<DbMusicGenre>>();
-            Bind<IRepository<DbMusicTrack>>().To<Repository<DbMusicTrack>>();
-            Bind<IRepository<DbMusician>>().To<Repository<DbMusician>>();
-            Bind<IRepository<CategoryEntity>>().To<Repository<CategoryEntity>>();
-            Bind<IRepository<EpisodeEntity>>().To<Repository<EpisodeEntity>>();
-            Bind<IRepository<GenreEntity>>().To<Repository<GenreEntity>>();
-            Bind<IRepository<PersonEntity>>().To<Repository<PersonEntity>>();
-            Bind<IRepository<PersonTypeEntity>>().To<Repository<PersonTypeEntity>>();
-            Bind<IRepository<SeasonEntity>>().To<Repository<SeasonEntity>>();
-            Bind<IRepository<TvSeriasEntity>>().To<Repository<TvSeriasEntity>>();
+            Bind<IBaseRepository<ResourceEntity>>().To<BaseRepository<ResourceEntity>>();
+            Bind<IBaseRepository<ParserSettingsEntity>>().To<BaseRepository<ParserSettingsEntity>>();
+            Bind<IBaseRepository<ResourceItemEntity>>().To<BaseRepository<ResourceItemEntity>>();
+            Bind<IBaseRepository<DbMusic>>().To<BaseRepository<DbMusic>>();
+            Bind<IBaseRepository<DbMusicGenre>>().To<BaseRepository<DbMusicGenre>>();
+            Bind<IBaseRepository<DbMusicTrack>>().To<BaseRepository<DbMusicTrack>>();
+            Bind<IBaseRepository<DbMusician>>().To<BaseRepository<DbMusician>>();
+            Bind<IBaseRepository<CategoryEntity>>().To<BaseRepository<CategoryEntity>>();
+            Bind<IBaseRepository<EpisodeEntity>>().To<BaseRepository<EpisodeEntity>>();
+            Bind<IBaseRepository<GenreEntity>>().To<BaseRepository<GenreEntity>>();
+            Bind<IBaseRepository<PersonEntity>>().To<BaseRepository<PersonEntity>>();
+            Bind<IBaseRepository<PersonTypeEntity>>().To<BaseRepository<PersonTypeEntity>>();
+            Bind<IBaseRepository<SeasonEntity>>().To<BaseRepository<SeasonEntity>>();
+            Bind<IBaseRepository<TvSeriasEntity>>().To<BaseRepository<TvSeriasEntity>>();
 
             //UoW
             Bind<IUnitOfWorkP>().To<UnitOfWork>().InSingletonScope();

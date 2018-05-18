@@ -27,20 +27,20 @@ namespace Rocket.DAL.UoW
         /// <param name="musicianRepository">Репозиторий исполнителя</param>
         /// <param name="genreRepository"></param>
         public UnitOfWork(RocketContext rocketContext,
-            IRepository<DbMusic> musicRepository,
-            IRepository<ParserSettingsEntity> parserSettingsRepository,
-            IRepository<ResourceEntity> resourceRepository,
-            IRepository<ResourceItemEntity> resourceItemRepository,
-            IRepository<DbMusicGenre> musicGenreRepository,
-            IRepository<DbMusicTrack> musicTrackRepository,
-            IRepository<DbMusician> musicianRepository,
-            IRepository<CategoryEntity> categoryRepository,
-            IRepository<EpisodeEntity> episodeRepository,
-            IRepository<GenreEntity> genreRepository,
-            IRepository<PersonEntity> personRepository,
-            IRepository<PersonTypeEntity> personTypeRepository,
-            IRepository<SeasonEntity> seasonRepository,
-            IRepository<TvSeriasEntity> tvSeriasRepository
+            IBaseRepository<DbMusic> musicRepository,
+            IBaseRepository<ParserSettingsEntity> parserSettingsRepository,
+            IBaseRepository<ResourceEntity> resourceRepository,
+            IBaseRepository<ResourceItemEntity> resourceItemRepository,
+            IBaseRepository<DbMusicGenre> musicGenreRepository,
+            IBaseRepository<DbMusicTrack> musicTrackRepository,
+            IBaseRepository<DbMusician> musicianRepository,
+            IBaseRepository<CategoryEntity> categoryRepository,
+            IBaseRepository<EpisodeEntity> episodeRepository,
+            IBaseRepository<GenreEntity> genreRepository,
+            IBaseRepository<PersonEntity> personRepository,
+            IBaseRepository<PersonTypeEntity> personTypeRepository,
+            IBaseRepository<SeasonEntity> seasonRepository,
+            IBaseRepository<TvSeriasEntity> tvSeriasRepository
             )
         {
             _rocketContext = rocketContext;
@@ -73,54 +73,54 @@ namespace Rocket.DAL.UoW
         /// <summary>
         /// Возвращает репозиторий для музыкального релиза
         /// </summary>
-        public IRepository<DbMusic> MusicRepository { get; }
+        public IBaseRepository<DbMusic> MusicRepository { get; }
 
         /// <summary>
         /// Репозиторий настроек парсера
         /// </summary>
-        public IRepository<ParserSettingsEntity> ParserSettingsRepository { get; }
+        public IBaseRepository<ParserSettingsEntity> ParserSettingsRepository { get; }
 
         /// <summary>
         /// Репозиторий ресурса
         /// </summary>
-        public IRepository<ResourceEntity> ResourceRepository { get; }
+        public IBaseRepository<ResourceEntity> ResourceRepository { get; }
 
         /// <summary>
         /// Репозиторий элемента ресурса
         /// </summary>
-        public IRepository<ResourceItemEntity> ResourceItemRepository { get; }
+        public IBaseRepository<ResourceItemEntity> ResourceItemRepository { get; }
 
         /// <summary>
         /// Репозиторий музыкального жанра
         /// </summary>
-        public IRepository<DbMusicGenre> MusicGenreRepository { get; }
+        public IBaseRepository<DbMusicGenre> MusicGenreRepository { get; }
 
         /// <summary>
         /// Репозиторий музыкального трека
         /// </summary>
-        public IRepository<DbMusicTrack> MusicTrackRepository { get; }
+        public IBaseRepository<DbMusicTrack> MusicTrackRepository { get; }
 
         /// <summary>
         /// Репозиторий музыканта
         /// </summary>
-        public IRepository<DbMusician> MusicianRepository { get; }
+        public IBaseRepository<DbMusician> MusicianRepository { get; }
 
-        public IRepository<CategoryEntity> CategoryRepository { get; }
+        public IBaseRepository<CategoryEntity> CategoryRepository { get; }
 
-        public IRepository<EpisodeEntity> EpisodeRepository { get; }
+        public IBaseRepository<EpisodeEntity> EpisodeRepository { get; }
 
         /// <summary>
         /// Репозиторий жанра
         /// </summary>
-        public IRepository<GenreEntity> GenreRepository { get; }
+        public IBaseRepository<GenreEntity> GenreRepository { get; }
 
-        public IRepository<PersonEntity> PersonRepository { get; }
+        public IBaseRepository<PersonEntity> PersonRepository { get; }
 
-        public IRepository<PersonTypeEntity> PersonTypeRepository { get; }
+        public IBaseRepository<PersonTypeEntity> PersonTypeRepository { get; }
 
-        public IRepository<SeasonEntity> SeasonRepository { get; }
+        public IBaseRepository<SeasonEntity> SeasonRepository { get; }
 
-        public IRepository<TvSeriasEntity> TvSeriasRepository { get; }
+        public IBaseRepository<TvSeriasEntity> TvSeriasRepository { get; }
 
         public void Dispose()
         {

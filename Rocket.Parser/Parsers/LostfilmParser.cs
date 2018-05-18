@@ -42,7 +42,7 @@ namespace Rocket.Parser.Parsers
             ResourceEntity resource;
             using (var rocketContext = new RocketContext())
             {
-                var resourceRepository = new Repository<ResourceEntity>(rocketContext);
+                var resourceRepository = new BaseRepository<ResourceEntity>(rocketContext);
                 resource = resourceRepository.Queryable()
                     .First(r => r.Name.Equals(Resources.LostfilmSettings));
             }
@@ -151,11 +151,11 @@ namespace Rocket.Parser.Parsers
                 {
                     using (var rocketContext = new RocketContext())
                     {
-                        var personRepository = new Repository<PersonEntity>(rocketContext);
-                        var genreRepository = new Repository<GenreEntity>(rocketContext);
-                        var tvSeriasRepository = new Repository<TvSeriasEntity>(rocketContext);
-                        var seasonRepository = new Repository<SeasonEntity>(rocketContext);
-                        var episodeRepository = new Repository<EpisodeEntity>(rocketContext);
+                        var personRepository = new BaseRepository<PersonEntity>(rocketContext);
+                        var genreRepository = new BaseRepository<GenreEntity>(rocketContext);
+                        var tvSeriasRepository = new BaseRepository<TvSeriasEntity>(rocketContext);
+                        var seasonRepository = new BaseRepository<SeasonEntity>(rocketContext);
+                        var episodeRepository = new BaseRepository<EpisodeEntity>(rocketContext);
 
                         var tvSeriaEntity = tvSeriasAgregateModelExt.TvSeriasEntity;
 
@@ -235,7 +235,7 @@ namespace Rocket.Parser.Parsers
             {
                 using (var rocketContext = new RocketContext())
                 {
-                    var genreRepository = new Repository<GenreEntity>(rocketContext);
+                    var genreRepository = new BaseRepository<GenreEntity>(rocketContext);
                     
                     var listGenreEntityDb = genreRepository.Queryable().AsNoTracking().ToList();
 
@@ -296,7 +296,7 @@ namespace Rocket.Parser.Parsers
             {
                 using (var rocketContext = new RocketContext())
                 {
-                    var personRepository = new Repository<PersonEntity>(rocketContext);
+                    var personRepository = new BaseRepository<PersonEntity>(rocketContext);
 
                     foreach (var tvSeriasAgregateModelExt in listTvSeriasAgregateModelExt)
                     {
