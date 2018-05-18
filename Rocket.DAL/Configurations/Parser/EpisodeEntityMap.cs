@@ -48,7 +48,6 @@ namespace Rocket.DAL.Configurations.Parser
             HasRequired(p => p.Season)
                 .WithMany(r => r.ListEpisode)
                 .HasForeignKey(p => p.SeasonId);
-
         }
     }
 }

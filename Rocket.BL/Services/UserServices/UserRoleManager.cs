@@ -10,7 +10,6 @@ namespace Rocket.BL.Services.UserServices
     {
         public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            
         }
 
         private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
@@ -26,7 +25,9 @@ namespace Rocket.BL.Services.UserServices
             // todo check user
 
             if (IsInRole(userId, roleId))
+            {
                 return;
+            }
 
             var dbRole = _unitOfWork.RoleRepository.GetById(roleId);
             var dbUser = _unitOfWork.UserRepository.GetById(userId);
@@ -41,7 +42,9 @@ namespace Rocket.BL.Services.UserServices
             // todo check user
 
             if (!IsInRole(userId, roleId))
+            {
                 return false;
+            }
 
             var dbRole = _unitOfWork.RoleRepository.GetById(roleId);
             var dbUser = _unitOfWork.UserRepository.GetById(userId);

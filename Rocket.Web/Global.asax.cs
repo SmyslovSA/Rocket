@@ -15,12 +15,18 @@ namespace Rocket.Web
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             GlobalFilters.Filters.Add(new RoleAuthorizeAttribyte());
+            LoggerConfig.Configure();
         }
+
+
 
         protected override IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
             kernel.Load(new[] {"Rocket.BL*", "Rocket.DAL*"});
+
+            kernel.Load<WebModule>();
+
             return kernel;
         }
     }

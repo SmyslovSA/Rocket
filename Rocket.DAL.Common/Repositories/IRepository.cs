@@ -75,7 +75,7 @@ namespace Rocket.DAL.Common.Repositories
         TEntity Find<TKey>(params TKey[] keyValues);
 
         /// <summary>
-        /// 
+        /// Получить выборку
         /// </summary>
         /// <typeparam name="TKey"></typeparam>
         /// <param name="query"></param>
@@ -97,5 +97,4 @@ namespace Rocket.DAL.Common.Repositories
 
         int SaveChanges();
     }
-
 }
