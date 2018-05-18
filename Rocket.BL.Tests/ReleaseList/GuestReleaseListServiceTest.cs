@@ -65,8 +65,8 @@ namespace Rocket.BL.Tests.ReleaseList
                 });
 
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(mock => mock.ReleaseRepository)
-                .Returns(() => mockDbReleaseRepository.Object);
+            //mockUnitOfWork.Setup(mock => mock.ReleaseRepository)
+            //    .Returns(() => mockDbReleaseRepository.Object);
 
             _guestReleaseListService = new GuestReleaseListService(mockUnitOfWork.Object);
         }

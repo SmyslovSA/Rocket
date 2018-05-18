@@ -28,7 +28,7 @@ namespace Rocket.BL.Services.PersonalArea
                     }
                 });
                 _unitOfWork.UserAuthorisedRepository.Update(user);
-                _unitOfWork.Save();
+                _unitOfWork.SaveChanges();
                 return true;
             }
 
@@ -43,7 +43,7 @@ namespace Rocket.BL.Services.PersonalArea
                 {
                     var ganre = _unitOfWork.GenreRepository.Get().FirstOrDefault(c => c.Name == genre);
                     _unitOfWork.GenreRepository.Delete(ganre);
-                    _unitOfWork.Save();
+                    _unitOfWork.SaveChanges();
                     return true;
                 }
 

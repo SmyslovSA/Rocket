@@ -1,15 +1,17 @@
-﻿using System;
-using Rocket.DAL.Common.DbModels;
-using Rocket.DAL.Common.DbModels.Parser;
+﻿using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
+using System;
 
 namespace Rocket.DAL.UoW
 {
-    public class UnitOfWork : IUnitOfWorkP
+    public class UnitOfWork : IUnitOfWork
     {
         private RocketContext _rocketContext;
         private bool _disposed;
@@ -18,14 +20,26 @@ namespace Rocket.DAL.UoW
         /// Unit of Work для RocketConext
         /// </summary>
         /// <param name="rocketContext">Контекст данных</param>
+        /// <param name="musicRepository">Репозиторий релиза</param>
         /// <param name="parserSettingsRepository">Репозиторий настроек парсера</param>
         /// <param name="resourceRepository">Репозиторий ресурса</param>
         /// <param name="resourceItemRepository">Репозиторий элемента ресурса</param>
-        /// <param name="musicRepository">Репозиторий релиза</param>
         /// <param name="musicGenreRepository">Репозиторий жанра</param>
         /// <param name="musicTrackRepository">Репозиторий трека</param>
         /// <param name="musicianRepository">Репозиторий исполнителя</param>
-        /// <param name="genreRepository"></param>
+        /// <param name="categoryRepository">Репозиторий категорий</param>
+        /// <param name="episodeRepository">Репозиторий серий</param>
+        /// <param name="genreRepository">Репозиторий жанров</param>
+        /// <param name="personRepository">Репозиторий людей - актеров, режиссеров</param>
+        /// <param name="personTypeRepository">Репозиторий типов людей</param>
+        /// <param name="seasonRepository">Репозиторий сезонов</param>
+        /// <param name="tvSeriasRepository">Репозиторий сериалов</param>
+        /// <param name="dbFilmRepository">Репозиторий фильмов</param>
+        /// <param name="dbEmailRepository">Репозиторий email</param>
+        /// <param name="dbUserRepository">Репозиторий пользователей</param>
+        /// <param name="dbRoleRepository">Репозиторий ролей</param>
+        /// <param name="dbPermissionRepository">Репозиторий разрешений</param>
+        /// <param name="dbAuthorisedUserRepository">Репозиторий авторизованных пользователей</param>
         public UnitOfWork(RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
             IBaseRepository<ParserSettingsEntity> parserSettingsRepository,
@@ -40,7 +54,13 @@ namespace Rocket.DAL.UoW
             IBaseRepository<PersonEntity> personRepository,
             IBaseRepository<PersonTypeEntity> personTypeRepository,
             IBaseRepository<SeasonEntity> seasonRepository,
-            IBaseRepository<TvSeriasEntity> tvSeriasRepository
+            IBaseRepository<TvSeriasEntity> tvSeriasRepository,
+            IDbFilmRepository dbFilmRepository,
+            IDbEmailRepository dbEmailRepository,
+            IDbUserRepository dbUserRepository,
+            IDbRoleRepository dbRoleRepository,
+            IDbPermissionRepository dbPermissionRepository,
+            IDbAuthorisedUserRepository dbAuthorisedUserRepository
             )
         {
             _rocketContext = rocketContext;
@@ -58,17 +78,23 @@ namespace Rocket.DAL.UoW
             PersonTypeRepository = personTypeRepository;
             SeasonRepository = seasonRepository;
             TvSeriasRepository = tvSeriasRepository;
+            FilmRepository = dbFilmRepository;
+            EmailRepository = dbEmailRepository;
+            UserRepository = dbUserRepository;
+            RoleRepository = dbRoleRepository;
+            PermissionRepository = dbPermissionRepository;
+            UserAuthorisedRepository = dbAuthorisedUserRepository;
+        }
+
+        ~UnitOfWork()
+        {
+            Dispose(false);
         }
 
         /// <summary>
         /// Возвращает репозиторий для фильмов
         /// </summary>
-        public IDbFilmRepository FilmRepository => throw new NotImplementedException();
-
-        /// <summary>
-        /// Возвращает репозиторий для сериалов
-        /// </summary>
-        public IDbTVSeriesRepository TVSeriesRepository => throw new NotImplementedException();
+        public IDbFilmRepository FilmRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для музыкального релиза
@@ -122,26 +148,55 @@ namespace Rocket.DAL.UoW
 
         public IBaseRepository<TvSeriasEntity> TvSeriasRepository { get; }
 
+        /// <summary>
+        /// Возвращает репозиторий для emails.
+        /// </summary>
+        public IDbEmailRepository EmailRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с пользователями.
+        /// </summary>
+        public IDbUserRepository UserRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с ролями.
+        /// </summary>
+        public IDbRoleRepository RoleRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с пермишенами.
+        /// </summary>
+        public IDbPermissionRepository PermissionRepository { get; }
+
+        /// <summary>
+        /// Репозиотрий для работы с пользователями личного кабинета.
+        /// </summary>
+        public IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+
+        /// <summary>
+        /// Освобождает управляемые ресурсы.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
-        public virtual void Dispose(bool disposing)
+        /// <summary>
+        /// Освобождает управляемые ресурсы.
+        /// </summary>
+        /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора.</param>
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
                 return;
 
             if (disposing)
             {
-                if (_rocketContext != null)
-                {
-                    _rocketContext.Dispose();
-                    _rocketContext = null;
-                }
+                GC.SuppressFinalize(this);
             }
 
+            _rocketContext?.Dispose();
+            _rocketContext = null;
             _disposed = true;
         }
 

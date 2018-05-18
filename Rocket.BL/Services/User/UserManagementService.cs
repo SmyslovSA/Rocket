@@ -65,7 +65,7 @@ namespace Rocket.BL.Services.User
         {
             var dbUser = Mapper.Map<DbUser>(user);
             _unitOfWork.UserRepository.Insert(dbUser);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
             return dbUser.Id;
         }
 
@@ -77,7 +77,7 @@ namespace Rocket.BL.Services.User
         {
             var dbUser = Mapper.Map<DbUser>(user);
             _unitOfWork.UserRepository.Update(dbUser);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Rocket.BL.Services.User
         public void DeleteUser(int id)
         {
             _unitOfWork.UserRepository.Delete(id);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         /// <summary>

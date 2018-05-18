@@ -10,6 +10,8 @@ using Rocket.DAL.Common.UoW;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.Repositories;
 
 namespace Rocket.BL.Tests.ReleaseList
 {
@@ -32,25 +34,25 @@ namespace Rocket.BL.Tests.ReleaseList
 
             _fakeDbTVSerialsData = new FakeDbTVSerialsData(100, 10, 10, TVSeriesCount);
 
-            var mockDbTVSeriesRepository = new Mock<IDbTVSeriesRepository>();
-            mockDbTVSeriesRepository.Setup(mock =>
-                    mock.Get(It.IsAny<Expression<Func<DbTVSeries, bool>>>(), null, string.Empty))
-                .Returns((Expression<Func<DbTVSeries, bool>> filter,
-                    Func<IQueryable<DbTVSeries>, IOrderedQueryable<DbTVSeries>> orderBy,
-                    string includeProperties) => _fakeDbTVSerialsData.TVSerials.Where(filter.Compile()));
-            mockDbTVSeriesRepository.Setup(mock => mock.GetById(It.IsAny<int>()))
-                .Returns((int id) => _fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id));
-            mockDbTVSeriesRepository.Setup(mock => mock.Insert(It.IsAny<DbTVSeries>()))
-                .Callback((DbTVSeries f) => _fakeDbTVSerialsData.TVSerials.Add(f));
-            mockDbTVSeriesRepository.Setup(mock => mock.Update(It.IsAny<DbTVSeries>()))
-                .Callback((DbTVSeries f) => _fakeDbTVSerialsData.TVSerials.Find(d => d.Id == f.Id).Title = f.Title);
-            mockDbTVSeriesRepository.Setup(mock => mock.Delete(It.IsAny<int>()))
-                .Callback((int id) => _fakeDbTVSerialsData.TVSerials
-                    .Remove(_fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id)));
+            var mockDbTVSeriesRepository = new Mock<IBaseRepository<TvSeriasEntity>>();
+            //mockDbTVSeriesRepository.Setup(mock =>
+            //        mock.Get(It.IsAny<Expression<Func<TvSeriasEntity, bool>>>(), null, string.Empty))
+            //    .Returns((Expression<Func<TvSeriasEntity, bool>> filter,
+            //        Func<IQueryable<TvSeriasEntity>, IOrderedQueryable<TvSeriasEntity>> orderBy,
+            //        string includeProperties) => _fakeDbTVSerialsData.TVSerials.Where(filter.Compile()));
+            //mockDbTVSeriesRepository.Setup(mock => mock.GetById(It.IsAny<int>()))
+            //    .Returns((int id) => _fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id));
+            //mockDbTVSeriesRepository.Setup(mock => mock.Insert(It.IsAny<DbTVSeries>()))
+            //    .Callback((DbTVSeries f) => _fakeDbTVSerialsData.TVSerials.Add(f));
+            //mockDbTVSeriesRepository.Setup(mock => mock.Update(It.IsAny<DbTVSeries>()))
+            //    .Callback((DbTVSeries f) => _fakeDbTVSerialsData.TVSerials.Find(d => d.Id == f.Id).Title = f.Title);
+            //mockDbTVSeriesRepository.Setup(mock => mock.Delete(It.IsAny<int>()))
+            //    .Callback((int id) => _fakeDbTVSerialsData.TVSerials
+            //        .Remove(_fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id)));
 
             var mockTVSeriesUnitOfWork = new Mock<IUnitOfWork>();
             
-            mockTVSeriesUnitOfWork.Setup(mock => mock.TVSeriesRepository)
+            mockTVSeriesUnitOfWork.Setup(mock => mock.TvSeriasRepository)
                 .Returns(() => mockDbTVSeriesRepository.Object);
 
             _tvSeriesDetailedInfoService = new TVSeriesDetailedInfoService(mockTVSeriesUnitOfWork.Object);

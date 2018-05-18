@@ -124,7 +124,6 @@
     <Compile Include="Repositories\User\IDbUserDetailsRepository.cs" />
     <Compile Include="Repositories\User\IDbUserRepository.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
-    <Compile Include="UoW\IUnitOfWorkP.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

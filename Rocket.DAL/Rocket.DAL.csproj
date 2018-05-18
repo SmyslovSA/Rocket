@@ -144,8 +144,10 @@
     <Compile Include="Repositories\ReleaseList\DbMusicRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbReleaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbTVSeriesRepository.cs" />
+    <Compile Include="Repositories\UserRole\DbPermissionRepository.cs" />
+    <Compile Include="Repositories\UserRole\DbRoleRepository.cs" />
+    <Compile Include="Repositories\User\DbUserRepository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
-    <Compile Include="UoW\UoW.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

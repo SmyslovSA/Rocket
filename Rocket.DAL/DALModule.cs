@@ -3,9 +3,17 @@ using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
+using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 using Rocket.DAL.Repositories;
+using Rocket.DAL.Repositories.PersonalArea;
+using Rocket.DAL.Repositories.ReleaseList;
+using Rocket.DAL.Repositories.User;
+using Rocket.DAL.Repositories.UserRole;
 using Rocket.DAL.UoW;
 
 namespace Rocket.DAL
@@ -35,9 +43,15 @@ namespace Rocket.DAL
             Bind<IBaseRepository<PersonTypeEntity>>().To<BaseRepository<PersonTypeEntity>>();
             Bind<IBaseRepository<SeasonEntity>>().To<BaseRepository<SeasonEntity>>();
             Bind<IBaseRepository<TvSeriasEntity>>().To<BaseRepository<TvSeriasEntity>>();
+            Bind<IDbFilmRepository>().To<DbFilmRepository>();
+            Bind<IDbEmailRepository>().To<DbEmailRepository>();
+            Bind<IDbUserRepository>().To<DbUserRepository>();
+            Bind<IDbRoleRepository>().To<DbRoleRepository>();
+            Bind<IDbPermissionRepository>().To<DbPermissionRepository>();
+            Bind<IDbAuthorisedUserRepository>().To<DbAuthorisedUserRepository>();
 
             //UoW
-            Bind<IUnitOfWorkP>().To<UnitOfWork>().InSingletonScope();
+            Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
         }
     }
 }

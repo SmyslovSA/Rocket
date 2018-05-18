@@ -1,31 +1,50 @@
-﻿using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+﻿using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.Repositories.User;
 using System;
-using Rocket.DAL.Common.DbModels.Parser;
-using Rocket.DAL.Common.DbModels.ReleaseList;
-using Rocket.DAL.Common.Repositories;
-using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 
 namespace Rocket.DAL.Common.UoW
 {
     /// <summary>
-    /// Представляет общий интерфейс unit of work.
+    /// Представляет общий интерфейс unit of work
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
         /// <summary>
-        /// Возвращает репозиторий для релизов.
-        /// </summary>
-        IDbReleaseRepository ReleaseRepository { get; }
-
-        /// <summary>
-        /// Возвращает репозиторий для фильмов.
+        /// Возвращает репозиторий для фильмов
         /// </summary>
         IDbFilmRepository FilmRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для сериалов.
+        /// Возвращает репозиторий для emails.
+        /// </summary>
+        IDbEmailRepository EmailRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с пользователями.
+        /// </summary>
+        IDbUserRepository UserRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с ролями.
+        /// </summary>
+        IDbRoleRepository RoleRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с пермишенами.
+        /// </summary>
+        IDbPermissionRepository PermissionRepository { get; }
+
+        /// <summary>
+        /// Репозиотрий для работы с пользователями личного кабинета.
+        /// </summary>
+        IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+
+        /// <summary>
         /// Возвращает репозиторий для музыкального релиза
         /// </summary>
         IBaseRepository<DbMusic> MusicRepository { get; }
@@ -51,45 +70,32 @@ namespace Rocket.DAL.Common.UoW
         IBaseRepository<DbMusicGenre> MusicGenreRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для музыки.
+        /// Репозиторий музыкального трека
         /// </summary>
         IBaseRepository<DbMusicTrack> MusicTrackRepository { get; }
 
         /// <summary>
-        /// Возвращает репозиторий для юзеров.
+        /// Репозиторий музыканта
         /// </summary>
-        IDbUserRepository UserRepository { get; }
+        IBaseRepository<DbMusician> MusicianRepository { get; }
+
+        IBaseRepository<CategoryEntity> CategoryRepository { get; }
+
+        IBaseRepository<EpisodeEntity> EpisodeRepository { get; }
+
+        IBaseRepository<GenreEntity> GenreRepository { get; }
+
+        IBaseRepository<PersonEntity> PersonRepository { get; }
+
+        IBaseRepository<PersonTypeEntity> PersonTypeRepository { get; }
+
+        IBaseRepository<SeasonEntity> SeasonRepository { get; }
+
+        IBaseRepository<TvSeriasEntity> TvSeriasRepository { get; }
 
         /// <summary>
-        /// ВОзвращает репозиторий ролей.
+        /// Сохраняет изменения в хранилище данных
         /// </summary>
-        IDbRoleRepository RoleRepository { get; }
-
-        /// <summary>
-        /// Возвращает репозиторий пермишенов.
-        /// </summary>
-        IDbPermissionRepository PermissionRepository { get; }
-
-        /// <summary>
-        /// Возвращает репозиторий для emails.
-        /// </summary>
-        IDbEmailRepository EmailRepository { get; }
-
-        /// <summary>
-        /// Возвращает репозиторий для genre.
-        /// </summary>
-        IDbGenreRepository GenreRepository { get; }
-
-        /// <summary>
-        /// Возвращает репозиторий для пользователей личного кабинета.
-        /// </summary>
-        IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
-
-        IDbTVSeriesRepository TVSeriesRepository { get; }
-
-        /// <summary>
-        /// Сохраняет изменения в хранилище данных.
-        /// </summary>
-        void Save();
+        int SaveChanges();
     }
 }
