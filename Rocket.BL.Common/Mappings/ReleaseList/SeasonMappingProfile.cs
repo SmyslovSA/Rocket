@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
-using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.Parser;
 
 namespace Rocket.BL.Common.Mappings.ReleaseList
 {
@@ -11,13 +11,7 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
     {
         public SeasonMappingProfile()
         {
-            CreateMap<Season, DbSeason>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
-                .ForMember(dest => dest.PosterImagePath, opt => opt.MapFrom(src => src.PosterImagePath))
-                .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => src.Summary))
-                .ForMember(dest => dest.Episodes, opt => opt.MapFrom(src => src.Episodes))
-                .ReverseMap();
+            CreateMap<Season, SeasonEntity>().ReverseMap();
         }
     }
 }

@@ -33,8 +33,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
             FakeEpisodesData = new FakeEpisodesData();
 
             SeasonFaker = new Faker<Season>()
-                .RuleFor(m => m.Id, f => f.IndexFaker)
-                .RuleFor(m => m.Summary, f => f.Lorem.Text());
+                .RuleFor(m => m.Id, f => f.IndexFaker);
 
             Seasons = new List<Season>();
         }
@@ -49,7 +48,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         public List<Season> Generate(int count, int startSeasonNumber = 1)
         {
             SeasonFaker.RuleFor(m => m.Number, startSeasonNumber++)
-                .RuleFor(m => m.Episodes, f => FakeEpisodesData.Generate(f.Random.Number(8, 22)));
+                .RuleFor(m => m.ListEpisode, f => FakeEpisodesData.Generate(f.Random.Number(8, 22)));
             var seasons = SeasonFaker.Generate(count);
             Seasons.AddRange(seasons);
             return seasons;

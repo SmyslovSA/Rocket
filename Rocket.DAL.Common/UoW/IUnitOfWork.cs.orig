@@ -3,10 +3,13 @@ using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
+<<<<<<< HEAD
 using Rocket.DAL.Common.Repositories.Notification;
+=======
 using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.Repositories.User;
 using System;
+>>>>>>> a3460dc3318382a1ca915ca408087953cb3c0e3a
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -91,8 +94,11 @@ namespace Rocket.DAL.Common.UoW
         IBaseRepository<PersonTypeEntity> PersonTypeRepository { get; }
 
         IBaseRepository<SeasonEntity> SeasonRepository { get; }
-        
+
+        IBaseRepository<TvSeriasEntity> TvSeriasRepository { get; }
+
         /// <summary>
+<<<<<<< HEAD
         /// Возвращает репозиторий для сообщений произвольного содержания
         /// </summary>
         IDbCustomMessageRepository CustomMessageRepository { get; }
@@ -102,8 +108,6 @@ namespace Rocket.DAL.Common.UoW
         /// </summary>
         IDbEmailTemplateRepository EmailTemplateRepository { get; }
 
-        IBaseRepository<TvSeriasEntity> TvSeriasRepository { get; }
-        
         /// <summary>
         /// Возвращает репозиторий для сообщений с информацией
         /// о совершенном гостем донате
@@ -127,7 +131,10 @@ namespace Rocket.DAL.Common.UoW
         IDbUserBillingMessageRepository UserBillingMessageRepository { get; }
 
         /// <summary>
+        /// Сохраняет изменения в хранилище данных.
+=======
         /// Сохраняет изменения в хранилище данных
+>>>>>>> a3460dc3318382a1ca915ca408087953cb3c0e3a
         /// </summary>
         int SaveChanges();
     }

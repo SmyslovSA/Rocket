@@ -117,40 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="USERACCOUNTLOGINISEMPTY" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="USERACCOUNTLOGINMINLENGTH" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="USERACCOUNTPASSWORDISEMPTY" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="USERACCOUNTPASSWORDLENGHT" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="USERACCOUNTPASSWORDLOGINPARTOFSTRINGFORCOMPOSITION" xml:space="preserve">
-    <value>" символов"</value>
-  </data>
-  <data name="USERACCOUNTPASSWORDMINLENGHT" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="USEREXISTS" xml:space="preserve">
-    <value>-2</value>
-  </data>
-  <data name="USERISNOTVALID" xml:space="preserve">
-    <value>-1</value>
-  </data>
-  <data name="USERPERSONFIRSTNAMEISEMPTY" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="USERPERSONSECONDNAMEISEMPTY" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="UserRuleForFirstName" xml:space="preserve">
-    <value>"Name cannot be less than 2 characters"</value>
-  </data>
-  <data name="UserRuleForLastName" xml:space="preserve">
-    <value>"Lastname cannot be less than 2 characters"</value>
+  <data name="UserEmptyData" xml:space="preserve">
+    <value>"User data cannot be empty"</value>
   </data>
 </root>

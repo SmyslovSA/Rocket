@@ -98,7 +98,6 @@
     <Compile Include="Enums\PersonType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Notification\IDbCustomMessageRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\Notification\IDbEmailTemplateRepository.cs" />
     <Compile Include="Repositories\Notification\IDbGuestBillingMessageRepository.cs" />
     <Compile Include="Repositories\Notification\IDbReceiverRepository.cs" />
@@ -132,7 +131,6 @@
     <Compile Include="Repositories\User\IDbUserDetailsRepository.cs" />
     <Compile Include="Repositories\User\IDbUserRepository.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
-    <Compile Include="UoW\IUnitOfWorkP.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

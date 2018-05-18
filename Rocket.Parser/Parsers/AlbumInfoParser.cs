@@ -23,14 +23,14 @@ namespace Rocket.Parser.Parsers
     internal class AlbumInfoParser : IAlbumInfoParser
     {
         private readonly ILoadHtmlService _loadHtmlService;
-        private readonly IUnitOfWorkP _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Ctor
         /// </summary>
         /// <param name="loadHtmlService">Сервис загрузки HTML</param>
         /// <param name="unitOfWork">UoW</param>
-        public AlbumInfoParser(ILoadHtmlService loadHtmlService,IUnitOfWorkP unitOfWork)
+        public AlbumInfoParser(ILoadHtmlService loadHtmlService,IUnitOfWork unitOfWork)
         {
             _loadHtmlService = loadHtmlService;
             _unitOfWork = unitOfWork;

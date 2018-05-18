@@ -12,7 +12,9 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
         public MusicMappingProfile()
         {
             CreateMap<Music, DbMusic>()
-                .IncludeBase<BaseRelease, DbBaseRelease>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
                 .ForMember(dest => dest.PosterImagePath, opt => opt.MapFrom(src => src.PosterImagePath))
                 .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genres))

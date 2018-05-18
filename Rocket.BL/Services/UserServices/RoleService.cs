@@ -39,27 +39,27 @@ namespace Rocket.BL.Services.UserServices
         public Role GetById(int id)
         {
             return Mapper.Map<Role>(
-                _unitOfWork.TVSeriesRepository.GetById(id));
+                _unitOfWork.TvSeriasRepository.GetById(id));
         }
 
         public void Insert(Role role)
         {
             var dbRole = Mapper.Map<DbRole>(role);
             _unitOfWork.RoleRepository.Insert(dbRole);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         public void Update(Role role)
         {
             var dbRole = Mapper.Map<DbRole>(role);
             _unitOfWork.RoleRepository.Update(dbRole);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         public void Delete(int id)
         {
             _unitOfWork.RoleRepository.Delete(id);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
     }
 }

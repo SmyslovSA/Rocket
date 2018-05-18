@@ -99,14 +99,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
 <<<<<<< HEAD
     <Compile Include="Repositories\Notification\IDbCustomMessageRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\Notification\IDbEmailTemplateRepository.cs" />
     <Compile Include="Repositories\Notification\IDbGuestBillingMessageRepository.cs" />
     <Compile Include="Repositories\Notification\IDbReceiverRepository.cs" />
     <Compile Include="Repositories\Notification\IDbReleaseMessageRepository.cs" />
     <Compile Include="Repositories\Notification\IDbUserBillingMessageRepository.cs" />
 =======
-    <Compile Include="Repositories\IRepository.cs" />
->>>>>>> eb4e0119b1bfa7faf0c9bf3e4f568c0acb68eddc
+>>>>>>> a3460dc3318382a1ca915ca408087953cb3c0e3a
     <Compile Include="Repositories\ReleaseList\IDbCountryRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbEpisodeRepository.cs" />
     <Compile Include="Repositories\ReleaseList\IDbMusicGenreRepository.cs" />
@@ -135,7 +135,6 @@
     <Compile Include="Repositories\User\IDbUserDetailsRepository.cs" />
     <Compile Include="Repositories\User\IDbUserRepository.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />
-    <Compile Include="UoW\IUnitOfWorkP.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
