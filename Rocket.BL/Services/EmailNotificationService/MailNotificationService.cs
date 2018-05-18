@@ -1,15 +1,10 @@
-﻿using Rocket.BL.Common.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MailKit.Net.Smtp;
 using MimeKit;
-using MailKit.Net.Smtp;
+using Rocket.BL.Common.Services;
 
 namespace Rocket.BL.Services.EmailNotificationService
 {
-    class EmailNotifier : IMailNotificationService
+    public class MailNotificationService : IMailNotificationService
     {
         void IMailNotificationService.NotifyAboutRelease(int id)
         {
@@ -17,7 +12,7 @@ namespace Rocket.BL.Services.EmailNotificationService
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("rocket.team.mail.service@gmail.com"));
-            message.To.Add(new MailboxAddress(""/*todo Достать адреса*/));
+            message.To.Add(new MailboxAddress(string.Empty/*todo Достать адреса*/));
             message.Subject = "Release information";
             var bodyBuilder = new BodyBuilder();
 
@@ -33,14 +28,13 @@ namespace Rocket.BL.Services.EmailNotificationService
             }
         }
 
-
         void IMailNotificationService.SendBillingPremium(int id)
         {
             var htmlStringBuilder = new HtmlStringBuilder();
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("rocket.team.mail.service@gmail.com"));
-            message.To.Add(new MailboxAddress(""/*todo Достать адреса*/));
+            message.To.Add(new MailboxAddress(string.Empty/*todo Достать адреса*/));
             message.Subject = "Billing information";
             var bodyBuilder = new BodyBuilder();
 
@@ -62,7 +56,7 @@ namespace Rocket.BL.Services.EmailNotificationService
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("rocket.team.mail.service@gmail.com"));
-            message.To.Add(new MailboxAddress(""/*todo Достать адреса*/));
+            message.To.Add(new MailboxAddress(string.Empty/*todo Достать адреса*/));
             message.Subject = "Billing user information";
             var bodyBuilder = new BodyBuilder();
 
@@ -84,7 +78,7 @@ namespace Rocket.BL.Services.EmailNotificationService
             //todo добавить ссылку для регистрации аккаунта в кастомный шаблон
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("rocket.team.mail.service@gmail.com"));
-            message.To.Add(new MailboxAddress(name ,email));
+            message.To.Add(new MailboxAddress(name, email));
             message.Subject = "Billing information";
             var bodyBuilder = new BodyBuilder();
 
@@ -106,7 +100,7 @@ namespace Rocket.BL.Services.EmailNotificationService
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("rocket.team.mail.service@gmail.com"));
-            message.To.Add(new MailboxAddress(""/*todo Достать адреса*/));
+            message.To.Add(new MailboxAddress(string.Empty/*todo Достать адреса*/));
             message.Subject = "Billing user information";
             var bodyBuilder = new BodyBuilder();
 
