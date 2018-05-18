@@ -274,6 +274,10 @@
       <Project>{4383C0FF-4C4A-4C42-BB46-5A5137E5E7AD}</Project>
       <Name>Rocket.DAL.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rocket.DAL\Rocket.DAL.csproj">
+      <Project>{67c097cc-75da-45ad-95d9-595ccf0a1063}</Project>
+      <Name>Rocket.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
