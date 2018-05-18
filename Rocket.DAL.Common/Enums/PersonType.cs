@@ -1,23 +1,33 @@
 ﻿namespace Rocket.DAL.Common.Enums
 {
     /// <summary>
-    /// Код категории.
+    /// Типы персон.
     /// </summary>
-    public enum CategoryCode
+    public enum PersonType
     {
         /// <summary>
-        /// Сериал
+        /// Актер
         /// </summary>
-        TvSeria = 1,
+        Actor = 1,
 
         /// <summary>
-        /// Фильм
+        /// Режисер
         /// </summary>
-        Film = 2,
+        Director = 2,
 
         /// <summary>
-        /// Музыка
+        /// Продюссер
         /// </summary>
-        Music = 3
+        Producer = 3,
+
+        /// <summary>
+        /// Сценарист
+        /// </summary>
+        Writer = 4,
+
+        /// <summary>
+        /// Музыкант
+        /// </summary>
+        Musician = 5
     }
 }
