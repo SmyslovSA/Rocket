@@ -1,5 +1,5 @@
 ﻿using Ninject.Modules;
-using Rocket.DAL.Common.DbModels;
+using Ninject.Web.Common;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
@@ -26,7 +26,7 @@ namespace Rocket.DAL
         public override void Load()
         {
             //контекст
-            Bind<RocketContext>().ToMethod(ctx => new RocketContext()).InSingletonScope();
+            Bind<RocketContext>().ToSelf().InRequestScope();
 
             //репозитарии
             Bind<IBaseRepository<ResourceEntity>>().To<BaseRepository<ResourceEntity>>();
@@ -51,7 +51,7 @@ namespace Rocket.DAL
             Bind<IDbAuthorisedUserRepository>().To<DbAuthorisedUserRepository>();
 
             //UoW
-            Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
+            Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }
