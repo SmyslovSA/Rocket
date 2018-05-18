@@ -3,7 +3,7 @@ using Rocket.DAL.Common.DbModels.Notification;
 
 namespace Rocket.DAL.Configurations.Notification
 {
-    public class EmailTemplateConfiguration: EntityTypeConfiguration<DbEmailTemplate>
+    public class EmailTemplateConfiguration : EntityTypeConfiguration<DbEmailTemplate>
     {
         public EmailTemplateConfiguration()
         {

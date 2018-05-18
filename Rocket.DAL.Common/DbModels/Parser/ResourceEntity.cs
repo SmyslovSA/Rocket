@@ -41,6 +41,5 @@ namespace Rocket.DAL.Common.DbModels.Parser
         /// Коллекция элементов ресурса
         /// </summary>
         public ICollection<ResourceItemEntity> ResourceItems { get; set; }
-
     }
 }
