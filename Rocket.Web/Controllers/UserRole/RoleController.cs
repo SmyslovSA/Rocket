@@ -2,7 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Results;
 using Rocket.BL.Common.Models.UserRoles;
-using Rocket.BL.Services.UserServices;
+using Rocket.BL.Common.Services;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Rocket.Web.Controllers.UserRole

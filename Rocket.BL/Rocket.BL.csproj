@@ -83,8 +83,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\UserServices\IRoleService.cs" />
-    <Compile Include="Services\UserServices\IUserRoleManager.cs" />
     <Compile Include="Services\UserServices\PermissionManagerService.cs" />
     <Compile Include="Services\UserServices\UserRoleManager.cs" />
     <Compile Include="Services\UserServices\RoleService.cs" />

@@ -2,6 +2,7 @@
 using Rocket.DAL.Common.UoW;
 using System.Collections.Generic;
 using System.Linq;
+using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.BL.Services.UserServices
