@@ -62,7 +62,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <param name="filmsCount">Необходимое количество сгенерированных фильмов</param>
         public FakeDbFilmsData(int personsCount, int countriesCount, int genresCount, int filmsCount)
         {
-            var fakePersonsData = new FakeDbPersonsData(personsCount);
+            var fakePersonsData = new FakePersonEntitiesData(personsCount);
             PersonFaker = fakePersonsData.PersonFaker;
             Persons = fakePersonsData.Persons;
 

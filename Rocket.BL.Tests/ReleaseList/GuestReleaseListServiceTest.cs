@@ -36,8 +36,8 @@ namespace Rocket.BL.Tests.ReleaseList
             Mapper.Reset();
             Mapper.Initialize(cfg => { cfg.AddProfiles("Rocket.BL.Common"); });
             _fakeDbReleases = new List<DbBaseRelease>(new FakeDbFilmsData(100, 10, 10, FakeCount).Films);
-            _fakeDbReleases.AddRange(new FakeDbTVSerialsData(100, 10, 10, FakeCount).FakeDbSeasonsData
-                .FakeDbEpisodesData.Episodes);
+            _fakeDbReleases.AddRange(new FakeTvSeriesEntitiesData(100, 10, 10, FakeCount).FakeDbSeasonsData
+                .FakeEpisodeEntitiesData.Episodes);
             //_fakeDbReleases.AddRange(new FakeDbMusicData(100, 10, FakeCount).Music); //todo  - закоментил, не знаю в чем дело
 
             var mockDbReleaseRepository = new Mock<IDbReleaseRepository>();

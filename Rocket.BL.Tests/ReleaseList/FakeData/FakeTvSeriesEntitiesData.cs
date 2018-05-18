@@ -2,6 +2,7 @@
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using System.Collections.Generic;
 using System.Linq;
+using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.BL.Tests.ReleaseList.FakeData
@@ -10,65 +11,54 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     /// Представляет набор сгенерированных данных о сериалах,
     /// в моделях хранения данных
     /// </summary>
-    public class FakeDbTVSerialsData
+    public class FakeTvSeriesEntitiesData
     {
         /// <summary>
         /// Возвращает набор сгенерированных данных о сезонах
         /// </summary>
-        public FakeDbSeasonsData FakeDbSeasonsData { get; }
+        public FakeSeasonEntitiesData FakeSeasonEntitiesData { get; }
 
         /// <summary>
         /// Возвращает генератор данных о людях
         /// </summary>
-        public Faker<DbPerson> PersonFaker { get; }
-
-        /// <summary>
-        /// Возвращает генератор данных о странах
-        /// </summary>
-        public Faker<DbCountry> CountryFaker { get; }
+        public Faker<PersonEntity> PersonFaker { get; }
 
         /// <summary>
         /// Возвращает генератор данных о жанрах видео
         /// </summary>
-        public Faker<DbVideoGenre> VideoGenreFaker { get; }
+        public Faker<GenreEntity> GenreFaker { get; }
 
         /// <summary>
         /// Возвращает генератор данных о сериалах
         /// </summary>
-        public Faker<DbTVSeries> TVSeriesFaker { get; }
+        public Faker<TvSeriasEntity> TVSeriesFaker { get; }
 
         /// <summary>
         /// Возвращает коллекцию сгенерированных людей
         /// </summary>
-        public List<DbPerson> Persons { get; }
-
-        /// <summary>
-        /// Возвращает коллекцию сгенерированных стран
-        /// </summary>
-        public List<DbCountry> Countries { get; }
+        public List<PersonEntity> Persons { get; }
 
         /// <summary>
         /// Возвращает коллекцию сгенерированных жанров видео
         /// </summary>
-        public List<DbVideoGenre> VideoGenres { get; }
+        public List<GenreEntity> Genres { get; }
 
         /// <summary>
         /// Возвращает коллекцию сгенерированных сериалов
         /// </summary>
-        public List<DbTVSeries> TVSerials { get; }
+        public List<TvSeriasEntity> TVSerials { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о сериалах
         /// </summary>
         /// <param name="personsCount">Необходимое количество сгенерированных людей</param>
-        /// <param name="countriesCount">Необходимое количество сгенерированных стран</param>
         /// <param name="genresCount">Необходимое количество сгенерированных жанров видео</param>
         /// <param name="tvSerialsCount">Необходимое количество сгенерированных сериалах</param>
-        public FakeDbTVSerialsData(int personsCount, int countriesCount, int genresCount, int tvSerialsCount)
+        public FakeTvSeriesEntitiesData(int personsCount, int genresCount, int tvSerialsCount)
         {
-            FakeDbSeasonsData = new FakeDbSeasonsData();
+            FakeSeasonEntitiesData = new FakeSeasonEntitiesData();
 
-            var fakePersonsData = new FakeDbPersonsData(personsCount);
+            var fakePersonsData = new FakePersonEntitiesData(personsCount);
             PersonFaker = fakePersonsData.PersonFaker;
             Persons = fakePersonsData.Persons;
 
@@ -77,15 +67,15 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
             Countries = fakeCountriesData.Countries;
 
             var fakeVideoGenresData = new FakeDbVideoGenresData(genresCount);
-            VideoGenreFaker = fakeVideoGenresData.VideoGenreFaker;
-            VideoGenres = fakeVideoGenresData.VideoGenres;
+            GenreFaker = fakeVideoGenresData.VideoGenreFaker;
+            Genres = fakeVideoGenresData.VideoGenres;
 
             TVSeriesFaker = new Faker<DbTVSeries>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
                 .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
                 .RuleFor(m => m.Directors, f => f.PickRandom(Persons, f.Random.Number(1, 3)).ToList())
                 .RuleFor(m => m.Cast, f => f.PickRandom(Persons, f.Random.Number(2, 12)).ToList())
-                .RuleFor(m => m.Genres, f => f.PickRandom(VideoGenres, f.Random.Number(1, 3)).ToList())
+                .RuleFor(m => m.Genres, f => f.PickRandom(Genres, f.Random.Number(1, 3)).ToList())
                 .RuleFor(m => m.Countries, f => f.PickRandom(Countries, f.Random.Number(1, 3)).ToList())
                 .RuleFor(m => m.Summary, f => f.Lorem.Text())
                 .RuleFor(m => m.DbSeasons, f => FakeDbSeasonsData.Generate(f.Random.Number(1, 13)));
