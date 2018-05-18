@@ -7,7 +7,7 @@ namespace Rocket.DAL.Repositories.Notification
     /// <summary>
     /// Представляет репозиторий для сообщений с информацией о совершенном гостем донате
     /// </summary>
-    class DbGuestBillingMessageRepository : BaseRepository<DbGuestBillingMessage>, IDbGuestBillingMessageRepository
+    public class DbGuestBillingMessageRepository : BaseRepository<DbGuestBillingMessage>, IDbGuestBillingMessageRepository
     {
         /// <summary>
         /// Создает новый экземпляр репозитория для сообщений с информацией о совершенном гостем донате
