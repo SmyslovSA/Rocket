@@ -1,11 +1,19 @@
 ﻿using Ninject.Modules;
-using Rocket.DAL.Common.DbModels;
+using Ninject.Web.Common;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
+using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
+using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
+using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 using Rocket.DAL.Repositories;
+using Rocket.DAL.Repositories.PersonalArea;
+using Rocket.DAL.Repositories.ReleaseList;
+using Rocket.DAL.Repositories.User;
+using Rocket.DAL.Repositories.UserRole;
 using Rocket.DAL.UoW;
 
 namespace Rocket.DAL
@@ -18,26 +26,32 @@ namespace Rocket.DAL
         public override void Load()
         {
             //контекст
-            Bind<RocketContext>().ToMethod(ctx => new RocketContext()).InSingletonScope();
+            Bind<RocketContext>().ToSelf().InRequestScope();
 
             //репозитарии
-            Bind<IRepository<ResourceEntity>>().To<Repository<ResourceEntity>>();
-            Bind<IRepository<ParserSettingsEntity>>().To<Repository<ParserSettingsEntity>>();
-            Bind<IRepository<ResourceItemEntity>>().To<Repository<ResourceItemEntity>>();
-            Bind<IRepository<DbMusic>>().To<Repository<DbMusic>>();
-            Bind<IRepository<DbMusicGenre>>().To<Repository<DbMusicGenre>>();
-            Bind<IRepository<DbMusicTrack>>().To<Repository<DbMusicTrack>>();
-            Bind<IRepository<DbMusician>>().To<Repository<DbMusician>>();
-            Bind<IRepository<CategoryEntity>>().To<Repository<CategoryEntity>>();
-            Bind<IRepository<EpisodeEntity>>().To<Repository<EpisodeEntity>>();
-            Bind<IRepository<GenreEntity>>().To<Repository<GenreEntity>>();
-            Bind<IRepository<PersonEntity>>().To<Repository<PersonEntity>>();
-            Bind<IRepository<PersonTypeEntity>>().To<Repository<PersonTypeEntity>>();
-            Bind<IRepository<SeasonEntity>>().To<Repository<SeasonEntity>>();
-            Bind<IRepository<TvSeriasEntity>>().To<Repository<TvSeriasEntity>>();
+            Bind<IBaseRepository<ResourceEntity>>().To<BaseRepository<ResourceEntity>>();
+            Bind<IBaseRepository<ParserSettingsEntity>>().To<BaseRepository<ParserSettingsEntity>>();
+            Bind<IBaseRepository<ResourceItemEntity>>().To<BaseRepository<ResourceItemEntity>>();
+            Bind<IBaseRepository<DbMusic>>().To<BaseRepository<DbMusic>>();
+            Bind<IBaseRepository<DbMusicGenre>>().To<BaseRepository<DbMusicGenre>>();
+            Bind<IBaseRepository<DbMusicTrack>>().To<BaseRepository<DbMusicTrack>>();
+            Bind<IBaseRepository<DbMusician>>().To<BaseRepository<DbMusician>>();
+            Bind<IBaseRepository<CategoryEntity>>().To<BaseRepository<CategoryEntity>>();
+            Bind<IBaseRepository<EpisodeEntity>>().To<BaseRepository<EpisodeEntity>>();
+            Bind<IBaseRepository<GenreEntity>>().To<BaseRepository<GenreEntity>>();
+            Bind<IBaseRepository<PersonEntity>>().To<BaseRepository<PersonEntity>>();
+            Bind<IBaseRepository<PersonTypeEntity>>().To<BaseRepository<PersonTypeEntity>>();
+            Bind<IBaseRepository<SeasonEntity>>().To<BaseRepository<SeasonEntity>>();
+            Bind<IBaseRepository<TvSeriasEntity>>().To<BaseRepository<TvSeriasEntity>>();
+            Bind<IDbFilmRepository>().To<DbFilmRepository>();
+            Bind<IDbEmailRepository>().To<DbEmailRepository>();
+            Bind<IDbUserRepository>().To<DbUserRepository>();
+            Bind<IDbRoleRepository>().To<DbRoleRepository>();
+            Bind<IDbPermissionRepository>().To<DbPermissionRepository>();
+            Bind<IDbAuthorisedUserRepository>().To<DbAuthorisedUserRepository>();
 
             //UoW
-            Bind<IUnitOfWorkP>().To<UnitOfWork>().InSingletonScope();
+            Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }

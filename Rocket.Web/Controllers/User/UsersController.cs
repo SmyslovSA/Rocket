@@ -9,7 +9,7 @@ namespace Rocket.Web.Controllers.User
     /// <summary>
     /// Контроллер WebApi работы с пользователями.
     /// </summary>
-    [RoutePrefix("/users")]
+    [RoutePrefix("users")]
     public class UsersController : ApiController
     {
         private readonly IUserManagementService _userManagementService;

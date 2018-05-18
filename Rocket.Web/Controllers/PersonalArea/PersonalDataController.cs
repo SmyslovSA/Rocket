@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Rocket.BL.Common.Models.PersonalArea;
 using Rocket.BL.Common.Services.PersonalArea;
+using Rocket.Web.Properties;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
@@ -22,7 +23,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         {
             if (user == null)
             {
-                return BadRequest("User data cannot be empty");
+                return BadRequest(Resources.UserEmptyData);
             }
 
             try
@@ -37,24 +38,6 @@ namespace Rocket.Web.Controllers.PersonalArea
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
 
-        [HttpPut]
-        public IHttpActionResult UpdateUserPassword(SimpleUser user, string password, string passwordConfirm)
-        {
-            if (user == null)
-            {
-                return BadRequest("User data cannot be empty");
-            }
-
-            try
-            {
-                _ipersonaldata.ChangePasswordData(user, password, passwordConfirm);
-            }
-            catch (ValidationException exception)
-            {
-                return BadRequest(exception.Message);
-            }
-
-            return new StatusCodeResult(HttpStatusCode.NoContent, Request);
-        }
+       
     }
 }
