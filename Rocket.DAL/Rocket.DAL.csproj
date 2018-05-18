@@ -140,6 +140,10 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\Notification\DbCustomMessageRepository.cs" />
     <Compile Include="Repositories\Notification\DbEmailTemplateRepository.cs" />
+    <Compile Include="Repositories\Notification\DbGuestBillingMessageRepository.cs" />
+    <Compile Include="Repositories\Notification\DbReceiverRepository.cs" />
+    <Compile Include="Repositories\Notification\DbReleaseMessageRepository.cs" />
+    <Compile Include="Repositories\Notification\DbUserBillingMessageRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbAuthorisedUserRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbCategoryRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbEmailRepository.cs" />
