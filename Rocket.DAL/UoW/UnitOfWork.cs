@@ -8,6 +8,7 @@ using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 using System;
+using Rocket.DAL.Common.Repositories.Notification;
 
 namespace Rocket.DAL.UoW
 {
@@ -40,6 +41,12 @@ namespace Rocket.DAL.UoW
         /// <param name="dbRoleRepository">Репозиторий ролей</param>
         /// <param name="dbPermissionRepository">Репозиторий разрешений</param>
         /// <param name="dbAuthorisedUserRepository">Репозиторий авторизованных пользователей</param>
+        /// <param name="dbCustomMessageRepository">Репозиторий сообщений произвольного содержания</param>
+        /// <param name="dbEmailTemplateRepository">Репозиторий шаблонов email сообщений</param>
+        /// <param name="dbGuestBillingMessageRepository">Репозиторий донатов гостя</param>
+        /// <param name="dbReceiverRepository">Репозиторий получателей нотификации</param>
+        /// <param name="dbReleaseMessageRepository">Репозиторий сообщений о релизе</param>
+        /// <param name="dbUserBillingMessageRepository">Репозиторий сообщений о платежах пользователя</param>
         public UnitOfWork(RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
             IBaseRepository<ParserSettingsEntity> parserSettingsRepository,
@@ -60,7 +67,13 @@ namespace Rocket.DAL.UoW
             IDbUserRepository dbUserRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
-            IDbAuthorisedUserRepository dbAuthorisedUserRepository
+            IDbAuthorisedUserRepository dbAuthorisedUserRepository,
+            IDbCustomMessageRepository dbCustomMessageRepository,
+            IDbEmailTemplateRepository dbEmailTemplateRepository,
+            IDbGuestBillingMessageRepository dbGuestBillingMessageRepository,
+            IDbReceiverRepository dbReceiverRepository,
+            IDbReleaseMessageRepository dbReleaseMessageRepository,
+            IDbUserBillingMessageRepository dbUserBillingMessageRepository
             )
         {
             _rocketContext = rocketContext;
@@ -84,6 +97,12 @@ namespace Rocket.DAL.UoW
             RoleRepository = dbRoleRepository;
             PermissionRepository = dbPermissionRepository;
             UserAuthorisedRepository = dbAuthorisedUserRepository;
+            CustomMessageRepository = dbCustomMessageRepository;
+            EmailTemplateRepository = dbEmailTemplateRepository;
+            GuestBillingMessageRepository = dbGuestBillingMessageRepository;
+            ReceiverRepository = dbReceiverRepository;
+            ReleaseMessageRepository = dbReleaseMessageRepository;
+            UserBillingMessageRepository = dbUserBillingMessageRepository;
         }
 
         ~UnitOfWork()
@@ -172,6 +191,36 @@ namespace Rocket.DAL.UoW
         /// Репозиотрий для работы с пользователями личного кабинета.
         /// </summary>
         public IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для сообщений произвольного содержания
+        /// </summary>
+        public IDbCustomMessageRepository CustomMessageRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий шаблонов email сообщений
+        /// </summary>
+        public IDbEmailTemplateRepository EmailTemplateRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий донатов гостя
+        /// </summary>
+        public IDbGuestBillingMessageRepository GuestBillingMessageRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий получателей нотификации
+        /// </summary>
+        public IDbReceiverRepository ReceiverRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий сообщений о релизе
+        /// </summary>
+        public IDbReleaseMessageRepository ReleaseMessageRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий сообщений о платежах пользователя
+        /// </summary>
+        public IDbUserBillingMessageRepository UserBillingMessageRepository { get; }
 
         /// <summary>
         /// Освобождает управляемые ресурсы.
