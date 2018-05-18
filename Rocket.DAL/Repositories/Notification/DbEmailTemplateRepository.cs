@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.Repositories.Notification;
+using Rocket.DAL.Context;
 
 namespace Rocket.DAL.Repositories.Notification
 {
@@ -14,7 +15,7 @@ namespace Rocket.DAL.Repositories.Notification
         /// с заданным контекстом базы данных
         /// </summary>
         /// <param name="dbContext">Экземпляр контекста базы данных</param>
-        public DbEmailTemplateRepository(DbContext dbContext)
+        public DbEmailTemplateRepository(RocketContext dbContext)
             : base(dbContext)
         {
         }
