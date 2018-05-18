@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using Rocket.BL.Common.Models.User;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Services.UserServices;
 
@@ -8,9 +7,9 @@ namespace Rocket.Web.Controllers.UserRole
     [RoutePrefix("user/role")]
     public class RoleManagerController : ApiController
     {
-        private readonly UserRoleManager _roleManager;
+        private readonly IUserRoleManager _roleManager;
 
-        public RoleManagerController(UserRoleManager roleManager)
+        public RoleManagerController(IUserRoleManager roleManager)
         {
             _roleManager = roleManager;
         }
@@ -31,13 +30,13 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpGet]
         [Route("list")]
-        public IHttpActionResult GetRoles([FromBody]User user)
+        public IHttpActionResult GetRoles(int userId)
         {
             return Ok();
         }
 
         [HttpGet]
-        public IHttpActionResult IsInRole([FromBody]User user, [FromBody]Role role)
+        public IHttpActionResult IsInRole(int userId, int roleId)
         {
             return Ok();
         }

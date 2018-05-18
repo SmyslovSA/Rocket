@@ -6,7 +6,7 @@ using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.BL.Services.UserServices
 {
-    public class UserRoleManager : BaseService
+    public class UserRoleManager : BaseService, IUserRoleManager
     {
         public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
         {

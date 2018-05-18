@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 
-namespace Rocket.BL.Common.Services
+namespace Rocket.BL.Services.UserServices
 {
-    public interface IRoleService : IDisposable
+    public interface IRoleService
     {
         /// <summary>
         /// Удаляем модель по Id

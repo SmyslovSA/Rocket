@@ -1,6 +1,4 @@
-﻿using Rocket.BL.Common.Models.UserRoles;
-
-namespace Rocket.BL.Common.Services
+﻿namespace Rocket.BL.Common.Services
 {
     public interface IPermissionService
     {
