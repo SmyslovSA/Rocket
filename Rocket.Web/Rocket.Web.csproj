@@ -213,6 +213,7 @@
     <Compile Include="Controllers\PersonalArea\ChangeGenreManagerServiceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonalArea\ChangePersonalDataController.cs" />
+    <Compile Include="Controllers\UserRole\PermissionController.cs" />
     <Compile Include="Controllers\UserRole\RoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
