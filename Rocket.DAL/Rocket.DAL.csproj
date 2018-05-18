@@ -104,7 +104,6 @@
     <Compile Include="Configurations\ReleaseList\DbEpisodeConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbFilmConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbGenreConfiguration.cs" />
-    <Compile Include="Configurations\PersonalArea\DbUserConfiguration.cs" />
     <Compile Include="Configurations\ParserSettingsMap.cs" />
     <Compile Include="Configurations\ResourceItemMap.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicConfiguration.cs" />
