@@ -3,7 +3,7 @@
     /// <summary>
     /// Представляет информацию о жанре фильма или сериала
     /// </summary>
-    public class VideoGenre
+    public class Genre
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификатор жанра

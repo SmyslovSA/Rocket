@@ -28,7 +28,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         {
             MusicTrackFaker = new Faker<DbMusicTrack>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
-                .RuleFor(m => m.Number, f => f.IndexVariable++)
+                //.RuleFor(m => m.Number, f => f.IndexVariable++)
                 .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
                 .RuleFor(m => m.Duration, f => f.Date.Timespan(new TimeSpan(1, 0, 0)));
 
@@ -44,7 +44,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <returns>Коллекция музыкальных треков</returns>
         public List<DbMusicTrack> Generate(int count, int startMusicTrackNumber = 1)
         {
-            MusicTrackFaker.RuleFor(m => m.Number, startMusicTrackNumber++);
+            //MusicTrackFaker.RuleFor(m => m.Number, startMusicTrackNumber++);
             var musicTrack = MusicTrackFaker.Generate(count);
             MusicTrack.AddRange(musicTrack);
             return musicTrack;

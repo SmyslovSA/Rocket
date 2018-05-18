@@ -34,7 +34,7 @@ namespace Rocket.BL.Services.UserServices
 
             dbUser.Roles.Add(dbRole);
 
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         public virtual bool RemoveFromRole(int userId, int roleId)
@@ -51,7 +51,7 @@ namespace Rocket.BL.Services.UserServices
 
             dbUser.Roles.Remove(dbRole);
 
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
             return true;
         }
 

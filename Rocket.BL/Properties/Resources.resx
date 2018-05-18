@@ -147,4 +147,10 @@
   <data name="USERPERSONSECONDNAMEISEMPTY" xml:space="preserve">
     <value>Test</value>
   </data>
+  <data name="UserRuleForFirstName" xml:space="preserve">
+    <value>"Name cannot be less than 2 characters"</value>
+  </data>
+  <data name="UserRuleForLastName" xml:space="preserve">
+    <value>"Lastname cannot be less than 2 characters"</value>
+  </data>
 </root>

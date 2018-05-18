@@ -65,6 +65,9 @@
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -104,7 +107,6 @@
     <Compile Include="Configurations\ReleaseList\DbEpisodeConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbFilmConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbGenreConfiguration.cs" />
-    <Compile Include="Configurations\PersonalArea\DbUserConfiguration.cs" />
     <Compile Include="Configurations\ParserSettingsMap.cs" />
     <Compile Include="Configurations\ResourceItemMap.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicConfiguration.cs" />
@@ -130,6 +132,10 @@
     <Compile Include="Migrations\201805171728294_InitializeDateForParsers.Designer.cs">
       <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805171922023_UpdByParser.cs" />
+    <Compile Include="Migrations\201805171922023_UpdByParser.Designer.cs">
+      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -141,9 +147,10 @@
     <Compile Include="Repositories\ReleaseList\DbMusicRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbReleaseRepository.cs" />
     <Compile Include="Repositories\ReleaseList\DbTVSeriesRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UserRole\DbPermissionRepository.cs" />
+    <Compile Include="Repositories\UserRole\DbRoleRepository.cs" />
+    <Compile Include="Repositories\User\DbUserRepository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
-    <Compile Include="UoW\UoW.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -169,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171728294_InitializeDateForParsers.resx">
       <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805171922023_UpdByParser.resx">
+      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

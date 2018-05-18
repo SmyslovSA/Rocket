@@ -46,7 +46,7 @@ namespace Rocket.BL.Services.ReleaseList
         {
             var dbFilm = Mapper.Map<DbFilm>(film);
             _unitOfWork.FilmRepository.Insert(dbFilm);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
             return dbFilm.Id;
         }
 
@@ -58,7 +58,7 @@ namespace Rocket.BL.Services.ReleaseList
         {
             var dbFilm = Mapper.Map<DbFilm>(film);
             _unitOfWork.FilmRepository.Update(dbFilm);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Rocket.BL.Services.ReleaseList
         public void DeleteFilm(int id)
         {
             _unitOfWork.FilmRepository.Delete(id);
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         /// <summary>

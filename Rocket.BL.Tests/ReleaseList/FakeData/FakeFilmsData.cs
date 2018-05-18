@@ -25,7 +25,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <summary>
         /// Возвращает генератор данных о жанрах видео
         /// </summary>
-        public Faker<VideoGenre> VideoGenreFaker { get; }
+        public Faker<Genre> VideoGenreFaker { get; }
 
         /// <summary>
         /// Возвращает генератор данных о фильмах
@@ -45,7 +45,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных жанров видео
         /// </summary>
-        public List<VideoGenre> VideoGenres { get; }
+        public List<Genre> VideoGenres { get; }
 
         /// <summary>
         /// Возвращает коллекцию сгенерированных фильмов

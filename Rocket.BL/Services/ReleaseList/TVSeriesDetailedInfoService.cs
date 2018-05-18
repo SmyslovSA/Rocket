@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
 using Rocket.BL.Common.Services.ReleaseList;
+using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.UoW;
 
@@ -96,7 +97,7 @@ namespace Rocket.BL.Services.ReleaseList
         public TVSeries GetTVSeries(int id)
         {
             return Mapper.Map<TVSeries>(
-                _unitOfWork.TVSeriesRepository.GetById(id));
+                _unitOfWork.TvSeriasRepository.GetById(id));
         }
 
         /// <summary>
@@ -107,9 +108,9 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Идентификатор сериала</returns>
         public int AddTVSeries(TVSeries tvSeries)
         {
-            var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
-            _unitOfWork.TVSeriesRepository.Insert(dbTVSeries);
-            _unitOfWork.Save();
+            var dbTVSeries = Mapper.Map<TvSeriasEntity>(tvSeries);
+            _unitOfWork.TvSeriasRepository.Insert(dbTVSeries);
+            _unitOfWork.SaveChanges();
             return dbTVSeries.Id;
         }
 
@@ -119,21 +120,21 @@ namespace Rocket.BL.Services.ReleaseList
         /// <param name="tvSeries">Экземпляр сериала для обновления</param>
         public void UpdateTVSeries(TVSeries tvSeries)
         {
-            var dbTVSeries = Mapper.Map<DbTVSeries>(tvSeries);
-            _unitOfWork.TVSeriesRepository.Update(dbTVSeries);
-            _unitOfWork.Save();
+            var dbTVSeries = Mapper.Map<TvSeriasEntity>(tvSeries);
+            _unitOfWork.TvSeriasRepository.Update(dbTVSeries);
+            _unitOfWork.SaveChanges();
         }
 
         public void DeleteTVSeries(int id)
         {
-            _unitOfWork.TVSeriesRepository.Delete(id);
-            _unitOfWork.Save();
+            _unitOfWork.TvSeriasRepository.Delete(id);
+            _unitOfWork.SaveChanges();
         }
 
         public bool TVSeriesExists(Expression<Func<TVSeries, bool>> filter)
         {
-            return _unitOfWork.TVSeriesRepository.Get(
-                           Mapper.Map<Expression<Func<DbTVSeries, bool>>>(filter))
+            return _unitOfWork.TvSeriasRepository.Get(
+                           Mapper.Map<Expression<Func<TvSeriasEntity, bool>>>(filter))
                        .FirstOrDefault() != null;
         }
     }
