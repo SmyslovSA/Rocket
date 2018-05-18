@@ -1,25 +1,25 @@
-﻿using FluentValidation;
-using Rocket.BL.Common.Models.PersonalArea;
+﻿using Rocket.BL.Common.Models.PersonalArea;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.Web.Properties;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
-    [RoutePrefix("personal/user/info")]
-    public class ChangePersonalDataController : ApiController
+    [RoutePrefix("personal/user/password")]
+    public class ChangePasswordController : ApiController
     {
         private IPersonalData _ipersonaldata;
 
-        public ChangePersonalDataController(IPersonalData personalData)
+        public ChangePasswordController(IPersonalData personalData)
         {
             _ipersonaldata = personalData;
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateUserPersonalData(SimpleUser user)
+        public IHttpActionResult UpdateUserPassword(SimpleUser user, string password, string passwordConfirm)
         {
             if (user == null)
             {
@@ -28,7 +28,7 @@ namespace Rocket.Web.Controllers.PersonalArea
 
             try
             {
-                _ipersonaldata.ChangePersonalData(user);
+                _ipersonaldata.ChangePasswordData(user, password, passwordConfirm);
             }
             catch (ValidationException exception)
             {
@@ -37,7 +37,5 @@ namespace Rocket.Web.Controllers.PersonalArea
 
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
-
-       
     }
 }
