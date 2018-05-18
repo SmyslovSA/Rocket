@@ -29,7 +29,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <summary>
         /// Возвращает генератор данных о жанрах видео
         /// </summary>
-        public Faker<VideoGenre> VideoGenreFaker { get; }
+        public Faker<Genre> VideoGenreFaker { get; }
 
         /// <summary>
         /// Возвращает генератор данных о сериалах
@@ -49,7 +49,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных жанров видео
         /// </summary>
-        public List<VideoGenre> VideoGenres { get; }
+        public List<Genre> VideoGenres { get; }
 
         /// <summary>
         /// Возвращает коллекцию сгенерированных сериалов
@@ -81,13 +81,11 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
 
             TVSeriesFaker = new Faker<TVSeries>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
-                .RuleFor(m => m.Title, f => string.Join(" ", f.Lorem.Words(2)))
-                .RuleFor(m => m.Directors, f => f.PickRandom(Persons, f.Random.Number(1, 3)).ToList())
-                .RuleFor(m => m.Cast, f => f.PickRandom(Persons, f.Random.Number(2, 12)).ToList())
+                .RuleFor(m => m.TitleRu, f => string.Join(" ", f.Lorem.Words(2)))
+                .RuleFor(m => m.ListPerson, f => f.PickRandom(Persons, f.Random.Number(2, 12)).ToList())
                 .RuleFor(m => m.Genres, f => f.PickRandom(VideoGenres, f.Random.Number(1, 3)).ToList())
-                .RuleFor(m => m.Countries, f => f.PickRandom(Countries, f.Random.Number(1, 3)).ToList())
                 .RuleFor(m => m.Summary, f => f.Lorem.Text())
-                .RuleFor(m => m.Seasons, f => FakeSeasonsData.Generate(f.Random.Number(1, 13)));
+                .RuleFor(m => m.ListSeasons, f => FakeSeasonsData.Generate(f.Random.Number(1, 13)));
 
             TVSerials = TVSeriesFaker.Generate(tvSerialsCount);
         }

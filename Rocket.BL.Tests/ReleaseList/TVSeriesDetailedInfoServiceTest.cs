@@ -70,13 +70,9 @@ namespace Rocket.BL.Tests.ReleaseList
 
             actualTVSeries.Should().BeEquivalentTo(expectedTVSeries,
                 options => options.ExcludingMissingMembers());
-            actualTVSeries.Directors.Should().BeEquivalentTo(expectedTVSeries.Directors,
-                options => options.ExcludingMissingMembers());
-            actualTVSeries.Cast.Should().BeEquivalentTo(expectedTVSeries.Cast,
+            actualTVSeries.ListPerson.Should().BeEquivalentTo(expectedTVSeries.Cast,
                 options => options.ExcludingMissingMembers());
             actualTVSeries.Genres.Should().BeEquivalentTo(expectedTVSeries.Genres,
-                options => options.ExcludingMissingMembers());
-            actualTVSeries.Countries.Should().BeEquivalentTo(expectedTVSeries.Countries,
                 options => options.ExcludingMissingMembers());
         }
 
@@ -117,12 +113,12 @@ namespace Rocket.BL.Tests.ReleaseList
         public void UpdateTVSeriesTest([Random(0, TVSeriesCount - 1, 5)] int id)
         {
             var tvSeries = _tvSeriesDetailedInfoService.GetTVSeries(id);
-            tvSeries.Title = new Bogus.Faker().Lorem.Word();
+            tvSeries.TitleRu = new Bogus.Faker().Lorem.Word();
 
             _tvSeriesDetailedInfoService.UpdateTVSeries(tvSeries);
             var actualTVSeries = _fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id);
 
-            actualTVSeries.Title.Should().Be(tvSeries.Title);
+            actualTVSeries.Title.Should().Be(tvSeries.TitleRu);
         }
 
         /// <summary>
@@ -150,7 +146,7 @@ namespace Rocket.BL.Tests.ReleaseList
             var titleToFind = _fakeDbTVSerialsData.TVSerials.Find(tv => tv.Id == id).Title;
 
             var actual = _tvSeriesDetailedInfoService
-                .TVSeriesExists(tv => tv.Title == titleToFind);
+                .TVSeriesExists(tv => tv.TitleRu == titleToFind);
 
             actual.Should().BeTrue();
         }
@@ -165,7 +161,7 @@ namespace Rocket.BL.Tests.ReleaseList
             string title)
         {
             var actual = _tvSeriesDetailedInfoService
-                .TVSeriesExists(tv => tv.Title == title);
+                .TVSeriesExists(tv => tv.TitleRu == title);
 
             actual.Should().BeFalse();
         }

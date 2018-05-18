@@ -19,8 +19,8 @@ namespace Rocket.BL.Common.Models.ReleaseList
         public int Number { get; set; }
 
         /// <summary>
-        /// Возвращает или задает относительный путь
-        /// от корневой папки приложения к файлу изображения постера сезона
+        /// Возвращает или задает абсолютный Url
+        /// к файлу изображения постера сезона
         /// </summary>
         public string PosterImageUrl { get; set; }
 
