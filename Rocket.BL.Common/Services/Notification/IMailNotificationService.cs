@@ -15,7 +15,7 @@ namespace Rocket.BL.Common.Services
         /// <param name="email">Email адрес посетителя</param>
         /// <param name="url">Ссылка для завершения регистрации аккаунта</param>
         /// <param name="name">Имя посетителя</param>
-        void SendConfirmation(string email, string url, string name = "посетитель");
+        void SendConfirmation(string email, string url, string name);
 
         /// <summary>
         /// Отправка пользователю сообщения с информацией об оплате премиум аккаунта
