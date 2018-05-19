@@ -6,6 +6,7 @@ using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Configurations;
 using Rocket.DAL.Configurations.Parser;
 using Rocket.DAL.Configurations.ReleaseList;
+using Rocket.DAL.Configurations.User;
 
 namespace Rocket.DAL.Context
 {
@@ -91,6 +92,16 @@ namespace Rocket.DAL.Context
             modelBuilder.Configurations.Add(new PersonEntityMap());
             modelBuilder.Configurations.Add(new EpisodeEntityMap());
             modelBuilder.Configurations.Add(new SeasonEntityMap());
-        }
+
+            modelBuilder.Configurations.Add(new DbAccountLevelConfiguration());
+            modelBuilder.Configurations.Add(new DbAccountLevelConfiguration());
+            modelBuilder.Configurations.Add(new DbAddressConfiguration());
+            modelBuilder.Configurations.Add(new DbEmailAddressConfiguratin());
+            modelBuilder.Configurations.Add(new DbGenderConfiguration());
+            modelBuilder.Configurations.Add(new DbHowToCallConfiguration());
+            modelBuilder.Configurations.Add(new DbLanguageConfiguration());
+            modelBuilder.Configurations.Add(new DbPhoneNumberConfiguration());
+            modelBuilder.Configurations.Add(new DbUserConfiguration());
+            modelBuilder.Configurations.Add(new DbUserDetailConfiguration());
     }
 }
