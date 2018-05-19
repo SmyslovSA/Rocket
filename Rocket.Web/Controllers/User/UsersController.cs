@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Rocket.BL.Common.Services.User;
@@ -35,22 +34,7 @@ namespace Rocket.Web.Controllers.User
                 return NotFound();
             }
 
-            return Ok(users);
-        }
-
-        /// <summary>
-        /// Возвращает пользователей для пейджинга.
-        /// </summary>
-        /// <param name="pageSize">Количество сведений о пользователях, выводимых на страницу.</param>
-        /// <param name="pageNumber">Номер выводимой страницы со сведениями о пользователях.</param>
-        /// <returns>Пользователи для пейджинга.</returns>
-        [HttpGet]
-        [Route("page")]
-        public IHttpActionResult GetUsersPage(int pageSize, int pageNumber)
-        {
-            var users = _userManagementService.GetUsersPage(pageSize, pageNumber);
-
-            if (users == null)
+            if (users.Count == 0)
             {
                 return NotFound();
             }
