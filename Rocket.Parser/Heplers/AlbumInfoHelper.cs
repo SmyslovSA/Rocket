@@ -5,6 +5,9 @@ namespace Rocket.Parser.Heplers
 {
     internal static class AlbumInfoHelper
     {
+        //настройки ресурса
+        private const string AlbumInfoResourceKey = "AlbumInfoResource";
+
         //regEx
         public const string ReleaseNamePattern = @"(?<=\- )(?: ?+[^\(])++";
         public const string ReleaseTypePattern = @"(?<=\()\w++";
@@ -27,9 +30,6 @@ namespace Rocket.Parser.Heplers
         public const string UnknownName = "unknownName";
 
         private static readonly NameValueCollection ResourceSettings;
-
-        //настройки ресурса
-        private const string AlbumInfoResourceKey = "AlbumInfoResource";
 
         static AlbumInfoHelper()
         {

@@ -6,7 +6,7 @@ namespace Rocket.DAL.Configurations.Notification
     /// <summary>
     /// Конфигурация хранения данных о шаблоне email сообщения
     /// </summary>
-    public class EmailTemplateConfiguration: EntityTypeConfiguration<DbEmailTemplate>
+    public class EmailTemplateConfiguration : EntityTypeConfiguration<DbEmailTemplate>
     {
         public EmailTemplateConfiguration()
         {

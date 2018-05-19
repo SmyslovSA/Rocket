@@ -122,7 +122,17 @@
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbUserConfiguration.cs" />
+    <Compile Include="Configurations\User\DbEmailAddressConfiguratin.cs" />
     <Compile Include="Configurations\ResourceMap.cs" />
+    <Compile Include="Configurations\User\DbGenderConfiguration.cs" />
+    <Compile Include="Configurations\User\DbHowToCallConfiguration.cs" />
+    <Compile Include="Configurations\User\DbPhoneNumberConfiguration.cs" />
+    <Compile Include="Configurations\User\DbLanguageConfiguration.cs" />
+    <Compile Include="Configurations\User\DbAccountLevelConfiguration.cs" />
+    <Compile Include="Configurations\User\DbAccountStatusConfiguration.cs" />
+    <Compile Include="Configurations\User\DbAddressConfiguration.cs" />
+    <Compile Include="Configurations\User\DbUserDetailConfiguration.cs" />
+    <Compile Include="Configurations\User\DbUserConfiguration.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
     <Compile Include="Migrations\201805171721071_AddParser.cs" />
@@ -139,6 +149,11 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\Notification\DbCustomMessageRepository.cs" />
     <Compile Include="Repositories\Notification\DbEmailTemplateRepository.cs" />
@@ -178,6 +193,10 @@
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171721071_AddParser.resx">
       <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
     </EmbeddedResource>

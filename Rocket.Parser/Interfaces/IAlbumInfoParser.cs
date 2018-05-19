@@ -3,8 +3,7 @@
     /// <summary>
     /// Парсер для сайта album-info.ru
     /// </summary>
-    internal interface IAlbumInfoParser: IParser
+    internal interface IAlbumInfoParser : IParser
     {
-
     }
 }

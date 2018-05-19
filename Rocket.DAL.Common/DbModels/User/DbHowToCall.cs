@@ -21,6 +21,6 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Задает или возвращает коллекцию дополнительной информации пользователя,
         /// к которой относится это сведение о том, как обращаться к пользователю.
         /// </summary>
-        public ICollection<DbUserDetails> DbUserDetails { get; set; }
+        public ICollection<DbUserDetail> DbUserDetails { get; set; }
     }
 }

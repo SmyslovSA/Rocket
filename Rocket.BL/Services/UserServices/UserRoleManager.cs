@@ -2,17 +2,18 @@
 using Rocket.DAL.Common.UoW;
 using System.Collections.Generic;
 using System.Linq;
+using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 
 namespace Rocket.BL.Services.UserServices
 {
-    public class UserRoleManager : BaseService
+    public class UserRoleManager : BaseService, IUserRoleManager
     {
+        private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
+
         public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
-
-        private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
 
         /// <summary>
         /// add user to role
@@ -22,10 +23,12 @@ namespace Rocket.BL.Services.UserServices
         /// <returns></returns>
         public virtual void AddToRole(int userId, int roleId = DefaultRoleId)
         {
-            //check user
+            // todo check user
 
             if (IsInRole(userId, roleId))
+            {
                 return;
+            }
 
             var dbRole = _unitOfWork.RoleRepository.GetById(roleId);
             var dbUser = _unitOfWork.UserRepository.GetById(userId);
@@ -37,10 +40,12 @@ namespace Rocket.BL.Services.UserServices
 
         public virtual bool RemoveFromRole(int userId, int roleId)
         {
-            //  check user
+            // todo check user
 
             if (!IsInRole(userId, roleId))
+            {
                 return false;
+            }
 
             var dbRole = _unitOfWork.RoleRepository.GetById(roleId);
             var dbUser = _unitOfWork.UserRepository.GetById(userId);
@@ -50,7 +55,6 @@ namespace Rocket.BL.Services.UserServices
             _unitOfWork.SaveChanges();
             return true;
         }
-
 
         /// <summary>
         /// Returns the roles for the user

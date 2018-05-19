@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using Rocket.BL.Common.Models.User;
+using Rocket.BL.Common.Models.ReleaseList;
 using System.Collections.Generic;
 
 namespace Rocket.BL.Tests.User.FakeData

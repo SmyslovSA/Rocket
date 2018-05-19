@@ -47,7 +47,8 @@ namespace Rocket.DAL.UoW
         /// <param name="dbReceiverRepository">Репозиторий получателей нотификации</param>
         /// <param name="dbReleaseMessageRepository">Репозиторий сообщений о релизе</param>
         /// <param name="dbUserBillingMessageRepository">Репозиторий сообщений о платежах пользователя</param>
-        public UnitOfWork(RocketContext rocketContext,
+                public UnitOfWork(
+            RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
             IBaseRepository<ParserSettingsEntity> parserSettingsRepository,
             IBaseRepository<ResourceEntity> resourceRepository,
@@ -231,13 +232,21 @@ namespace Rocket.DAL.UoW
         }
 
         /// <summary>
+        /// Сохранение изменений
+        /// </summary>
+        /// <returns></returns>
+        public int SaveChanges()
+        {
+            return _rocketContext.SaveChanges();
+        }
+        
+        /// <summary>
         /// Освобождает управляемые ресурсы.
         /// </summary>
         /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
-                return;
+            if (_disposed) return;
 
             if (disposing)
             {
@@ -249,9 +258,5 @@ namespace Rocket.DAL.UoW
             _disposed = true;
         }
 
-        public int SaveChanges()
-        {
-            return _rocketContext.SaveChanges();
-        }
     }
 }
