@@ -20,20 +20,24 @@ namespace Rocket.DAL.Configurations.User
                 .HasColumnName("ActivationNeeded");
 
             HasOptional(ud => ud.Sitizenship)
-                .WithMany(s => s.DbUserDetails);
+                .WithMany(s => s.DbUserDetails)
+                .HasForeignKey(ud => ud.SitizenshipId);
 
             HasOptional(ud => ud.Language)
-                .WithMany(l => l.DbUserDetails);
+                .WithMany(l => l.DbUserDetails)
+                .HasForeignKey(ud => ud.LanguageId);
 
             Property(ud => ud.DateOfBirth)
                 .IsOptional()
                 .HasColumnName("DateOfBirth");
 
             HasOptional(ud => ud.Gender)
-                .WithMany(g => g.DbUserDetails);
+                .WithMany(g => g.DbUserDetails)
+                .HasForeignKey(ud => ud.GenderId);
 
             HasOptional(ud => ud.HowToCall)
-                .WithMany(h => h.DbUserDetails);
+                .WithMany(h => h.DbUserDetails)
+                .HasForeignKey(ud => ud.HowToCallId);
 
             HasMany(ud => ud.PhoneNumbers)
                 .WithMany(pn => pn.DbUserDetails)
