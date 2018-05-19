@@ -81,12 +81,6 @@ namespace Rocket.DAL.Common.DbModels.User
         public virtual ICollection<DbEmailAddress> EMailAddresses { get; set; } = new Collection<DbEmailAddress>();
 
         /// <summary>
-        /// Возвращает или задает идентификатор почтового адреса пользователя.
-        /// к которому относится эта дополнительная информация.
-        /// </summary>
-        public int? MailAddressId { get; set; }
-
-        /// <summary>
         /// Возвращает или задает почтовый адрес пользователя.
         /// </summary>
         public virtual DbAddress MailAddress { get; set; }
