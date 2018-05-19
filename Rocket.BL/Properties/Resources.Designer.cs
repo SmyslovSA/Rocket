@@ -61,6 +61,15 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;посетитель&quot;.
+        /// </summary>
+        internal static string GuestAlias {
+            get {
+                return ResourceManager.GetString("GuestAlias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test.
         /// </summary>
         internal static string USERACCOUNTLOGINISEMPTY {
