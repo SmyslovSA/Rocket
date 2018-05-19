@@ -29,7 +29,7 @@ namespace Rocket.BL.Services.User
         /// Возвращает всех пользователей
         /// из хранилища данных.
         /// </summary>
-        /// <returns>Коллекцию всех экземпляров пользователей.</returns>
+        /// <returns>Коллекция всех экземпляров пользователей.</returns>
         public ICollection<Common.Models.User.User> GetAllUsers()
         {
             var users = new List<Common.Models.User.User>();
@@ -37,6 +37,31 @@ namespace Rocket.BL.Services.User
             var usersCount = _unitOfWork.UserRepository.Get().Count();
 
             for (int i = 0; i < usersCount; i++)
+            {
+                users.Add(GetUser(i));
+            }
+
+            return users;
+        }
+
+        /// <summary>
+        /// Возвращает пользователей
+        /// из хранилища данных для пейджинга.
+        /// </summary>
+        /// <param name="pageSize">Количество сведений о пользователях, выводимых на страницу.</param>
+        /// <param name="pageNumber">Номер выводимой страницы со сведениями о пользователях.</param>
+        /// <returns>Коллекция экземпляров пользователей для пейджинга.</returns>
+        public ICollection<Common.Models.User.User> GetUsersByPage(int pageSize, int pageNumber)
+        {
+            var users = new List<Common.Models.User.User>();
+
+            var usersCount = _unitOfWork.UserRepository.Get().Count();
+
+            var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize);
+
+            var startUserIndex = (pageNumber - 1)* pageSize;
+            var finishUserIndex = startUserIndex + pageNumber < pagesCount ? pageSize - 1 : usersCount /pageSize - 1;
+            for (var i = startUserIndex; i <= finishUserIndex; i++)
             {
                 users.Add(GetUser(i));
             }
