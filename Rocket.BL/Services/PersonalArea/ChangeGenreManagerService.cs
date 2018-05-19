@@ -4,6 +4,7 @@ using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.UoW;
 using System.Linq;
+using Rocket.DAL.Common.DbModels.Parser;
 
 namespace Rocket.BL.Services.PersonalArea
 {
@@ -19,14 +20,15 @@ namespace Rocket.BL.Services.PersonalArea
             if (model != null && string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
             {
                 var user = Mapper.Map<DbAuthorisedUser>(model);
-                user.Genres.Add(new DbGenre
-                {
-                    Name = genre,
-                    DbCategory = new DbCategory
-                    {
-                        Name = category
-                    }
-                });
+                //todo на уровне бизнес логики не должно быть sql
+                //user.Genres.Add(new GenreEntity
+                //{
+                //    Name = genre,
+                //    Category = new CategoryEntity()
+                //    {
+                //        Name = category
+                //    }
+                //});
                 _unitOfWork.UserAuthorisedRepository.Update(user);
                 _unitOfWork.SaveChanges();
                 return true;

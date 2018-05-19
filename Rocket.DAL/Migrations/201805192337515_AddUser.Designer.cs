@@ -13,7 +13,7 @@ namespace Rocket.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201805191712061_AddUser"; }
+            get { return "201805192337515_AddUser"; }
         }
         
         string IMigrationMetadata.Source

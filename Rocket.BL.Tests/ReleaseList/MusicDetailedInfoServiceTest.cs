@@ -5,11 +5,11 @@ using NUnit.Framework;
 using Rocket.BL.Services.ReleaseList;
 using Rocket.BL.Tests.ReleaseList.FakeData;
 using Rocket.DAL.Common.DbModels.ReleaseList;
-using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Rocket.DAL.Common.Repositories;
 
 namespace Rocket.BL.Tests.ReleaseList
 {
@@ -35,7 +35,7 @@ namespace Rocket.BL.Tests.ReleaseList
 
             _fakeDbMusicData = new FakeDbMusicData(100, 10, MusicCount);
 
-            var mockDbMusicRepository = new Mock<IDbMusicRepository>();
+            var mockDbMusicRepository = new Mock<IBaseRepository<DbMusic>>();
             mockDbMusicRepository
                 .Setup(mock => mock.Get(It.IsAny<Expression<Func<DbMusic, bool>>>(), null, string.Empty))
                 .Returns((Expression<Func<DbMusic, bool>> filter,

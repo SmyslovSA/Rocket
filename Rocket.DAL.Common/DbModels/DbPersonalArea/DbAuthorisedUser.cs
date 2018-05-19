@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
@@ -16,7 +17,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// Ссылка на DbUser.
         /// </summary>
-        public User.DbUser DbUser { get; set; }
+        public DbUser DbUser { get; set; }
 
         /// <summary>
         /// Относительный путь от корневой папки приложения к изображению аватара пользователя.
@@ -31,6 +32,6 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// Коллекция выбранных жанров пользователя.
         /// </summary>
-        public virtual ICollection<DbGenre> Genres { get; set; }
+        public virtual ICollection<GenreEntity> Genres { get; set; }
     }
 }
