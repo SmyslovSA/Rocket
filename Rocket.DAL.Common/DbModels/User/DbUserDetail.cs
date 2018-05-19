@@ -95,12 +95,12 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Возвращает или задает идентификатор пользователя,
         /// к которому относится эта дополнительная информация.
         /// </summary>
-        public int DbUserId { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Возвращает или задает пользователя,
         /// К которому относится эта дополнительная информация.
         /// </summary>
-        public DbUser DbUser { get; set; }
+        public DbUser User { get; set; }
     }
 }
