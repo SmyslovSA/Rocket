@@ -16,7 +16,7 @@ namespace Rocket.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             MapperConfig.Initialize();
             GlobalFilters.Filters.Add(new RoleAuthorizeAttribyte());
-            LoggerConfig.Configure();
+            //LoggerConfig.Configure();
         }
 
 
