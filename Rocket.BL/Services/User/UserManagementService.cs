@@ -1,8 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using AutoMapper;
 using Rocket.BL.Common.Services.User;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
@@ -34,7 +34,12 @@ namespace Rocket.BL.Services.User
         {
             var users = new List<Common.Models.User.User>();
 
-            var usersCount = _unitOfWork.UserRepository.Get().Count();
+            var usersCount = _unitOfWork.UserRepository.ItemsCount();
+
+            if (usersCount == 0)
+            {
+                return null;
+            }
 
             for (int i = 0; i < usersCount; i++)
             {
@@ -51,22 +56,36 @@ namespace Rocket.BL.Services.User
         /// <param name="pageSize">Количество сведений о пользователях, выводимых на страницу.</param>
         /// <param name="pageNumber">Номер выводимой страницы со сведениями о пользователях.</param>
         /// <returns>Коллекция экземпляров пользователей для пейджинга.</returns>
-        public ICollection<Common.Models.User.User> GetUsersByPage(int pageSize, int pageNumber)
+        public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
         {
-            var users = new List<Common.Models.User.User>();
+            var usersCount = _unitOfWork.UserRepository.ItemsCount();
 
-            var usersCount = _unitOfWork.UserRepository.Get().Count();
+            if (usersCount == 0)
+            {
+                return null;
+            }
 
             var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize);
 
-            var startUserIndex = (pageNumber - 1)* pageSize;
-            var finishUserIndex = startUserIndex + pageNumber < pagesCount ? pageSize - 1 : usersCount /pageSize - 1;
-            for (var i = startUserIndex; i <= finishUserIndex; i++)
+            if (pageNumber > pagesCount)
             {
-                users.Add(GetUser(i));
+                return null;
             }
 
-            return users;
+            //var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize);
+
+            //var startUserIndex = (pageNumber - 1)* pageSize;
+            //var finishUserIndex = startUserIndex + pageNumber < pagesCount ? pageSize - 1 : usersCount /pageSize - 1;
+            //for (var i = startUserIndex; i <= finishUserIndex; i++)
+            //{
+            //    users.Add(GetUser(i));
+            //}
+
+            //return users;
+
+            var dbUsers = _unitOfWork.UserRepository.GetPage(pageSize, pageNumber);
+
+            return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
         }
 
         /// <summary>
