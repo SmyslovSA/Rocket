@@ -36,8 +36,6 @@ namespace Rocket.Web.Controllers.PersonalArea
             }
 
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
-        }
-
-       
+        }       
     }
 }

@@ -5,31 +5,32 @@ using System.Collections.Generic;
 namespace Rocket.BL.Tests.User.FakeData
 {
     /// <summary>
-    /// Представляет набор сгенерированных данных об электронных адресах пользователей,
-    /// в моделях домена
+    /// Представляет набор сгенерированных данных об электронных адресах дополнительной информации пользователей,
+    /// в моделях домена.
     /// </summary>
     public class FakeEmailAddresses
     {
         /// <summary>
-        /// Возвращает генератор данных об электронных адресах пользователей
+        /// Возвращает генератор данных об электронных адресах дополнительной информации пользователей.
         /// </summary>
-        public Faker EmailAddressFaker { get; } = new Faker();
+        public Faker<EmailAddress> EmailAddressFaker { get; }
 
         /// <summary>
-        /// Возвращает коллекцию сгенерированных электронных адресов пользователей
+        /// Возвращает коллекцию сгенерированных электронных адресов дополнительной информации пользователей.
         /// </summary>
-        public List<string> EmailAddresses { get; } = new List<string>();
+        public List<EmailAddress> EmailAddresses { get; }
 
         /// <summary>
-        /// Создает новый экземпляр сгенерированных электронных адресов пользователей
+        /// Создает новый экземпляр сгенерированных электронных адресов дополнительной информации пользователей.
         /// </summary>
-        /// <param name="emailAddressesCount">Необходимое количество сгенерированных адресов электронной почты пользователей</param>
+        /// <param name="emailAddressCount">Необходимое количество сгенерированных адресов электронной почты дополнительной информации пользователей.</param>
         public FakeEmailAddresses(int emailAddressCount)
         {
-            for (int i = 0; i < emailAddressCount; i++)
-            {
-                EmailAddresses.Add(EmailAddressFaker.Internet.Email());
-            }
+            EmailAddressFaker = new Faker<EmailAddress>()
+                .RuleFor(ea => ea.Id, f => f.IndexFaker)
+                .RuleFor(ea => ea.Address, f =>f.Internet.Email());
+
+            EmailAddresses = EmailAddressFaker.Generate(emailAddressCount);
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Rocket.Web.Controllers.User
         {
             var user = _userManagementService.GetUser(id);
 
-            return user == null ? (IHttpActionResult) NotFound() : Ok(user);
+            return user == null ? (IHttpActionResult)NotFound() : Ok(user);
         }
 
         /// <summary>

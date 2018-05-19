@@ -29,6 +29,7 @@ namespace Rocket.Parser.Heplers
                         standardKernel.Load(ninjectModuleBootstrapper.GetModules());
                     });
             }
+
             return standardKernel;
         }
     }

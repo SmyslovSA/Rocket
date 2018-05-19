@@ -16,6 +16,5 @@ namespace Rocket.Parser.Exceptions
         public NotGetHtmlDocumentByUrlException(string url, Exception innerException)
             : base(string.Format(ExceptionMessage, url), innerException)
         { }
-
     }
 }

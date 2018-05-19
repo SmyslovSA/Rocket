@@ -23,7 +23,7 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о том, как обращаться к пользователю
         /// </summary>
-        /// <param name="countriesCount">Необходимое количество обращений к пользователю, которые необходимо сгенерировать</param>
+        /// <param name="howToCallsCount">Необходимое количество обращений к пользователю, которые необходимо сгенерировать</param>
         public FakeDbHowToCalls(int howToCallsCount)
         {
             HowToCallFaker = new Faker<DbHowToCall>()
