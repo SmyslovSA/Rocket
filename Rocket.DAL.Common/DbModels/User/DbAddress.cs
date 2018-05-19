@@ -20,10 +20,16 @@ namespace Rocket.DAL.Common.DbModels.User
         public string ZipCode { get; set; }
 
         /// <summary>
+        /// Возвращает или задает идентификатор страны,
+        /// к которому относится этот адрес.
+        /// </summary>
+        public int? CountryId { get; set; }
+
+        /// <summary>
         /// Возвращает или задает страну.
         /// </summary>
         /// <value>Страна адреса пользователя.</value>>
-        public DbCountry Country { get; set; }
+        public virtual DbCountry Country { get; set; }
 
         /// <summary>
         /// Возвращает или задает город.
@@ -54,6 +60,6 @@ namespace Rocket.DAL.Common.DbModels.User
         /// к которой относится этот адрес.
         /// </summary>
         /// <value>Дополнительная информация пользователя, к которой относится этот адрес.</value>>
-        public DbUserDetail DbUserDetail { get; set; }
+        public virtual DbUserDetail DbUserDetail { get; set; }
     }
 }
