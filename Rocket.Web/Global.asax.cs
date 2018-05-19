@@ -19,8 +19,6 @@ namespace Rocket.Web
             LoggerConfig.Configure();
         }
 
-
-
         protected override IKernel CreateKernel()
         {
             var kernel = new StandardKernel();

@@ -1045,7 +1045,6 @@ namespace Rocket.Parser.Parsers
             //Если актер добавляем в список актеров
             if (castType == LostfilmHelper.GetKeywordActors())
                 personEntity.PersonTypeCode = (int)PersonType.Actor;
-            
 
             //Если режисер добавляем в список режисеров
             if (castType == LostfilmHelper.GetKeywordDirectors())
