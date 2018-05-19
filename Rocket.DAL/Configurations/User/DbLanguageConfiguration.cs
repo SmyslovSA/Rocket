@@ -8,7 +8,7 @@ namespace Rocket.DAL.Configurations.User
     /// <summary>
     /// Конфигурация хранения данных о языках дополнительной информации пользователя.
     /// </summary>
-    public class DbLanguageConfiguration : EntityTypeConfiguration<DbAccountLevel>
+    public class DbLanguageConfiguration : EntityTypeConfiguration<DbLanguage>
     {
         public DbLanguageConfiguration()
         {
