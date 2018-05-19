@@ -212,7 +212,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\MapperConfig.cs" />
@@ -223,6 +225,7 @@
     <Compile Include="Controllers\PersonalArea\ChangeGenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonalArea\ChangePasswordController.cs" />
+    <Compile Include="Controllers\ReleaseList\MusicController.cs" />
     <Compile Include="Controllers\UserRole\RoleController.cs" />
     <Compile Include="Controllers\UserRole\RoleManagerController.cs" />
     <Compile Include="Controllers\PersonalArea\PersonalDataController.cs" />
