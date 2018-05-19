@@ -93,6 +93,7 @@ namespace Rocket.DAL.Context
             modelBuilder.Configurations.Add(new EpisodeEntityMap());
             modelBuilder.Configurations.Add(new SeasonEntityMap());
 
+            // Группа домена пользователя.
             modelBuilder.Configurations.Add(new DbAccountLevelConfiguration());
             modelBuilder.Configurations.Add(new DbAccountLevelConfiguration());
             modelBuilder.Configurations.Add(new DbAddressConfiguration());
