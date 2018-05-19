@@ -55,7 +55,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpDelete]
-        [Route("{id:int:min(1)")]
+        [Route("{id:int:min(1)}")]
         public IHttpActionResult DeleteRoleById(int id)
         {
             if (_roleService.GetById(id) == null)

@@ -23,7 +23,7 @@ namespace Rocket.Parser.Interfaces
         /// </summary>
         /// <param name="url">Ссылка на файл</param>
         /// <param name="path">Путь для сохранения</param>
-        /// <returns></returns>
+        /// <returns>Task</returns>
         Task DownloadFile(string url, string path);
 
         /// <summary>

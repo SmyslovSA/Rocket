@@ -18,7 +18,8 @@ namespace Rocket.DAL.Configurations.User
                 .HasColumnName("Id");
 
             HasOptional(ud => ud.Country)
-                .WithMany(s => s.DbAddresses);
+                .WithMany(s => s.DbAddresses)
+                .HasForeignKey(ud => ud.CountryId);
 
             Property(a => a.ZipCode)
                 .IsOptional()

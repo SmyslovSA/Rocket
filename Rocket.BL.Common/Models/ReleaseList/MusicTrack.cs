@@ -12,7 +12,7 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// <summary>
         /// Возвращает или задает номер трека
         /// </summary>
-        public int Number { get; set; }
+        //public int Number { get; set; }
 
         /// <summary>
         /// Возвращает или задает название музыкального трека

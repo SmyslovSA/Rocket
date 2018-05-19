@@ -182,6 +182,15 @@ namespace Rocket.DAL.UoW
         }
 
         /// <summary>
+        /// Сохранение изменений
+        /// </summary>
+        /// <returns></returns>
+        public int SaveChanges()
+        {
+            return _rocketContext.SaveChanges();
+        }
+        
+        /// <summary>
         /// Освобождает управляемые ресурсы.
         /// </summary>
         /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора.</param>
@@ -199,9 +208,5 @@ namespace Rocket.DAL.UoW
             _disposed = true;
         }
 
-        public int SaveChanges()
-        {
-            return _rocketContext.SaveChanges();
-        }
     }
 }

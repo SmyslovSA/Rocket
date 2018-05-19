@@ -32,7 +32,7 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
 
         /// <summary>
         /// Возвращает или задает коллекцию детальной информации о пользователях,
-        /// гражданинами которой они являются.
+        /// к которым относится данная страна.
         /// </summary>
         public ICollection<DbUserDetail> DbUserDetails { get; set; }
 
