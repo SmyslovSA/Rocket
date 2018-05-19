@@ -20,15 +20,14 @@ namespace Rocket.BL.Services.PersonalArea
             if (model != null && string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
             {
                 var user = Mapper.Map<DbAuthorisedUser>(model);
-                //todo на уровне бизнес логики не должно быть sql
-                //user.Genres.Add(new GenreEntity
-                //{
-                //    Name = genre,
-                //    Category = new CategoryEntity()
-                //    {
-                //        Name = category
-                //    }
-                //});
+                user.Genres.Add(new GenreEntity
+                {
+                    Name = genre,
+                    Category = new CategoryEntity()
+                    {
+                        Name = category
+                    }
+                });
                 _unitOfWork.UserAuthorisedRepository.Update(user);
                 _unitOfWork.SaveChanges();
                 return true;
