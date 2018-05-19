@@ -32,16 +32,14 @@ namespace Rocket.BL.Services.User
         /// <returns>Коллекция всех экземпляров пользователей.</returns>
         public ICollection<Common.Models.User.User> GetAllUsers()
         {
-            var users = new List<Common.Models.User.User>();
-
-            var usersCount = _unitOfWork.UserRepository.Get().Count();
-
-            for (int i = 0; i < usersCount; i++)
+            if (IsUserRepositoryNullOrEmpty())
             {
-                users.Add(GetUser(i));
+                return null;
             }
 
-            return users;
+            var dbUsers = _unitOfWork.UserRepository.Get();
+
+            return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
         }
 
         /// <summary>
@@ -51,22 +49,27 @@ namespace Rocket.BL.Services.User
         /// <param name="pageSize">Количество сведений о пользователях, выводимых на страницу.</param>
         /// <param name="pageNumber">Номер выводимой страницы со сведениями о пользователях.</param>
         /// <returns>Коллекция экземпляров пользователей для пейджинга.</returns>
-        public ICollection<Common.Models.User.User> GetUsersByPage(int pageSize, int pageNumber)
+        public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
         {
-            var users = new List<Common.Models.User.User>();
+            var usersCount = _unitOfWork.UserRepository.ItemsCount();
 
-            var usersCount = _unitOfWork.UserRepository.Get().Count();
+            if (usersCount == 0)
+            {
+                return null;
+            }
 
             var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize);
 
-            var startUserIndex = (pageNumber - 1)* pageSize;
-            var finishUserIndex = startUserIndex + pageNumber < pagesCount ? pageSize - 1 : usersCount /pageSize - 1;
-            for (var i = startUserIndex; i <= finishUserIndex; i++)
+            // Проверяет, не превышает ли номер запрашиваемой страницы пейджинга пользователей
+            // максимальное количество страниц.
+            if (pageNumber > pagesCount)
             {
-                users.Add(GetUser(i));
+                return null;
             }
 
-            return users;
+            var dbUsers = _unitOfWork.UserRepository.GetPage(pageSize, pageNumber);
+
+            return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
         }
 
         /// <summary>
@@ -139,6 +142,15 @@ namespace Rocket.BL.Services.User
         public string CreateConfirmationLink(Common.Models.User.User user)
         {
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Проверяет заполнен репозитарий пользователей или  нет.
+        /// </summary>
+        /// <returns>Возвращает <see langword="true"/>, если репозитарий пуст или не заполнен.</returns>
+        private bool IsUserRepositoryNullOrEmpty()
+        {
+            return _unitOfWork.UserRepository.ItemsCount() == 0;
         }
     }
 }

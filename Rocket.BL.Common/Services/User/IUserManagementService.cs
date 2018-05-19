@@ -23,7 +23,7 @@ namespace Rocket.BL.Common.Services.User
         /// <param name="pageSize">Количество сведений о пользователях, выводимых на страницу.</param>
         /// <param name="pageNumber">Номер выводимой страницы со сведениями о пользователях.</param>
         /// <returns>Коллекция экземпляров пользователей для пейджинга.</returns>
-        ICollection<Models.User.User> GetUsersByPage(int pageSize, int pageNumber);
+        ICollection<Models.User.User> GetUsersPage(int pageSize, int pageNumber);
 
         /// <summary>
         /// Возвращает пользователя с заданным идентификатором
