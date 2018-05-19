@@ -1,4 +1,5 @@
-﻿using Bogus;
+﻿using System;
+using Bogus;
 using Rocket.DAL.Common.DbModels.Parser;
 using System.Collections.Generic;
 
@@ -8,13 +9,8 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     /// Представляет набор сгенерированных данных о сезонах,
     /// в моделях хранения данных
     /// </summary>
-    public class FakeSeasonEntitiesData
+    public class FakeSeasonEntities
     {
-        /// <summary>
-        /// Возвращает набор данных о сериях
-        /// </summary>
-        public FakeEpisodeEntitiesData FakeEpisodeEntitiesData { get; }
-
         /// <summary>
         /// Возвращает генератор данных о сезонах
         /// </summary>
@@ -23,20 +19,18 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных сезонов
         /// </summary>
-        public List<SeasonEntity> Seasons { get; }
+        public List<SeasonEntity> SeasonEntities { get; }
 
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о сезонах
         /// </summary>
-        public FakeSeasonEntitiesData()
+        public FakeSeasonEntities()
         {
-            FakeEpisodeEntitiesData = new FakeEpisodeEntitiesData();
-
             SeasonFaker = new Faker<SeasonEntity>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
                 .RuleFor(m => m.PosterImageUrl, f => f.Internet.Url());
 
-            Seasons = new List<SeasonEntity>();
+            SeasonEntities = new List<SeasonEntity>();
         }
 
         /// <summary>
@@ -46,18 +40,33 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <param name="count">Количество сезонов</param>
         /// <param name="startSeasonNumber">Начальный номер сезона</param>
         /// <returns>Коллекция сезонов</returns>
-        public List<SeasonEntity> Generate(int count, int startSeasonNumber = 1)
+        public List<SeasonEntity> Generate(
+            int count,
+            DateTime startDate,
+            FakeEpisodeEntities episodeEntities,
+            int startSeasonNumber = 1)
         {
-            SeasonFaker.RuleFor(m => m.Number, startSeasonNumber++)
+            SeasonFaker
+                .RuleFor(m => m.Number, startSeasonNumber++)
                 .RuleFor(m => m.ListEpisode, f =>
                     {
-                        FakeEpisodeEntitiesData.EpisodeFaker
+                        episodeEntities.EpisodeFaker
                             .RuleFor(m => m.SeasonId, startSeasonNumber);
-                        return FakeEpisodeEntitiesData.Generate(f.Random.Number(8, 22));
+                        return episodeEntities.Generate(f.Random.Number(8, 22), startDate = startDate.AddYears(1));
                     }
                 );
+
             var seasons = SeasonFaker.Generate(count);
-            Seasons.AddRange(seasons);
+            foreach (var seasonEntity in seasons)
+            {
+                foreach (var episodeEntity in seasonEntity.ListEpisode)
+                {
+                    episodeEntity.Season = seasonEntity;
+                    episodeEntity.SeasonId = seasonEntity.Id;
+                }
+            }
+
+            SeasonEntities.AddRange(seasons);
             return seasons;
         }
     }

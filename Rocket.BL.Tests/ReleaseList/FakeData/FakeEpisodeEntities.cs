@@ -9,26 +9,22 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     /// Представляет набор сгенерированных данных о сериях,
     /// в моделях хранения данных
     /// </summary>
-    public class FakeEpisodeEntitiesData
+    public class FakeEpisodeEntities
     {
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о сериях
         /// </summary>
-        public FakeEpisodeEntitiesData()
+        public FakeEpisodeEntities()
         {
             var loremRu = new Bogus.DataSets.Lorem("ru");
             EpisodeFaker = new Faker<EpisodeEntity>()
                 .RuleFor(m => m.Id, f => f.IndexFaker)
-                .RuleFor(m => m.ReleaseDateRu,
-                    f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
-                .RuleFor(m => m.ReleaseDateEn,
-                    f => f.Date.Between(DateTime.Now.AddYears(-100), DateTime.Now.AddYears(10)))
                 .RuleFor(m => m.TitleRu, f => string.Join(" ", loremRu.Words(2)))
                 .RuleFor(m => m.TitleEn, f => string.Join(" ", f.Lorem.Words(2)))
-                .RuleFor(m => m.DurationInMinutes, f => f.Random.Number(15, 60))
+                .RuleFor(m => m.DurationInMinutes, f => f.Random.Double(15, 60))
                 .RuleFor(m => m.UrlForEpisodeSource, f => f.Internet.Url());
 
-            Episodes = new List<EpisodeEntity>();
+            EpisodeEntities = new List<EpisodeEntity>();
         }
 
         /// <summary>
@@ -39,7 +35,7 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <summary>
         /// Возвращает коллекцию сгенерированных серий
         /// </summary>
-        public List<EpisodeEntity> Episodes { get; }
+        public List<EpisodeEntity> EpisodeEntities { get; }
 
         /// <summary>
         /// Генерирует и возвращает коллекцию серий в заданном количестве
@@ -48,11 +44,18 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <param name="count">Количество серий</param>
         /// <param name="startEpisodeNumber">Начальный номер серии</param>
         /// <returns>Коллекция серий</returns>
-        public List<EpisodeEntity> Generate(int count, int startEpisodeNumber = 1)
+        public List<EpisodeEntity> Generate(
+            int count,
+            DateTime startDate,
+            int startEpisodeNumber = 1)
         {
-            EpisodeFaker.RuleFor(m => m.Number, startEpisodeNumber++);
+            EpisodeFaker
+                .RuleFor(m => m.ReleaseDateEn, startDate = startDate.AddDays(5))
+                .RuleFor(m => m.ReleaseDateRu, startDate = startDate.AddDays(2))
+                .RuleFor(m => m.Number, startEpisodeNumber++);
+
             var episodes = EpisodeFaker.Generate(count);
-            Episodes.AddRange(episodes);
+            EpisodeEntities.AddRange(episodes);
             return episodes;
         }
     }
