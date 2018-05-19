@@ -10,11 +10,9 @@
         public const string TakeSettingsSectionName = "takeSettings";
         public const string ResourceSettingsSectionName = "resourceSettings";
 
-
         public const string TvSerailListHeaderSelectorsSectionName = "tvSerailListHeaderSelectors";
         public const string TvSerailSelectorsSelectorsSectionName = "tvSerailSelectors";
         public const string EpisodeSelectorsSectionName = "episode";
         public const string CastSectionName = "cast";
-
     }
 }

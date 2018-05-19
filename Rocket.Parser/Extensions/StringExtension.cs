@@ -14,11 +14,14 @@ namespace Rocket.Parser.Extensions
         /// <param name="source">Исходная строка.</param>
         /// <param name="startString">Строка после которой надо получить подстроку.</param>
         /// <param name="endString">Строка перед которой надо завершить получение подстроки.</param>
-        /// <param name="regExpr"></param>
+        /// <param name="regExpr">Использовать регулярное выражение</param>
         /// <returns>Подстрока.</returns>
         public static string GetSubstring(this string source, string startString, string endString, bool regExpr = true)
         {
-            if (endString == null) throw new ArgumentNullException(nameof(endString));
+            if (endString == null)
+            {
+                throw new ArgumentNullException(nameof(endString));
+            }
 
             int startIndex = 0;
             if (!string.IsNullOrEmpty(startString))
@@ -36,8 +39,8 @@ namespace Rocket.Parser.Extensions
 
             string currentDetailsPane = source.Substring(startIndex, endIndex - startIndex);
 
-            if (regExpr) return Regex.Replace(currentDetailsPane, @"[ \t\n\r\f\v]", "");
-            return Regex.Replace(currentDetailsPane, @"[\t\n\r\f\v]", ""); ;
+            if (regExpr) return Regex.Replace(currentDetailsPane, @"[ \t\n\r\f\v]", string.Empty);
+            return Regex.Replace(currentDetailsPane, @"[\t\n\r\f\v]", "");
         }
     }
 }

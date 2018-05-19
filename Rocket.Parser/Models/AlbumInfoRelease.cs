@@ -25,7 +25,6 @@
         /// </summary>
         public string Date { get; set; }
 
-
         /// <summary>
         /// URL изображение релиза
         /// </summary>
@@ -45,6 +44,5 @@
         /// Путь к файлу обложки релиза в файловой системе
         /// </summary>
         public string CoverPath { get; set; }
-
     }
 }

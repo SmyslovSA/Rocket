@@ -9,7 +9,7 @@ namespace Rocket.Web
         public static void Configure()
         {
             var config = NLog.LogManager.Configuration;
-            var fileTarget = new FileTarget(){};
+            var fileTarget = new FileTarget();
 
             config.AddTarget(fileTarget);
             config.AddRule(NLog.LogLevel.Trace, NLog.LogLevel.Fatal, fileTarget);
@@ -19,4 +19,3 @@ namespace Rocket.Web
         }
     }
 }
-
