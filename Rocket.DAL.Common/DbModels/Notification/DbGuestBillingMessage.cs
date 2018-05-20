@@ -16,6 +16,11 @@ namespace Rocket.DAL.Common.DbModels.Notification
         /// Возвращает или задает имя гостя
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает email адрес гостя
+        /// </summary>
+        public string Email { get; set; }
         
         /// <summary>
         /// Возвращает или задает оплаченную сумму
