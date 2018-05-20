@@ -21,16 +21,17 @@ namespace Rocket.BL.Common.Services
         /// <param name="filter"></param>
         /// <param name="orderBy"></param>
         /// <param name="includeProperties"></param>
-        /// <returns></returns>
-        IEnumerable<Role> Get(Expression<Func<DbRole, bool>> filter = null
-            , Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null
-            , string includeProperties = "");
+        /// <returns> list </returns>
+        IEnumerable<Role> Get(
+            Expression<Func<DbRole, bool>> filter = null, 
+            Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, 
+            string includeProperties = "");
 
         /// <summary>
         /// Получаем роль по Id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Role</returns>
         Role GetById(int id);
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace Rocket.BL.Common.Services
         /// Получить все роли пользователя по его Id
         /// </summary>
         /// <param name="userId"></param>
-        /// <returns></returns>
+        /// <returns>list</returns>
         IEnumerable<DbRole> GetRoles(int userId);
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="roleId"></param>
-        /// <returns></returns>
+        /// <returns>bool</returns>
         bool IsInRole(int userId, int roleId);
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="roleId"></param>
-        /// <returns></returns>
+        /// <returns>bool</returns>
         bool RemoveFromRole(int userId, int roleId);
     }
 }
