@@ -34,7 +34,7 @@ namespace Rocket.BL.Services.User
         {
             var usersCount = _unitOfWork.UserRepository.ItemsCount();
 
-            if (usersCount == 0)
+            if (usersCount == 0) 
             {
                 return null;
             }
