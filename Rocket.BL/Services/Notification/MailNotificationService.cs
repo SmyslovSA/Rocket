@@ -1,12 +1,13 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using Rocket.BL.Common.Services;
+using Rocket.BL.Services.EmailNotificationService;
 
-namespace Rocket.BL.Services.EmailNotificationService
+namespace Rocket.BL.Services.Notification
 {
     public class MailNotificationService : IMailNotificationService
     {
-        void IMailNotificationService.NotifyAboutRelease(int id)
+        public void NotifyAboutRelease(int id)
         {
             var htmlStringBuilder = new HtmlStringBuilder();
 
@@ -22,7 +23,7 @@ namespace Rocket.BL.Services.EmailNotificationService
             SmtpClientCreator(message);
         }
 
-        void IMailNotificationService.SendBillingPremium(int id)
+        public void SendBillingPremium(int id)
         {
             var htmlStringBuilder = new HtmlStringBuilder();
 
@@ -38,7 +39,7 @@ namespace Rocket.BL.Services.EmailNotificationService
             SmtpClientCreator(message);
         }
 
-        void IMailNotificationService.SendBillingUser(int id)
+        public void SendBillingUser(int id)
         {
             var htmlStringBuilder = new HtmlStringBuilder();
 
@@ -54,7 +55,7 @@ namespace Rocket.BL.Services.EmailNotificationService
             SmtpClientCreator(message);
         }
 
-        void IMailNotificationService.SendConfirmation(string email, string url, string name)
+        public void SendConfirmation(string email, string url, string name)
         {
             var htmlStringBuilder = new HtmlStringBuilder();
             //todo добавить ссылку для регистрации аккаунта в кастомный шаблон
@@ -70,7 +71,7 @@ namespace Rocket.BL.Services.EmailNotificationService
             SmtpClientCreator(message);
         }
 
-        void IMailNotificationService.SendCustomMessage(int id)
+        public void SendCustomMessage(int id)
         {
             var htmlStringBuilder = new HtmlStringBuilder();
             var message = new MimeMessage();
