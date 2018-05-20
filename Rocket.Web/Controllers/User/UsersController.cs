@@ -108,7 +108,7 @@ namespace Rocket.Web.Controllers.User
         {
             _userManagementService.UpdateUser(user);
 
-            return new StatusCodeResult(HttpStatusCode.NoContent, Request);
+            return new StatusCodeResult(HttpStatusCode.NoContent, Request); 
         }
 
         /// <summary>
