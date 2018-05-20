@@ -14,7 +14,7 @@ namespace Rocket.BL.Services.User
     /// в хранилище данных.
     /// </summary>
     public class UserManagementService : BaseService, IUserManagementService
-    {   
+    {
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work.
@@ -29,10 +29,12 @@ namespace Rocket.BL.Services.User
         /// Возвращает всех пользователей
         /// из хранилища данных.
         /// </summary>
-        /// <returns>Коллекция всех экземпляров пользователей.</returns>
+        /// <returns>Коллекцию всех экземпляров пользователей.</returns>
         public ICollection<Common.Models.User.User> GetAllUsers()
         {
-            if (IsUserRepositoryNullOrEmpty())
+            var usersCount = _unitOfWork.UserRepository.ItemsCount();
+
+            if (usersCount == 0)
             {
                 return null;
             }
@@ -54,15 +56,6 @@ namespace Rocket.BL.Services.User
             var usersCount = _unitOfWork.UserRepository.ItemsCount();
 
             if (usersCount == 0)
-            {
-                return null;
-            }
-
-            var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize);
-
-            // Проверяет, не превышает ли номер запрашиваемой страницы пейджинга пользователей
-            // максимальное количество страниц.
-            if (pageNumber > pagesCount)
             {
                 return null;
             }
@@ -141,16 +134,8 @@ namespace Rocket.BL.Services.User
         /// <returns>Ссылку для активации аккаунта.</returns>
         public string CreateConfirmationLink(Common.Models.User.User user)
         {
+            // todo надо сделать реализацию, после того, как "прорастут" вьюхи.
             return string.Empty;
-        }
-
-        /// <summary>
-        /// Проверяет заполнен репозитарий пользователей или  нет.
-        /// </summary>
-        /// <returns>Возвращает <see langword="true"/>, если репозитарий пуст или не заполнен.</returns>
-        private bool IsUserRepositoryNullOrEmpty()
-        {
-            return _unitOfWork.UserRepository.ItemsCount() == 0;
         }
     }
 }

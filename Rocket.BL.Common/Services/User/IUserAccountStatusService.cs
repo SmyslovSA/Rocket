@@ -21,6 +21,6 @@ namespace Rocket.BL.Common.Services.User
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
         /// <param name="accountStatus">Статус аккаунта пользователя.</param>
-        void SetUserAccoutStatus(int id, AccountStatus accountStatus);
+        void SetUserAccountStatus(int id, AccountStatus accountStatus);
     }
 }
