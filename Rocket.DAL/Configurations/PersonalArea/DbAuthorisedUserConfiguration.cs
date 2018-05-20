@@ -24,7 +24,7 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 .HasForeignKey(e => e.DbAuthorisedUserId);
 
             HasMany(p => p.Genres)
-                .WithMany(e => e.AuthorisedUsers)
+                .WithMany(e => e.ListAuthorisedUser)
                 .Map(m =>
                 {
                     m.ToTable("AuthorisedUserGenres")

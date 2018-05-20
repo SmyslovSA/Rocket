@@ -84,8 +84,6 @@
     <Compile Include="Mappings\ReleaseList\CountryMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\EpisodeMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\FilmMappingProfile.cs" />
-    <Compile Include="Mappings\PersonalAreaMappings\CategoryMappingProfile.cs" />
-    <Compile Include="Mappings\PersonalAreaMappings\GenreMappingProfile.cs" />
     <Compile Include="Mappings\PersonalAreaMappings\AuthorisedUserMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\PersonMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\SeasonMappingProfile.cs" />

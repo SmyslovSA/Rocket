@@ -148,25 +148,30 @@ namespace Rocket.Parser.Parsers
                             tvSeriasRepository.Insert(tvSeriaEntity);
                             tvSeriasRepository.SaveChanges();
                         }
-                        //else
-                        //{
-                        //    //обновление сериала
-                        //    tvSeriaEntity.Id = tvSeriaEntityInDb.Id;
+                        else
+                        {
+                            //обновление сериала
+                            tvSeriaEntity.Id = tvSeriaEntityInDb.Id;
 
-                        //    tvSeriaEntityInDb.ListGenreEntity = tvSeriaEntity.ListGenreEntity;
-                        //    tvSeriaEntityInDb.ListPerson = tvSeriaEntity.ListPerson;
+                            tvSeriaEntityInDb.ListGenreEntity = tvSeriaEntity.ListGenreEntity;
+                            tvSeriaEntityInDb.ListPerson = tvSeriaEntity.ListPerson;
 
-                        //    tvSeriaEntityInDb.UrlToSource = tvSeriaEntity.UrlToSource;
-                        //    tvSeriaEntityInDb.CurrentStatus = tvSeriaEntity.CurrentStatus;
-                        //    tvSeriaEntityInDb.LostfilmRate = tvSeriaEntity.LostfilmRate;
-                        //    tvSeriaEntityInDb.PosterImageUrl = tvSeriaEntity.PosterImageUrl;
-                        //    tvSeriaEntityInDb.RateImDb = tvSeriaEntity.RateImDb;
-                        //    tvSeriaEntityInDb.Summary = tvSeriaEntity.Summary;
-                        //    tvSeriaEntityInDb.UrlToOfficialSite = tvSeriaEntity.UrlToOfficialSite;
+                            tvSeriaEntityInDb.UrlToSource = tvSeriaEntity.UrlToSource;
+                            tvSeriaEntityInDb.CurrentStatus = tvSeriaEntity.CurrentStatus;
+                            tvSeriaEntityInDb.LostfilmRate = tvSeriaEntity.LostfilmRate;
+                            tvSeriaEntityInDb.PosterImageUrl = tvSeriaEntity.PosterImageUrl;
+                            tvSeriaEntityInDb.RateImDb = tvSeriaEntity.RateImDb;
+                            tvSeriaEntityInDb.Summary = tvSeriaEntity.Summary;
+                            tvSeriaEntityInDb.UrlToOfficialSite = tvSeriaEntity.UrlToOfficialSite;
 
-                        //    _unitOfWork.TvSeriasRepository.Update(tvSeriaEntityInDb);
-                        //    _unitOfWork.SaveChanges();
-                        //}
+                            tvSeriaEntityInDb.ListPerson = new List<PersonEntity>();
+                            tvSeriaEntityInDb.ListGenreEntity = new List<GenreEntity>();
+
+                            //todo добавлять в список дельту
+
+                            tvSeriasRepository.Update(tvSeriaEntityInDb);
+                            tvSeriasRepository.SaveChanges();
+                        }
 
                         foreach (var seasonEntity in listSeasonsEntity)
                         {
@@ -176,13 +181,51 @@ namespace Rocket.Parser.Parsers
                             seasonEntity.ListEpisode = new List<EpisodeEntity>();
                             seasonEntity.TvSeriesId = tvSeriasAgregateModelExt.TvSeriasEntity.Id;
 
-                            seasonRepository.Insert(seasonEntity);
-                            seasonRepository.SaveChanges();
+                            var seasonEntityInDb = seasonRepository.Queryable()
+                                .FirstOrDefault(item => item.TvSeriesId == tvSeriaEntity.Id 
+                                                        && item.Number == seasonEntity.Number);
+                            if (seasonEntityInDb == null)
+                            {
+                                seasonRepository.Insert(seasonEntity);
+                                seasonRepository.SaveChanges();
+                            }
+                            else
+                            {
+                                seasonEntity.Id = seasonEntityInDb.Id;
+
+                                seasonEntityInDb.PosterImageUrl = seasonEntity.PosterImageUrl;
+
+                                seasonRepository.Update(seasonEntityInDb);
+                                seasonRepository.SaveChanges();
+                            }
 
                             listEpisodeEntity.ForEach(item => item.SeasonId = seasonEntity.Id);
 
-                            episodeRepository.InsertRange(listEpisodeEntity);
-                            episodeRepository.SaveChanges();
+                            foreach (var episodeEntity in listEpisodeEntity)
+                            {
+                                var episodeEntityInDb = episodeRepository.Queryable()
+                                    .FirstOrDefault(item => item.SeasonId == seasonEntity.Id
+                                                            && item.Number == episodeEntity.Number);
+
+                                if (episodeEntityInDb == null)
+                                {
+                                    episodeRepository.InsertRange(listEpisodeEntity);
+                                    episodeRepository.SaveChanges();
+                                }
+                                else
+                                {
+                                    episodeEntityInDb.Id = episodeEntityInDb.Id;
+
+                                    episodeEntityInDb.ReleaseDateRu = episodeEntity.ReleaseDateRu;
+                                    episodeEntityInDb.ReleaseDateEn = episodeEntity.ReleaseDateEn;
+                                    episodeEntityInDb.TitleRu = episodeEntity.TitleRu;
+                                    episodeEntityInDb.TitleEn = episodeEntity.TitleEn;
+                                    episodeEntityInDb.DurationInMinutes = episodeEntity.DurationInMinutes;
+
+                                    episodeRepository.Update(episodeEntityInDb);
+                                    episodeRepository.SaveChanges();
+                                }
+                            }
                         }
                     }
                 }
