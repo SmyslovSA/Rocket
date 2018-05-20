@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.DAL.Common.DbModels.ReleaseList
 {

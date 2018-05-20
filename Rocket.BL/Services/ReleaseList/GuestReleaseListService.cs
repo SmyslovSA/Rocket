@@ -63,10 +63,10 @@ namespace Rocket.BL.Services.ReleaseList
             Func<IQueryable<DbBaseRelease>, IOrderedQueryable<DbBaseRelease>> orderBy)
         {
             var pageInfo = new ReleasesPageInfo();
-            pageInfo.TotalItemsCount = this._unitOfWork.ReleaseRepository.ItemsCount(filter);
-            pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
-            pageInfo.PageItems = Mapper.Map<IEnumerable<BaseRelease>>(
-                this._unitOfWork.ReleaseRepository.GetPage(pageSize, pageNumber, filter, orderBy));
+            //pageInfo.TotalItemsCount = _unitOfWork.ReleaseRepository.ItemsCount(filter);
+            //pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
+            //pageInfo.PageItems = Mapper.Map<IEnumerable<BaseRelease>>(
+            //    _unitOfWork.ReleaseRepository.GetPage(pageSize, pageNumber, filter, orderBy));
 
             return pageInfo;
         }

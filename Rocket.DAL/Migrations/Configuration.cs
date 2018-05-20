@@ -1,4 +1,4 @@
-namespace Rocket.DAL.Migrations
+﻿namespace Rocket.DAL.Migrations
 {
     using System.Data.Entity.Migrations;
 

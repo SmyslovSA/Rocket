@@ -7,55 +7,29 @@ namespace Rocket.DAL.Configurations.PersonalArea
     {
         public DbAuthorisedUserConfiguration()
         {
-            ToTable("AuthorisedUsers").
-                HasKey(k => k.Id).
-                Property(p => p.Id).
-                HasColumnName("Id");
+            ToTable("AuthorisedUsers")
+                .HasRequired(p => p.DbUser)
+                .WithRequiredDependent(d => d.DbAuthorisedUser)
+                .Map(m => m.MapKey("DbUserId"));
 
-            Property(p => p.DbUser.FirstName).
-                HasColumnName("FirstName").
-                IsOptional().
-                IsUnicode().
-                HasMaxLength(50).
-                IsVariableLength();
+            Property(p => p.Avatar)
+                .IsOptional()
+                .HasColumnName("AvatarPath")
+                .IsUnicode()
+                .HasMaxLength(200)
+                .IsVariableLength();
 
-            Property(p => p.DbUser.LastName).
-                HasColumnName("LastName").
-                IsOptional().
-                IsUnicode().
-                HasMaxLength(50).
-                IsVariableLength();
+            HasMany(p => p.Email)
+                .WithRequired(e => e.DbAuthorisedUser)
+                .HasForeignKey(e => e.DbAuthorisedUserId);
 
-            Property(p => p.DbUser.Login).
-                HasColumnName("Login").
-                IsRequired().
-                HasMaxLength(30).
-                IsVariableLength();
-
-            Property(p => p.DbUser.Password).
-                HasColumnName("Password").
-                IsRequired().
-                HasMaxLength(50).
-                IsVariableLength();
-
-            Property(p => p.Avatar).
-                IsOptional().
-                HasColumnName("AvatarPath").
-                IsUnicode().
-                HasMaxLength(200).
-                IsVariableLength();
-
-            HasMany(p => p.Email).
-                WithRequired(e => e.DbAuthorisedUser).
-                HasForeignKey(e => e.DbAuthorisedUserId);
-
-            HasMany(p => p.Genres).
-                WithMany(e => e.AuthorisedUsers).
-                Map(m =>
+            HasMany(p => p.Genres)
+                .WithMany(e => e.AuthorisedUsers)
+                .Map(m =>
                 {
-                    m.ToTable("AuthorisedUserGenres").
-                    MapLeftKey("AuthorisedUserId").
-                    MapRightKey("GenreId");
+                    m.ToTable("AuthorisedUserGenres")
+                    .MapLeftKey("AuthorisedUserId")
+                    .MapRightKey("GenreId");
                 });
         }
     }

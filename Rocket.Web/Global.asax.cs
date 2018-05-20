@@ -14,13 +14,14 @@ namespace Rocket.Web
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            MapperConfig.Initialize();
             GlobalFilters.Filters.Add(new RoleAuthorizeAttribyte());
         }
 
         protected override IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
-            kernel.Load(new[] { "Rocket.BL*", "Rocket.DAL*" });
+            kernel.Load(new[] {"Rocket.BL*", "Rocket.DAL*"});
             return kernel;
         }
     }

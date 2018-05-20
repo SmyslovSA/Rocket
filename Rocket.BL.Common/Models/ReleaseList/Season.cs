@@ -19,19 +19,14 @@ namespace Rocket.BL.Common.Models.ReleaseList
         public int Number { get; set; }
 
         /// <summary>
-        /// Возвращает или задает относительный путь
-        /// от корневой папки приложения к файлу изображения постера сезона
+        /// Возвращает или задает абсолютный Url
+        /// к файлу изображения постера сезона
         /// </summary>
-        public string PosterImagePath { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает краткое описание сезона
-        /// </summary>
-        public string Summary { get; set; }
+        public string PosterImageUrl { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию серий сезона
         /// </summary>
-        public ICollection<Episode> Episodes { get; set; } = new Collection<Episode>();
+        public ICollection<Episode> ListEpisode { get; set; } = new Collection<Episode>();
     }
 }

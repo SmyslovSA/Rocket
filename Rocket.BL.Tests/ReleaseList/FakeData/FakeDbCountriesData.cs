@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.BL.Tests.ReleaseList.FakeData
 {
@@ -11,6 +12,19 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
     public class FakeDbCountriesData
     {
         /// <summary>
+        /// Создает новый экземпляр сгенерированных данных о странах
+        /// </summary>
+        /// <param name="countriesCount">Необходимое количество сгенерированных стран</param>
+        public FakeDbCountriesData(int countriesCount)
+        {
+            CountryFaker = new Faker<DbCountry>()
+                .RuleFor(c => c.Id, f => f.IndexFaker)
+                .RuleFor(c => c.Name, f => f.Address.Country());
+
+            Countries = CountryFaker.Generate(countriesCount);
+        }
+
+        /// <summary>
         /// Возвращает генератор данных о странах
         /// </summary>
         public Faker<DbCountry> CountryFaker { get; }
@@ -19,18 +33,5 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// Возвращает коллекцию сгенерированных стран
         /// </summary>
         public List<DbCountry> Countries { get; }
-
-        /// <summary>
-        /// Создает новый экземпляр сгенерированных данных о странах
-        /// </summary>
-        /// <param name="countriesCount">Необходимое количество сгенерированных стран</param>
-        public FakeDbCountriesData(int countriesCount)
-        {
-            this.CountryFaker = new Faker<DbCountry>()
-                .RuleFor(c => c.Id, f => f.IndexFaker)
-                .RuleFor(c => c.Name, f => f.Address.Country());
-
-            this.Countries = this.CountryFaker.Generate(countriesCount);
-        }
     }
 }

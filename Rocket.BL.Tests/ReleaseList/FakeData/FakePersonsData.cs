@@ -25,11 +25,11 @@ namespace Rocket.BL.Tests.ReleaseList.FakeData
         /// <param name="personsCount">Необходимое количество сгенерированных людей</param>
         public FakePersonsData(int personsCount)
         {
-            this.PersonFaker = new Faker<Common.Models.ReleaseList.Person>()
+            PersonFaker = new Faker<Common.Models.ReleaseList.Person>()
                 .RuleFor(p => p.Id, f => f.IndexFaker)
-                .RuleFor(p => p.FullName, f => f.Person.FullName);
+                .RuleFor(p => p.FullNameRu, f => f.Person.FullName);
 
-            this.Persons = this.PersonFaker.Generate(personsCount);
+            Persons = PersonFaker.Generate(personsCount);
         }
     }
 }

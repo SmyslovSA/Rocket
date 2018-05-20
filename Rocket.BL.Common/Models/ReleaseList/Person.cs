@@ -13,6 +13,26 @@
         /// <summary>
         /// Возвращает или задает имя и фамилию (полное имя) человека
         /// </summary>
-        public string FullName { get; set; }
+        public string FullNameRu { get; set; }
+
+        /// <summary>
+        /// Полное имя человека(англ).
+        /// </summary>
+        public string FullNameEn { get; set; }
+
+        /// <summary>
+        /// Lostfilm-ссылка на личную сраницу.
+        /// </summary>
+        public string LostfilmPersonalPageUrl { get; set; }
+
+        /// <summary>
+        /// Фото превью человека.
+        /// </summary>
+        public string PhotoThumbnailUrl { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает тип человека (актёр, режиссёр)
+        /// </summary>
+        public PersonType PersonType { get; set; }
     }
 }

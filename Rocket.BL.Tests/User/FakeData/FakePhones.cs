@@ -28,7 +28,7 @@ namespace Rocket.BL.Tests.User.FakeData
         {
             for (int i = 0; i < phonesCount; i++)
             {
-                this.Phones.Add(this.PhoneFaker.Phone.PhoneNumber());
+                Phones.Add(PhoneFaker.Phone.PhoneNumber());
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories.ReleaseList;
-using System.Data.Entity;
+using Rocket.DAL.Context;
 
 namespace Rocket.DAL.Repositories.ReleaseList
 {
@@ -13,7 +13,7 @@ namespace Rocket.DAL.Repositories.ReleaseList
         /// Создает новый экземпляр репозитория для сериалов с заданным контекстом базы данных
         /// </summary>
         /// <param name="dbContext">Экземпляр контекста базы данных</param>
-        public DbTVSeriesRepository(DbContext dbContext)
+        public DbTVSeriesRepository(RocketContext dbContext)
             : base(dbContext)
         {
         }

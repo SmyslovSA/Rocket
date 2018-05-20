@@ -3,10 +3,8 @@ using Rocket.BL.Properties;
 
 namespace Rocket.BL.Validators.User
 {
-
-
     /// <summary>
-    /// Задаем условия для валидатора данных о человеке
+    /// Задаем условия для валидатора данных о человеке.
     /// </summary>
     internal class UserValidatorCheckRequiredFields : AbstractValidator<Common.Models.User.User>
     {

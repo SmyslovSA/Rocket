@@ -19,8 +19,8 @@ namespace Rocket.BL.Tests.UserRoles
     {
         private List<DbPermission> _fakeDbPermission;
         private List<DbRole> _fakeDbRole;
-        private PermissionManagerService pms;
-        private RoleService rms;
+        private PermissionManagerService _pms;
+        private RoleService _rms;
 
         [OneTimeSetUp]
         public void SetupParam()
@@ -78,14 +78,14 @@ namespace Rocket.BL.Tests.UserRoles
             mockUnitOfWork.Setup(mock => mock.PermissionRepository).Returns(() => mockDbPermissionRepository.Object);
             mockUnitOfWork.Setup(mock => mock.RoleRepository).Returns(() => mockDbRoleRepository.Object);
 
-            pms = new PermissionManagerService(mockUnitOfWork.Object);
-            rms = new RoleService(mockUnitOfWork.Object);
+            _pms = new PermissionManagerService(mockUnitOfWork.Object);
+            _rms = new RoleService(mockUnitOfWork.Object);
         }
 
         [Test, Order(1)]
         public void PermissionToRoleAdd()
         {
-            pms.AddPermissionToRole(2, 3);
+            _pms.AddPermissionToRole(2, 3);
             var actualPermission = _fakeDbRole[1].Permissions;
             actualPermission.Should().HaveCount(3);
         }
@@ -93,7 +93,7 @@ namespace Rocket.BL.Tests.UserRoles
         [Test, Order(2)]
         public void PermissionToRoleRemove()
         {
-            pms.RemovePermissionFromRole(2, 3);
+            _pms.RemovePermissionFromRole(2, 3);
             var actualPermission = _fakeDbRole[1].Permissions;
             actualPermission.Should().HaveCount(2);
         }
@@ -102,7 +102,7 @@ namespace Rocket.BL.Tests.UserRoles
         public void PermissionToRoleInsert()
         {
             Permission p = new Permission(){PermissionId = 6, Description = "Correct User", ValueName = "Корректировка пользователей"};
-            pms.Insert(p);
+            _pms.Insert(p);
             var actualPermission = _fakeDbPermission.Count;
             actualPermission.Should().Be(6);
         }
@@ -111,7 +111,7 @@ namespace Rocket.BL.Tests.UserRoles
         public void PermissionToRoleUpdate()
         {
             Permission p = new Permission() { PermissionId = 6, Description = "Correct User", ValueName = "Корректировка_пользователей" };
-            pms.Update(p);
+            _pms.Update(p);
             var actualPermission = _fakeDbPermission[5].ValueName;
             actualPermission.Should().Be("Корректировка_пользователей");
         }
@@ -119,7 +119,7 @@ namespace Rocket.BL.Tests.UserRoles
         [Test, Order(5)]
         public void PermissionToRoleGetById()
         {
-            Permission p = pms.GetById(6);
+            Permission p = _pms.GetById(6);
 
             var actualPermission = p.ValueName;
             actualPermission.Should().Be("Корректировка_пользователей");
@@ -128,7 +128,7 @@ namespace Rocket.BL.Tests.UserRoles
         [Test, Order(6)]
         public void PermissionToRoleDelete()
         {
-            pms.Delete(5);
+            _pms.Delete(5);
             var actualPermission = _fakeDbPermission.Count;
             actualPermission.Should().Be(5);
         }

@@ -10,7 +10,6 @@ namespace Rocket.BL.Services.UserServices
     {
         public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
 
         private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
@@ -33,7 +32,7 @@ namespace Rocket.BL.Services.UserServices
 
             dbUser.Roles.Add(dbRole);
 
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
         }
 
         public virtual bool RemoveFromRole(int userId, int roleId)
@@ -48,7 +47,7 @@ namespace Rocket.BL.Services.UserServices
 
             dbUser.Roles.Remove(dbRole);
 
-            _unitOfWork.Save();
+            _unitOfWork.SaveChanges();
             return true;
         }
 
@@ -62,7 +61,6 @@ namespace Rocket.BL.Services.UserServices
         {
             var dbUser = _unitOfWork.UserRepository.Get(t => t.Id == userId, includeProperties: "Roles").First();
             return dbUser.Roles;
-
         }
 
         /// <summary>

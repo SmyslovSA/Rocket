@@ -7,18 +7,17 @@ namespace Rocket.DAL.Configurations.ReleaseList
     /// Конфигурация хранения данных о музыкальных исполнителях
     /// </summary>
     public class DbMusicianConfiguration : EntityTypeConfiguration<DbMusician>
-	{
-		public DbMusicianConfiguration()
-		{
-			ToTable("Musician")
-				.HasKey(v => v.Id)
-				.Property(v => v.Id)
-				.HasColumnName("Id");
+    {
+        public DbMusicianConfiguration()
+        {
+            ToTable("Musician")
+                .HasKey(v => v.Id)
+                .Property(v => v.Id)
+                .HasColumnName("Id");
 
-			Property(c => c.FullName)
-				.IsRequired()
-				.HasColumnName("FullName");
-
-		}
-	}
+            Property(c => c.FullName)
+                .IsRequired()
+                .HasColumnName("FullName");
+        }
+    }
 }

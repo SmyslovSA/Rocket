@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Rocket.BL.Common.Services.User
 {
     /// <summary>
@@ -10,18 +11,18 @@ namespace Rocket.BL.Common.Services.User
         /// <summary>
         /// Валидирует (проверяет) экземпляр пользователя
         /// при его (вернее, перед) добавлении (регистрации) в хранилище данных.
-        /// Минимальный набор данных
+        /// Минимальный набор данных.
         /// </summary>
-        /// <param name="user">Экземпляр пользователя, который проверяется</param>
-        /// <returns>Возвращает <see langword='true'/>, если проверка завершена успешно</returns>
+        /// <param name="user">Экземпляр пользователя, который проверяется.</param>
+        /// <returns>Возвращает <see langword='true'/>, если проверка завершена успешно.</returns>
         bool UserValidateOnAddition(Models.User.User user);
 
         /// <summary>
         /// Валидирует (проверяем) экземпляр пользователя
         /// при его (вернее, перед) изменением.
         /// </summary>
-        /// <param name="user">Экземпляр пользователя, который проверяется</param>
-        /// <returns>Возвращает <see langword='true'/>, если проверка завершена успешно</returns>
+        /// <param name="user">Экземпляр пользователя, который проверяется.</param>
+        /// <returns>Возвращает <see langword='true'/>, если проверка завершена успешно.</returns>
         bool UserValidateOnUpdating(Models.User.User user);
     }
 }
