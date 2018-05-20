@@ -6,7 +6,7 @@ namespace Rocket.DAL.Configurations.Notification
     /// <summary>
     /// Конфигурация хранения сводных данных о получателе и релизе
     /// </summary>
-    public class ReceiversJoinReleasesConfiguration: EntityTypeConfiguration<DbReceiversJoinReleases>
+    public class ReceiversJoinReleasesConfiguration : EntityTypeConfiguration<DbReceiversJoinReleases>
     {
         public ReceiversJoinReleasesConfiguration()
         {

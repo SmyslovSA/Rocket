@@ -16,7 +16,7 @@ namespace Rocket.Parser.Jobs
         /// <summary>
         /// Парсит Lostfilm.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">context</param>
         public void Execute(IJobExecutionContext context)
         {
             //todo логирование парсер запущен

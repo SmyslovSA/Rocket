@@ -83,14 +83,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\ReleaseList\TvSeriesDetailedInfoService.cs" />
     <Compile Include="Services\UserServices\PermissionManagerService.cs" />
     <Compile Include="Services\UserServices\UserRoleManager.cs" />
     <Compile Include="Services\UserServices\RoleService.cs" />
     <Compile Include="Services\ReleaseList\FilmDetailedInfoService.cs" />
     <Compile Include="Services\BaseService.cs" />
-    <Compile Include="Services\ReleaseList\TVSeriesDetailedInfoService.cs" />
     <Compile Include="Services\ReleaseList\MusicDetailedInfoService.cs" />
     <Compile Include="Services\PersonalArea\ChangePersonalDataService.cs" />
+    <Compile Include="Services\User\UserAccountLevelService.cs" />
+    <Compile Include="Services\User\UserAccountStatusService.cs" />
     <Compile Include="Validators\UserDataValidator.cs" />
     <Compile Include="Services\User\UserManagementService.cs" />
     <Compile Include="Services\User\UserValidateService.cs" />

@@ -23,8 +23,8 @@ namespace Rocket.Parser.Services
         /// <summary>
         /// Ctor
         /// </summary>
-        /// <param name="httpClient"></param>
-        /// <param name="domParser"></param>
+        /// <param name="httpClient">httpClient</param>
+        /// <param name="domParser">HtmlParser</param>
         public LoadHtmlService(HttpClient httpClient, HtmlParser domParser)
         {
             _httpClient = httpClient;

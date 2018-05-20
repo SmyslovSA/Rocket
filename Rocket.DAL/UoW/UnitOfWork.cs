@@ -3,7 +3,6 @@ using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
-using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
@@ -40,7 +39,8 @@ namespace Rocket.DAL.UoW
         /// <param name="dbRoleRepository">Репозиторий ролей</param>
         /// <param name="dbPermissionRepository">Репозиторий разрешений</param>
         /// <param name="dbAuthorisedUserRepository">Репозиторий авторизованных пользователей</param>
-        public UnitOfWork(RocketContext rocketContext,
+        public UnitOfWork(
+            RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
             IBaseRepository<ParserSettingsEntity> parserSettingsRepository,
             IBaseRepository<ResourceEntity> resourceRepository,
@@ -55,13 +55,11 @@ namespace Rocket.DAL.UoW
             IBaseRepository<PersonTypeEntity> personTypeRepository,
             IBaseRepository<SeasonEntity> seasonRepository,
             IBaseRepository<TvSeriasEntity> tvSeriasRepository,
-            IDbFilmRepository dbFilmRepository,
             IDbEmailRepository dbEmailRepository,
             IDbUserRepository dbUserRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
-            IDbAuthorisedUserRepository dbAuthorisedUserRepository
-            )
+            IDbAuthorisedUserRepository dbAuthorisedUserRepository)
         {
             _rocketContext = rocketContext;
             MusicRepository = musicRepository;
@@ -78,7 +76,6 @@ namespace Rocket.DAL.UoW
             PersonTypeRepository = personTypeRepository;
             SeasonRepository = seasonRepository;
             TvSeriasRepository = tvSeriasRepository;
-            FilmRepository = dbFilmRepository;
             EmailRepository = dbEmailRepository;
             UserRepository = dbUserRepository;
             RoleRepository = dbRoleRepository;
@@ -90,11 +87,6 @@ namespace Rocket.DAL.UoW
         {
             Dispose(false);
         }
-
-        /// <summary>
-        /// Возвращает репозиторий для фильмов
-        /// </summary>
-        public IDbFilmRepository FilmRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для музыкального релиза
@@ -182,13 +174,21 @@ namespace Rocket.DAL.UoW
         }
 
         /// <summary>
+        /// Сохранение изменений
+        /// </summary>
+        /// <returns></returns>
+        public int SaveChanges()
+        {
+            return _rocketContext.SaveChanges();
+        }
+        
+        /// <summary>
         /// Освобождает управляемые ресурсы.
         /// </summary>
         /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
-                return;
+            if (_disposed) return;
 
             if (disposing)
             {
@@ -200,9 +200,5 @@ namespace Rocket.DAL.UoW
             _disposed = true;
         }
 
-        public int SaveChanges()
-        {
-            return _rocketContext.SaveChanges();
-        }
     }
 }

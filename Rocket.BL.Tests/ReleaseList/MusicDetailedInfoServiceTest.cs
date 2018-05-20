@@ -5,11 +5,11 @@ using NUnit.Framework;
 using Rocket.BL.Services.ReleaseList;
 using Rocket.BL.Tests.ReleaseList.FakeData;
 using Rocket.DAL.Common.DbModels.ReleaseList;
-using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Rocket.DAL.Common.Repositories;
 
 namespace Rocket.BL.Tests.ReleaseList
 {
@@ -35,7 +35,7 @@ namespace Rocket.BL.Tests.ReleaseList
 
             _fakeDbMusicData = new FakeDbMusicData(100, 10, MusicCount);
 
-            var mockDbMusicRepository = new Mock<IDbMusicRepository>();
+            var mockDbMusicRepository = new Mock<IBaseRepository<DbMusic>>();
             mockDbMusicRepository
                 .Setup(mock => mock.Get(It.IsAny<Expression<Func<DbMusic, bool>>>(), null, string.Empty))
                 .Returns((Expression<Func<DbMusic, bool>> filter,
@@ -52,8 +52,8 @@ namespace Rocket.BL.Tests.ReleaseList
                     .Remove(_fakeDbMusicData.Music.Find(f => f.Id == id)));
 
             var mockDbMusicUnitOfWork = new Mock<IUnitOfWork>();
-            //mockDbMusicUnitOfWork.Setup(mock => mock.MusicRepository)
-            //    .Returns(() => mockDbMusicRepository.Object); //todo - закоментил, не знаю в чем дело
+            mockDbMusicUnitOfWork.Setup(mock => mock.MusicRepository)
+                .Returns(() => mockDbMusicRepository.Object); //todo - закоментил, не знаю в чем дело
 
             _musicDetailedInfoService = new MusicDetailedInfoService(mockDbMusicUnitOfWork.Object);
         }
@@ -71,7 +71,7 @@ namespace Rocket.BL.Tests.ReleaseList
             var actualMusic = _musicDetailedInfoService.GetMusic(id);
 
             actualMusic.Should().BeEquivalentTo(expectedMusic,
-                options => options.ExcludingMissingMembers());
+                options => options.ExcludingMissingMembers().Excluding(mus => mus.Duration));
             actualMusic.Musicians.Should().BeEquivalentTo(expectedMusic.Musicians,
                 options => options.ExcludingMissingMembers());
             actualMusic.Genres.Should().BeEquivalentTo(expectedMusic.Genres,

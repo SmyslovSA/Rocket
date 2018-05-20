@@ -55,7 +55,8 @@ namespace Rocket.Parser
         /// </summary>
         /// <param name="serviceConfigurator">Конфигуратор Quartz.</param>
         /// <param name="kernel">DI контейнер</param>
-        private static void LostfilmParseProcess(ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
+        private static void LostfilmParseProcess(
+            ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
             //todo эти настройки должны лежать в базе и задаваться через админку на UI, а пока в конфиге
             var resourceRepository = kernel.Get<IBaseRepository<ResourceEntity>>();
@@ -88,7 +89,8 @@ namespace Rocket.Parser
         /// </summary>
         /// <param name="serviceConfigurator">Конфигуратор Quartz.</param>
         /// <param name="kernel">DI контейнер</param>
-        public static void AlbumInfoParseProcess(ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
+        private static void AlbumInfoParseProcess(
+            ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
             var resourceRepository = kernel.Get<IBaseRepository<ResourceEntity>>();
             var resource = resourceRepository

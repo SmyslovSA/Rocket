@@ -34,7 +34,22 @@ namespace Rocket.Web.Controllers.User
                 return NotFound();
             }
 
-            if (users.Count == 0)
+            return Ok(users);
+        }
+
+        /// <summary>
+        /// Возвращает пользователей для пейджинга.
+        /// </summary>
+        /// <param name="pageSize">Количество сведений о пользователях, выводимых на страницу.</param>
+        /// <param name="pageNumber">Номер выводимой страницы со сведениями о пользователях.</param>
+        /// <returns>Коллекция пользователей для пейджинга.</returns>
+        [HttpGet]
+        [Route("page")]
+        public IHttpActionResult GetUsersPage(int pageSize, int pageNumber)
+        {
+            var users = _userManagementService.GetUsersPage(pageSize, pageNumber);
+
+            if (users == null)
             {
                 return NotFound();
             }
@@ -54,7 +69,7 @@ namespace Rocket.Web.Controllers.User
         {
             var user = _userManagementService.GetUser(id);
 
-            return user == null ? (IHttpActionResult) NotFound() : Ok(user);
+            return user == null ? (IHttpActionResult)NotFound() : Ok(user);
         }
 
         /// <summary>

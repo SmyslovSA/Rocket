@@ -2,7 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Results;
 using Rocket.BL.Common.Models.UserRoles;
-using Rocket.BL.Services.UserServices;
+using Rocket.BL.Common.Services;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Rocket.Web.Controllers.UserRole
@@ -10,9 +10,9 @@ namespace Rocket.Web.Controllers.UserRole
     [RoutePrefix("roles")]
     public class RoleController : ApiController
     {
-        private readonly RoleService _roleService;
+        private readonly IRoleService _roleService;
 
-        public RoleController(RoleService roleService)
+        public RoleController(IRoleService roleService)
         {
             _roleService = roleService;
         }
@@ -55,7 +55,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpDelete]
-        [Route("{id:int:min(1)")]
+        [Route("{id:int:min(1)}")]
         public IHttpActionResult DeleteRoleById(int id)
         {
             if (_roleService.GetById(id) == null)

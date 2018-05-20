@@ -4,11 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using Rocket.BL.Common.Models.UserRoles;
+using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.DbUserRole;
-using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.UoW;
-using Rocket.DAL.Context;
-using Rocket.DAL.Repositories;
 
 namespace Rocket.BL.Services.UserServices
 {
@@ -16,7 +14,7 @@ namespace Rocket.BL.Services.UserServices
     /// получение роли, установка роли для пользователя
     /// если не указана, то дефолтовая
     /// </summary>
-    public class RoleService : BaseService // todo add ilogger
+    public class RoleService : BaseService, IRoleService
     {
         public RoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -29,8 +27,10 @@ namespace Rocket.BL.Services.UserServices
                 .Any();
         }
 
-        public IEnumerable<Role> Get(Expression<Func<DbRole, bool>> filter = null,
-            Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, string includeProperties = "")
+        public IEnumerable<Role> Get(
+            Expression<Func<DbRole, bool>> filter = null, 
+            Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, 
+            string includeProperties = "")
         {
             return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
         }

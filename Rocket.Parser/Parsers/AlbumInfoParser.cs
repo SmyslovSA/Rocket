@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AngleSharp.Dom.Html;
+using PCRE;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.UoW;
+using Rocket.Parser.Exceptions;
 using Rocket.Parser.Interfaces;
 using Rocket.Parser.Models;
-using AngleSharp.Dom.Html;
+using Rocket.Parser.Properties;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
 using System.IO;
-using PCRE;
-using Rocket.DAL.Common.DbModels.ReleaseList;
-using Rocket.Parser.Exceptions;
-using Helper = Rocket.Parser.Heplers.AlbumInfoHelper;
+using System.Linq;
+using System.Threading.Tasks;
 using Const = Rocket.Parser.Heplers.CommonHelper;
-using Rocket.Parser.Properties;
+using Helper = Rocket.Parser.Heplers.AlbumInfoHelper;
 
 namespace Rocket.Parser.Parsers
 {
@@ -30,7 +30,7 @@ namespace Rocket.Parser.Parsers
         /// </summary>
         /// <param name="loadHtmlService">Сервис загрузки HTML</param>
         /// <param name="unitOfWork">UoW</param>
-        public AlbumInfoParser(ILoadHtmlService loadHtmlService,IUnitOfWork unitOfWork)
+        public AlbumInfoParser(ILoadHtmlService loadHtmlService, IUnitOfWork unitOfWork)
         {
             _loadHtmlService = loadHtmlService;
             _unitOfWork = unitOfWork;
@@ -48,8 +48,10 @@ namespace Rocket.Parser.Parsers
                 // получаем настройки парсера
                 var resource = _unitOfWork.ResourceRepository
                     .Queryable().First(r => r.Name.Equals(Resources.AlbumInfoSettings));
+
                 var settings = _unitOfWork.ParserSettingsRepository.Queryable().
-                    Where(ps => ps.ResourceId == resource.Id).ToList();
+                    Where(ps => ps.ResourceId == resource.Id)
+                    .ToList();
 
                 if (!settings.Any())
                 {
@@ -96,8 +98,9 @@ namespace Rocket.Parser.Parsers
         /// <param name="index">Текущая страница со списком релизов</param>
         /// <param name="resourceItemsBc">Потокобезопасная коллекция элементов ресурса</param>
         /// <param name="releasesBc">Потокобезопасная коллекция релизов сайта</param>
-        /// <returns></returns>
-        private async Task ParseAlbumInfo(ParserSettingsEntity setting, string resourceLink, int index, 
+        /// <returns>Task</returns>
+        private async Task ParseAlbumInfo(
+            ParserSettingsEntity setting, string resourceLink, int index, 
             BlockingCollection<ResourceItemEntity> resourceItemsBc, BlockingCollection<AlbumInfoRelease> releasesBc)
         {
             var linksPageUrl = $"{setting.BaseUrl}{setting.Prefix}{index}";
@@ -121,7 +124,7 @@ namespace Rocket.Parser.Parsers
         /// <param name="releaseLink">Ссылка на релиз</param>
         /// <param name="resourceItemsBc">Потокобезопасная коллекция элементов ресурса</param>
         /// <param name="releasesBc">Потокобезопасная коллекция релизов сайта</param>
-        /// <returns></returns>
+        /// <returns>Task</returns>
         private async Task ParseReleasInfo(ParserSettingsEntity setting, string resourceLink, string releaseLink, 
             BlockingCollection<ResourceItemEntity> resourceItemsBc, BlockingCollection<AlbumInfoRelease> releasesBc)
         {
@@ -153,7 +156,8 @@ namespace Rocket.Parser.Parsers
         /// <summary>
         /// Сохраняет в БД результаты парсинга
         /// </summary>
-        /// <returns></returns>
+        /// <param name="resourceItemsBc">resourceItemsBc</param>
+        /// <param name="releasesBc">releasesBc</param>
         private void SaveResults(BlockingCollection<ResourceItemEntity> resourceItemsBc,
             BlockingCollection<AlbumInfoRelease> releasesBc)
         {
@@ -189,7 +193,7 @@ namespace Rocket.Parser.Parsers
         /// Сохраняет релиз
         /// </summary>
         /// <param name="music">Музыкальный релиз</param>
-        /// <returns></returns>
+        /// <returns>Id сущности музыка</returns>
         private int SaveRelease(DbMusic music)
         {
             //проверяем существует ли релиз
@@ -217,6 +221,7 @@ namespace Rocket.Parser.Parsers
             //создаем новый релиз
             _unitOfWork.MusicRepository.Insert(music);
             _unitOfWork.SaveChanges();
+
             return music.Id;
         }
 
@@ -268,7 +273,7 @@ namespace Rocket.Parser.Parsers
             SaveMusician(music, releaseArtist);
             SaveGenre(music, releaseGenres);
 
-            music.Title = string.IsNullOrEmpty(releaseName) ? Helper.UnknownName: releaseName;
+            music.Title = string.IsNullOrEmpty(releaseName) ? Helper.UnknownName : releaseName;
             music.ReleaseDate = releaseDate;
             music.Type = releaseType;
             music.Artist = string.IsNullOrEmpty(releaseArtist) ? Helper.UnknownArtist : releaseArtist;
@@ -359,22 +364,24 @@ namespace Rocket.Parser.Parsers
                     });
                 }
             }
+
             _unitOfWork.SaveChanges();
         }
 
         /// <summary>
         /// Парсинг страницы содержащей ссылки на релизы
         /// </summary>
-        /// <param name="document"></param>
+        /// <param name="document">IHtmlDocument</param>
         /// <returns>Массив ссылок на страницы релизов</returns>
         private string[] ParseAlbumlist(IHtmlDocument document)
         {
             var list = new List<string>();
 
-            // парсинг таблицы содержащей релизы
-            for (var i = 1; i < 4; i++) // столбцы таблицы
+            // парсинг таблицы содержащей релизы(столбцы таблицы)
+            for (var i = 1; i < 4; i++) 
             {
-                for (var j = 1; j < 5; j++) // строки таблицы
+                // строки таблицы
+                for (var j = 1; j < 5; j++) 
                 {
                     var item = document.QuerySelector(
                         string.Format(Resources.AlbumInfoReleaseLinkSelector, i, j));
@@ -385,6 +392,7 @@ namespace Rocket.Parser.Parsers
                     }
                 }
             }
+
             return list.ToArray();
         }
 
@@ -414,7 +422,7 @@ namespace Rocket.Parser.Parsers
         /// <param name="release">Релиз</param>
         /// <param name="resourceLink">Адрес сайта</param>
         /// <param name="resourceId">ID ресурса</param>
-        /// <returns></returns>
+        /// <returns>Task</returns>
         private async Task LoadAndSaveReleaseCover(AlbumInfoRelease release, string resourceLink, int resourceId)
         {
             var url = resourceLink + release.ImageUrl;

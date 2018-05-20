@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocket.Parser", "Rocket.Parser\Rocket.Parser.csproj", "{7B49087B-5612-4EB5-94B7-EF6D03CF4E7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocket.Notifications", "Rocket.Notifications\Rocket.Notifications.csproj", "{12F257C4-AB35-44A7-A276-259DB93F6A16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{7B49087B-5612-4EB5-94B7-EF6D03CF4E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B49087B-5612-4EB5-94B7-EF6D03CF4E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B49087B-5612-4EB5-94B7-EF6D03CF4E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12F257C4-AB35-44A7-A276-259DB93F6A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F257C4-AB35-44A7-A276-259DB93F6A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F257C4-AB35-44A7-A276-259DB93F6A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F257C4-AB35-44A7-A276-259DB93F6A16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

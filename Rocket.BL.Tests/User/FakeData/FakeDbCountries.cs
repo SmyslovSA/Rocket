@@ -1,6 +1,6 @@
 ﻿using Bogus;
 using System.Collections.Generic;
-using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 
 namespace Rocket.BL.Tests.User.FakeData
 {

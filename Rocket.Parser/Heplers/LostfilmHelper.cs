@@ -8,19 +8,11 @@ namespace Rocket.Parser.Heplers
     /// </summary>
     internal static class LostfilmHelper
     {
-        //коллекции по секциям
-        private static readonly NameValueCollection RunSettings;
-        private static readonly NameValueCollection Urls;
-        private static readonly NameValueCollection TakeSettings;
-        private static readonly NameValueCollection TvSerailListHeaderSelectors;
-        private static readonly NameValueCollection TvSerailSelectors;
-        private static readonly NameValueCollection EpisodeSelectors;
-        private static readonly NameValueCollection CastSelectors;
 
         //настройки запуска
         private const string ParseIsSwitchOnKey = "ParseIsSwitchOn";
         private const string ParsePeriodInMinutesKey = "ParsePeriodInMinutes";
-        
+
         //ссылки, начальная и частичные
         private const string ParseBaseUrlKey = "ParseBaseUrl";
         private const string AdditionalUrlToSerialListBatchKey = "AdditionalUrlToSerialListBatch";
@@ -33,7 +25,7 @@ namespace Rocket.Parser.Heplers
         private const string MaxRequestCountKey = "MaxRequestCount";
         private const string TakeTvSerialByRequestKey = "TakeTvSerialByRequest";
         private const string MessageNotFoundByRequestKey = "MessageNotFoundByRequest";
-        
+
         //настройки для парсинга заголовка сериала из общего списка
         private const string TvSerialHeaderKeywordStatusKey = "KeywordStatus";
         private const string TvSerialHeaderKeywordYearStartKey = "KeywordYearStart";
@@ -82,12 +74,21 @@ namespace Rocket.Parser.Heplers
         private const string KeywordProducersKey = "KeywordProducers";
         private const string KeywordWritersKey = "KeywordWriters";
 
+        //коллекции по секциям
+        private static readonly NameValueCollection RunSettings;
+        private static readonly NameValueCollection Urls;
+        private static readonly NameValueCollection TakeSettings;
+        private static readonly NameValueCollection TvSerailListHeaderSelectors;
+        private static readonly NameValueCollection TvSerailSelectors;
+        private static readonly NameValueCollection EpisodeSelectors;
+        private static readonly NameValueCollection CastSelectors;
+
         /// <summary>
         /// Инициализируем все необходимые коллекции настроек для парсинга(Singlton).
         /// </summary>
         static LostfilmHelper()
         {
-            RunSettings =(NameValueCollection)ConfigurationManager.GetSection(
+            RunSettings = (NameValueCollection)ConfigurationManager.GetSection(
                     ProjectNameConstants.LostfilmSectionGroupName + "/" + ProjectNameConstants.RunSettingsSectionName);
 
             Urls = (NameValueCollection)ConfigurationManager.GetSection(
@@ -213,7 +214,7 @@ namespace Rocket.Parser.Heplers
             return TvSerailListHeaderSelectors.Get(TvSerialHeaderKeywordStatusKey);
         }
 
-        internal static string GetTvSerialHeaderKeywordYearStart()
+        public static string GetTvSerialHeaderKeywordYearStart()
         {
             return TvSerailListHeaderSelectors.Get(TvSerialHeaderKeywordYearStartKey);
         }
@@ -233,7 +234,7 @@ namespace Rocket.Parser.Heplers
             return TvSerailSelectors.Get(TvSerialOverviewKey);
         }
 
-        internal static string GetTvSerialKeywordRateImDb()
+        public static string GetTvSerialKeywordRateImDb()
         {
             return TvSerailSelectors.Get(TvSerialKeywordRateImDbKey);
         }

@@ -6,7 +6,7 @@ namespace Rocket.DAL.Configurations.Notification
     /// <summary>
     /// Конфигурация хранения данных по сообщению о релизе
     /// </summary>
-    public class ReleaseMessageConfiguration: EntityTypeConfiguration<DbReleaseMessage>
+    public class ReleaseMessageConfiguration : EntityTypeConfiguration<DbReleaseMessage>
     {
         public ReleaseMessageConfiguration()
         {

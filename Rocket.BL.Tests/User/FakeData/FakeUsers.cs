@@ -47,7 +47,7 @@ namespace Rocket.BL.Tests.User.FakeData
                     f => { return isLoginNullOrEmpty ? string.Empty : f.Lorem.Letter(minLoginLenght); })
                 .RuleFor(p => p.Password,
                     f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); })
-                .RuleFor(p => p.UserDetails, f => { return new FakeUserDetails(1).UserDetails[0]; });
+                .RuleFor(p => p.UserDetail, f => { return new FakeUserDetails(1).UserDetails[0]; });
 
             Users = result.Generate(usersCount);
         }
