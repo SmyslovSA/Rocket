@@ -42,7 +42,7 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <param name="roleId"> Идентификатор роли. </param>
-        /// <returns></returns>
+        /// <returns> bool </returns>
         public virtual bool RemoveFromRole(int userId, int roleId)
         {
             // todo check user

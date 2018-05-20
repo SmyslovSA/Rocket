@@ -44,7 +44,7 @@ namespace Rocket.BL.Common.Services
         /// Проверка существования данной роли
         /// </summary>
         /// <param name="filter"> фильтр </param>
-        /// <returns></returns>
+        /// <returns> bool </returns>
         bool RoleIsExists(Expression<Func<Role, bool>> filter);
 
         /// <summary>
