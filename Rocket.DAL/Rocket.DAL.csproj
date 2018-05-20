@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\Notification\NotificationsLogMap.cs" />
     <Compile Include="Configurations\Notification\NotificationsSettingsEntityMap.cs" />
     <Compile Include="Configurations\Parser\CategoryEntityMap.cs" />
     <Compile Include="Configurations\Parser\EpisodeEntityMap.cs" />
