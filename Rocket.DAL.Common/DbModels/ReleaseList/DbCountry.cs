@@ -19,18 +19,6 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         public string Name { get; set; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию фильмов,
-        /// в съёмках которых принимала участие эта страна.
-        /// </summary>
-        public ICollection<DbFilm> DbFilms { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает коллекцию сериалов,
-        /// в съёмках которых принимала участие эта страна
-        /// </summary>
-        public ICollection<DbTVSeries> DbTVSerials { get; set; }
-
-        /// <summary>
         /// Возвращает или задает коллекцию детальной информации о пользователях,
         /// к которым относится данная страна.
         /// </summary>

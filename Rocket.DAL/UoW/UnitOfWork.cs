@@ -3,7 +3,6 @@ using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
-using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
@@ -56,7 +55,6 @@ namespace Rocket.DAL.UoW
             IBaseRepository<PersonTypeEntity> personTypeRepository,
             IBaseRepository<SeasonEntity> seasonRepository,
             IBaseRepository<TvSeriasEntity> tvSeriasRepository,
-            IDbFilmRepository dbFilmRepository,
             IDbEmailRepository dbEmailRepository,
             IDbUserRepository dbUserRepository,
             IDbRoleRepository dbRoleRepository,
@@ -78,7 +76,6 @@ namespace Rocket.DAL.UoW
             PersonTypeRepository = personTypeRepository;
             SeasonRepository = seasonRepository;
             TvSeriasRepository = tvSeriasRepository;
-            FilmRepository = dbFilmRepository;
             EmailRepository = dbEmailRepository;
             UserRepository = dbUserRepository;
             RoleRepository = dbRoleRepository;
@@ -90,11 +87,6 @@ namespace Rocket.DAL.UoW
         {
             Dispose(false);
         }
-
-        /// <summary>
-        /// Возвращает репозиторий для фильмов
-        /// </summary>
-        public IDbFilmRepository FilmRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для музыкального релиза
