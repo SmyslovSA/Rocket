@@ -70,7 +70,6 @@
     <Compile Include="DbModels\ReleaseList\DbMusicTrack.cs" />
     <Compile Include="DbModels\DbUserRole\DbPermission.cs" />
     <Compile Include="DbModels\DbUserRole\DbRole.cs" />
-    <Compile Include="DbModels\DbUserRole\DbUserRole.cs" />
     <Compile Include="DbModels\Parser\CategoryEntity.cs" />
     <Compile Include="DbModels\Parser\PersonTypeEntity.cs" />
     <Compile Include="DbModels\Parser\ResourceEntity.cs" />
