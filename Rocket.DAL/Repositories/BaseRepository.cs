@@ -72,7 +72,7 @@ namespace Rocket.DAL.Repositories
         /// Возвращает экземпляр <see cref="TEntity"/>,
         /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
-        /// <param name="id">Идентификатор.</param>
+        /// <param name="id"> Идентификатор. </param>
         /// <returns>Экземпляр <see cref="TEntity"/>.</returns>
         public TEntity GetById<TKey>(TKey id)
         {
@@ -129,7 +129,7 @@ namespace Rocket.DAL.Repositories
         /// Удаляет экземпляр <see cref="TEntity"/>,
         /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
-        /// <param name="id">Идентификатор.</param>
+        /// <param name="id"> Идентификатор. </param>
         public virtual void Delete<TKey>(TKey id)
         {
             var entityToDelete = _dbSet.Find(id);
