@@ -3,7 +3,6 @@ using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
-using Rocket.DAL.Common.Repositories.ReleaseList;
 using Rocket.DAL.Common.Repositories.User;
 using System;
 
@@ -14,11 +13,6 @@ namespace Rocket.DAL.Common.UoW
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
-        /// <summary>
-        /// Возвращает репозиторий для фильмов
-        /// </summary>
-        IDbFilmRepository FilmRepository { get; }
-
         /// <summary>
         /// Возвращает репозиторий для emails.
         /// </summary>
