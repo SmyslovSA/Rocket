@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\Notification\NotificationsSettingsEntityMap.cs" />
     <Compile Include="Configurations\Parser\CategoryEntityMap.cs" />
     <Compile Include="Configurations\Parser\EpisodeEntityMap.cs" />
     <Compile Include="Configurations\Parser\PersonEntityMap.cs" />
@@ -142,6 +143,10 @@
     <Compile Include="Migrations\201805192337515_AddUser.Designer.cs">
       <DependentUpon>201805192337515_AddUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805200849026_AddNotificationsSettings.cs" />
+    <Compile Include="Migrations\201805200849026_AddNotificationsSettings.Designer.cs">
+      <DependentUpon>201805200849026_AddNotificationsSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -178,6 +183,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805192337515_AddUser.resx">
       <DependentUpon>201805192337515_AddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805200849026_AddNotificationsSettings.resx">
+      <DependentUpon>201805200849026_AddNotificationsSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
