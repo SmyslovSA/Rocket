@@ -85,7 +85,9 @@
   <ItemGroup>
     <Compile Include="BLModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Notification\MailNotificationService.cs" />
+    <Compile Include="Services\Notification\MailNotificationService.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Services\Notification\HtmlStringBuilder.cs" />
     <Compile Include="Services\PersonalArea\ChangeEmailManagerService.cs" />
     <Compile Include="Services\PersonalArea\ChangeGenreManagerService.cs" />

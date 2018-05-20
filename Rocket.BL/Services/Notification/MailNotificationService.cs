@@ -19,13 +19,7 @@ namespace Rocket.BL.Services.EmailNotificationService
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody(); 
             message.Body = bodyBuilder.ToMessageBody();
 
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("rocket.team.mail.service@gmail.com", "4hqymel_ZP898qwe");
-                client.Send(message);
-                client.Disconnect(true);
-            }
+            SmtpClientCreator(message);
         }
 
         void IMailNotificationService.SendBillingPremium(int id)
@@ -41,13 +35,7 @@ namespace Rocket.BL.Services.EmailNotificationService
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody();
             message.Body = bodyBuilder.ToMessageBody();
 
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("rocket.team.mail.service@gmail.com", "4hqymel_ZP898qwe");
-                client.Send(message);
-                client.Disconnect(true);
-            }
+            SmtpClientCreator(message);
         }
 
         void IMailNotificationService.SendBillingUser(int id)
@@ -63,13 +51,7 @@ namespace Rocket.BL.Services.EmailNotificationService
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody();
             message.Body = bodyBuilder.ToMessageBody();
 
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("rocket.team.mail.service@gmail.com", "4hqymel_ZP898qwe");
-                client.Send(message);
-                client.Disconnect(true);
-            }
+            SmtpClientCreator(message);
         }
 
         void IMailNotificationService.SendConfirmation(string email, string url, string name)
@@ -85,19 +67,12 @@ namespace Rocket.BL.Services.EmailNotificationService
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody();
             message.Body = bodyBuilder.ToMessageBody();
 
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("rocket.team.mail.service@gmail.com", "4hqymel_ZP898qwe");
-                client.Send(message);
-                client.Disconnect(true);
-            }
+            SmtpClientCreator(message);
         }
 
         void IMailNotificationService.SendCustomMessage(int id)
         {
             var htmlStringBuilder = new HtmlStringBuilder();
-
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("rocket.team.mail.service@gmail.com"));
             message.To.Add(new MailboxAddress(string.Empty/*todo Достать адреса*/));
@@ -107,6 +82,11 @@ namespace Rocket.BL.Services.EmailNotificationService
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody();
             message.Body = bodyBuilder.ToMessageBody();
 
+            SmtpClientCreator(message);
+        }
+
+        private void SmtpClientCreator(MimeMessage message)
+        {
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.gmail.com", 465, true);
