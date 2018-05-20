@@ -2,8 +2,10 @@
 using Rocket.DAL.Migrations;
 using System.Data.Entity;
 using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Configurations;
+using Rocket.DAL.Configurations.Notification;
 using Rocket.DAL.Configurations.Parser;
 using Rocket.DAL.Configurations.PersonalArea;
 using Rocket.DAL.Configurations.ReleaseList;
@@ -72,6 +74,11 @@ namespace Rocket.DAL.Context
         public DbSet<SeasonEntity> SeasonEntities { get; set; }
 
         /// <summary>
+        /// DbSet настроек сервиса уведомлений
+        /// </summary>
+        public DbSet<NotificationsSettingsEntity> NotificationsSettings { get; set; }
+
+        /// <summary>
         /// Этот метод вызывается, когда модель для производного контекста данных была инициализирована,
         /// но до того, как модель была заблокирована и использована для инициализации этого контекста.
         /// </summary>
@@ -108,6 +115,8 @@ namespace Rocket.DAL.Context
             modelBuilder.Configurations.Add(new DbCountryConfiguration());
 
             modelBuilder.Configurations.Add(new DbAuthorisedUserConfiguration());
+
+            modelBuilder.Configurations.Add(new NotificationsSettingsEntityMap());
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Rocket.BL.Services.User
     /// в хранилище данных.
     /// </summary>
     public class UserManagementService : BaseService, IUserManagementService
-    {   
+    {
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work.
@@ -32,16 +32,37 @@ namespace Rocket.BL.Services.User
         /// <returns>Коллекцию всех экземпляров пользователей.</returns>
         public ICollection<Common.Models.User.User> GetAllUsers()
         {
-            var users = new List<Common.Models.User.User>();
+            var usersCount = _unitOfWork.UserRepository.ItemsCount();
 
-            var usersCount = _unitOfWork.UserRepository.Get().Count();
-
-            for (int i = 0; i < usersCount; i++)
+            if (usersCount == 0) 
             {
-                users.Add(GetUser(i));
+                return null;
             }
 
-            return users;
+            var dbUsers = _unitOfWork.UserRepository.Get();
+
+            return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
+        }
+
+        /// <summary>
+        /// Возвращает пользователей
+        /// из хранилища данных для пейджинга.
+        /// </summary>
+        /// <param name="pageSize">Количество сведений о пользователях, выводимых на страницу.</param>
+        /// <param name="pageNumber">Номер выводимой страницы со сведениями о пользователях.</param>
+        /// <returns>Коллекция экземпляров пользователей для пейджинга.</returns>
+        public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
+        {
+            var usersCount = _unitOfWork.UserRepository.ItemsCount();
+
+            if (usersCount == 0)
+            {
+                return null;
+            }
+
+            var dbUsers = _unitOfWork.UserRepository.GetPage(pageSize, pageNumber);
+
+            return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
         }
 
         /// <summary>
@@ -113,6 +134,7 @@ namespace Rocket.BL.Services.User
         /// <returns>Ссылку для активации аккаунта.</returns>
         public string CreateConfirmationLink(Common.Models.User.User user)
         {
+            // todo надо сделать реализацию, после того, как "прорастут" вьюхи.
             return string.Empty;
         }
     }

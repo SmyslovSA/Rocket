@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.DbPersonalArea;
 
 namespace Rocket.DAL.Common.DbModels.Parser
 {
@@ -22,5 +23,7 @@ namespace Rocket.DAL.Common.DbModels.Parser
         public CategoryEntity Category { get; set; }
 
         public List<TvSeriasEntity> ListTvSerias { get; set; }
+
+        public List<DbAuthorisedUser> ListAuthorisedUser { get; set; }
     }
 }
