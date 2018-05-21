@@ -98,18 +98,18 @@ namespace Rocket.DAL.Common.Repositories
         /// <summary>
         /// Поиск по первичному ключу
         /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="keyValues"></param>
-        /// <returns></returns>
+        /// <typeparam name="TKey"> model </typeparam>
+        /// <param name="keyValues"> params </param>
+        /// <returns> Entity.</returns>
         TEntity Find<TKey>(params TKey[] keyValues);
 
         /// <summary>
-        /// 
+        /// Returns IQueryable
         /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <typeparam name="TKey"> model </typeparam>
+        /// <param name="query"> string </param>
+        /// <param name="parameters"> params </param>
+        /// <returns> IQueryable</returns>
         IQueryable<TEntity> SelectQuery<TKey>(string query, params TKey[] parameters);
 
         /// <summary>

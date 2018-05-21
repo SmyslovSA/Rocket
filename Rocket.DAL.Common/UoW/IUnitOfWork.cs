@@ -123,6 +123,7 @@ namespace Rocket.DAL.Common.UoW
         /// <summary>
         /// Сохраняет изменения в хранилище данных
         /// </summary>
+        /// <returns> int </returns>
         int SaveChanges();
     }
 }

@@ -9,6 +9,7 @@ namespace Rocket.Web
             Bind<ILog>().ToMethod(ctx =>
             {
                 ILog result;
+
                 if (ctx.Request.ParentContext != null)
                 {
                     var type = ctx.Request.ParentContext.Request.Service;
@@ -20,9 +21,7 @@ namespace Rocket.Web
                 }
 
                 return result;
-
-            }
-            );
+            });
         }
     }
 }
