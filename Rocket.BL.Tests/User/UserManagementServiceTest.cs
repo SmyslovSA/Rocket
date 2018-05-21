@@ -8,6 +8,7 @@ using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -56,6 +57,53 @@ namespace Rocket.BL.Tests.User
                 .Returns(() => moq.Object);
 
             _userManagementService = new UserManagementService(mockDbUserUnitOfWork.Object);
+        }
+
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// выбранной страницы пейджинга.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetExistedUsersPageTest([Random(1, 19, 5)] int pageNumber)
+        {
+            const int pagesize = 16;
+
+            // Arrange
+
+            var dbUsers = _fakeDbUsers.Users;
+
+            var usersPageIndexes = GetUsersPageIndexes(pageSize: pagesize, pageNumber: pageNumber);
+
+            var dbUsersPage = usersPageIndexes.Select(usersPageIndex => dbUsers[usersPageIndex]).ToList();
+
+            var expectedUsersPage = dbUsersPage.Select(Mapper.Map<Common.Models.User.User>).ToList();
+
+            // Act
+            var actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber).ToList();
+
+            // Assert
+            expectedUsersPage.Should().BeEquivalentTo(actualUsersPage,
+                options => options.ExcludingMissingMembers());
+        }
+
+        private ICollection<int> GetUsersPageIndexes(int pageSize, int pageNumber)
+        {
+            var pagesCount = (int)Math.Ceiling((double)UsersCount / pageSize);
+
+            var usersToPage = new List<int>();
+
+            var startUserIndex = (pageNumber - 1) * pageSize;
+
+            var finishUserIndex = startUserIndex + pageNumber < pagesCount
+                ? pageSize - 1
+                : pagesCount / pageSize + pageSize - 1;
+
+            for (var i = startUserIndex; i <= finishUserIndex; i++)
+            {
+                usersToPage.Add(i);
+            }
+
+            return usersToPage;
         }
 
         /// <summary>

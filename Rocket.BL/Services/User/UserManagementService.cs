@@ -65,7 +65,7 @@ namespace Rocket.BL.Services.User
                 return null;
             }
 
-            var dbUsers = _unitOfWork.UserRepository.GetPage(pageSize, pageNumber);
+            var dbUsers = _unitOfWork.UserRepository.GetPage(pageSize, pageNumber, i => i.Id > -1, o => o.OrderBy(k => k.Login), "");
 
             return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
         }
