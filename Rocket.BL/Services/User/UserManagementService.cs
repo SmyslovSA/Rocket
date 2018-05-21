@@ -32,14 +32,19 @@ namespace Rocket.BL.Services.User
         /// <returns>Коллекцию всех экземпляров пользователей.</returns>
         public ICollection<Common.Models.User.User> GetAllUsers()
         {
-            var usersCount = _unitOfWork.UserRepository.ItemsCount();
-
-            if (usersCount == 0) 
+            if (_unitOfWork.UserRepository == null)
             {
                 return null;
             }
 
-            var dbUsers = _unitOfWork.UserRepository.Get();
+            var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
+
+            if (usersCount == 0)
+            {
+                return null;
+            }
+
+            var dbUsers = _unitOfWork.UserRepository.Get(i => i.Id > -1);
 
             return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
         }
@@ -53,7 +58,7 @@ namespace Rocket.BL.Services.User
         /// <returns>Коллекция экземпляров пользователей для пейджинга.</returns>
         public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
         {
-            var usersCount = _unitOfWork.UserRepository.ItemsCount();
+            var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
 
             if (usersCount == 0)
             {

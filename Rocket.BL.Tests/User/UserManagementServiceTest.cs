@@ -39,6 +39,8 @@ namespace Rocket.BL.Tests.User
                 .Returns((Expression<Func<DbUser, bool>> filter,
                     Func<IQueryable<DbUser>, IOrderedQueryable<DbUser>> orderBy,
                     string includeProperties) => _fakeDbUsers.Users.Where(filter.Compile()));
+            moq.Setup(mock => mock.ItemsCount(It.IsAny<Expression<Func<DbUser, bool>>>()))
+                .Returns((Expression<Func<DbUser, bool>> filter) => _fakeDbUsers.Users.Where(filter.Compile()).Count());
             moq.Setup(mock => mock.GetById(It.IsAny<int>()))
                 .Returns((int id) => _fakeDbUsers.Users.Find(f => f.Id == id));
             moq.Setup(mock => mock.Insert(It.IsAny<DbUser>()))
@@ -54,6 +56,53 @@ namespace Rocket.BL.Tests.User
                 .Returns(() => moq.Object);
 
             _userManagementService = new UserManagementService(mockDbUserUnitOfWork.Object);
+        }
+
+        /// <summary>
+        /// Тест метода получения всех экземпляров пользователей
+        /// в пустом репозитарии.
+        /// </summary>
+        [Test, Order(5)]
+        public void GetAllUsersFromEmptyRepositoryTest()
+        {
+            // Arrange
+            _fakeDbUsers.Users.Clear();
+
+            // Act
+            var actualUsers = _userManagementService.GetAllUsers();
+
+            // Assert
+            actualUsers.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Тест метода получения всех экземпляров пользователей
+        /// в не пустом репозитарии.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetAllExistedUsersTest()
+        {
+            // Arrange
+            var expectedUsers = _fakeDbUsers.Users;
+
+            // Act
+            var actualUsers = _userManagementService.GetAllUsers().ToList();
+
+            // Assert
+            foreach (var expectedUser in expectedUsers)
+            {
+                var i = expectedUser.Id;
+
+                expectedUsers[i].Login.Should().Be(actualUsers[i].Login);
+                expectedUsers[i].FirstName.Should().Be(actualUsers[i].FirstName);
+                expectedUsers[i].LastName.Should().Be(actualUsers[i].LastName);
+                expectedUsers[i].Password.Should().Be(actualUsers[i].Password);
+            }
+
+            //expectedUsers.Should().BeEquivalentTo(actualUsers,
+            //    options => options.ExcludingMissingMembers());
+
+            expectedUsers.Count.Should().Be(actualUsers.Count);
         }
 
         /// <summary>
