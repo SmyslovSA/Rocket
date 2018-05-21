@@ -61,20 +61,29 @@ namespace Rocket.BL.Tests.User
 
         /// <summary>
         /// Тест метода получения экземпляров пользователей
-        /// выбранной страницы пейджинга.
+        /// выбранной страницы пейджинга. Выбрана может быть любая страница.
         /// </summary>
         [Test, Order(1)]
-        public void GetExistedUsersPageTest([Random(1, 19, 5)] int pageNumber)
+        public void GetExistedUsersPageTest([Random(1, 18, 5)]int pageNumber)
         {
             const int pagesize = 16;
 
             // Arrange
-
             var dbUsers = _fakeDbUsers.Users;
 
-            var usersPageIndexes = GetUsersPageIndexes(pageSize: pagesize, pageNumber: pageNumber);
+            var usersPageIndexes = new List<int>();
 
-            var dbUsersPage = usersPageIndexes.Select(usersPageIndex => dbUsers[usersPageIndex]).ToList();
+            var startUserIndexInPage = pagesize * (pageNumber - 1);
+
+            var finishUserIndexInPage = startUserIndexInPage + pagesize - 1;
+
+            for (var i = startUserIndexInPage; i <= finishUserIndexInPage; i++)
+            {
+                usersPageIndexes.Add(i);
+            }
+
+            List<DbUser> dbUsersPage;
+            dbUsersPage = usersPageIndexes.Select(usersPageIndex => dbUsers[usersPageIndex]).ToList();
 
             var expectedUsersPage = dbUsersPage.Select(Mapper.Map<Common.Models.User.User>).ToList();
 
@@ -86,24 +95,92 @@ namespace Rocket.BL.Tests.User
                 options => options.ExcludingMissingMembers());
         }
 
-        private ICollection<int> GetUsersPageIndexes(int pageSize, int pageNumber)
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// выбранной страницы пейджинга. Выбрана последняя страница.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetExistedUsersLastPageTest()
         {
-            var pagesCount = (int)Math.Ceiling((double)UsersCount / pageSize);
+            const int pagesize = 16;
+            const int pageNumber = 19;
 
-            var usersToPage = new List<int>();
+            // Arrange
+            var dbUsers = _fakeDbUsers.Users;
 
-            var startUserIndex = (pageNumber - 1) * pageSize;
+            var usersPageIndexes = new List<int>();
 
-            var finishUserIndex = startUserIndex + pageNumber < pagesCount
-                ? pageSize - 1
-                : pagesCount / pageSize + pageSize - 1;
+            var startUserIndexInPage = pagesize * (pageNumber - 1);
 
-            for (var i = startUserIndex; i <= finishUserIndex; i++)
+            var finishUserIndexInPage = startUserIndexInPage + UsersCount % pagesize - 1;
+
+            for (var i = startUserIndexInPage; i <= finishUserIndexInPage; i++)
             {
-                usersToPage.Add(i);
+                usersPageIndexes.Add(i);
             }
 
-            return usersToPage;
+            List<DbUser> dbUsersPage;    
+            dbUsersPage = usersPageIndexes.Select(usersPageIndex => dbUsers[usersPageIndex]).ToList();
+
+            var expectedUsersPage = dbUsersPage.Select(Mapper.Map<Common.Models.User.User>).ToList();
+
+            // Act
+            var actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber).ToList();
+
+            // Assert
+            expectedUsersPage.Should().BeEquivalentTo(actualUsersPage,
+                options => options.ExcludingMissingMembers());
+        }
+
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// выбранной страницы пейджинга. Номер страницы отрицательный.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetNotExistedUsersPageWithNegativePageNumbersTest([Random(-100500, -1, 5)] int pageNumber)
+        {
+            const int pagesize = 16;
+
+            // Act
+            ICollection<Common.Models.User.User> actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber);
+
+            // Assert
+            actualUsersPage.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// выбранной страницы пейджинга. Номер страницы больше общего числа страниц.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetNotExistedUsersPageWithValueIfPageNumbersMoreThanTotalUsersPagesTest([Random(UsersCount, UsersCount + 100500, 5)]int pageNumber)
+        {
+            const int pagesize = 16;
+
+            // Act
+            ICollection<Common.Models.User.User> actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber);
+
+            // Assert
+            actualUsersPage.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// ввыбранной страницы пейджинга из пустого репозитария.
+        /// </summary>
+        [Test, Order(5)]
+        public void GetNotExistedUsersPageFromEmptyRepositoryTest([Random(1, 18, 5)]int pageNumber)
+        {
+            const int pagesize = 16;
+
+            // Arrange
+            _fakeDbUsers.Users.Clear();
+
+            // Act
+            ICollection<Common.Models.User.User> actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber);
+
+            // Assert
+            actualUsersPage.Should().BeNull();
         }
 
         /// <summary>
