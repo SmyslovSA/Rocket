@@ -3,13 +3,14 @@ using Rocket.BL.Common.Models.UserRoles;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 using Rocket.DAL.Common.UoW;
 using System.Collections.Generic;
+using Rocket.BL.Common.Services;
 
 namespace Rocket.BL.Services.UserServices
 {
     /// <summary>
     /// Добавление/удаление пермишенов у ролей + логирование
     /// </summary>
-    public class PermissionManagerService : BaseService
+    public class PermissionManagerService : BaseService, IPermissionService
     {
         /// <summary>
         /// Создает новый экземпляр <see cref="PermissionManagerService"/>
@@ -29,8 +30,8 @@ namespace Rocket.BL.Services.UserServices
         public void AddPermissionToRole(int idRole, int idPermission)
         {
             // докидываем пермишен в роль
-            var dbRole = Mapper.Map<DbRole>(_unitOfWork.RoleRepository.GetById(idRole));
-            var dbPermission = Mapper.Map<DbPermission>(_unitOfWork.PermissionRepository.GetById(idPermission));
+            var dbRole = _unitOfWork.RoleRepository.GetById(idRole);
+            var dbPermission = _unitOfWork.PermissionRepository.GetById(idPermission);
             dbRole.Permissions.Add(dbPermission);
             _unitOfWork.SaveChanges();
         }
@@ -43,8 +44,8 @@ namespace Rocket.BL.Services.UserServices
         public void RemovePermissionFromRole(int idRole, int idPermission)
         {
             // удаляем пермишен у роли
-            var dbRole = Mapper.Map<DbRole>(_unitOfWork.RoleRepository.GetById(idRole));
-            var dbPermission = Mapper.Map<DbPermission>(_unitOfWork.PermissionRepository.GetById(idPermission));
+            var dbRole = _unitOfWork.RoleRepository.GetById(idRole);
+            var dbPermission = _unitOfWork.PermissionRepository.GetById(idPermission);
             dbRole.Permissions.Remove(dbPermission);
             _unitOfWork.SaveChanges();
         }

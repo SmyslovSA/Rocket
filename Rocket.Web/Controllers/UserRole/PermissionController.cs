@@ -47,6 +47,8 @@ namespace Rocket.Web.Controllers.UserRole
         [HttpPut]
         public IHttpActionResult UpdatePermission([FromBody]Permission permission)
         {
+            _permissionService.Update(permission);
+
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
 
