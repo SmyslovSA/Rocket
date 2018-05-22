@@ -21,15 +21,8 @@ namespace Rocket.Web
                 }
 
                 return result;
-<<<<<<< HEAD
-
             }
             );
 		}
 	}
-=======
-            });
-        }
-    }
->>>>>>> develop
 }

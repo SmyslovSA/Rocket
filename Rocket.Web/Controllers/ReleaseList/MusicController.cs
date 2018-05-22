@@ -27,41 +27,5 @@ namespace Rocket.Web.Controllers.ReleaseList
 		    _musicDetailedInfoService.Dispose();
 		    return model == null ? (IHttpActionResult)NotFound() : Ok(model);
 	    }
-
-	    [HttpPost]
-	    [Route()]
-	    public IHttpActionResult CreateMusic([FromBody]Music model)
-	    {
-		    if (model == null)
-		    {
-			    return BadRequest("Model cannot be empty");
-		    }
-
-		    var id = _musicDetailedInfoService.AddMusic(model);
-
-		    return Created($"music/{id}", model);
-	    }
-
-	    [HttpPut]
-	    [Route()]
-	    public IHttpActionResult UpdateMusic([FromBody]Music model)
-	    {
-		    if (model == null)
-		    {
-			    return BadRequest("Model cannot be empty");
-		    }
-
-		    _musicDetailedInfoService.UpdateMusic(model);
-
-		    return StatusCode(HttpStatusCode.NoContent);
-	    }
-
-	    [HttpDelete]
-	    [Route("{id:int:min(1)}")]
-	    public IHttpActionResult DeleteById(int id)
-	    {
-		    _musicDetailedInfoService.DeleteMusic(id);
-		    return Ok();
-	    }
 	}
 }
