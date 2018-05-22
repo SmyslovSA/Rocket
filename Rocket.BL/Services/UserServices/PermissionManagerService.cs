@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Security;
+﻿using AutoMapper;
 using Rocket.BL.Common.Models.UserRoles;
-using Rocket.BL.Common.Services;
-using Rocket.BL.Services.ReleaseList;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 using Rocket.DAL.Common.UoW;
-using AutoMapper;
+using System.Collections.Generic;
 
 namespace Rocket.BL.Services.UserServices
 {
@@ -14,9 +11,8 @@ namespace Rocket.BL.Services.UserServices
     /// </summary>
     public class PermissionManagerService : BaseService
     {
-
         /// <summary>
-        /// Создает новый экземпляр <see cref="FilmDetailedInfoService"/>
+        /// Создает новый экземпляр <see cref="PermissionManagerService"/>
         /// с заданным unit of work
         /// </summary>
         /// <param name="unitOfWork">Экземпляр unit of work</param>
@@ -33,7 +29,7 @@ namespace Rocket.BL.Services.UserServices
         public void AddPermissionToRole(int idRole, int idPermission)
         {
             // докидываем пермишен в роль
-            var dbRole =  Mapper.Map<DbRole>(_unitOfWork.RoleRepository.GetById(idRole));
+            var dbRole = Mapper.Map<DbRole>(_unitOfWork.RoleRepository.GetById(idRole));
             var dbPermission = Mapper.Map<DbPermission>(_unitOfWork.PermissionRepository.GetById(idPermission));
             dbRole.Permissions.Add(dbPermission);
             _unitOfWork.SaveChanges();
@@ -56,7 +52,7 @@ namespace Rocket.BL.Services.UserServices
         /// <summary>
         /// Добавляет пермишен
         /// </summary>
-        /// <param name="permission">Добавляет пермишен</param>
+        /// <param name="permission">Пермишен</param>
         public void Insert(Permission permission)
         {
             var dbPermission = Mapper.Map<DbPermission>(permission);
@@ -89,6 +85,7 @@ namespace Rocket.BL.Services.UserServices
         /// Возвращает пермешен с заданным идентификатором
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
+        /// <returns>Permission</returns>
         public Permission GetById(int id)
         {
             return Mapper.Map<Permission>(_unitOfWork.PermissionRepository.GetById(id));
@@ -98,6 +95,7 @@ namespace Rocket.BL.Services.UserServices
         /// Возвращает пермишены роли, нужно для UI
         /// </summary>
         /// <param name="idRole">Идентификатор роли</param>
+        /// <returns>Коллекцию Permission</returns>
         public IEnumerable<Permission> GetPermissionByRole(int idRole)
         {
             return Mapper.Map<Role>(_unitOfWork.RoleRepository.GetById(idRole)).Permissions;
