@@ -176,7 +176,7 @@ namespace Rocket.DAL.UoW
         /// <summary>
         /// Сохранение изменений
         /// </summary>
-        /// <returns></returns>
+        /// <returns> int </returns>
         public int SaveChanges()
         {
             return _rocketContext.SaveChanges();
@@ -199,6 +199,5 @@ namespace Rocket.DAL.UoW
             _rocketContext = null;
             _disposed = true;
         }
-
     }
 }

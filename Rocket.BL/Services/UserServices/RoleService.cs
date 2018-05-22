@@ -35,7 +35,6 @@ namespace Rocket.BL.Services.UserServices
             return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
         }
 
-
         public Role GetById(int id)
         {
             return Mapper.Map<Role>(
