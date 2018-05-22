@@ -32,14 +32,19 @@ namespace Rocket.BL.Services.User
         /// <returns>Коллекцию всех экземпляров пользователей.</returns>
         public ICollection<Common.Models.User.User> GetAllUsers()
         {
-            var usersCount = _unitOfWork.UserRepository.ItemsCount();
-
-            if (usersCount == 0) 
+            if (_unitOfWork.UserRepository == null)
             {
                 return null;
             }
 
-            var dbUsers = _unitOfWork.UserRepository.Get();
+            var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
+
+            if (usersCount == 0)
+            {
+                return null;
+            }
+
+            var dbUsers = _unitOfWork.UserRepository.Get(i => i.Id > -1);
 
             return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
         }
@@ -53,16 +58,32 @@ namespace Rocket.BL.Services.User
         /// <returns>Коллекция экземпляров пользователей для пейджинга.</returns>
         public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
         {
-            var usersCount = _unitOfWork.UserRepository.ItemsCount();
+            // Проверка валидности переменных-параментров.
+            var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
 
             if (usersCount == 0)
             {
                 return null;
             }
+            
+            ICollection<int> usersPageIndexes =
+                GetUsersPageIndexes(usersCount: usersCount, pageSize: pageSize, pageNumber: pageNumber);
 
-            var dbUsers = _unitOfWork.UserRepository.GetPage(pageSize, pageNumber);
+            if (usersPageIndexes == null)
+            {
+                return null;
+            }
+            
+            // ОБъявление списка для возврата значения.
+            var usersPage = new List<Common.Models.User.User>();
 
-            return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
+            foreach (var usersPageIndexe in usersPageIndexes)
+            {
+                usersPage.Add(Mapper.Map<Common.Models.User.User>(
+                    _unitOfWork.UserRepository.GetById(usersPageIndexe)));
+            }
+
+            return usersPage;
         }
 
         /// <summary>
@@ -136,6 +157,44 @@ namespace Rocket.BL.Services.User
         {
             // todo надо сделать реализацию, после того, как "прорастут" вьюхи.
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Возращает коллекцию (список) индексов пользователей,
+        /// которые будут помещаться на страницу.
+        /// </summary>
+        /// <param name="usersCount">Количество пользователей.</param>
+        /// <param name="pageSize">Размер страницы.</param>
+        /// <param name="pageNumber">Номер страницы.</param>
+        /// <returns>Коллекция индектов пользователей на странице.</returns>
+        public ICollection<int> GetUsersPageIndexes(int usersCount, int pageSize, int pageNumber)
+        {
+            if (usersCount < 1 || pageSize < 1 || pageNumber < 1)
+            {
+                return null;
+            }
+
+            var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize); ;
+
+            if (pagesCount < pageNumber)
+            {
+                return null;
+            }
+
+            var usersToPage = new List<int>();
+
+            var startUserIndex = (pageNumber - 1) * pageSize;
+
+            var finishUserIndex = startUserIndex + (pageNumber < pagesCount
+                ? pageSize - 1
+                : usersCount % pageSize - 1);
+
+            for (var i = startUserIndex; i <= finishUserIndex; i++)
+            {
+                usersToPage.Add(i);
+            }
+
+            return usersToPage;
         }
     }
 }
