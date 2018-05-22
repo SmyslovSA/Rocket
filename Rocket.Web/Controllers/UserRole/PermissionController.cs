@@ -32,7 +32,7 @@ namespace Rocket.Web.Controllers.UserRole
         [HttpPost]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.Created, "New Role description", typeof(Role))]
+        [SwaggerResponse(HttpStatusCode.Created, "New Permission description", typeof(Permission))]
         public IHttpActionResult InsertPermission(Permission permission)
         {
             if (permission == null)
@@ -41,11 +41,11 @@ namespace Rocket.Web.Controllers.UserRole
             }
 
             _permissionService.Insert(permission);
-            return Created($"role/{permission.PermissionId}", permission);
+            return Created($"permission/{permission.PermissionId}", permission);
         }
 
         [HttpPut]
-        public IHttpActionResult UpdatePermission([FromBody]Role role)
+        public IHttpActionResult UpdatePermission([FromBody]Permission permission)
         {
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
@@ -56,7 +56,7 @@ namespace Rocket.Web.Controllers.UserRole
         {
             if (_permissionService.GetById(id) == null)
             {
-                return BadRequest("The role not exists");
+                return BadRequest("The permission not exists");
             }
 
             _permissionService.Delete(id);
