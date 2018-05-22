@@ -2,6 +2,7 @@
 using Ninject;
 using Quartz;
 using Rocket.Notifications.Heplers;
+using Rocket.Notifications.Interfaces;
 using Rocket.Notifications.Notifications;
 
 namespace Rocket.Notifications.Jobs
@@ -26,7 +27,7 @@ namespace Rocket.Notifications.Jobs
                 var schedulerContext = context.JobDetail.JobDataMap;
                 var kernel = (IKernel)schedulerContext.Get(CommonHelper.ContainerKey);
 
-                var pushNotifications = kernel.Get<PushNotifications>();
+                var pushNotifications = kernel.Get<IPushNotifications>();
                 pushNotifications.NotifyAsync();
             }
             catch (Exception excpt)

@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using Rocket.DAL.Context;
+using Rocket.Notifications.Interfaces;
 using Rocket.Notifications.Notifications;
 
 namespace Rocket.Notifications.Config
@@ -12,7 +13,7 @@ namespace Rocket.Notifications.Config
         public override void Load()
         {
             Rebind<RocketContext>().ToMethod(ctx => new RocketContext()).InSingletonScope(); //?
-            Bind<PushNotifications>().ToMethod(ctx => new PushNotifications());
+            Bind<IPushNotifications>().To<PushNotifications>();
         }
     }
 }

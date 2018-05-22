@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Enums;
 using Rocket.DAL.Common.UoW;
+using Rocket.Notifications.Interfaces;
 
 namespace Rocket.Notifications.Notifications
 {
-    public class PushNotifications
+    public class PushNotifications : IPushNotifications
     {
         private readonly IUnitOfWork _unitOfWork;
 
