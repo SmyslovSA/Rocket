@@ -2,6 +2,7 @@
 using MimeKit;
 using Rocket.BL.Common.Services;
 using Rocket.BL.Services.EmailNotificationService;
+using System.Threading.Tasks;
 
 namespace Rocket.BL.Services.Notification
 {
@@ -83,17 +84,18 @@ namespace Rocket.BL.Services.Notification
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody();
             message.Body = bodyBuilder.ToMessageBody();
 
-            SmtpClientCreator(message);
+            SmtpClientCreator(message).Wait();
         }
 
-        private void SmtpClientCreator(MimeMessage message)
+        private async Task SmtpClientCreator(MimeMessage message)
         {
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("rocket.team.mail.service@gmail.com", "4hqymel_ZP898qwe");
-                client.Send(message);
-                client.Disconnect(true);
+                await client.ConnectAsync("smtp.gmail.com", 465, true).ConfigureAwait(false);
+                await client.AuthenticateAsync("rocket.team.mail.service@gmail.com", "4hqymel_ZP898qwe").ConfigureAwait(false);
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                await client.SendAsync(message).ConfigureAwait(false);
+                await client.DisconnectAsync(true).ConfigureAwait(false);
             }
         }
     }
