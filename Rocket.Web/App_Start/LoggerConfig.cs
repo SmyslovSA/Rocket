@@ -10,11 +10,17 @@ namespace Rocket.Web
         {
             var config = NLog.LogManager.Configuration;
             var fileTarget = new FileTarget();
+            var mailTarget = new MailTarget();
 
             config.AddTarget(fileTarget);
-            config.AddRule(NLog.LogLevel.Trace, NLog.LogLevel.Fatal, fileTarget);
+            config.AddRule(NLog.LogLevel.Trace, NLog.LogLevel.Info, fileTarget);
+            config.AddTarget(mailTarget);
+            config.AddRule(NLog.LogLevel.Warn, NLog.LogLevel.Fatal, mailTarget);
 
-            var prop = new NameValueCollection();
+            var prop = new NameValueCollection
+            {
+                { "configFile", "NLog.config" }
+            };
             Common.Logging.LogManager.Adapter = new NLogLoggerFactoryAdapter(prop);
         }
     }
