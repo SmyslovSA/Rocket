@@ -66,6 +66,7 @@
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\RoleMappingProfile.cs" />
     <Compile Include="Models\Pagination\PageInfo.cs" />
     <Compile Include="Models\Pagination\ReleasesPageInfo.cs" />
+    <Compile Include="Models\Pagination\TvSeriesPageInfo.cs" />
     <Compile Include="Models\PersonalArea\Email.cs" />
     <Compile Include="Models\ReleaseList\BaseRelease.cs" />
     <Compile Include="Models\ReleaseList\Category.cs" />
