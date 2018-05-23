@@ -6,7 +6,7 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
     /// <summary>
     /// Представляет модель хранения данных о музыкальных жанрах
     /// </summary>
-    public class DbMusicGenre : Subscribable
+    public class DbMusicGenre : SubscribableEntity
     {
         /// <summary>
         /// Возвращает или задает название музыкального жанра

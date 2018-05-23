@@ -54,7 +54,7 @@
     <Compile Include="DbModels\Notification\NotificationsLogEntity.cs" />
     <Compile Include="DbModels\Notification\NotificationsSettingsEntity.cs" />
     <Compile Include="DbModels\ReleaseList\DbBaseRelease.cs" />
-    <Compile Include="DbModels\Subscription\Subscribable.cs" />
+    <Compile Include="DbModels\Subscription\SubscribableEntity.cs" />
     <Compile Include="DbModels\User\DbAccountLevel.cs" />
     <Compile Include="DbModels\User\DbAccountStatus.cs" />
     <Compile Include="DbModels\User\DbAddress.cs" />

@@ -7,7 +7,7 @@ namespace Rocket.DAL.Common.DbModels.Parser
     /// <summary>
     /// Сущность модели жанра.
     /// </summary>
-    public class GenreEntity : Subscribable
+    public class GenreEntity : SubscribableEntity
     {
         /// <summary>
         /// Название.

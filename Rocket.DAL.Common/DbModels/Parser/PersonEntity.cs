@@ -6,7 +6,7 @@ namespace Rocket.DAL.Common.DbModels.Parser
     /// <summary>
     /// Сущность модели человека (режиссере, актёре или музыканте).
     /// </summary>
-    public class PersonEntity : Subscribable
+    public class PersonEntity : SubscribableEntity
     {
         /// <summary>
         /// Полное имя человека(рус).

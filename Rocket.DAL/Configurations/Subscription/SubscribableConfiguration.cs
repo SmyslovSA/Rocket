@@ -3,7 +3,7 @@ using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.Configurations.Subscription
 {
-    public class SubscribableConfiguration : EntityTypeConfiguration<Subscribable>
+    public class SubscribableConfiguration : EntityTypeConfiguration<SubscribableEntity>
     {
         public SubscribableConfiguration()
         {

@@ -77,7 +77,7 @@ namespace Rocket.DAL.Context
         /// <summary>
         /// Набор сущнастей ресурсов, на которые возможна подписка
         /// </summary>
-        public DbSet<Subscribable> SubscribableEntities { get; set; }
+        public DbSet<SubscribableEntity> SubscribableEntities { get; set; }
 
         /// <summary>
         /// DbSet настроек сервиса уведомлений

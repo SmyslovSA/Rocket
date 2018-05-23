@@ -6,7 +6,7 @@ namespace Rocket.DAL.Common.DbModels.Parser
     /// <summary>
     /// Сущность модели хранения данных о сериалах
     /// </summary>
-    public class TvSeriasEntity : Subscribable
+    public class TvSeriasEntity : SubscribableEntity
     {
         /// <summary>
         /// Название сериала(рус).

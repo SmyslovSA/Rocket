@@ -78,6 +78,6 @@ namespace Rocket.DAL.Common.DbModels.User
         /// <summary>
         /// Коллекция подписок пользователя
         /// </summary>
-        public ICollection<Subscribable> Subscriptions { get; set; } = new Collection<Subscribable>();
+        public ICollection<SubscribableEntity> Subscriptions { get; set; } = new Collection<SubscribableEntity>();
     }
 }

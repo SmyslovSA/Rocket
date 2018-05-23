@@ -8,7 +8,7 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
     /// <summary>
     /// Представляет модель хранения данных музыкального релиза
     /// </summary>
-    public class DbMusic : Subscribable
+    public class DbMusic : SubscribableEntity
     {
         private ICollection<DbMusician> _dbMusicians;
         private ICollection<DbMusicGenre> _dbMusicGenres;

@@ -6,7 +6,7 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
     /// <summary>
     /// Представляет модель хранения данных музыкальных исполнителей
     /// </summary>
-    public class DbMusician : Subscribable
+    public class DbMusician : SubscribableEntity
     {
         /// <summary>
         /// Возвращает или задает полное имя музыкального исполнителя (название группы)
