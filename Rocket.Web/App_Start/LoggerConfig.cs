@@ -1,4 +1,5 @@
-﻿using Common.Logging.Configuration;
+﻿using Common.Logging;
+using Common.Logging.Configuration;
 using Common.Logging.NLog;
 using NLog.Targets;
 
@@ -9,8 +10,8 @@ namespace Rocket.Web
         public static void Configure()
         {
             var config = NLog.LogManager.Configuration;
-            var fileTarget = new FileTarget();
-            var mailTarget = new MailTarget();
+            var fileTarget = new FileTarget("fileTarget");
+            var mailTarget = new MailTarget("mailTarget");
 
             config.AddTarget(fileTarget);
             config.AddRule(NLog.LogLevel.Trace, NLog.LogLevel.Info, fileTarget);
@@ -19,9 +20,10 @@ namespace Rocket.Web
 
             var prop = new NameValueCollection
             {
-                { "configFile", "NLog.config" }
+                { "configType", "FILE" },
+                { "configFile", "~/NLog.config" }
             };
-            Common.Logging.LogManager.Adapter = new NLogLoggerFactoryAdapter(prop);
+            LogManager.Adapter = new NLogLoggerFactoryAdapter(prop);
         }
     }
 }
