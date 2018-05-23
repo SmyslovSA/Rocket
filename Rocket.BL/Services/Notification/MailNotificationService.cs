@@ -21,7 +21,7 @@ namespace Rocket.BL.Services.Notification
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody(); 
             message.Body = bodyBuilder.ToMessageBody();
 
-            SmtpClientCreator(message);
+            SmtpClientCreator(message).Wait();
         }
 
         public void SendBillingPremium(int id)
@@ -37,7 +37,7 @@ namespace Rocket.BL.Services.Notification
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody();
             message.Body = bodyBuilder.ToMessageBody();
 
-            SmtpClientCreator(message);
+            SmtpClientCreator(message).Wait();
         }
 
         public void SendBillingUser(int id)
@@ -53,7 +53,7 @@ namespace Rocket.BL.Services.Notification
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody();
             message.Body = bodyBuilder.ToMessageBody();
 
-            SmtpClientCreator(message);
+            SmtpClientCreator(message).Wait();
         }
 
         public void SendConfirmation(string email, string url, string name)
@@ -69,7 +69,7 @@ namespace Rocket.BL.Services.Notification
             bodyBuilder.HtmlBody = htmlStringBuilder.CreateBody();
             message.Body = bodyBuilder.ToMessageBody();
 
-            SmtpClientCreator(message);
+            SmtpClientCreator(message).Wait();
         }
 
         public void SendCustomMessage(int id)
