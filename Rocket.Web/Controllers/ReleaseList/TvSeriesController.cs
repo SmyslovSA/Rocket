@@ -1,5 +1,6 @@
 ﻿using Rocket.BL.Common.Services.ReleaseList;
 using System.Web.Http;
+using Rocket.Web.ConfigHandlers;
 
 namespace Rocket.Web.Controllers.ReleaseList
 {
@@ -22,10 +23,13 @@ namespace Rocket.Web.Controllers.ReleaseList
         }
 
         [HttpGet]
-        [Route("page/{page:int:min(1)}")]
-        public IHttpActionResult GetTvSerialsByPage(int page)
+        [Route("page/{pageNumber:int:min(1)}")]
+        public IHttpActionResult GetTvSerialsByPage(int pageNumber)
         {
-            return Ok();
+            var page = _tvSeriesDetailedInfoService.GetPageInfoByRating(
+                SettingsManager.ReleasesSettings.Pagination.PageSize,
+                pageNumber);
+            return pageNumber <= page.TotalPagesCount ? Ok(page) : (IHttpActionResult)NotFound();
         }
     }
 }

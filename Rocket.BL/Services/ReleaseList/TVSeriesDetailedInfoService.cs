@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Rocket.BL.Common.Models.Pagination;
 
 namespace Rocket.BL.Services.ReleaseList
 {
@@ -51,6 +52,24 @@ namespace Rocket.BL.Services.ReleaseList
             }
 
             return tvSeries;
+        }
+
+        /// <summary>
+        /// Возвращает страницу сериалов с заданным номером и размером,
+        /// сериалы сортированы по рейтингу
+        /// </summary>
+        /// <param name="pageSize">Размер страницы</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <returns>Страница сериалов</returns>
+        public TvSeriesPageInfo GetPageInfoByRating(int pageSize, int pageNumber)
+        {
+            var pageInfo = new TvSeriesPageInfo();
+            pageInfo.TotalItemsCount = _unitOfWork.TvSeriasRepository.ItemsCount();
+            pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
+            pageInfo.PageItems = Mapper.Map<IEnumerable<TVSeries>>(
+                _unitOfWork.TvSeriasRepository.GetPage(pageSize, pageNumber, orderBy: o => o.OrderByDescending(t => t.RateImDb)));
+
+            return pageInfo;
         }
 
         /// <summary>

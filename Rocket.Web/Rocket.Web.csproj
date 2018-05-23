@@ -248,6 +248,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="ConfigHandlers\PaginationConfigSection.cs" />
+    <Compile Include="ConfigHandlers\ReleasesSettingsConfigGroup.cs" />
+    <Compile Include="ConfigHandlers\SettingsManager.cs" />
     <Compile Include="Controllers\PersonalArea\ChangeEmailController.cs" />
     <Compile Include="Controllers\PersonalArea\ChangeGenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
