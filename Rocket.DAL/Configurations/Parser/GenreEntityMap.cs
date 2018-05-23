@@ -7,8 +7,7 @@ namespace Rocket.DAL.Configurations.Parser
     {
         public GenreEntityMap()
         {
-            ToTable("Genre")
-                .HasKey(p => p.Id);
+            ToTable("Genre");
 
             Property(p => p.Name)
                 .IsRequired()

@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.Common.DbModels.ReleaseList
 {
     /// <summary>
     /// Представляет модель хранения данных музыкальных исполнителей
     /// </summary>
-    public class DbMusician
+    public class DbMusician : Subscribable
     {
-        /// <summary>
-        /// Возвращает или задает уникальный идентификатор музыканта
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Возвращает или задает полное имя музыкального исполнителя (название группы)
         /// </summary>

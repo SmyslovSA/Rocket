@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.Common.DbModels.Parser
 {
     /// <summary>
     /// Сущность модели хранения данных о сериалах
     /// </summary>
-    public class TvSeriasEntity
+    public class TvSeriasEntity : Subscribable
     {
-        /// <summary>
-        /// Уникальный идентификатор сериала.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Название сериала(рус).
         /// </summary>
