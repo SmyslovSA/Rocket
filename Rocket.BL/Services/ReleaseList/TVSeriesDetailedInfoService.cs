@@ -4,6 +4,7 @@ using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.UoW;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -31,8 +32,25 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Экземпляр сериала</returns>
         public TVSeries GetTvSeries(int id)
         {
-            return Mapper.Map<TVSeries>(
-                _unitOfWork.TvSeriasRepository.GetById(id));
+            var tvSeries = Mapper.Map<TVSeries>(
+                _unitOfWork.TvSeriasRepository.Get(
+                    f => f.Id == id,
+                    includeProperties: $"{nameof(TvSeriasEntity.ListGenreEntity)},{nameof(TvSeriasEntity.ListSeasons)},{nameof(TvSeriasEntity.ListPerson)}")
+                    ?.FirstOrDefault());
+            
+            if (tvSeries?.ListSeasons == null)
+            {
+                return tvSeries;
+            }
+
+            foreach (var season in tvSeries.ListSeasons)
+            {
+                season.ListEpisode = Mapper.Map<ICollection<Episode>>(
+                    _unitOfWork.EpisodeRepository.Get(
+                        e => e.SeasonId == season.Id));
+            }
+
+            return tvSeries;
         }
 
         /// <summary>

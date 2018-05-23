@@ -252,6 +252,7 @@
     <Compile Include="Controllers\PersonalArea\ChangeGenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonalArea\ChangePasswordController.cs" />
+    <Compile Include="Controllers\ReleaseList\TvSeriesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserRole\RoleController.cs" />
     <Compile Include="Controllers\UserRole\RoleManagerController.cs" />
