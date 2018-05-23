@@ -14,6 +14,11 @@ namespace Rocket.Web.Controllers.ReleaseList
             _tvSeriesDetailedInfoService = tvSeriesDetailedInfoService;
         }
 
+        /// <summary>
+        /// Возвращает информацию о сериале с заданным идентификатором
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Сериал</returns>
         [HttpGet]
         [Route("{id:int:min(1)}")]
         public IHttpActionResult GetTvSeriesById(int id)
@@ -22,6 +27,11 @@ namespace Rocket.Web.Controllers.ReleaseList
             return tvSeries == null ? (IHttpActionResult)NotFound() : Ok(tvSeries);
         }
 
+        /// <summary>
+        /// Возвращает страницу рейтинговыых сериалов с заданным номером страницы
+        /// </summary>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <returns>Страница рейтинговых сериалов</returns>
         [HttpGet]
         [Route("page/{pageNumber:int:min(1)}")]
         public IHttpActionResult GetTvSerialsByPage(int pageNumber)
