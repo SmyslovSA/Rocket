@@ -53,7 +53,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpDelete]
-        [Route("{id:int:min(1)")]
+        [Route("{id:int:min(1)}")]
         public IHttpActionResult DeletePermissionById(int id)
         {
             if (_permissionService.GetById(id) == null)
