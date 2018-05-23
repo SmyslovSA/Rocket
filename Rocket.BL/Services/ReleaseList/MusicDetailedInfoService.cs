@@ -80,7 +80,7 @@ namespace Rocket.BL.Services.ReleaseList
         /// соответствующего заданному фильтру
         /// </summary>
         /// <param name="filter"></param>
-        /// <returns></returns>
+        /// <returns>bool</returns>
         public bool MusicExists(Expression<Func<Music, bool>> filter)
         {
             return _unitOfWork.MusicRepository.Get(

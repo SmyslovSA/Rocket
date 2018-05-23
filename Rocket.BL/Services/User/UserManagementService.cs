@@ -174,7 +174,7 @@ namespace Rocket.BL.Services.User
                 return null;
             }
 
-            var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize); ;
+            var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize);
 
             if (pagesCount < pageNumber)
             {
