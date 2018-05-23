@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
+using Rocket.BL.Common.Models.Subscription;
 using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.BL.Common.Mappings.ReleaseList
 {
@@ -12,7 +14,7 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
         public MusicGenreMappingProfile()
         {
             CreateMap<MusicGenre, DbMusicGenre>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .IncludeBase<Subscribable, SubscribableEntity>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ReverseMap();
         }

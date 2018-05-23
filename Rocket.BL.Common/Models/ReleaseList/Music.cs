@@ -1,11 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Rocket.BL.Common.Models.Subscription;
 
 namespace Rocket.BL.Common.Models.ReleaseList
 {
-    public class Music : BaseRelease
+    public class Music : Subscribable
     {
+        /// <summary>
+        /// Возвращает или задает дату выхода релиза
+        /// </summary>
+        public DateTime ReleaseDate { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает название релиза
+        /// </summary>
+        public string Title { get; set; }
+
         /// <summary>
         /// Возвращает или задает относительный путь
         /// от корневой папки приложения к файлу изображения постера музыкального релиза

@@ -52,6 +52,7 @@
     <Compile Include="Mappings\ReleaseList\CategoryMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\GenreMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\PersonTypeMappingProfile.cs" />
+    <Compile Include="Mappings\Subscription\SubscribableMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\AccountLevelMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\AccountStatusMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\AddressMappingProfile.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Models\ReleaseList\BaseRelease.cs" />
     <Compile Include="Models\ReleaseList\Category.cs" />
     <Compile Include="Models\ReleaseList\PersonType.cs" />
+    <Compile Include="Models\Subscription\Subscribable.cs" />
     <Compile Include="Models\User\AccountLevel.cs" />
     <Compile Include="Models\User\EmailAddress.cs" />
     <Compile Include="Models\User\Gender.cs" />
