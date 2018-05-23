@@ -51,6 +51,7 @@
     <Compile Include="DbModels\Notification\DbReceiver.cs" />
     <Compile Include="DbModels\Notification\DbReceiversJoinReleases.cs" />
     <Compile Include="DbModels\Notification\DbReleaseMessage.cs" />
+    <Compile Include="DbModels\Notification\NotificationsLogEntity.cs" />
     <Compile Include="DbModels\Notification\NotificationsSettingsEntity.cs" />
     <Compile Include="DbModels\ReleaseList\DbBaseRelease.cs" />
     <Compile Include="DbModels\User\DbAccountLevel.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="DbModels\Parser\SeasonEntity.cs" />
     <Compile Include="DbModels\Parser\TvSeriasEntity.cs" />
     <Compile Include="DbModels\User\DbUserDetail.cs" />
+    <Compile Include="Enums\NotificationType.cs" />
     <Compile Include="Enums\ReleaseType.cs" />
     <Compile Include="Enums\CategoryCode.cs" />
     <Compile Include="Enums\PersonType.cs" />

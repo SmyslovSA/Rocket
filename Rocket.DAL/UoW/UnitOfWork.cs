@@ -7,6 +7,7 @@ using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 using System;
+using Rocket.DAL.Common.DbModels.Notification;
 
 namespace Rocket.DAL.UoW
 {
@@ -59,7 +60,8 @@ namespace Rocket.DAL.UoW
             IDbUserRepository dbUserRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
-            IDbAuthorisedUserRepository dbAuthorisedUserRepository)
+            IDbAuthorisedUserRepository dbAuthorisedUserRepository,
+            IBaseRepository<NotificationsLogEntity> notificationsLogRepository)
         {
             _rocketContext = rocketContext;
             MusicRepository = musicRepository;
@@ -81,6 +83,7 @@ namespace Rocket.DAL.UoW
             RoleRepository = dbRoleRepository;
             PermissionRepository = dbPermissionRepository;
             UserAuthorisedRepository = dbAuthorisedUserRepository;
+            NotificationsLogRepository = notificationsLogRepository;
         }
 
         ~UnitOfWork()
@@ -164,6 +167,12 @@ namespace Rocket.DAL.UoW
         /// Репозиотрий для работы с пользователями личного кабинета.
         /// </summary>
         public IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Репозиторий лога нотификации
+        /// </summary>
+        public IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
 
         /// <summary>
         /// Освобождает управляемые ресурсы.

@@ -79,6 +79,11 @@ namespace Rocket.DAL.Context
         public DbSet<NotificationsSettingsEntity> NotificationsSettings { get; set; }
 
         /// <summary>
+        /// DbSet лога уведомлений
+        /// </summary>
+        //public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
+
+        /// <summary>
         /// Этот метод вызывается, когда модель для производного контекста данных была инициализирована,
         /// но до того, как модель была заблокирована и использована для инициализации этого контекста.
         /// </summary>
@@ -117,6 +122,7 @@ namespace Rocket.DAL.Context
             modelBuilder.Configurations.Add(new DbAuthorisedUserConfiguration());
 
             modelBuilder.Configurations.Add(new NotificationsSettingsEntityMap());
+            //modelBuilder.Configurations.Add(new NotificationsLogMap());
         }
     }
 }

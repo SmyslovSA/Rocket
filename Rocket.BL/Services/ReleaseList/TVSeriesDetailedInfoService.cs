@@ -4,8 +4,10 @@ using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.UoW;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Rocket.BL.Common.Models.Pagination;
 
 namespace Rocket.BL.Services.ReleaseList
 {
@@ -31,8 +33,43 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Экземпляр сериала</returns>
         public TVSeries GetTvSeries(int id)
         {
-            return Mapper.Map<TVSeries>(
-                _unitOfWork.TvSeriasRepository.GetById(id));
+            var tvSeries = Mapper.Map<TVSeries>(
+                _unitOfWork.TvSeriasRepository.Get(
+                    f => f.Id == id,
+                    includeProperties: $"{nameof(TvSeriasEntity.ListGenreEntity)},{nameof(TvSeriasEntity.ListSeasons)},{nameof(TvSeriasEntity.ListPerson)}")
+                    ?.FirstOrDefault());
+            
+            if (tvSeries?.ListSeasons == null)
+            {
+                return tvSeries;
+            }
+
+            foreach (var season in tvSeries.ListSeasons)
+            {
+                season.ListEpisode = Mapper.Map<ICollection<Episode>>(
+                    _unitOfWork.EpisodeRepository.Get(
+                        e => e.SeasonId == season.Id));
+            }
+
+            return tvSeries;
+        }
+
+        /// <summary>
+        /// Возвращает страницу сериалов с заданным номером и размером,
+        /// сериалы сортированы по рейтингу
+        /// </summary>
+        /// <param name="pageSize">Размер страницы</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <returns>Страница сериалов</returns>
+        public TvSeriesPageInfo GetPageInfoByRating(int pageSize, int pageNumber)
+        {
+            var pageInfo = new TvSeriesPageInfo();
+            pageInfo.TotalItemsCount = _unitOfWork.TvSeriasRepository.ItemsCount();
+            pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
+            pageInfo.PageItems = Mapper.Map<IEnumerable<TVSeries>>(
+                _unitOfWork.TvSeriasRepository.GetPage(pageSize, pageNumber, orderBy: o => o.OrderByDescending(t => t.RateImDb)));
+
+            return pageInfo;
         }
 
         /// <summary>

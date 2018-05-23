@@ -5,6 +5,7 @@ using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 using Rocket.DAL.Common.Repositories.User;
 using System;
+using Rocket.DAL.Common.DbModels.Notification;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -86,6 +87,11 @@ namespace Rocket.DAL.Common.UoW
         IBaseRepository<SeasonEntity> SeasonRepository { get; }
 
         IBaseRepository<TvSeriasEntity> TvSeriasRepository { get; }
+
+        /// <summary>
+        /// Репозиторий лога нотификации
+        /// </summary>
+        IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных
