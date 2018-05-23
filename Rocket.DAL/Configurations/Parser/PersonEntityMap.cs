@@ -7,8 +7,7 @@ namespace Rocket.DAL.Configurations.Parser
     {
         public PersonEntityMap()
         {
-            ToTable("Person")
-                .HasKey(p => p.Id);
+            ToTable("Person");
 
             Property(p => p.FullNameRu)
                 .IsRequired()

@@ -1,15 +1,16 @@
-﻿using Rocket.DAL.Common.DbModels.ReleaseList;
-using Rocket.DAL.Migrations;
-using System.Data.Entity;
-using Rocket.DAL.Common.DbModels;
-using Rocket.DAL.Common.DbModels.Notification;
+﻿using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.Subscription;
 using Rocket.DAL.Configurations;
 using Rocket.DAL.Configurations.Notification;
 using Rocket.DAL.Configurations.Parser;
 using Rocket.DAL.Configurations.PersonalArea;
 using Rocket.DAL.Configurations.ReleaseList;
+using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
+using Rocket.DAL.Migrations;
+using System.Data.Entity;
 
 namespace Rocket.DAL.Context
 {
@@ -74,9 +75,19 @@ namespace Rocket.DAL.Context
         public DbSet<SeasonEntity> SeasonEntities { get; set; }
 
         /// <summary>
+        /// Набор сущнастей ресурсов, на которые возможна подписка
+        /// </summary>
+        public DbSet<SubscribableEntity> SubscribableEntities { get; set; }
+
+        /// <summary>
         /// DbSet настроек сервиса уведомлений
         /// </summary>
         public DbSet<NotificationsSettingsEntity> NotificationsSettings { get; set; }
+
+        /// <summary>
+        /// DbSet лога уведомлений
+        /// </summary>
+        //public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
 
         /// <summary>
         /// Этот метод вызывается, когда модель для производного контекста данных была инициализирована,
@@ -116,7 +127,9 @@ namespace Rocket.DAL.Context
 
             modelBuilder.Configurations.Add(new DbAuthorisedUserConfiguration());
 
+            modelBuilder.Configurations.Add(new SubscribableConfiguration());
             modelBuilder.Configurations.Add(new NotificationsSettingsEntityMap());
+            //modelBuilder.Configurations.Add(new NotificationsLogMap());
         }
     }
 }

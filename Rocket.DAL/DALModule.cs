@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using Ninject.Web.Common;
+using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
@@ -46,6 +47,7 @@ namespace Rocket.DAL
             Bind<IDbRoleRepository>().To<DbRoleRepository>();
             Bind<IDbPermissionRepository>().To<DbPermissionRepository>();
             Bind<IDbAuthorisedUserRepository>().To<DbAuthorisedUserRepository>();
+            Bind<IBaseRepository<NotificationsLogEntity>>().To<BaseRepository<NotificationsLogEntity>>();
 
             //UoW
             Bind<IUnitOfWork>().To<UnitOfWork>();

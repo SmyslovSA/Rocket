@@ -24,6 +24,5 @@
         /// Интервал запуска джобы в минутах
         /// </summary>
         public int NotifyPeriodInMinutes { get; set; }
-
     }
 }

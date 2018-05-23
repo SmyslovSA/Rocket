@@ -7,8 +7,7 @@ namespace Rocket.DAL.Configurations.Parser
     {
         public TvSeriasEntityMap()
         {
-            ToTable("TvSerias")
-                .HasKey(p => p.Id);
+            ToTable("TvSerias");
 
             Property(p => p.TitleRu)
                 .IsRequired()

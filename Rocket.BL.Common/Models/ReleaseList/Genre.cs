@@ -1,15 +1,12 @@
-﻿namespace Rocket.BL.Common.Models.ReleaseList
+﻿using Rocket.BL.Common.Models.Subscription;
+
+namespace Rocket.BL.Common.Models.ReleaseList
 {
     /// <summary>
     /// Представляет информацию о жанре фильма или сериала
     /// </summary>
-    public class Genre
+    public class Genre : Subscribable
     {
-        /// <summary>
-        /// Возвращает или задает уникальный идентификатор жанра
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Возвращает или задает название жанра
         /// </summary>
