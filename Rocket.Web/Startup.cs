@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+
 [assembly: OwinStartup(typeof(Rocket.Web.Startup))]
 
 namespace Rocket.Web

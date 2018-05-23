@@ -36,6 +36,6 @@ namespace Rocket.DAL.Common.DbModels.Notification
         /// <summary>
         /// Дата и время создания
         /// </summary>
-        public DateTime CreatedDateTime { get; private set;}
+        public DateTime CreatedDateTime { get; private set; }
     }
 }

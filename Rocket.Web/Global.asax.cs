@@ -15,8 +15,8 @@ namespace Rocket.Web
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             MapperConfig.Initialize();
-            //GlobalFilters.Filters.Add(new RoleAuthorizeAttribyte());
-            //LoggerConfig.Configure();
+            GlobalFilters.Filters.Add(new RoleAuthorizeAttribyte());
+            LoggerConfig.Configure();
         }
 
         protected override IKernel CreateKernel()

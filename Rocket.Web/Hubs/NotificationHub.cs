@@ -2,7 +2,7 @@
 
 namespace Rocket.Web.Hubs
 {
-    public class NotificationHub: Hub
+    public class NotificationHub : Hub
     {
         public void SendToAll(string name, string message)
         {
