@@ -10,10 +10,7 @@ namespace Rocket.DAL.Configurations.ReleaseList
     {
         public DbMusicianConfiguration()
         {
-            ToTable("Musician")
-                .HasKey(v => v.Id)
-                .Property(v => v.Id)
-                .HasColumnName("Id");
+            ToTable("Musician");
 
             Property(c => c.FullName)
                 .IsRequired()

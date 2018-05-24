@@ -1,18 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Rocket.BL.Common.Models.Subscription;
 
 namespace Rocket.BL.Common.Models.ReleaseList
 {
     /// <summary>
     /// Представляет информацию о конкретном сериале
     /// </summary>
-    public class TVSeries
+    public class TVSeries : Subscribable
     {
-        /// <summary>
-        /// Возвращает или задает уникальный идентификатор сериала
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Возвращает или задает название сериала (рус)
         /// </summary>

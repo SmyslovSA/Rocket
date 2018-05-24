@@ -10,10 +10,7 @@ namespace Rocket.DAL.Configurations.ReleaseList
     {
         public DbMusicGenreConfiguration()
         {
-            ToTable("MusicGenres")
-                .HasKey(v => v.Id)
-                .Property(v => v.Id)
-                .HasColumnName("Id");
+            ToTable("MusicGenres");
 
             Property(c => c.Name)
                 .IsRequired()

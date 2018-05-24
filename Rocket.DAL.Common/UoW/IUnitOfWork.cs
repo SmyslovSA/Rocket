@@ -6,6 +6,7 @@ using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
 using System;
+using Rocket.DAL.Common.DbModels.Notification;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -119,6 +120,11 @@ namespace Rocket.DAL.Common.UoW
         /// пользователем платежах на сайте (покупка премиум аккаунта, донат)
         /// </summary>
         IDbUserBillingMessageRepository UserBillingMessageRepository { get; }
+
+        /// <summary>
+        /// Репозиторий лога нотификации
+        /// </summary>
+        IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных

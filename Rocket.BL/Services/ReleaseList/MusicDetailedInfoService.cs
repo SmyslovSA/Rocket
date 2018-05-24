@@ -79,8 +79,8 @@ namespace Rocket.BL.Services.ReleaseList
         /// Проверяет наличие музыкального релиза в хранилище данных
         /// соответствующего заданному фильтру
         /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
+        /// <param name="filter">фильтр</param>
+        /// <returns>bool</returns>
         public bool MusicExists(Expression<Func<Music, bool>> filter)
         {
             return _unitOfWork.MusicRepository.Get(

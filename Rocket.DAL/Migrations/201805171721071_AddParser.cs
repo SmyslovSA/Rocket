@@ -20,7 +20,7 @@ namespace Rocket.DAL.Migrations
                 "dbo.Genre",
                 c => new
                     {
-                        Id = c.Short(nullable: false, identity: true),
+                        Id = c.Short(nullable: false),
                         Name = c.String(nullable: false, maxLength: 250),
                         CategoryCode = c.Int(nullable: false),
                     })
@@ -32,7 +32,7 @@ namespace Rocket.DAL.Migrations
                 "dbo.TvSerias",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false),
                         TitleRu = c.String(nullable: false, maxLength: 250),
                         TitleEn = c.String(nullable: false, maxLength: 250),
                         PosterImageUrl = c.String(),
@@ -52,7 +52,7 @@ namespace Rocket.DAL.Migrations
                 "dbo.Person",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false),
                         FullNameRu = c.String(nullable: false, maxLength: 250),
                         FullNameEn = c.String(nullable: false, maxLength: 250),
                         LostfilmPersonalPageUrl = c.String(nullable: false),
@@ -107,7 +107,7 @@ namespace Rocket.DAL.Migrations
                 "dbo.MusicGenres",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false),
                         Name = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id);
@@ -116,7 +116,7 @@ namespace Rocket.DAL.Migrations
                 "dbo.Music",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false),
                         Title = c.String(),
                         ReleaseDate = c.DateTime(nullable: false),
                         PosterImagePath = c.String(maxLength: 200),
@@ -130,7 +130,7 @@ namespace Rocket.DAL.Migrations
                 "dbo.Musician",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false),
                         FullName = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);

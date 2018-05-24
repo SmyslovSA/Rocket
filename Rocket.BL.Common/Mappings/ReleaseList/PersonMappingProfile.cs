@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Rocket.BL.Common.Models.ReleaseList;
+using Rocket.BL.Common.Models.Subscription;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.BL.Common.Mappings.ReleaseList
 {
@@ -11,7 +13,9 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
     {
         public PersonMappingProfile()
         {
-            CreateMap<Person, PersonEntity>().ReverseMap();
+            CreateMap<Person, PersonEntity>()
+                .IncludeBase<Subscribable, SubscribableEntity>()
+                .ReverseMap();
         }
     }
 }

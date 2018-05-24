@@ -8,6 +8,7 @@ using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 using System;
 using Rocket.DAL.Common.Repositories.Notification;
+using Rocket.DAL.Common.DbModels.Notification;
 
 namespace Rocket.DAL.UoW
 {
@@ -68,6 +69,7 @@ namespace Rocket.DAL.UoW
             IDbPermissionRepository dbPermissionRepository,
             IDbAuthorisedUserRepository dbAuthorisedUserRepository,
             IDbCustomMessageRepository dbCustomMessageRepository,
+            IBaseRepository<NotificationsLogEntity> notificationsLogRepository,
             IDbEmailTemplateRepository dbEmailTemplateRepository,
             IDbGuestBillingMessageRepository dbGuestBillingMessageRepository,
             IDbReceiverRepository dbReceiverRepository,
@@ -96,6 +98,7 @@ namespace Rocket.DAL.UoW
             PermissionRepository = dbPermissionRepository;
             UserAuthorisedRepository = dbAuthorisedUserRepository;
             CustomMessageRepository = dbCustomMessageRepository;
+            NotificationsLogRepository = notificationsLogRepository;
             EmailTemplateRepository = dbEmailTemplateRepository;
             GuestBillingMessageRepository = dbGuestBillingMessageRepository;
             ReceiverRepository = dbReceiverRepository;
@@ -190,6 +193,12 @@ namespace Rocket.DAL.UoW
         /// </summary>
         public IDbCustomMessageRepository CustomMessageRepository { get; }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Репозиторий лога нотификации
+        /// </summary>
+        public IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
+        
         /// <summary>
         /// Возвращает репозиторий шаблонов email сообщений
         /// </summary>
