@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.Common.DbModels.ReleaseList
 {
     /// <summary>
     /// Представляет модель хранения данных музыкального релиза
     /// </summary>
-    public class DbMusic
+    public class DbMusic : SubscribableEntity
     {
         private ICollection<DbMusician> _dbMusicians;
         private ICollection<DbMusicGenre> _dbMusicGenres;
         private ICollection<DbMusicTrack> _dbMusicTracks;
-
-        /// <summary>
-        /// Возвращает или задает уникальный идентификатор музыкального релиза
-        /// </summary>
-        public int Id { get; set; }
 
         /// <summary>
         /// Возвращает или задает название музыкального релиза

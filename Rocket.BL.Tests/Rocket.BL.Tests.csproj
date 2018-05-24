@@ -91,7 +91,9 @@
     <Compile Include="ReleaseList\FakeData\FakeSeasonEntities.cs" />
     <Compile Include="ReleaseList\FakeData\FakeTvSeriasEntities.cs" />
     <Compile Include="ReleaseList\MusicDetailedInfoServiceTest.cs" />
-    <Compile Include="ReleaseList\TvSeriesDetailedInfoServiceTest.cs" />
+    <Compile Include="ReleaseList\TVSeriesDetailedInfoServiceTest.cs" />
+    <Compile Include="UserRoles\PermissionServiceTest.cs" />
+    <Compile Include="UserRoles\RoleServiceTest.cs" />
     <Compile Include="User\FakeData\FakeDbAddresses.cs" />
     <Compile Include="User\FakeData\FakeDbCountries.cs" />
     <Compile Include="User\FakeData\FakeDbAccountStatuses.cs" />

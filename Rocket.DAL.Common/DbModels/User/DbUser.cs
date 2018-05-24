@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.Common.DbModels.User
 {
@@ -73,5 +74,10 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Ссылка на DbAuthorisedUser.
         /// </summary>
         public DbAuthorisedUser DbAuthorisedUser { get; set; }
+
+        /// <summary>
+        /// Коллекция подписок пользователя
+        /// </summary>
+        public ICollection<SubscribableEntity> Subscriptions { get; set; } = new Collection<SubscribableEntity>();
     }
 }

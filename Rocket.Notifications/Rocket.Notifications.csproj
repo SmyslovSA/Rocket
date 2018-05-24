@@ -73,6 +73,7 @@
     <Compile Include="Heplers\CommonHelper.cs" />
     <Compile Include="Interfaces\INinjectModuleBootstrapper.cs" />
     <Compile Include="Jobs\PushNotificationsJob.cs" />
+    <Compile Include="Interfaces\IPushNotifications.cs" />
     <Compile Include="Notifications\PushNotifications.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

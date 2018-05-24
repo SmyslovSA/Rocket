@@ -33,7 +33,7 @@ namespace Rocket.BL.Tests.ReleaseList
 
             var mockTvSeriasRepository = new Mock<IBaseRepository<TvSeriasEntity>>();
             mockTvSeriasRepository
-                .Setup(mock => mock.Get(It.IsAny<Expression<Func<TvSeriasEntity, bool>>>(), null, string.Empty))
+                .Setup(mock => mock.Get(It.IsAny<Expression<Func<TvSeriasEntity, bool>>>(), null, It.IsAny<string>()))
                 .Returns(
                     (Expression<Func<TvSeriasEntity, bool>> filter,
                     Func<IQueryable<TvSeriasEntity>, IOrderedQueryable<TvSeriasEntity>> orderBy,
@@ -49,10 +49,20 @@ namespace Rocket.BL.Tests.ReleaseList
                 .Callback((int id) => _fakeDb.FakeTvSeriasEntities.TvSeriasEntities
                     .Remove(_fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Find(f => f.Id == id)));
 
+            var mockEpisodeRepository = new Mock<IBaseRepository<EpisodeEntity>>();
+            mockEpisodeRepository
+                .Setup(mock => mock.Get(It.IsAny<Expression<Func<EpisodeEntity, bool>>>(), null, string.Empty))
+                .Returns(
+                    (Expression<Func<EpisodeEntity, bool>> filter,
+                            Func<IQueryable<TvSeriasEntity>, IOrderedQueryable<TvSeriasEntity>> orderBy,
+                            string includeProperties)
+                        => _fakeDb.FakeEpisodeEntities.EpisodeEntities.Where(filter.Compile()));
+
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            
             mockUnitOfWork.Setup(mock => mock.TvSeriasRepository)
                 .Returns(() => mockTvSeriasRepository.Object);
+            mockUnitOfWork.Setup(mock => mock.EpisodeRepository)
+                .Returns(() => mockEpisodeRepository.Object);
 
             _tvSeriesDetailedInfoService = new TvSeriesDetailedInfoService(mockUnitOfWork.Object);
         }

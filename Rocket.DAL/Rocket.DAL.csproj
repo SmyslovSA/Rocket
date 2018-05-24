@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\Notification\NotificationsLogMap.cs" />
     <Compile Include="Configurations\Notification\NotificationsSettingsEntityMap.cs" />
     <Compile Include="Configurations\Parser\CategoryEntityMap.cs" />
     <Compile Include="Configurations\Parser\EpisodeEntityMap.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Configurations\ReleaseList\DbMusicianConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicTrackConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbAuthorisedUserConfiguration.cs" />
+    <Compile Include="Configurations\Subscription\SubscribableConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbUserConfiguration.cs" />
@@ -146,6 +148,10 @@
     <Compile Include="Migrations\201805200849026_AddNotificationsSettings.cs" />
     <Compile Include="Migrations\201805200849026_AddNotificationsSettings.Designer.cs">
       <DependentUpon>201805200849026_AddNotificationsSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805231204024_SubscribeAdd.cs" />
+    <Compile Include="Migrations\201805231204024_SubscribeAdd.Designer.cs">
+      <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -186,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805200849026_AddNotificationsSettings.resx">
       <DependentUpon>201805200849026_AddNotificationsSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805231204024_SubscribeAdd.resx">
+      <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
