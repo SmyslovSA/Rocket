@@ -21,7 +21,8 @@ namespace Rocket.Web
                 }
 
                 return result;
-            });
-        }
-    }
+            }
+            );
+		}
+	}
 }
