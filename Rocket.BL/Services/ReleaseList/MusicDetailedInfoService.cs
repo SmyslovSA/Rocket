@@ -33,18 +33,27 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Экземпляр музыкального релиза</returns>
         public Music GetMusic(int id)
         {
-            return Mapper.Map<Music>(
-                _unitOfWork.MusicRepository.GetById(id));
-        }
+			//return Mapper.Map<Music>(
+			//	_unitOfWork.MusicRepository.GetById(id));
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Добавляет заданный музыкальный релиз в хранилище данных
-        /// и возвращает идентификатор добавленного музыкального релиза.
-        /// </summary>
-        /// <param name="music">Экземпляр музыкального релиза для добавления</param>
-        /// <returns>Идентификатор музыкального релиза</returns>
-        public int AddMusic(Music music)
+			var model = Mapper.Map<Music>(
+				_unitOfWork.MusicRepository.Get(
+						f => f.Id == id,
+						includeProperties: $"{nameof(Music.Genres)},{nameof(Music.MusicTracks)},{nameof(Music.Musicians)}")
+					?.FirstOrDefault());
+
+			return model;
+
+		}
+
+		/// <inheritdoc />
+		/// <summary>
+		/// Добавляет заданный музыкальный релиз в хранилище данных
+		/// и возвращает идентификатор добавленного музыкального релиза.
+		/// </summary>
+		/// <param name="music">Экземпляр музыкального релиза для добавления</param>
+		/// <returns>Идентификатор музыкального релиза</returns>
+		public int AddMusic(Music music)
         {
             var dbMusic = Mapper.Map<DbMusic>(music);
             _unitOfWork.MusicRepository.Insert(dbMusic);
