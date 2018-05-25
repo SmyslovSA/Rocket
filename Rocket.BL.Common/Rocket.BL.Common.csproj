@@ -65,6 +65,7 @@
     <Compile Include="Mappings\UserMappingProfile\UserMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\PermissionMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\RoleMappingProfile.cs" />
+    <Compile Include="Models\Pagination\MusicPageInfo.cs" />
     <Compile Include="Models\Pagination\PageInfo.cs" />
     <Compile Include="Models\Pagination\ReleasesPageInfo.cs" />
     <Compile Include="Models\Pagination\TvSeriesPageInfo.cs" />

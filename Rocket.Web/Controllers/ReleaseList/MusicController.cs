@@ -34,9 +34,12 @@ namespace Rocket.Web.Controllers.ReleaseList
 		/// <returns>Страница музыкальных релизов</returns>
 		[HttpGet]
 	    [Route("page/{pageNumber:int:min(1)}")]
-	    public IHttpActionResult GetMusicByByPage(int pageNumber)
+	    public IHttpActionResult GetMusicByPage(int pageNumber)
 	    {
-		    return (IHttpActionResult)NotFound();
-	    }
+			var page = _musicDetailedInfoService.GetPageInfoByDate(
+			    SettingsManager.ReleasesSettings.Pagination.PageSize,
+			    pageNumber);
+		    return pageNumber <= page.TotalPagesCount ? Ok(page) : (IHttpActionResult)NotFound();
+		}
 	}
 }
