@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
+using Common.Logging;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.DbUserRole;
@@ -16,8 +17,11 @@ namespace Rocket.BL.Services.UserServices
     /// </summary>
     public class RoleService : BaseService, IRoleService
     {
-        public RoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        private readonly ILog _logger;
+
+        public RoleService(IUnitOfWork unitOfWork, ILog _logger) : base(unitOfWork)
         {
+            this._logger = _logger;
         }
 
         public bool RoleIsExists(Expression<Func<Role, bool>> filter)
@@ -45,6 +49,7 @@ namespace Rocket.BL.Services.UserServices
         {
             var dbRole = Mapper.Map<DbRole>(role);
             _unitOfWork.RoleRepository.Insert(dbRole);
+            _logger.Debug($"Role {dbRole} added in DB");
             _unitOfWork.SaveChanges();
         }
 
@@ -52,12 +57,14 @@ namespace Rocket.BL.Services.UserServices
         {
             var dbRole = Mapper.Map<DbRole>(role);
             _unitOfWork.RoleRepository.Update(dbRole);
+            _logger.Debug($"Role {dbRole} updated in DB");
             _unitOfWork.SaveChanges();
         }
 
         public void Delete(int id)
         {
             _unitOfWork.RoleRepository.Delete(id);
+            _logger.Debug($"Role {id} removed from DB");
             _unitOfWork.SaveChanges();
         }
     }

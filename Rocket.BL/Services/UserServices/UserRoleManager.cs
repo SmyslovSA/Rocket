@@ -2,6 +2,7 @@
 using Rocket.DAL.Common.UoW;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Logging;
 using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 
@@ -9,10 +10,12 @@ namespace Rocket.BL.Services.UserServices
 {
     public class UserRoleManager : BaseService, IUserRoleManager
     {
+        private readonly ILog _logger;
         private const int DefaultRoleId = 0; // todo MP закинуть в хранилище дефолтроль
-
-        public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
+        
+        public UserRoleManager(IUnitOfWork unitOfWork, ILog logger) : base(unitOfWork)
         {
+            _logger = logger;
         }
 
         /// <summary>
@@ -33,6 +36,7 @@ namespace Rocket.BL.Services.UserServices
             var dbUser = _unitOfWork.UserRepository.GetById(userId);
 
             dbUser.Roles.Add(dbRole);
+            _logger.Trace($"Role {dbRole.Name} added to user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
 
             _unitOfWork.SaveChanges();
         }
@@ -56,6 +60,7 @@ namespace Rocket.BL.Services.UserServices
             var dbUser = _unitOfWork.UserRepository.GetById(userId);
 
             dbUser.Roles.Remove(dbRole);
+            _logger.Trace($"Role {dbRole.Name} removed from user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
 
             _unitOfWork.SaveChanges();
             return true;
@@ -69,6 +74,7 @@ namespace Rocket.BL.Services.UserServices
         public virtual IEnumerable<DbRole> GetRoles(int userId)
         {
             var dbUser = _unitOfWork.UserRepository.Get(t => t.Id == userId, includeProperties: "Roles").First();
+            _logger.Trace($"Checking roles for user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
             return dbUser.Roles;
         }
 
@@ -86,7 +92,10 @@ namespace Rocket.BL.Services.UserServices
             }
 
             var roles = GetRoles(userId);
-            return roles.Contains(_unitOfWork.RoleRepository.GetById(roleId));
+            var res = roles.Contains(_unitOfWork.RoleRepository.GetById(roleId));
+
+            _logger.Trace($"Checking user {userId} has role {roleId}? - {res} ");
+            return res;
         }
     }
 }
