@@ -26,7 +26,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpDelete]
-        [Route("delete/role/{id:int:min(1)}")]
+        [Route("remove/role/{id:int:min(1)}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "Role removed from user")]
@@ -46,6 +46,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpGet]
+        [Route("has/role")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK)]

@@ -39,6 +39,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpPost]
+        [Route("save")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New Role description", typeof(Role))]
@@ -54,6 +55,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpPut]
+        [Route("update")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NoContent)]
         public IHttpActionResult UpdateRole([FromBody] Role role)
