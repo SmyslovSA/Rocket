@@ -37,7 +37,7 @@ namespace Rocket.BL.Tests.ReleaseList
 
             var mockDbMusicRepository = new Mock<IBaseRepository<DbMusic>>();
             mockDbMusicRepository
-                .Setup(mock => mock.Get(It.IsAny<Expression<Func<DbMusic, bool>>>(), null, string.Empty))
+                .Setup(mock => mock.Get(It.IsAny<Expression<Func<DbMusic, bool>>>(), null, It.IsAny<string>()))
                 .Returns((Expression<Func<DbMusic, bool>> filter,
                     Func<IQueryable<DbMusic>, IOrderedQueryable<DbMusic>> orderBy,
                     string includeProperties) => _fakeDbMusicData.Music.Where(filter.Compile()));
