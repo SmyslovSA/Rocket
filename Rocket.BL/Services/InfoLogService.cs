@@ -15,7 +15,7 @@ namespace Rocket.BL.Services
         /// <param name="path"> Путь к файлу </param>
         /// <param name="count" > Количество последних записей из соответствующего файла </param>
         /// <returns> string </returns>
-        public string GetLogInfo(string path, int count) // todo подумать чтобы передать дату файла
+        public string GetLogInfo(string path, int count) // todo MP подумать чтобы передать дату файла
         {
             var resultString = string.Empty;
 
@@ -96,7 +96,7 @@ namespace Rocket.BL.Services
                 }
             }
 
-            return logRows.ToString(firstLineStart, logRows.Length - firstLineStart);
+            return logRows.ToString(firstLineStart, logRows.Length - firstLineStart - 1);
         }
     }
 }

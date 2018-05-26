@@ -9,7 +9,7 @@ namespace Rocket.BL.Services.UserServices
 {
     public class UserRoleManager : BaseService, IUserRoleManager
     {
-        private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
+        private const int DefaultRoleId = 0; // todo MP закинуть в хранилище дефолтроль
 
         public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -22,7 +22,7 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="roleId"> Идентификатор роли. </param>
         public virtual void AddToRole(int userId, int roleId = DefaultRoleId)
         {
-            // todo check user
+            // todo MP check user
 
             if (IsInRole(userId, roleId))
             {
@@ -45,7 +45,7 @@ namespace Rocket.BL.Services.UserServices
         /// <returns> bool </returns>
         public virtual bool RemoveFromRole(int userId, int roleId)
         {
-            // todo check user
+            // todo MP check user
 
             if (!IsInRole(userId, roleId))
             {
