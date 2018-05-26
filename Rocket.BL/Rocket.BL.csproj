@@ -119,6 +119,7 @@
     <Compile Include="Services\PersonalArea\ChangePersonalDataService.cs" />
     <Compile Include="Services\User\UserAccountLevelService.cs" />
     <Compile Include="Services\User\UserAccountStatusService.cs" />
+    <Compile Include="Services\InfoLogService.cs" />
     <Compile Include="Validators\UserDataValidator.cs" />
     <Compile Include="Services\User\UserManagementService.cs" />
     <Compile Include="Services\User\UserValidateService.cs" />
