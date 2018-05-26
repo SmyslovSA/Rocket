@@ -1,10 +1,11 @@
-﻿using System.Web.Http;
-using Rocket.BL.Common.Models.UserRoles;
+﻿using System.Net;
+using System.Web.Http;
 using Rocket.BL.Common.Services;
+using Swashbuckle.Swagger.Annotations;
 
 namespace Rocket.Web.Controllers.UserRole
 {
-    [RoutePrefix("user/role")]
+    [RoutePrefix("user")]
     public class RoleManagerController : ApiController
     {
         private readonly IUserRoleManager _roleManager;
@@ -15,31 +16,42 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpPost]
-        [Route("add")]
-        public IHttpActionResult AddToRole() 
+        [Route("add/role/{id:int:min(1)}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Role added to user")]
+        public IHttpActionResult AddToRole(int userId, int roleId) 
         {
-            // todo [FromBody]User user, [FromBody]Role role -- принимает метод
-            return Ok();
+             return _roleManager.IsInRole(userId, roleId) ? (IHttpActionResult)NotFound() : Ok();
         }
 
         [HttpDelete]
-        [Route("delete")]
-        public IHttpActionResult RemoveFromRole() 
+        [Route("delete/role/{id:int:min(1)}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Role removed from user")]
+        public IHttpActionResult RemoveFromRole(int userId, int roleId) 
         {
-            // todo [FromBody]User user, [FromBody]Role role -- принимает метод
-            return Ok();
+            return !_roleManager.IsInRole(userId, roleId) ? (IHttpActionResult)NotFound() : Ok();
         }
 
         [HttpGet]
-        [Route("list")]
+        [Route("{id:int:min(1)}/roles")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK)]
         public IHttpActionResult GetRoles(int userId)
         {
-            return Ok();
+            return _roleManager.GetRoles(userId) == null ? (IHttpActionResult)NotFound() : Ok();
         }
 
         [HttpGet]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK)]
         public IHttpActionResult IsInRole(int userId, int roleId)
         {
+            _roleManager.IsInRole(userId, roleId);
             return Ok();
         }
     }

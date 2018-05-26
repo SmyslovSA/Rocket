@@ -58,7 +58,6 @@ namespace Rocket.Web.Controllers.UserRole
         [SwaggerResponse(HttpStatusCode.NoContent)]
         public IHttpActionResult UpdateRole([FromBody] Role role)
         {
-            // empty model?
             _roleService.Update(role);
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
