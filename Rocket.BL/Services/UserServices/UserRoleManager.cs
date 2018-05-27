@@ -10,8 +10,8 @@ namespace Rocket.BL.Services.UserServices
 {
     public class UserRoleManager : BaseService, IUserRoleManager
     {
+        private const int DefaultRoleId = 1; // todo MP закинуть в хранилище дефолтроль
         private readonly ILog _logger;
-        private const int DefaultRoleId = 0; // todo MP закинуть в хранилище дефолтроль
         
         public UserRoleManager(IUnitOfWork unitOfWork, ILog logger) : base(unitOfWork)
         {
