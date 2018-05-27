@@ -17,13 +17,11 @@ using Rocket.DAL.Common.UoW;
 
 namespace Rocket.BL.Services.Notification
 {
-    public class MailNotificationService: IMailNotificationService
+    public class MailNotificationService : BaseService, IMailNotificationService
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public MailNotificationService(IUnitOfWork uow)
+        public MailNotificationService(IUnitOfWork unitOfWork) 
+            : base (unitOfWork)
         {
-            _unitOfWork = uow;
         }
 
         public void NotifyAboutRelease(SubscribableEntity entity)
@@ -161,7 +159,7 @@ namespace Rocket.BL.Services.Notification
 
             foreach (var email in receiver.Emails)
             {
-                message.Bcc.Add(new MailboxAddress(email));
+                message.To.Add(new MailboxAddress(email));
             }
 
             message.Subject = "No Reply";
@@ -214,6 +212,8 @@ namespace Rocket.BL.Services.Notification
                     Settings.Default.Password).ConfigureAwait(false);
 
                 await client.SendAsync(message).ConfigureAwait(false);
+
+                // Уточнить касательно необходимости !
                 await client.DisconnectAsync(true).ConfigureAwait(false);
             }
         }
