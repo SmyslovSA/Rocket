@@ -11,10 +11,6 @@ using Rocket.DAL.Common.UoW;
 
 namespace Rocket.BL.Services.UserServices
 {
-    /// <summary>
-    /// получение роли, установка роли для пользователя
-    /// если не указана, то дефолтовая
-    /// </summary>
     public class RoleService : BaseService, IRoleService
     {
         private readonly ILog _logger;
