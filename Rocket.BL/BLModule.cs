@@ -9,6 +9,7 @@ namespace Rocket.BL
         public override void Load()
         {
             Bind<ITvSeriesDetailedInfoService>().To<TvSeriesDetailedInfoService>();
-        }
+            Bind<IMusicDetailedInfoService>().To<MusicDetailedInfoService>();
+		}
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Rocket.BL.Common.Models.Pagination;
 using Rocket.BL.Common.Models.ReleaseList;
 
 namespace Rocket.BL.Common.Services.ReleaseList
@@ -17,13 +18,22 @@ namespace Rocket.BL.Common.Services.ReleaseList
         /// <returns>Экземпляр музыкального релиза</returns>
         Music GetMusic(int id);
 
-        /// <summary>
-        /// Добавляет заданный музыкальный релиз в хранилище данных
-        /// и возвращает идентификатор добавленного музыкального релиза.
-        /// </summary>
-        /// <param name="music">Экземпляр музыкального релиза для добавления</param>
-        /// <returns>Идентификатор музыкального релиза</returns>
-        int AddMusic(Music music);
+		/// <summary>
+		/// Возвращает страницу музыкальных релизов с заданным номером и размером,
+		/// музыкальные релизы сортированы по дате релиза
+		/// </summary>
+		/// <param name="pageSize">Размер страницы</param>
+		/// <param name="pageNumber">Номер страницы</param>
+		/// <returns>Страница музыкальных релизов</returns>
+		MusicPageInfo GetPageInfoByDate(int pageSize, int pageNumber);
+
+		/// <summary>
+		/// Добавляет заданный музыкальный релиз в хранилище данных
+		/// и возвращает идентификатор добавленного музыкального релиза.
+		/// </summary>
+		/// <param name="music">Экземпляр музыкального релиза для добавления</param>
+		/// <returns>Идентификатор музыкального релиза</returns>
+		int AddMusic(Music music);
 
         /// <summary>
         /// Обновляет информацию заданного музыкального релиза в хранилище данных
