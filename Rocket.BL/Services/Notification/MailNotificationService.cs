@@ -8,6 +8,7 @@ using RazorEngine;
 using RazorEngine.Templating;
 using Rocket.BL.Common.Enums;
 using Rocket.BL.Common.Models.Notification;
+using Rocket.BL.Common.Services.Notification;
 using Rocket.BL.Properties;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
@@ -16,7 +17,7 @@ using Rocket.DAL.Common.UoW;
 
 namespace Rocket.BL.Services.Notification
 {
-    public class MailNotificationService
+    public class MailNotificationService: IMailNotificationService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -34,38 +35,6 @@ namespace Rocket.BL.Services.Notification
             else if (entity is TvSeriasEntity tvSeries)
             {
                 NotifyTvSeries(tvSeries);
-            }
-        }
-
-        private void NotifyMusic(DbMusic music)
-        {
-            var release = Mapper.Map<MusicNotification>(music);
-            string template = _unitOfWork.EmailTemplateRepository.
-                Get(x => x.Title == "Music").First().Body;
-            
-            for (int i = 0; i < release.Receivers.Count; i++)
-            {
-                var body = Engine.Razor.RunCompile(template, 
-                    "Music", null, new { Music = release, Count = i });
-                var message = CreateMessage(release.Receivers.ElementAt(i), 
-                    body);
-                SendEmailAsync(message).Wait();
-            }
-        }
-
-        private void NotifyTvSeries(TvSeriasEntity tvSeries)
-        {
-            var release = Mapper.Map<TvSeriesNotification>(tvSeries);
-            string template = _unitOfWork.EmailTemplateRepository.
-                Get(x => x.Title == "TvSeries").First().Body;
-
-            for (int i = 0; i < release.Receivers.Count; i++)
-            {
-                var body = Engine.Razor.RunCompile(template,
-                    "TvSeries", null, new { TvSeries = release, Count = i });
-                var message = CreateMessage(release.Receivers.ElementAt(i),
-                    body);
-                SendEmailAsync(message).Wait();
             }
         }
 
@@ -151,6 +120,38 @@ namespace Rocket.BL.Services.Notification
             };
             var message = CreateCustomMessage(custom);
             SendEmailAsync(message).Wait();
+        }
+
+        private void NotifyMusic(DbMusic music)
+        {
+            var release = Mapper.Map<MusicNotification>(music);
+            string template = _unitOfWork.EmailTemplateRepository.
+                Get(x => x.Title == "Music").First().Body;
+            
+            for (int i = 0; i < release.Receivers.Count; i++)
+            {
+                var body = Engine.Razor.RunCompile(template, 
+                    "Music", null, new { Music = release, Count = i });
+                var message = CreateMessage(release.Receivers.ElementAt(i), 
+                    body);
+                SendEmailAsync(message).Wait();
+            }
+        }
+
+        private void NotifyTvSeries(TvSeriasEntity tvSeries)
+        {
+            var release = Mapper.Map<TvSeriesNotification>(tvSeries);
+            string template = _unitOfWork.EmailTemplateRepository.
+                Get(x => x.Title == "TvSeries").First().Body;
+
+            for (int i = 0; i < release.Receivers.Count; i++)
+            {
+                var body = Engine.Razor.RunCompile(template,
+                    "TvSeries", null, new { TvSeries = release, Count = i });
+                var message = CreateMessage(release.Receivers.ElementAt(i),
+                    body);
+                SendEmailAsync(message).Wait();
+            }
         }
 
         private MimeMessage CreateMessage(Receiver receiver, string body)
