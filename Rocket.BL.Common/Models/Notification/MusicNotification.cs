@@ -7,12 +7,9 @@ namespace Rocket.BL.Common.Models.Notification
     /// <summary>
     /// Описывает музыкальный релиз для целей нотификации
     /// </summary>
-    public class MusicForNotification
+    public class MusicNotification
     {
-        /// <summary>
-        /// Возвращает или задает идентификационный номер музыкального релиза
-        /// </summary>
-        public int Id { get; set; }
+        public ICollection<Receiver> Receivers { get; set; }
 
         /// <summary>
         /// Возвращает или задает название музыкального релиза
