@@ -34,9 +34,18 @@ namespace Rocket.DAL.UoW
         /// <param name="personTypeRepository">Репозиторий типов людей</param>
         /// <param name="seasonRepository">Репозиторий сезонов</param>
         /// <param name="tvSeriasRepository">Репозиторий сериалов</param>
-        /// <param name="dbFilmRepository">Репозиторий фильмов</param>
         /// <param name="dbEmailRepository">Репозиторий email</param>
         /// <param name="dbUserRepository">Репозиторий пользователей</param>
+        /// <param name="dbCountryRepository">Репозиторий стран.</param>
+        /// <param name="dbAccountLevelRepository">Репозиторий уровней аккаунта детальной информации пользователей.</param>
+        /// <param name="dbAccountStatusRepositary">Репозиторий уровней статуса детальной информации пользователей.</param>
+        /// <param name="dbAddressRepositary">Репозиторий адресов детальной информации пользователей.</param>
+        /// <param name="dbEmailAddressRepositary">Репозиторий адресов электронной почты детальной информации пользователей.</param>
+        /// <param name="dbGenderRepository">Репозиторий сведений о половой принадлежности пользователей.</param>
+        /// <param name="dbHowToCallRepository">Репозиторий сведений о том, как обращаться к пользователям.</param>
+        /// <param name="dbLanguageRepositary">Репозиторий языков (общения) пользователей.</param>
+        /// <param name="dbPhoneNumberRepository">Репозиторий номеров телефонов детяльной информации пользователей.</param>
+        /// <param name="dbUserDetailRepository">Репозиторий детальной информации пользователей.</param>
         /// <param name="dbRoleRepository">Репозиторий ролей</param>
         /// <param name="dbPermissionRepository">Репозиторий разрешений</param>
         /// <param name="dbAuthorisedUserRepository">Репозиторий авторизованных пользователей</param>
@@ -58,6 +67,16 @@ namespace Rocket.DAL.UoW
             IBaseRepository<TvSeriasEntity> tvSeriasRepository,
             IDbEmailRepository dbEmailRepository,
             IDbUserRepository dbUserRepository,
+            IDbCountryRepository dbCountryRepository,
+            IDbAccountLevelRepository dbAccountLevelRepository,
+            IDbAccountStatusRepositary dbAccountStatusRepositary,
+            IDbAddressRepositary dbAddressRepositary,
+            IDbEmailAddressRepositary dbEmailAddressRepositary,
+            IDbGenderRepository dbGenderRepository,
+            IDbHowToCallRepository dbHowToCallRepository,
+            IDbLanguageRepositary dbLanguageRepositary,
+            IDbPhoneNumberRepository dbPhoneNumberRepository,
+            IDbUserDetailRepository dbUserDetailRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
             IDbAuthorisedUserRepository dbAuthorisedUserRepository,
@@ -80,6 +99,16 @@ namespace Rocket.DAL.UoW
             TvSeriasRepository = tvSeriasRepository;
             EmailRepository = dbEmailRepository;
             UserRepository = dbUserRepository;
+            CountryRepository = dbCountryRepository;
+            AccountLevelRepository = dbAccountLevelRepository;
+            AccountStatusRepositary = dbAccountStatusRepositary;
+            AddressRepositary = dbAddressRepositary;
+            EmailAddressRepositary = dbEmailAddressRepositary;
+            GenderRepository = dbGenderRepository;
+            HowToCallRepository = dbHowToCallRepository;
+            LanguageRepositary = dbLanguageRepositary;
+            PhoneNumberRepository = dbPhoneNumberRepository;
+            UserDetailRepository = dbUserDetailRepository;
             RoleRepository = dbRoleRepository;
             PermissionRepository = dbPermissionRepository;
             UserAuthorisedRepository = dbAuthorisedUserRepository;
@@ -152,6 +181,56 @@ namespace Rocket.DAL.UoW
         /// Репозиторий для работы с пользователями.
         /// </summary>
         public IDbUserRepository UserRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со странами.
+        /// </summary>
+        public IDbCountryRepository CountryRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с уровнями аккаунтов пользователей.
+        /// </summary>
+        public IDbAccountLevelRepository AccountLevelRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со статусами аккаунтов пользователей.
+        /// </summary>
+        public IDbAccountStatusRepositary AccountStatusRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с адресами детальной информации пользователей.
+        /// </summary>
+        public IDbAddressRepositary AddressRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с адресами электронной почты пользователей.
+        /// </summary>
+        public IDbEmailAddressRepositary EmailAddressRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями половой принадлежности пользователей.
+        /// </summary>
+        public IDbGenderRepository GenderRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями о том, как обращаться к пользователям.
+        /// </summary>
+        public IDbHowToCallRepository HowToCallRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями о языках детальной информации пользователей.
+        /// </summary>
+        public IDbLanguageRepositary LanguageRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями о телефонных номерах детальной информации пользователей.
+        /// </summary>
+        public IDbPhoneNumberRepository PhoneNumberRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с детальной информацией пользователей.
+        /// </summary>
+        public IDbUserDetailRepository UserDetailRepository { get; }
 
         /// <summary>
         /// Репозиторий для работы с ролями.

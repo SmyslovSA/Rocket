@@ -95,6 +95,7 @@
     <Compile Include="Repositories\IBaseRepository.cs" />
     <Compile Include="Repositories\User\IDbAccountLevelRepository.cs" />
     <Compile Include="Repositories\User\IDbGenderRepository.cs" />
+    <Compile Include="Repositories\User\IDbCountryRepository.cs" />
     <Compile Include="Repositories\User\IDbPhoneNumberRepository.cs" />
     <Compile Include="Repositories\User\IDbEmailAddressRepository.cs" />
     <Compile Include="Repositories\User\IDbAccountStatusRepository.cs" />

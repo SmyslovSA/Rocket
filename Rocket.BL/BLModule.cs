@@ -10,6 +10,6 @@ namespace Rocket.BL
         {
             Bind<ITvSeriesDetailedInfoService>().To<TvSeriesDetailedInfoService>();
             Bind<IMusicDetailedInfoService>().To<MusicDetailedInfoService>();
-		}
+        }
     }
 }
