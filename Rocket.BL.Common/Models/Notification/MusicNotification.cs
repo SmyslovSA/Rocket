@@ -9,6 +9,9 @@ namespace Rocket.BL.Common.Models.Notification
     /// </summary>
     public class MusicNotification
     {
+        /// <summary>
+        /// Возвращает или задает коллекцию получателей сообщений
+        /// </summary>
         public ICollection<Receiver> Receivers { get; set; }
 
         /// <summary>
