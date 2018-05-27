@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\BillingType.cs" />
     <Compile Include="Mappings\PersonalAreaMappings\EmailMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\BaseReleaseMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\CategoryMappingProfile.cs" />
@@ -69,6 +70,14 @@
     <Compile Include="Mappings\UserMappingProfile\UserMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\PermissionMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\RoleMappingProfile.cs" />
+    <Compile Include="Models\Notification\BillingNotification.cs" />
+    <Compile Include="Models\Notification\ConfirmationNotification.cs" />
+    <Compile Include="Models\Notification\CustomNotification.cs" />
+    <Compile Include="Models\Notification\FilmForNotification.cs" />
+    <Compile Include="Models\Notification\MessageAboutFilm.cs" />
+    <Compile Include="Models\Notification\MusicNotification.cs" />
+    <Compile Include="Models\Notification\Receiver.cs" />
+    <Compile Include="Models\Notification\TvSeriesNotification.cs" />
     <Compile Include="Models\Pagination\MusicPageInfo.cs" />
     <Compile Include="Models\Pagination\PageInfo.cs" />
     <Compile Include="Models\Pagination\ReleasesPageInfo.cs" />
@@ -99,15 +108,6 @@
     <Compile Include="Mappings\ReleaseList\MusicTrackMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\MusicGenreMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\MusicianMappingProfile.cs" />
-    <Compile Include="Models\Notification\BillingMessage.cs" />
-    <Compile Include="Models\Notification\ConfirmationMessage.cs" />
-    <Compile Include="Models\Notification\CustomMessage.cs" />
-    <Compile Include="Models\Notification\FilmForNotification.cs" />
-    <Compile Include="Models\Notification\MessageAboutFilm.cs" />
-    <Compile Include="Models\Notification\MessageAboutMusic.cs" />
-    <Compile Include="Models\Notification\MessageAboutTVSeries.cs" />
-    <Compile Include="Models\Notification\MusicForNotification.cs" />
-    <Compile Include="Models\Notification\TVSeriesForNotification.cs" />
     <Compile Include="Services\Notification\IMailNotificationService.cs" />
     <Compile Include="Services\IRoleService.cs" />
     <Compile Include="Services\IUserRoleManager.cs" />
@@ -117,7 +117,6 @@
     <Compile Include="Models\PersonalArea\Category.cs" />
     <Compile Include="Models\PersonalArea\Genre.cs" />
     <Compile Include="Models\PersonalArea\PremiumUser.cs" />
-    <Compile Include="Models\Notification\Receiver.cs" />
     <Compile Include="Models\ReleaseList\Country.cs" />
     <Compile Include="Models\ReleaseList\Episode.cs" />
     <Compile Include="Models\ReleaseList\Film.cs" />
