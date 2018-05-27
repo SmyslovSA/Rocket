@@ -255,10 +255,12 @@
     <Compile Include="Controllers\PersonalArea\ChangeEmailController.cs" />
     <Compile Include="Controllers\PersonalArea\ChangeGenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserPayments\IPNController.cs" />
+    <Compile Include="Controllers\UserPayments\UserPaymentsController.cs" />
     <Compile Include="Controllers\UserRole\PermissionController.cs" />
     <Compile Include="Controllers\PersonalArea\ChangePasswordController.cs" />
     <Compile Include="Controllers\ReleaseList\TvSeriesController.cs" />
-	<Compile Include="Controllers\ReleaseList\MusicController.cs" />
+    <Compile Include="Controllers\ReleaseList\MusicController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserRole\RoleController.cs" />
     <Compile Include="Controllers\UserRole\RoleManagerController.cs" />
@@ -306,6 +308,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\IPN\" />
+    <Folder Include="Views\UserPayments\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
