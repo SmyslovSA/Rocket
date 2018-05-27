@@ -8,6 +8,7 @@ using RazorEngine;
 using RazorEngine.Templating;
 using Rocket.BL.Common.Enums;
 using Rocket.BL.Common.Models.Notification;
+using Rocket.BL.Properties;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.DbModels.Subscription;
@@ -155,7 +156,7 @@ namespace Rocket.BL.Services.Notification
         private MimeMessage CreateMessage(Receiver receiver, string body)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Rocket TEAM", "test444401@gmail.com"));
+            message.From.Add(new MailboxAddress("Rocket TEAM", Settings.Default.Login));
 
             foreach (var email in receiver.Emails)
             {
@@ -174,7 +175,7 @@ namespace Rocket.BL.Services.Notification
         private MimeMessage CreateCustomMessage(CustomNotification custom)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(custom.SenderName, "test444401@gmail.com"));
+            message.From.Add(new MailboxAddress(custom.SenderName, Settings.Default.Login));
 
             foreach (var email in custom.Receiver.Emails)
             {
@@ -201,15 +202,15 @@ namespace Rocket.BL.Services.Notification
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync(
-                    "smtp.gmail.com",
-                    465,
+                    Settings.Default.Host,
+                    Settings.Default.Port,
                     true).ConfigureAwait(false);
 
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
 
                 await client.AuthenticateAsync(
-                    "test444401@gmail.com",
-                    "222Ekl1009").ConfigureAwait(false);
+                    Settings.Default.Login,
+                    Settings.Default.Password).ConfigureAwait(false);
 
                 await client.SendAsync(message).ConfigureAwait(false);
                 await client.DisconnectAsync(true).ConfigureAwait(false);
