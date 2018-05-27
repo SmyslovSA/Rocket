@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MailKit.Net.Smtp;
 using MimeKit;
+using RazorEngine;
+using RazorEngine.Templating;
 using Rocket.BL.Common.Enums;
 using Rocket.BL.Common.Models.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
