@@ -8,6 +8,7 @@ using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 using System;
 using Rocket.DAL.Common.DbModels.Notification;
+using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.UoW
 {
@@ -40,6 +41,8 @@ namespace Rocket.DAL.UoW
         /// <param name="dbRoleRepository">Репозиторий ролей</param>
         /// <param name="dbPermissionRepository">Репозиторий разрешений</param>
         /// <param name="dbAuthorisedUserRepository">Репозиторий авторизованных пользователей</param>
+        /// <param name="dbUserPaymentRepository">Репозиторий платежей пользователя</param>
+
         public UnitOfWork(
             RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
@@ -61,7 +64,8 @@ namespace Rocket.DAL.UoW
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
             IDbAuthorisedUserRepository dbAuthorisedUserRepository,
-            IBaseRepository<NotificationsLogEntity> notificationsLogRepository)
+            IBaseRepository<NotificationsLogEntity> notificationsLogRepository,
+            IBaseRepository<DbUserPayment> dbUserPaymentRepository)
         {
             _rocketContext = rocketContext;
             MusicRepository = musicRepository;
@@ -84,6 +88,7 @@ namespace Rocket.DAL.UoW
             PermissionRepository = dbPermissionRepository;
             UserAuthorisedRepository = dbAuthorisedUserRepository;
             NotificationsLogRepository = notificationsLogRepository;
+            UserPaymentRepository = dbUserPaymentRepository;
         }
 
         ~UnitOfWork()
@@ -167,6 +172,11 @@ namespace Rocket.DAL.UoW
         /// Репозиотрий для работы с пользователями личного кабинета.
         /// </summary>
         public IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+
+        /// <summary>
+        /// Репозиторий платежей пользователя
+        /// </summary>
+        public IBaseRepository<DbUserPayment> UserPaymentRepository { get; }
 
         /// <inheritdoc />
         /// <summary>

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbAuthorisedUser.cs" />
+    <Compile Include="DbModels\DbUserPayment\DbUserPayment.cs" />
     <Compile Include="DbModels\Notification\DbBillingMessage.cs" />
     <Compile Include="DbModels\Notification\DbCustomMessage.cs" />
     <Compile Include="DbModels\Notification\DbEmailTemplate.cs" />
