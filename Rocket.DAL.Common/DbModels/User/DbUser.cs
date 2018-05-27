@@ -37,10 +37,22 @@ namespace Rocket.DAL.Common.DbModels.User
         public string Password { get; set; }
 
         /// <summary>
+        /// Возвращает или задает идентификатор статуса аккаунта пользователя,
+        /// к которому относится эта дополнительная информация.
+        /// </summary>
+        public int? AccountStatusId { get; set; }
+
+        /// <summary>
         /// Возвращает или задает статус аккаунта пользователя
         /// (активирован, не активирован, деактивирован, забанен и так далее).
         /// </summary>
         public virtual DbAccountStatus AccountStatus { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает идентификатор уровня аккаунта пользователя,
+        /// к которому относится эта дополнительная информация.
+        /// </summary>
+        public int? AccountLevelId { get; set; }
 
         /// <summary>
         /// Возвращает или задает уровень пользователя
@@ -52,11 +64,6 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Возвращает или задает коллекцию ролей пользователя.
         /// </summary>
         public virtual ICollection<DbRole> Roles { get; set; } = new Collection<DbRole>();
-
-        /// <summary>
-        /// Возвращает или задает уникальный идентификатор детальной информации пользователя.
-        /// </summary>
-        public virtual int? UserDetailId { get; set; }
 
         /// <summary>
         /// Возвращает или задает детальную информация пользователя.

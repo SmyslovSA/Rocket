@@ -95,7 +95,7 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Возвращает или задает идентификатор пользователя,
         /// к которому относится эта дополнительная информация.
         /// </summary>
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Возвращает или задает пользователя,
