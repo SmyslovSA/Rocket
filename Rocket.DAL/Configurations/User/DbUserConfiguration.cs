@@ -38,12 +38,10 @@ namespace Rocket.DAL.Configurations.User
                 .HasMaxLength(Convert.ToInt32(Resources.MAXPASSWORDLENGHT));
 
             HasOptional(s => s.AccountStatus)
-                .WithMany(st => st.DbUsers)
-                .HasForeignKey(u => u.AccountStatusId);
+                .WithMany(st => st.DbUsers);
 
             HasOptional(s => s.AccountLevel)
-                .WithMany(st => st.DbUsers)
-                .HasForeignKey(u => u.AccountLevelId);
+                .WithMany(st => st.DbUsers);
 
             HasMany(f => f.Roles)
                 .WithMany(c => c.Users)

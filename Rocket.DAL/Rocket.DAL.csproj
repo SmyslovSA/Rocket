@@ -156,6 +156,30 @@
     <Compile Include="Migrations\201805231204024_SubscribeAdd.Designer.cs">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805271508513_UserDetails.cs" />
+    <Compile Include="Migrations\201805271508513_UserDetails.Designer.cs">
+      <DependentUpon>201805271508513_UserDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805272001129_UserDetails2.cs" />
+    <Compile Include="Migrations\201805272001129_UserDetails2.Designer.cs">
+      <DependentUpon>201805272001129_UserDetails2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805272007340_UserDetails4.cs" />
+    <Compile Include="Migrations\201805272007340_UserDetails4.Designer.cs">
+      <DependentUpon>201805272007340_UserDetails4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805272031518_UserDetails8.cs" />
+    <Compile Include="Migrations\201805272031518_UserDetails8.Designer.cs">
+      <DependentUpon>201805272031518_UserDetails8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805272047126_UserDetails9.cs" />
+    <Compile Include="Migrations\201805272047126_UserDetails9.Designer.cs">
+      <DependentUpon>201805272047126_UserDetails9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805272121538_UserDetailes11.cs" />
+    <Compile Include="Migrations\201805272121538_UserDetailes11.Designer.cs">
+      <DependentUpon>201805272121538_UserDetailes11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
     <Compile Include="Migrations\InitialDataCreators\User\DbAccountStatusesCreator.cs" />
@@ -210,6 +234,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805231204024_SubscribeAdd.resx">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805271508513_UserDetails.resx">
+      <DependentUpon>201805271508513_UserDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805272001129_UserDetails2.resx">
+      <DependentUpon>201805272001129_UserDetails2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805272007340_UserDetails4.resx">
+      <DependentUpon>201805272007340_UserDetails4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805272031518_UserDetails8.resx">
+      <DependentUpon>201805272031518_UserDetails8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805272047126_UserDetails9.resx">
+      <DependentUpon>201805272047126_UserDetails9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805272121538_UserDetailes11.resx">
+      <DependentUpon>201805272121538_UserDetailes11.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

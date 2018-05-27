@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Bogus;
+using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.DbModels.User;
-using Rocket.DAL.Migrations.InitialDataCreators.User.FakeData;
 
 namespace Rocket.DAL.Migrations.InitialDataCreators.User
 {
@@ -16,81 +14,197 @@ namespace Rocket.DAL.Migrations.InitialDataCreators.User
     public class FakeDbUsersCreator
     {
         /// <summary>
-        /// Создает новый экземпляр сгенерированных данных о пользователях.
+        /// Создает экземпляр сгенерированных данных о пользователях c различными ролями,
+        /// пара Пользователь -> Роль.
         /// </summary>
-        /// <param name="dbAccountLevels">Коллекция уровней аккаунта пользователей.</param>
-        /// <param name="dbAccountStatuses">Коллекция статусов аккаунта пользователей.</param>
-        /// <param name="dbCountries">Коллекция всех стран.</param>
-        /// <param name="dbGenders">Коллекция сведений о половой идентификации дополнительной информации пользователей.</param>
-        /// <param name="dbHowToCalls">Коллекция сведений о том, как надо обращаться к пользователям.</param>
-        /// <param name="dbLanguages">Коллекция всех используемых разговорных языков пользователей.</param>
-        public FakeDbUsersCreator(
-            ICollection<DbAccountLevel> dbAccountLevels,
-            ICollection<DbAccountStatus> dbAccountStatuses,
-            ICollection<DbCountry> dbCountries,
-            ICollection<DbGender> dbGenders,
-            ICollection<DbHowToCall> dbHowToCalls,
-            ICollection<DbLanguage> dbLanguages)
+        public FakeDbUsersCreator()
         {
-            var roles = new List<DbRole>()
+            // Тестовая модель хранения данных пользователя с ролью "unregister".
+            var userUnregistrated = new DbUser()
             {
-                new DbRole() { Id = 1, Name = "unregister" },
-                new DbRole() { Id = 2, Name = "user" },
-                new DbRole() { Id = 3, Name = "moderator" },
-                new DbRole() { Id = 4, Name = "admin" },
+                FirstName = "Сергей",
+                LastName = "Иванов",
+                Login = "sergey",
+                Password = "qwert",
+                AccountStatus = new DbAccountStatus() { Id = 1, Name = "Зарегистрирован" },
+                AccountLevel = new DbAccountLevel() { Id = 1, Name = "Обычный" },
+                Roles = new List<DbRole>() { new DbRole() { Name = "unregister" } },
+                UserDetail = new DbUserDetail()
+                {
+                    ActivationNeeded = false,
+                    SitizenshipId = 21,
+                    LanguageId = 1,
+                    DateOfBirth = new DateTime(1996, 6, 3, 22, 15, 0),
+                    GenderId = 1,
+                    HowToCallId = 1,
+                    PhoneNumbers = new List<DbPhoneNumber>()
+                    {
+                        new DbPhoneNumber() { Number = "+375-345-12-22" },
+                        new DbPhoneNumber() { Number = "+375-445-15-45" }
+                    },
+                    EMailAddresses = new List<DbEmailAddress>()
+                    {
+                        new DbEmailAddress() { Address = "serg@mail.ru" },
+                        new DbEmailAddress() { Address = "serg1555@gmail.com" }
+                    },
+                    MailAddress = new DbAddress()
+                    {
+                        ZipCode = "220045",
+                        CountryId = 21,
+                        Country = new DbCountry() { Id = 21, Name = "Беларусь" },
+                        City = "Минск",
+                        Building = "35",
+                        BuildingBlock = "B",
+                        Flat = "35"
+                    }
+                },
+                DbAuthorisedUser = new DbAuthorisedUser()
+                {
+                    Id = 1,
+                    Avatar = @"\temp\avatars\sergey"
+                }
             };
 
-            var resultUnregisteredUsersSamples = new Faker<DbUser>()
-                .RuleFor(p => p.Id, f => f.IndexFaker)
-                .RuleFor(p => p.AccountStatus, f => dbAccountStatuses.ToArray()[new Random().Next(1, 3)])
-                .RuleFor(p => p.AccountLevel, f => dbAccountLevels.ToArray()[new Random().Next(1, 2)])
-                .RuleFor(p => p.Roles, f => roles.Where(role => role.Name == "unregister"))
-                .RuleFor(p => p.FirstName, f => f.Person.FirstName)
-                .RuleFor(p => p.LastName, f => f.Person.LastName)
-                .RuleFor(p => p.Login, f => f.Lorem.Letter(5))
-                .RuleFor(p => p.Password, f => f.Lorem.Letter(5))
-                .RuleFor(p => p.UserDetail, f => new FakeDbUserDetails(dbCountries, dbGenders, dbHowToCalls, dbLanguages).UserDetails.ToArray()[0]);
+            // Тестовая модель хранения данных пользователя с ролью "user".
+            var userUser = new DbUser()
+            {
+                FirstName = "Петр",
+                LastName = "Желтый",
+                Login = "petr",
+                Password = "asdf",
+                AccountStatus = new DbAccountStatus() { Id = 1, Name = "Зарегистрирован" },
+                AccountLevel = new DbAccountLevel() { Id = 1, Name = "Обычный" },
+                Roles = new List<DbRole>() {new DbRole() { Id = 3 } },
+                UserDetail = new DbUserDetail()
+                {
+                    ActivationNeeded = false,
+                    SitizenshipId = 21,
+                    LanguageId = 1,
+                    DateOfBirth = new DateTime(1996, 6, 3, 22, 15, 0),
+                    GenderId = 1,
+                    HowToCallId = 1,
+                    PhoneNumbers = new List<DbPhoneNumber>()
+                    {
+                        new DbPhoneNumber() {Number = "+375-555-34-34"},
+                        new DbPhoneNumber() {Number = "+375-23-23-23"}
+                    },
+                    EMailAddresses = new List<DbEmailAddress>()
+                    {
+                        new DbEmailAddress() {Address = "petrg@mail.ru"},
+                        new DbEmailAddress() {Address = "petr1555@gmail.com"}
+                    },
+                    MailAddress = new DbAddress()
+                    {
+                        ZipCode = "220023",
+                        CountryId = 21,
+                        Country = new DbCountry() {Id = 21, Name = "Беларусь"},
+                        City = "Минск",
+                        Building = "25",
+                        BuildingBlock = "",
+                        Flat = "5"
+                    }
+                },
+                DbAuthorisedUser = new DbAuthorisedUser()
+                {
+                    Id = 2,
+                    Avatar = @"\temp\avatars\petr"
+                }
+            };
 
-            Users = resultUnregisteredUsersSamples.Generate(5); ;
+            // Тестовая модель хранения данных пользователя с ролью "moderator".
+            var userModerator = new DbUser()
+            {
+                FirstName = "Лазарь",
+                LastName = "Игнатьевич",
+                Login = "qlazar",
+                Password = "sdfgfg",
+                AccountStatus = new DbAccountStatus() { Id = 1, Name = "Зарегистрирован" },
+                AccountLevel = new DbAccountLevel() { Id = 1, Name = "Обычный" },
+                Roles = new List<DbRole>() { new DbRole() { Id = 3 } },
+                UserDetail = new DbUserDetail()
+                {
+                    ActivationNeeded = false,
+                    SitizenshipId = 21,
+                    LanguageId = 1,
+                    DateOfBirth = new DateTime(1996, 6, 3, 22, 15, 0),
+                    GenderId = 1,
+                    HowToCallId = 1,
+                    PhoneNumbers = new List<DbPhoneNumber>()
+                    {
+                        new DbPhoneNumber() { Number = "+375-555-34-34" },
+                        new DbPhoneNumber() { Number = "+375-777-44-22" }
+                    },
+                    EMailAddresses = new List<DbEmailAddress>()
+                    {
+                        new DbEmailAddress() { Address = "qlazar@mail.ru" },
+                        new DbEmailAddress() { Address = "qlazar1555@gmail.com" }
+                    },
+                    MailAddress = new DbAddress()
+                    {
+                        ZipCode = "220066",
+                        CountryId = 21,
+                        Country = new DbCountry() { Name = "Беларусь" },
+                        City = "Минск",
+                        Building = "45",
+                        BuildingBlock = "А",
+                        Flat = "5"
+                    }
+                },
+                DbAuthorisedUser = new DbAuthorisedUser()
+                {
+                    Id = 3,
+                    Avatar = @"\temp\avatars\qlazar"
+                }
+            };
 
-            var resultUserUsersSamples = new Faker<DbUser>()
-                .RuleFor(p => p.Id, f => f.IndexFaker + 5)
-                .RuleFor(p => p.AccountStatus, f => dbAccountStatuses.ToArray()[new Random().Next(1, 3)])
-                .RuleFor(p => p.AccountLevel, f => dbAccountLevels.ToArray()[new Random().Next(1, 2)])
-                .RuleFor(p => p.Roles, f => roles.Where(role => role.Name == "user"))
-                .RuleFor(p => p.FirstName, f => f.Person.FirstName)
-                .RuleFor(p => p.LastName, f => f.Person.LastName)
-                .RuleFor(p => p.Login, f => f.Lorem.Letter(5))
-                .RuleFor(p => p.Password, f => f.Lorem.Letter(5))
-                .RuleFor(p => p.UserDetail, f => new FakeDbUserDetails(dbCountries, dbGenders, dbHowToCalls, dbLanguages).UserDetails.ToArray()[0]);
 
-            Users.AddRange(resultUserUsersSamples.Generate(5));
+            // Тестовая модель хранения данных пользователя с ролью "moderator".
+            var userАdmin = new DbUser()
+            {
+                FirstName = "Филл",
+                LastName = "Малый",
+                Login = "fillip",
+                Password = "qwerqwer",
+                AccountStatus = new DbAccountStatus() { Id = 1, Name = "Зарегистрирован" },
+                AccountLevel = new DbAccountLevel() { Id = 1, Name = "Обычный" },
+                Roles = new List<DbRole>() { new DbRole() { Id = 1 } },
+                UserDetail = new DbUserDetail()
+                {
+                    ActivationNeeded = false,
+                    SitizenshipId = 21,
+                    LanguageId = 1,
+                    DateOfBirth = new DateTime(1996, 6, 3, 22, 15, 0),
+                    GenderId = 1,
+                    HowToCallId = 1,
+                    PhoneNumbers = new List<DbPhoneNumber>()
+                    {
+                        new DbPhoneNumber() { Number = "+375-233-55-44" },
+                        new DbPhoneNumber() { Number = "+375-444-63-66" }
+                    },
+                    EMailAddresses = new List<DbEmailAddress>()
+                    {
+                        new DbEmailAddress() { Address = "fillip@mail.ru" },
+                        new DbEmailAddress() { Address = "fillip@gmail.com" }
+                    },
+                    MailAddress = new DbAddress()
+                    {
+                        ZipCode = "220060",
+                        CountryId = 15,
+                        Country = new DbCountry() { Id = 21, Name = "Беларусь" },
+                        City = "Минск",
+                        Building = "80",
+                        BuildingBlock = "А",
+                        Flat = "6"
+                    }
+                },
+                DbAuthorisedUser = new DbAuthorisedUser()
+                {
+                    Id = 4,
+                    Avatar = @"\temp\avatars\fillip"
+                }
+            };
 
-            var resultModeratorUsersSamples = new Faker<DbUser>()
-                .RuleFor(p => p.Id, f => f.IndexFaker + 10)
-                .RuleFor(p => p.AccountStatus, f => dbAccountStatuses.ToArray()[new Random().Next(1, 3)])
-                .RuleFor(p => p.AccountLevel, f => dbAccountLevels.ToArray()[new Random().Next(1, 2)])
-                .RuleFor(p => p.Roles, f => roles.Where(role => role.Name == "moderator"))
-                .RuleFor(p => p.FirstName, f => f.Person.FirstName)
-                .RuleFor(p => p.LastName, f => f.Person.LastName)
-                .RuleFor(p => p.Login, f => f.Lorem.Letter(5))
-                .RuleFor(p => p.Password, f => f.Lorem.Letter(5))
-                .RuleFor(p => p.UserDetail, f => new FakeDbUserDetails(dbCountries, dbGenders, dbHowToCalls, dbLanguages).UserDetails.ToArray()[0]);
-
-            Users.AddRange(resultModeratorUsersSamples.Generate(5));
-
-            var resultAdminUsersSamples = new Faker<DbUser>()
-                .RuleFor(p => p.Id, f => f.IndexFaker + 15)
-                .RuleFor(p => p.AccountStatus, f => dbAccountStatuses.ToArray()[new Random().Next(1, 3)])
-                .RuleFor(p => p.AccountLevel, f => dbAccountLevels.ToArray()[new Random().Next(1, 2)])
-                .RuleFor(p => p.Roles, f => roles.Where(role => role.Name == "admin"))
-                .RuleFor(p => p.FirstName, f => f.Person.FirstName)
-                .RuleFor(p => p.LastName, f => f.Person.LastName)
-                .RuleFor(p => p.Login, f => f.Lorem.Letter(5))
-                .RuleFor(p => p.Password, f => f.Lorem.Letter(5))
-                .RuleFor(p => p.UserDetail, f => new FakeDbUserDetails(dbCountries, dbGenders, dbHowToCalls, dbLanguages).UserDetails.ToArray()[0]);
-
-            Users.AddRange(resultAdminUsersSamples.Generate(5)); ;
+            Users = new List<DbUser> {userUnregistrated, userUser, userModerator, userАdmin};
         }
 
         /// <summary>

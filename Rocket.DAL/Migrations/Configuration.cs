@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 using Rocket.DAL.Common.DbModels.ReleaseList;
@@ -26,71 +28,87 @@ namespace Rocket.DAL.Migrations
 
             //todo insert fake users data here...
 
-            // Добавление в репозиторий первоначальной информации о половой принадлежности пользователя.
-            List<DbGender> initialGenderDatas = new DbGendersCreator().Items.ToList(); ;
-            //if (!context.DbGenders.Any())
-            //{
-                initialGenderDatas.ForEach(gender => context.DbGenders.Add(gender));
-                context.SaveChanges();
-            //}
-
-            // Добавление в репозиторий первоначальной информации о статусах аккаунта пользователей.
-            List<DbAccountStatus> initialAccountStatusDatas = new DbAccountStatusesCreator().Items; ;
-            if (!context.DbAccountStatuses.Any())
+            try
             {
-                initialAccountStatusDatas.ForEach(accountStatus => context.DbAccountStatuses.Add(accountStatus));
-                context.SaveChanges();
+                // Добавление в репозиторий первоначальной информации о половой принадлежности пользователя.
+                List<DbGender> initialGenderDatas = new DbGendersCreator().Items.ToList(); ;
+                if (!context.DbGenders.Any())
+                {
+                    context.DbGenders.AddRange(initialGenderDatas);
+                    context.SaveChanges();
+                }
+
+                // Добавление в репозиторий первоначальной информации о статусах аккаунта пользователей.
+                List<DbAccountStatus> initialAccountStatusDatas = new DbAccountStatusesCreator().Items; ;
+                if (!context.DbAccountStatuses.Any())
+                {
+                    context.DbAccountStatuses.AddRange(initialAccountStatusDatas);
+                    context.SaveChanges();
+                }
+
+                // Добавление в репозиторий первоначальной информации об уровне аккаунта пользователей.
+                List<DbAccountLevel> initialAccountLevelDatas = new DbAccountLevelsCreator().Items; ;
+                if (!context.DbAccountLevels.Any())
+                {
+                    context.DbAccountLevels.AddRange(initialAccountLevelDatas);
+                    context.SaveChanges();
+                }
+
+                // Добавление в репозиторий первоначальной информации о странах мира (всего 251 наименование стран взято из международного
+                // классификатора ISO).
+                List<DbCountry> initialCountryDatas = new DbCountriesCreator().Items; ; ;
+                if (!context.DbCountries.Any())
+                {
+                    context.DbCountries.AddRange(initialCountryDatas);
+                    context.SaveChanges();
+                }
+
+                // Добавление в репозиторий первоначальной информации об основных языках мира (всего 13 основных мировых разговорных языков).
+                List<DbLanguage> initialLanguageDatas = new DbLanguagesCreator().Items;
+                if (!context.DbLanguages.Any())
+                {
+                    context.DbLanguages.AddRange(initialLanguageDatas);
+                    context.SaveChanges();
+                }
+
+                // Добавление в репозиторий первоначальной информации о том, как обращаться к пользователю (Mr. и Ms.).
+                List<DbHowToCall> initialHowToCallDatas = new DbHowToCallCreator().Items; ;
+                if (!context.DbHowToCalls.Any())
+                {
+                    context.DbHowToCalls.AddRange(initialHowToCallDatas);
+                    context.SaveChanges();
+                }
+
+                // Добавление в репозиторий первоначальной информации о ролях пользователей.
+                List<DbRole> initialRolesDatas = new DbUserRolesCreator().Items; ;
+                if (!context.DbRoles.Any())
+                {
+                    context.DbRoles.AddRange(initialRolesDatas);
+                    context.SaveChanges();
+                }
+
+                // Добавление в репозиторий первоначальной тестовой информации о пользователей.
+                if (!context.DbUsers.Any())
+                {
+                    var initialUserDatas = new FakeDbUsersCreator().Users;
+
+                    context.DbUsers.AddRange(initialUserDatas);
+                    context.SaveChanges();
+                }
             }
-
-            // Добавление в репозиторий первоначальной информации об уровне аккаунта пользователей.
-            List<DbAccountLevel> initialAccountLevelDatas = new DbAccountLevelsCreator().Items; ;
-            if (!context.DbAccountLevels.Any())
+            catch (DbEntityValidationException dbEx)
             {
-                initialAccountLevelDatas.ForEach(accountLevel => context.DbAccountLevels.Add(accountLevel));
-                context.SaveChanges();
-            }
-
-            // Добавление в репозиторий первоначальной информации о странах мира (всего 251 наименование стран взято из международного
-            // классификатора ISO).
-            List<DbCountry> initialCountryDatas = new DbCountriesCreator().Items; ; ;
-            if (!context.DbCountries.Any())
-            {
-                initialCountryDatas.ForEach(country => context.DbCountries.Add(country));
-                context.SaveChanges();
-            }
-
-            // Добавление в репозиторий первоначальной информации об основных языках мира (всего 13 основных мировых разговорных языков).
-            List<DbLanguage> initialLanguageDatas = new DbLanguagesCreator().Items;
-            if (!context.DbLanguages.Any())
-            {
-                initialLanguageDatas.ForEach(languages => context.DbLanguages.Add(languages));
-                context.SaveChanges();
-            }
-
-            // Добавление в репозиторий первоначальной информации о том, как обращаться к пользователю (Mr. и Ms.).
-            List<DbHowToCall> initialHowToCallDatas = new DbHowToCallCreator().Items; ;
-            if (!context.DbHowToCalls.Any())
-            {
-                initialHowToCallDatas.ForEach(howToCall => context.DbHowToCalls.Add(howToCall));
-                context.SaveChanges();
-            }
-
-            // Добавление в репозиторий первоначальной информации о ролях пользователей.
-            List<DbRole> initialRolesdatas = new DbUserRolesCreator().Items; ;
-            if (!context.DbRoles.Any())
-            {
-                initialRolesdatas.ForEach(role => context.DbRoles.Add(role));
-                context.SaveChanges();
-            }
-
-            // Добавление в репозиторий первоначальной тестовой информации о пользователей.
-            if (!context.DbUsers.Any())
-            {
-                var initialUserdatas = new FakeDbUsersCreator(initialAccountLevelDatas, initialAccountStatusDatas,
-                    initialCountryDatas, initialGenderDatas, initialHowToCallDatas, initialLanguageDatas).Users;
-
-                initialUserdatas.ForEach(user => context.DbUsers.Add(user));
-                context.SaveChanges();
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        validationErrors.Entry.Entity.GetType().Name, validationErrors.Entry.State);
+                    foreach (var ve in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
             }
         }
     }
