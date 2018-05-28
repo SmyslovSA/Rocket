@@ -6,9 +6,9 @@ namespace Rocket.BL.Validators.User
     /// <summary>
     /// Задаем условия для валидатора данных о человеке.
     /// </summary>
-    internal class UserValidatorCheckRequiredFields : AbstractValidator<Common.Models.User.User>
+    public class UserValidatorCheckRequiredFields : AbstractValidator<Common.Models.User.User>
     {
-        internal UserValidatorCheckRequiredFields()
+        public UserValidatorCheckRequiredFields()
         {
             RuleFor(p => p.FirstName)
                 .NotEmpty()

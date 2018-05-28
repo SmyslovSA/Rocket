@@ -147,10 +147,10 @@
   <data name="USERPERSONSECONDNAMEISEMPTY" xml:space="preserve">
     <value>Test</value>
   </data>
-  <data name="UserRuleForFirstName" xml:space="preserve">
-    <value>"Name cannot be less than 2 characters"</value>
+  <data name="UserWrongFirstOrLastName" xml:space="preserve">
+    <value>"FirstName or LastName cannot be empty"</value>
   </data>
-  <data name="UserRuleForLastName" xml:space="preserve">
-    <value>"Lastname cannot be less than 2 characters"</value>
+  <data name="UserWrongPassword" xml:space="preserve">
+    <value>"The password differs from the password confirmation or does not meet the security requirements"</value>
   </data>
 </root>

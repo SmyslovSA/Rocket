@@ -151,20 +151,20 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Name cannot be less than 2 characters&quot;.
+        ///   Looks up a localized string similar to &quot;FirstName or LastName cannot be empty&quot;.
         /// </summary>
-        internal static string UserRuleForFirstName {
+        internal static string UserWrongFirstOrLastName {
             get {
-                return ResourceManager.GetString("UserRuleForFirstName", resourceCulture);
+                return ResourceManager.GetString("UserWrongFirstOrLastName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Lastname cannot be less than 2 characters&quot;.
+        ///   Looks up a localized string similar to &quot;The password differs from the password confirmation or does not meet the security requirements&quot;.
         /// </summary>
-        internal static string UserRuleForLastName {
+        internal static string UserWrongPassword {
             get {
-                return ResourceManager.GetString("UserRuleForLastName", resourceCulture);
+                return ResourceManager.GetString("UserWrongPassword", resourceCulture);
             }
         }
     }
