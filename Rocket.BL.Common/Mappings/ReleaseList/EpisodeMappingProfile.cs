@@ -17,7 +17,8 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
             CreateMap<Episode, EpisodeEntity>()
                 .ForMember(dest => dest.DurationInMinutes, opt => opt.MapFrom(src => src.Duration.TotalMinutes))
                 .ReverseMap()
-                .ForMember(dest => dest.Duration,
+                .ForMember(
+                    dest => dest.Duration,
                     opt => opt.ResolveUsing(src => TimeSpan.FromMinutes(src.DurationInMinutes)));
 
             CreateMap<EpisodeEntity, EpisodeMinimalDto>()
@@ -28,8 +29,9 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
                 .ForMember(dest => dest.TvSeriesId, opt => opt.MapFrom(src => src.Season.TvSeriesId))
                 .ForMember(dest => dest.TvSeriesTitleEn, opt => opt.MapFrom(src => src.Season.TvSeries.TitleEn))
                 .ForMember(dest => dest.TvSeriesTitleRu, opt => opt.MapFrom(src => src.Season.TvSeries.TitleRu))
-                .ForMember(dest => dest.PosterImageUrl, opt =>
-                    opt.ResolveUsing(src =>
+                .ForMember(
+                    dest => dest.PosterImageUrl,
+                    opt => opt.ResolveUsing(src =>
                         !string.IsNullOrWhiteSpace(src.Season.PosterImageUrl)
                             ? src.Season.PosterImageUrl
                             : src.Season.TvSeries.PosterImageUrl));

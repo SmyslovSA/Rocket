@@ -36,9 +36,11 @@ namespace Rocket.BL.Services.ReleaseList
 
             var pageInfo = new PageInfo<TvSeriesMinimalDto>();
             pageInfo.TotalItemsCount = _unitOfWork.TvSeriasRepository.ItemsCount(filter);
-            pageInfo.TotalPagesCount = (int) Math.Ceiling((double) pageInfo.TotalItemsCount / pageSize);
+            pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
             pageInfo.PageItems = Mapper.Map<IEnumerable<TvSeriesMinimalDto>>(
-                _unitOfWork.TvSeriasRepository.GetPage(pageSize, pageNumber,
+                _unitOfWork.TvSeriasRepository.GetPage(
+                    pageSize,
+                    pageNumber,
                     filter,
                     o => o.OrderByDescending(t => t.LostfilmRate),
                     $"{nameof(TvSeriasEntity.ListGenreEntity)}"));
@@ -49,9 +51,9 @@ namespace Rocket.BL.Services.ReleaseList
         public TvSeriesFullDto GetTvSeries(int id, int? episodesCount = null, int? personsCount = null)
         {
             var tvSeries = _unitOfWork.TvSeriasRepository
-                .Get(f => f.Id == id,
-                    includeProperties: $"{nameof(TvSeriasEntity.ListGenreEntity)}" +
-                                       $",{(episodesCount == 0 ? string.Empty : nameof(TvSeriasEntity.ListSeasons))}")
+                .Get(
+                    f => f.Id == id,
+                    includeProperties: $"{nameof(TvSeriasEntity.ListGenreEntity)},{(episodesCount == 0 ? string.Empty : nameof(TvSeriasEntity.ListSeasons))}")
                 ?.FirstOrDefault();
 
             if (tvSeries == null)
@@ -63,14 +65,21 @@ namespace Rocket.BL.Services.ReleaseList
             {
                 var count = personsCount ??
                             _unitOfWork.PersonRepository.ItemsCount(f => f.ListTvSerias.Select(t => t.Id).Contains(id));
-                tvSeries.ListPerson = _unitOfWork.PersonRepository.GetPage(count, 1,
-                    f => f.ListTvSerias.Select(t => t.Id).Contains(id), o => o.OrderBy(p => p.Id), includeProperties: $"{nameof(PersonEntity.PersonType)}").ToList();
+                tvSeries.ListPerson = _unitOfWork.PersonRepository.GetPage(
+                    count,
+                    1,
+                    f => f.ListTvSerias.Select(t => t.Id).Contains(id),
+                    o => o.OrderBy(p => p.Id),
+                    $"{nameof(PersonEntity.PersonType)}").ToList();
             }
 
             if (tvSeries.ListSeasons != null)
             {
                 var count = episodesCount ?? _unitOfWork.EpisodeRepository.ItemsCount(f => f.Season.TvSeriesId == id);
-                var lastEpisodes = _unitOfWork.EpisodeRepository.GetPage(count, 1, f => f.Season.TvSeriesId == id,
+                var lastEpisodes = _unitOfWork.EpisodeRepository.GetPage(
+                    count,
+                    1,
+                    f => f.Season.TvSeriesId == id,
                     o => o.OrderBy(e => e.Id));
                 foreach (var season in tvSeries.ListSeasons)
                 {
@@ -108,7 +117,8 @@ namespace Rocket.BL.Services.ReleaseList
             }
 
             tvSeries.ListPerson = _unitOfWork.PersonRepository
-                .Get(f => f.ListTvSerias.Select(t => t.Id).Contains(id),
+                .Get(
+                    f => f.ListTvSerias.Select(t => t.Id).Contains(id),
                     includeProperties: $"{nameof(PersonEntity.PersonType)}").ToList();
 
             return Mapper.Map<TvSeriesPersonsDto>(tvSeries);
