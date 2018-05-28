@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27428.2037
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocket.Web", "Rocket.Web\Rocket.Web.csproj", "{1AAFA5B0-FBE9-4AB4-A16D-24BECDD34AAE}"
 EndProject
@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocket.Parser", "Rocket.Parser\Rocket.Parser.csproj", "{7B49087B-5612-4EB5-94B7-EF6D03CF4E7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocket.Notifications", "Rocket.Notifications\Rocket.Notifications.csproj", "{12F257C4-AB35-44A7-A276-259DB93F6A16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +62,14 @@ Global
 		{26CAF4C2-6ECA-4533-A965-4B9CB4698B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26CAF4C2-6ECA-4533-A965-4B9CB4698B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26CAF4C2-6ECA-4533-A965-4B9CB4698B1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B49087B-5612-4EB5-94B7-EF6D03CF4E7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B49087B-5612-4EB5-94B7-EF6D03CF4E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B49087B-5612-4EB5-94B7-EF6D03CF4E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B49087B-5612-4EB5-94B7-EF6D03CF4E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12F257C4-AB35-44A7-A276-259DB93F6A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F257C4-AB35-44A7-A276-259DB93F6A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F257C4-AB35-44A7-A276-259DB93F6A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F257C4-AB35-44A7-A276-259DB93F6A16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

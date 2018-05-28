@@ -149,5 +149,23 @@ namespace Rocket.BL.Properties {
                 return ResourceManager.GetString("USERPERSONSECONDNAMEISEMPTY", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Name cannot be less than 2 characters&quot;.
+        /// </summary>
+        internal static string UserRuleForFirstName {
+            get {
+                return ResourceManager.GetString("UserRuleForFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Lastname cannot be less than 2 characters&quot;.
+        /// </summary>
+        internal static string UserRuleForLastName {
+            get {
+                return ResourceManager.GetString("UserRuleForLastName", resourceCulture);
+            }
+        }
     }
 }

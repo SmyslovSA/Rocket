@@ -1,24 +1,27 @@
 ﻿namespace Rocket.BL.Common.Models.PersonalArea
 {
     /// <summary>
-    /// авторизованный пользователь
+    /// Авторизованный пользователь.
     /// </summary>
     public abstract class AuthorisedUser
     {
         /// <summary>
-        /// Id пользователя
+        /// Id пользователя.
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
-        /// Имя пользователя
+        /// Имя пользователя.
         /// </summary>
         public string FirstName { get; set; }
+
         /// <summary>
-        /// Фамилия пользователя
+        /// Фамилия пользователя.
         /// </summary>
         public string LastName { get; set; }
+
         /// <summary>
-        /// Логин пользователя
+        /// Логин пользователя.
         /// </summary>
         public string Login { get; set; }
     }

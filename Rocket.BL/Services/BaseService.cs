@@ -6,7 +6,7 @@ namespace Rocket.BL.Services
     public abstract class BaseService : IDisposable
     {
         protected IUnitOfWork _unitOfWork;
-        private bool _disposedValue = false;
+        private bool _disposedValue;
 
         /// <summary>
         /// Инициализирует поле unitOfWork заданным экземпляром
@@ -14,7 +14,12 @@ namespace Rocket.BL.Services
         /// <param name="unitOfWork">Экземпляр unit of work</param>
         protected BaseService(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+        }
+
+        ~BaseService()
+        {
+            Dispose(false);
         }
 
         /// <summary>
@@ -22,7 +27,7 @@ namespace Rocket.BL.Services
         /// </summary>
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
         }
 
         /// <summary>
@@ -31,22 +36,17 @@ namespace Rocket.BL.Services
         /// <param name="disposing">Указывает вызван ли этот метод из метода Dispose() или из финализатора</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!this._disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
                     GC.SuppressFinalize(this);
                 }
 
-                this._unitOfWork?.Dispose();
-                this._unitOfWork = null;
-                this._disposedValue = true;
+                _unitOfWork?.Dispose();
+                _unitOfWork = null;
+                _disposedValue = true;
             }
-        }
-
-        ~BaseService()
-        {
-            this.Dispose(false);
         }
     }
 }

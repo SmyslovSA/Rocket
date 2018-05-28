@@ -1,4 +1,6 @@
 ﻿using Ninject.Modules;
+using Rocket.BL.Common.Services.ReleaseList;
+using Rocket.BL.Services.ReleaseList;
 
 namespace Rocket.BL
 {
@@ -6,7 +8,8 @@ namespace Rocket.BL
     {
         public override void Load()
         {
-            // register services here
-        }
+            Bind<ITvSeriesDetailedInfoService>().To<TvSeriesDetailedInfoService>();
+            Bind<IMusicDetailedInfoService>().To<MusicDetailedInfoService>();
+		}
     }
 }

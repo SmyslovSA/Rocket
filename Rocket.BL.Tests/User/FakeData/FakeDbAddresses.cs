@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using System.Collections.Generic;
 
 namespace Rocket.BL.Tests.User.FakeData
@@ -26,15 +27,16 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <param name="addressesCount">Необходимое количество адресов пользователей</param>
         public FakeDbAddresses(int addressesCount)
         {
-            this.AddressFaker = new Faker<DbAddress>()
+            AddressFaker = new Faker<DbAddress>()
                 .RuleFor(c => c.Id, f => f.IndexFaker)
                 .RuleFor(c => c.ZipCode, f => f.Address.ZipCode())
-                .RuleFor(c => c.Country, f => f.PickRandomParam((new FakeDbCountries(15)).Countries.ToArray()))
+                .RuleFor(c => c.Country, f => f.PickRandomParam(new FakeDbCountries(15).Countries.ToArray()))
                 .RuleFor(c => c.City, f => f.Address.City())
                 .RuleFor(c => c.Building, f => f.Address.BuildingNumber())
-                .RuleFor(c => c.BuildingBlock, f => f.PickRandomParam(new string[] { "", "A", "B", "C", "D", "1", "2", "3", "4", "5" }))
+                .RuleFor(c => c.BuildingBlock,
+                    f => f.PickRandomParam(string.Empty, "A", "B", "C", "D", "1", "2", "3", "4", "5"))
                 .RuleFor(c => c.Flat, f => f.Address.Random.Number(1, 320).ToString());
-            this.Addresses = this.AddressFaker.Generate(addressesCount);
+            Addresses = AddressFaker.Generate(addressesCount);
         }
     }
 }

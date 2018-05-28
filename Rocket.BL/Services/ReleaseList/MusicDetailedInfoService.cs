@@ -4,8 +4,10 @@ using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.UoW;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Rocket.BL.Common.Models.Pagination;
 
 namespace Rocket.BL.Services.ReleaseList
 {
@@ -14,27 +16,36 @@ namespace Rocket.BL.Services.ReleaseList
     /// о музыкальных релизах в хранилище данных
     /// </summary>
     public class MusicDetailedInfoService : BaseService, IMusicDetailedInfoService
-	{
-		/// <summary>
-		/// Создает новый экземпляр <see cref="MusicDetailedInfoService"/>
-		/// с заданным unit of work
-		/// </summary>
-		/// <param name="unitOfWork">Экземпляр unit of work</param>
-		public MusicDetailedInfoService(IUnitOfWork unitOfWork) 
-			: base(unitOfWork)
-		{
-		}
+    {
+        /// <summary>
+        /// Создает новый экземпляр <see cref="MusicDetailedInfoService"/>
+        /// с заданным unit of work
+        /// </summary>
+        /// <param name="unitOfWork">Экземпляр unit of work</param>
+        public MusicDetailedInfoService(IUnitOfWork unitOfWork)
+            : base(unitOfWork)
+        {
+        }
 
-		/// <inheritdoc />
-		/// <summary>
-		/// Возвращает музыкальный релиз с заданным идентификатором из хранилища данных
-		/// </summary>
-		/// <param name="id">Идентификатор музыкального релиза</param>
-		/// <returns>Экземпляр музыкального релиза</returns>
-		public Music GetMusic(int id)
-		{
-			return Mapper.Map<Music>(
-				this._unitOfWork.MusicRepository.GetById(id));
+        /// <inheritdoc />
+        /// <summary>
+        /// Возвращает музыкальный релиз с заданным идентификатором из хранилища данных
+        /// </summary>
+        /// <param name="id">Идентификатор музыкального релиза</param>
+        /// <returns>Экземпляр музыкального релиза</returns>
+        public Music GetMusic(int id)
+        {
+			//return Mapper.Map<Music>(
+			//	_unitOfWork.MusicRepository.GetById(id));
+
+			var model = Mapper.Map<Music>(
+				_unitOfWork.MusicRepository.Get(
+						f => f.Id == id,
+						includeProperties: $"{nameof(Music.Genres)},{nameof(Music.MusicTracks)},{nameof(Music.Musicians)}")
+					?.FirstOrDefault());
+
+			return model;
+
 		}
 
 		/// <inheritdoc />
@@ -45,47 +56,65 @@ namespace Rocket.BL.Services.ReleaseList
 		/// <param name="music">Экземпляр музыкального релиза для добавления</param>
 		/// <returns>Идентификатор музыкального релиза</returns>
 		public int AddMusic(Music music)
-		{
-			var dbMusic = Mapper.Map<DbMusic>(music);
-			this._unitOfWork.MusicRepository.Insert(dbMusic);
-			this._unitOfWork.Save();
-			return dbMusic.Id;
-		}
+        {
+            var dbMusic = Mapper.Map<DbMusic>(music);
+            _unitOfWork.MusicRepository.Insert(dbMusic);
+            _unitOfWork.SaveChanges();
+            return dbMusic.Id;
+        }
 
-		/// <inheritdoc />
-		/// <summary>
-		/// Обновляет информацию заданного музыкального релиза в хранилище данных
-		/// </summary>
-		/// <param name="music">Экземпляр музыкального релиза для обновления</param>
-		public void UpdateMusic(Music music)
-		{
-			var dbMusic = Mapper.Map<DbMusic>(music);
-			this._unitOfWork.MusicRepository.Update(dbMusic);
-			this._unitOfWork.Save();
-		}
+        /// <inheritdoc />
+        /// <summary>
+        /// Обновляет информацию заданного музыкального релиза в хранилище данных
+        /// </summary>
+        /// <param name="music">Экземпляр музыкального релиза для обновления</param>
+        public void UpdateMusic(Music music)
+        {
+            var dbMusic = Mapper.Map<DbMusic>(music);
+            _unitOfWork.MusicRepository.Update(dbMusic);
+            _unitOfWork.SaveChanges();
+        }
 
-		/// <inheritdoc />
-		/// <summary>
-		/// Удаляет музыкальный релиз с заданным идентификатором из хранилища данных.
-		/// </summary>
-		/// <param name="id">Идентификатор музыкального релиза</param>
-		public void DeleteMusic(int id)
-		{
-			this._unitOfWork.MusicRepository.Delete(id);
-			this._unitOfWork.Save();
-		}
+        /// <inheritdoc />
+        /// <summary>
+        /// Удаляет музыкальный релиз с заданным идентификатором из хранилища данных.
+        /// </summary>
+        /// <param name="id">Идентификатор музыкального релиза</param>
+        public void DeleteMusic(int id)
+        {
+            _unitOfWork.MusicRepository.Delete(id);
+            _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Проверяет наличие музыкального релиза в хранилище данных
+        /// соответствующего заданному фильтру
+        /// </summary>
+        /// <param name="filter">фильтр</param>
+        /// <returns>bool</returns>
+        public bool MusicExists(Expression<Func<Music, bool>> filter)
+        {
+            return _unitOfWork.MusicRepository.Get(
+                           Mapper.Map<Expression<Func<DbMusic, bool>>>(filter))
+                       .FirstOrDefault() != null;
+        }
 
 		/// <summary>
-		/// Проверяет наличие музыкального релиза в хранилище данных
-		/// соответствующего заданному фильтру
+		/// Возвращает страницу музыкальных релизов с заданным номером и размером,
+		/// музыкальные релизы сортированы по дата релиза
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <returns></returns>
-		public bool MusicExists(Expression<Func<Music, bool>> filter)
-		{
-			return this._unitOfWork.MusicRepository.Get(
-					       Mapper.Map<Expression<Func<DbMusic, bool>>>(filter))
-				       .FirstOrDefault() != null;
-		}
+		/// <param name="pageSize">Размер страницы</param>
+		/// <param name="pageNumber">Номер страницы</param>
+		/// <returns>Страница музыкальных релизов</returns>
+		public MusicPageInfo GetPageInfoByDate(int pageSize, int pageNumber)
+	    {
+		    var pageInfo = new MusicPageInfo();
+		    pageInfo.TotalItemsCount = _unitOfWork.MusicRepository.ItemsCount();
+		    pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
+		    pageInfo.PageItems = Mapper.Map<IEnumerable<Music>>(
+			    _unitOfWork.MusicRepository.GetPage(pageSize, pageNumber, orderBy: o => o.OrderByDescending(t => t.ReleaseDate)));
+
+		    return pageInfo;
+	    }
 	}
 }

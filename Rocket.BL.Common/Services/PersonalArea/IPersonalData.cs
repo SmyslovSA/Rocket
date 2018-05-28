@@ -3,23 +3,24 @@
 namespace Rocket.BL.Common.Services.PersonalArea
 {
     /// <summary>
-    /// интерфейс для работы с личными данными User
+    /// Интерфейс для работы с личными данными AuthorisedUser.
     /// </summary>
     public interface IPersonalData
     {
         /// <summary>
-        /// изменение личных данных (ФИО, аватар)
+        /// Изменение личных данных (ФИО, аватар).
         /// </summary>
-        /// <param name="user">модель пользователя, инициировавшего смену личных данных</param>
+        /// <param name="user">Модель пользователя, инициировавшего смену личных данных.</param>
         void ChangePersonalData(SimpleUser user);
+
         /// <summary>
-        /// изменение пароля на новый
+        /// Изменение пароля на новый.
         /// </summary>
-        /// <param name="user">модель пользователя, инициировавшего смену пароля</param>
-        /// <param name="newPassword">новый пароль, введенный пользователем</param>
-        /// <param name="newPasswordConfirm">подтверждение пароля</param>
+        /// <param name="user">Модель пользователя, инициировавшего смену пароля.</param>
+        /// <param name="newPassword">Новый пароль, введенный пользователем.</param>
+        /// <param name="newPasswordConfirm">Подтверждение пароля.</param>
         /// <returns>
-        /// true - при успешном изменении пароля
+        /// True - при успешном изменении пароля.
         /// </returns>
         bool ChangePasswordData(SimpleUser user, string newPassword, string newPasswordConfirm);
     }

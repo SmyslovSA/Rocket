@@ -1,48 +1,59 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Rocket.BL.Common.Models.Subscription;
 
 namespace Rocket.BL.Common.Models.ReleaseList
 {
     /// <summary>
     /// Представляет информацию о конкретном сериале
     /// </summary>
-    public class TVSeries
+    public class TVSeries : Subscribable
     {
         /// <summary>
-        /// Возвращает или задает уникальный идентификатор сериала
+        /// Возвращает или задает название сериала (рус)
         /// </summary>
-        public int Id { get; set; }
+        public string TitleRu { get; set; }
 
         /// <summary>
-        /// Возвращает или задает название сериала
+        /// Возвращает или задает название сериала (англ)
         /// </summary>
-        public string Title { get; set; }
+        public string TitleEn { get; set; }
 
         /// <summary>
-        /// Возвращает или задает относительный путь
-        /// от корневой папки приложения к файлу изображения постера фильма
+        /// Возвращает или задает абсолютный Url
+        /// к файлу изображения постера фильма
         /// </summary>
-        public string PosterImagePath { get; set; }
+        public string PosterImageUrl { get; set; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию режиссеров, которые сняли сериал
+        /// Рейтинг сериала на Lostfilm.
         /// </summary>
-        public ICollection<Person> Directors { get; set; } = new Collection<Person>();
+        public double LostfilmRate { get; set; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию актёров, которые снялись в сериале
+        /// Рейтинг сериала на IMDb.
         /// </summary>
-        public ICollection<Person> Cast { get; set; } = new Collection<Person>();
+        public double RateImDb { get; set; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию жанров, к которым относится сериал
+        /// Ссылка на официальный сайт.
         /// </summary>
-        public ICollection<VideoGenre> Genres { get; set; } = new Collection<VideoGenre>();
+        public string UrlToOfficialSite { get; set; }
 
         /// <summary>
-        /// Возвращает или задает коллекцию стран, которые участвовали в создании сериала
+        /// Текущий статус сериала.
         /// </summary>
-        public ICollection<Country> Countries { get; set; } = new Collection<Country>();
+        public string CurrentStatus { get; set; }
+
+        /// <summary>
+        /// Теливизионный канал на котором показывают сериал.
+        /// </summary>
+        public string TvSerialCanal { get; set; }
+
+        /// <summary>
+        /// Год начала показа сериала.
+        /// </summary>
+        public string TvSerialYearStart { get; set; }
 
         /// <summary>
         /// Возвращает или задает краткое описание сериала
@@ -50,8 +61,23 @@ namespace Rocket.BL.Common.Models.ReleaseList
         public string Summary { get; set; }
 
         /// <summary>
+        /// Ссылка на адрес загрузки.
+        /// </summary>
+        public string UrlToSource { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает коллекцию актёров, которые снялись в сериале
+        /// </summary>
+        public ICollection<Person> ListPerson { get; set; } = new Collection<Person>();
+
+        /// <summary>
+        /// Возвращает или задает коллекцию жанров, к которым относится сериал
+        /// </summary>
+        public ICollection<Genre> Genres { get; set; } = new Collection<Genre>();
+        
+        /// <summary>
         /// Возвращает или задает коллекцию сезонов сериала
         /// </summary>
-        public ICollection<Season> Seasons { get; set; } = new Collection<Season>();
+        public ICollection<Season> ListSeasons { get; set; } = new Collection<Season>();
     }
 }

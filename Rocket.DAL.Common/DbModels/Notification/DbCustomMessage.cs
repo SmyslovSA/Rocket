@@ -18,6 +18,11 @@ namespace Rocket.DAL.Common.DbModels.Notification
         public DbReceiver Receiver { get; set; }
 
         /// <summary>
+        /// Возвращает или задает идентификационный номер получателя сообщения
+        /// </summary>
+        public int ReceiverId { get; set; }
+
+        /// <summary>
         /// Возвращает или задает имя отправителя сообщения
         /// </summary>
         public string SenderName { get; set; }
@@ -36,6 +41,12 @@ namespace Rocket.DAL.Common.DbModels.Notification
         /// Возвращает или задает флаг тела сообщения в формате HTML
         /// </summary>
         public bool HtmlBody { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает флаг просмотра пользователем
+        /// push нотификации
+        /// </summary>
+        public bool Viewed { get; set; }
 
         /// <summary>
         /// Возвращает или задает время создания сообщения

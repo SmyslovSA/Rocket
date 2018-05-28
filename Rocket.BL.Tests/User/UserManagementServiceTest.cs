@@ -8,6 +8,7 @@ using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -30,33 +31,203 @@ namespace Rocket.BL.Tests.User
         public void SetUp()
         {
             Mapper.Reset();
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfiles("Rocket.BL.Common");
-            });
+            Mapper.Initialize(cfg => { cfg.AddProfiles("Rocket.BL.Common"); });
 
-            this._fakeDbUsers = new FakeDbUsers(UsersCount, false, false, false, false, 5, 5);
+            _fakeDbUsers = new FakeDbUsers(UsersCount, false, false, false, false, 5, 5);
 
             var moq = new Mock<IDbUserRepository>();
             moq.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbUser, bool>>>(), null, ""))
                 .Returns((Expression<Func<DbUser, bool>> filter,
                     Func<IQueryable<DbUser>, IOrderedQueryable<DbUser>> orderBy,
-                    string includeProperties) => this._fakeDbUsers.Users.Where(filter.Compile()));
+                    string includeProperties) => _fakeDbUsers.Users.Where(filter.Compile()));
+            moq.Setup(mock => mock.ItemsCount(It.IsAny<Expression<Func<DbUser, bool>>>()))
+                .Returns((Expression<Func<DbUser, bool>> filter) => _fakeDbUsers.Users.Where(filter.Compile()).Count());
             moq.Setup(mock => mock.GetById(It.IsAny<int>()))
-                .Returns((int id) => this._fakeDbUsers.Users.Find(f => f.Id == id));
+                .Returns((int id) => _fakeDbUsers.Users.Find(f => f.Id == id));
             moq.Setup(mock => mock.Insert(It.IsAny<DbUser>()))
-                .Callback((DbUser f) => this._fakeDbUsers.Users.Add(f));
+                .Callback((DbUser f) => _fakeDbUsers.Users.Add(f));
             moq.Setup(mock => mock.Update(It.IsAny<DbUser>()))
-                .Callback((DbUser f) => this._fakeDbUsers.Users.Find(d => d.Id == f.Id).Login = f.Login);
+                .Callback((DbUser f) => _fakeDbUsers.Users.Find(d => d.Id == f.Id).Login = f.Login);
             moq.Setup(mock => mock.Delete(It.IsAny<int>()))
-                .Callback((int id) => this._fakeDbUsers.Users
-                    .Remove(this._fakeDbUsers.Users.Find(f => f.Id == id)));
+                .Callback((int id) => _fakeDbUsers.Users
+                    .Remove(_fakeDbUsers.Users.Find(f => f.Id == id)));
 
             var mockDbUserUnitOfWork = new Mock<IUnitOfWork>();
             mockDbUserUnitOfWork.Setup(mock => mock.UserRepository)
                 .Returns(() => moq.Object);
 
-            this._userManagementService = new UserManagementService(mockDbUserUnitOfWork.Object);
+            _userManagementService = new UserManagementService(mockDbUserUnitOfWork.Object);
+        }
+
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// выбранной страницы пейджинга. Выбрана может быть любая страница.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetExistedUsersPageTest([Random(1, 18, 5)]int pageNumber)
+        {
+            const int pagesize = 16;
+
+            // Arrange
+            var dbUsers = _fakeDbUsers.Users;
+
+            var usersPageIndexes = new List<int>();
+
+            var startUserIndexInPage = pagesize * (pageNumber - 1);
+
+            var finishUserIndexInPage = startUserIndexInPage + pagesize - 1;
+
+            for (var i = startUserIndexInPage; i <= finishUserIndexInPage; i++)
+            {
+                usersPageIndexes.Add(i);
+            }
+
+            List<DbUser> dbUsersPage;
+            dbUsersPage = usersPageIndexes.Select(usersPageIndex => dbUsers[usersPageIndex]).ToList();
+
+            var expectedUsersPage = dbUsersPage.Select(Mapper.Map<Common.Models.User.User>).ToList();
+
+            // Act
+            var actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber).ToList();
+
+            // Assert
+            expectedUsersPage.Should().BeEquivalentTo(actualUsersPage,
+                options => options.ExcludingMissingMembers());
+        }
+
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// выбранной страницы пейджинга. Выбрана последняя страница.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetExistedUsersLastPageTest()
+        {
+            const int pagesize = 16;
+            const int pageNumber = 19;
+
+            // Arrange
+            var dbUsers = _fakeDbUsers.Users;
+
+            var usersPageIndexes = new List<int>();
+
+            var startUserIndexInPage = pagesize * (pageNumber - 1);
+
+            var finishUserIndexInPage = startUserIndexInPage + UsersCount % pagesize - 1;
+
+            for (var i = startUserIndexInPage; i <= finishUserIndexInPage; i++)
+            {
+                usersPageIndexes.Add(i);
+            }
+
+            List<DbUser> dbUsersPage;    
+            dbUsersPage = usersPageIndexes.Select(usersPageIndex => dbUsers[usersPageIndex]).ToList();
+
+            var expectedUsersPage = dbUsersPage.Select(Mapper.Map<Common.Models.User.User>).ToList();
+
+            // Act
+            var actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber).ToList();
+
+            // Assert
+            expectedUsersPage.Should().BeEquivalentTo(actualUsersPage,
+                options => options.ExcludingMissingMembers());
+        }
+
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// выбранной страницы пейджинга. Номер страницы отрицательный.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetNotExistedUsersPageWithNegativePageNumbersTest([Random(-100500, -1, 5)] int pageNumber)
+        {
+            const int pagesize = 16;
+
+            // Act
+            ICollection<Common.Models.User.User> actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber);
+
+            // Assert
+            actualUsersPage.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// выбранной страницы пейджинга. Номер страницы больше общего числа страниц.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetNotExistedUsersPageWithValueIfPageNumbersMoreThanTotalUsersPagesTest([Random(UsersCount, UsersCount + 100500, 5)]int pageNumber)
+        {
+            const int pagesize = 16;
+
+            // Act
+            ICollection<Common.Models.User.User> actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber);
+
+            // Assert
+            actualUsersPage.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Тест метода получения экземпляров пользователей
+        /// ввыбранной страницы пейджинга из пустого репозитария.
+        /// </summary>
+        [Test, Order(5)]
+        public void GetNotExistedUsersPageFromEmptyRepositoryTest([Random(1, 18, 5)]int pageNumber)
+        {
+            const int pagesize = 16;
+
+            // Arrange
+            _fakeDbUsers.Users.Clear();
+
+            // Act
+            ICollection<Common.Models.User.User> actualUsersPage = _userManagementService.GetUsersPage(pageSize: pagesize, pageNumber: pageNumber);
+
+            // Assert
+            actualUsersPage.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Тест метода получения всех экземпляров пользователей
+        /// в пустом репозитарии.
+        /// </summary>
+        [Test, Order(5)]
+        public void GetAllUsersFromEmptyRepositoryTest()
+        {
+            // Arrange
+            _fakeDbUsers.Users.Clear();
+
+            // Act
+            var actualUsers = _userManagementService.GetAllUsers();
+
+            // Assert
+            actualUsers.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Тест метода получения всех экземпляров пользователей
+        /// в не пустом репозитарии.
+        /// </summary>
+        [Test, Order(1)]
+        public void GetAllExistedUsersTest()
+        {
+            // Arrange
+            var expectedUsers = _fakeDbUsers.Users;
+
+            // Act
+            var actualUsers = _userManagementService.GetAllUsers().ToList();
+
+            // Assert
+            foreach (var expectedUser in expectedUsers)
+            {
+                var i = expectedUser.Id;
+
+                expectedUsers[i].Login.Should().Be(actualUsers[i].Login);
+                expectedUsers[i].FirstName.Should().Be(actualUsers[i].FirstName);
+                expectedUsers[i].LastName.Should().Be(actualUsers[i].LastName);
+                expectedUsers[i].Password.Should().Be(actualUsers[i].Password);
+            }
+
+            //expectedUsers.Should().BeEquivalentTo(actualUsers,
+            //    options => options.ExcludingMissingMembers());
+
+            expectedUsers.Count.Should().Be(actualUsers.Count);
         }
 
         /// <summary>
@@ -68,15 +239,15 @@ namespace Rocket.BL.Tests.User
         public void GetExistedUserTest([Random(0, UsersCount - 1, 5)] int id)
         {
             // Arrange
-            var expectedUser = this._fakeDbUsers.Users.Find(f => f.Id == id);
+            var expectedUser = _fakeDbUsers.Users.Find(f => f.Id == id);
 
             // Act
-            var actualUser = this._userManagementService.GetUser(id);
+            var actualUser = _userManagementService.GetUser(id);
 
             // Assert
-            actualUser.UserDetails.Phones.Should().BeEquivalentTo(expectedUser.UserDetails.Phones,
+            actualUser.UserDetail.PhoneNumbers.Should().BeEquivalentTo(expectedUser.UserDetail.PhoneNumbers,
                 options => options.ExcludingMissingMembers());
-            actualUser.UserDetails.EMailAddresses.Should().BeEquivalentTo(expectedUser.UserDetails.EMailAddresses,
+            actualUser.UserDetail.EMailAddresses.Should().BeEquivalentTo(expectedUser.UserDetail.EMailAddresses,
                 options => options.ExcludingMissingMembers());
             actualUser.Login.Should().BeEquivalentTo(expectedUser.Login);
             actualUser.FirstName.Should().BeEquivalentTo(expectedUser.FirstName);
@@ -89,9 +260,10 @@ namespace Rocket.BL.Tests.User
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
         [Test, Order(1)]
-        public void GetNotExistedUserTest([Random(UsersCount, UsersCount + 300, 5)] int id)
-        {   
-            var actualUser = this._userManagementService.GetUser(id);
+        public void GetNotExistedUserTest([Random(UsersCount, UsersCount + 300, 5)]
+            int id)
+        {
+            var actualUser = _userManagementService.GetUser(id);
 
             actualUser.Should().BeNull();
         }
@@ -104,15 +276,15 @@ namespace Rocket.BL.Tests.User
         {
             // Arrange
             var user = new FakeUsers(1, false, false, false, false, 5, 5).Users[0];
-            user.Id = this._fakeDbUsers.Users.Last().Id + 1;
+            user.Id = _fakeDbUsers.Users.Last().Id + 1;
 
             // Act
-            var actualId = this._userManagementService.AddUser(user);
+            var actualId = _userManagementService.AddUser(user);
 
-            var actualUser = this._userManagementService.GetUser(actualId);
+            var actualUser = _userManagementService.GetUser(actualId);
 
             // Assert
-            actualUser.UserDetails.EMailAddresses.Should().BeEquivalentTo(user.UserDetails.EMailAddresses,
+            actualUser.UserDetail.EMailAddresses.Should().BeEquivalentTo(user.UserDetail.EMailAddresses,
                 options => options.ExcludingMissingMembers());
             actualUser.Login.Should().BeEquivalentTo(user.Login);
             actualUser.FirstName.Should().BeEquivalentTo(user.FirstName);
@@ -127,12 +299,12 @@ namespace Rocket.BL.Tests.User
         public void UpdateUserTest([Random(0, UsersCount - 1, 5)] int id)
         {
             // Arrange
-            var user = this._userManagementService.GetUser(id);
+            var user = _userManagementService.GetUser(id);
             user.Login = new Bogus.Faker().Internet.UserName();
 
             // Act
-            this._userManagementService.UpdateUser(user);
-            var actualUser = this._fakeDbUsers.Users.Find(f => f.Id == id);
+            _userManagementService.UpdateUser(user);
+            var actualUser = _fakeDbUsers.Users.Find(f => f.Id == id);
 
             // Assert
             actualUser.Login.Should().Be(user.Login);
@@ -146,10 +318,10 @@ namespace Rocket.BL.Tests.User
         public void DeleteUserTest([Random(0, UsersCount - 1, 5)] int id)
         {
             // Arrange
-            this._userManagementService.DeleteUser(id);
+            _userManagementService.DeleteUser(id);
 
             // Act
-            var actualUser = this._fakeDbUsers.Users.Find(user => user.Id == id);
+            var actualUser = _fakeDbUsers.Users.Find(user => user.Id == id);
 
             // Assert
             actualUser.Should().BeNull();
@@ -164,10 +336,10 @@ namespace Rocket.BL.Tests.User
         public void UserExistsTest([Random(0, UsersCount - 1, 5)] int id)
         {
             // Arrange
-            var loginToFind = this._fakeDbUsers.Users.Find(dbf => dbf.Id == id).Login;
+            var loginToFind = _fakeDbUsers.Users.Find(dbf => dbf.Id == id).Login;
 
             // Act
-            var actual = this._userManagementService
+            var actual = _userManagementService
                 .UserExists(f => f.Login == loginToFind);
 
             // Assert
@@ -180,9 +352,10 @@ namespace Rocket.BL.Tests.User
         /// </summary>
         /// <param name="login">Логин пользователя для поиска</param>
         [Test, Order(2)]
-        public void UserNotExistsTest([Values("shameonyou", "qwer", "", "befastandclearver", "strangelogin")] string login)
+        public void UserNotExistsTest([Values("shameonyou", "qwer", "", "befastandclearver", "strangelogin")]
+            string login)
         {
-            var actual = this._userManagementService
+            var actual = _userManagementService
                 .UserExists(f => f.Login == login);
 
             actual.Should().BeFalse();

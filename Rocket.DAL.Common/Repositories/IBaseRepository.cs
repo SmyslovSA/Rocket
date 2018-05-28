@@ -7,7 +7,6 @@ namespace Rocket.DAL.Common.Repositories
 {
     /// <summary>
     /// Представляет обобщенный репозиторий
-    /// Код взят из статьи https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
     /// </summary>
     /// <typeparam name="TEntity">Тип, экземплярами которого управляет репозиторий</typeparam>
     public interface IBaseRepository<TEntity> where TEntity : class
@@ -37,7 +36,7 @@ namespace Rocket.DAL.Common.Repositories
         /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
         /// <param name="orderBy">Лямбда-выражение определяющее сортировку экземпляров <see cref="TEntity"/></param>
         /// <param name="includeProperties">Список связанных свойств экземпляров <see cref="TEntity"/>, разделенный запятыми</param>
-        /// <returns>Перечисление экземпляров <see cref="TEntity"/></returns>
+        /// <returns>Перечисление экземпляров.<see cref="TEntity"/></returns>
         IEnumerable<TEntity> GetPage(
             int pageSize,
             int pageNumber,
@@ -47,43 +46,84 @@ namespace Rocket.DAL.Common.Repositories
 
         /// <summary>
         /// Возвращает экземпляр <see cref="TEntity"/>,
-        /// соответствующий заданному идентификатору, из хранилища данных
+        /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Экземпляр <see cref="TEntity"/></returns>
-        TEntity GetById(int id);
+        /// <typeparam name="TKey">Тип идентификатора.</typeparam>
+        /// <param name="id">Идентификатор экземпляра.</param>
+        /// <returns>Экземпляр <see cref="TEntity"/>.</returns>
+        TEntity GetById<TKey>(TKey id);
+
+        void SetStatusAdded(TEntity entity);
+
+        void SetStatusAddedRange(IEnumerable<TEntity> entities);
+
+        void SetStatusNotModified(TEntity entity);
+
+        void SetStatusNotModifiedRange(IEnumerable<TEntity> entities);
 
         /// <summary>
-        /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
+        /// Добавляет заданный экземпляр <see cref="TEntity"/> в хранилище данных.
         /// </summary>
-        /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
+        /// <param name="entity">Экземпляр элемента.<see cref="TEntity"/>.</param>
         void Insert(TEntity entity);
 
         /// <summary>
-        /// Обновляет заданный экземпляр <see cref="TEntity"/> в хранилище данных
+        /// Обновляет заданный экземпляр <see cref="TEntity"/> в хранилище данных.
         /// </summary>
-        /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
+        /// <param name="entity">Экземпляр сущности.<see cref="TEntity"/></param>
         void Update(TEntity entity);
 
         /// <summary>
         /// Удаляет экземпляр <see cref="TEntity"/>,
-        /// соответствующий заданному идентификатору, из хранилища данных
+        /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        void Delete(int id);
+        /// <typeparam name="TKey">Тип идентификатора.</typeparam>
+        /// <param name="id">Идентификатор экземпляра.</param>
+        void Delete<TKey>(TKey id);
 
         /// <summary>
         /// Удаляет заданный экземпляр <see cref="TEntity"/> из хранилища данных
         /// </summary>
-        /// <param name="entity">Экземпляр <see cref="TEntity"/></param>
+        /// <param name="entity">Экземпляр сущности.<see cref="TEntity"/></param>
         void Delete(TEntity entity);
 
         /// <summary>
         /// Возвращает количество элементов в репозитории,
-        /// соответствующих заданному фильтру
+        /// соответствующих заданному фильтру.
         /// </summary>
-        /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/></param>
+        /// <param name="filter">Лямбда-выражение определяющее фильтрацию экземпляров <see cref="TEntity"/>.</param>
         /// <returns>Количество элементов</returns>
         int ItemsCount(Expression<Func<TEntity, bool>> filter = null);
+
+        /// <summary>
+        /// Поиск по первичному ключу
+        /// </summary>
+        /// <typeparam name="TKey"> model </typeparam>
+        /// <param name="keyValues"> params </param>
+        /// <returns> Entity.</returns>
+        TEntity Find<TKey>(params TKey[] keyValues);
+
+        /// <summary>
+        /// Returns IQueryable
+        /// </summary>
+        /// <typeparam name="TKey"> model </typeparam>
+        /// <param name="query"> string </param>
+        /// <param name="parameters"> params </param>
+        /// <returns> IQueryable</returns>
+        IQueryable<TEntity> SelectQuery<TKey>(string query, params TKey[] parameters);
+
+        /// <summary>
+        /// Вставка коллекции
+        /// </summary>
+        /// <param name="entities">Коллекция записей для вставки</param>
+        void InsertRange(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Возвращает Queryable сущности
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        IQueryable<TEntity> Queryable();
+
+        int SaveChanges();
     }
 }

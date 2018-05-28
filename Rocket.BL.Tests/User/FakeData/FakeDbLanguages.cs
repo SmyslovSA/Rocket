@@ -23,14 +23,14 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <summary>
         /// Создает новый экземпляр сгенерированных данных о языках пользователей
         /// </summary>
-        /// <param name="countriesCount">Необходимое количество сгенерированных языков пользователей</param>
+        /// <param name="languagesCount">Необходимое количество сгенерированных языков пользователей</param>
         public FakeDbLanguages(int languagesCount)
         {
-            this.LanguageFaker = new Faker<DbLanguage>()
+            LanguageFaker = new Faker<DbLanguage>()
                 .RuleFor(c => c.Id, f => f.IndexFaker)
                 .RuleFor(c => c.Name, f => f.Address.Country());
 
-            this.Languages = this.LanguageFaker.Generate(languagesCount);
+            Languages = LanguageFaker.Generate(languagesCount);
         }
     }
 }

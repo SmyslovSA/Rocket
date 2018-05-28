@@ -13,14 +13,14 @@ namespace Rocket.BL.Tests.User
     public class UserValidateServiceTest
     {
         private UserValidateService _userValidateService;
-        
+
         /// <summary>
         /// Осуществляет настройки
         /// </summary>
         [OneTimeSetUp]
         public void SetUp()
         {
-            this._userValidateService = new UserValidateService();
+            _userValidateService = new UserValidateService();
         }
 
         /// <summary>
@@ -42,7 +42,8 @@ namespace Rocket.BL.Tests.User
 
             // Act
             UserValidateService userValidateService = new UserValidateService();
-            var resultUserValidationBeforRegistration = userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
+            var resultUserValidationBeforRegistration =
+                userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
 
 
             // Assert
@@ -67,7 +68,8 @@ namespace Rocket.BL.Tests.User
                 minPasswordLenght: 5);
 
             // Act
-            var resultUserValidationBeforRegistration = this._userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
+            var resultUserValidationBeforRegistration =
+                _userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
 
             // Assert
             resultUserValidationBeforRegistration.Should().BeFalse();
@@ -92,7 +94,8 @@ namespace Rocket.BL.Tests.User
             var userValidateService = new UserValidateService();
 
             // Act
-            var resultUserValidationBeforRegistration = this._userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
+            var resultUserValidationBeforRegistration =
+                _userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
 
             // Assert
             resultUserValidationBeforRegistration.Should().BeFalse();
@@ -116,7 +119,8 @@ namespace Rocket.BL.Tests.User
                 minPasswordLenght: 5);
 
             // Act
-            var resultUserValidationBeforRegistration = this._userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
+            var resultUserValidationBeforRegistration =
+                _userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
 
             // Assert
             resultUserValidationBeforRegistration.Should().BeFalse();
@@ -140,7 +144,8 @@ namespace Rocket.BL.Tests.User
                 minPasswordLenght: 5);
 
             // Act
-            var resultUserValidationBeforRegistration = this._userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
+            var resultUserValidationBeforRegistration =
+                _userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
 
             // Assert
             resultUserValidationBeforRegistration.Should().BeFalse();
@@ -164,7 +169,8 @@ namespace Rocket.BL.Tests.User
                 minPasswordLenght: 5);
 
             // Act
-            var resultUserValidationBeforRegistration = this._userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
+            var resultUserValidationBeforRegistration =
+                _userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
 
             // Assert
             resultUserValidationBeforRegistration.Should().BeFalse();
@@ -189,7 +195,8 @@ namespace Rocket.BL.Tests.User
                 minPasswordLenght: 5);
 
             // Act
-            var resultUserValidationBeforRegistration = this._userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
+            var resultUserValidationBeforRegistration =
+                _userValidateService.UserValidateOnAddition(fakerNewUsers.Users[0]);
 
             // Assert
             resultUserValidationBeforRegistration.Should().BeTrue();

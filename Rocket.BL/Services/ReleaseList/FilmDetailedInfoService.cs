@@ -32,8 +32,10 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Экземпляр фильма</returns>
         public Film GetFilm(int id)
         {
-            return Mapper.Map<Film>(
-                this._unitOfWork.FilmRepository.GetById(id));
+            throw new NotImplementedException();
+
+            //return Mapper.Map<Film>(
+            //    _unitOfWork.FilmRepository.GetById(id));
         }
 
         /// <summary>
@@ -44,10 +46,12 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Идентификатор фильма</returns>
         public int AddFilm(Film film)
         {
-            var dbFilm = Mapper.Map<DbFilm>(film);
-            this._unitOfWork.FilmRepository.Insert(dbFilm);
-            this._unitOfWork.Save();
-            return dbFilm.Id;
+            throw new NotImplementedException();
+
+            //var dbFilm = Mapper.Map<DbFilm>(film);
+            //_unitOfWork.FilmRepository.Insert(dbFilm);
+            //_unitOfWork.SaveChanges();
+            //return dbFilm.Id;
         }
 
         /// <summary>
@@ -56,9 +60,11 @@ namespace Rocket.BL.Services.ReleaseList
         /// <param name="film">Экземпляр фильма для обновления</param>
         public void UpdateFilm(Film film)
         {
-            var dbFilm = Mapper.Map<DbFilm>(film);
-            this._unitOfWork.FilmRepository.Update(dbFilm);
-            this._unitOfWork.Save();
+            throw new NotImplementedException();
+
+            //var dbFilm = Mapper.Map<DbFilm>(film);
+            //_unitOfWork.FilmRepository.Update(dbFilm);
+            //_unitOfWork.SaveChanges();
         }
 
         /// <summary>
@@ -67,8 +73,10 @@ namespace Rocket.BL.Services.ReleaseList
         /// <param name="id">Идентификатор фильма</param>
         public void DeleteFilm(int id)
         {
-            this._unitOfWork.FilmRepository.Delete(id);
-            this._unitOfWork.Save();
+            throw new NotImplementedException();
+
+            //_unitOfWork.FilmRepository.Delete(id);
+            //_unitOfWork.SaveChanges();
         }
 
         /// <summary>
@@ -79,9 +87,11 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Возвращает <see langword="true"/>, если фильм существует в хранилище данных</returns>
         public bool FilmExists(Expression<Func<Film, bool>> filter)
         {
-            return this._unitOfWork.FilmRepository.Get(
-                Mapper.Map<Expression<Func<DbFilm, bool>>>(filter))
-                .FirstOrDefault() != null;
+            throw new NotImplementedException();
+
+            //return _unitOfWork.FilmRepository.Get(
+            //               Mapper.Map<Expression<Func<DbFilm, bool>>>(filter))
+            //           .FirstOrDefault() != null;
         }
     }
 }

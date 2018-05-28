@@ -1,5 +1,5 @@
-﻿using Rocket.DAL.Common.DbModels.ReleaseList;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 
 namespace Rocket.DAL.Configurations.ReleaseList
 {

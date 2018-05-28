@@ -26,11 +26,11 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <param name="accountStatusCount">Необходимое количество уровней аккаунта пользователя</param>
         public FakeAccountStatuses(int accountStatusCount)
         {
-            this.AccountStatusFaker = new Faker<AccountStatus>()
+            AccountStatusFaker = new Faker<AccountStatus>()
                 .RuleFor(g => g.Id, f => f.IndexFaker)
                 .RuleFor(g => g.Name, f => f.Random.Word());
 
-            this.AccountStatuses = this.AccountStatusFaker.Generate(accountStatusCount);
+            AccountStatuses = AccountStatusFaker.Generate(accountStatusCount);
         }
     }
 }

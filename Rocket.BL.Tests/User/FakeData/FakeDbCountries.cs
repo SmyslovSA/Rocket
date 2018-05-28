@@ -1,6 +1,6 @@
 ﻿using Bogus;
 using System.Collections.Generic;
-using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 
 namespace Rocket.BL.Tests.User.FakeData
 {
@@ -26,11 +26,11 @@ namespace Rocket.BL.Tests.User.FakeData
         /// <param name="countriesCount">Необходимое количество стран для генерации</param>
         public FakeDbCountries(int countriesCount)
         {
-            this.CountryFaker = new Faker<DbCountry>()
+            CountryFaker = new Faker<DbCountry>()
                 .RuleFor(c => c.Id, f => f.IndexFaker)
                 .RuleFor(c => c.Name, f => f.Address.Country());
 
-            this.Countries = this.CountryFaker.Generate(countriesCount);
+            Countries = CountryFaker.Generate(countriesCount);
         }
     }
 }

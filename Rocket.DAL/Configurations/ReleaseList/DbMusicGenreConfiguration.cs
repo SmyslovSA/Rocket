@@ -7,18 +7,15 @@ namespace Rocket.DAL.Configurations.ReleaseList
     /// Конфигурация хранения данных о музыкальных жанрах
     /// </summary>
     public class DbMusicGenreConfiguration : EntityTypeConfiguration<DbMusicGenre>
-	{
-		public DbMusicGenreConfiguration()
-		{
-			ToTable("MusicGenres")
-				.HasKey(v => v.Id)
-				.Property(v => v.Id)
-				.HasColumnName("Id");
+    {
+        public DbMusicGenreConfiguration()
+        {
+            ToTable("MusicGenres");
 
-			Property(c => c.Name)
-				.IsRequired()
-				.HasColumnName("Name")
-				.HasMaxLength(50);
-		}
-	}
+            Property(c => c.Name)
+                .IsRequired()
+                .HasColumnName("Name")
+                .HasMaxLength(50);
+        }
+    }
 }

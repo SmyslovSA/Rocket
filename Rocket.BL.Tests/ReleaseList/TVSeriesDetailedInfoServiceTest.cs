@@ -4,21 +4,21 @@ using Moq;
 using NUnit.Framework;
 using Rocket.BL.Services.ReleaseList;
 using Rocket.BL.Tests.ReleaseList.FakeData;
-using Rocket.DAL.Common.DbModels.ReleaseList;
-using Rocket.DAL.Common.Repositories.ReleaseList;
+using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.UoW;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Rocket.BL.Common.Models.ReleaseList;
 
 namespace Rocket.BL.Tests.ReleaseList
 {
     [TestFixture]
-    public class TVSeriesDetailedInfoServiceTest
+    public class TvSeriesDetailedInfoServiceTest
     {
-        private const int TVSeriesCount = 300;
-        private TVSeriesDetailedInfoService _tvSeriesDetailedInfoService;
-        private FakeDbTVSerialsData _fakeDbTVSerialsData;
+        private TvSeriesDetailedInfoService _tvSeriesDetailedInfoService;
+        private FakeDb _fakeDb;
 
         /// <summary>
         /// Осуществляет все необходимые настройки для тестов.
@@ -28,33 +28,43 @@ namespace Rocket.BL.Tests.ReleaseList
         public void SetUp()
         {
             Mapper.Reset();
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfiles("Rocket.BL.Common");
-            });
+            Mapper.Initialize(cfg => { cfg.AddProfiles("Rocket.BL.Common"); });
+            _fakeDb = new FakeDb();
 
-            this._fakeDbTVSerialsData = new FakeDbTVSerialsData(100, 10, 10, TVSeriesCount);
+            var mockTvSeriasRepository = new Mock<IBaseRepository<TvSeriasEntity>>();
+            mockTvSeriasRepository
+                .Setup(mock => mock.Get(It.IsAny<Expression<Func<TvSeriasEntity, bool>>>(), null, It.IsAny<string>()))
+                .Returns(
+                    (Expression<Func<TvSeriasEntity, bool>> filter,
+                    Func<IQueryable<TvSeriasEntity>, IOrderedQueryable<TvSeriasEntity>> orderBy,
+                    string includeProperties)
+                        => _fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Where(filter.Compile()));
+            mockTvSeriasRepository.Setup(mock => mock.GetById(It.IsAny<int>()))
+                .Returns((int id) => _fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Find(f => f.Id == id));
+            mockTvSeriasRepository.Setup(mock => mock.Insert(It.IsAny<TvSeriasEntity>()))
+                .Callback((TvSeriasEntity f) => _fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Add(f));
+            mockTvSeriasRepository.Setup(mock => mock.Update(It.IsAny<TvSeriasEntity>()))
+                .Callback((TvSeriasEntity f) => _fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Find(d => d.Id == f.Id).TitleEn = f.TitleEn);
+            mockTvSeriasRepository.Setup(mock => mock.Delete(It.IsAny<int>()))
+                .Callback((int id) => _fakeDb.FakeTvSeriasEntities.TvSeriasEntities
+                    .Remove(_fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Find(f => f.Id == id)));
 
-            var mockDbTVSeriesRepository = new Mock<IDbTVSeriesRepository>();
-            mockDbTVSeriesRepository.Setup(mock => mock.Get(It.IsAny<Expression<Func<DbTVSeries, bool>>>(), null, ""))
-                .Returns((Expression<Func<DbTVSeries, bool>> filter,
-                    Func<IQueryable<DbTVSeries>, IOrderedQueryable<DbTVSeries>> orderBy,
-                    string includeProperties) => this._fakeDbTVSerialsData.TVSerials.Where(filter.Compile()));
-            mockDbTVSeriesRepository.Setup(mock => mock.GetById(It.IsAny<int>()))
-                .Returns((int id) => this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id));
-            mockDbTVSeriesRepository.Setup(mock => mock.Insert(It.IsAny<DbTVSeries>()))
-                .Callback((DbTVSeries f) => this._fakeDbTVSerialsData.TVSerials.Add(f));
-            mockDbTVSeriesRepository.Setup(mock => mock.Update(It.IsAny<DbTVSeries>()))
-                .Callback((DbTVSeries f) => this._fakeDbTVSerialsData.TVSerials.Find(d => d.Id == f.Id).Title = f.Title);
-            mockDbTVSeriesRepository.Setup(mock => mock.Delete(It.IsAny<int>()))
-                .Callback((int id) => this._fakeDbTVSerialsData.TVSerials
-                    .Remove(this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id)));
+            var mockEpisodeRepository = new Mock<IBaseRepository<EpisodeEntity>>();
+            mockEpisodeRepository
+                .Setup(mock => mock.Get(It.IsAny<Expression<Func<EpisodeEntity, bool>>>(), null, string.Empty))
+                .Returns(
+                    (Expression<Func<EpisodeEntity, bool>> filter,
+                            Func<IQueryable<TvSeriasEntity>, IOrderedQueryable<TvSeriasEntity>> orderBy,
+                            string includeProperties)
+                        => _fakeDb.FakeEpisodeEntities.EpisodeEntities.Where(filter.Compile()));
 
-            var mockTVSeriesUnitOfWork = new Mock<IUnitOfWork>();
-            mockTVSeriesUnitOfWork.Setup(mock => mock.TVSeriesRepository)
-                .Returns(() => mockDbTVSeriesRepository.Object);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(mock => mock.TvSeriasRepository)
+                .Returns(() => mockTvSeriasRepository.Object);
+            mockUnitOfWork.Setup(mock => mock.EpisodeRepository)
+                .Returns(() => mockEpisodeRepository.Object);
 
-            this._tvSeriesDetailedInfoService = new TVSeriesDetailedInfoService(mockTVSeriesUnitOfWork.Object);
+            _tvSeriesDetailedInfoService = new TvSeriesDetailedInfoService(mockUnitOfWork.Object);
         }
 
         /// <summary>
@@ -63,21 +73,17 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор сериал</param>
         [Test, Order(1)]
-        public void GetExistedTVSeriesTest([Random(0, TVSeriesCount - 1, 5)] int id)
+        public void GetExistedTVSeriesTest([Random(0, 99, 5)] int id)
         {
-            var expectedTVSeries = this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id);
+            var expectedTvSeries = _fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Find(f => f.Id == id);
 
-            var actualTVSeries = this._tvSeriesDetailedInfoService.GetTVSeries(id);
+            var actualTvSeries = _tvSeriesDetailedInfoService.GetTvSeries(id);
 
-            actualTVSeries.Should().BeEquivalentTo(expectedTVSeries,
+            actualTvSeries.Should().BeEquivalentTo(expectedTvSeries,
                 options => options.ExcludingMissingMembers());
-            actualTVSeries.Directors.Should().BeEquivalentTo(expectedTVSeries.Directors,
+            actualTvSeries.ListPerson.Should().BeEquivalentTo(expectedTvSeries.ListPerson,
                 options => options.ExcludingMissingMembers());
-            actualTVSeries.Cast.Should().BeEquivalentTo(expectedTVSeries.Cast,
-                options => options.ExcludingMissingMembers());
-            actualTVSeries.Genres.Should().BeEquivalentTo(expectedTVSeries.Genres,
-                options => options.ExcludingMissingMembers());
-            actualTVSeries.Countries.Should().BeEquivalentTo(expectedTVSeries.Countries,
+            actualTvSeries.Genres.Should().BeEquivalentTo(expectedTvSeries.ListGenreEntity,
                 options => options.ExcludingMissingMembers());
         }
 
@@ -87,11 +93,11 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор сериала</param>
         [Test, Order(1)]
-        public void GetNotExistedTVSeriesTest([Random(TVSeriesCount, TVSeriesCount + 300, 5)] int id)
+        public void GetNotExistedTVSeriesTest([Random(100, 300, 5)] int id)
         {
-            var actualTVSeries = this._tvSeriesDetailedInfoService.GetTVSeries(id);
+            var actualTvSeries = _tvSeriesDetailedInfoService.GetTvSeries(id);
 
-            actualTVSeries.Should().BeNull();
+            actualTvSeries.Should().BeNull();
         }
 
         /// <summary>
@@ -100,13 +106,12 @@ namespace Rocket.BL.Tests.ReleaseList
         [Test, Repeat(5), Order(2)]
         public void AddTVSeriesTest()
         {
-            var tvSeries = new FakeTVSerialsData(50, 10, 10, 0).TVSeriesFaker.Generate();
-            tvSeries.Id = this._fakeDbTVSerialsData.TVSerials.Last().Id + 1;
+            var tvSeries = Mapper.Map<TVSeries>(_fakeDb.FakeTvSeriasEntities.TvSeriasFaker.Generate());
 
-            var actualId = this._tvSeriesDetailedInfoService.AddTVSeries(tvSeries);
-            var actualTVSeries = this._tvSeriesDetailedInfoService.GetTVSeries(actualId);
+            var actualId = _tvSeriesDetailedInfoService.AddTvSeries(tvSeries);
+            var actualTvSeries = _tvSeriesDetailedInfoService.GetTvSeries(actualId);
 
-            actualTVSeries.Should().BeEquivalentTo(tvSeries);
+            actualTvSeries.Should().BeEquivalentTo(tvSeries);
         }
 
         /// <summary>
@@ -114,15 +119,15 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор сериала для обновления</param>
         [Test, Order(2)]
-        public void UpdateTVSeriesTest([Random(0, TVSeriesCount - 1, 5)] int id)
+        public void UpdateTVSeriesTest([Random(0, 99, 5)] int id)
         {
-            var tvSeries = this._tvSeriesDetailedInfoService.GetTVSeries(id);
-            tvSeries.Title = new Bogus.Faker().Lorem.Word();
+            var tvSeries = _tvSeriesDetailedInfoService.GetTvSeries(id);
+            tvSeries.TitleEn = new Bogus.Faker().Lorem.Word();
 
-            this._tvSeriesDetailedInfoService.UpdateTVSeries(tvSeries);
-            var actualTVSeries = this._fakeDbTVSerialsData.TVSerials.Find(f => f.Id == id);
+            _tvSeriesDetailedInfoService.UpdateTvSeries(tvSeries);
+            var actualTvSeries = _fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Find(f => f.Id == id);
 
-            actualTVSeries.Title.Should().Be(tvSeries.Title);
+            actualTvSeries.TitleEn.Should().Be(tvSeries.TitleEn);
         }
 
         /// <summary>
@@ -130,11 +135,11 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор сериала для удаления</param>
         [Test, Order(3)]
-        public void DeleteTVSeriesTest([Random(0, TVSeriesCount - 1, 5)] int id)
+        public void DeleteTVSeriesTest([Random(0, 99, 5)] int id)
         {
-            this._tvSeriesDetailedInfoService.DeleteTVSeries(id);
+            _tvSeriesDetailedInfoService.DeleteTvSeries(id);
 
-            var actualTVSeries = this._fakeDbTVSerialsData.TVSerials.Find(tvSeries => tvSeries.Id == id);
+            var actualTVSeries = _fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Find(tvSeries => tvSeries.Id == id);
 
             actualTVSeries.Should().BeNull();
         }
@@ -145,12 +150,11 @@ namespace Rocket.BL.Tests.ReleaseList
         /// </summary>
         /// <param name="id">Идентификатор сериала для поиска</param>
         [Test, Order(2)]
-        public void TVSeriesExistsTest([Random(0, TVSeriesCount - 1, 5)] int id)
+        public void TVSeriesExistsTest([Random(0, 99, 5)] int id)
         {
-            var titleToFind = this._fakeDbTVSerialsData.TVSerials.Find(tv => tv.Id == id).Title;
+            var titleToFind = _fakeDb.FakeTvSeriasEntities.TvSeriasEntities.Find(tv => tv.Id == id).TitleEn;
 
-            var actual = this._tvSeriesDetailedInfoService
-                .TVSeriesExists(tv => tv.Title == titleToFind);
+            var actual = _tvSeriesDetailedInfoService.TvSeriesExists(tv => tv.TitleEn == titleToFind);
 
             actual.Should().BeTrue();
         }
@@ -163,8 +167,7 @@ namespace Rocket.BL.Tests.ReleaseList
         [Test, Order(2)]
         public void TVSeriesNotExistsTest([Values("1 1 1", "2 22 2", "", "4 word 4", "three words title")] string title)
         {
-            var actual = this._tvSeriesDetailedInfoService
-                .TVSeriesExists(tv => tv.Title == title);
+            var actual = _tvSeriesDetailedInfoService.TvSeriesExists(tv => tv.TitleEn == title);
 
             actual.Should().BeFalse();
         }
