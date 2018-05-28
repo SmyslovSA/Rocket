@@ -61,6 +61,15 @@ namespace Rocket.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;Email cannot be empty&quot;.
+        /// </summary>
+        internal static string EmptyEmail {
+            get {
+                return ResourceManager.GetString("EmptyEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;FirstName or LastName cannot be empty&quot;.
         /// </summary>
         internal static string UserEmptyFirstNameOrLastName {

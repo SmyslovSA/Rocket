@@ -8,18 +8,19 @@ namespace Rocket.BL.Common.Services.PersonalArea
     public interface IPersonalData
     {
         /// <summary>
-        /// Получение модели авторизованного пользователя по Id
+        /// Получение модели авторизованного пользователя по Id.
         /// </summary>
-        /// <param name="id">Id по которому необходимо найти пользователя</param>
-        /// <returns></returns>
+        /// <param name="id">Id по которому необходимо найти пользователя.</param>
+        /// <returns>Модель авторизованного пользователя.</returns>
         SimpleUser GetUserData(int id);
 
         /// <summary>
-        /// Изменение личных данных (ФИО, аватар).
+        /// Изменение персональных данных.
+        /// </summary>
         /// <param name="id">Id пользователя, инициировавшего смену личных данных.</param>
-        /// <param name="firstName">Имя пользователя</param>
-        /// <param name="lastName">Фамилия пользователя</param>
-        /// <param name="avatar">Аватар пользователя</param>
+        /// <param name="firstName">Имя пользователя.</param>
+        /// <param name="lastName">Фамилия пользователя.</param>
+        /// <param name="avatar">Аватар пользователя.</param>
         void ChangePersonalData(int id, string firstName, string lastName, string avatar);
 
         /// <summary>
@@ -28,9 +29,6 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// <param name="id">Id пользователя, инициировавшего смену пароля.</param>
         /// <param name="newPassword">Новый пароль, введенный пользователем.</param>
         /// <param name="newPasswordConfirm">Подтверждение пароля.</param>
-        /// <returns>
-        /// True - при успешном изменении пароля.
-        /// </returns>
         void ChangePasswordData(int id, string newPassword, string newPasswordConfirm);
     }
 }

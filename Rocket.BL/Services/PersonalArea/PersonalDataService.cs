@@ -20,10 +20,10 @@ namespace Rocket.BL.Services.PersonalArea
         }
 
         /// <summary>
-        /// Получение пользователя по Id
+        /// Получение пользователя по Id.
         /// </summary>
-        /// <param name="id">Id пользователя</param>
-        /// <returns></returns>
+        /// <param name="id">Id пользователя.</param>
+        /// <returns>Модель авторизованного пользователя.</returns>
         public SimpleUser GetUserData(int id)
         {
             return Mapper.Map<SimpleUser>(_unitOfWork.UserAuthorisedRepository.Get(
@@ -31,13 +31,13 @@ namespace Rocket.BL.Services.PersonalArea
                     includeProperties: $"{nameof(DbUser)}")
                     ?.FirstOrDefault());
         }
+
         /// <summary>
         /// Смена пароля.
         /// </summary>
         /// <param name="id">Id пользователя, инициировавшего смену пароля.</param>
         /// <param name="newPassword">Новый пароль.</param>
         /// <param name="newPasswordConfirm">Подтверждение пароля.</param>
-        /// <returns>True - при смене пароля, false - при ошибках валидации.</returns>
         public void ChangePasswordData(int id, string newPassword, string newPasswordConfirm)
         {
             if (!PasswordValidate(newPassword, newPasswordConfirm))
@@ -55,9 +55,9 @@ namespace Rocket.BL.Services.PersonalArea
         /// Смена персональных данных.
         /// </summary>
         /// <param name="id">Id пользователя, инициировавшего смену личных данных.</param>
-        /// <param name="firstName">Имя пользователя</param>
-        /// <param name="lastName">Фамилия пользователя</param>
-        /// <param name="avatar">Аватар пользователя</param>
+        /// <param name="firstName">Имя пользователя.</param>
+        /// <param name="lastName">Фамилия пользователя.</param>
+        /// <param name="avatar">Аватар пользователя.</param>
         public void ChangePersonalData(int id, string firstName, string lastName, string avatar)
         {
             var user = _unitOfWork.UserRepository.Get(

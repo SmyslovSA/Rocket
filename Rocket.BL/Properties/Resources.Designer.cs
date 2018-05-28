@@ -61,6 +61,24 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;This email is already registered in the system&quot;.
+        /// </summary>
+        internal static string EmailDuplicate {
+            get {
+                return ResourceManager.GetString("EmailDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Cannot delete email. This email is undefined in system&quot;.
+        /// </summary>
+        internal static string UndefinedEmail {
+            get {
+                return ResourceManager.GetString("UndefinedEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test.
         /// </summary>
         internal static string USERACCOUNTLOGINISEMPTY {

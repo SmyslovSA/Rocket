@@ -16,6 +16,7 @@ namespace Rocket.BL
             Bind<IMusicDetailedInfoService>().To<MusicDetailedInfoService>();
             Bind<IPersonalData>().To<PersonalDataService>();
             Bind<IValidator<Common.Models.User.User>>().To<UserValidatorCheckRequiredFields>();
-		}
+            Bind<IEmailManager>().To<ChangeEmailManagerService>();
+        }
     }
 }
