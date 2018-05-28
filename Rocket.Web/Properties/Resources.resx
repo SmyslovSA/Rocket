@@ -120,6 +120,9 @@
   <data name="EmptyEmail" xml:space="preserve">
     <value>"Email cannot be empty"</value>
   </data>
+  <data name="EmptyPassword" xml:space="preserve">
+    <value>"Password or password confirm cannot be empty"</value>
+  </data>
   <data name="UserEmptyFirstNameOrLastName" xml:space="preserve">
     <value>"FirstName or LastName cannot be empty"</value>
   </data>

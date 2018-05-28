@@ -70,6 +70,15 @@ namespace Rocket.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;Password or password confirm cannot be empty&quot;.
+        /// </summary>
+        internal static string EmptyPassword {
+            get {
+                return ResourceManager.GetString("EmptyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;FirstName or LastName cannot be empty&quot;.
         /// </summary>
         internal static string UserEmptyFirstNameOrLastName {

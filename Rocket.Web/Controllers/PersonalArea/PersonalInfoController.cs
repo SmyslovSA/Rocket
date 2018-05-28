@@ -57,7 +57,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         {
             if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(passwordConfirm))
             {
-                return BadRequest(Resources.UserEmptyFirstNameOrLastName);
+                return BadRequest(Resources.EmptyPassword);
             }
 
             try
