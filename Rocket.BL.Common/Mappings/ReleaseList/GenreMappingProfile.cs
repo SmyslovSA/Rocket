@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Rocket.BL.Common.DtoModels.ReleaseList;
 using Rocket.BL.Common.Models.ReleaseList;
 using Rocket.BL.Common.Models.Subscription;
 using Rocket.DAL.Common.DbModels.Parser;
@@ -13,6 +14,8 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
             CreateMap<Genre, GenreEntity>()
                 .IncludeBase<Subscribable, SubscribableEntity>()
                 .ReverseMap();
+
+            CreateMap<GenreEntity, GenreDto>();
         }
     }
 }
