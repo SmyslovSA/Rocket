@@ -153,6 +153,10 @@
     <Compile Include="Migrations\201805231204024_SubscribeAdd.Designer.cs">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.cs" />
+    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.Designer.cs">
+      <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -195,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805231204024_SubscribeAdd.resx">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805280056508_UpdAuthorisedUser.resx">
+      <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

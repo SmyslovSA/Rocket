@@ -61,11 +61,29 @@ namespace Rocket.Web.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;User data cannot be empty&quot;.
+        ///   Looks up a localized string similar to &quot;Email cannot be empty&quot;.
         /// </summary>
-        internal static string UserEmptyData {
+        internal static string EmptyEmail {
             get {
-                return ResourceManager.GetString("UserEmptyData", resourceCulture);
+                return ResourceManager.GetString("EmptyEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Password or password confirm cannot be empty&quot;.
+        /// </summary>
+        internal static string EmptyPassword {
+            get {
+                return ResourceManager.GetString("EmptyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;FirstName or LastName cannot be empty&quot;.
+        /// </summary>
+        internal static string UserEmptyFirstNameOrLastName {
+            get {
+                return ResourceManager.GetString("UserEmptyFirstNameOrLastName", resourceCulture);
             }
         }
     }
