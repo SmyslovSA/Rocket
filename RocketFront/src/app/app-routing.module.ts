@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent }   from './components/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { DonateComponent } from './components/donate/donate.component';
@@ -18,9 +18,9 @@ const routes: Routes = [
   { path: 'personal', component: PersonalAreaComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: '**', redirectTo: '' }
-  //добавить путь для ошибки, обычные пути
+  // добавить путь для ошибки, обычные пути
 ];
- 
+
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]

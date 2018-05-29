@@ -3,6 +3,7 @@ using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
+using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
 using System;
 using Rocket.DAL.Common.DbModels.Notification;
@@ -135,8 +136,40 @@ namespace Rocket.DAL.Common.UoW
         IBaseRepository<PersonTypeEntity> PersonTypeRepository { get; }
 
         IBaseRepository<SeasonEntity> SeasonRepository { get; }
+        
+        /// <summary>
+        /// Возвращает репозиторий для сообщений произвольного содержания
+        /// </summary>
+        IDbCustomMessageRepository CustomMessageRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для шаблонов email сообщений
+        /// </summary>
+        IDbEmailTemplateRepository EmailTemplateRepository { get; }
 
         IBaseRepository<TvSeriasEntity> TvSeriasRepository { get; }
+        
+        /// <summary>
+        /// Возвращает репозиторий для сообщений с информацией
+        /// о совершенном гостем донате
+        /// </summary>
+        IDbGuestBillingMessageRepository GuestBillingMessageRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для пользователей, являющихся получателями сообщений
+        /// </summary>
+        IDbReceiverRepository ReceiverRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для сообщений о релизе
+        /// </summary>
+        IDbReleaseMessageRepository ReleaseMessageRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий для сообщений с информацией о совершенных
+        /// пользователем платежах на сайте (покупка премиум аккаунта, донат)
+        /// </summary>
+        IDbUserBillingMessageRepository UserBillingMessageRepository { get; }
 
         /// <summary>
         /// Репозиторий лога нотификации

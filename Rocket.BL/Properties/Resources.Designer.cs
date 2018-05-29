@@ -61,6 +61,96 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;Confirmation&quot;.
+        /// </summary>
+        internal static string Confirmation {
+            get {
+                return ResourceManager.GetString("Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Donate&quot;.
+        /// </summary>
+        internal static string Donate {
+            get {
+                return ResourceManager.GetString("Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;This email is already registered in the system&quot;.
+        /// </summary>
+        internal static string EmailDuplicate {
+            get {
+                return ResourceManager.GetString("EmailDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Cannot delete email. This email is undefined in system&quot;.
+        /// </summary>
+        internal static string UndefinedEmail {
+            get {
+                return ResourceManager.GetString("UndefinedEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;посетитель&quot;.
+        /// </summary>
+        internal static string GuestAlias {
+            get {
+                return ResourceManager.GetString("GuestAlias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Music&quot;.
+        /// </summary>
+        internal static string Music {
+            get {
+                return ResourceManager.GetString("Music", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Premium&quot;.
+        /// </summary>
+        internal static string Premium {
+            get {
+                return ResourceManager.GetString("Premium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Rocket TEAM&quot;.
+        /// </summary>
+        internal static string Sender {
+            get {
+                return ResourceManager.GetString("Sender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;No Reply&quot;.
+        /// </summary>
+        internal static string Subject {
+            get {
+                return ResourceManager.GetString("Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;TvSeries&quot;.
+        /// </summary>
+        internal static string TvSeries {
+            get {
+                return ResourceManager.GetString("TvSeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test.
         /// </summary>
         internal static string USERACCOUNTLOGINISEMPTY {
@@ -151,20 +241,20 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Name cannot be less than 2 characters&quot;.
+        ///   Looks up a localized string similar to &quot;FirstName or LastName cannot be empty&quot;.
         /// </summary>
-        internal static string UserRuleForFirstName {
+        internal static string UserWrongFirstOrLastName {
             get {
-                return ResourceManager.GetString("UserRuleForFirstName", resourceCulture);
+                return ResourceManager.GetString("UserWrongFirstOrLastName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Lastname cannot be less than 2 characters&quot;.
+        ///   Looks up a localized string similar to &quot;The password differs from the password confirmation or does not meet the security requirements&quot;.
         /// </summary>
-        internal static string UserRuleForLastName {
+        internal static string UserWrongPassword {
             get {
-                return ResourceManager.GetString("UserRuleForLastName", resourceCulture);
+                return ResourceManager.GetString("UserWrongPassword", resourceCulture);
             }
         }
     }

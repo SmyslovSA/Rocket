@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="UserEmptyData" xml:space="preserve">
-    <value>"User data cannot be empty"</value>
+  <data name="BadEpisodesCountMessage" xml:space="preserve">
+    <value>Количество загружаемых последних серий не должно быть отрицательным</value>
+  </data>
+  <data name="BadPageSizeMessage" xml:space="preserve">
+    <value>Размер страницы должен быть больше нуля</value>
+  </data>
+  <data name="BadPersonCountMessage" xml:space="preserve">
+    <value>Количество загружаемых участников сериала не должно быть отрицательным</value>
+  </data>
+  <data name="EmptyEmail" xml:space="preserve">
+    <value>"Email cannot be empty"</value>
+  </data>
+  <data name="EmptyPassword" xml:space="preserve">
+    <value>"Password or password confirm cannot be empty"</value>
+  </data>
+  <data name="UserEmptyFirstNameOrLastName" xml:space="preserve">
+    <value>"FirstName or LastName cannot be empty"</value>
   </data>
 </root>
