@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Threading.Tasks;
 using AutoMapper;
-using MailKit.Net.Smtp;
+using MailKit;
 using MimeKit;
 using RazorEngine;
 using RazorEngine.Templating;
@@ -19,9 +21,17 @@ namespace Rocket.BL.Services.Notification
 {
     public class MailNotificationService : BaseService, IMailNotificationService
     {
-        public MailNotificationService(IUnitOfWork unitOfWork) 
+        private IMailTransport _transport;
+        private bool _isDisposed = false;
+        private readonly ResourceManager _resource;
+
+        public MailNotificationService(IUnitOfWork unitOfWork, 
+            IMailTransport transport) 
             : base (unitOfWork)
         {
+            _transport = transport;
+            _resource = new ResourceManager("Notification", 
+                typeof(MailNotificationService).Assembly);
         }
 
         public void NotifyAboutRelease(SubscribableEntity entity)
@@ -46,16 +56,16 @@ namespace Rocket.BL.Services.Notification
             string body;
             if (type == BillingType.Donate)
             {
-                var template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title == "DonateUser")
-                    .First().Body;
-                body = Engine.Razor.RunCompile(template, "DonateUser", null, 
+                var template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title ==
+                    _resource.GetString("Donate")).First().Body;
+                body = Engine.Razor.RunCompile(template, _resource.GetString("Donate"), null, 
                     new { Donate = billing });
             }
             else
             {
-                var template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title == "Premium")
-                    .First().Body;
-                body = Engine.Razor.RunCompile(template, "Premium", null,
+                var template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title ==
+                    _resource.GetString("Premium")).First().Body;
+                body = Engine.Razor.RunCompile(template, _resource.GetString("Premium"), null,
                     new { Premium = billing });
             }
             var message = CreateMessage(billing.Receiver, body);
@@ -69,14 +79,15 @@ namespace Rocket.BL.Services.Notification
                 Receiver = new Receiver()
                 {
                     Emails = new List<string>() {email},
-                    FirstName = name ?? "пользователь"
+                    FirstName = name ?? _resource.GetString("GuestAlias")
                 },
                 Sum = sum,
                 Currency = currency
             };
-            string template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title == "GuestDonate")
-                .First().Body;
-            string body = Engine.Razor.RunCompile(template, "GuestDonate", null, new { Donate = billing });
+            string template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title ==
+                _resource.GetString("Donate")).First().Body;
+            string body = Engine.Razor.RunCompile(template, _resource.GetString("Donate"), 
+                null, new { Donate = billing });
             var messageToSend = CreateMessage(billing.Receiver, body);
             SendEmailAsync(messageToSend).Wait();
         }
@@ -92,9 +103,9 @@ namespace Rocket.BL.Services.Notification
                 },
                 Url = url
             };
-            string template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title == "Confirmation")
-                .First().Body;
-            string body = Engine.Razor.RunCompile(template, "Confirmation", null, 
+            string template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title ==
+                _resource.GetString("Confirmation")).First().Body;
+            string body = Engine.Razor.RunCompile(template, _resource.GetString("Confirmation"), null, 
                 new { Confirmation = confirmation });
             var messageToSend = CreateMessage(confirmation.Receiver, body);
             SendEmailAsync(messageToSend).Wait();
@@ -124,45 +135,51 @@ namespace Rocket.BL.Services.Notification
         {
             var release = Mapper.Map<MusicNotification>(music);
             string template = _unitOfWork.EmailTemplateRepository.
-                Get(x => x.Title == "Music").First().Body;
-            
+                Get(x => x.Title == _resource.GetString("Music")).First().Body;
+
+            var tasks = new List<Task>();
+
             for (int i = 0; i < release.Receivers.Count; i++)
             {
-                var body = Engine.Razor.RunCompile(template, 
-                    "Music", null, new { Music = release, Count = i });
+                var body = Engine.Razor.RunCompile(template,
+                    _resource.GetString("Music"), null, new { Music = release, Count = i });
                 var message = CreateMessage(release.Receivers.ElementAt(i), 
                     body);
-                SendEmailAsync(message).Wait();
+                tasks.Add(SendEmailAsync(message));
             }
+            Task.WhenAll(tasks);
         }
 
         private void NotifyTvSeries(TvSeriasEntity tvSeries)
         {
             var release = Mapper.Map<TvSeriesNotification>(tvSeries);
             string template = _unitOfWork.EmailTemplateRepository.
-                Get(x => x.Title == "TvSeries").First().Body;
+                Get(x => x.Title == _resource.GetString("TvSeries")).First().Body;
+
+            var tasks = new List<Task>();
 
             for (int i = 0; i < release.Receivers.Count; i++)
             {
                 var body = Engine.Razor.RunCompile(template,
-                    "TvSeries", null, new { TvSeries = release, Count = i });
+                    _resource.GetString("TvSeries"), null, new { TvSeries = release, Count = i });
                 var message = CreateMessage(release.Receivers.ElementAt(i),
                     body);
-                SendEmailAsync(message).Wait();
+                tasks.Add(SendEmailAsync(message));
             }
+            Task.WhenAll(tasks);
         }
 
         private MimeMessage CreateMessage(Receiver receiver, string body)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Rocket TEAM", Settings.Default.Login));
+            message.From.Add(new MailboxAddress(_resource.GetString("Sender"), Settings.Default.Login));
 
             foreach (var email in receiver.Emails)
             {
                 message.To.Add(new MailboxAddress(email));
             }
 
-            message.Subject = "No Reply";
+            message.Subject = _resource.GetString("Subject");
 
             BodyBuilder bodyBuilder = new BodyBuilder();
             bodyBuilder.HtmlBody = body;
@@ -198,24 +215,39 @@ namespace Rocket.BL.Services.Notification
 
         private async Task SendEmailAsync(MimeMessage message)
         {
-            using (var client = new SmtpClient())
+            await _transport.ConnectAsync(
+                Settings.Default.Host,
+                Settings.Default.Port,
+                true).ConfigureAwait(false);
+
+            _transport.AuthenticationMechanisms.Remove("XOAUTH2");
+
+            await _transport.AuthenticateAsync(
+                Settings.Default.Login,
+                Settings.Default.Password).ConfigureAwait(false);
+
+            await _transport.SendAsync(message).ConfigureAwait(false);
+
+            // Уточнить касательно необходимости !
+            await _transport.DisconnectAsync(true).ConfigureAwait(false);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_isDisposed) return;
+            if (disposing)
             {
-                await client.ConnectAsync(
-                    Settings.Default.Host,
-                    Settings.Default.Port,
-                    true).ConfigureAwait(false);
-
-                client.AuthenticationMechanisms.Remove("XOAUTH2");
-
-                await client.AuthenticateAsync(
-                    Settings.Default.Login,
-                    Settings.Default.Password).ConfigureAwait(false);
-
-                await client.SendAsync(message).ConfigureAwait(false);
-
-                // Уточнить касательно необходимости !
-                await client.DisconnectAsync(true).ConfigureAwait(false);
+                GC.SuppressFinalize(this);
+                _transport?.Dispose();
+                _transport = null;
             }
+            _isDisposed = true;
+            base.Dispose(disposing);
+        }
+
+        ~MailNotificationService()
+        {
+            Dispose(true);
         }
     }
 }
