@@ -61,6 +61,24 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;Confirmation&quot;.
+        /// </summary>
+        internal static string Confirmation {
+            get {
+                return ResourceManager.GetString("Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Donate&quot;.
+        /// </summary>
+        internal static string Donate {
+            get {
+                return ResourceManager.GetString("Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;This email is already registered in the system&quot;.
         /// </summary>
         internal static string EmailDuplicate {
@@ -75,6 +93,60 @@ namespace Rocket.BL.Properties {
         internal static string UndefinedEmail {
             get {
                 return ResourceManager.GetString("UndefinedEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;посетитель&quot;.
+        /// </summary>
+        internal static string GuestAlias {
+            get {
+                return ResourceManager.GetString("GuestAlias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Music&quot;.
+        /// </summary>
+        internal static string Music {
+            get {
+                return ResourceManager.GetString("Music", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Premium&quot;.
+        /// </summary>
+        internal static string Premium {
+            get {
+                return ResourceManager.GetString("Premium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Rocket TEAM&quot;.
+        /// </summary>
+        internal static string Sender {
+            get {
+                return ResourceManager.GetString("Sender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;No Reply&quot;.
+        /// </summary>
+        internal static string Subject {
+            get {
+                return ResourceManager.GetString("Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;TvSeries&quot;.
+        /// </summary>
+        internal static string TvSeries {
+            get {
+                return ResourceManager.GetString("TvSeries", resourceCulture);
             }
         }
         
