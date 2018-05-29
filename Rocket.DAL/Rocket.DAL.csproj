@@ -193,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Migrations\SQLQueries\InitCategory.sql" />
+    <Content Include="Migrations\SQLQueries\InitEmailTemplates.sql" />
     <Content Include="Migrations\SQLQueries\InitPersonTypes.sql" />
     <Content Include="Migrations\SQLQueries\InitLostfilmParserSettings.sql" />
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
