@@ -4,9 +4,9 @@ namespace Rocket.DAL.Common.DbModels.Notification
 {
     /// <summary>
     /// Описывает модель хранения данных сообщения с информацией о совершенных
-    /// пользователем либо гостем платежах на сайте (покупка премиум аккаунта, донат)
+    /// пользователем платежах на сайте (покупка премиум аккаунта, донат)
     /// </summary>
-    public class DbBillingMessage
+    public class DbUserBillingMessage
     {
         /// <summary>
         /// Возвращает или задает идентификационный номер сообщения
@@ -14,7 +14,7 @@ namespace Rocket.DAL.Common.DbModels.Notification
         public int Id { get; set; }
 
         /// <summary>
-        /// Возвращает или задает получателя сообщения
+        /// Возвращает или задает пользователя - получателя сообщения
         /// </summary>
         public DbReceiver Receiver { get; set; }
 

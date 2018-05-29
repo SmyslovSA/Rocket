@@ -96,18 +96,19 @@
     <Compile Include="Configurations\Notification\NotificationsLogMap.cs" />
     <Compile Include="Configurations\Notification\NotificationsSettingsEntityMap.cs" />
     <Compile Include="Configurations\Parser\CategoryEntityMap.cs" />
+    <Compile Include="Configurations\Notification\CustomConfiguration.cs" />
     <Compile Include="Configurations\Parser\EpisodeEntityMap.cs" />
     <Compile Include="Configurations\Parser\PersonEntityMap.cs" />
     <Compile Include="Configurations\Parser\PersonTypeEntityMap.cs" />
     <Compile Include="Configurations\Parser\SeasonEntityMap.cs" />
     <Compile Include="Configurations\Parser\TvSeriasEntityMap.cs" />
     <Compile Include="Configurations\Parser\GenreEntityMap.cs" />
-    <Compile Include="Configurations\Notification\BillingsConfiguration.cs" />
-    <Compile Include="Configurations\Notification\CustomsConfiguration.cs" />
     <Compile Include="Configurations\Notification\EmailTemplateConfiguration.cs" />
+    <Compile Include="Configurations\Notification\GuestBillingConfiguration.cs" />
     <Compile Include="Configurations\Notification\ReceiverConfiguration .cs" />
     <Compile Include="Configurations\Notification\ReceiversJoinReleasesConfiguration.cs" />
     <Compile Include="Configurations\Notification\ReleaseMessageConfiguration.cs" />
+    <Compile Include="Configurations\Notification\UserBillingConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbBaseReleaseConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbCountryConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbEmailConfiguration.cs" />
@@ -172,6 +173,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\Notification\DbCustomMessageRepository.cs" />
+    <Compile Include="Repositories\Notification\DbEmailTemplateRepository.cs" />
+    <Compile Include="Repositories\Notification\DbGuestBillingMessageRepository.cs" />
+    <Compile Include="Repositories\Notification\DbReceiverRepository.cs" />
+    <Compile Include="Repositories\Notification\DbReleaseMessageRepository.cs" />
+    <Compile Include="Repositories\Notification\DbUserBillingMessageRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbAuthorisedUserRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbEmailRepository.cs" />
     <Compile Include="Repositories\UserRole\DbPermissionRepository.cs" />

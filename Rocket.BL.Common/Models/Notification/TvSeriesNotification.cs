@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Rocket.BL.Common.Models.Notification
 {
     /// <summary>
     /// Описывает релиз сериала для целей нотификации
     /// </summary>
-    public class TVSeriesForNotification
+    public class TvSeriesNotification
     {
         /// <summary>
-        /// Возвращает или задает идентификационный номер сериала
+        /// Возвращает или задает коллекцию получателей сообщений
         /// </summary>
-        public int Id { get; set; }
+        public ICollection<Receiver> Receivers { get; set; }
 
         /// <summary>
         /// Возвращает или задает название сериала
