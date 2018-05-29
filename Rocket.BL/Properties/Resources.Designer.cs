@@ -61,6 +61,24 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;This email is already registered in the system&quot;.
+        /// </summary>
+        internal static string EmailDuplicate {
+            get {
+                return ResourceManager.GetString("EmailDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Cannot delete email. This email is undefined in system&quot;.
+        /// </summary>
+        internal static string UndefinedEmail {
+            get {
+                return ResourceManager.GetString("UndefinedEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test.
         /// </summary>
         internal static string USERACCOUNTLOGINISEMPTY {
@@ -151,20 +169,20 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Name cannot be less than 2 characters&quot;.
+        ///   Looks up a localized string similar to &quot;FirstName or LastName cannot be empty&quot;.
         /// </summary>
-        internal static string UserRuleForFirstName {
+        internal static string UserWrongFirstOrLastName {
             get {
-                return ResourceManager.GetString("UserRuleForFirstName", resourceCulture);
+                return ResourceManager.GetString("UserWrongFirstOrLastName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Lastname cannot be less than 2 characters&quot;.
+        ///   Looks up a localized string similar to &quot;The password differs from the password confirmation or does not meet the security requirements&quot;.
         /// </summary>
-        internal static string UserRuleForLastName {
+        internal static string UserWrongPassword {
             get {
-                return ResourceManager.GetString("UserRuleForLastName", resourceCulture);
+                return ResourceManager.GetString("UserWrongPassword", resourceCulture);
             }
         }
     }

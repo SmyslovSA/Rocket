@@ -4,8 +4,10 @@ using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.UoW;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Rocket.BL.Common.Models.Pagination;
 
 namespace Rocket.BL.Services.ReleaseList
 {
@@ -33,8 +35,16 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Экземпляр музыкального релиза</returns>
         public Music GetMusic(int id)
         {
-            return Mapper.Map<Music>(
-                _unitOfWork.MusicRepository.GetById(id));
+            //return Mapper.Map<Music>(
+            //_unitOfWork.MusicRepository.GetById(id));
+
+            var model = Mapper.Map<Music>(
+                _unitOfWork.MusicRepository.Get(
+                        f => f.Id == id,
+                        includeProperties: $"{nameof(Music.Genres)},{nameof(Music.MusicTracks)},{nameof(Music.Musicians)}")
+                    ?.FirstOrDefault());
+
+            return model;
         }
 
         /// <inheritdoc />
@@ -86,6 +96,26 @@ namespace Rocket.BL.Services.ReleaseList
             return _unitOfWork.MusicRepository.Get(
                            Mapper.Map<Expression<Func<DbMusic, bool>>>(filter))
                        .FirstOrDefault() != null;
+        }
+
+        /// <summary>
+        /// Возвращает страницу музыкальных релизов с заданным номером и размером,
+        /// музыкальные релизы сортированы по дата релиза
+        /// </summary>
+        /// <param name="pageSize">Размер страницы</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <returns>Страница музыкальных релизов</returns>
+        public MusicPageInfo GetPageInfoByDate(int pageSize, int pageNumber)
+        {
+            var pageInfo = new MusicPageInfo();
+            pageInfo.TotalItemsCount = _unitOfWork.MusicRepository.ItemsCount();
+            pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
+            pageInfo.PageItems = Mapper.Map<IEnumerable<Music>>(_unitOfWork.MusicRepository.GetPage(
+                pageSize,
+                pageNumber,
+                orderBy: o => o.OrderByDescending(t => t.ReleaseDate)));
+
+            return pageInfo;
         }
     }
 }

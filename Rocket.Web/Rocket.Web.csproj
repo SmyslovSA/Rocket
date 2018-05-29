@@ -61,6 +61,9 @@
     <Reference Include="Common.Logging.NLog444, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.NLog444.3.4.1\lib\net40\Common.Logging.NLog444.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\Rocket.DAL\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.7.5.2\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
@@ -250,17 +253,20 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ConfigHandlers\PaginationConfigSection.cs" />
+    <Compile Include="ConfigHandlers\PartialLoadConfigSection.cs" />
     <Compile Include="ConfigHandlers\ReleasesSettingsConfigGroup.cs" />
     <Compile Include="ConfigHandlers\SettingsManager.cs" />
-    <Compile Include="Controllers\PersonalArea\ChangeEmailController.cs" />
+    <Compile Include="Controllers\PersonalArea\EmailController.cs" />
     <Compile Include="Controllers\PersonalArea\ChangeGenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReleaseList\EpisodeController.cs" />
     <Compile Include="Controllers\UserRole\PermissionController.cs" />
-    <Compile Include="Controllers\PersonalArea\ChangePasswordController.cs" />
     <Compile Include="Controllers\ReleaseList\TvSeriesController.cs" />
+    <Compile Include="Controllers\ReleaseList\MusicController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UserRole\RoleController.cs" />
     <Compile Include="Controllers\UserRole\RoleManagerController.cs" />
-    <Compile Include="Controllers\PersonalArea\PersonalDataController.cs" />
+    <Compile Include="Controllers\PersonalArea\PersonalInfoController.cs" />
     <Compile Include="Controllers\User\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
