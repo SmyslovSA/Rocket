@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Rocket.BL.Common.Enums;
 using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.DbModels.Subscription;
@@ -8,7 +9,7 @@ namespace Rocket.BL.Common.Services.Notification
     /// <summary>
     /// Интерфейс взаимодействия с сервисом email нотификации
     /// </summary>
-    public interface IMailNotificationService
+    public interface IMailNotificationService : IDisposable
     {
         /// <summary>
         /// Отправка сообщения о релизе
