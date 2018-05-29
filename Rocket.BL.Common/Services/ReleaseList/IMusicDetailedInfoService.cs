@@ -18,14 +18,15 @@ namespace Rocket.BL.Common.Services.ReleaseList
         /// <returns>Экземпляр музыкального релиза</returns>
         Music GetMusic(int id);
 
-        /// <summary>
-        /// Возвращает страницу музыкальных релизов с заданным номером и размером,
-        /// музыкальные релизы сортированы по дате релиза
-        /// </summary>
-        /// <param name="pageSize">Размер страницы</param>
-        /// <param name="pageNumber">Номер страницы</param>
-        /// <returns>Страница музыкальных релизов</returns>
-        MusicPageInfo GetPageInfoByDate(int pageSize, int pageNumber);
+		/// <summary>
+		/// Возвращает страницу музыкальных релизов с заданным номером и размером,
+		/// музыкальные релизы сортированы по дате релиза
+		/// </summary>
+		/// <param name="pageSize">Размер страницы</param>
+		/// <param name="pageNumber">Номер страницы</param>
+		/// <param name="genreId">Идентификатор жанра</param>
+		/// <returns>Страница музыкальных релизов</returns>
+		MusicPageInfo GetPageInfoByDate(int pageSize, int pageNumber, int? genreId = null);
 
         /// <summary>
         /// Добавляет заданный музыкальный релиз в хранилище данных
