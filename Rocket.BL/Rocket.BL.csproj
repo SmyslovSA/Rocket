@@ -144,7 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rocket.BL.Common\Rocket.BL.Common.csproj">
-      <Project>{80692A9E-FD37-4473-9E91-FE1D345EE27A}</Project>
+      <Project>{80692a9e-fd37-4473-9e91-fe1d345ee27a}</Project>
       <Name>Rocket.BL.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
