@@ -95,7 +95,6 @@ namespace Rocket.DAL.Migrations
                         CreationTime = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
         }
         
         public override void Down()
