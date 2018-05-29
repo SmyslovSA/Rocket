@@ -1,7 +1,6 @@
-﻿using Rocket.BL.Common.Models.ReleaseList;
-using System;
-using System.Linq.Expressions;
+﻿using Rocket.BL.Common.DtoModels.ReleaseList;
 using Rocket.BL.Common.Models.Pagination;
+using System;
 
 namespace Rocket.BL.Common.Services.ReleaseList
 {
@@ -12,47 +11,37 @@ namespace Rocket.BL.Common.Services.ReleaseList
     public interface ITvSeriesDetailedInfoService : IDisposable
     {
         /// <summary>
-        /// Возвращает сериал с заданным идентификатором из хранилища данных
-        /// </summary>
-        /// <param name="id">Идентификатор сериала</param>
-        /// <returns>Экземпляр сериала</returns>
-        TVSeries GetTvSeries(int id);
-
-        /// <summary>
-        /// Возвращает страницу сериалов с заданным номером и размером,
-        /// сериалы сортированы по рейтингу
+        /// Возвращает страницу сериалов с заданным номером, размером страницы
+        /// и идентификатором жанра
         /// </summary>
         /// <param name="pageSize">Размер страницы</param>
         /// <param name="pageNumber">Номер страницы</param>
+        /// <param name="genreId">Идентификатор жанра</param>
         /// <returns>Страница сериалов</returns>
-        TvSeriesPageInfo GetPageInfoByRating(int pageSize, int pageNumber);
+        PageInfo<TvSeriesMinimalDto> GetPageInfo(int pageSize, int pageNumber, int? genreId = null);
 
         /// <summary>
-        /// Добавляет заданный сериал в хранилище данных
-        /// и возвращает идентификатор добавленного сериала.
+        /// Возвращает информацию о сериале с заданным идентификатором,
+        /// количеством возвращаемых последних серий и количеством участников
         /// </summary>
-        /// <param name="tvSeries">Экземпляр сериала для добавления</param>
-        /// <returns>Идентификатор сериала</returns>
-        int AddTvSeries(TVSeries tvSeries);
+        /// <param name="id">Идентификатор</param>
+        /// <param name="episodesCount">Количество последних серий</param>
+        /// <param name="personsCount">Количество участников сериала</param>
+        /// <returns>Сериал</returns>
+        TvSeriesFullDto GetTvSeries(int id, int? episodesCount = null, int? personsCount = null);
 
         /// <summary>
-        /// Обновляет информацию заданного сериала в хранилище данных
-        /// </summary>
-        /// <param name="tvSeries">Экземпляр сериала для обновления</param>
-        void UpdateTvSeries(TVSeries tvSeries);
-
-        /// <summary>
-        /// Удаляет сериал с заданным идентификатором из хранилища данных.
+        /// Возвращает коллекцию сезонов сериала по заданному идентификатору сериала
         /// </summary>
         /// <param name="id">Идентификатор сериала</param>
-        void DeleteTvSeries(int id);
+        /// <returns>Коллекция сезонов сериала</returns>
+        TvSeriesSeasonsDto GetSeasons(int id);
 
         /// <summary>
-        /// Проверяет наличие сериала в хранилище данных
-        /// соответствующего заданному фильтру
+        /// Возвращает коллекцию участников сериала по заданному идентификатору сериала
         /// </summary>
-        /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска сериала</param>
-        /// <returns>Возвращает <see langword="true"/>, если сериал существует в хранилище данных</returns>
-        bool TvSeriesExists(Expression<Func<TVSeries, bool>> filter);
+        /// <param name="id">Идентификатор сериала</param>
+        /// <returns>Коллекция участников сериала</returns>
+        TvSeriesPersonsDto GetPersons(int id);
     }
 }

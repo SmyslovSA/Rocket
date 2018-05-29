@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Rocket.BL.Common.Models.ReleaseList;
+using Rocket.BL.Common.DtoModels.ReleaseList;
+using Rocket.BL.Common.Models.Pagination;
 using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.UoW;
@@ -7,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Rocket.BL.Common.Models.Pagination;
 
 namespace Rocket.BL.Services.ReleaseList
 {
@@ -26,98 +26,102 @@ namespace Rocket.BL.Services.ReleaseList
         {
         }
 
-        /// <summary>
-        /// Возвращает сериал с заданным идентификатором из хранилища данных
-        /// </summary>
-        /// <param name="id">Идентификатор сериала</param>
-        /// <returns>Экземпляр сериала</returns>
-        public TVSeries GetTvSeries(int id)
+        public PageInfo<TvSeriesMinimalDto> GetPageInfo(int pageSize, int pageNumber, int? genreId = null)
         {
-            var tvSeries = Mapper.Map<TVSeries>(
-                _unitOfWork.TvSeriasRepository.Get(
-                    f => f.Id == id,
-                    includeProperties: $"{nameof(TvSeriasEntity.ListGenreEntity)},{nameof(TvSeriasEntity.ListSeasons)},{nameof(TvSeriasEntity.ListPerson)}")
-                    ?.FirstOrDefault());
-            
-            if (tvSeries?.ListSeasons == null)
+            Expression<Func<TvSeriasEntity, bool>> filter = null;
+            if (genreId != null)
             {
-                return tvSeries;
+                filter = f => f.ListGenreEntity.Select(g => g.Id).Contains(genreId.Value);
             }
 
-            foreach (var season in tvSeries.ListSeasons)
-            {
-                season.ListEpisode = Mapper.Map<ICollection<Episode>>(
-                    _unitOfWork.EpisodeRepository.Get(
-                        e => e.SeasonId == season.Id));
-            }
-
-            return tvSeries;
-        }
-
-        /// <summary>
-        /// Возвращает страницу сериалов с заданным номером и размером,
-        /// сериалы сортированы по рейтингу
-        /// </summary>
-        /// <param name="pageSize">Размер страницы</param>
-        /// <param name="pageNumber">Номер страницы</param>
-        /// <returns>Страница сериалов</returns>
-        public TvSeriesPageInfo GetPageInfoByRating(int pageSize, int pageNumber)
-        {
-            var pageInfo = new TvSeriesPageInfo();
-            pageInfo.TotalItemsCount = _unitOfWork.TvSeriasRepository.ItemsCount();
+            var pageInfo = new PageInfo<TvSeriesMinimalDto>();
+            pageInfo.TotalItemsCount = _unitOfWork.TvSeriasRepository.ItemsCount(filter);
             pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
-            pageInfo.PageItems = Mapper.Map<IEnumerable<TVSeries>>(
-                _unitOfWork.TvSeriasRepository.GetPage(pageSize, pageNumber, orderBy: o => o.OrderByDescending(t => t.RateImDb)));
+            pageInfo.PageItems = Mapper.Map<IEnumerable<TvSeriesMinimalDto>>(
+                _unitOfWork.TvSeriasRepository.GetPage(
+                    pageSize,
+                    pageNumber,
+                    filter,
+                    o => o.OrderByDescending(t => t.LostfilmRate),
+                    $"{nameof(TvSeriasEntity.ListGenreEntity)}"));
 
             return pageInfo;
         }
 
-        /// <summary>
-        /// Добавляет заданный сериал в хранилище данных
-        /// и возвращает идентификатор добавленного сериала.
-        /// </summary>
-        /// <param name="tvSeries">Экземпляр сериала для добавления</param>
-        /// <returns>Идентификатор сериала</returns>
-        public int AddTvSeries(TVSeries tvSeries)
+        public TvSeriesFullDto GetTvSeries(int id, int? episodesCount = null, int? personsCount = null)
         {
-            var dbTvSeries = Mapper.Map<TvSeriasEntity>(tvSeries);
-            _unitOfWork.TvSeriasRepository.Insert(dbTvSeries);
-            _unitOfWork.SaveChanges();
-            return dbTvSeries.Id;
+            var tvSeries = _unitOfWork.TvSeriasRepository
+                .Get(
+                    f => f.Id == id,
+                    includeProperties: $"{nameof(TvSeriasEntity.ListGenreEntity)},{(episodesCount == 0 ? string.Empty : nameof(TvSeriasEntity.ListSeasons))}")
+                ?.FirstOrDefault();
+
+            if (tvSeries == null)
+            {
+                return null;
+            }
+
+            if (personsCount == null || personsCount > 0)
+            {
+                var count = personsCount ??
+                            _unitOfWork.PersonRepository.ItemsCount(f => f.ListTvSerias.Select(t => t.Id).Contains(id));
+                tvSeries.ListPerson = _unitOfWork.PersonRepository.GetPage(
+                    count,
+                    1,
+                    f => f.ListTvSerias.Select(t => t.Id).Contains(id),
+                    o => o.OrderBy(p => p.Id),
+                    $"{nameof(PersonEntity.PersonType)}").ToList();
+            }
+
+            if (tvSeries.ListSeasons != null)
+            {
+                var count = episodesCount ?? _unitOfWork.EpisodeRepository.ItemsCount(f => f.Season.TvSeriesId == id);
+                var lastEpisodes = _unitOfWork.EpisodeRepository.GetPage(
+                    count,
+                    1,
+                    f => f.Season.TvSeriesId == id,
+                    o => o.OrderBy(e => e.Id));
+                foreach (var season in tvSeries.ListSeasons)
+                {
+                    season.ListEpisode = lastEpisodes.Where(e => e.SeasonId == season.Id).ToList();
+                }
+            }
+
+            return Mapper.Map<TvSeriesFullDto>(tvSeries);
         }
 
-        /// <summary>
-        /// Обновляет информацию заданного сериала в хранилище данных
-        /// </summary>
-        /// <param name="tvSeries">Экземпляр сериала для обновления</param>
-        public void UpdateTvSeries(TVSeries tvSeries)
+        public TvSeriesSeasonsDto GetSeasons(int id)
         {
-            var dbTvSeries = Mapper.Map<TvSeriasEntity>(tvSeries);
-            _unitOfWork.TvSeriasRepository.Update(dbTvSeries);
-            _unitOfWork.SaveChanges();
+            var tvSeries = _unitOfWork.TvSeriasRepository
+                .GetById(id);
+
+            if (tvSeries == null)
+            {
+                return null;
+            }
+
+            tvSeries.ListSeasons = _unitOfWork.SeasonRepository
+                .Get(f => f.TvSeriesId == id, includeProperties: $"{nameof(SeasonEntity.ListEpisode)}").ToList();
+
+            return Mapper.Map<TvSeriesSeasonsDto>(tvSeries);
         }
 
-        /// <summary>
-        /// Удаляет сериал с заданным идентификатором из хранилища данных.
-        /// </summary>
-        /// <param name="id">Идентификатор сериала</param>
-        public void DeleteTvSeries(int id)
+        public TvSeriesPersonsDto GetPersons(int id)
         {
-            _unitOfWork.TvSeriasRepository.Delete(id);
-            _unitOfWork.SaveChanges();
-        }
+            var tvSeries = _unitOfWork.TvSeriasRepository
+                .GetById(id);
 
-        /// <summary>
-        /// Проверяет наличие сериала в хранилище данных
-        /// соответствующего заданному фильтру
-        /// </summary>
-        /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска сериала</param>
-        /// <returns>Возвращает <see langword="true"/>, если сериал существует в хранилище данных</returns>
-        public bool TvSeriesExists(Expression<Func<TVSeries, bool>> filter)
-        {
-            return _unitOfWork.TvSeriasRepository.Get(
-                Mapper.Map<Expression<Func<TvSeriasEntity, bool>>>(filter))
-                .FirstOrDefault() != null;
+            if (tvSeries == null)
+            {
+                return null;
+            }
+
+            tvSeries.ListPerson = _unitOfWork.PersonRepository
+                .Get(
+                    f => f.ListTvSerias.Select(t => t.Id).Contains(id),
+                    includeProperties: $"{nameof(PersonEntity.PersonType)}").ToList();
+
+            return Mapper.Map<TvSeriesPersonsDto>(tvSeries);
         }
     }
 }
