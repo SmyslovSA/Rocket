@@ -23,15 +23,12 @@ namespace Rocket.BL.Services.Notification
     {
         private IMailTransport _transport;
         private bool _isDisposed = false;
-        private readonly ResourceManager _resource;
 
         public MailNotificationService(IUnitOfWork unitOfWork, 
             IMailTransport transport) 
             : base (unitOfWork)
         {
             _transport = transport;
-            _resource = new ResourceManager("Notification", 
-                typeof(MailNotificationService).Assembly);
         }
 
         public void NotifyAboutRelease(SubscribableEntity entity)
@@ -57,15 +54,15 @@ namespace Rocket.BL.Services.Notification
             if (type == BillingType.Donate)
             {
                 var template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title ==
-                    _resource.GetString("Donate")).First().Body;
-                body = Engine.Razor.RunCompile(template, _resource.GetString("Donate"), null, 
+                    Resources.Donate).First().Body;
+                body = Engine.Razor.RunCompile(template, Resources.Donate, null, 
                     new { Donate = billing });
             }
             else
             {
                 var template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title ==
-                    _resource.GetString("Premium")).First().Body;
-                body = Engine.Razor.RunCompile(template, _resource.GetString("Premium"), null,
+                    Resources.Premium).First().Body;
+                body = Engine.Razor.RunCompile(template, Resources.Premium, null,
                     new { Premium = billing });
             }
             var message = CreateMessage(billing.Receiver, body);
@@ -79,14 +76,14 @@ namespace Rocket.BL.Services.Notification
                 Receiver = new Receiver()
                 {
                     Emails = new List<string>() {email},
-                    FirstName = name ?? _resource.GetString("GuestAlias")
+                    FirstName = name ?? Resources.GuestAlias
                 },
                 Sum = sum,
                 Currency = currency
             };
             string template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title ==
-                _resource.GetString("Donate")).First().Body;
-            string body = Engine.Razor.RunCompile(template, _resource.GetString("Donate"), 
+                Resources.Donate).First().Body;
+            string body = Engine.Razor.RunCompile(template, Resources.Donate, 
                 null, new { Donate = billing });
             var messageToSend = CreateMessage(billing.Receiver, body);
             SendEmailAsync(messageToSend).Wait();
@@ -104,8 +101,8 @@ namespace Rocket.BL.Services.Notification
                 Url = url
             };
             string template = _unitOfWork.EmailTemplateRepository.Get(x => x.Title ==
-                _resource.GetString("Confirmation")).First().Body;
-            string body = Engine.Razor.RunCompile(template, _resource.GetString("Confirmation"), null, 
+                Resources.Confirmation).First().Body;
+            string body = Engine.Razor.RunCompile(template, Resources.Confirmation, null, 
                 new { Confirmation = confirmation });
             var messageToSend = CreateMessage(confirmation.Receiver, body);
             SendEmailAsync(messageToSend).Wait();
@@ -135,14 +132,14 @@ namespace Rocket.BL.Services.Notification
         {
             var release = Mapper.Map<MusicNotification>(music);
             string template = _unitOfWork.EmailTemplateRepository.
-                Get(x => x.Title == _resource.GetString("Music")).First().Body;
+                Get(x => x.Title == Resources.Music).First().Body;
 
             var tasks = new List<Task>();
 
             for (int i = 0; i < release.Receivers.Count; i++)
             {
                 var body = Engine.Razor.RunCompile(template,
-                    _resource.GetString("Music"), null, new { Music = release, Count = i });
+                    Resources.Music, null, new { Music = release, Count = i });
                 var message = CreateMessage(release.Receivers.ElementAt(i), 
                     body);
                 tasks.Add(SendEmailAsync(message));
@@ -154,14 +151,14 @@ namespace Rocket.BL.Services.Notification
         {
             var release = Mapper.Map<TvSeriesNotification>(tvSeries);
             string template = _unitOfWork.EmailTemplateRepository.
-                Get(x => x.Title == _resource.GetString("TvSeries")).First().Body;
+                Get(x => x.Title == Resources.TvSeries).First().Body;
 
             var tasks = new List<Task>();
 
             for (int i = 0; i < release.Receivers.Count; i++)
             {
                 var body = Engine.Razor.RunCompile(template,
-                    _resource.GetString("TvSeries"), null, new { TvSeries = release, Count = i });
+                    Resources.TvSeries, null, new { TvSeries = release, Count = i });
                 var message = CreateMessage(release.Receivers.ElementAt(i),
                     body);
                 tasks.Add(SendEmailAsync(message));
@@ -172,14 +169,14 @@ namespace Rocket.BL.Services.Notification
         private MimeMessage CreateMessage(Receiver receiver, string body)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(_resource.GetString("Sender"), Settings.Default.Login));
+            message.From.Add(new MailboxAddress(Resources.Sender, Settings.Default.Login));
 
             foreach (var email in receiver.Emails)
             {
                 message.To.Add(new MailboxAddress(email));
             }
 
-            message.Subject = _resource.GetString("Subject");
+            message.Subject = Resources.Subject;
 
             BodyBuilder bodyBuilder = new BodyBuilder();
             bodyBuilder.HtmlBody = body;
@@ -238,16 +235,16 @@ namespace Rocket.BL.Services.Notification
             if (disposing)
             {
                 GC.SuppressFinalize(this);
-                _transport?.Dispose();
-                _transport = null;
             }
+            _transport?.Dispose();
+            _transport = null;
             _isDisposed = true;
             base.Dispose(disposing);
         }
 
         ~MailNotificationService()
         {
-            Dispose(true);
+            Dispose(false);
         }
     }
 }
