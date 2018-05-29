@@ -28,8 +28,6 @@ namespace Rocket.Web
             
             var errorHandler = DependencyResolver.Current.GetService<ApplicationErrorHandler>();
             errorHandler.Handle(User, Request, Response, exception);
-
-            // todo MP реализовать кастом обработчик
         }
 
         protected override IKernel CreateKernel()

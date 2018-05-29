@@ -133,6 +133,7 @@
     <Compile Include="Configurations\User\DbAddressConfiguration.cs" />
     <Compile Include="Configurations\User\DbUserDetailConfiguration.cs" />
     <Compile Include="Configurations\User\DbUserConfiguration.cs" />
+    <Compile Include="Context\AppUser.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
     <Compile Include="Migrations\201805171721071_AddParser.cs" />
