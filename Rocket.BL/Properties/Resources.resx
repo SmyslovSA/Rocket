@@ -123,6 +123,12 @@
   <data name="Donate" xml:space="preserve">
     <value>"Donate"</value>
   </data>
+  <data name="EmailDuplicate" xml:space="preserve">
+    <value>"This email is already registered in the system"</value>
+  </data>
+  <data name="UndefinedEmail" xml:space="preserve">
+    <value>"Cannot delete email. This email is undefined in system"</value>
+  </data>
   <data name="GuestAlias" xml:space="preserve">
     <value>"посетитель"</value>
   </data>
@@ -171,10 +177,10 @@
   <data name="USERPERSONSECONDNAMEISEMPTY" xml:space="preserve">
     <value>Test</value>
   </data>
-  <data name="UserRuleForFirstName" xml:space="preserve">
-    <value>"Name cannot be less than 2 characters"</value>
+  <data name="UserWrongFirstOrLastName" xml:space="preserve">
+    <value>"FirstName or LastName cannot be empty"</value>
   </data>
-  <data name="UserRuleForLastName" xml:space="preserve">
-    <value>"Lastname cannot be less than 2 characters"</value>
+  <data name="UserWrongPassword" xml:space="preserve">
+    <value>"The password differs from the password confirmation or does not meet the security requirements"</value>
   </data>
 </root>

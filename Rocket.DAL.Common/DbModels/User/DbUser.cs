@@ -73,7 +73,7 @@ namespace Rocket.DAL.Common.DbModels.User
         /// <summary>
         /// Ссылка на DbAuthorisedUser.
         /// </summary>
-        public DbAuthorisedUser DbAuthorisedUser { get; set; }
+        public virtual DbAuthorisedUser DbAuthorisedUser { get; set; }
 
         /// <summary>
         /// Коллекция подписок пользователя
