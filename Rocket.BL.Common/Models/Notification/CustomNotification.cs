@@ -5,7 +5,7 @@ namespace Rocket.BL.Common.Models.Notification
     /// <summary>
     /// Описывает сообщение произвольного содержания
     /// </summary>
-    public class CustomMessage
+    public class CustomNotification
     {
         /// <summary>
         /// Возвращает или задает получателя сообщения
@@ -31,10 +31,5 @@ namespace Rocket.BL.Common.Models.Notification
         /// Возвращает или задает флаг тела сообщения в формате HTML
         /// </summary>
         public bool HtmlBody { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает время создания сообщения
-        /// </summary>
-        public DateTime CreationTime { get; set; }
     }
 }

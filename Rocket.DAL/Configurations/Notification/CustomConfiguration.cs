@@ -6,9 +6,9 @@ namespace Rocket.DAL.Configurations.Notification
     /// <summary>
     /// Конфигурация хранения данных по сообщениям произвольного содержания
     /// </summary>
-    public class CustomsConfiguration : EntityTypeConfiguration<DbCustomMessage>
+    public class CustomConfiguration : EntityTypeConfiguration<DbCustomMessage>
     {
-        public CustomsConfiguration()
+        public CustomConfiguration()
         {
             ToTable("CustomMessages");
 

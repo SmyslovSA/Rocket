@@ -4,21 +4,16 @@
     /// Описывает сообщение со ссылкой для завершения
     /// регистрации аккаунта пользователя
     /// </summary>
-    public class ConfirmationMessage
+    public class ConfirmationNotification
     {
         /// <summary>
-        /// Возвращает или задает имя получателя сообщения
+        /// Возвращает или задает получателя сообщения
         /// </summary>
-        public string ReceiverName { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает email адрес получателя сообщения
-        /// </summary>
-        public string ReceiverEmail { get; set; }
+        public Receiver Receiver { get; set; }  
 
         /// <summary>
         /// Возвращает или задает ссылку для завершения регистрации
         /// </summary>
-        public string Link { get; set; }
+        public string Url { get; set; }
     }
 }

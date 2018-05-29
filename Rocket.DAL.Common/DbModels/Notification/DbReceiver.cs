@@ -4,7 +4,8 @@ using Rocket.DAL.Common.DbModels.DbPersonalArea;
 namespace Rocket.DAL.Common.DbModels.Notification
 {
     /// <summary>
-    /// Описывает модель хранения данных о получателе сообщения
+    /// Описывает модель хранения данных о пользователе,
+    /// являющемся получателем сообщения
     /// </summary>
     public class DbReceiver
     {
@@ -28,7 +29,7 @@ namespace Rocket.DAL.Common.DbModels.Notification
         /// Возвращает или задает коллекцию сообщений о платежах,
         /// получателем которых является пользователь
         /// </summary>
-        public ICollection<DbBillingMessage> BillingMessages { get; set; }
+        public ICollection<DbUserBillingMessage> UserBillingMessages { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию сообщений произвольного содержания,

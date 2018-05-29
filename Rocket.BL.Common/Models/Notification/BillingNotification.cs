@@ -7,7 +7,7 @@ namespace Rocket.BL.Common.Models.Notification
     /// пользователем либо гостем платежах на сайте
     /// (покупка премиум аккаунта, донат)
     /// </summary>
-    public class BillingMessage
+    public class BillingNotification
     {
         /// <summary>
         /// Возвращает или задает получателя сообщения
@@ -20,8 +20,8 @@ namespace Rocket.BL.Common.Models.Notification
         public decimal Sum { get; set; }
 
         /// <summary>
-        /// Возвращает или задает время создания сообщения
+        /// Возвращает или задает валюту платежа
         /// </summary>
-        public DateTime CreationTime { get; set; }
+        public string Currency { get; set; }
     }
 }
