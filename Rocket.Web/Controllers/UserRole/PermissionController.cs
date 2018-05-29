@@ -30,7 +30,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpGet]
-        [Route("{id:int:min(1)}")]
+        [Route("GetPermissionByRole{id:int:min(1)}")]
         public IHttpActionResult GetPermissionByRole(int id)
         {
             var model = _permissionService.GetPermissionByRole(id);
@@ -41,8 +41,9 @@ namespace Rocket.Web.Controllers.UserRole
         [Route("all")]
         public IHttpActionResult GetAllPermission()
         {
-            _permissionService.Get(null, null, "Permission");
-            return Ok();
+            //_permissionService.Get(null, null, "Permission");
+            var model = _permissionService.GetAllPermissions();
+            return model == null ? (IHttpActionResult)NotFound() : Ok(model);
         }
 
         [HttpPost]

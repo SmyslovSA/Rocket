@@ -11,6 +11,8 @@ using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
 using Rocket.DAL.Migrations;
 using System.Data.Entity;
+using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Configurations.UserRoleEntities;
 
 namespace Rocket.DAL.Context
 {
@@ -85,6 +87,11 @@ namespace Rocket.DAL.Context
         public DbSet<NotificationsSettingsEntity> NotificationsSettings { get; set; }
 
         /// <summary>
+        /// DbSet пермишенов
+        /// </summary>
+        public DbSet<DbPermission> PermissionSettings { get; set; }
+
+        /// <summary>
         /// DbSet лога уведомлений
         /// </summary>
         //public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
@@ -129,6 +136,7 @@ namespace Rocket.DAL.Context
 
             modelBuilder.Configurations.Add(new SubscribableConfiguration());
             modelBuilder.Configurations.Add(new NotificationsSettingsEntityMap());
+            modelBuilder.Configurations.Add(new DbPermissionConfiguration());
             //modelBuilder.Configurations.Add(new NotificationsLogMap());
         }
     }

@@ -153,6 +153,14 @@
     <Compile Include="Migrations\201805231204024_SubscribeAdd.Designer.cs">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805291832289_Serg.cs" />
+    <Compile Include="Migrations\201805291832289_Serg.Designer.cs">
+      <DependentUpon>201805291832289_Serg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805291904268_Serg1.cs" />
+    <Compile Include="Migrations\201805291904268_Serg1.Designer.cs">
+      <DependentUpon>201805291904268_Serg1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -175,6 +183,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rocket.BL.Common\Rocket.BL.Common.csproj">
+      <Project>{80692A9E-FD37-4473-9E91-FE1D345EE27A}</Project>
+      <Name>Rocket.BL.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
       <Project>{4383C0FF-4C4A-4C42-BB46-5A5137E5E7AD}</Project>
       <Name>Rocket.DAL.Common</Name>
@@ -196,15 +208,23 @@
     <EmbeddedResource Include="Migrations\201805231204024_SubscribeAdd.resx">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805291832289_Serg.resx">
+      <DependentUpon>201805291832289_Serg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805291904268_Serg1.resx">
+      <DependentUpon>201805291904268_Serg1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171721071_AddParser.resx">
       <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171728294_InitializeDateForParsers.resx">
       <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171922023_UpdByParser.resx">
       <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
