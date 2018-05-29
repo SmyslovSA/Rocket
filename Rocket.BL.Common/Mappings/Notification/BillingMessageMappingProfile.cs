@@ -9,9 +9,9 @@ namespace Rocket.BL.Common.Mappings.Notification
         public BillingMessageMappingProfile()
         {
             CreateMap<DbAuthorisedUser, BillingNotification>()
-                .ForMember(d => d.Receiver.FirstName, opt => opt.MapFrom(s => s.
+                .ForPath(d => d.Receiver.FirstName, opt => opt.MapFrom(s => s.
                         DbUser.FirstName))
-                .ForMember(d => d.Receiver.LastName, opt => opt.MapFrom(s => s.
+                .ForPath(d => d.Receiver.LastName, opt => opt.MapFrom(s => s.
                         DbUser.LastName));
         }
     }
