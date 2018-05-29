@@ -117,8 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Confirmation" xml:space="preserve">
+    <value>"Confirmation"</value>
+  </data>
+  <data name="Donate" xml:space="preserve">
+    <value>"Donate"</value>
+  </data>
   <data name="GuestAlias" xml:space="preserve">
     <value>"посетитель"</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>"Music"</value>
+  </data>
+  <data name="Premium" xml:space="preserve">
+    <value>"Premium"</value>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>"Rocket TEAM"</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>"No Reply"</value>
+  </data>
+  <data name="TvSeries" xml:space="preserve">
+    <value>"TvSeries"</value>
   </data>
   <data name="USERACCOUNTLOGINISEMPTY" xml:space="preserve">
     <value>Test</value>
