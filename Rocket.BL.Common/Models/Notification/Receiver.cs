@@ -11,7 +11,12 @@ namespace Rocket.BL.Common.Models.Notification
         /// <summary>
         /// Возвращает или задает имя гостя или пользователя
         /// </summary>
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает фамилию пользователя
+        /// </summary>
+        public string LastName { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию email адресов гостя или пользователя
