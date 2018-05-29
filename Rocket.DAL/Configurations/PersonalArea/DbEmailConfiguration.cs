@@ -20,6 +20,7 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 .HasColumnName("Name");
 
             Property(p => p.DbAuthorisedUserId)
+                .IsRequired()
                 .HasColumnName("AuthorisedUserId");
         }
     }

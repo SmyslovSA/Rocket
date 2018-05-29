@@ -47,6 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DtoModels\ReleaseList\EpisodeFullDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\EpisodeDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\EpisodeMinimalDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\GenreDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\PersonMinimalDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\SeasonDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\TvSeriesDetailsDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\TvSeriesFullDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\TvSeriesMinimalDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\TvSeriesPersonsDto.cs" />
+    <Compile Include="DtoModels\ReleaseList\TvSeriesSeasonsDto.cs" />
     <Compile Include="Mappings\PersonalAreaMappings\EmailMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\BaseReleaseMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\CategoryMappingProfile.cs" />
@@ -131,6 +142,7 @@
     <Compile Include="Models\UserRoles\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPermissionService.cs" />
+    <Compile Include="Services\ReleaseList\IEpisodeService.cs" />
     <Compile Include="Services\ReleaseList\ITvSeriesDetailedInfoService.cs" />
     <Compile Include="Services\User\IUserAccountLevelService.cs" />
     <Compile Include="Services\User\IUserAccountStatusService.cs" />
