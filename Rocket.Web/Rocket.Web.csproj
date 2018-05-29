@@ -268,7 +268,6 @@
     <Compile Include="Controllers\UserRole\RoleManagerController.cs" />
     <Compile Include="Controllers\PersonalArea\PersonalInfoController.cs" />
     <Compile Include="Controllers\User\UsersController.cs" />
-    <Compile Include="Filters\CustomExceptionAttribute .cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

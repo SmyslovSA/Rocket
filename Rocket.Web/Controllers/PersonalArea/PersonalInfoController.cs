@@ -1,11 +1,9 @@
 ﻿using FluentValidation;
 using Rocket.BL.Common.Services.PersonalArea;
-using Rocket.Web.Filters;
 using Rocket.Web.Properties;
 using Swashbuckle.Swagger.Annotations;
 using System.Net;
 using System.Web.Http;
-using System.Web.Http.Filters;
 using System.Web.Http.Results;
 
 namespace Rocket.Web.Controllers.PersonalArea
@@ -55,8 +53,6 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Password is not valid", typeof(string))]
         [Route("password/{id:int:min(1)}")]
-    //    [CustomException(ExceptionType = typeof(ValidationException),
-    //StatusCode = HttpStatusCode.BadRequest, Message = "password wrong")]
         public IHttpActionResult UpdateUserPassword(int id, string password, string passwordConfirm)
         {
             if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(passwordConfirm))
@@ -64,14 +60,14 @@ namespace Rocket.Web.Controllers.PersonalArea
                 return BadRequest(Resources.EmptyPassword);
             }
 
-            //try
-            //{
+            try
+            {
                 _ipersonaldata.ChangePasswordData(id, password, passwordConfirm);
-            //}
-            //catch (ValidationException exception)
-            //{
-            //    return BadRequest(exception.Message);
-            //}
+            }
+            catch (ValidationException exception)
+            {
+                return BadRequest(exception.Message);
+            }
 
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
