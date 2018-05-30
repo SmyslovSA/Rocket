@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
+using Common.Logging;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.DbUserRole;

@@ -1,7 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 using Rocket.DAL.Common.UoW;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
 
@@ -95,11 +98,35 @@ namespace Rocket.BL.Services.UserServices
         /// <summary>
         /// Возвращает пермишены роли, нужно для UI
         /// </summary>
+        /// <returns>Коллекцию Permission</returns>
+        public IEnumerable<Permission> GetAllPermissions()
+        {
+            var DbPerm = _unitOfWork.PermissionRepository.Get();
+            IEnumerable<Permission> perm = Mapper.Map<IEnumerable<Permission>>(DbPerm);
+            return perm;
+        }
+
+        /// <summary>
+        /// Возвращает пермишены роли, нужно для UI
+        /// </summary>
         /// <param name="idRole">Идентификатор роли</param>
         /// <returns>Коллекцию Permission</returns>
         public IEnumerable<Permission> GetPermissionByRole(int idRole)
         {
-            return Mapper.Map<Role>(_unitOfWork.RoleRepository.GetById(idRole)).Permissions;
+            var rol = _unitOfWork.RoleRepository.GetById(idRole);
+            return Mapper.Map<Role>(rol)?.Permissions;
+        }
+
+        /// <summary>
+        /// Возвращает пермишены по фильтру
+        /// </summary>
+        /// <returns>Коллекцию Permission</returns>
+        public IEnumerable<Permission> Get(
+            Expression<Func<DbPermission, bool>> filter = null,
+            Func<IQueryable<DbPermission>, IOrderedQueryable<DbPermission>> orderBy = null,
+            string includeProperties = "")
+        {
+            return _unitOfWork.PermissionRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Permission>);
         }
 
         /*
