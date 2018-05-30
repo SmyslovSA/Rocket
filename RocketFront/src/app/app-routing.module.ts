@@ -10,7 +10,7 @@ import { PersonalAreaComponent } from './components/personal-area/personal-area.
 import { RegistrationComponent } from './components/registration/registration.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  //{ path: '', component: AppComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'donate', component: DonateComponent },
