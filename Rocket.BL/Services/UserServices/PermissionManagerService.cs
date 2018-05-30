@@ -99,7 +99,10 @@ namespace Rocket.BL.Services.UserServices
         /// <returns>Коллекцию Permission</returns>
         public IEnumerable<Permission> GetPermissionByRole(int idRole)
         {
-            return Mapper.Map<Role>(_unitOfWork.RoleRepository.GetById(idRole)).Permissions;
+            var rol = _unitOfWork.RoleRepository.GetById(idRole);
+            if (rol != null)
+                return Mapper.Map<Role>(rol).Permissions;
+            else return null;
         }
 
         /*
