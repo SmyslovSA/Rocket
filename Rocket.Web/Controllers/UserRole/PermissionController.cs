@@ -39,7 +39,7 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpGet]
         [Route("all")]
-        public IHttpActionResult GetAllPermission()
+        public IHttpActionResult GetAllPermissions()
         {
             //_permissionService.Get(null, null, "Permission");
             var model = _permissionService.GetAllPermissions();
