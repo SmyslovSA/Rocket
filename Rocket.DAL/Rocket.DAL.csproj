@@ -154,9 +154,9 @@
     <Compile Include="Migrations\201805231204024_SubscribeAdd.Designer.cs">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805301515413_Alekhno.cs" />
-    <Compile Include="Migrations\201805301515413_Alekhno.Designer.cs">
-      <DependentUpon>201805301515413_Alekhno.cs</DependentUpon>
+    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.cs" />
+    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.Designer.cs">
+      <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201805291655515_AddNotifications.cs" />
     <Compile Include="Migrations\201805291655515_AddNotifications.Designer.cs">
@@ -216,8 +216,8 @@
     <EmbeddedResource Include="Migrations\201805231204024_SubscribeAdd.resx">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805301515413_Alekhno.resx">
-      <DependentUpon>201805301515413_Alekhno.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805280056508_UpdAuthorisedUser.resx">
+      <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805291655515_AddNotifications.resx">
       <DependentUpon>201805291655515_AddNotifications.cs</DependentUpon>
