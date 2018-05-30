@@ -8,7 +8,7 @@ namespace Rocket.DAL.Configurations.UserRoleEntities
     {
         public DbPermissionConfiguration()
         {
-            ToTable("t_permission")
+            ToTable("DBPermission")
                 .HasKey(t => t.Id)
                 .Property(t => t.Id)
                 .HasColumnName("permission_id");
