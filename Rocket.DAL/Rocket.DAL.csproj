@@ -238,11 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171721071_AddParser.resx">
       <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171728294_InitializeDateForParsers.resx">
       <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171922023_UpdByParser.resx">
       <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
