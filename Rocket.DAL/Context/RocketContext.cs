@@ -13,6 +13,8 @@ using Rocket.DAL.Configurations.User;
 using Rocket.DAL.Migrations;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Configurations.UserRoleEntities;
 using Rocket.DAL.IdentityModule;
 
 namespace Rocket.DAL.Context

@@ -37,21 +37,26 @@ namespace Rocket.DAL.IdentityModule
                 var user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
 
                 if (user != null && user.Role != null && user.Role.Name == roleName)
+                {
                     return true;
+                }
                 else
+                {
                     return false;
+                }
             }
+        }
+
+        // todo MP fish
+        public override string ApplicationName
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
         }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
             throw new NotImplementedException();
-        }
-
-        public override string ApplicationName
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
         }
 
         public override bool DeleteRole(string roleName, bool throwOnPopulatedRole)

@@ -6,6 +6,8 @@ namespace Rocket.DAL.IdentityModule
 {
     public class CustomUserStore : IUserStore<CustomUser>
     {
+        // todo MP fish
+
         public Task CreateAsync(CustomUser user)
         {
             throw new NotImplementedException();
