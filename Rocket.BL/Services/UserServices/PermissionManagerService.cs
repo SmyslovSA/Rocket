@@ -98,20 +98,12 @@ namespace Rocket.BL.Services.UserServices
         /// <summary>
         /// Возвращает пермишены роли, нужно для UI
         /// </summary>
-        /// <param name="idRole">Идентификатор роли</param>
         /// <returns>Коллекцию Permission</returns>
         public IEnumerable<Permission> GetAllPermissions()
         {
-            var rol = _unitOfWork.PermissionRepository.Get();
-            List<Permission> a = new List<Permission>();
-            foreach (var par in rol)
-            {
-                a.Add(Mapper.Map<Permission>(par));
-            }
-
-            if (a != null)
-                return a;
-            else return null;
+            var DbPerm = _unitOfWork.PermissionRepository.Get();
+            IEnumerable<Permission> perm = Mapper.Map<IEnumerable<Permission>>(DbPerm);
+            return perm;
         }
 
         /// <summary>

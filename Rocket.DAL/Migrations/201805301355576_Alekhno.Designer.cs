@@ -7,13 +7,13 @@ namespace Rocket.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Serg1 : IMigrationMetadata
+    public sealed partial class Alekhno : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Serg1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Alekhno));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805291904268_Serg1"; }
+            get { return "201805301355576_Alekhno"; }
         }
         
         string IMigrationMetadata.Source
