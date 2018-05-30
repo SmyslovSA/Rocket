@@ -1,5 +1,9 @@
 ﻿namespace Rocket.DAL.Common.DbModels.Notification
 {
+    /// <summary>
+    /// Описывает модель хранения сводных данных о пользователе
+    /// и релизе
+    /// </summary>
     public class DbReceiversJoinReleases
     {
         /// <summary>
