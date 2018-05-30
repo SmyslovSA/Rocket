@@ -14,6 +14,8 @@ using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
 using Rocket.DAL.Configurations.UserRoleEntities;
 using Rocket.DAL.Migrations;
+using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Configurations.UserRoleEntities;
 
 namespace Rocket.DAL.Context
 {
@@ -148,6 +150,46 @@ namespace Rocket.DAL.Context
         public DbSet<NotificationsSettingsEntity> NotificationsSettings { get; set; }
 
         /// <summary>
+        /// DbSet пермишенов
+        /// </summary>
+        public DbSet<DbPermission> PermissionSettings { get; set; }
+
+        /// <summary>
+        /// DbSet получателя сообщения
+        /// </summary>
+        public DbSet<DbReceiver> Receivers { get; set; }
+
+        /// <summary>
+        /// DbSet сообщения произвольного содержания
+        /// </summary>
+        public DbSet<DbCustomMessage> CustomMessages { get; set; }
+
+        /// <summary>
+        /// DbSet шаблона email
+        /// </summary>
+        public DbSet<DbEmailTemplate> EmailTemplates { get; set; }
+
+        /// <summary>
+        /// DbSet сообщения о платеже гостя
+        /// </summary>
+        public DbSet<DbGuestBillingMessage> GuestBillingMessages { get; set; }
+
+        /// <summary>
+        /// DbSet сводных данных о пользователе и релизе
+        /// </summary>
+        public DbSet<DbReceiversJoinReleases> ReceiversJoinReleaseses { get; set; }
+
+        /// <summary>
+        /// DbSet сообщения о релизе
+        /// </summary>
+        public DbSet<DbReleaseMessage> ReleaseMessages { get; set; }
+
+        /// <summary>
+        /// DbSet сообщения о платеже пользователя
+        /// </summary>
+        public DbSet<DbUserBillingMessage> UserBillingMessage { get; set; }
+
+        /// <summary>
         /// DbSet лога уведомлений
         /// </summary>
         //public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
@@ -195,6 +237,15 @@ namespace Rocket.DAL.Context
 
             modelBuilder.Configurations.Add(new SubscribableConfiguration());
             modelBuilder.Configurations.Add(new NotificationsSettingsEntityMap());
+            modelBuilder.Configurations.Add(new DbPermissionConfiguration());
+
+            modelBuilder.Configurations.Add(new ReceiverConfiguration());
+            modelBuilder.Configurations.Add(new CustomConfiguration());
+            modelBuilder.Configurations.Add(new EmailTemplateConfiguration());
+            modelBuilder.Configurations.Add(new GuestBillingConfiguration());
+            modelBuilder.Configurations.Add(new ReceiversJoinReleasesConfiguration());
+            modelBuilder.Configurations.Add(new ReleaseMessageConfiguration());
+            modelBuilder.Configurations.Add(new UserBillingConfiguration());
             //modelBuilder.Configurations.Add(new NotificationsLogMap());
         }
     }

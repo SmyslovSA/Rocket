@@ -15,6 +15,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { DonateComponent } from './components/donate/donate.component';
 import { NewsFeedComponent } from './components/news-feed/news-feed.component';
 import { PersonalAreaComponent } from './components/personal-area/personal-area.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PersonalAreaComponent } from './components/personal-area/personal-area.
     PaymentComponent,
     DonateComponent,
     NewsFeedComponent,
-    PersonalAreaComponent
+    PersonalAreaComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

@@ -161,6 +161,18 @@
     <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.Designer.cs">
       <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805291655515_AddNotifications.cs" />
+    <Compile Include="Migrations\201805291655515_AddNotifications.Designer.cs">
+      <DependentUpon>201805291655515_AddNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805291656302_InitializeEmailTemplates.cs" />
+    <Compile Include="Migrations\201805291656302_InitializeEmailTemplates.Designer.cs">
+      <DependentUpon>201805291656302_InitializeEmailTemplates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805301549282_Alekhno.cs" />
+    <Compile Include="Migrations\201805301549282_Alekhno.Designer.cs">
+      <DependentUpon>201805301549282_Alekhno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
     <Compile Include="Migrations\InitialDataCreators\User\DbAccountStatusesCreator.cs" />
@@ -208,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Migrations\SQLQueries\InitCategory.sql" />
+    <Content Include="Migrations\SQLQueries\InitEmailTemplates.sql" />
     <Content Include="Migrations\SQLQueries\InitPersonTypes.sql" />
     <Content Include="Migrations\SQLQueries\InitLostfilmParserSettings.sql" />
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
@@ -224,6 +237,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805280056508_UpdAuthorisedUser.resx">
       <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805291655515_AddNotifications.resx">
+      <DependentUpon>201805291655515_AddNotifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805291656302_InitializeEmailTemplates.resx">
+      <DependentUpon>201805291656302_InitializeEmailTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805301549282_Alekhno.resx">
+      <DependentUpon>201805301549282_Alekhno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
