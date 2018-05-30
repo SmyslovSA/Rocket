@@ -4,15 +4,13 @@ using Rocket.DAL.Common.DbModels.DbPersonalArea;
 
 namespace Rocket.BL.Common.Mappings.Notification
 {
-    class BillingMessageMappingProfile : Profile
+    public class BillingMessageMappingProfile : Profile
     {
         public BillingMessageMappingProfile()
         {
             CreateMap<DbAuthorisedUser, BillingNotification>()
-                .ForPath(d => d.Receiver.FirstName, opt => opt.MapFrom(s => s.
-                        DbUser.FirstName))
-                .ForPath(d => d.Receiver.LastName, opt => opt.MapFrom(s => s.
-                        DbUser.LastName));
+                .ForPath(d => d.Receiver.FirstName, opt => opt.MapFrom(s => s.DbUser.FirstName))
+                .ForPath(d => d.Receiver.LastName, opt => opt.MapFrom(s => s.DbUser.LastName));
         }
     }
 }
