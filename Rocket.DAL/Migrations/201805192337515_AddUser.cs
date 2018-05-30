@@ -248,7 +248,6 @@ namespace Rocket.DAL.Migrations
                 .ForeignKey("dbo.Genre", t => t.GenreId, cascadeDelete: true)
                 .Index(t => t.AuthorisedUserId)
                 .Index(t => t.GenreId);
-            
         }
         
         public override void Down()

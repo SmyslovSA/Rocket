@@ -6,7 +6,7 @@ namespace Rocket.DAL.Configurations.Notification
     /// <summary>
     /// Конфигурация хранения данных по сообщениям о донате гостя
     /// </summary>
-    class GuestBillingConfiguration : EntityTypeConfiguration<DbGuestBillingMessage>
+    public class GuestBillingConfiguration : EntityTypeConfiguration<DbGuestBillingMessage>
     {
         public GuestBillingConfiguration()
         {

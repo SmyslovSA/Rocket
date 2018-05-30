@@ -17,7 +17,6 @@ namespace Rocket.DAL.Migrations
                         NotifyPeriodInMinutes = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
         }
         
         public override void Down()
