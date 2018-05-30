@@ -114,9 +114,7 @@ namespace Rocket.BL.Services.UserServices
         public IEnumerable<Permission> GetPermissionByRole(int idRole)
         {
             var rol = _unitOfWork.RoleRepository.GetById(idRole);
-            if (rol != null)
-                return Mapper.Map<Role>(rol).Permissions;
-            else return null;
+            return Mapper.Map<Role>(rol)?.Permissions;
         }
 
         /// <summary>

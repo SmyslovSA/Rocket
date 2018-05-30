@@ -154,9 +154,9 @@
     <Compile Include="Migrations\201805231204024_SubscribeAdd.Designer.cs">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805301355576_Alekhno.cs" />
-    <Compile Include="Migrations\201805301355576_Alekhno.Designer.cs">
-      <DependentUpon>201805301355576_Alekhno.cs</DependentUpon>
+    <Compile Include="Migrations\201805301515413_Alekhno.cs" />
+    <Compile Include="Migrations\201805301515413_Alekhno.Designer.cs">
+      <DependentUpon>201805301515413_Alekhno.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -186,10 +186,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rocket.BL.Common\Rocket.BL.Common.csproj">
-      <Project>{80692A9E-FD37-4473-9E91-FE1D345EE27A}</Project>
-      <Name>Rocket.BL.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
       <Project>{4383C0FF-4C4A-4C42-BB46-5A5137E5E7AD}</Project>
       <Name>Rocket.DAL.Common</Name>
@@ -211,8 +207,8 @@
     <EmbeddedResource Include="Migrations\201805231204024_SubscribeAdd.resx">
       <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805301355576_Alekhno.resx">
-      <DependentUpon>201805301355576_Alekhno.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805301515413_Alekhno.resx">
+      <DependentUpon>201805301515413_Alekhno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
