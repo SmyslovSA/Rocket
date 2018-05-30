@@ -1,4 +1,5 @@
-﻿using Rocket.DAL.Common.DbModels.Notification;
+﻿using System;
+using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.DbModels.Subscription;
@@ -11,13 +12,15 @@ using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
 using Rocket.DAL.Migrations;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Rocket.DAL.IdentityModule;
 
 namespace Rocket.DAL.Context
 {
     /// <summary>
     /// Представляет контекст данных приложения
     /// </summary>
-    public class RocketContext : DbContext
+    public class RocketContext : IdentityDbContext<CustomUser>, IDisposable
     {
         /// <summary>
         /// Создает новый экземпляр контекста данных
