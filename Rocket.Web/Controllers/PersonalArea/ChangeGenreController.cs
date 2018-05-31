@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
-    [RoutePrefix("personal/change/genre")]
+    [RoutePrefix("personal/ganre")]
     public class ChangeGenreController : ApiController
     {
         private IGenreManager _genreManager;
@@ -17,42 +17,70 @@ namespace Rocket.Web.Controllers.PersonalArea
         }
 
         [HttpPost]
+        [Route("add/{id:int:min(1)}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(SimpleUser))]
-        public IHttpActionResult SaveGenre([FromBody] SimpleUser model, string category, string genre)
+        public IHttpActionResult SaveGenre(int idUser, string category, string genre)
         {
-            if (model == null)
+            if (idUser != 0)
             {
-                return BadRequest("Model cannot be empty");
-            }
+                if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
+                {
+                    return BadRequest("email or genre cannot be empty");
+                }
+                else
+                {
+                    bool result = _genreManager.AddGenre(idUser, category, genre);
+                    if (result)
+                    {
+                        return StatusCode(HttpStatusCode.NoContent);
+                    }
+                    else
+                    {
+                        return StatusCode(HttpStatusCode.InternalServerError);
+                    }
 
-            if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
+                }
+
+            }
+            else
             {
-                return BadRequest("genre cannot be empty");
+                return BadRequest("idUser can't is empty");
+
             }
-
-            _genreManager.AddGenre(model, category, genre);
-
-            //заменить null за конечный результат , т.к. не билдится проект
-            return null; //Created(/*$"____/{model.Id}", model*/);
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteGenre([FromBody] SimpleUser model, string category, string genre)
+        [Route("delete/{id:int:min(1)}")]
+        public IHttpActionResult DeleteGenre(int idUser, string category, string genre)
         {
-            if (model == null)
+            if (idUser != 0)
             {
-                return BadRequest("Model cannot be empty");
+                if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
+                {
+                    return BadRequest("email or genre cannot be empty");
+                }
+                else
+                {
+                    bool result = _genreManager.DeleteGenre(idUser, category, genre);
+                    if (result)
+                    {
+                        return StatusCode(HttpStatusCode.NoContent);
+                    }
+                    else
+                    {
+                        return StatusCode(HttpStatusCode.InternalServerError);
+                    }
+
+                }
+            }
+            else
+            {
+                return BadRequest("idUser can't is empty");
+
             }
 
-            if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
-            {
-                return BadRequest("email or genre cannot be empty");
-            }
-
-            _genreManager.DeleteGenre(model, category, genre);
-            return Ok();
         }
     }
 }

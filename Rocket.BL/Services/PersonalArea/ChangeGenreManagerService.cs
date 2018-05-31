@@ -14,36 +14,42 @@ namespace Rocket.BL.Services.PersonalArea
         {
         }
 
-        public bool AddGenre(SimpleUser model, string category, string genre)
+        public bool AddGenre(int idUser, string category, string genre)
         {
             //проверка на валидность данных
-            if (model != null && string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
+            if (string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
             {
-                var user = Mapper.Map<DbAuthorisedUser>(model);
-                user.Genres.Add(new GenreEntity
+                if (_unitOfWork.UserRepository.Get(f => f.Id == idUser).FirstOrDefault() != null)
                 {
-                    Name = genre,
-                    Category = new CategoryEntity()
+                    var modelUser = _unitOfWork.UserRepository.Get(f => f.Id == idUser).FirstOrDefault();
+                    var user = Mapper.Map<DbAuthorisedUser>(modelUser);
+                    user.Genres.Add(new GenreEntity
                     {
-                        Name = category
-                    }
-                });
-                _unitOfWork.UserAuthorisedRepository.Update(user);
-                _unitOfWork.SaveChanges();
-                return true;
+                        Name = genre,
+                        Category = new CategoryEntity()
+                        {
+                            Name = category
+                        }
+                    });
+                    _unitOfWork.UserAuthorisedRepository.Update(user);
+                    _unitOfWork.SaveChanges();
+                    return true;
+                }
             }
 
             return false;
         }
 
-        public bool DeleteGenre(SimpleUser model, string category, string genre)
+        public bool DeleteGenre( int idUser, string category, string genre)
         {
-            if (model != null && string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
+            if (string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
             {
                 if (_unitOfWork.GenreRepository.Get().FirstOrDefault(c => c.Name == genre) != null)
                 {
-                    var ganre = _unitOfWork.GenreRepository.Get().FirstOrDefault(c => c.Name == genre);
-                    _unitOfWork.GenreRepository.Delete(ganre);
+                    var modelUser = _unitOfWork.UserRepository.Get(f => f.Id == idUser).FirstOrDefault();
+                     var gen = _unitOfWork.GenreRepository.Get().Where(f => f.Users.Contains(modelUser)).FirstOrDefault();
+
+                    _unitOfWork.GenreRepository.Delete(gen);
                     _unitOfWork.SaveChanges();
                     return true;
                 }
