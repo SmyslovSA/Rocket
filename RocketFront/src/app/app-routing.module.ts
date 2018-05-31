@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'personal', component: PersonalAreaComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
+  { path: '', redirectTo: '/news', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
   // добавить путь для ошибки, обычные пути
 ];
