@@ -11,5 +11,5 @@ export class UserRoleComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
 }

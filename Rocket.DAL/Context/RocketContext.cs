@@ -26,6 +26,7 @@ namespace Rocket.DAL.Context
     /// </summary>
     public class RocketContext : IdentityDbContext<CustomUser>, IDisposable
     {
+
         /// <summary>
         /// Создает новый экземпляр контекста данных
         /// </summary>
@@ -239,7 +240,6 @@ namespace Rocket.DAL.Context
 
             modelBuilder.Configurations.Add(new SubscribableConfiguration());
             modelBuilder.Configurations.Add(new NotificationsSettingsEntityMap());
-            modelBuilder.Configurations.Add(new DbPermissionConfiguration());
 
             modelBuilder.Configurations.Add(new ReceiverConfiguration());
             modelBuilder.Configurations.Add(new CustomConfiguration());
