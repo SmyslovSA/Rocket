@@ -20,7 +20,7 @@ namespace Rocket.BL.Common.Services.ReleaseList
         /// <param name="pageSize">Размер страницы</param>
         /// <param name="pageNumber">Номер страницы</param>
         /// <returns>Страница серий</returns>
-        PageInfo<EpisodeDto> GetNewEpisodesPage(int pageSize, int pageNumber);
+        PageInfo<EpisodeFullDto> GetNewEpisodesPage(int pageSize, int pageNumber);
 
         /// <summary>
         /// Возвращает страницу будущих серий с заданным номером и размером,
