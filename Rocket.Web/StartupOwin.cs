@@ -33,14 +33,14 @@ namespace Rocket.Web
 
             app.UseIdentityServer(options);
 
-            // fish
+            // fish - тут должно быть обновление 
             app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions());
 
         }
 
         private X509Certificate2 LoadCert()
         {
-            throw new NotImplementedException(); // dl demo sert?
+            throw new NotImplementedException(); // download demo sertificate?
         }
     }
 
@@ -69,7 +69,7 @@ namespace Rocket.Web
     {
         public static IEnumerable<Scope> Load()
         {
-            return new[] {StandardScopes.OpenId, StandardScopes.Profile};
+            return new[] {StandardScopes.OpenId, StandardScopes.Profile}; // настроить скопы согласно модельки юзера
         }
     }
 
@@ -82,8 +82,8 @@ namespace Rocket.Web
                 new InMemoryUser()
                 {
                     Subject = "user123",
-                    UserName = "JohnDoe",
-                    pass = "asdf"
+                    // UserName = "JohnDoe",
+                    // pass = "asdf"
                 }
             };
         }
