@@ -26,6 +26,56 @@ namespace Rocket.DAL.Common.UoW
         IDbUserRepository UserRepository { get; }
 
         /// <summary>
+        /// Репозиторий для работы со странами.
+        /// </summary>
+        IDbCountryRepository CountryRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с уровнями аккаунтов пользователей.
+        /// </summary>
+        IDbAccountLevelRepository AccountLevelRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со статусами аккаунтов пользователей.
+        /// </summary>
+        IDbAccountStatusRepositary AccountStatusRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с адресами детальной информации пользователей.
+        /// </summary>
+        IDbAddressRepositary AddressRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с адресами электронной почты пользователей.
+        /// </summary>
+        IDbEmailAddressRepositary EmailAddressRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями половой принадлежности пользователей.
+        /// </summary>
+        IDbGenderRepository GenderRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями о том, как обращаться к пользователям.
+        /// </summary>
+        IDbHowToCallRepository HowToCallRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями о языках детальной информации пользователей.
+        /// </summary>
+        IDbLanguageRepositary LanguageRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями о телефонных номерах детальной информации пользователей.
+        /// </summary>
+        IDbPhoneNumberRepository PhoneNumberRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с детальной информацией пользователей.
+        /// </summary>
+        IDbUserDetailRepository UserDetailRepository { get; }
+
+        /// <summary>
         /// Репозиторий для работы с ролями.
         /// </summary>
         IDbRoleRepository RoleRepository { get; }

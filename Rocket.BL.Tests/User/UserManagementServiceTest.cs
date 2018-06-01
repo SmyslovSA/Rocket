@@ -119,8 +119,7 @@ namespace Rocket.BL.Tests.User
                 usersPageIndexes.Add(i);
             }
 
-            List<DbUser> dbUsersPage;    
-            dbUsersPage = usersPageIndexes.Select(usersPageIndex => dbUsers[usersPageIndex]).ToList();
+            var dbUsersPage = usersPageIndexes.Select(usersPageIndex => dbUsers[usersPageIndex]).ToList();
 
             var expectedUsersPage = dbUsersPage.Select(Mapper.Map<Common.Models.User.User>).ToList();
 
@@ -289,6 +288,32 @@ namespace Rocket.BL.Tests.User
             actualUser.Login.Should().BeEquivalentTo(user.Login);
             actualUser.FirstName.Should().BeEquivalentTo(user.FirstName);
             actualUser.LastName.Should().BeEquivalentTo(user.LastName);
+        }
+
+        /// <summary>
+        /// Тест метода добавления пользователя в хранилище данных
+        /// </summary>
+        [Test, Repeat(5), Order(2)]
+        public void AddUserIntegratedTest()
+        {
+            //IUnitOfWork _unitOfWork;
+
+            //// Arrange
+            //var user = new FakeUsers(1, false, false, false, false, 5, 5).Users[0];
+            //var userManagementService = new UserManagementService(_unitOfWork);
+            //user.Id = _fakeDbUsers.Users.Last().Id + 1;
+
+            //// Act
+            //var actualId = _userManagementService.AddUser(user);
+
+            //var actualUser = _userManagementService.GetUser(actualId);
+
+            //// Assert
+            //actualUser.UserDetail.EMailAddresses.Should().BeEquivalentTo(user.UserDetail.EMailAddresses,
+            //    options => options.ExcludingMissingMembers());
+            //actualUser.Login.Should().BeEquivalentTo(user.Login);
+            //actualUser.FirstName.Should().BeEquivalentTo(user.FirstName);
+            //actualUser.LastName.Should().BeEquivalentTo(user.LastName);
         }
 
         /// <summary>

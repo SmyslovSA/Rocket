@@ -1,5 +1,5 @@
 
-<h2>My Heroes</h2>
+<h2>My users</h2>
 <ul class="users">
   <li *ngFor="let user of users"
     [class.selected]="user === selectedUser"
@@ -8,18 +8,4 @@
   </li>
 </ul>
 
-<div *ngIf="selectedUser">
-
-  <h2>{{ selectedUser.name | uppercase }} Details</h2>
-  <div><span>id: </span>{{selectedUser.id}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="selectedUser.name" placeholder="name">
-    </label>
-    <br>
-    <label>role:
-      <input [(ngModel)]="selectedUser.role" placeholder="role">
-    </label>
-  </div>
-
-</div>
+<app-user-role [user]="selectedUser"></app-user-role>

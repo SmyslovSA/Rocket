@@ -21,6 +21,7 @@ import { SignalRConfiguration } from 'ng2-signalr';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { UsersComponent } from './users/users.component';
+import { UserRoleComponent } from './user-role/user-role.component';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -46,7 +47,8 @@ export function createConfig(): SignalRConfiguration {
     NewsFeedComponent,
     PersonalAreaComponent,
     CalendarComponent,
-    UsersComponent
+    UsersComponent,
+    UserRoleComponent
   ],
   imports: [
     BrowserModule,
