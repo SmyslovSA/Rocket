@@ -237,7 +237,6 @@ namespace Rocket.DAL.Context
 
             modelBuilder.Configurations.Add(new SubscribableConfiguration());
             modelBuilder.Configurations.Add(new NotificationsSettingsEntityMap());
-            modelBuilder.Configurations.Add(new DbPermissionConfiguration());
 
             modelBuilder.Configurations.Add(new ReceiverConfiguration());
             modelBuilder.Configurations.Add(new CustomConfiguration());
