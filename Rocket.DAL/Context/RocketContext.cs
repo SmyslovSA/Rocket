@@ -14,8 +14,6 @@ using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
 using Rocket.DAL.Configurations.UserRoleEntities;
 using Rocket.DAL.Migrations;
-using Rocket.DAL.Common.DbModels.DbUserRole;
-using Rocket.DAL.Configurations.UserRoleEntities;
 
 namespace Rocket.DAL.Context
 {
