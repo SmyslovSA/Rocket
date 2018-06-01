@@ -1,5 +1,5 @@
-﻿using System;
-using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using Rocket.DAL.Common.DbModels.DbUserRole;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
@@ -14,12 +14,10 @@ using Rocket.DAL.Configurations.ReleaseList;
 using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
 using Rocket.DAL.Configurations.UserRoleEntities;
-using Rocket.DAL.Migrations;
 using System.Data.Entity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Rocket.DAL.Common.DbModels.DbUserRole;
-using Rocket.DAL.Configurations.UserRoleEntities;
 using Rocket.DAL.IdentityModule;
+using Rocket.DAL.Migrations;
+
 
 namespace Rocket.DAL.Context
 {
