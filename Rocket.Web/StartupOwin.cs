@@ -31,10 +31,25 @@ namespace Rocket.Web
             };
 
 
-            app.UseIdentityServer(options);
+            app.UseIdentityServer(new IdentityServerOptions
+            {
+                RequireSsl = false,
+                SiteName = "Identity Server",
+                SigningCertificate = LoadCertificate(),
+                EnableWelcomePage = false,
+                Factory = factory
+            });
 
-            // fish - тут должно быть обновление 
-            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions());
+            var opt = new IdentityServerBearerTokenAuthenticationOptions
+            {
+                Authority = "http://localhost:2383", // ?
+                RequiredScopes = new[] { "openid" },
+                IssuerName = "http://localhost:2383", // ?
+                SigningCertificate = LoadCertificate(),
+                ValidationMode = ValidationMode.ValidationEndpoint
+            };
+
+            app.UseIdentityServerBearerTokenAuthentication(opt);
 
         }
 
@@ -69,7 +84,8 @@ namespace Rocket.Web
     {
         public static IEnumerable<Scope> Load()
         {
-            return new[] {StandardScopes.OpenId, StandardScopes.Profile}; // настроить скопы согласно модельки юзера
+            // настроить скопы согласно модельки юзера
+            return new[] {StandardScopes.OpenId, StandardScopes.Profile}; 
         }
     }
 
@@ -82,8 +98,8 @@ namespace Rocket.Web
                 new InMemoryUser()
                 {
                     Subject = "user123",
-                    // UserName = "JohnDoe",
-                    // pass = "asdf"
+                     Username = "JohnDoe",
+                     Password = "asdf"
                 }
             };
         }
