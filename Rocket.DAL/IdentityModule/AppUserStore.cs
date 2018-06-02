@@ -4,16 +4,16 @@ using Microsoft.AspNet.Identity;
 
 namespace Rocket.DAL.IdentityModule
 {
-    public class CustomUserStore : IUserStore<CustomUser>
+    public class AppUserStore : IUserStore<AppUser>
     {
         // todo MP fish
 
-        public Task CreateAsync(CustomUser user)
+        public Task CreateAsync(AppUser user)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(CustomUser user)
+        public Task DeleteAsync(AppUser user)
         {
             throw new NotImplementedException();
         }
@@ -23,17 +23,17 @@ namespace Rocket.DAL.IdentityModule
             throw new NotImplementedException();
         }
 
-        public Task<CustomUser> FindByIdAsync(string userId)
+        public Task<AppUser> FindByIdAsync(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CustomUser> FindByNameAsync(string userName)
+        public Task<AppUser> FindByNameAsync(string userName)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(CustomUser user)
+        public Task UpdateAsync(AppUser user)
         {
             throw new NotImplementedException();
         }

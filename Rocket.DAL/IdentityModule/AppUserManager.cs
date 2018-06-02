@@ -5,16 +5,16 @@ using Microsoft.Owin;
 
 namespace Rocket.DAL.IdentityModule
 {
-    public class CustomUserManager : UserManager<CustomUser>
+    public class AppUserManager : UserManager<AppUser>
     {
-        public CustomUserManager(IUserStore<CustomUser> store) : base(store)
+        public AppUserManager(IUserStore<AppUser> store) : base(store)
         {
         }
 
-        public static CustomUserManager Create(IdentityFactoryOptions<CustomUserManager> options, IOwinContext context)
+        public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
         {
             var db = context.Get<CustomDbContext>();
-            var manager = new CustomUserManager(new UserStore<CustomUser>(db));
+            var manager = new AppUserManager(new UserStore<AppUser>(db));
             return manager;
         }
     }

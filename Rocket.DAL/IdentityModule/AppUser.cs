@@ -1,12 +1,11 @@
 ﻿using System;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Rocket.DAL.IdentityModule
 {
-    public class CustomUser : IdentityUser
+    public class AppUser : IdentityUser
     {
-        public CustomUser(string name)
+        public AppUser(string name)
         {
             UserId = Guid.NewGuid().ToString();
             UserLoginName = name;

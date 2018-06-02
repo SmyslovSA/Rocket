@@ -2,7 +2,7 @@
 
 namespace Rocket.DAL.IdentityModule
 {
-    public class CustomDbContext : IdentityDbContext<CustomUser>
+    public class CustomDbContext : IdentityDbContext<AppUser>
     {
         public CustomDbContext() : base("IdentityDb")
         {
