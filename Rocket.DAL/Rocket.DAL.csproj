@@ -166,7 +166,6 @@
     <Compile Include="IdentityModule\AppUser.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
-    <Compile Include="IdentityModule\CustomDbContext.cs" />
     <Compile Include="IdentityModule\AppUserManager.cs" />
     <Compile Include="IdentityModule\AppUserStore.cs" />
     <Compile Include="Migrations\201805171721071_AddParser.cs" />

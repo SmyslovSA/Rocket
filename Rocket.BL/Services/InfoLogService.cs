@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -17,9 +18,11 @@ namespace Rocket.BL.Services
         /// <returns> string </returns>
         public string GetLogInfo() // todo MP подумать чтобы передать дату файла вместо =string path=, =int count=
         {
-            var fileName = "asdas";
-            const string path = "..\\App_data";
-            const int count = 20;
+            var fileName = $"{DateTime.Now:shortdate}.log";
+            var path = "..\\App_data\\Logs";
+            const int count = 20; // количество последних записей
+
+            path = Path.Combine(path, fileName);
 
             var resultString = string.Empty;
 

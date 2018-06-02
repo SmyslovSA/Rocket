@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Security;
+using Rocket.DAL.Context;
 
 namespace Rocket.DAL.IdentityModule
 {
@@ -10,7 +11,7 @@ namespace Rocket.DAL.IdentityModule
         public override string[] GetRolesForUser(string username)
         {
             string[] roles = new string[] { };
-            using (var db = new CustomDbContext())
+            using (var db = new RocketContext())
             {
                 // Получаем пользователя
                 var user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
@@ -31,7 +32,7 @@ namespace Rocket.DAL.IdentityModule
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            using (var db = new CustomDbContext())
+            using (var db = new RocketContext())
             {
                 // Получаем пользователя
                 var user = db.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == username);
