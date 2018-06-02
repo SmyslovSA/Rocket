@@ -199,7 +199,7 @@ namespace Rocket.DAL.Context
         /// <summary>
         /// DbSet лога уведомлений
         /// </summary>
-        //public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
+        ///public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
         /// <summary>
         /// Этот метод вызывается, когда модель для производного контекста данных была инициализирована,
         /// но до того, как модель была заблокирована и использована для инициализации этого контекста.
