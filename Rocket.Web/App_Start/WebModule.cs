@@ -1,4 +1,5 @@
 ﻿using Common.Logging;
+using Rocket.Web.App_Handler;
 
 namespace Rocket.Web
 {
@@ -22,6 +23,8 @@ namespace Rocket.Web
 
                 return result;
             });
+
+            Bind<ApplicationErrorHandler>().ToSelf().InSingletonScope();
         }
     }
 }

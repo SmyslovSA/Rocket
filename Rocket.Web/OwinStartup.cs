@@ -3,10 +3,11 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
+using Microsoft.Owin;
 using Owin;
 using Rocket.Web.Owin;
 
-//[assembly: OwinStartup(typeof(Rocket.Web.StartupOwin))]
+[assembly: OwinStartup(typeof(Rocket.Web.OwinStartup))]
 
 namespace Rocket.Web
 {
