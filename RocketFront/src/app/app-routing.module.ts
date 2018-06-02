@@ -8,6 +8,7 @@ import { NewsFeedComponent } from './components/news-feed/news-feed.component';
 import { PersonalAreaComponent } from './components/personal-area/personal-area.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { UsersComponent } from './users/users.component';
 import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
 import { MusicsComponent } from './components/news-feed/musics/musics.component';
 
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'personal', component: PersonalAreaComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
+  { path: 'users', component: UsersComponent},
   { path: '', redirectTo: 'news', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
   // добавить путь для ошибки, обычные пути

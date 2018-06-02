@@ -7,6 +7,7 @@ using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
 using System;
 using Rocket.DAL.Common.DbModels.Notification;
+using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -175,6 +176,11 @@ namespace Rocket.DAL.Common.UoW
         /// Репозиторий лога нотификации
         /// </summary>
         IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
+
+        /// <summary>
+        /// Репозиторий платежей пользователя
+        /// </summary>
+        IBaseRepository<DbUserPayment> UserPaymentRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных
