@@ -159,15 +159,16 @@
     <Compile Include="Configurations\User\DbAddressConfiguration.cs" />
     <Compile Include="Configurations\User\DbUserDetailConfiguration.cs" />
     <Compile Include="Configurations\User\DbUserConfiguration.cs" />
+    <Compile Include="IdentityModule\CustomClaims.cs" />
     <Compile Include="IdentityModule\CustomRole.cs" />
     <Compile Include="IdentityModule\CustomRoleManager.cs" />
     <Compile Include="IdentityModule\CustomRoleProvider.cs" />
-    <Compile Include="IdentityModule\CustomUser.cs" />
+    <Compile Include="IdentityModule\AppUser.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
     <Compile Include="IdentityModule\CustomDbContext.cs" />
-    <Compile Include="IdentityModule\CustomUserManager.cs" />
-    <Compile Include="IdentityModule\CustomUserStore.cs" />
+    <Compile Include="IdentityModule\AppUserManager.cs" />
+    <Compile Include="IdentityModule\AppUserStore.cs" />
     <Compile Include="Migrations\201805171721071_AddParser.cs" />
     <Compile Include="Migrations\201805171721071_AddParser.Designer.cs">
       <DependentUpon>201805171721071_AddParser.cs</DependentUpon>

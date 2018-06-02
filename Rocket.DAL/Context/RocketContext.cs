@@ -23,7 +23,7 @@ namespace Rocket.DAL.Context
     /// <summary>
     /// Представляет контекст данных приложения
     /// </summary>
-    public class RocketContext : IdentityDbContext<CustomUser>, IDisposable
+    public class RocketContext : IdentityDbContext<AppUser>, IDisposable
     {
         /// <summary>
         /// Создает новый экземпляр контекста данных

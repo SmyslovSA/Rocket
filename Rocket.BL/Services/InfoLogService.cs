@@ -9,14 +9,18 @@ namespace Rocket.BL.Services
         // количество байт для буфера
         private const int СountBytes = 4096;
 
+
+        
         /// <summary>
         /// Получить последних N строк из логгера
         /// </summary>
-        /// <param name="path"> Путь к файлу </param>
-        /// <param name="count" > Количество последних записей из соответствующего файла </param>
         /// <returns> string </returns>
-        public string GetLogInfo(string path, int count) // todo MP подумать чтобы передать дату файла
+        public string GetLogInfo() // todo MP подумать чтобы передать дату файла вместо =string path=, =int count=
         {
+            var fileName = "asdas";
+            const string path = "..\\App_data";
+            const int count = 20;
+
             var resultString = string.Empty;
 
             if (string.IsNullOrWhiteSpace(path) || !File.Exists(path) || count <= 0)
