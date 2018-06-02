@@ -42,7 +42,6 @@ namespace Rocket.Web
             };
 
             app.UseIdentityServerBearerTokenAuthentication(opt);
-
         }
 
         private X509Certificate2 LoadCertificate()
