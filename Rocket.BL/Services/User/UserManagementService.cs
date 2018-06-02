@@ -187,7 +187,7 @@ namespace Rocket.BL.Services.User
 
             var finishUserIndex = startUserIndex + (pageNumber < pagesCount
                 ? pageSize - 1
-                : usersCount % pageSize - 1);
+                : (usersCount % pageSize) - 1);
 
             for (var i = startUserIndex; i <= finishUserIndex; i++)
             {

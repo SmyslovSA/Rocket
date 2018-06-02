@@ -7,8 +7,8 @@ using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 using System;
+using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.DbModels.Notification;
-using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.UoW
 {
@@ -35,15 +35,28 @@ namespace Rocket.DAL.UoW
         /// <param name="personTypeRepository">Репозиторий типов людей</param>
         /// <param name="seasonRepository">Репозиторий сезонов</param>
         /// <param name="tvSeriasRepository">Репозиторий сериалов</param>
-        /// <param name="dbFilmRepository">Репозиторий фильмов</param>
         /// <param name="dbEmailRepository">Репозиторий email</param>
         /// <param name="dbUserRepository">Репозиторий пользователей</param>
+        /// <param name="dbCountryRepository">Репозиторий стран.</param>
+        /// <param name="dbAccountLevelRepository">Репозиторий уровней аккаунта детальной информации пользователей.</param>
+        /// <param name="dbAccountStatusRepositary">Репозиторий уровней статуса детальной информации пользователей.</param>
+        /// <param name="dbAddressRepositary">Репозиторий адресов детальной информации пользователей.</param>
+        /// <param name="dbEmailAddressRepositary">Репозиторий адресов электронной почты детальной информации пользователей.</param>
+        /// <param name="dbGenderRepository">Репозиторий сведений о половой принадлежности пользователей.</param>
+        /// <param name="dbHowToCallRepository">Репозиторий сведений о том, как обращаться к пользователям.</param>
+        /// <param name="dbLanguageRepositary">Репозиторий языков (общения) пользователей.</param>
+        /// <param name="dbPhoneNumberRepository">Репозиторий номеров телефонов детяльной информации пользователей.</param>
+        /// <param name="dbUserDetailRepository">Репозиторий детальной информации пользователей.</param>
         /// <param name="dbRoleRepository">Репозиторий ролей</param>
         /// <param name="dbPermissionRepository">Репозиторий разрешений</param>
         /// <param name="dbAuthorisedUserRepository">Репозиторий авторизованных пользователей</param>
-        /// <param name="dbUserPaymentRepository">Репозиторий платежей пользователя</param>
-
-        public UnitOfWork(
+        /// <param name="dbCustomMessageRepository">Репозиторий сообщений произвольного содержания</param>
+        /// <param name="dbEmailTemplateRepository">Репозиторий шаблонов email сообщений</param>
+        /// <param name="dbGuestBillingMessageRepository">Репозиторий донатов гостя</param>
+        /// <param name="dbReceiverRepository">Репозиторий получателей нотификации</param>
+        /// <param name="dbReleaseMessageRepository">Репозиторий сообщений о релизе</param>
+        /// <param name="dbUserBillingMessageRepository">Репозиторий сообщений о платежах пользователя</param>
+                public UnitOfWork(
             RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
             IBaseRepository<ParserSettingsEntity> parserSettingsRepository,
@@ -61,11 +74,27 @@ namespace Rocket.DAL.UoW
             IBaseRepository<TvSeriasEntity> tvSeriasRepository,
             IDbEmailRepository dbEmailRepository,
             IDbUserRepository dbUserRepository,
+            //IDbCountryRepository dbCountryRepository,
+            //IDbAccountLevelRepository dbAccountLevelRepository,
+            //IDbAccountStatusRepositary dbAccountStatusRepositary,
+            //IDbAddressRepositary dbAddressRepositary,
+            //IDbEmailAddressRepositary dbEmailAddressRepositary,
+            //IDbGenderRepository dbGenderRepository,
+            //IDbHowToCallRepository dbHowToCallRepository,
+            //IDbLanguageRepositary dbLanguageRepositary,
+            //IDbPhoneNumberRepository dbPhoneNumberRepository,
+            //IDbUserDetailRepository dbUserDetailRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
             IDbAuthorisedUserRepository dbAuthorisedUserRepository,
+            IDbCustomMessageRepository dbCustomMessageRepository,
             IBaseRepository<NotificationsLogEntity> notificationsLogRepository,
-            IBaseRepository<DbUserPayment> dbUserPaymentRepository)
+            IDbEmailTemplateRepository dbEmailTemplateRepository,
+            IDbGuestBillingMessageRepository dbGuestBillingMessageRepository,
+            IDbReceiverRepository dbReceiverRepository,
+            IDbReleaseMessageRepository dbReleaseMessageRepository,
+            IDbUserBillingMessageRepository dbUserBillingMessageRepository
+            )
         {
             _rocketContext = rocketContext;
             MusicRepository = musicRepository;
@@ -84,11 +113,26 @@ namespace Rocket.DAL.UoW
             TvSeriasRepository = tvSeriasRepository;
             EmailRepository = dbEmailRepository;
             UserRepository = dbUserRepository;
+            //CountryRepository = dbCountryRepository;
+            //AccountLevelRepository = dbAccountLevelRepository;
+            //AccountStatusRepositary = dbAccountStatusRepositary;
+            //AddressRepositary = dbAddressRepositary;
+            //EmailAddressRepositary = dbEmailAddressRepositary;
+            //GenderRepository = dbGenderRepository;
+            //HowToCallRepository = dbHowToCallRepository;
+            //LanguageRepositary = dbLanguageRepositary;
+            //PhoneNumberRepository = dbPhoneNumberRepository;
+            //UserDetailRepository = dbUserDetailRepository;
             RoleRepository = dbRoleRepository;
             PermissionRepository = dbPermissionRepository;
             UserAuthorisedRepository = dbAuthorisedUserRepository;
+            CustomMessageRepository = dbCustomMessageRepository;
             NotificationsLogRepository = notificationsLogRepository;
-            UserPaymentRepository = dbUserPaymentRepository;
+            EmailTemplateRepository = dbEmailTemplateRepository;
+            GuestBillingMessageRepository = dbGuestBillingMessageRepository;
+            ReceiverRepository = dbReceiverRepository;
+            ReleaseMessageRepository = dbReleaseMessageRepository;
+            UserBillingMessageRepository = dbUserBillingMessageRepository;
         }
 
         ~UnitOfWork()
@@ -159,6 +203,56 @@ namespace Rocket.DAL.UoW
         public IDbUserRepository UserRepository { get; }
 
         /// <summary>
+        /// Репозиторий для работы со странами.
+        /// </summary>
+        public IDbCountryRepository CountryRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с уровнями аккаунтов пользователей.
+        /// </summary>
+        public IDbAccountLevelRepository AccountLevelRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со статусами аккаунтов пользователей.
+        /// </summary>
+        public IDbAccountStatusRepositary AccountStatusRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с адресами детальной информации пользователей.
+        /// </summary>
+        public IDbAddressRepositary AddressRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с адресами электронной почты пользователей.
+        /// </summary>
+        public IDbEmailAddressRepositary EmailAddressRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями половой принадлежности пользователей.
+        /// </summary>
+        public IDbGenderRepository GenderRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями о том, как обращаться к пользователям.
+        /// </summary>
+        public IDbHowToCallRepository HowToCallRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями о языках детальной информации пользователей.
+        /// </summary>
+        public IDbLanguageRepositary LanguageRepositary { get; }
+
+        /// <summary>
+        /// Репозиторий для работы со сведениями о телефонных номерах детальной информации пользователей.
+        /// </summary>
+        public IDbPhoneNumberRepository PhoneNumberRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с детальной информацией пользователей.
+        /// </summary>
+        public IDbUserDetailRepository UserDetailRepository { get; }
+
+        /// <summary>
         /// Репозиторий для работы с ролями.
         /// </summary>
         public IDbRoleRepository RoleRepository { get; }
@@ -174,15 +268,40 @@ namespace Rocket.DAL.UoW
         public IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
 
         /// <summary>
-        /// Репозиторий платежей пользователя
+        /// Возвращает репозиторий для сообщений произвольного содержания
         /// </summary>
-        public IBaseRepository<DbUserPayment> UserPaymentRepository { get; }
+        public IDbCustomMessageRepository CustomMessageRepository { get; }
 
         /// <inheritdoc />
         /// <summary>
         /// Репозиторий лога нотификации
         /// </summary>
         public IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
+        
+        /// <summary>
+        /// Возвращает репозиторий шаблонов email сообщений
+        /// </summary>
+        public IDbEmailTemplateRepository EmailTemplateRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий донатов гостя
+        /// </summary>
+        public IDbGuestBillingMessageRepository GuestBillingMessageRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий получателей нотификации
+        /// </summary>
+        public IDbReceiverRepository ReceiverRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий сообщений о релизе
+        /// </summary>
+        public IDbReleaseMessageRepository ReleaseMessageRepository { get; }
+
+        /// <summary>
+        /// Возвращает репозиторий сообщений о платежах пользователя
+        /// </summary>
+        public IDbUserBillingMessageRepository UserBillingMessageRepository { get; }
 
         /// <summary>
         /// Освобождает управляемые ресурсы.

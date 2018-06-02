@@ -6,10 +6,9 @@ namespace Rocket.Web.Attribute
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            // todo httpContext.User - по юзеру получить пермишены ( сервис из конструктора ??))
+            // todo MP httpContext.User - по юзеру получить пермишены ( сервис из конструктора ??))
             // return base.AuthorizeCore(httpContext);
 
-            // todo fish
             return true;
         }
     }

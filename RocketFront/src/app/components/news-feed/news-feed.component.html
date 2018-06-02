@@ -1,3 +1,137 @@
-<h1>
-  news-feed component added!
-</h1>
+<div class="container-fluid text-center">
+  <div class="col-md-8 m-auto">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <h1>Новые <ng-container *ngIf="type == 'episodes'; else elseTemplate">
+        серии
+      </ng-container>
+      <ng-template #elseTemplate>
+        альбомы
+      </ng-template>
+      </h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Жанры
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Все</a>
+          <a class="dropdown-item" href="#">Боевик</a>
+          <a class="dropdown-item" href="#">Комедия</a>
+          <a class="dropdown-item" href="#">Драма</a>
+          <a class="dropdown-item" href="#">Фэнтези</a>
+          <a class="dropdown-item" href="#">Вестерн</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row content">
+    <div class="col-md-2 pr-md-0 sidenav text-left">
+      <ul class="nav flex-md-column">
+        <li class="nav-item">
+          <a class="nav-link pr-md-0" [routerLink]="['/news/episodes']" [queryParams]="{ page: 1 }">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" class="feather feather-tv">
+              <rect x="2" y="7" width="20" height="15" rx="2" ry="2" />
+              <polyline points="17 2 12 7 7 2" />
+            </svg>
+            Сериалы
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pr-md-0" [routerLink]="['/news/music']" [queryParams]="{ page: 1 }">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" class="feather feather-music">
+              <path d="M9 17H5a2 2 0 0 0-2 2 2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm12-2h-4a2 2 0 0 0-2 2 2 2 0 0 0 2 2h2a2 2 0 0 0 2-2z" />
+              <polyline points="9 17 9 5 21 3 21 15" />
+            </svg>
+            Музыка
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-8 text-left">
+      <!--Releases-->
+      <div class="row">
+        <!--Series-->
+        <div class="col-sm-6 col-xl-4 mb-4" *ngFor="let series of seriesPage?.PageItems">
+          <div class="card box-shadow h-100">
+            <div class="position-relative">
+              <img class="card-img-top" src="{{series.PosterImageUrl}}">
+              <div class="position-absolute poster-info w-100 px-3">
+                <div class="float-left">{{series.SeasonNumber}} сезон {{series.Number}} серия</div>
+                <div class="float-right">{{series.ReleaseDateRu | date:'dd.MM.yyyy'}}</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="mb-0">{{series.TvSeriesTitleRu}}</h4>
+              <span class="text-muted">{{series.TvSeriesTitleEn}}</span>
+              <h5 class="mb-0 mt-2">{{series.TitleRu}}</h5>
+              <span class="text-muted">{{series.TitleEn}}</span>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <button type="button" class="btn btn-outline-secondary">Сериал</button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-link p-0 mr-3 mr-sm-2" href="#">
+                    <i class="material-icons md-36 md-dark">star_border</i>
+                  </button>
+                  <a class="btn btn-link p-0" target="_blank" href="{{series.UrlForEpisodeSource}}">
+                    <i class="material-icons md-36 md-dark">remove_red_eye</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Series end-->
+        <!--Music-->
+        <div class="col-sm-6 col-xl-4 mb-4" *ngFor="let music of musicPage?.PageItems">
+          <div class="card box-shadow h-100">
+            <div class="position-relative">
+              <img class="card-img-top" src="{{music.PosterImagePath}}">
+              <div class="position-absolute poster-info w-100 px-3">
+                <div class="float-right">{{music.ReleaseDate | date:'dd.MM.yyyy'}}</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="mb-0">Артист</h4>
+              <h5 class="mb-0 mt-2">{{music.Title}}</h5>
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <button type="button" class="btn btn-outline-secondary">Альбом</button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-link p-0 mr-3 mr-sm-2" href="#">
+                    <i class="material-icons md-36 md-dark">star_border</i>
+                  </button>
+                  <button type="button" class="btn btn-link p-0" href="#">
+                    <i class="material-icons md-36 md-dark">music_note</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Music end-->
+      </div>
+      <!--Releases end-->
+      <hr>
+      <!--Pagination-->
+      <nav>
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" (click)="getPage(page-1)">&laquo;</a></li>
+          <li class="page-item active"><a class="page-link">{{page}}</a></li>
+          <li class="page-item"><a class="page-link" (click)="getPage(page+1)">&raquo;</a></li>
+        </ul>
+      </nav>
+      <!--Pagination end-->
+    </div>
+    <div class="col-md-2 sidenav">
+      <div class="well">
+        <p>Наша прекрасная реклама</p>
+      </div>
+      <div class="well">
+        <p>Наша прекрасная реклама</p>
+      </div>
+      <div class="well">
+        <p>Наша прекрасная реклама</p>
+      </div>
+    </div>
+  </div>
+</div>

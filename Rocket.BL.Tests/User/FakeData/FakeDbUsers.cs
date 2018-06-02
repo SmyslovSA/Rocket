@@ -1,15 +1,13 @@
-﻿using Bogus;
-using Rocket.DAL.Common.DbModels;
-using Rocket.DAL.Common.DbModels.User;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Bogus;
+using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.BL.Tests.User.FakeData
 {
     /// <summary>
     /// Представляет набор сгенерированных данных о пользователях,
-    /// в моделях домена
+    /// в моделях хранинения данных.
     /// </summary>
     public class FakeDbUsers
     {
@@ -42,14 +40,14 @@ namespace Rocket.BL.Tests.User.FakeData
                     f => f.PickRandomParam(new FakeDbAccountStatuses(5).AccountStatuses.ToArray()))
                 .RuleFor(p => p.AccountLevel,
                     f => f.PickRandomParam(new FakeDbAccountLevels(5).AccountLevels.ToArray()))
-                .RuleFor(p => p.Roles, f => { return new FakeDbRoles(new Random().Next(1, 5)).Roles; })
-                .RuleFor(p => p.FirstName, f => { return isFirstNameNullOrEmpty ? string.Empty : f.Person.FirstName; })
-                .RuleFor(p => p.LastName, f => { return isLastNameNullOrEmpty ? string.Empty : f.Person.LastName; })
+                .RuleFor(p => p.Roles, f => new FakeDbRoles(new Random().Next(1, 5)).Roles)
+                .RuleFor(p => p.FirstName, f => isFirstNameNullOrEmpty ? string.Empty : f.Person.FirstName)
+                .RuleFor(p => p.LastName, f => isLastNameNullOrEmpty ? string.Empty : f.Person.LastName)
                 .RuleFor(p => p.Login,
-                    f => { return isLoginNullOrEmpty ? string.Empty : f.Lorem.Letter(minLoginLenght); })
+                    f => isLoginNullOrEmpty ? string.Empty : f.Lorem.Letter(minLoginLenght))
                 .RuleFor(p => p.Password,
-                    f => { return isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght); })
-                .RuleFor(p => p.UserDetail, f => { return new FakeDbUserDetails(1).UserDetails[0]; });
+                    f => isPasswordNullOrEmpty ? string.Empty : f.Lorem.Letter(minPasswordLenght))
+                .RuleFor(p => p.UserDetail, f => new FakeDbUserDetails(1).UserDetails[0]);
             ;
 
             Users = result.Generate(usersCount);

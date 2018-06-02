@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Common.Logging;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -88,12 +89,13 @@ namespace Rocket.BL.Tests.UserRoles
             //-------------------------------------------------------------------------------------------------------------
 
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            var mockLogger = new Mock<ILog>();
 
             mockUnitOfWork.Setup(mock => mock.PermissionRepository).Returns(() => mockDbPermissionRepository.Object);
             mockUnitOfWork.Setup(mock => mock.RoleRepository).Returns(() => mockDbRoleRepository.Object);
 
             pms = new PermissionManagerService(mockUnitOfWork.Object);
-            rms = new RoleService(mockUnitOfWork.Object);
+            rms = new RoleService(mockUnitOfWork.Object, mockLogger.Object);
         }
 
         [Test, Order(3)]

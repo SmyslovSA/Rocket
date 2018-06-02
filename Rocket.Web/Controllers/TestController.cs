@@ -1,10 +1,9 @@
 ﻿using System.Web.Http;
-using System.Web.Http.Cors;
+using Rocket.Web.Helpers;
 
 namespace Rocket.Web.Controllers
 {
     [RoutePrefix("api/test")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class TestController : ApiController
     {
         [HttpGet]
@@ -12,6 +11,15 @@ namespace Rocket.Web.Controllers
         public IHttpActionResult Get()
         {
             return Json("GET: Test message");
+        }
+
+        [HttpGet]
+        [Route("notifyAll")]
+        public IHttpActionResult NotifyAll(string msg)
+        {
+            PushNotificationsHelper.SendPushNotificationsToAll(msg);
+
+            return Ok();
         }
     }
 }
