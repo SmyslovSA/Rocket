@@ -32,9 +32,9 @@ namespace Rocket.BL.Common.Mappings.ReleaseList
                 .ForMember(
                     dest => dest.PosterImageUrl,
                     opt => opt.ResolveUsing(src =>
-                        !string.IsNullOrWhiteSpace(src.Season.PosterImageUrl)
-                            ? src.Season.PosterImageUrl
-                            : src.Season.TvSeries.PosterImageUrl));
+                        !string.IsNullOrWhiteSpace(src.Season.TvSeries.PosterImageUrl)
+                            ? src.Season.TvSeries.PosterImageUrl
+                            : src.Season.PosterImageUrl));
 
             CreateMap<EpisodeEntity, EpisodeFullDto>()
                 .IncludeBase<EpisodeEntity, EpisodeDto>();

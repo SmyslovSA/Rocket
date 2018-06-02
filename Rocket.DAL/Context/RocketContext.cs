@@ -18,7 +18,6 @@ using System.Data.Entity;
 using Rocket.DAL.IdentityModule;
 using Rocket.DAL.Migrations;
 
-
 namespace Rocket.DAL.Context
 {
     /// <summary>
@@ -26,7 +25,6 @@ namespace Rocket.DAL.Context
     /// </summary>
     public class RocketContext : IdentityDbContext<CustomUser>, IDisposable
     {
-
         /// <summary>
         /// Создает новый экземпляр контекста данных
         /// </summary>

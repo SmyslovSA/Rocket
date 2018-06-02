@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'donate', component: DonateComponent },
-  { path: 'news', component: NewsFeedComponent },
+  { path: 'news/:type', component: NewsFeedComponent },
   { path: 'personal', component: PersonalAreaComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
