@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
@@ -8,7 +9,7 @@ using IdentityServer3.Core.Services.InMemory;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(Rocket.Web.StartupOwin))]
+//[assembly: OwinStartup(typeof(Rocket.Web.StartupOwin))]
 
 namespace Rocket.Web
 {
@@ -22,7 +23,7 @@ namespace Rocket.Web
                 RequireSsl = false,
                 SiteName = "Rocket server",
                 IssuerUri = "", //localhost... ?
-                SigningCertificate = LoadCert(),
+                SigningCertificate = LoadCertificate(),
                 Factory = new IdentityServerServiceFactory()
                 .UseInMemoryClients(Clients.Load())
                 .UseInMemoryScopes(MyScopes.Load())
@@ -37,7 +38,7 @@ namespace Rocket.Web
                 SiteName = "Identity Server",
                 SigningCertificate = LoadCertificate(),
                 EnableWelcomePage = false,
-                Factory = factory
+                // Factory = factory
             });
 
             var opt = new IdentityServerBearerTokenAuthenticationOptions
@@ -53,9 +54,10 @@ namespace Rocket.Web
 
         }
 
-        private X509Certificate2 LoadCert()
+        private X509Certificate2 LoadCertificate()
         {
-            throw new NotImplementedException(); // download demo sertificate?
+            return new X509Certificate2(
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempRocket.cer"), "TempRocket");
         }
     }
 
