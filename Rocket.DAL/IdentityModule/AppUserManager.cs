@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Rocket.DAL.Context;
 
 namespace Rocket.DAL.IdentityModule
 {
@@ -13,7 +14,7 @@ namespace Rocket.DAL.IdentityModule
 
         public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
         {
-            var db = context.Get<CustomDbContext>();
+            var db = context.Get<RocketContext>();
             var manager = new AppUserManager(new UserStore<AppUser>(db));
             return manager;
         }
