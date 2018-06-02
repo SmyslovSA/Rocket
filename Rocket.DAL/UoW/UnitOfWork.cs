@@ -9,6 +9,10 @@ using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
+using System;
+using Rocket.DAL.Common.Repositories.Notification;
+using Rocket.DAL.Common.DbModels.Notification;
+using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.UoW
 {
@@ -56,7 +60,9 @@ namespace Rocket.DAL.UoW
         /// <param name="dbReceiverRepository">Репозиторий получателей нотификации</param>
         /// <param name="dbReleaseMessageRepository">Репозиторий сообщений о релизе</param>
         /// <param name="dbUserBillingMessageRepository">Репозиторий сообщений о платежах пользователя</param>
-                public UnitOfWork(
+        /// <param name="userPaymentRepository">Репозиторий платежей пользователя</param>
+        
+        public UnitOfWork(
             RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
             IBaseRepository<ParserSettingsEntity> parserSettingsRepository,
@@ -93,7 +99,8 @@ namespace Rocket.DAL.UoW
             IDbGuestBillingMessageRepository dbGuestBillingMessageRepository,
             IDbReceiverRepository dbReceiverRepository,
             IDbReleaseMessageRepository dbReleaseMessageRepository,
-            IDbUserBillingMessageRepository dbUserBillingMessageRepository
+            IDbUserBillingMessageRepository dbUserBillingMessageRepository,
+            IBaseRepository<DbUserPayment> userPaymentRepository
             )
         {
             _rocketContext = rocketContext;
@@ -133,6 +140,7 @@ namespace Rocket.DAL.UoW
             ReceiverRepository = dbReceiverRepository;
             ReleaseMessageRepository = dbReleaseMessageRepository;
             UserBillingMessageRepository = dbUserBillingMessageRepository;
+            UserPaymentRepository = userPaymentRepository;
         }
 
         ~UnitOfWork()
@@ -307,6 +315,11 @@ namespace Rocket.DAL.UoW
         /// Возвращает репозиторий сообщений о платежах пользователя
         /// </summary>
         public IDbUserBillingMessageRepository UserBillingMessageRepository { get; }
+
+        /// <summary>
+        /// Репозиторий платежей пользователя
+        /// </summary>
+        public IBaseRepository<DbUserPayment> UserPaymentRepository { get; }
 
         /// <summary>
         /// Освобождает управляемые ресурсы.

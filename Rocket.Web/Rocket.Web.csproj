@@ -356,6 +356,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\UserPayments\IPNController.cs" />
+    <Compile Include="Controllers\UserPayments\UserPaymentsController.cs" />
     <Compile Include="Owin\Clients.cs" />
     <Compile Include="ConfigHandlers\PaginationConfigSection.cs" />
     <Compile Include="ConfigHandlers\PartialLoadConfigSection.cs" />

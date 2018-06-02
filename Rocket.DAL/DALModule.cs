@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using Rocket.DAL.Common.DbModels.Identity;
+using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
@@ -51,6 +52,7 @@ namespace Rocket.DAL
             Bind<IBaseRepository<PersonTypeEntity>>().To<BaseRepository<PersonTypeEntity>>();
             Bind<IBaseRepository<SeasonEntity>>().To<BaseRepository<SeasonEntity>>();
             Bind<IBaseRepository<TvSeriasEntity>>().To<BaseRepository<TvSeriasEntity>>();
+            Bind<IBaseRepository<DbUserPayment>>().To<BaseRepository<DbUserPayment>>();
             Bind<IDbEmailRepository>().To<DbEmailRepository>();
             Bind<IDbUserRepository>().To<DbUserRepository>();
             Bind<IDbRoleRepository>().To<DbRoleRepository>();

@@ -1,0 +1,15 @@
+<!--Pagination-->
+<nav [hidden]="pageCount < 2">
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="page === 1">
+      <a class="page-link" (click)="setPage(page-1)">&laquo;</a>
+    </li>
+    <li *ngFor="let pageNumber of displayPages" class="page-item" [class.active]="page === pageNumber">
+      <a class="page-link" (click)="setPage(pageNumber)">{{pageNumber}}</a>
+    </li>
+    <li class="page-item" [class.disabled]="page === pageCount">
+      <a class="page-link" (click)="setPage(page+1)">&raquo;</a>
+    </li>
+  </ul>
+</nav>
+<!--Pagination end-->

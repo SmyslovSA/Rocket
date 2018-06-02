@@ -93,6 +93,7 @@
     <Compile Include="Mappings\UserMappingProfile\UserMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\PermissionMappingProfile.cs" />
     <Compile Include="Mappings\UserMappingProfile\UserRoleMappingProfile\RoleMappingProfile.cs" />
+    <Compile Include="Mappings\UserPayment\UserPaymentMappingProfile.cs" />
     <Compile Include="Models\Notification\BillingNotification.cs" />
     <Compile Include="Models\Notification\ConfirmationNotification.cs" />
     <Compile Include="Models\Notification\CustomNotification.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Models\ReleaseList\Category.cs" />
     <Compile Include="Models\ReleaseList\PersonType.cs" />
     <Compile Include="Models\Subscription\Subscribable.cs" />
+    <Compile Include="Models\UserPayment\UserPayment.cs" />
     <Compile Include="Models\User\AccountLevel.cs" />
     <Compile Include="Models\User\EmailAddress.cs" />
     <Compile Include="Models\User\Gender.cs" />
@@ -159,6 +161,7 @@
     <Compile Include="Services\IPermissionService.cs" />
     <Compile Include="Services\ReleaseList\IEpisodeService.cs" />
     <Compile Include="Services\ReleaseList\ITvSeriesDetailedInfoService.cs" />
+    <Compile Include="Services\UserPayment\IUserPaymentService.cs" />
     <Compile Include="Services\User\IUserAccountLevelService.cs" />
     <Compile Include="Services\User\IUserAccountStatusService.cs" />
     <Compile Include="Services\User\IUserManagementService.cs" />

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="DbModels\DbPersonalArea\DbEmail.cs" />
     <Compile Include="DbModels\DbPersonalArea\DbAuthorisedUser.cs" />
+    <Compile Include="DbModels\DbUserPayment\DbUserPayment.cs" />
     <Compile Include="DbModels\Identity\DbUserClaim.cs" />
     <Compile Include="DbModels\Identity\DbUserLogin.cs" />
     <Compile Include="DbModels\Identity\DbUserRole.cs" />
