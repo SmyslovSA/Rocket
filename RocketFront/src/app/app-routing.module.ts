@@ -11,6 +11,9 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { UsersComponent } from './users/users.component';
 import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
 import { MusicsComponent } from './components/news-feed/musics/musics.component';
+import { SeriesDetailsComponent } from './components/news-feed/series-details/series-details.component';
+import { SeriesCatalogComponent } from './components/news-feed/series-catalog/series-catalog.component';
+import { CatalogComponent } from './components/catalog/catalog.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,11 +28,21 @@ const routes: Routes = [
       { path: 'music', component: MusicsComponent }
     ]
   },
+  { path: 'series/:id', component: SeriesDetailsComponent },
+  {
+    path: 'catalog',
+    component: CatalogComponent,
+    children: [
+      { path: '', redirectTo: 'series', pathMatch: 'prefix' },
+      { path: 'series', component: SeriesCatalogComponent },
+      { path: 'music', component: SeriesCatalogComponent }
+    ]
+  },
   { path: 'personal', component: PersonalAreaComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'users', component: UsersComponent},
-  { path: '', redirectTo: 'news', pathMatch: 'full' },
+  { path: '', redirectTo: 'catalog', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
   // добавить путь для ошибки, обычные пути
 ];

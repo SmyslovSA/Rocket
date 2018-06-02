@@ -24,6 +24,9 @@ import { UsersComponent } from './users/users.component';
 import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
 import { PagingComponent } from './components/news-feed/paging/paging.component';
 import { MusicsComponent } from './components/news-feed/musics/musics.component';
+import { SeriesDetailsComponent } from './components/news-feed/series-details/series-details.component';
+import { SeriesCatalogComponent } from './components/news-feed/series-catalog/series-catalog.component';
+import { CatalogComponent } from './components/catalog/catalog.component';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -51,7 +54,10 @@ export function createConfig(): SignalRConfiguration {
     UsersComponent,
     EpisodesComponent,
     PagingComponent,
-    MusicsComponent
+    MusicsComponent,
+    SeriesDetailsComponent,
+    SeriesCatalogComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,

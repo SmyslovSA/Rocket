@@ -1,6 +1,6 @@
-<!--Series-->
+<!--Episodes-->
 <div class="row">
-<div class="col-sm-6 col-xl-4 mb-4" *ngFor="let series of seriesPage?.PageItems">
+<div class="col-sm-6 col-xl-4 mb-4" *ngFor="let series of episodesPage?.PageItems">
   <div class="card box-shadow h-100">
     <div class="position-relative">
       <img class="card-img-top" src="{{series.PosterImageUrl}}">
@@ -29,6 +29,6 @@
   </div>
 </div>
 </div>
-<!--Series end-->
+<!--Episodes end-->
 <hr>
-<app-paging (pageChanged)="onPageChanged($event)" [pageCount]="seriesPage?.TotalPagesCount"></app-paging>
+<app-paging (pageChanged)="onPageChanged($event)" [pageCount]="episodesPage?.TotalPagesCount"></app-paging>
