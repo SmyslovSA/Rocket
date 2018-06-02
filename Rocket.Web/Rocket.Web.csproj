@@ -278,6 +278,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Owin\Clients.cs" />
     <Compile Include="ConfigHandlers\PaginationConfigSection.cs" />
     <Compile Include="ConfigHandlers\PartialLoadConfigSection.cs" />
     <Compile Include="ConfigHandlers\ReleasesSettingsConfigGroup.cs" />
@@ -308,8 +309,10 @@
     </Compile>
     <Compile Include="App_Start\LoggerConfig.cs" />
     <Compile Include="App_Start\WebModule.cs" />
+    <Compile Include="Owin\Scopes.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="StartupOwin.cs" />
+    <Compile Include="OwinStartup.cs" />
+    <Compile Include="Owin\Users.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
