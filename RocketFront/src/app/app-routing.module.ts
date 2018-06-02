@@ -8,16 +8,26 @@ import { NewsFeedComponent } from './components/news-feed/news-feed.component';
 import { PersonalAreaComponent } from './components/personal-area/personal-area.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
+import { MusicsComponent } from './components/news-feed/musics/musics.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'donate', component: DonateComponent },
-  { path: 'news/:type', component: NewsFeedComponent },
+  {
+    path: 'news',
+    component: NewsFeedComponent,
+    children: [
+      { path: '', redirectTo: 'episodes', pathMatch: 'prefix' },
+      { path: 'episodes', component: EpisodesComponent },
+      { path: 'music', component: MusicsComponent }
+    ]
+  },
   { path: 'personal', component: PersonalAreaComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
-  { path: '', redirectTo: '/news/episodes', pathMatch: 'full' },
+  { path: '', redirectTo: 'news', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
   // добавить путь для ошибки, обычные пути
 ];

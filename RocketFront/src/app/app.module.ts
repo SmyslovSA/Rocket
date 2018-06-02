@@ -20,13 +20,16 @@ import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
+import { PagingComponent } from './components/news-feed/paging/paging.component';
+import { MusicsComponent } from './components/news-feed/musics/musics.component';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
   c.hubName = 'Notification';
   c.url = 'http://localhost:63613/';
   c.logging = true;
-  
+
   return c;
 }
 
@@ -44,7 +47,10 @@ export function createConfig(): SignalRConfiguration {
     DonateComponent,
     NewsFeedComponent,
     PersonalAreaComponent,
-    CalendarComponent
+    CalendarComponent,
+    EpisodesComponent,
+    PagingComponent,
+    MusicsComponent
   ],
   imports: [
     BrowserModule,
