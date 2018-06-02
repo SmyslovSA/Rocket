@@ -162,7 +162,6 @@
     <Compile Include="IdentityModule\CustomClaims.cs" />
     <Compile Include="IdentityModule\CustomRole.cs" />
     <Compile Include="IdentityModule\CustomRoleManager.cs" />
-    <Compile Include="IdentityModule\CustomRoleProvider.cs" />
     <Compile Include="IdentityModule\AppUser.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
