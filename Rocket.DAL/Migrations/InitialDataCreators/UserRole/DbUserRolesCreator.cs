@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 
 namespace Rocket.DAL.Migrations.InitialDataCreators.UserRole
 {

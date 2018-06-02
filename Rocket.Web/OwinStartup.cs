@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Web.Mvc;
 using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
+using IdentityServer3.Core.Services;
 using Microsoft.Owin;
 using Owin;
 using Rocket.Web.Owin;
@@ -18,11 +20,14 @@ namespace Rocket.Web
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.MapSignalR();
 
-            var factory = new IdentityServerServiceFactory()
+            var factory = 
+                new IdentityServerServiceFactory
+                {
+                    UserService = new Registration<IUserService>(DependencyResolver.Current.GetService<IUserService>())
+                }
                 .UseInMemoryClients(Clients.Load())
                 .UseInMemoryScopes(Scopes.Load())
-                .UseInMemoryUsers(Users.Load());
-                // .UserService() вкрутить когда будет UserService
+                /*.UseInMemoryUsers(Users.Load())*/;
 
             app.UseIdentityServer(new IdentityServerOptions
             {

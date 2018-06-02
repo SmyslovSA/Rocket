@@ -8,7 +8,7 @@ using NUnit.Framework;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Services.UserServices;
 using Rocket.BL.Tests.ReleaseList.FakeData;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 using Rocket.DAL.Common.UoW;

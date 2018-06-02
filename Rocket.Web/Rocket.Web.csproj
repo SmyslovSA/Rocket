@@ -115,6 +115,9 @@
     <Reference Include="Microsoft.AspNet.Identity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.3.0.0-rc1-final\lib\net451\Microsoft.AspNet.Identity.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.2.3\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
     </Reference>
@@ -385,7 +388,6 @@
     <Compile Include="App_Start\LoggerConfig.cs" />
     <Compile Include="App_Start\WebModule.cs" />
     <Compile Include="Owin\Scopes.cs" />
-    <Compile Include="Startup.cs" />
     <Compile Include="OwinStartup.cs" />
     <Compile Include="Owin\Users.cs" />
   </ItemGroup>

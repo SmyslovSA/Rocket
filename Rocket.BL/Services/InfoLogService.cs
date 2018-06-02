@@ -10,8 +10,6 @@ namespace Rocket.BL.Services
         // количество байт для буфера
         private const int СountBytes = 4096;
 
-
-        
         /// <summary>
         /// Получить последних N строк из логгера
         /// </summary>

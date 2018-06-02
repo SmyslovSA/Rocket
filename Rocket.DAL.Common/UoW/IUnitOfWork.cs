@@ -81,6 +81,11 @@ namespace Rocket.DAL.Common.UoW
         IDbRoleRepository RoleRepository { get; }
 
         /// <summary>
+        /// Репозиторий для работы с ролями.
+        /// </summary>
+        IDbUserRoleRepository UserRoleRepository { get; }
+
+        /// <summary>
         /// Репозиторий для работы с пермишенами.
         /// </summary>
         IDbPermissionRepository PermissionRepository { get; }

@@ -1,10 +1,10 @@
 ﻿using System;
-using Rocket.DAL.Common.UoW;
 using System.Collections.Generic;
 using System.Linq;
 using Common.Logging;
 using Rocket.BL.Common.Services;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
+using Rocket.DAL.Common.UoW;
 
 namespace Rocket.BL.Services.UserServices
 {
@@ -12,7 +12,7 @@ namespace Rocket.BL.Services.UserServices
     {
         private const int DefaultRoleId = 1; // todo MP закинуть в хранилище дефолтроль
         private readonly ILog _logger;
-        
+
         public UserRoleManager(IUnitOfWork unitOfWork, ILog logger) : base(unitOfWork)
         {
             _logger = logger;
@@ -25,20 +25,22 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="roleId"> Идентификатор роли. </param>
         public virtual void AddToRole(int userId, int roleId = DefaultRoleId)
         {
-            // todo MP check user
-
-            if (IsInRole(userId, roleId))
+            var dbUser = _unitOfWork.UserRepository.Find(userId);
+            var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
+            if (dbUserRole != null)
             {
+                //_logger.Trace($" Role {dbRole.Name} was in user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName}");
                 return;
             }
+            // todo MP check user
 
-            var dbRole = _unitOfWork.RoleRepository.GetById(roleId);
-            var dbUser = _unitOfWork.UserRepository.GetById(userId);
-
-            dbUser.Roles.Add(dbRole);
-            _logger.Trace($"Role {dbRole.Name} added to user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
-
+            dbUserRole = new DbUserRole { UserId = userId, RoleId = roleId };
+            _unitOfWork.UserRoleRepository.Insert(dbUserRole);
             _unitOfWork.SaveChanges();
+
+            //_logger.Fatal(
+            //    $"Role {dbRole.Name} was not added to user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName}",
+            //    new Exception(string.Join(Environment.NewLine, result.Errors)));
         }
 
         /// <summary>
@@ -56,11 +58,12 @@ namespace Rocket.BL.Services.UserServices
                 return false;
             }
 
-            var dbRole = _unitOfWork.RoleRepository.GetById(roleId);
-            var dbUser = _unitOfWork.UserRepository.GetById(userId);
+            var dbUser = _unitOfWork.UserRepository.Find(userId);
+            var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
+            _unitOfWork.UserRoleRepository.Delete(dbUserRole);
 
-            dbUser.Roles.Remove(dbRole);
-            _logger.Trace($"Role {dbRole.Name} removed from user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
+            //dbUser.Roles.Remove(dbRole);
+            //_logger.Trace($"Role {dbRole.Name} removed from user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
 
             _unitOfWork.SaveChanges();
             return true;
@@ -75,7 +78,7 @@ namespace Rocket.BL.Services.UserServices
         {
             var dbUser = _unitOfWork.UserRepository.Get(t => t.Id == userId, includeProperties: "Roles").First();
             _logger.Trace($"Checking roles for user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
-            return dbUser.Roles;
+            return dbUser.Roles.Select(t => t.Role);
         }
 
         /// <summary>

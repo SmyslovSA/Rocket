@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Bogus;
-using Rocket.DAL.Common.DbModels.DbUserRole;
-using Rocket.DAL.Common.DbModels.ReleaseList;
+﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.User;
-using Rocket.DAL.Migrations.InitialDataCreators.User.FakeData;
 
 namespace Rocket.DAL.Migrations.InitialDataCreators.User
 {
@@ -33,8 +28,6 @@ namespace Rocket.DAL.Migrations.InitialDataCreators.User
                 new DbRole() { Id = 3, Name = "moderator" },
                 new DbRole() { Id = 4, Name = "admin" },
             };
-
-           
         }
 
         /// <summary>

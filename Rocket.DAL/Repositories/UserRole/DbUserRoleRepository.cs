@@ -4,9 +4,9 @@ using Rocket.DAL.Context;
 
 namespace Rocket.DAL.Repositories.UserRole
 {
-    public class DbPermissionRepository : BaseRepository<DbPermission>, IDbPermissionRepository
+    public class DbUserRoleRepository : BaseRepository<DbUserRole>, IDbUserRoleRepository
     {
-        public DbPermissionRepository(RocketContext rocketContext) : base(rocketContext)
+        public DbUserRoleRepository(RocketContext rocketContext) : base(rocketContext)
         {
         }
     }

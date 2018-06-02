@@ -59,6 +59,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="IdentityModel.Net45, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityModel.1.0.0\lib\net45\IdentityModel.Net45.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityServer3, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityServer3.2.6.1\lib\net45\IdentityServer3.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -86,8 +92,9 @@
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
@@ -102,6 +109,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -118,6 +126,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Packages\IdentityServer3.AspNetIdentity\IdentityServer3.AspNetIdentity.cs" />
     <Compile Include="Configurations\Notification\NotificationsLogMap.cs" />
     <Compile Include="Configurations\Notification\NotificationsSettingsEntityMap.cs" />
     <Compile Include="Configurations\Parser\CategoryEntityMap.cs" />
@@ -147,7 +156,9 @@
     <Compile Include="Configurations\Subscription\SubscribableConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
-    <Compile Include="Configurations\UserRoleEntities\DbUserConfiguration.cs" />
+    <Compile Include="Configurations\UserRoleEntities\DbUserClaimConfiguration.cs" />
+    <Compile Include="Configurations\UserRoleEntities\DbUserLoginConfiguration.cs" />
+    <Compile Include="Configurations\UserRoleEntities\DbUserRoleConfiguration.cs" />
     <Compile Include="Configurations\User\DbEmailAddressConfiguratin.cs" />
     <Compile Include="Configurations\ResourceMap.cs" />
     <Compile Include="Configurations\User\DbGenderConfiguration.cs" />
@@ -159,15 +170,8 @@
     <Compile Include="Configurations\User\DbAddressConfiguration.cs" />
     <Compile Include="Configurations\User\DbUserDetailConfiguration.cs" />
     <Compile Include="Configurations\User\DbUserConfiguration.cs" />
-    <Compile Include="IdentityModule\CustomClaims.cs" />
-    <Compile Include="IdentityModule\CustomRole.cs" />
-    <Compile Include="IdentityModule\CustomRoleManager.cs" />
-    <Compile Include="IdentityModule\CustomRoleProvider.cs" />
-    <Compile Include="IdentityModule\AppUser.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
-    <Compile Include="IdentityModule\AppUserManager.cs" />
-    <Compile Include="IdentityModule\AppUserStore.cs" />
     <Compile Include="Migrations\201805171721071_AddParser.cs" />
     <Compile Include="Migrations\201805171721071_AddParser.Designer.cs">
       <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
@@ -242,6 +246,7 @@
     <Compile Include="Repositories\PersonalArea\DbEmailRepository.cs" />
     <Compile Include="Repositories\UserRole\DbPermissionRepository.cs" />
     <Compile Include="Repositories\UserRole\DbRoleRepository.cs" />
+    <Compile Include="Repositories\UserRole\DbUserRoleRepository.cs" />
     <Compile Include="Repositories\User\DbUserRepository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
   </ItemGroup>
@@ -249,7 +254,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
@@ -304,6 +311,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="IdentityModule\" />
     <Folder Include="Repositories\ReleaseList\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

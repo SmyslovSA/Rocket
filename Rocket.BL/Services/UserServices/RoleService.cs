@@ -6,7 +6,7 @@ using AutoMapper;
 using Common.Logging;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.UoW;
 
 namespace Rocket.BL.Services.UserServices

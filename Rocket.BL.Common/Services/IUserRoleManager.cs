@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 
 namespace Rocket.BL.Common.Services
 {

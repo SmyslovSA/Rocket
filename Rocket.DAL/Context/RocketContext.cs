@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+﻿using System.Data.Entity;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
@@ -14,8 +13,6 @@ using Rocket.DAL.Configurations.ReleaseList;
 using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
 using Rocket.DAL.Configurations.UserRoleEntities;
-using System.Data.Entity;
-using Rocket.DAL.IdentityModule;
 using Rocket.DAL.Migrations;
 
 namespace Rocket.DAL.Context
@@ -23,7 +20,7 @@ namespace Rocket.DAL.Context
     /// <summary>
     /// Представляет контекст данных приложения
     /// </summary>
-    public class RocketContext : IdentityDbContext<AppUser>
+    public class RocketContext : DbContext
     {
         /// <summary>
         /// Создает новый экземпляр контекста данных
@@ -124,6 +121,15 @@ namespace Rocket.DAL.Context
         public DbSet<DbRole> DbRoles { get; set; }
 
         /// <summary>
+        /// User+Role
+        /// </summary>
+        public DbSet<DbUserRole> DbUserRoles { get; set; }
+
+        public DbSet<DbUserClaim> DbUserClaims { get; set; }
+
+        public DbSet<DbUserLogin> DbUserLogins { get; set; }
+
+        /// <summary>
         /// Набор сущностей категорий.
         /// </summary>
         public DbSet<CategoryEntity> CategoryEntities { get; set; }
@@ -194,7 +200,6 @@ namespace Rocket.DAL.Context
         /// DbSet лога уведомлений
         /// </summary>
         //public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
-
         /// <summary>
         /// Этот метод вызывается, когда модель для производного контекста данных была инициализирована,
         /// но до того, как модель была заблокирована и использована для инициализации этого контекста.
@@ -232,7 +237,10 @@ namespace Rocket.DAL.Context
             modelBuilder.Configurations.Add(new DbCountryConfiguration());
 
             modelBuilder.Configurations.Add(new DbRoleConfiguration());
+            modelBuilder.Configurations.Add(new DbUserRoleConfiguration());
             modelBuilder.Configurations.Add(new DbPermissionConfiguration());
+            modelBuilder.Configurations.Add(new DbUserClaimConfiguration());
+            modelBuilder.Configurations.Add(new DbUserLoginConfiguration());
 
             modelBuilder.Configurations.Add(new DbAuthorisedUserConfiguration());
 

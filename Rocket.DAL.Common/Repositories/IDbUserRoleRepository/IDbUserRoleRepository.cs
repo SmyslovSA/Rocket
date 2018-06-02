@@ -3,9 +3,9 @@
 namespace Rocket.DAL.Common.Repositories.IDbUserRoleRepository
 {
     /// <summary>
-    /// Репозиторий для работы с правами
+    /// Репозиторий для управления ролями
     /// </summary>
-    public interface IDbPermissionRepository : IBaseRepository<DbPermission>
+    public interface IDbUserRoleRepository : IBaseRepository<DbUserRole>
     {
     }
 }

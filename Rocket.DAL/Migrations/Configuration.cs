@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Migrations.InitialDataCreators.User;

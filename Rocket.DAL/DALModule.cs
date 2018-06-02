@@ -1,8 +1,15 @@
-﻿using Ninject.Modules;
+﻿using System.Data.Entity;
+using IdentityServer3.AspNetIdentity;
+using IdentityServer3.Core.Services;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Ninject.Modules;
 using Ninject.Web.Common;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
@@ -28,7 +35,7 @@ namespace Rocket.DAL
         {
             //контекст
             Bind<RocketContext>().ToSelf().InRequestScope();
-
+            Bind<DbContext>().To<RocketContext>().InRequestScope();
             //репозитарии
             Bind<IBaseRepository<ResourceEntity>>().To<BaseRepository<ResourceEntity>>();
             Bind<IBaseRepository<ParserSettingsEntity>>().To<BaseRepository<ParserSettingsEntity>>();
@@ -56,6 +63,16 @@ namespace Rocket.DAL
             Bind<IDbReleaseMessageRepository>().To<DbReleaseMessageRepository>();
             Bind<IDbUserBillingMessageRepository>().To<DbUserBillingMessageRepository>();
             Bind<IDbCustomMessageRepository>().To<DbCustomMessageRepository>();
+
+
+            // fly safe
+            Bind<IUserStore<DbUser, int>>()
+                .ToConstructor(context => new UserStore<DbUser, DbRole, int, DbUserLogin, DbUserRole, DbUserClaim>(context.Inject<DbContext>()))
+                .InRequestScope();
+            Bind<UserManager<DbUser, int>>().ToSelf().InRequestScope();
+            Bind<IUserService>()
+                .ToConstructor(context => new AspNetIdentityUserService<DbUser, int>(context.Inject<UserManager<DbUser, int>>(), null))
+                .InRequestScope();
 
             //UoW
             Bind<IUnitOfWork>().To<UnitOfWork>();

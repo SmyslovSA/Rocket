@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Common.Logging;
 using FluentAssertions;
@@ -7,7 +6,7 @@ using Moq;
 using NUnit.Framework;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Services.UserServices;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 using Rocket.DAL.Common.UoW;
 

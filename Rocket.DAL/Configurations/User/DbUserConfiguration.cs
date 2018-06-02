@@ -45,15 +45,6 @@ namespace Rocket.DAL.Configurations.User
                 .WithMany(st => st.DbUsers)
                 .HasForeignKey(u => u.AccountLevelId);
 
-            HasMany(f => f.Roles)
-                .WithMany(c => c.Users)
-                .Map(m =>
-                {
-                    m.ToTable("UsersRoles");
-                    m.MapLeftKey("UserId");
-                    m.MapRightKey("RoleId");
-                });
-
             HasOptional(ud => ud.UserDetail)
                 .WithRequired(u => u.User);
         }

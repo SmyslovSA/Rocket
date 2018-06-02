@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Rocket.DAL.Common.DbModels.DbPersonalArea;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.Common.DbModels.User
@@ -9,12 +11,12 @@ namespace Rocket.DAL.Common.DbModels.User
     /// <summary>
     /// Представляет модель хранения данных о пользователе.
     /// </summary>
-    public class DbUser
+    public class DbUser : IdentityUser<int, DbUserLogin, DbUserRole, DbUserClaim>, IUser<int>
     {
         /// <summary>
         /// Возвращает или задает уникальный идентификатор пользователя.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
 
         /// <summary>
         /// Имя пользователя.
@@ -59,12 +61,7 @@ namespace Rocket.DAL.Common.DbModels.User
         /// (пока что это - обычный и премиум пользователь).
         /// </summary>
         public virtual DbAccountLevel AccountLevel { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает коллекцию ролей пользователя.
-        /// </summary>
-        public virtual ICollection<DbRole> Roles { get; set; } = new Collection<DbRole>();
-
+        
         /// <summary>
         /// Возвращает или задает детальную информация пользователя.
         /// </summary>

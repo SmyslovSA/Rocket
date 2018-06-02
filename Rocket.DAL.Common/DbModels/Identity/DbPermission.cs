@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Rocket.DAL.Common.DbModels.DbUserRole
+namespace Rocket.DAL.Common.DbModels.Identity
 {
     public class DbPermission
     {
