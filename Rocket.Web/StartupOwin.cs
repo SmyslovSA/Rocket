@@ -8,7 +8,7 @@ using IdentityServer3.Core.Services.InMemory;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(Rocket.Web.StartupOwin))]
+//[assembly: OwinStartup(typeof(Rocket.Web.StartupOwin))]
 
 namespace Rocket.Web
 {
