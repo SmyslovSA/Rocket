@@ -1,7 +1,6 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using Owin;
 
-[assembly: OwinStartup(typeof(Rocket.Web.Startup))]
+//[assembly: OwinStartup(typeof(Rocket.Web.Startup))]
 
 namespace Rocket.Web
 {
@@ -12,10 +11,7 @@ namespace Rocket.Web
             // This server will be accessed by clients from other domains, so
             //  we open up CORS. This needs to be before the call to
             //  .MapSignalR()!
-            //
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-
-            app.MapSignalR();
+            // moved to OwinStartup
         }
     }
 }

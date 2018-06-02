@@ -21,6 +21,5 @@ namespace Rocket.Web.Controllers
 
             return Ok();
         }
-
     }
 }
