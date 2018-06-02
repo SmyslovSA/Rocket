@@ -2,18 +2,20 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 
 namespace Rocket.Web.Controllers
 {
-    public class IPNController : Controller
+    [RoutePrefix("ipn")]
+    public class IPNController : ApiController
     {
         private class IPNContext
         {
-            public HttpRequestBase IPNRequest { get; set; }
+            public HttpRequestMessage IPNRequest { get; set; }
 
             public string RequestBody { get; set; }
 
@@ -27,17 +29,17 @@ namespace Rocket.Web.Controllers
             _userPaymentService = userPaymentService;
         }
 
-        public ActionResult Receive()
+        [HttpPost]
+        [Route("receive")]
+        public IHttpActionResult Receive()
         {
             IPNContext ipnContext = new IPNContext()
             {
                 IPNRequest = Request
             };
 
-            using (StreamReader reader = new StreamReader(ipnContext.IPNRequest.InputStream, Encoding.ASCII))
-            {
-                ipnContext.RequestBody = reader.ReadToEnd();
-            }
+           
+            ipnContext.RequestBody = ipnContext.IPNRequest.Content.ToString();
 
             //Store the IPN received from PayPal
             LogRequest(ipnContext);
@@ -46,7 +48,7 @@ namespace Rocket.Web.Controllers
             Task.Run(() => VerifyTask(ipnContext));
 
             //Reply back a 200 code
-            return new HttpStatusCodeResult(200);
+            return StatusCode(HttpStatusCode.OK);
         }
 
         private void VerifyTask(IPNContext ipnContext)
