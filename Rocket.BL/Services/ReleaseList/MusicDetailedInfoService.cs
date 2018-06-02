@@ -35,27 +35,26 @@ namespace Rocket.BL.Services.ReleaseList
         /// <returns>Экземпляр музыкального релиза</returns>
         public Music GetMusic(int id)
         {
-			//return Mapper.Map<Music>(
-			//	_unitOfWork.MusicRepository.GetById(id));
+            //return Mapper.Map<Music>(
+            //_unitOfWork.MusicRepository.GetById(id));
 
-			var model = Mapper.Map<Music>(
-				_unitOfWork.MusicRepository.Get(
-						f => f.Id == id,
-						includeProperties: $"{nameof(Music.Genres)},{nameof(Music.MusicTracks)},{nameof(Music.Musicians)}")
-					?.FirstOrDefault());
+            var model = Mapper.Map<Music>(
+                _unitOfWork.MusicRepository.Get(
+                        f => f.Id == id,
+                        includeProperties: $"{nameof(Music.Genres)},{nameof(Music.MusicTracks)},{nameof(Music.Musicians)}")
+                    ?.FirstOrDefault());
 
-			return model;
+            return model;
+        }
 
-		}
-
-		/// <inheritdoc />
-		/// <summary>
-		/// Добавляет заданный музыкальный релиз в хранилище данных
-		/// и возвращает идентификатор добавленного музыкального релиза.
-		/// </summary>
-		/// <param name="music">Экземпляр музыкального релиза для добавления</param>
-		/// <returns>Идентификатор музыкального релиза</returns>
-		public int AddMusic(Music music)
+        /// <inheritdoc />
+        /// <summary>
+        /// Добавляет заданный музыкальный релиз в хранилище данных
+        /// и возвращает идентификатор добавленного музыкального релиза.
+        /// </summary>
+        /// <param name="music">Экземпляр музыкального релиза для добавления</param>
+        /// <returns>Идентификатор музыкального релиза</returns>
+        public int AddMusic(Music music)
         {
             var dbMusic = Mapper.Map<DbMusic>(music);
             _unitOfWork.MusicRepository.Insert(dbMusic);
@@ -99,22 +98,24 @@ namespace Rocket.BL.Services.ReleaseList
                        .FirstOrDefault() != null;
         }
 
-		/// <summary>
-		/// Возвращает страницу музыкальных релизов с заданным номером и размером,
-		/// музыкальные релизы сортированы по дата релиза
-		/// </summary>
-		/// <param name="pageSize">Размер страницы</param>
-		/// <param name="pageNumber">Номер страницы</param>
-		/// <returns>Страница музыкальных релизов</returns>
-		public MusicPageInfo GetPageInfoByDate(int pageSize, int pageNumber)
-	    {
-		    var pageInfo = new MusicPageInfo();
-		    pageInfo.TotalItemsCount = _unitOfWork.MusicRepository.ItemsCount();
-		    pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
-		    pageInfo.PageItems = Mapper.Map<IEnumerable<Music>>(
-			    _unitOfWork.MusicRepository.GetPage(pageSize, pageNumber, orderBy: o => o.OrderByDescending(t => t.ReleaseDate)));
+        /// <summary>
+        /// Возвращает страницу музыкальных релизов с заданным номером и размером,
+        /// музыкальные релизы сортированы по дата релиза
+        /// </summary>
+        /// <param name="pageSize">Размер страницы</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <returns>Страница музыкальных релизов</returns>
+        public MusicPageInfo GetPageInfoByDate(int pageSize, int pageNumber)
+        {
+            var pageInfo = new MusicPageInfo();
+            pageInfo.TotalItemsCount = _unitOfWork.MusicRepository.ItemsCount();
+            pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
+            pageInfo.PageItems = Mapper.Map<IEnumerable<Music>>(_unitOfWork.MusicRepository.GetPage(
+                pageSize,
+                pageNumber,
+                orderBy: o => o.OrderByDescending(t => t.ReleaseDate)));
 
-		    return pageInfo;
-	    }
-	}
+            return pageInfo;
+        }
+    }
 }

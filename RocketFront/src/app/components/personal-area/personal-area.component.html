@@ -1,3 +1,118 @@
-<h1>
-  personal-area component added!
-</h1>
+<body class="bg-light">
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <div class="card" style="width:20rem;margin:20px 0 24px 0">
+                  <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="image" style="width:100%">
+                  <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Можно показать доп.информацию из регистрационной модели</p>
+                  </div>
+              </div>              
+          </div>
+          <div class="col">
+              <label for="firstName">First name</label>
+              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+              <label for="lastName">Last name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+              <label for="avatar">Avatar</label>
+              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+              <br>
+              <button class="btn btn-secondary btn btn-block" type="submit">Change personal info</button>
+              <br>
+              <label for="password">New password</label>
+              <input type="text" class="form-control" id="password" placeholder="More than 6 symbols" required>
+              <div class="invalid-feedback">
+                  Valid first name is required.
+              </div>
+              <input type="text" class="form-control" id="passwordConfirm" placeholder="Password confirm" required>
+              <div class="invalid-feedback">
+                  Valid first name is required.
+              </div>
+              <br>
+              <button class="btn btn-secondary btn btn-block" type="submit">Change password</button>
+              <br> 
+              <label for="email">Primary Email</label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com" disabled>
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+              <br>
+              <label for="email">Secondary Email</label>
+              <table class="table">
+                  <thead>
+                    <tr></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>email@test.com</td>
+                      <td><button class="btn btn-secondary btn btn-block" type="submit">Delete</button></td>
+                    </tr>
+                    <tr>
+                      <td>email2@test.com</td>
+                      <td><button class="btn btn-secondary btn btn-block" type="submit">Delete</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              <button class="btn btn-secondary btn btn-block" type="submit">Add email</button>
+              <br>                 
+            </div>
+          </div>
+          <div class = "row">
+            <div class = "col">
+                <label for="category">Category</label>
+                <select class="custom-select d-block w-100" id="category" required>
+                  <option value="">Choose...</option>
+                  <option>Film</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid category.
+                </div>
+                <label for="genre">Genre</label>
+                <select class="custom-select d-block w-100" id="genre" required>
+                  <option value="">Choose...</option>
+                  <option>Action</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please provide a valid genre.
+                </div>
+                  <br>
+                  <button class="btn btn-secondary btn btn-block" type="submit">Add genre</button>
+            </div>>
+          </div>         
+            <div class="row">
+                <div class="col" style="width:20rem;margin:20px 0 24px 0">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Genre</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Film</td>
+                        <td>Action</td>
+                        <td><button class="btn btn-secondary btn btn-block" type="submit">Delete</button></td>
+                      </tr>
+                      <tr>
+                        <td>Film</td>
+                        <td>Drama</td>
+                        <td><button class="btn btn-secondary btn btn-block" type="submit">Delete</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+          </div>
+          </body>

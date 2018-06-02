@@ -10,21 +10,14 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// <summary>
         /// Добавление нового e-mail для отправки нотификаций.
         /// </summary>
-        /// <param name="model">Модель пользователя, инициировавшего добавление нового e-mail.</param>
+        /// <param name="id">Id пользователя, инициировавшего добавление нового e-mail.</param>
         /// <param name="email">Адрес e-mail, который необходимо добавить.</param>
-        /// <returns>
-        /// True - если e-mail успешно добавлен.
-        /// </returns>
-        bool AddEmail(SimpleUser model, string email);
+        void AddEmail(int id, Email email);
 
         /// <summary>
         /// Удаление из приложения одного из имеющихся e-mail пользователя.
         /// </summary>
-        /// <param name="model">Модель пользователя, инициировавшего удаление нового e-mail.</param>
-        /// <param name="email">Адрес e-mail, который необходимо удалить.</param>
-        /// <returns>
-        /// True - если e-mail успешно удален.
-        /// </returns>
-        bool DeleteEmail(SimpleUser model, string email);
+        /// <param name="id">Id email,для удаления.</param>
+        void DeleteEmail(int id);
     }
 }
