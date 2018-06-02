@@ -70,6 +70,12 @@
     <Reference Include="FluentValidation.Mvc, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.Mvc5.7.5.2\lib\net45\FluentValidation.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="IdentityServer3, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityServer3.2.6.1\lib\net45\IdentityServer3.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityServer3.AccessTokenValidation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityServer3.AccessTokenValidation.2.15.1\lib\net45\IdentityServer3.AccessTokenValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Authentication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Authentication.1.0.0-rc1-final\lib\net451\Microsoft.AspNet.Authentication.dll</HintPath>
     </Reference>
@@ -154,6 +160,9 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.WebEncoders.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.WebEncoders.Core.1.0.0-rc1-final\lib\net451\Microsoft.Extensions.WebEncoders.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocol.Extensions, Version=1.0.2.33, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocol.Extensions.1.0.2.206221351\lib\net45\Microsoft.IdentityModel.Protocol.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Net.Http.Headers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.Headers.1.0.0-rc1-final\lib\net451\Microsoft.Net.Http.Headers.dll</HintPath>
