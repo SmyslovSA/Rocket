@@ -202,6 +202,7 @@ namespace Rocket.DAL.Context
         /// <param name="modelBuilder">Построитель, который определяет модель для создаваемого контекста.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new ResourceMap());
             modelBuilder.Configurations.Add(new ParserSettingsMap());
             modelBuilder.Configurations.Add(new ResourceItemMap());
