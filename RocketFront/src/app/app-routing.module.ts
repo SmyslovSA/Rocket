@@ -12,8 +12,9 @@ import { UsersComponent } from './users/users.component';
 import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
 import { MusicsComponent } from './components/news-feed/musics/musics.component';
 import { SeriesDetailsComponent } from './components/news-feed/series-details/series-details.component';
-import { SeriesCatalogComponent } from './components/news-feed/series-catalog/series-catalog.component';
+import { SeriesCatalogComponent } from './components/catalog/series-catalog/series-catalog.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { MusicCatalogComponent } from './components/catalog/music-catalog/music-catalog.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -35,7 +36,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'series', pathMatch: 'prefix' },
       { path: 'series', component: SeriesCatalogComponent },
-      { path: 'music', component: SeriesCatalogComponent }
+      { path: 'music', component: MusicCatalogComponent }
     ]
   },
   { path: 'personal', component: PersonalAreaComponent },
