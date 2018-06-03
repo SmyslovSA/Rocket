@@ -8,7 +8,6 @@ import { LoginComponent } from './components/login/login.component';
 import { SignalRComponent } from './components/signalR/signalR.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './components/menu/menu.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { NotificationComponent } from './components/notification/notification.component';

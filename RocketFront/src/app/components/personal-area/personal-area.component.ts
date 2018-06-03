@@ -1,25 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { SimpleUser } from '../../models/personal-area/authorised-user';
+import {SimpleUser} from '../../models/personal-area/simpleuser';
 import {HttpClientModule} from '@angular/common/http';
-import { DataService } from '../../services/authoriseduser.data.service';
-import { HttpService } from '../../services/http.service';
-import { error } from 'protractor';
+import { DataService } from '../../services/simpleuser.data.service';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-personal-area',
   templateUrl: './personal-area.component.html',
   styleUrls: ['./personal-area.component.css'],
-  providers: [HttpService, DataService]
+  providers: [DataService]
 })
 export class PersonalAreaComponent implements OnInit {
-  data: SimpleUser = new SimpleUser();
-  constructor(private http: HttpService, private dataservice: DataService) { }
+  data: SimpleUser;
+  constructor(private dataservice: DataService) {
+    this.data = new SimpleUser();
+    this.data.FirstName = '';
+    this.data.LastName = '';
+    this.data.Avatar = '';
+  }
   changeUserInfo() {
+    this.dataservice.changeData(this.data).subscribe(data => this.data = data);
+  }
+  changeUserPassword(password: string, passwordConfirm: string) {
+    this.dataservice.changePassword(password, passwordConfirm).subscribe(data => this.data = data);
   }
   ngOnInit() {
-      this.http.getData().subscribe((data: SimpleUser) => {
-      this.data = data;
-  });
-   // this.data = this.dataservice.getData();
+    this.dataservice.getData().subscribe(data => this.data = data);
   }
 }
