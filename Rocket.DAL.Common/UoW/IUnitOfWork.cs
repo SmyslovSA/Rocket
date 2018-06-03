@@ -127,6 +127,11 @@ namespace Rocket.DAL.Common.UoW
         IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
 
         /// <summary>
+        /// Репозиторий настроек сервиса нотификации
+        /// </summary>
+        IBaseRepository<NotificationsSettingsEntity> NotificationSettingsRepository { get; }
+
+        /// <summary>
         /// Сохраняет изменения в хранилище данных
         /// </summary>
         /// <returns> int </returns>

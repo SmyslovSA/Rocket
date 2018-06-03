@@ -14,20 +14,34 @@ export class SignalRComponent implements OnInit {
  
     ngOnInit() {
         this.connect();
+        this.connectNewRelease();
     }
 
     connect() {
-        let o: IConnectionOptions;
+        //let o: IConnectionOptions;
         let conx = this._signalR.createConnection();
         conx.status.subscribe((s) => console.warn(s.name));
         conx.start().then((c) => {
     
           let listener = c.listenFor('notifyAll');
           listener.subscribe(data => {
-              this.snotifyService.simple(data.toString(),"Новый релиз!");
-                  console.log(data);
-    
+              this.snotifyService.simple(data.toString(),"Новое сообщение!");
+                  console.log(data);    
           });
         });
       }  
+
+      connectNewRelease() {
+        let conx = this._signalR.createConnection();
+        conx.status.subscribe((s) => console.warn(s.name));
+        conx.start().then((c) => {
+    
+          let listener = c.listenFor('notifyOfRelease');
+          listener.subscribe(data => {
+              this.snotifyService.simple(data.toString(),"Новый релиз!");
+                  console.log(data);    
+          });
+        });
+      }  
+
 }
