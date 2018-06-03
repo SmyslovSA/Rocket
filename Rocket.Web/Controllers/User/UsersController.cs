@@ -78,6 +78,7 @@ namespace Rocket.Web.Controllers.User
         /// <param name="user">Данные экземпляра пользователя.</param>
         /// <returns>Пользователь хранилища.</returns>
         [HttpPost]
+        [Route("add")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(BL.Common.Models.User.User))]
@@ -99,6 +100,7 @@ namespace Rocket.Web.Controllers.User
         /// <param name="user">Пользователь для обновления.</param>
         /// <returns>Сведения об обновлении пользователя.</returns>
         [HttpPut]
+        [Route("update")]
         public IHttpActionResult UpdateUser([FromBody]BL.Common.Models.User.User user)
         {
             _userManagementService.UpdateUser(user);

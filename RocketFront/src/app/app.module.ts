@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { SignalR } from './components/signalR/signalR.component';
+import { SignalRComponent } from './components/signalR/signalR.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,12 +17,29 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { DonateComponent } from './components/donate/donate.component';
 import { NewsFeedComponent } from './components/news-feed/news-feed.component';
 import { PersonalAreaComponent } from './components/personal-area/personal-area.component';
+import { SignalRModule } from 'ng2-signalr';
+import { SignalRConfiguration } from 'ng2-signalr';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { UsersComponent } from './users/users.component';
+import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
+import { PagingComponent } from './components/news-feed/paging/paging.component';
+import { MusicsComponent } from './components/news-feed/musics/musics.component';
+
+export function createConfig(): SignalRConfiguration {
+  const c = new SignalRConfiguration();
+  c.hubName = 'Notification';
+  c.url = 'http://localhost:63613/';
+  c.logging = true;
+  return c;
+}
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignalR,
+    SignalRComponent,
     MenuComponent,
     RegistrationComponent,
     NotificationComponent,
@@ -29,15 +47,22 @@ import { PersonalAreaComponent } from './components/personal-area/personal-area.
     PaymentComponent,
     DonateComponent,
     NewsFeedComponent,
-    PersonalAreaComponent
+    PersonalAreaComponent,
+    CalendarComponent,
+    UsersComponent,
+    EpisodesComponent,
+    PagingComponent,
+    MusicsComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    SignalRModule.forRoot(createConfig),
+    SnotifyModule
   ],
-  providers: [],
+  providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults},  SnotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

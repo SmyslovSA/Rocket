@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Common.Logging;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -74,12 +75,13 @@ namespace Rocket.BL.Tests.UserRoles
             );
 
             var mockUnitOfWork = new Mock<IUnitOfWork>();
+            var mockLogger = new Mock<ILog>();
 
             mockUnitOfWork.Setup(mock => mock.PermissionRepository).Returns(() => mockDbPermissionRepository.Object);
             mockUnitOfWork.Setup(mock => mock.RoleRepository).Returns(() => mockDbRoleRepository.Object);
 
             _pms = new PermissionManagerService(mockUnitOfWork.Object);
-            _rms = new RoleService(mockUnitOfWork.Object);
+            _rms = new RoleService(mockUnitOfWork.Object, mockLogger.Object);
         }
 
         [Test, Order(1)]
@@ -101,7 +103,7 @@ namespace Rocket.BL.Tests.UserRoles
         [Test, Order(3)]
         public void PermissionToRoleInsert()
         {
-            Permission p = new Permission(){PermissionId = 6, Description = "Correct User", ValueName = "Корректировка пользователей"};
+            Permission p = new Permission() { PermissionId = 6, Description = "Correct User", ValueName = "Корректировка пользователей" };
             _pms.Insert(p);
             var actualPermission = _fakeDbPermission.Count;
             actualPermission.Should().Be(6);

@@ -29,6 +29,23 @@ namespace Rocket.Web.Controllers.UserRole
             return model == null ? (IHttpActionResult)NotFound() : Ok(model);
         }
 
+        [HttpGet]
+        [Route("GetPermissionByRole{id:int:min(1)}")]
+        public IHttpActionResult GetPermissionByRole(int id)
+        {
+            var model = _permissionService.GetPermissionByRole(id);
+            return model == null ? (IHttpActionResult)NotFound() : Ok(model);
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public IHttpActionResult GetAllPermissions()
+        {
+            //_permissionService.Get(null, null, "Permission");
+            var model = _permissionService.GetAllPermissions();
+            return model == null ? (IHttpActionResult)NotFound() : Ok(model);
+        }
+
         [HttpPost]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
@@ -47,6 +64,11 @@ namespace Rocket.Web.Controllers.UserRole
         [HttpPut]
         public IHttpActionResult UpdatePermission([FromBody]Permission permission)
         {
+            if (permission == null)
+            {
+                return BadRequest("Model cannot be empty");
+            }
+
             _permissionService.Update(permission);
 
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
