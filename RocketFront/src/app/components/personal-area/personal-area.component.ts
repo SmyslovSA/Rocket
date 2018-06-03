@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SimpleUser} from '../../models/personal-area/simpleuser';
 import {HttpClientModule} from '@angular/common/http';
 import { DataService } from '../../services/simpleuser.data.service';
+import { Email } from '../../models/personal-area/email';
 
 @Component({
   selector: 'app-personal-area',

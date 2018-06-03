@@ -41,28 +41,13 @@
               <br>
               <button class="btn btn-secondary btn btn-block" (click)="changeUserPassword(newPassword,newPasswordConfirm)" type="submit">Change password</button>
               <br> 
-              <label for="email">Primary Email</label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com" disabled>
+              <label for="email"> Email</label>
+              <div *ngFor="let emails of data.Emails" class="email">
+                <input type="email" class="form-control" id="email" placeholder="you@example.com" value="{{emails.Name}}">
+              </div>
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
-              <br>
-              <label for="email">Secondary Email</label>
-              <table class="table">
-                  <thead>
-                    <tr></tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>email@test.com</td>
-                      <td><button class="btn btn-secondary btn btn-block" type="submit">Delete</button></td>
-                    </tr>
-                    <tr>
-                      <td>email2@test.com</td>
-                      <td><button class="btn btn-secondary btn btn-block" type="submit">Delete</button></td>
-                    </tr>
-                  </tbody>
-                </table>
               <button class="btn btn-secondary btn btn-block" type="submit">Add email</button>
               <br>                 
             </div>
