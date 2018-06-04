@@ -162,49 +162,9 @@
     <Compile Include="Configurations\User\DbUserDetailConfiguration.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
-    <Compile Include="Migrations\201805171721071_AddParser.cs" />
-    <Compile Include="Migrations\201805171721071_AddParser.Designer.cs">
-      <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805171728294_InitializeDateForParsers.cs" />
-    <Compile Include="Migrations\201805171728294_InitializeDateForParsers.Designer.cs">
-      <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805171922023_UpdByParser.cs" />
-    <Compile Include="Migrations\201805171922023_UpdByParser.Designer.cs">
-      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805192337515_AddUser.cs" />
-    <Compile Include="Migrations\201805192337515_AddUser.Designer.cs">
-      <DependentUpon>201805192337515_AddUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805200849026_AddNotificationsSettings.cs" />
-    <Compile Include="Migrations\201805200849026_AddNotificationsSettings.Designer.cs">
-      <DependentUpon>201805200849026_AddNotificationsSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805231204024_SubscribeAdd.cs" />
-    <Compile Include="Migrations\201805231204024_SubscribeAdd.Designer.cs">
-      <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.cs" />
-    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.Designer.cs">
-      <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805291655515_AddNotifications.cs" />
-    <Compile Include="Migrations\201805291655515_AddNotifications.Designer.cs">
-      <DependentUpon>201805291655515_AddNotifications.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805291656302_InitializeEmailTemplates.cs" />
-    <Compile Include="Migrations\201805291656302_InitializeEmailTemplates.Designer.cs">
-      <DependentUpon>201805291656302_InitializeEmailTemplates.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805301549282_Alekhno.cs" />
-    <Compile Include="Migrations\201805301549282_Alekhno.Designer.cs">
-      <DependentUpon>201805301549282_Alekhno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806011345559_PermRename.cs" />
-    <Compile Include="Migrations\201806011345559_PermRename.Designer.cs">
-      <DependentUpon>201806011345559_PermRename.cs</DependentUpon>
+    <Compile Include="Migrations\201806041703124_Initial.cs" />
+    <Compile Include="Migrations\201806041703124_Initial.Designer.cs">
+      <DependentUpon>201806041703124_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
@@ -262,42 +222,12 @@
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805192337515_AddUser.resx">
-      <DependentUpon>201805192337515_AddUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805200849026_AddNotificationsSettings.resx">
-      <DependentUpon>201805200849026_AddNotificationsSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805231204024_SubscribeAdd.resx">
-      <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805280056508_UpdAuthorisedUser.resx">
-      <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805291655515_AddNotifications.resx">
-      <DependentUpon>201805291655515_AddNotifications.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805291656302_InitializeEmailTemplates.resx">
-      <DependentUpon>201805291656302_InitializeEmailTemplates.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805301549282_Alekhno.resx">
-      <DependentUpon>201805301549282_Alekhno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806011345559_PermRename.resx">
-      <DependentUpon>201806011345559_PermRename.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806041703124_Initial.resx">
+      <DependentUpon>201806041703124_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805171721071_AddParser.resx">
-      <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805171728294_InitializeDateForParsers.resx">
-      <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805171922023_UpdByParser.resx">
-      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
