@@ -24,13 +24,13 @@ namespace Rocket.BL.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id пользователя.</param>
         /// <returns>Модель авторизованного пользователя.</returns>
-        public SimpleUser GetUserData(int id)
-        {
-            return Mapper.Map<SimpleUser>(_unitOfWork.UserAuthorisedRepository.Get(
-                    f => f.DbUserId == id,
-                    includeProperties: $"{nameof(DbUser)}")
-                    ?.FirstOrDefault());
-        }
+        //public SimpleUser GetUserData(int id)
+        //{
+        //    return Mapper.Map<SimpleUser>(_unitOfWork.UserAuthorisedRepository.Get(
+        //            f => f.DbUserId == id,
+        //            includeProperties: $"{nameof(DbUser)}")
+        //            ?.FirstOrDefault());
+        //}
 
         /// <summary>
         /// Смена пароля.
@@ -38,7 +38,7 @@ namespace Rocket.BL.Services.PersonalArea
         /// <param name="id">Id пользователя, инициировавшего смену пароля.</param>
         /// <param name="newPassword">Новый пароль.</param>
         /// <param name="newPasswordConfirm">Подтверждение пароля.</param>
-        public void ChangePasswordData(int id, string newPassword, string newPasswordConfirm)
+        public void ChangePasswordData(string id, string newPassword, string newPasswordConfirm)
         {
             if (!PasswordValidate(newPassword, newPasswordConfirm))
             {
@@ -58,7 +58,7 @@ namespace Rocket.BL.Services.PersonalArea
         /// <param name="firstName">Имя пользователя.</param>
         /// <param name="lastName">Фамилия пользователя.</param>
         /// <param name="avatar">Аватар пользователя.</param>
-        public void ChangePersonalData(int id, string firstName, string lastName, string avatar)
+        public void ChangePersonalData(string id, string firstName, string lastName, string avatar)
         {
             var user = _unitOfWork.UserRepository.Get(
                         f => f.Id == id,
@@ -92,6 +92,21 @@ namespace Rocket.BL.Services.PersonalArea
             }
 
             return password == passwordConfirm && password.Length > 6;
+        }
+
+        public SimpleUser GetUserData(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ChangePersonalData(int id, string firstName, string lastName, string avatar)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ChangePasswordData(int id, string newPassword, string newPasswordConfirm)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

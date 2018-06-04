@@ -43,6 +43,16 @@ namespace Rocket.BL.Services.UserServices
             //    new Exception(string.Join(Environment.NewLine, result.Errors)));
         }
 
+        public IEnumerable<DbRole> GetRoles(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsInRole(int userId, int roleId)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Удалить роль у юзера
         /// </summary>
@@ -52,11 +62,6 @@ namespace Rocket.BL.Services.UserServices
         public virtual bool RemoveFromRole(int userId, int roleId)
         {
             // todo MP check user
-
-            if (!IsInRole(userId, roleId))
-            {
-                return false;
-            }
 
             var dbUser = _unitOfWork.UserRepository.Find(userId);
             var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
@@ -74,12 +79,12 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <returns>Список ролей</returns>
-        public virtual IEnumerable<DbRole> GetRoles(int userId)
-        {
-            var dbUser = _unitOfWork.UserRepository.Get(t => t.Id == userId, includeProperties: "Roles").First();
-            _logger.Trace($"Checking roles for user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
-            return dbUser.Roles.Select(t => t.Role);
-        }
+        //public virtual IEnumerable<DbRole> GetRoles(string userId)
+        //{
+        //    var dbUser = _unitOfWork.UserRepository.Get(t => t.Id == userId, includeProperties: "Roles").First();
+        //    _logger.Trace($"Checking roles for user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
+        //    return dbUser.Roles.Select(t => t.Role);
+        //}
 
         /// <summary>
         /// Returns true if the user is in the specified role
@@ -87,18 +92,18 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <param name="roleId"> Идентификатор роли. </param>
         /// <returns>bool</returns>
-        public virtual bool IsInRole(int userId, int roleId)
-        {
-            if (_unitOfWork.UserRepository.GetById(userId) == null)
-            {
-                throw new InvalidOperationException("user not found by userId");
-            }
+        //public virtual bool IsInRole(int userId, int roleId)
+        //{
+        //    if (_unitOfWork.UserRepository.GetById(userId) == null)
+        //    {
+        //        throw new InvalidOperationException("user not found by userId");
+        //    }
 
-            var roles = GetRoles(userId);
-            var res = roles.Contains(_unitOfWork.RoleRepository.GetById(roleId));
+        //    var roles = GetRoles(userId);
+        //    var res = roles.Contains(_unitOfWork.RoleRepository.GetById(roleId));
 
-            _logger.Trace($"Checking user {userId} has role {roleId}? - {res} ");
-            return res;
-        }
+        //    _logger.Trace($"Checking user {userId} has role {roleId}? - {res} ");
+        //    return res;
+        //}
     }
 }

@@ -25,29 +25,39 @@ namespace Rocket.BL.Services.User
         {
         }
 
+        public ICollection<Common.Models.User.User> GetAllUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Возвращает всех пользователей
         /// из хранилища данных.
         /// </summary>
         /// <returns>Коллекцию всех экземпляров пользователей.</returns>
-        public ICollection<Common.Models.User.User> GetAllUsers()
-        {
-            if (_unitOfWork.UserRepository == null)
-            {
-                return null;
-            }
+        //public ICollection<Common.Models.User.User> GetAllUsers()
+        //{
+        //    if (_unitOfWork.UserRepository == null)
+        //    {
+        //        return null;
+        //    }
 
-            var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
+        //    var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
 
-            if (usersCount == 0)
-            {
-                return null;
-            }
+        //    if (usersCount == 0)
+        //    {
+        //        return null;
+        //    }
 
-            var dbUsers = _unitOfWork.UserRepository.Get(i => i.Id > -1);
+        //    var dbUsers = _unitOfWork.UserRepository.Get(i => i.Id > -1);
 
-            return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
-        }
+        //    return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
+        //}
 
         /// <summary>
         /// Возвращает пользователей
@@ -56,35 +66,35 @@ namespace Rocket.BL.Services.User
         /// <param name="pageSize">Количество сведений о пользователях, выводимых на страницу.</param>
         /// <param name="pageNumber">Номер выводимой страницы со сведениями о пользователях.</param>
         /// <returns>Коллекция экземпляров пользователей для пейджинга.</returns>
-        public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
-        {
-            // Проверка валидности переменных-параментров.
-            var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
+        //public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
+        //{
+        //    // Проверка валидности переменных-параментров.
+        //    var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
 
-            if (usersCount == 0)
-            {
-                return null;
-            }
+        //    if (usersCount == 0)
+        //    {
+        //        return null;
+        //    }
             
-            ICollection<int> usersPageIndexes =
-                GetUsersPageIndexes(usersCount: usersCount, pageSize: pageSize, pageNumber: pageNumber);
+        //    ICollection<int> usersPageIndexes =
+        //        GetUsersPageIndexes(usersCount: usersCount, pageSize: pageSize, pageNumber: pageNumber);
 
-            if (usersPageIndexes == null)
-            {
-                return null;
-            }
+        //    if (usersPageIndexes == null)
+        //    {
+        //        return null;
+        //    }
             
-            // ОБъявление списка для возврата значения.
-            var usersPage = new List<Common.Models.User.User>();
+        //    // ОБъявление списка для возврата значения.
+        //    var usersPage = new List<Common.Models.User.User>();
 
-            foreach (var usersPageIndexe in usersPageIndexes)
-            {
-                usersPage.Add(Mapper.Map<Common.Models.User.User>(
-                    _unitOfWork.UserRepository.GetById(usersPageIndexe)));
-            }
+        //    foreach (var usersPageIndexe in usersPageIndexes)
+        //    {
+        //        usersPage.Add(Mapper.Map<Common.Models.User.User>(
+        //            _unitOfWork.UserRepository.GetById(usersPageIndexe)));
+        //    }
 
-            return usersPage;
-        }
+        //    return usersPage;
+        //}
 
         /// <summary>
         /// Возвращает пользователя с заданным идентификатором из хранилища данных.
@@ -97,19 +107,24 @@ namespace Rocket.BL.Services.User
                 _unitOfWork.UserRepository.GetById(id));
         }
 
+        public int AddUser(Common.Models.User.User user)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Добавляет заданного пользователя в хранилище данных
         /// и возвращает идентификатор добавленного пользователя.
         /// </summary>
         /// <param name="user">Экземпляр пользователя для добавления.</param>
         /// <returns>Идентификатор пользователя.</returns>
-        public int AddUser(Common.Models.User.User user)
-        {
-            var dbUser = Mapper.Map<DbUser>(user);
-            _unitOfWork.UserRepository.Insert(dbUser);
-            _unitOfWork.SaveChanges();
-            return dbUser.Id;
-        }
+        //public int AddUser(Common.Models.User.User user)
+        //{
+        //    var dbUser = Mapper.Map<DbUser>(user);
+        //    _unitOfWork.UserRepository.Insert(dbUser);
+        //    _unitOfWork.SaveChanges();
+        //    return dbUser.Id;
+        //}
 
         /// <summary>
         /// Обновляет информацию заданного пользователя в хранилище данных.

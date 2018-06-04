@@ -27,7 +27,7 @@ namespace Rocket.BL.Services.User
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
         /// <returns>Уровень аккаунта пользователя.</returns>
-        public AccountStatus GetUserAccountStatus(int id)
+        public AccountStatus GetUserAccountStatus(string id)
         {
             var isUserExist = _unitOfWork.UserRepository.Get(u => u.Id == id)
                 .FirstOrDefault() != null;
@@ -49,7 +49,7 @@ namespace Rocket.BL.Services.User
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
         /// <param name="accountStatus">Задаваемый уровень аккаунта.</param>
-        public void SetUserAccountStatus(int id, AccountStatus accountStatus)
+        public void SetUserAccountStatus(string id, AccountStatus accountStatus)
         {
             var isUserExist = _unitOfWork.UserRepository.Get(u => u.Id == id)
                                   .FirstOrDefault() != null;
@@ -68,6 +68,16 @@ namespace Rocket.BL.Services.User
             var dbUser = Mapper.Map<DbUser>(user);
             _unitOfWork.UserRepository.Update(dbUser);
             _unitOfWork.SaveChanges();
+        }
+
+        public AccountStatus GetUserAccountStatus(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetUserAccountStatus(int id, AccountStatus accountStatus)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

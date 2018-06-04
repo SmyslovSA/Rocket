@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Rocket.BL.Common.Services.User;
@@ -145,9 +146,10 @@ namespace Rocket.Web.Controllers.User
                 return BadRequest("User invalid");
             }
 
-            _userManagementService.DeleteUser(user.Id);
+            //_userManagementService.DeleteUser(user.Id);
 
-            return Ok($"User with id = {user.Id} successfully deleted");
+            //return Ok($"User with id = {user.Id} successfully deleted");
+            throw new NotImplementedException();
         }
     }
 }
