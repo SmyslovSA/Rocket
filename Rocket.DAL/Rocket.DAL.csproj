@@ -160,6 +160,7 @@
     <Compile Include="Migrations\201805272254345_UserDetail.cs" />
     <Compile Include="Migrations\201805272254345_UserDetail.Designer.cs">
       <DependentUpon>201805272254345_UserDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.cs" />
     <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.Designer.cs">
       <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
@@ -227,6 +228,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805280056508_UpdAuthorisedUser.resx">
       <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805272254345_UserDetail.resx">
       <DependentUpon>201805272254345_UserDetail.cs</DependentUpon>
     </EmbeddedResource>
