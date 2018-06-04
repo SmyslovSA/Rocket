@@ -41,7 +41,7 @@ export class PagingComponent implements OnInit, AfterViewChecked {
   }
 
   setPage(page: number) {
-    this.router.navigate([], { queryParams: { page: page } });
+    this.router.navigate([], { queryParams: { page: page }, queryParamsHandling: 'merge' });
   }
 
   setDisplayPages() {

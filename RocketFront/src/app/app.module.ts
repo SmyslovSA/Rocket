@@ -28,6 +28,7 @@ import { SeriesDetailsComponent } from './components/news-feed/series-details/se
 import { SeriesCatalogComponent } from './components/catalog/series-catalog/series-catalog.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { MusicCatalogComponent } from './components/catalog/music-catalog/music-catalog.component';
+import { GenresComponent } from './components/catalog/genres/genres.component';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -60,7 +61,8 @@ export function createConfig(): SignalRConfiguration {
     SeriesCatalogComponent,
     CatalogComponent,
     SeriesCatalogComponent,
-    MusicCatalogComponent
+    MusicCatalogComponent,
+    GenresComponent
   ],
   imports: [
     BrowserModule,
