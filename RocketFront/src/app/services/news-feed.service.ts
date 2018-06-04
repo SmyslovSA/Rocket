@@ -22,8 +22,8 @@ export class NewsFeedService {
     return this.http.get<MusicPage>(`http://localhost:63613/music/page/${page}`);
   }
 
-  getSeriesPage(page: number): Observable<SeriesPage> {
-    return this.http.get<SeriesPage>(`http://localhost:63613/tvseries/page_${page}?page_size=12`);
+  getSeriesPage(page: number, genre: Genre): Observable<SeriesPage> {
+    return this.http.get<SeriesPage>(`http://localhost:63613/tvseries/page_${page}?page_size=12${genre ? '&genre_id=' + genre.Id : ''}`);
   }
 
   getSeriesDetails(id: number): Observable<SeriesDetails> {
