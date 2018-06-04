@@ -30,7 +30,8 @@ namespace Rocket.Web.Controllers.PersonalArea
             if (email == null)
             {
                 return BadRequest(Resources.EmptyEmail);
-            }         
+            } 
+            
             try
             {
                 mail = _emailEmailManager.AddEmail(id, email);
@@ -40,7 +41,7 @@ namespace Rocket.Web.Controllers.PersonalArea
                 return BadRequest(exception.Message);
             }
 
-            return Created($"{mail}",email);
+            return Created($"{mail}", email);
         }
 
         [HttpDelete]

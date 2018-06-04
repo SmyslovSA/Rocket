@@ -31,6 +31,15 @@ namespace Rocket.DAL.Configurations.PersonalArea
                     .MapLeftKey("AuthorisedUserId")
                     .MapRightKey("GenreId");
                 });
+
+            HasMany(p => p.MusicGenres)
+                .WithMany(e => e.DbAuthorisedUsers)
+                .Map(m =>
+                {
+                    m.ToTable("AuthorisedUserMusicGenres")
+                    .MapLeftKey("AuthorisedUserId")
+                    .MapRightKey("MusicGenreId");
+                });
         }
     }
 }

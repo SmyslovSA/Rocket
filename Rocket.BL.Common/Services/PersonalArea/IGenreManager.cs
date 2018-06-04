@@ -1,6 +1,4 @@
-﻿using Rocket.BL.Common.Models.PersonalArea;
-
-namespace Rocket.BL.Common.Services.PersonalArea
+﻿namespace Rocket.BL.Common.Services.PersonalArea
 {
     /// <summary>
     /// Интерфейс для работы с жанрами.
@@ -8,25 +6,31 @@ namespace Rocket.BL.Common.Services.PersonalArea
     public interface IGenreManager
     {
         /// <summary>
-        /// Добавление жанра определенной категории в персональный список ожидания релизов.
+        /// Добавление жанра TV в персональный список ожидания релизов.
         /// </summary>
-        /// <param name="idUser">id user идентификатор польз..</param>
-        /// <param name="category">Категория продукта, в которой пользователь хочет добавить новый жанр.</param>
-        /// <param name="genre">Жанр продукта, который пользователь хочет добавить в список.</param>
-        /// <returns>
-        /// True - при успешном добавлении жанра в список пользователя.
-        /// </returns>
-        bool AddGenre(int idUser, string category, string genre);
+        /// <param name="id">id идентификатор пользователя.</param>
+        /// <param name="genre">TV жанр продукта, который пользователь хочет добавить в список.</param>
+        void AddTvGenre(int id, string genre);
 
         /// <summary>
-        /// Удаление жанра определенной категории из персонального списка ожидания релизов.
+        /// Удаление жанра TV из персонального списка ожидания релизов.
         /// </summary>
-        /// <param name="idUser">id user идентифик.</param>
-        /// <param name="category">Категория продукта, в которой пользователь хочет удалить новый жанр.</param>
-        /// <param name="genre">Жанр продукта, который пользователь хочет удалить из списка.</param>
-        /// <returns>
-        /// True - при успешном удалении жанра из списка пользователя.
-        /// </returns>
-        bool DeleteGenre(int idUser, string category, string genre);
+        /// <param name="id">id идентификатор пользователя.</param>
+        /// <param name="genre">TV жанр продукта, который пользователь хочет удалить из списка.</param>
+        void DeleteTvGenre(int id, string genre);
+
+        /// <summary>
+        /// Добавление музыкального жанра в персональный список ожидания релизов.
+        /// </summary>
+        /// <param name="id">id идентификатор пользователя.</param>
+        /// <param name="genre">Музыкальный жанр продукта, который пользователь хочет добавить в список.</param>
+        void AddMusicGenre(int id, string genre);
+
+        /// <summary>
+        /// Удаление музыкального жанра из персонального списка ожидания релизов.
+        /// </summary>
+        /// <param name="id">id идентификатор пользователя.</param>
+        /// <param name="genre">Музыкальный жанр продукта, который пользователь хочет удалить из списка.</param>
+        void DeleteMusicGenre(int id, string genre);
     }
 }

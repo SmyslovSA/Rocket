@@ -12,6 +12,7 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id пользователя, инициировавшего добавление нового e-mail.</param>
         /// <param name="email">Адрес e-mail, который необходимо добавить.</param>
+        /// <returns>Id нового e-mail</returns>
         int AddEmail(int id, Email email);
 
         /// <summary>

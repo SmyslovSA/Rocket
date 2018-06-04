@@ -1,86 +1,112 @@
-﻿using Rocket.BL.Common.Models.PersonalArea;
+﻿using FluentValidation;
 using Rocket.BL.Common.Services.PersonalArea;
+using Rocket.Web.Properties;
 using Swashbuckle.Swagger.Annotations;
 using System.Net;
 using System.Web.Http;
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
-    [RoutePrefix("personal/ganre")]
+    [RoutePrefix("personal/genres")]
     public class ChangeGenreController : ApiController
     {
-        private IGenreManager _genreManager;
+        private readonly IGenreManager _genreManager;
         
-        public ChangeGenreController(IGenreManager emailManager)
+        public ChangeGenreController(IGenreManager genreManager)
         {
-            _genreManager = emailManager;
+            _genreManager = genreManager;
         }
 
-        [HttpPost]
-        [Route("add/{id:int:min(1)}")]
+        [HttpPut]
+        [Route("music/add/{id:int:min(1)}")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(SimpleUser))]
-        public IHttpActionResult SaveGenre(int idUser, string category, string genre)
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Genre is not valid", typeof(string))]
+        public IHttpActionResult SaveMusicGenre(int id, string genre)
         {
-            if (idUser != 0)
+            if (string.IsNullOrEmpty(genre))
             {
-                if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
-                {
-                    return BadRequest("email or genre cannot be empty");
-                }
-                else
-                {
-                    bool result = _genreManager.AddGenre(idUser, category, genre);
-                    if (result)
-                    {
-                        return StatusCode(HttpStatusCode.NoContent);
-                    }
-                    else
-                    {
-                        return StatusCode(HttpStatusCode.InternalServerError);
-                    }
-
-                }
-
+                return BadRequest(Resources.EmptyGenre);
             }
-            else
+
+            try
             {
-                return BadRequest("idUser can't is empty");
-
+                _genreManager.AddMusicGenre(id, genre);
             }
+            catch (ValidationException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [HttpDelete]
-        [Route("delete/{id:int:min(1)}")]
-        public IHttpActionResult DeleteGenre(int idUser, string category, string genre)
+        [HttpPut]
+        [Route("music/delete/{id:int:min(1)}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Genre is not valid", typeof(string))]
+        public IHttpActionResult DeleteMusicGenre(int id, string genre)
         {
-            if (idUser != 0)
+            if (string.IsNullOrEmpty(genre))
             {
-                if (string.IsNullOrEmpty(genre) && string.IsNullOrEmpty(category))
-                {
-                    return BadRequest("email or genre cannot be empty");
-                }
-                else
-                {
-                    bool result = _genreManager.DeleteGenre(idUser, category, genre);
-                    if (result)
-                    {
-                        return StatusCode(HttpStatusCode.NoContent);
-                    }
-                    else
-                    {
-                        return StatusCode(HttpStatusCode.InternalServerError);
-                    }
-
-                }
-            }
-            else
-            {
-                return BadRequest("idUser can't is empty");
-
+                return BadRequest(Resources.EmptyGenre);
             }
 
+            try
+            {
+                _genreManager.DeleteMusicGenre(id, genre);
+            }
+            catch (ValidationException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [HttpPut]
+        [Route("tv/add/{id:int:min(1)}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Genre is not valid", typeof(string))]
+        public IHttpActionResult SaveTvGenre(int id, string genre)
+        {
+            if (string.IsNullOrEmpty(genre))
+            {
+                return BadRequest(Resources.EmptyGenre);
+            }
+
+            try
+            {
+                _genreManager.AddTvGenre(id, genre);
+            }
+            catch (ValidationException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [HttpPut]
+        [Route("tv/delete/{id:int:min(1)}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Genre is not valid", typeof(string))]
+        public IHttpActionResult DeleteTvGenre(int id, string genre)
+        {
+            if (string.IsNullOrEmpty(genre))
+            {
+                return BadRequest(Resources.EmptyGenre);
+            }
+
+            try
+            {
+                _genreManager.DeleteTvGenre(id, genre);
+            }
+            catch (ValidationException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
     }
 }

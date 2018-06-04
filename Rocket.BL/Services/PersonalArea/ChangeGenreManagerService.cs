@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Rocket.BL.Common.Models.PersonalArea;
+﻿using FluentValidation;
 using Rocket.BL.Common.Services.PersonalArea;
-using Rocket.DAL.Common.DbModels.DbPersonalArea;
+using Rocket.BL.Properties;
 using Rocket.DAL.Common.UoW;
 using System.Linq;
-using Rocket.DAL.Common.DbModels.Parser;
 
 namespace Rocket.BL.Services.PersonalArea
 {
@@ -14,50 +12,96 @@ namespace Rocket.BL.Services.PersonalArea
         {
         }
 
-        public bool AddGenre(int idUser, string category, string genre)
+        /// <summary>
+        /// Добавляет музыкальный жанр пользователю
+        /// </summary>
+        /// <param name="id">Id пользователя</param>
+        /// <param name="genre">Имя жанра для добавления</param>
+        public void AddMusicGenre(int id, string genre)
         {
-            //проверка на валидность данных
-            if (string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
+            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUserId == id).FirstOrDefault()
+               ?? throw new ValidationException(Resources.EmptyModel);
+            if (_unitOfWork.MusicGenreRepository.Get(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() == null)
             {
-                if (_unitOfWork.UserRepository.Get(f => f.Id == idUser).FirstOrDefault() != null)
-                {
-                    var modelUser = _unitOfWork.UserRepository.Get(f => f.Id == idUser).FirstOrDefault();
-                    var user = Mapper.Map<DbAuthorisedUser>(modelUser);
-                    user.Genres.Add(new GenreEntity
-                    {
-                        Name = genre,
-                        Category = new CategoryEntity()
-                        {
-                            Name = category
-                        }
-                    });
-                    _unitOfWork.UserAuthorisedRepository.Update(user);
-                    _unitOfWork.SaveChanges();
-                    return true;
-                }
+                throw new ValidationException(Resources.GenreWrongName);
             }
 
-            return false;
+            if (modelUser.MusicGenres.Where(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() != null)
+            {
+                throw new ValidationException(Resources.GenreDuplicate);
+            }
+
+            modelUser.MusicGenres.Add(_unitOfWork.MusicGenreRepository.Get(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault());
+            _unitOfWork.UserAuthorisedRepository.Update(modelUser);
+            _unitOfWork.SaveChanges();
         }
 
-        public bool DeleteGenre( int idUser, string category, string genre)
+        /// <summary>
+        /// Добавляет ТV жанр пользователю
+        /// </summary>
+        /// <param name="id">Id пользователя</param>
+        /// <param name="genre">Имя жанра для добавления</param>
+        public void AddTvGenre(int id, string genre)
         {
-            if (string.IsNullOrEmpty(category) && string.IsNullOrEmpty(genre))
+            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUserId == id).FirstOrDefault()
+                ?? throw new ValidationException(Resources.EmptyModel);
+            if (_unitOfWork.GenreRepository.Get(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() == null)
             {
-                if (_unitOfWork.GenreRepository.Get().FirstOrDefault(c => c.Name == genre) != null)
-                {
-                    var modelUser = _unitOfWork.UserRepository.Get(f => f.Id == idUser).FirstOrDefault();
-                     var gen = _unitOfWork.GenreRepository.Get().Where(f => f.Users.Contains(modelUser)).FirstOrDefault();
-
-                    _unitOfWork.GenreRepository.Delete(gen);
-                    _unitOfWork.SaveChanges();
-                    return true;
-                }
-
-                return false;
+                throw new ValidationException(Resources.GenreWrongName);
             }
 
-            return false;
+            if (modelUser.Genres.Where(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() != null)
+            {
+                throw new ValidationException(Resources.GenreDuplicate);
+            }
+
+            modelUser.Genres.Add(_unitOfWork.GenreRepository.Get(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault());
+            _unitOfWork.UserAuthorisedRepository.Update(modelUser);
+            _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Удаляет музыкальный жанр у пользователя
+        /// </summary>
+        /// <param name="id">Id пользователя</param>
+        /// <param name="genre">Имя жанра для удаления</param>
+        public void DeleteMusicGenre(int id, string genre)
+        {
+            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUserId == id).FirstOrDefault() 
+                ?? throw new ValidationException(Resources.EmptyModel);
+            if (modelUser.MusicGenres.Where(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() != null)
+            {
+                modelUser.MusicGenres.Remove(_unitOfWork.MusicGenreRepository.Get(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault());
+            }
+            else
+            {
+                throw new ValidationException(Resources.GenreWrongName);
+            }
+
+            _unitOfWork.UserAuthorisedRepository.Update(modelUser);
+            _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Удаляет музыкальный жанр у пользователя
+        /// </summary>
+        /// <param name="id">Id пользователя</param>
+        /// <param name="genre">Имя жанра для удаления</param>
+        public void DeleteTvGenre(int id, string genre)
+        {
+            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUserId == id).FirstOrDefault()
+                ?? throw new ValidationException(Resources.EmptyModel);
+            if (modelUser.Genres.Where(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() != null)
+            {
+                modelUser.Genres.Remove(_unitOfWork.GenreRepository.Get(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault());
+            }
+            else
+            {
+                throw new ValidationException(Resources.GenreWrongName);
+            }
+
+            _unitOfWork.UserAuthorisedRepository.Update(modelUser);
+            _unitOfWork.SaveChanges();
         }
     }
 }
