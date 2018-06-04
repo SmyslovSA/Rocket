@@ -11,13 +11,8 @@ namespace Rocket.DAL.Common.DbModels.User
     /// <summary>
     /// Представляет модель хранения данных о пользователе.
     /// </summary>
-    public class DbUser : IdentityUser<int, DbUserLogin, DbUserRole, DbUserClaim>, IUser<int>
+    public class DbUser : IdentityUser
     {
-        /// <summary>
-        /// Возвращает или задает уникальный идентификатор пользователя.
-        /// </summary>
-        public override int Id { get; set; }
-
         /// <summary>
         /// Имя пользователя.
         /// </summary>
@@ -27,16 +22,6 @@ namespace Rocket.DAL.Common.DbModels.User
         /// Фамилия пользователя.
         /// </summary>
         public string LastName { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает логин пользователя.
-        /// </summary>
-        public string Login { get; set; }
-
-        /// <summary>
-        /// Возвращает или задает пароль.
-        /// </summary>
-        public string Password { get; set; }
 
         /// <summary>
         /// Возвращает или задает идентификатор статуса аккаунта пользователя,
@@ -61,11 +46,6 @@ namespace Rocket.DAL.Common.DbModels.User
         /// (пока что это - обычный и премиум пользователь).
         /// </summary>
         public virtual DbAccountLevel AccountLevel { get; set; }
-        
-        /// <summary>
-        /// Возвращает или задает детальную информация пользователя.
-        /// </summary>
-        public virtual DbUserDetail UserDetail { get; set; }
 
         /// <summary>
         /// Ссылка на DbAuthorisedUser.

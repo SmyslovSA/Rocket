@@ -4,7 +4,6 @@ using System.Linq;
 using Bogus;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.DbModels.User;
-using Rocket.DAL.Common.UoW;
 
 namespace Rocket.DAL.Migrations.InitialDataCreators.User.FakeData
 {

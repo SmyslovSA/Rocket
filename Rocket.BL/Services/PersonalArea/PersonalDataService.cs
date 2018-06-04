@@ -46,7 +46,7 @@ namespace Rocket.BL.Services.PersonalArea
             }
 
             var user = _unitOfWork.UserRepository.GetById(id);
-            user.Password = newPassword;
+            //user.Password = newPassword;
             _unitOfWork.UserRepository.Update(user);
             _unitOfWork.SaveChanges();
         }
