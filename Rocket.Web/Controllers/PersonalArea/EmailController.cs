@@ -26,21 +26,21 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(Email))]
         public IHttpActionResult AddEmail(int id, Email email)
         {
+            int? mail;
             if (email == null)
             {
                 return BadRequest(Resources.EmptyEmail);
-            }
-
+            }         
             try
             {
-                _emailEmailManager.AddEmail(id, email);
+                mail = _emailEmailManager.AddEmail(id, email);
             }
             catch (ValidationException exception)
             {
                 return BadRequest(exception.Message);
             }
 
-            return Created($"add/{email.Id}", email);
+            return Created($"{mail}",email);
         }
 
         [HttpDelete]

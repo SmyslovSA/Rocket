@@ -26,7 +26,7 @@
               <label for="avatar">Avatar</label>
               <input type="text" [(ngModel)]="data.Avatar" class="form-control" id="avatar" placeholder="">
               <br>
-              <button [disabled]="name.invalid || lastname.invalid" class="btn btn-secondary btn btn-block" (click)="changeUserInfo()" 
+              <button [disabled]="name.invalid || lastname.invalid" class="btn btn-success btn btn-block" (click)="changeUserInfo()" 
               type="submit">Change personal info</button>
               <br>
               <label for="password">New password</label>
@@ -39,16 +39,32 @@
                   Valid password confirm is required.
               </div>
               <br>
-              <button class="btn btn-secondary btn btn-block" (click)="changeUserPassword(newPassword,newPasswordConfirm)" type="submit">Change password</button>
+              <button class="btn btn-success btn btn-block" (click)="changeUserPassword(newPassword,newPasswordConfirm)" type="submit">Change password</button>
               <br> 
-              <label for="email"> Email</label>
-              <div *ngFor="let emails of data.Emails" class="email">
-                <input type="email" class="form-control" id="email" placeholder="you@example.com" value="{{emails.Name}}">
+              <label for="email">Emails</label>
+              <div *ngFor="let emails of data.Emails">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                          <td style="width: 60%"><input type="email" class="form-control" id="email" placeholder="you@example.com" value="{{emails.Name}}" disabled></td>
+                          <td style="width: 40%"><button class="btn btn-secondary btn btn-block" (click)="deleteEmail(emails.Id)" type="submit">Delete Email</button></td>            
+                        </tr>
+                    </tbody>    
+                </table>
               </div>
+              <div>
+                <table class="table">
+                  <tbody>
+                      <tr>
+                        <td style="width: 60%"><input type="email" class="form-control" id="email" placeholder="Enter your e-mail"[(ngModel)]="newEmail"></td>
+                        <td style="width: 40%"><button class="btn btn-success btn btn-block" (click)="addEmail(newEmail)">Add Email</button></td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>       
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
-              <button class="btn btn-secondary btn btn-block" type="submit">Add email</button>
               <br>                 
             </div>
           </div>
