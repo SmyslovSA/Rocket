@@ -75,16 +75,6 @@ namespace Rocket.DAL.Context
         public DbSet<DbAccountStatus> DbAccountStatuses { get; set; }
 
         /// <summary>
-        /// DbSet адреса дополнительной информации пользователя.
-        /// </summary>
-        public DbSet<DbAddress> DbAddresses { get; set; }
-
-        /// <summary>
-        /// DbSet адреса электронной почты дополнительной информации пользователя.
-        /// </summary>
-        public DbSet<DbEmailAddress> DbEmailAddresses { get; set; }
-
-        /// <summary>
         /// DbSet половой принадлежности пользователя.
         /// </summary>
         public DbSet<DbGender> DbGenders { get; set; }
@@ -98,16 +88,6 @@ namespace Rocket.DAL.Context
         /// DbSet языка (общения).
         /// </summary>
         public DbSet<DbLanguage> DbLanguages { get; set; }
-
-        /// <summary>
-        /// DbSet телефонного номера.
-        /// </summary>
-        public DbSet<DbPhoneNumber> DbPhoneNumbers { get; set; }
-
-        /// <summary>
-        /// DbSet дополнительной информации пользователя.
-        /// </summary>
-        public DbSet<DbUserDetail> DbUserDetails { get; set; }
 
         /// <summary>
         /// Набор сущностей категорий.
