@@ -25,8 +25,9 @@ import { EpisodesComponent } from './components/news-feed/episodes/episodes.comp
 import { PagingComponent } from './components/news-feed/paging/paging.component';
 import { MusicsComponent } from './components/news-feed/musics/musics.component';
 import { SeriesDetailsComponent } from './components/news-feed/series-details/series-details.component';
-import { SeriesCatalogComponent } from './components/news-feed/series-catalog/series-catalog.component';
+import { SeriesCatalogComponent } from './components/catalog/series-catalog/series-catalog.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { MusicCatalogComponent } from './components/catalog/music-catalog/music-catalog.component';
 
 import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -61,7 +62,9 @@ export function createConfig(): SignalRConfiguration {
     MusicsComponent,
     SeriesDetailsComponent,
     SeriesCatalogComponent,
-    CatalogComponent
+    CatalogComponent,
+    SeriesCatalogComponent,
+    MusicCatalogComponent
   ],
   imports: [
     BrowserModule,

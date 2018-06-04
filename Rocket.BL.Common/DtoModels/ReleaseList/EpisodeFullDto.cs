@@ -3,7 +3,5 @@
     public class EpisodeFullDto : EpisodeDto
     {
         public double DurationInMinutes { get; set; }
-
-        public string UrlForEpisodeSource { get; set; }
     }
 }

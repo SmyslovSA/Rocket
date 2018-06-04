@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { EpisodesPage } from '../models/news-feed/episodes-page';
 import { MusicPage } from '../models/news-feed/music-page';
 import { SeriesPage } from '../models/news-feed/series-page';
+import { SeriesDetails } from '../models/news-feed/series-details';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class NewsFeedService {
 
   getSeriesPage(page: number): Observable<SeriesPage> {
     return this.http.get<SeriesPage>(`http://localhost:63613/tvseries/page_${page}?page_size=12`);
+  }
+
+  getSeriesDetails(id: number): Observable<SeriesDetails> {
+    return this.http.get<SeriesDetails>(`http://localhost:63613/tvseries/${id}?episodes_count=5&persons_count=5`);
   }
 }
