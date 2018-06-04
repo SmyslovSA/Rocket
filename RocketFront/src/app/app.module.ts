@@ -30,6 +30,10 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { MusicCatalogComponent } from './components/catalog/music-catalog/music-catalog.component';
 import { GenresComponent } from './components/catalog/genres/genres.component';
 
+import { CalendarModule } from 'angular-calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarUtilsModule } from './components/calendar/calendar-utils/module';
+
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
   c.hubName = 'Notification';
@@ -70,6 +74,9 @@ export function createConfig(): SignalRConfiguration {
     FormsModule,
     AppRoutingModule,
     SignalRModule.forRoot(createConfig),
+    BrowserAnimationsModule,
+    CalendarModule.forRoot(),
+    CalendarUtilsModule,
     SnotifyModule
   ],
   providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults},  SnotifyService],
