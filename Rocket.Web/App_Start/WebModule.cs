@@ -25,7 +25,4 @@ namespace Rocket.Web
 
         }
     }
-            );
-		}
-	}
 }
