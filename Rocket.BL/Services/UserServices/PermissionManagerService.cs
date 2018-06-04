@@ -1,15 +1,14 @@
 ﻿using System;
-using AutoMapper;
-using Rocket.DAL.Common.UoW;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.Identity;
+using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Identity;
 
 namespace Rocket.BL.Services.UserServices

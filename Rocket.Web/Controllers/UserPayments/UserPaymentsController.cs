@@ -1,7 +1,6 @@
 ﻿using System.Web.Http;
 using Rocket.BL.Common.Services.UserPayment;
 
-
 namespace Rocket.Web.Controllers.UserPayments
 {
     /// <summary>
@@ -20,6 +19,7 @@ namespace Rocket.Web.Controllers.UserPayments
         /// <summary>
         /// Возвращает информацию о платеже.
         /// </summary>
+        /// <param name="user"></param>
         /// <returns>Информация о платеже.</returns>
         [HttpGet]
         [Route("paymentInfo")]
