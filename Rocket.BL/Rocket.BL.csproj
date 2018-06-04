@@ -124,6 +124,7 @@
     <Compile Include="Services\PersonalArea\ChangeEmailManagerService.cs" />
     <Compile Include="Services\PersonalArea\ChangeGenreManagerService.cs" />
     <Compile Include="Services\ReleaseList\EpisodeService.cs" />
+    <Compile Include="Services\ReleaseList\GenreService.cs" />
     <Compile Include="Services\ReleaseList\GuestReleaseListService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

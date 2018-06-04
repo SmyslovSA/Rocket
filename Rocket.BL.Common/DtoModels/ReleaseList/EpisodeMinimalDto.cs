@@ -17,5 +17,7 @@ namespace Rocket.BL.Common.DtoModels.ReleaseList
         public int SeasonNumber { get; set; }
 
         public int Number { get; set; }
+
+        public string UrlForEpisodeSource { get; set; }
     }
 }
