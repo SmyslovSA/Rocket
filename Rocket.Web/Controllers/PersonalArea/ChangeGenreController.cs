@@ -11,10 +11,26 @@ namespace Rocket.Web.Controllers.PersonalArea
     public class ChangeGenreController : ApiController
     {
         private readonly IGenreManager _genreManager;
-        
+
         public ChangeGenreController(IGenreManager genreManager)
         {
             _genreManager = genreManager;
+        }
+
+        [HttpGet]
+        [Route("musics")]
+        public IHttpActionResult GetAllMusicGenres()
+        {
+           var musicGenres = _genreManager.GetAllMusicGenres();
+           return musicGenres == null ? (IHttpActionResult)NotFound() : Ok(musicGenres);
+        }
+
+        [HttpGet]
+        [Route("tv")]
+        public IHttpActionResult GetAllTvGenres()
+        {
+            var tvGenres = _genreManager.GetAllTvGenres();
+            return tvGenres == null ? (IHttpActionResult)NotFound() : Ok(tvGenres);
         }
 
         [HttpPut]

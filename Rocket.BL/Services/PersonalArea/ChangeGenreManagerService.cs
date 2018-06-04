@@ -2,6 +2,7 @@
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.BL.Properties;
 using Rocket.DAL.Common.UoW;
+using System.Collections;
 using System.Linq;
 
 namespace Rocket.BL.Services.PersonalArea
@@ -12,6 +13,15 @@ namespace Rocket.BL.Services.PersonalArea
         {
         }
 
+        public ICollection GetAllMusicGenres()
+        {
+            return _unitOfWork.MusicGenreRepository.Get(f => f.Name != null).ToList();
+        }
+
+        public ICollection GetAllTvGenres()
+        {
+            return _unitOfWork.GenreRepository.Get(f => f.Name != null).ToList();
+        }
         /// <summary>
         /// Добавляет музыкальный жанр пользователю
         /// </summary>

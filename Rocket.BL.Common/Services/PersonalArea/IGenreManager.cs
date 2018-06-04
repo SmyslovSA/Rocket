@@ -1,10 +1,14 @@
-﻿namespace Rocket.BL.Common.Services.PersonalArea
+﻿using System.Collections;
+
+namespace Rocket.BL.Common.Services.PersonalArea
 {
     /// <summary>
     /// Интерфейс для работы с жанрами.
     /// </summary>
     public interface IGenreManager
     {
+        ICollection GetAllMusicGenres();
+        ICollection GetAllTvGenres();
         /// <summary>
         /// Добавление жанра TV в персональный список ожидания релизов.
         /// </summary>
