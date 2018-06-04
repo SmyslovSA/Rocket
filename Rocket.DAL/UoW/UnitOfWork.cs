@@ -9,9 +9,6 @@ using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
-using System;
-using Rocket.DAL.Common.Repositories.Notification;
-using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.UoW

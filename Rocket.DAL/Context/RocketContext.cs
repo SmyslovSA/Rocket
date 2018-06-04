@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using Rocket.DAL.Common.DbModels.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
@@ -12,7 +12,6 @@ using Rocket.DAL.Configurations.PersonalArea;
 using Rocket.DAL.Configurations.ReleaseList;
 using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
-using Rocket.DAL.Configurations.UserRoleEntities;
 using Rocket.DAL.Migrations;
 
 namespace Rocket.DAL.Context
@@ -20,7 +19,7 @@ namespace Rocket.DAL.Context
     /// <summary>
     /// Представляет контекст данных приложения
     /// </summary>
-    public class RocketContext : DbContext
+    public class RocketContext : IdentityDbContext<DbUser>
     {
         /// <summary>
         /// Создает новый экземпляр контекста данных
@@ -59,11 +58,6 @@ namespace Rocket.DAL.Context
         /// DbSet музыкального трека
         /// </summary>
         public DbSet<DbMusicTrack> DbMusicTracks { get; set; }
-
-        /// <summary>
-        /// DbSet пользователя.
-        /// </summary>
-        public DbSet<DbUser> DbUsers { get; set; }
 
         /// <summary>
         /// DbSet страны.
@@ -116,20 +110,6 @@ namespace Rocket.DAL.Context
         public DbSet<DbUserDetail> DbUserDetails { get; set; }
 
         /// <summary>
-        /// DbSet ролей пользователей.
-        /// </summary>
-        public DbSet<DbRole> DbRoles { get; set; }
-
-        /// <summary>
-        /// User+Role
-        /// </summary>
-        public DbSet<DbUserRole> DbUserRoles { get; set; }
-
-        public DbSet<DbUserClaim> DbUserClaims { get; set; }
-
-        public DbSet<DbUserLogin> DbUserLogins { get; set; }
-
-        /// <summary>
         /// Набор сущностей категорий.
         /// </summary>
         public DbSet<CategoryEntity> CategoryEntities { get; set; }
@@ -155,11 +135,6 @@ namespace Rocket.DAL.Context
         /// DbSet настроек сервиса уведомлений
         /// </summary>
         public DbSet<NotificationsSettingsEntity> NotificationsSettings { get; set; }
-
-        /// <summary>
-        /// DbSet пермишенов
-        /// </summary>
-        public DbSet<DbPermission> PermissionSettings { get; set; }
 
         /// <summary>
         /// DbSet получателя сообщения
@@ -232,16 +207,9 @@ namespace Rocket.DAL.Context
             modelBuilder.Configurations.Add(new DbHowToCallConfiguration());
             modelBuilder.Configurations.Add(new DbLanguageConfiguration());
             modelBuilder.Configurations.Add(new DbPhoneNumberConfiguration());
-            modelBuilder.Configurations.Add(new DbUserConfiguration());
             modelBuilder.Configurations.Add(new DbUserDetailConfiguration());
 
             modelBuilder.Configurations.Add(new DbCountryConfiguration());
-
-            modelBuilder.Configurations.Add(new DbRoleConfiguration());
-            modelBuilder.Configurations.Add(new DbUserRoleConfiguration());
-            modelBuilder.Configurations.Add(new DbPermissionConfiguration());
-            modelBuilder.Configurations.Add(new DbUserClaimConfiguration());
-            modelBuilder.Configurations.Add(new DbUserLoginConfiguration());
 
             modelBuilder.Configurations.Add(new DbAuthorisedUserConfiguration());
 

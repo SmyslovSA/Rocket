@@ -1,6 +1,4 @@
 ﻿using System.Data.Entity;
-using IdentityServer3.AspNetIdentity;
-using IdentityServer3.Core.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject.Modules;
@@ -66,13 +64,13 @@ namespace Rocket.DAL
             Bind<IDbUserBillingMessageRepository>().To<DbUserBillingMessageRepository>();
             Bind<IDbCustomMessageRepository>().To<DbCustomMessageRepository>();
 
-            Bind<IUserStore<DbUser, int>>()
-                .ToConstructor(context => new UserStore<DbUser, DbRole, int, DbUserLogin, DbUserRole, DbUserClaim>(context.Inject<DbContext>()))
-                .InRequestScope();
-            Bind<UserManager<DbUser, int>>().ToSelf().InRequestScope();
-            Bind<IUserService>()
-                .ToConstructor(context => new AspNetIdentityUserService<DbUser, int>(context.Inject<UserManager<DbUser, int>>(), null))
-                .InRequestScope();
+            //Bind<IUserStore<DbUser, int>>()
+            //    .ToConstructor(context => new UserStore<DbUser, DbRole, int, DbUserLogin, DbUserRole, DbUserClaim>(context.Inject<DbContext>()))
+            //    .InRequestScope();
+            //Bind<UserManager<DbUser, int>>().ToSelf().InRequestScope();
+            //Bind<IUserService>()
+            //    .ToConstructor(context => new AspNetIdentityUserService<DbUser, int>(context.Inject<UserManager<DbUser, int>>(), null))
+            //    .InRequestScope();
 
             //UoW
             Bind<IUnitOfWork>().To<UnitOfWork>();

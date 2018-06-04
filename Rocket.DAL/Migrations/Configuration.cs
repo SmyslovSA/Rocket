@@ -77,11 +77,11 @@ namespace Rocket.DAL.Migrations
 
             // Добавление в репозиторий первоначальной информации о ролях пользователей.
             List<DbRole> initialRolesDatas = new DbUserRolesCreator().Items;
-            if (!context.DbRoles.Any())
-            {
-                context.DbRoles.AddRange(initialRolesDatas);
-                context.SaveChanges();
-            }
+            //if (!context.DbRoles.Any())
+            //{
+            //    context.DbRoles.AddRange(initialRolesDatas);
+            //    context.SaveChanges();
+            //}
 
             //// Добавление в репозиторий первоначальной тестовой информации о пользователей.
             //if (!context.DbUsers.Any())
