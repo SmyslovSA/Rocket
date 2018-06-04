@@ -35,7 +35,7 @@ namespace Rocket.Web
                 /*.UseInMemoryUsers(Users.Load())*/;
 
             factory.Register(new Registration<UserManager<DbUser, string>>());
-            new RocketIdentityService(new UserManager<DbUser, string>());
+            factory.Register(new Registration<RocketIdentityService>());
 
             app.UseIdentityServer(new IdentityServerOptions
             {
