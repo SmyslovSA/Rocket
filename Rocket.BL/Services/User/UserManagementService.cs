@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Rocket.BL.Common.Models.User;
 using Rocket.BL.Common.Services.User;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
@@ -228,6 +229,11 @@ namespace Rocket.BL.Services.User
             }
 
             return usersToPage;
+        }
+
+        int IUserManagementService.AddUser(Common.Models.User.User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

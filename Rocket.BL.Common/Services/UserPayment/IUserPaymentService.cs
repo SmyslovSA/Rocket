@@ -1,7 +1,4 @@
-﻿using Rocket.BL.Common.Models;
-using System;
-
-namespace Rocket.BL.Common.Services
+﻿namespace Rocket.BL.Common.Services.UserPayment
 {
     /// <summary>
     /// Представляет сервис для валидации сведений о пользователе
@@ -13,13 +10,12 @@ namespace Rocket.BL.Common.Services
         /// получение инфы о платеже.
         /// </summary>
         /// <param name="user">Экземпляр пользователя, для которого ищем инфу о платеже.</param>
-        UserPayment GetUserPayment(Models.User.User user);
+        Models.UserPayment.UserPayment GetUserPayment(Models.User.User user);
 
         /// <summary>
         /// добавление инфы о платеже.
         /// </summary>
         /// <param name="payment">Информация о платеже</param>
-        void AddUserPayment(UserPayment payment);
-
+        void AddUserPayment(Models.UserPayment.UserPayment payment);
     }
 }

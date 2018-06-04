@@ -162,6 +162,7 @@
     <Compile Include="Configurations\User\DbUserDetailConfiguration.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
+    <Compile Include="Identity\RockeRoleManager.cs" />
     <Compile Include="Identity\RocketUserManager.cs" />
     <Compile Include="Migrations\201806041703124_Initial.cs" />
     <Compile Include="Migrations\201806041703124_Initial.Designer.cs">

@@ -1,5 +1,4 @@
-﻿
-namespace Rocket.BL.Common.Models
+﻿namespace Rocket.BL.Common.Models.UserPayment
 {
     /// <summary>
     /// Представляет модель данных о платеже

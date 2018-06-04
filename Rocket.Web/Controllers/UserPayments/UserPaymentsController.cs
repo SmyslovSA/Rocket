@@ -1,10 +1,8 @@
-﻿using System.Net;
-using System.Web.Http;
-using System.Web.Http.Results;
-using Rocket.BL.Common.Services;
+﻿using System.Web.Http;
+using Rocket.BL.Common.Services.UserPayment;
 
 
-namespace Rocket.Web.Controllers
+namespace Rocket.Web.Controllers.UserPayments
 {
     /// <summary>
     /// Контроллер WebApi работы с инфой о платеже.

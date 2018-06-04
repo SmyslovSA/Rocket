@@ -656,7 +656,6 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Subscribable", t => t.Id)
                 .Index(t => t.Id);
-
         }
 
         public override void Down()

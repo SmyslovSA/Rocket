@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Rocket.BL.Common.Services.UserPayment;
 
 namespace Rocket.Web.Controllers
 {
@@ -101,7 +102,7 @@ namespace Rocket.Web.Controllers
                 // check that Payment_amount/Payment_currency are correct
                 // process payment
                 var paymentInfo = ipnContext.RequestBody;
-                var payment = new BL.Common.Models.UserPayment();
+                var payment = new BL.Common.Models.UserPayment.UserPayment();
                 //TODO:  parse info and write to payment
                 var user = new Rocket.BL.Common.Models.User.User();
                 _userPaymentService.AddUserPayment(payment);

@@ -14,11 +14,11 @@ using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Identity;
 using Rocket.Web.Owin;
 
-[assembly: OwinStartup(typeof(Rocket.Web.OwinStartup))]
+[assembly: OwinStartup(typeof(Rocket.Web.Startup))]
 
 namespace Rocket.Web
 {
-    public class OwinStartup
+    public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
@@ -34,7 +34,7 @@ namespace Rocket.Web
                 .UseInMemoryScopes(Scopes.Load())
                 /*.UseInMemoryUsers(Users.Load())*/;
 
-            factory.Register(new Registration<UserManager<DbUser, string>>());
+            //factory.Register(new Registration<UserManager<DbUser, string>>());
 
             app.UseIdentityServer(new IdentityServerOptions
             {
@@ -64,10 +64,10 @@ namespace Rocket.Web
         }
     }
 
-    public class RocketIdentityService: AspNetIdentityUserService<DbUser, string>
-    {
-        public RocketIdentityService(UserManager<DbUser, string> userManager, Func<string, string> parseSubject = null) : base(userManager, parseSubject)
-        {
-        }
-    }
+    //public class RocketIdentityService: AspNetIdentityUserService<DbUser, string>
+    //{
+    //    public RocketIdentityService(UserManager<DbUser, string> userManager, Func<string, string> parseSubject = null) : base(userManager, parseSubject)
+    //    {
+    //    }
+    //}
 }

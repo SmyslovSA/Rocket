@@ -19,6 +19,7 @@ namespace Rocket.DAL.Migrations.InitialDataCreators.User
         /// <param name="dbGenders">Коллекция сведений о половой идентификации дополнительной информации пользователей.</param>
         /// <param name="dbHowToCalls">Коллекция сведений о том, как надо обращаться к пользователям.</param>
         /// <param name="dbLanguages">Коллекция всех используемых разговорных языков пользователей.</param>
+        
         public FakeDbUsersCreator()
         {
             var roles = new List<DbRole>()

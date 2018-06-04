@@ -56,7 +56,9 @@ namespace Rocket.BL.Services.UserServices
             //var perm = new Claim("permission", Permissions.Read);
             //var perm = new Claim("permission", Permissions.Read);
             _userManager.AddClaim("id", perm);
-            _userManager.AddToRoleAsync()
+            //_userManager.AddToRoleAsync();
+            throw new NotImplementedException();
+
 
             // докидываем пермишен в роль
             var dbRole = _unitOfWork.RoleRepository.GetById(idRole);
