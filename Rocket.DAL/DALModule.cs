@@ -16,6 +16,7 @@ using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
+using Rocket.DAL.Identity;
 using Rocket.DAL.Repositories;
 using Rocket.DAL.Repositories.Notification;
 using Rocket.DAL.Repositories.PersonalArea;
@@ -34,7 +35,7 @@ namespace Rocket.DAL
         {
             //контекст
             Bind<RocketContext>().ToSelf().InRequestScope();
-            Bind<DbContext>().To<RocketContext>().InRequestScope();
+            //Bind<DbContext>().To<RocketContext>().InRequestScope();
             //репозитарии
             Bind<IBaseRepository<ResourceEntity>>().To<BaseRepository<ResourceEntity>>();
             Bind<IBaseRepository<ParserSettingsEntity>>().To<BaseRepository<ParserSettingsEntity>>();
@@ -64,6 +65,8 @@ namespace Rocket.DAL
             Bind<IDbUserBillingMessageRepository>().To<DbUserBillingMessageRepository>();
             Bind<IDbCustomMessageRepository>().To<DbCustomMessageRepository>();
 
+            Bind<RocketUserManager>().ToSelf().InRequestScope();
+            Bind<IUserStore<DbUser>>().ToMethod(ctx => new UserStore<DbUser>(new RocketContext()));
             //Bind<IUserStore<DbUser, int>>()
             //    .ToConstructor(context => new UserStore<DbUser, DbRole, int, DbUserLogin, DbUserRole, DbUserClaim>(context.Inject<DbContext>()))
             //    .InRequestScope();

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Rocket.BL.Common.Services.User;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Identity;
 
 namespace Rocket.BL.Services.User
 {
@@ -15,24 +18,31 @@ namespace Rocket.BL.Services.User
     /// </summary>
     public class UserManagementService : BaseService, IUserManagementService
     {
+        private readonly RocketUserManager _usermanager;
+
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work.
         /// </summary>
         /// <param name="unitOfWork">Экземпляр unit of work.</param>
-        public UserManagementService(IUnitOfWork unitOfWork)
+        /// <param name="usermanager"></param>
+        public UserManagementService(IUnitOfWork unitOfWork, RocketUserManager usermanager)
             : base(unitOfWork)
         {
+            _usermanager = usermanager;
         }
 
         public ICollection<Common.Models.User.User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return _usermanager.Users.ProjectTo<Common.Models.User.User>().ToArray();
         }
 
         public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
         {
-            throw new NotImplementedException();
+            return _usermanager.Users.Skip(pageNumber * pageSize)
+                .Take(pageSize)
+                .ProjectTo<Common.Models.User.User>()
+                .ToArray();
         }
 
         /// <summary>
@@ -75,7 +85,7 @@ namespace Rocket.BL.Services.User
         //    {
         //        return null;
         //    }
-            
+
         //    ICollection<int> usersPageIndexes =
         //        GetUsersPageIndexes(usersCount: usersCount, pageSize: pageSize, pageNumber: pageNumber);
 
@@ -83,7 +93,7 @@ namespace Rocket.BL.Services.User
         //    {
         //        return null;
         //    }
-            
+
         //    // ОБъявление списка для возврата значения.
         //    var usersPage = new List<Common.Models.User.User>();
 
@@ -107,9 +117,17 @@ namespace Rocket.BL.Services.User
                 _unitOfWork.UserRepository.GetById(id));
         }
 
-        public int AddUser(Common.Models.User.User user)
+        public async Task<string> AddUser(Common.Models.User.User user)
         {
-            throw new NotImplementedException();
+            var dbUser = Mapper.Map<DbUser>(user);
+            var result = await _usermanager.CreateAsync(dbUser, user.Password)
+                .ConfigureAwait(false);
+            if (result.Succeeded)
+            {
+                return dbUser.Id;
+            }
+
+            throw new InvalidOperationException(result.Errors.Aggregate((a,b) => $"{a} {b}"));
         }
 
         /// <summary>
@@ -161,9 +179,9 @@ namespace Rocket.BL.Services.User
         }
 
         /// <summary>
-        /// После добавление пользователя в репозитарий 
+        /// После добавление пользователя в репозитарий
         /// генерирует ссылку, по которой пользователь
-        /// в случае получения уведомлении об активации, может 
+        /// в случае получения уведомлении об активации, может
         /// активировать аккаунт.
         /// </summary>
         /// <param name="user">Экземпляр пользователя.</param>

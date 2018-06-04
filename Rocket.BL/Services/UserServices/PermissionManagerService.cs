@@ -4,25 +4,43 @@ using Rocket.DAL.Common.UoW;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.Identity;
+using Rocket.DAL.Identity;
 
 namespace Rocket.BL.Services.UserServices
 {
+    public static class Permissions
+    {
+        public static string Read => "read.news";
+    }
+
     /// <summary>
     /// Добавление/удаление пермишенов у ролей + логирование
     /// </summary>
     public class PermissionManagerService : BaseService, IPermissionService
     {
+        private readonly RocketUserManager _userManager;
+        private readonly RockeRoleManager _roleManager;
+
         /// <summary>
         /// Создает новый экземпляр <see cref="PermissionManagerService"/>
         /// с заданным unit of work
         /// </summary>
         /// <param name="unitOfWork">Экземпляр unit of work</param>
-        public PermissionManagerService(IUnitOfWork unitOfWork)
+        /// <param name="userManager"></param>
+        /// <param name="roleManager"></param>
+        public PermissionManagerService(IUnitOfWork unitOfWork,
+            RocketUserManager userManager,
+            RockeRoleManager roleManager)
             : base(unitOfWork)
         {
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -32,6 +50,14 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="idPermission">Идентификатор пермишена</param>
         public void AddPermissionToRole(int idRole, int idPermission)
         {
+            var perm = new Claim("permission", Permissions.Read);
+            //var perm = new Claim("permission", Permissions.Read);
+            //var perm = new Claim("permission", Permissions.Read);
+            //var perm = new Claim("permission", Permissions.Read);
+            //var perm = new Claim("permission", Permissions.Read);
+            _userManager.AddClaim("id", perm);
+            _userManager.AddToRoleAsync()
+
             // докидываем пермишен в роль
             var dbRole = _unitOfWork.RoleRepository.GetById(idRole);
             var dbPermission = _unitOfWork.PermissionRepository.GetById(idPermission);

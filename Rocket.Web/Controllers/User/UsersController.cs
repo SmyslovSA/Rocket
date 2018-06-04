@@ -3,6 +3,7 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Rocket.BL.Common.Services.User;
+using Rocket.Web.Attribute;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Rocket.Web.Controllers.User
@@ -11,6 +12,7 @@ namespace Rocket.Web.Controllers.User
     /// Контроллер WebApi работы с пользователями.
     /// </summary>
     [RoutePrefix("users")]
+    [RoleAuthorize(ClaimName = "a,b,c")]
     public class UsersController : ApiController
     {
         private readonly IUserManagementService _userManagementService;

@@ -1,15 +1,22 @@
-﻿using System.Web;
+﻿using System.Net;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Web;
+using System.Web.Http;
+using System.Web.Http.Controllers;
 
 namespace Rocket.Web.Attribute
 {
-    public class RoleAuthorizeAttribyte : System.Web.Mvc.AuthorizeAttribute
+    public class RoleAuthorizeAttribute : AuthorizeAttribute
     {
-        protected override bool AuthorizeCore(HttpContextBase httpContext)
-        {
-            // todo MP httpContext.User - по юзеру получить пермишены ( сервис из конструктора ??))
-            // return base.AuthorizeCore(httpContext);
+        public string ClaimName { get; set; }
 
-            return true;
+        public override void OnAuthorization(HttpActionContext actionContext)
+        {
+            var identity = actionContext.RequestContext.Principal.Identity as ClaimsIdentity;
+            identity.HasClaim(c => c.Type.Equals("permission") && c.Value.Equals("read"));
+
+            actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
         }
     }
 }

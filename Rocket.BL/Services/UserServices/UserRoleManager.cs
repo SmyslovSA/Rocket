@@ -5,6 +5,7 @@ using Common.Logging;
 using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Identity;
 
 namespace Rocket.BL.Services.UserServices
 {
@@ -12,10 +13,15 @@ namespace Rocket.BL.Services.UserServices
     {
         private const int DefaultRoleId = 1; // todo MP закинуть в хранилище дефолтроль
         private readonly ILog _logger;
+        private readonly RockeRoleManager _roleManager;
+        private readonly RocketUserManager _userManager;
 
-        public UserRoleManager(IUnitOfWork unitOfWork, ILog logger) : base(unitOfWork)
+        public UserRoleManager(IUnitOfWork unitOfWork, ILog logger,
+            RockeRoleManager roleManager, RocketUserManager userManager) : base(unitOfWork)
         {
             _logger = logger;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -25,6 +31,9 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="roleId"> Идентификатор роли. </param>
         public virtual void AddToRole(int userId, int roleId = DefaultRoleId)
         {
+            //_roleManager.FindByIdAsync()
+            //_userManager.AddToRoleAsync()
+
             var dbUser = _unitOfWork.UserRepository.Find(userId);
             var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
             if (dbUserRole != null)
