@@ -1,17 +1,13 @@
+import { Genre } from './genre';
+
 export class Series {
   Id: number;
   TitleRu: string;
   TitleEn: string;
-  ReleaseDateRu: Date;
-  ReleaseDateEn: Date;
-  SeasonNumber: number;
-  Number: number;
-
-  TvSeriesId: number;
-  TvSeriesTitleRu: string;
-  TvSeriesTitleEn: string;
   PosterImageUrl: string;
-
-  DurationInMinutes: number;
-  UrlForEpisodeSource: string;
+  LostfilmRate: number;
+  CurrentStatus: string;
+  TvSerialCanal: string;
+  TvSerialYearStart: string;
+  Genres: Genre[];
 }

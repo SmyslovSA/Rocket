@@ -1,0 +1,10 @@
+<div class="btn-toolbar mb-2 mb-md-0" *ngIf="genres">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+      Жанры
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item">Все</a>
+      <a class="dropdown-item" *ngFor="let genre of genres">{{genre.Name}}</a>
+    </div>
+  </div>

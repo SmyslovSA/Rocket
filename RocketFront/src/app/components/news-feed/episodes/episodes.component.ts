@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SeriesPage } from '../../../models/news-feed/series-page';
+import { EpisodesPage } from '../../../models/news-feed/episodes-page';
 import { NewsFeedService } from '../../../services/news-feed.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { NewsFeedService } from '../../../services/news-feed.service';
 })
 export class EpisodesComponent implements OnInit {
 
-  seriesPage: SeriesPage;
+  episodesPage: EpisodesPage;
 
   constructor(private newsService: NewsFeedService) { }
 
@@ -18,7 +18,7 @@ export class EpisodesComponent implements OnInit {
 
   onPageChanged(page: number) {
     this.newsService.getNewEpisodes(page)
-       .subscribe(data => this.seriesPage = data);
+       .subscribe(data => this.episodesPage = data);
   }
 
 }
