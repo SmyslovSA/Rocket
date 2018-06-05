@@ -22,11 +22,12 @@ namespace Rocket.BL.Services.PersonalArea
         {
             return _unitOfWork.GenreRepository.Get(f => f.Name != null).ToList();
         }
+
         /// <summary>
-        /// Добавляет музыкальный жанр пользователю
+        /// Добавляет музыкальный жанр пользователю.
         /// </summary>
-        /// <param name="id">Id пользователя</param>
-        /// <param name="genre">Имя жанра для добавления</param>
+        /// <param name="id">Id пользователя.</param>
+        /// <param name="genre">Имя жанра для добавления.</param>
         public void AddMusicGenre(int id, string genre)
         {
             var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUserId == id).FirstOrDefault()

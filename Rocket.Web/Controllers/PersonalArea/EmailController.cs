@@ -4,6 +4,7 @@ using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.Web.Properties;
 using Swashbuckle.Swagger.Annotations;
 using System.Net;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 
@@ -26,7 +27,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(Email))]
         public IHttpActionResult AddEmail(int id, Email email)
         {
-            int? mail;
+            int mail;
             if (email == null)
             {
                 return BadRequest(Resources.EmptyEmail);
@@ -41,14 +42,24 @@ namespace Rocket.Web.Controllers.PersonalArea
                 return BadRequest(exception.Message);
             }
 
+            email.Id = mail;
             return Created($"{mail}", email);
         }
 
         [HttpDelete]
         [Route("delete/{id:int:min(1)}")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Id is not valid", typeof(string))]
         public IHttpActionResult DeleteEmail(int id)
         {
-            _emailEmailManager.DeleteEmail(id);
+            try
+            {
+                _emailEmailManager.DeleteEmail(id);
+            }
+            catch (ValidationException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
     }

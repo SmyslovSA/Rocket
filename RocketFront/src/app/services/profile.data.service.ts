@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaderResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaderResponse, HttpErrorResponse} from '@angular/common/http';
 import { Profile } from '../models/personal-area/profile';
 import { Observable } from 'rxjs';
 import { Email } from '../models/personal-area/email';
@@ -21,11 +21,12 @@ export class DataService {
             `http://localhost:63613/personal/user/password/1?password=${password}&passwordConfirm=${passwordConfirm}`, null);
     }
 
-    addemail(email: Email): Observable<HttpHeaderResponse> {
-        return this.http.post<HttpHeaderResponse>(`http://localhost:63613/personal/email/add?id=1`, email);
+    addemail(email: Email): Observable<Email> {
+         return this.http.post<Email>(`http://localhost:63613/personal/email/add?id=1`, email);
     }
 
-    deleteemail(id: number) {
-       return this.http.delete(`http://localhost:63613/personal/email/delete/${id}`);
+    deleteemail(id: number): Observable<HttpErrorResponse> {
+       return this.http.delete<HttpErrorResponse>(`http://localhost:63613/personal/email/delete/${id}`);
     }
+
 }
