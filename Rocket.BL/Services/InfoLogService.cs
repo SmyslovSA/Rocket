@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web.Hosting;
 
 namespace Rocket.BL.Services
 {
@@ -10,19 +11,16 @@ namespace Rocket.BL.Services
         // количество байт для буфера
         private const int СountBytes = 4096;
 
-
-        
         /// <summary>
         /// Получить последних N строк из логгера
         /// </summary>
         /// <returns> string </returns>
         public string GetLogInfo() // todo MP подумать чтобы передать дату файла вместо =string path=, =int count=
         {
-            var fileName = $"{DateTime.Now:shortdate}.log";
-            var path = "..\\App_data\\Logs";
+            var path = string.Empty;
             const int count = 20; // количество последних записей
 
-            path = Path.Combine(path, fileName);
+            path = HostingEnvironment.MapPath("~/App_Data/Logs/2018-06-05.log");
 
             var resultString = string.Empty;
 
@@ -92,7 +90,7 @@ namespace Rocket.BL.Services
             var lineCount = 0;
             for (; firstLineStart > 0; firstLineStart--)
             {
-                if (logRows[firstLineStart] == '\n')
+                if (logRows[firstLineStart-1] == '\n')
                 {
                     lineCount++;
                 }

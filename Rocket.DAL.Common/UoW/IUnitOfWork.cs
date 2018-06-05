@@ -1,13 +1,13 @@
-﻿using Rocket.DAL.Common.DbModels.Parser;
+﻿using System;
+using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.Notification;
+using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
-using System;
-using Rocket.DAL.Common.DbModels.Notification;
-using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -80,6 +80,11 @@ namespace Rocket.DAL.Common.UoW
         /// Репозиторий для работы с ролями.
         /// </summary>
         IDbRoleRepository RoleRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с ролями.
+        /// </summary>
+        IDbUserRoleRepository UserRoleRepository { get; }
 
         /// <summary>
         /// Репозиторий для работы с пермишенами.

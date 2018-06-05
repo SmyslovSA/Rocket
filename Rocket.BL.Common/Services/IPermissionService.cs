@@ -7,13 +7,13 @@
         /// </summary>
         /// <param name="idRole"> ID role </param>
         /// <param name="idPermission"> ID permission </param>
-        void AddPermissionToRole(int idRole, int idPermission);
+        void AddPermissionToRole(string idRole, int idPermission);
 
         /// <summary>
         /// Удалить функц возможность из текущего списка у роли
         /// </summary>
         /// <param name="idRole"> ID role </param>
         /// <param name="idPermission"> ID permission </param>
-        void RemovePermissionFromRole(int idRole, int idPermission);
+        void RemovePermissionFromRole(string idRole, int idPermission);
     }
 }
