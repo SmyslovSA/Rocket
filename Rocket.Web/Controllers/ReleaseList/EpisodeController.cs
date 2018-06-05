@@ -1,4 +1,5 @@
-﻿using Rocket.BL.Common.Services.ReleaseList;
+﻿using System;
+using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.Web.ConfigHandlers;
 using System.Web.Http;
 using Rocket.Web.Properties;
@@ -67,6 +68,26 @@ namespace Rocket.Web.Controllers.ReleaseList
 
             var page = _episodeService.GetScheduleEpisodesPage(page_size ?? SettingsManager.ReleasesSettings.Pagination.PageSize, pageNumber);
             return pageNumber <= page.TotalPagesCount ? Ok(page) : (IHttpActionResult)NotFound();
+        }
+
+        /// <summary>
+        /// Возвращает коллекцию серий с датой выхода
+        /// между заданными начальной и конечной датами включительно
+        /// </summary>
+        /// <param name="start_date">Начальная дата</param>
+        /// <param name="end_date">Конечная дата</param>
+        /// <returns>Коллекция серий</returns>
+        [HttpGet]
+        [Route("calendar")]
+        public IHttpActionResult GetEpisodesByDates(DateTime start_date, DateTime end_date)
+        {
+            if (start_date > end_date)
+            {
+                return BadRequest(Resources.BadStartEndDatesMessage);
+            }
+
+            var episodes = _episodeService.GetEpisodesByDates(start_date.Date, end_date.Date);
+            return Ok(episodes);
         }
     }
 }
