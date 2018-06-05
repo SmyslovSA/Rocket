@@ -183,4 +183,16 @@
   <data name="UserWrongPassword" xml:space="preserve">
     <value>"The password differs from the password confirmation or does not meet the security requirements"</value>
   </data>
+  <data name="EmptyModel" xml:space="preserve">
+    <value>"Cannot find valid dat using this parameters"</value>
+  </data>
+  <data name="GenreWrongName" xml:space="preserve">
+    <value>"Genre with this name was not found"</value>
+  </data>
+  <data name="GenreDuplicate" xml:space="preserve">
+    <value>"This Genre is already added"</value>
+  </data>
+  <data name="UserWrongGenre" xml:space="preserve">
+    <value>"User hasn't have this genre"</value>
+  </data>
 </root>
