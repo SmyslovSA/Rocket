@@ -390,7 +390,6 @@
     <Compile Include="App_Start\LoggerConfig.cs" />
     <Compile Include="App_Start\WebModule.cs" />
     <Compile Include="Owin\Scopes.cs" />
-    <Compile Include="Startup.cs" />
     <Compile Include="OwinStartup.cs" />
     <Compile Include="Owin\Users.cs" />
   </ItemGroup>
