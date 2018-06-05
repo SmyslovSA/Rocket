@@ -183,6 +183,11 @@ namespace Rocket.DAL.Common.UoW
         IBaseRepository<DbUserPayment> UserPaymentRepository { get; }
 
         /// <summary>
+        /// Репозиторий настроек сервиса нотификации
+        /// </summary>
+        IBaseRepository<NotificationsSettingsEntity> NotificationSettingsRepository { get; }
+
+        /// <summary>
         /// Сохраняет изменения в хранилище данных
         /// </summary>
         /// <returns> int </returns>
