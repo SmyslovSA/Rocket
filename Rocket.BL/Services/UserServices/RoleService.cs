@@ -8,23 +8,29 @@ using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Identity;
 
 namespace Rocket.BL.Services.UserServices
 {
-    public class RoleService : BaseService, IRoleService
+    public class RoleService : BaseService //, IRoleService
     {
         private readonly ILog _logger;
+        private readonly RockeRoleManager _roleManager;
 
-        public RoleService(IUnitOfWork unitOfWork, ILog _logger) : base(unitOfWork)
+        public RoleService(IUnitOfWork unitOfWork, ILog logger, RockeRoleManager roleManager) 
+            : base(unitOfWork)
         {
-            this._logger = _logger;
+            _logger = logger;
+            _roleManager = roleManager;
         }
 
-        public bool RoleIsExists(Expression<Func<Role, bool>> filter)
+        public async void RoleIsExists(Expression<Func<Role, bool>> filter)
         {
-            return _unitOfWork.RoleRepository
-                .Get(Mapper.Map<Expression<Func<DbRole, bool>>>(filter))
-                .Any();
+            //return await _roleManager.RoleExistsAsync(filter).ConfigureAwait(false);
+
+            //return _unitOfWork.RoleRepository
+            //    .Get(Mapper.Map<Expression<Func<DbRole, bool>>>(filter))
+            //    .Any();
         }
 
         public IEnumerable<Role> Get(

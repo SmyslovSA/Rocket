@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Common.Logging;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Rocket.BL.Common.Services;
-using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Identity;
 

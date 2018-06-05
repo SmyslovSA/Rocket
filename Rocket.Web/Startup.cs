@@ -8,6 +8,7 @@ using IdentityServer3.Core.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Owin;
+using Rocket.BL.Services;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.Web.Identity;
 using Rocket.Web.Owin;
@@ -37,6 +38,10 @@ namespace Rocket.Web
 
             factory.Register(new Registration<UserManager<DbUser, string>>());
             factory.Register(new Registration<RocketIdentityService>());
+
+            // test logservice
+            var asdf = new InfoLogService();
+            var azsd = asdf.GetLogInfo();
 
             app.UseIdentityServer(new IdentityServerOptions
             {
