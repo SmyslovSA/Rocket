@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Rocket.BL.Common.Services;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
-using Rocket.BL.Common.Services.UserPayment;
 
-namespace Rocket.Web.Controllers.UserPayments
+namespace Rocket.Web.Controllers
 {
     [RoutePrefix("ipn")]
     public class IPNController : ApiController
@@ -18,7 +19,7 @@ namespace Rocket.Web.Controllers.UserPayments
 
             public string RequestBody { get; set; }
 
-            public string Verification { get; set; } = string.Empty;
+            public string Verification { get; set; } = String.Empty;
         }
 
         private readonly IUserPaymentService _userPaymentService;
@@ -36,7 +37,8 @@ namespace Rocket.Web.Controllers.UserPayments
             {
                 IPNRequest = Request
             };
-           
+
+
             ipnContext.RequestBody = ipnContext.IPNRequest.Content.ToString();
 
             //Store the IPN received from PayPal
@@ -99,7 +101,7 @@ namespace Rocket.Web.Controllers.UserPayments
                 // check that Payment_amount/Payment_currency are correct
                 // process payment
                 var paymentInfo = ipnContext.RequestBody;
-                var payment = new BL.Common.Models.UserPayment.UserPayment();
+                var payment = new BL.Common.Models.UserPayment();
                 //TODO:  parse info and write to payment
                 var user = new Rocket.BL.Common.Models.User.User();
                 _userPaymentService.AddUserPayment(payment);
