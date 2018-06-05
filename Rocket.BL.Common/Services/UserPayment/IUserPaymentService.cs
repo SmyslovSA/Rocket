@@ -13,6 +13,7 @@ namespace Rocket.BL.Common.Services
         /// получение инфы о платеже.
         /// </summary>
         /// <param name="user">Экземпляр пользователя, для которого ищем инфу о платеже.</param>
+        /// <returns>Платеж пользователя.</returns>
         UserPayment GetUserPayment(Models.User.User user);
 
         /// <summary>
@@ -20,6 +21,5 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="payment">Информация о платеже</param>
         void AddUserPayment(UserPayment payment);
-
     }
 }
