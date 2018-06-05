@@ -14,16 +14,16 @@ export class NewsFeedService {
 
   constructor(private http: HttpClient) { }
 
-  getNewEpisodes(page: number): Observable<EpisodesPage> {
-    return this.http.get<EpisodesPage>(`http://localhost:63613/episode/new/page_${page}?page_size=12`);
+  getNewEpisodes(page: number, genre: number): Observable<EpisodesPage> {
+    return this.http.get<EpisodesPage>(`http://localhost:63613/episode/new/page_${page}?page_size=12${genre ? '&genre_id=' + genre : ''}`);
   }
 
-  getNewMusic(page: number): Observable<MusicPage> {
-    return this.http.get<MusicPage>(`http://localhost:63613/music/page/${page}`);
+  getNewMusic(page: number, genre): Observable<MusicPage> {
+    return this.http.get<MusicPage>(`http://localhost:63613/music/page/${page}${genre ? '?genreId=' + genre : ''}`);
   }
 
-  getSeriesPage(page: number, genre: Genre): Observable<SeriesPage> {
-    return this.http.get<SeriesPage>(`http://localhost:63613/tvseries/page_${page}?page_size=12${genre ? '&genre_id=' + genre.Id : ''}`);
+  getSeriesPage(page: number, genre: number): Observable<SeriesPage> {
+    return this.http.get<SeriesPage>(`http://localhost:63613/tvseries/page_${page}?page_size=12${genre ? '&genre_id=' + genre : ''}`);
   }
 
   getSeriesDetails(id: number): Observable<SeriesDetails> {
@@ -31,6 +31,7 @@ export class NewsFeedService {
   }
 
   getGenres(type: string): Observable<Genre[]> {
+    type = type.replace('episodes', 'series');
     return this.http.get<Genre[]>(`http://localhost:63613/genre/${type}/all`);
   }
 }

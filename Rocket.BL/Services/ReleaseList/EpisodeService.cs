@@ -6,6 +6,7 @@ using Rocket.DAL.Common.UoW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Rocket.DAL.Common.DbModels.Parser;
 
 namespace Rocket.BL.Services.ReleaseList
@@ -30,15 +31,21 @@ namespace Rocket.BL.Services.ReleaseList
             return Mapper.Map<EpisodeFullDto>(episode);
         }
 
-        public PageInfo<EpisodeFullDto> GetNewEpisodesPage(int pageSize, int pageNumber)
+        public PageInfo<EpisodeFullDto> GetNewEpisodesPage(int pageSize, int pageNumber, int? genreId = null)
         {
+            Expression<Func<EpisodeEntity, bool>> filter = f => f.ReleaseDateRu <= DateTime.Now;
+            if (genreId != null)
+            {
+                filter = f => f.Season.TvSeries.ListGenreEntity.Select(g => g.Id).Contains(genreId.Value) && f.ReleaseDateRu <= DateTime.Now;
+            }
+
             var pageInfo = new PageInfo<EpisodeFullDto>();
-            pageInfo.TotalItemsCount = _unitOfWork.EpisodeRepository.ItemsCount(e => e.ReleaseDateRu <= DateTime.Now);
+            pageInfo.TotalItemsCount = _unitOfWork.EpisodeRepository.ItemsCount(filter);
             pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
             var episodes = _unitOfWork.EpisodeRepository.GetPage(
                     pageSize,
                     pageNumber,
-                    f => f.ReleaseDateRu <= DateTime.Now,
+                    filter,
                     o => o.OrderByDescending(e => e.ReleaseDateRu),
                     $"{nameof(EpisodeEntity.Season)}");
 

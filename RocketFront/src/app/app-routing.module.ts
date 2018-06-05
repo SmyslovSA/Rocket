@@ -24,8 +24,8 @@ const routes: Routes = [
     path: 'news',
     component: NewsFeedComponent,
     children: [
-      { path: '', redirectTo: 'episodes', pathMatch: 'prefix' },
-      { path: 'episodes', component: EpisodesComponent },
+      { path: '', redirectTo: 'series', pathMatch: 'prefix' },
+      { path: 'series', component: EpisodesComponent },
       { path: 'music', component: MusicsComponent }
     ]
   },
