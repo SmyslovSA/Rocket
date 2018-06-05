@@ -2,8 +2,8 @@ namespace Rocket.DAL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-
-    public partial class Initial : DbMigration
+    
+    public partial class AllSqlMigrations : DbMigration
     {
         public override void Up()
         {
@@ -15,7 +15,7 @@ namespace Rocket.DAL.Migrations
                         Name = c.String(nullable: false, maxLength: 250),
                     })
                 .PrimaryKey(t => t.Code);
-
+            
             CreateTable(
                 "dbo.Subscribable",
                 c => new
@@ -23,7 +23,7 @@ namespace Rocket.DAL.Migrations
                         Id = c.Int(nullable: false, identity: true),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.AuthorisedUsers",
                 c => new
@@ -35,7 +35,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.DbUserId)
                 .ForeignKey("dbo.AspNetUsers", t => t.DbUser_Id)
                 .Index(t => t.DbUser_Id);
-
+            
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
@@ -63,7 +63,7 @@ namespace Rocket.DAL.Migrations
                 .Index(t => t.AccountStatusId)
                 .Index(t => t.AccountLevelId)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
-
+            
             CreateTable(
                 "dbo.AccountLevels",
                 c => new
@@ -72,7 +72,7 @@ namespace Rocket.DAL.Migrations
                         Name = c.String(nullable: false, maxLength: 15),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.AccountStatuses",
                 c => new
@@ -81,7 +81,7 @@ namespace Rocket.DAL.Migrations
                         Name = c.String(nullable: false, maxLength: 15),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.AspNetUserClaims",
                 c => new
@@ -94,7 +94,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-
+            
             CreateTable(
                 "dbo.AspNetUserLogins",
                 c => new
@@ -106,20 +106,48 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-
+            
             CreateTable(
                 "dbo.AspNetUserRoles",
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128),
                         RoleId = c.String(nullable: false, maxLength: 128),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                        Role_Id = c.String(maxLength: 128),
+                        User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetRoles", t => t.Role_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.UserId)
-                .Index(t => t.RoleId);
-
+                .Index(t => t.RoleId)
+                .Index(t => t.Role_Id)
+                .Index(t => t.User_Id);
+            
+            CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
+                "dbo.DbPermissions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Description = c.String(),
+                        ValueName = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.Season",
                 c => new
@@ -132,7 +160,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.TvSerias", t => t.TvSeriesId)
                 .Index(t => t.TvSeriesId);
-
+            
             CreateTable(
                 "dbo.Episode",
                 c => new
@@ -150,7 +178,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Season", t => t.SeasonId, cascadeDelete: true)
                 .Index(t => t.SeasonId);
-
+            
             CreateTable(
                 "dbo.PersonType",
                 c => new
@@ -159,7 +187,7 @@ namespace Rocket.DAL.Migrations
                         Name = c.String(nullable: false, maxLength: 250),
                     })
                 .PrimaryKey(t => t.Code);
-
+            
             CreateTable(
                 "dbo.MusicTrack",
                 c => new
@@ -172,7 +200,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Music", t => t.MusicId)
                 .Index(t => t.MusicId);
-
+            
             CreateTable(
                 "dbo.ResourceItem",
                 c => new
@@ -190,7 +218,7 @@ namespace Rocket.DAL.Migrations
                 .ForeignKey("dbo.Resource", t => t.ResourceId, cascadeDelete: true)
                 .Index(t => t.ResourceId)
                 .Index(t => t.MusicId);
-
+            
             CreateTable(
                 "dbo.Resource",
                 c => new
@@ -202,7 +230,7 @@ namespace Rocket.DAL.Migrations
                         ParsePeriodInMinutes = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.ParserSettings",
                 c => new
@@ -217,7 +245,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Resource", t => t.ResourceId, cascadeDelete: true)
                 .Index(t => t.ResourceId);
-
+            
             CreateTable(
                 "dbo.DbEmails",
                 c => new
@@ -229,7 +257,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AuthorisedUsers", t => t.DbAuthorisedUserId, cascadeDelete: true)
                 .Index(t => t.DbAuthorisedUserId);
-
+            
             CreateTable(
                 "dbo.CustomMessages",
                 c => new
@@ -246,7 +274,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Receivers", t => t.ReceiverId, cascadeDelete: true)
                 .Index(t => t.ReceiverId);
-
+            
             CreateTable(
                 "dbo.Receivers",
                 c => new
@@ -256,7 +284,7 @@ namespace Rocket.DAL.Migrations
                         NotifyByPush = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.UserId);
-
+            
             CreateTable(
                 "dbo.ReceiversJoinReleases",
                 c => new
@@ -270,7 +298,7 @@ namespace Rocket.DAL.Migrations
                 .ForeignKey("dbo.Receivers", t => t.ReceiverId, cascadeDelete: true)
                 .Index(t => t.ReceiverId)
                 .Index(t => t.ReleaseMessageId);
-
+            
             CreateTable(
                 "dbo.ReleaseMessages",
                 c => new
@@ -282,7 +310,7 @@ namespace Rocket.DAL.Migrations
                         CreationTime = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.UserBillingMessages",
                 c => new
@@ -296,7 +324,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Receivers", t => t.ReceiverId, cascadeDelete: true)
                 .Index(t => t.ReceiverId);
-
+            
             CreateTable(
                 "dbo.Countries",
                 c => new
@@ -305,7 +333,7 @@ namespace Rocket.DAL.Migrations
                         Name = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Addresses",
                 c => new
@@ -323,7 +351,7 @@ namespace Rocket.DAL.Migrations
                 .ForeignKey("dbo.UserDetails", t => t.Id)
                 .Index(t => t.Id)
                 .Index(t => t.CountryId);
-
+            
             CreateTable(
                 "dbo.UserDetails",
                 c => new
@@ -349,7 +377,7 @@ namespace Rocket.DAL.Migrations
                 .Index(t => t.GenderId)
                 .Index(t => t.HowToCallId)
                 .Index(t => t.User_Id);
-
+            
             CreateTable(
                 "dbo.EmailAddresses",
                 c => new
@@ -358,7 +386,7 @@ namespace Rocket.DAL.Migrations
                         Address = c.String(nullable: false, maxLength: 20),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Genders",
                 c => new
@@ -367,7 +395,7 @@ namespace Rocket.DAL.Migrations
                         Name = c.String(nullable: false, maxLength: 20),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.HowToCalls",
                 c => new
@@ -376,7 +404,7 @@ namespace Rocket.DAL.Migrations
                         Name = c.String(nullable: false, maxLength: 20),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Languages",
                 c => new
@@ -385,7 +413,7 @@ namespace Rocket.DAL.Migrations
                         Name = c.String(nullable: false, maxLength: 15),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.PhoneNumbers",
                 c => new
@@ -394,7 +422,7 @@ namespace Rocket.DAL.Migrations
                         Number = c.String(nullable: false, maxLength: 20),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.EmailTemplates",
                 c => new
@@ -404,7 +432,7 @@ namespace Rocket.DAL.Migrations
                         Body = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.GuestBillingMessages",
                 c => new
@@ -416,7 +444,7 @@ namespace Rocket.DAL.Migrations
                         CreationTime = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.NotificationsSettings",
                 c => new
@@ -427,132 +455,7 @@ namespace Rocket.DAL.Migrations
                         NotifyPeriodInMinutes = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-
-            CreateTable(
-                "dbo.AspNetRoles",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-
-            CreateTable(
-                "dbo.DbPermissions",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Description = c.String(),
-                        ValueName = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
-
-            CreateTable(
-                "dbo.SubscriptionsToUsers",
-                c => new
-                    {
-                        SubscriptionId = c.Int(nullable: false),
-                        UserId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.SubscriptionId, t.UserId })
-                .ForeignKey("dbo.Subscribable", t => t.SubscriptionId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.SubscriptionId)
-                .Index(t => t.UserId);
-
-            CreateTable(
-                "dbo.TvSeriasToGenres",
-                c => new
-                    {
-                        TvSeriasId = c.Int(nullable: false),
-                        GenreId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.TvSeriasId, t.GenreId })
-                .ForeignKey("dbo.TvSerias", t => t.TvSeriasId)
-                .ForeignKey("dbo.Genre", t => t.GenreId)
-                .Index(t => t.TvSeriasId)
-                .Index(t => t.GenreId);
-
-            CreateTable(
-                "dbo.TvSeriasToPersons",
-                c => new
-                    {
-                        TvSeriasId = c.Int(nullable: false),
-                        PersonId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.TvSeriasId, t.PersonId })
-                .ForeignKey("dbo.TvSerias", t => t.TvSeriasId)
-                .ForeignKey("dbo.Person", t => t.PersonId)
-                .Index(t => t.TvSeriasId)
-                .Index(t => t.PersonId);
-
-            CreateTable(
-                "dbo.MusicReleaseGenres",
-                c => new
-                    {
-                        MusicId = c.Int(nullable: false),
-                        MusicGenreId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.MusicId, t.MusicGenreId })
-                .ForeignKey("dbo.Music", t => t.MusicId)
-                .ForeignKey("dbo.MusicGenres", t => t.MusicGenreId)
-                .Index(t => t.MusicId)
-                .Index(t => t.MusicGenreId);
-
-            CreateTable(
-                "dbo.MusicMusicians",
-                c => new
-                    {
-                        MusicId = c.Int(nullable: false),
-                        MusiciansId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.MusicId, t.MusiciansId })
-                .ForeignKey("dbo.Music", t => t.MusicId)
-                .ForeignKey("dbo.Musician", t => t.MusiciansId)
-                .Index(t => t.MusicId)
-                .Index(t => t.MusiciansId);
-
-            CreateTable(
-                "dbo.AuthorisedUserGenres",
-                c => new
-                    {
-                        AuthorisedUserId = c.Int(nullable: false),
-                        GenreId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.AuthorisedUserId, t.GenreId })
-                .ForeignKey("dbo.AuthorisedUsers", t => t.AuthorisedUserId, cascadeDelete: true)
-                .ForeignKey("dbo.Genre", t => t.GenreId, cascadeDelete: true)
-                .Index(t => t.AuthorisedUserId)
-                .Index(t => t.GenreId);
-
-            CreateTable(
-                "dbo.UserDetailsEmailAddresses",
-                c => new
-                    {
-                        UserDetailId = c.Int(nullable: false),
-                        EmailAddressId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.UserDetailId, t.EmailAddressId })
-                .ForeignKey("dbo.UserDetails", t => t.UserDetailId, cascadeDelete: true)
-                .ForeignKey("dbo.EmailAddresses", t => t.EmailAddressId, cascadeDelete: true)
-                .Index(t => t.UserDetailId)
-                .Index(t => t.EmailAddressId);
-
-            CreateTable(
-                "dbo.UserDetailsPhoneNumbers",
-                c => new
-                    {
-                        UserDetailId = c.Int(nullable: false),
-                        PhoneNumberId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.UserDetailId, t.PhoneNumberId })
-                .ForeignKey("dbo.UserDetails", t => t.UserDetailId, cascadeDelete: true)
-                .ForeignKey("dbo.PhoneNumbers", t => t.PhoneNumberId, cascadeDelete: true)
-                .Index(t => t.UserDetailId)
-                .Index(t => t.PhoneNumberId);
-
+            
             CreateTable(
                 "dbo.DbPermissionDbRoles",
                 c => new
@@ -565,7 +468,111 @@ namespace Rocket.DAL.Migrations
                 .ForeignKey("dbo.AspNetRoles", t => t.DbRole_Id, cascadeDelete: true)
                 .Index(t => t.DbPermission_Id)
                 .Index(t => t.DbRole_Id);
-
+            
+            CreateTable(
+                "dbo.SubscriptionsToUsers",
+                c => new
+                    {
+                        SubscriptionId = c.Int(nullable: false),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.SubscriptionId, t.UserId })
+                .ForeignKey("dbo.Subscribable", t => t.SubscriptionId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.SubscriptionId)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.TvSeriasToGenres",
+                c => new
+                    {
+                        TvSeriasId = c.Int(nullable: false),
+                        GenreId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.TvSeriasId, t.GenreId })
+                .ForeignKey("dbo.TvSerias", t => t.TvSeriasId)
+                .ForeignKey("dbo.Genre", t => t.GenreId)
+                .Index(t => t.TvSeriasId)
+                .Index(t => t.GenreId);
+            
+            CreateTable(
+                "dbo.TvSeriasToPersons",
+                c => new
+                    {
+                        TvSeriasId = c.Int(nullable: false),
+                        PersonId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.TvSeriasId, t.PersonId })
+                .ForeignKey("dbo.TvSerias", t => t.TvSeriasId)
+                .ForeignKey("dbo.Person", t => t.PersonId)
+                .Index(t => t.TvSeriasId)
+                .Index(t => t.PersonId);
+            
+            CreateTable(
+                "dbo.MusicReleaseGenres",
+                c => new
+                    {
+                        MusicId = c.Int(nullable: false),
+                        MusicGenreId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.MusicId, t.MusicGenreId })
+                .ForeignKey("dbo.Music", t => t.MusicId)
+                .ForeignKey("dbo.MusicGenres", t => t.MusicGenreId)
+                .Index(t => t.MusicId)
+                .Index(t => t.MusicGenreId);
+            
+            CreateTable(
+                "dbo.MusicMusicians",
+                c => new
+                    {
+                        MusicId = c.Int(nullable: false),
+                        MusiciansId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.MusicId, t.MusiciansId })
+                .ForeignKey("dbo.Music", t => t.MusicId)
+                .ForeignKey("dbo.Musician", t => t.MusiciansId)
+                .Index(t => t.MusicId)
+                .Index(t => t.MusiciansId);
+            
+            CreateTable(
+                "dbo.AuthorisedUserGenres",
+                c => new
+                    {
+                        AuthorisedUserId = c.Int(nullable: false),
+                        GenreId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.AuthorisedUserId, t.GenreId })
+                .ForeignKey("dbo.AuthorisedUsers", t => t.AuthorisedUserId, cascadeDelete: true)
+                .ForeignKey("dbo.Genre", t => t.GenreId, cascadeDelete: true)
+                .Index(t => t.AuthorisedUserId)
+                .Index(t => t.GenreId);
+            
+            CreateTable(
+                "dbo.UserDetailsEmailAddresses",
+                c => new
+                    {
+                        UserDetailId = c.Int(nullable: false),
+                        EmailAddressId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.UserDetailId, t.EmailAddressId })
+                .ForeignKey("dbo.UserDetails", t => t.UserDetailId, cascadeDelete: true)
+                .ForeignKey("dbo.EmailAddresses", t => t.EmailAddressId, cascadeDelete: true)
+                .Index(t => t.UserDetailId)
+                .Index(t => t.EmailAddressId);
+            
+            CreateTable(
+                "dbo.UserDetailsPhoneNumbers",
+                c => new
+                    {
+                        UserDetailId = c.Int(nullable: false),
+                        PhoneNumberId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.UserDetailId, t.PhoneNumberId })
+                .ForeignKey("dbo.UserDetails", t => t.UserDetailId, cascadeDelete: true)
+                .ForeignKey("dbo.PhoneNumbers", t => t.PhoneNumberId, cascadeDelete: true)
+                .Index(t => t.UserDetailId)
+                .Index(t => t.PhoneNumberId);
+            
             CreateTable(
                 "dbo.MusicGenres",
                 c => new
@@ -576,7 +583,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Subscribable", t => t.Id)
                 .Index(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Music",
                 c => new
@@ -592,7 +599,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Subscribable", t => t.Id)
                 .Index(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Genre",
                 c => new
@@ -606,7 +613,7 @@ namespace Rocket.DAL.Migrations
                 .ForeignKey("dbo.Category", t => t.CategoryCode, cascadeDelete: true)
                 .Index(t => t.Id)
                 .Index(t => t.CategoryCode);
-
+            
             CreateTable(
                 "dbo.Person",
                 c => new
@@ -623,7 +630,7 @@ namespace Rocket.DAL.Migrations
                 .ForeignKey("dbo.PersonType", t => t.PersonTypeCode, cascadeDelete: true)
                 .Index(t => t.Id)
                 .Index(t => t.PersonTypeCode);
-
+            
             CreateTable(
                 "dbo.TvSerias",
                 c => new
@@ -645,7 +652,7 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Subscribable", t => t.Id)
                 .Index(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Musician",
                 c => new
@@ -656,8 +663,9 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Subscribable", t => t.Id)
                 .Index(t => t.Id);
+            
         }
-
+        
         public override void Down()
         {
             DropForeignKey("dbo.Musician", "Id", "dbo.Subscribable");
@@ -668,8 +676,6 @@ namespace Rocket.DAL.Migrations
             DropForeignKey("dbo.Genre", "Id", "dbo.Subscribable");
             DropForeignKey("dbo.Music", "Id", "dbo.Subscribable");
             DropForeignKey("dbo.MusicGenres", "Id", "dbo.Subscribable");
-            DropForeignKey("dbo.DbPermissionDbRoles", "DbRole_Id", "dbo.AspNetRoles");
-            DropForeignKey("dbo.DbPermissionDbRoles", "DbPermission_Id", "dbo.DbPermissions");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.UserDetails", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.UserDetails", "SitizenshipId", "dbo.Countries");
@@ -707,6 +713,10 @@ namespace Rocket.DAL.Migrations
             DropForeignKey("dbo.SubscriptionsToUsers", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.SubscriptionsToUsers", "SubscriptionId", "dbo.Subscribable");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "Role_Id", "dbo.AspNetRoles");
+            DropForeignKey("dbo.DbPermissionDbRoles", "DbRole_Id", "dbo.AspNetRoles");
+            DropForeignKey("dbo.DbPermissionDbRoles", "DbPermission_Id", "dbo.DbPermissions");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUsers", "AccountStatusId", "dbo.AccountStatuses");
@@ -719,8 +729,6 @@ namespace Rocket.DAL.Migrations
             DropIndex("dbo.Genre", new[] { "Id" });
             DropIndex("dbo.Music", new[] { "Id" });
             DropIndex("dbo.MusicGenres", new[] { "Id" });
-            DropIndex("dbo.DbPermissionDbRoles", new[] { "DbRole_Id" });
-            DropIndex("dbo.DbPermissionDbRoles", new[] { "DbPermission_Id" });
             DropIndex("dbo.UserDetailsPhoneNumbers", new[] { "PhoneNumberId" });
             DropIndex("dbo.UserDetailsPhoneNumbers", new[] { "UserDetailId" });
             DropIndex("dbo.UserDetailsEmailAddresses", new[] { "EmailAddressId" });
@@ -737,7 +745,8 @@ namespace Rocket.DAL.Migrations
             DropIndex("dbo.TvSeriasToGenres", new[] { "TvSeriasId" });
             DropIndex("dbo.SubscriptionsToUsers", new[] { "UserId" });
             DropIndex("dbo.SubscriptionsToUsers", new[] { "SubscriptionId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.DbPermissionDbRoles", new[] { "DbRole_Id" });
+            DropIndex("dbo.DbPermissionDbRoles", new[] { "DbPermission_Id" });
             DropIndex("dbo.UserDetails", new[] { "User_Id" });
             DropIndex("dbo.UserDetails", new[] { "HowToCallId" });
             DropIndex("dbo.UserDetails", new[] { "GenderId" });
@@ -756,6 +765,9 @@ namespace Rocket.DAL.Migrations
             DropIndex("dbo.MusicTrack", new[] { "MusicId" });
             DropIndex("dbo.Episode", new[] { "SeasonId" });
             DropIndex("dbo.Season", new[] { "TvSeriesId" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.AspNetUserRoles", new[] { "User_Id" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "Role_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -770,7 +782,6 @@ namespace Rocket.DAL.Migrations
             DropTable("dbo.Genre");
             DropTable("dbo.Music");
             DropTable("dbo.MusicGenres");
-            DropTable("dbo.DbPermissionDbRoles");
             DropTable("dbo.UserDetailsPhoneNumbers");
             DropTable("dbo.UserDetailsEmailAddresses");
             DropTable("dbo.AuthorisedUserGenres");
@@ -779,8 +790,7 @@ namespace Rocket.DAL.Migrations
             DropTable("dbo.TvSeriasToPersons");
             DropTable("dbo.TvSeriasToGenres");
             DropTable("dbo.SubscriptionsToUsers");
-            DropTable("dbo.DbPermissions");
-            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.DbPermissionDbRoles");
             DropTable("dbo.NotificationsSettings");
             DropTable("dbo.GuestBillingMessages");
             DropTable("dbo.EmailTemplates");
@@ -805,6 +815,8 @@ namespace Rocket.DAL.Migrations
             DropTable("dbo.PersonType");
             DropTable("dbo.Episode");
             DropTable("dbo.Season");
+            DropTable("dbo.DbPermissions");
+            DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

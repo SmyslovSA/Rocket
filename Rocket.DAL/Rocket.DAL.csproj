@@ -170,9 +170,13 @@
     <Compile Include="DALModule.cs" />
     <Compile Include="Identity\RockeRoleManager.cs" />
     <Compile Include="Identity\RocketUserManager.cs" />
-    <Compile Include="Migrations\201806041703124_Initial.cs" />
-    <Compile Include="Migrations\201806041703124_Initial.Designer.cs">
-      <DependentUpon>201806041703124_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201806051840193_AllSqlMigrations.cs" />
+    <Compile Include="Migrations\201806051840193_AllSqlMigrations.Designer.cs">
+      <DependentUpon>201806051840193_AllSqlMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806051843106_InitializeDateForParsers.cs" />
+    <Compile Include="Migrations\201806051843106_InitializeDateForParsers.Designer.cs">
+      <DependentUpon>201806051843106_InitializeDateForParsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
@@ -230,8 +234,11 @@
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806041703124_Initial.resx">
-      <DependentUpon>201806041703124_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806051840193_AllSqlMigrations.resx">
+      <DependentUpon>201806051840193_AllSqlMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806051843106_InitializeDateForParsers.resx">
+      <DependentUpon>201806051843106_InitializeDateForParsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
