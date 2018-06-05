@@ -21,15 +21,15 @@ namespace Rocket.Web
             LoggerConfig.Configure();
         }
 
-        // расскоментировать перед запуском
-        //protected void Application_Error(object sender, EventArgs e)
-        //{
-        //    var exception = Server.GetLastError();
-        //    Server.ClearError();
-            
-        //    var errorHandler = DependencyResolver.Current.GetService<ApplicationErrorHandler>();
-        //    errorHandler.Handle(User, Request, Response, exception);
-        //}
+        //расскоментировать перед запуском
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
+            Server.ClearError();
+
+            var errorHandler = DependencyResolver.Current.GetService<ApplicationErrorHandler>();
+            errorHandler.Handle(User, Request, Response, exception);
+        }
 
         protected override IKernel CreateKernel()
         {

@@ -37,6 +37,6 @@ namespace Rocket.BL.Common.Services
         /// <param name="userId"> Идентификатор ползователя. </param>
         /// <param name="roleId"> Идентификатор ролию </param>
         /// <returns>bool</returns>
-        bool RemoveFromRole(string userId, string roleId);
+        Task<IdentityResult> RemoveFromRole(string userId, string roleId);
     }
 }
