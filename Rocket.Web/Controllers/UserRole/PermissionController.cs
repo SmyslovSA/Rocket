@@ -14,16 +14,16 @@ namespace Rocket.Web.Controllers.UserRole
     [RoutePrefix("permission")]
     public class PermissionController : ApiController
     {
-        private readonly PermissionManagerService _permissionService;
+        private readonly PermissionService _permissionService;
 
-        public PermissionController(PermissionManagerService permissionService)
+        public PermissionController(PermissionService permissionService)
         {
             _permissionService = permissionService;
         }
 
         [HttpGet]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult GetPermissionById(int id)
+        public IHttpActionResult GetPermissionById(string id)
         {
             var model = _permissionService.GetById(id);
             return model == null ? (IHttpActionResult)NotFound() : Ok(model);
@@ -31,7 +31,7 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpGet]
         [Route("GetPermissionByRole{id:int:min(1)}")]
-        public IHttpActionResult GetPermissionByRole(int id)
+        public IHttpActionResult GetPermissionByRole(string id)
         {
             var model = _permissionService.GetPermissionByRole(id);
             return model == null ? (IHttpActionResult)NotFound() : Ok(model);
@@ -76,7 +76,7 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpDelete]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult DeletePermissionById(int id)
+        public IHttpActionResult DeletePermissionById(string id)
         {
             if (_permissionService.GetById(id) == null)
             {

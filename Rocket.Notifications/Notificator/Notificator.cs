@@ -64,7 +64,7 @@ namespace Rocket.Notifications.Notificator
 
                 var musicReleases = GetMusicReleases(currDateTime);
 
-                var taskList = new List<Task> { /*_mailNotificationService.NotifyAboutReleaseAsync(musicReleases)*/ };
+                var taskList = new List<Task> { _mailNotificationService.NotifyAboutReleaseAsync(musicReleases) };
 
                 var pushNotifications = CastMusicToPushModel(musicReleases);
                 if (pushNotifications.Any())
@@ -94,7 +94,7 @@ namespace Rocket.Notifications.Notificator
 
                 var episodes = GetTvSeriesEpisodesReleases(currDateTime);
 
-                var taskList = new List<Task> { /*_mailNotificationService.NotifyAboutReleaseAsync(episodes)*/ };
+                var taskList = new List<Task> { _mailNotificationService.NotifyAboutReleaseAsync(episodes) };
                 
                 var pushNotifications = CastTvSeriasToPushModel(episodes);
                 if (pushNotifications.Any())

@@ -32,7 +32,7 @@ namespace Rocket.Web.Controllers.UserRole
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public IHttpActionResult GetRoleById(int id)
+        public IHttpActionResult GetRoleById(string id)
         {
             var model = _roleService.GetById(id);
             return model == null ? (IHttpActionResult)NotFound() : Ok(model);
@@ -69,7 +69,7 @@ namespace Rocket.Web.Controllers.UserRole
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.Accepted)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
-        public IHttpActionResult DeleteRoleById(int id)
+        public IHttpActionResult DeleteRoleById(string id)
         {
             if (_roleService.GetById(id) == null)
             {

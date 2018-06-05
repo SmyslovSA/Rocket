@@ -11,7 +11,7 @@ namespace Rocket.BL.Common.Models.User
         /// <summary>
         /// Возвращает или задает уникальный идентификатор пользователя.
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Имя пользователя.
