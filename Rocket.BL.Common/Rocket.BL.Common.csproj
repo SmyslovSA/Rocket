@@ -107,6 +107,7 @@
     <Compile Include="Models\Pagination\ReleasesPageInfo.cs" />
     <Compile Include="Models\Pagination\TvSeriesPageInfo.cs" />
     <Compile Include="Models\PersonalArea\Email.cs" />
+    <Compile Include="Models\PersonalArea\MusicGenre.cs" />
     <Compile Include="Models\ReleaseList\BaseRelease.cs" />
     <Compile Include="Models\ReleaseList\Category.cs" />
     <Compile Include="Models\ReleaseList\PersonType.cs" />

@@ -1,14 +1,14 @@
 ﻿namespace Rocket.BL.Common.Models.PersonalArea
 {
-    public class Genre
+    public class MusicGenre
     {
         /// <summary>
-        /// Id жанра.
+        /// Id музыкального жанра.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Имя жанра.
+        /// Имя музыкального жанра.
         /// </summary>
         public string Name { get; set; }
     }

@@ -372,7 +372,7 @@
     <Compile Include="ConfigHandlers\ReleasesSettingsConfigGroup.cs" />
     <Compile Include="ConfigHandlers\SettingsManager.cs" />
     <Compile Include="Controllers\PersonalArea\EmailController.cs" />
-    <Compile Include="Controllers\PersonalArea\ChangeGenreController.cs" />
+    <Compile Include="Controllers\PersonalArea\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReleaseList\EpisodeController.cs" />
     <Compile Include="Controllers\UserRole\PermissionController.cs" />

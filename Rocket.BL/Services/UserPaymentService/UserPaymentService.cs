@@ -18,7 +18,7 @@ namespace Rocket.BL.Services.UserPaymentService
         /// получение инфы о платеже.
         /// </summary>
         /// <param name="user">Экземпляр пользователя, для которого ищем инфу о платеже.</param>
-        /// <returns> foobar </returns>
+        /// <returns>Платеж пользователя</returns>
         public UserPayment GetUserPayment(Common.Models.User.User user)
         {
             var dbPayment = _unitOfWork.UserPaymentRepository.Get(p => p.User.Id == user.Id);

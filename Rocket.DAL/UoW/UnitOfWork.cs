@@ -97,8 +97,7 @@ namespace Rocket.DAL.UoW
             IDbReceiverRepository dbReceiverRepository,
             IDbReleaseMessageRepository dbReleaseMessageRepository,
             IDbUserBillingMessageRepository dbUserBillingMessageRepository,
-            IBaseRepository<DbUserPayment> userPaymentRepository
-            )
+            IBaseRepository<DbUserPayment> userPaymentRepository)
         {
             _rocketContext = rocketContext;
             MusicRepository = musicRepository;
