@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Rocket.BL.Common.Models;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.UoW;
@@ -19,6 +18,7 @@ namespace Rocket.BL.Services
         /// получение инфы о платеже.
         /// </summary>
         /// <param name="user">Экземпляр пользователя, для которого ищем инфу о платеже.</param>
+        /// <returns>Платеж пользователя</returns>
         public UserPayment GetUserPayment(Common.Models.User.User user)
         {
             var dbPayment = _unitOfWork.UserPaymentRepository.Get(p => p.User.Id == user.Id);
@@ -29,14 +29,12 @@ namespace Rocket.BL.Services
         /// <summary>
         /// добавление инфы о платеже.
         /// </summary>
-        /// <param name="user">Экземпляр пользователя, для которого ищем инфу о платеже.</param>
+        /// <param name="payment">Экземпляр пользователя, для которого ищем инфу о платеже.</param>
         public void AddUserPayment(UserPayment payment)
         {
             var dbPayment = Mapper.Map<DbUserPayment>(payment);
             _unitOfWork.UserPaymentRepository.Insert(dbPayment);
             _unitOfWork.SaveChanges();
         }
-
-
     }
 }
