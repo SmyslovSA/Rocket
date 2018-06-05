@@ -36,22 +36,15 @@ namespace Rocket.BL.Services.UserServices
         /// <returns> Task </returns>
         public virtual async Task<IdentityResult> AddToRole(string userId, string roleId = DefaultRoleId)
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            var role = await _roleManager.FindByIdAsync(roleId);
-
-            if (user == null || role == null)
-            {
-                //_logger.Info
-                throw new InvalidOperationException();
-            }
-
             if (!_userManager.IsInRole(userId, roleId))
             {
                 throw new InvalidOperationException();
+                //_logger.Info
             }
 
+            _logger.Trace($"Role {roleId} added to user {userId}");
             return await _userManager.AddToRoleAsync(userId, roleId).ConfigureAwait(false);
-            // logger.Trace
+
 
             //var dbUser = _unitOfWork.UserRepository.Find(userId);
             //var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
@@ -60,7 +53,6 @@ namespace Rocket.BL.Services.UserServices
             //    //_logger.Trace($" Role {dbRole.Name} was in user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName}");
             //    return;
             //}
-            //// todo MP check user
 
             //dbUserRole = new DbUserRole { UserId = userId, RoleId = roleId };
             //_unitOfWork.UserRoleRepository.Insert(dbUserRole);
@@ -77,19 +69,18 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <param name="roleId"> Идентификатор роли. </param>
         /// <returns> bool </returns>
-        public virtual bool RemoveFromRole(string userId, string roleId)
+        public virtual async Task<IdentityResult> RemoveFromRole(string userId, string roleId)
         {
-            // todo MP check user
 
-            var dbUser = _unitOfWork.UserRepository.Find(userId);
+
+            //var dbUser = _unitOfWork.UserRepository.Find(userId);
             //var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
             //_unitOfWork.UserRoleRepository.Delete(dbUserRole);
 
             //dbUser.Roles.Remove(dbRole);
             //_logger.Trace($"Role {dbRole.Name} removed from user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
-
-            _unitOfWork.SaveChanges();
-            return true;
+            //_unitOfWork.SaveChanges();
+            //return true;
         }
 
         /// <summary>
