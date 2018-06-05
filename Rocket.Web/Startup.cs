@@ -40,8 +40,8 @@ namespace Rocket.Web
             factory.Register(new Registration<RocketIdentityService>());
 
             // test logservice
-            var asdf = new InfoLogService();
-            var azsd = asdf.GetLogInfo();
+            //var asdf = new InfoLogService();
+            //var azsd = asdf.GetLogInfo();
 
             app.UseIdentityServer(new IdentityServerOptions
             {
