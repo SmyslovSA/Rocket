@@ -7,8 +7,18 @@ namespace Rocket.BL.Common.Services.PersonalArea
     /// </summary>
     public interface IGenreManager
     {
+        /// <summary>
+        /// Получение всех музыкальных жанров из базы.
+        /// </summary>
+        /// <returns>Коллекцию музыкальных жанров.</returns>
         ICollection GetAllMusicGenres();
+
+        /// <summary>
+        /// Получение всех TV жанров из базы.
+        /// </summary>
+        /// <returns>Коллекцию TV жанров.</returns>
         ICollection GetAllTvGenres();
+
         /// <summary>
         /// Добавление жанра TV в персональный список ожидания релизов.
         /// </summary>
