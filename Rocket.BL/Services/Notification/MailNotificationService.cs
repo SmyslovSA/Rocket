@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -104,7 +105,11 @@ namespace Rocket.BL.Services.Notification
                 var message = CreateMessage(billing.Receiver, body);
                 await SendEmailAsync(_transport.ElementAt(0), new[] {message});
             }
-            catch (SqlException exception)
+            catch (EntityException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (DbException exception)
             {
                 _logger.Error(exception.Message);
             }
@@ -131,23 +136,34 @@ namespace Rocket.BL.Services.Notification
         /// <param name="currency">Валюта совершенного платежа</param>
         public async Task SendBillingGuestAsync(string name, string email, decimal sum, string currency)
         {
-            var billing = new BillingNotification()
+            try
             {
-                Receiver = new Receiver()
+                var billing = new BillingNotification()
                 {
-                    Emails = new List<string>() { email },
-                    FirstName = name ?? Resources.GuestAlias,
-                    LastName = ""
-                },
-                Sum = sum,
-                Currency = currency
-            };
-            string template = _unitOfWork.EmailTemplateRepository.GetById(
-                Convert.ToInt32(Resources.Donate)).Body;
-            string body = Engine.Razor.RunCompile(template, Resources.Donate,
-                null, new { Donate = billing });
-            var messageToSend = CreateMessage(billing.Receiver, body);
-            await SendEmailAsync(_transport.ElementAt(0), new[] { messageToSend });
+                    Receiver = new Receiver()
+                    {
+                        Emails = new List<string>() { email },
+                        FirstName = name ?? Resources.GuestAlias,
+                        LastName = ""
+                    },
+                    Sum = sum,
+                    Currency = currency
+                };
+                string template = _unitOfWork.EmailTemplateRepository.GetById(
+                    Convert.ToInt32(Resources.Donate)).Body;
+                string body = Engine.Razor.RunCompile(template, Resources.Donate,
+                    null, new { Donate = billing });
+                var messageToSend = CreateMessage(billing.Receiver, body);
+                await SendEmailAsync(_transport.ElementAt(0), new[] { messageToSend });
+            }
+            catch (EntityException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (DbException exception)
+            {
+                _logger.Error(exception.Message);
+            }
         }
 
         /// <summary>
@@ -159,21 +175,32 @@ namespace Rocket.BL.Services.Notification
         /// <param name="name">Имя посетителя</param>
         public async Task SendConfirmationAsync(string name, string email, string url)
         {
-            var confirmation = new ConfirmationNotification()
+            try
             {
-                Receiver = new Receiver()
+                var confirmation = new ConfirmationNotification()
                 {
-                    Emails = new List<string>() { email },
-                    FirstName = name
-                },
-                Url = url
-            };
-            string template = _unitOfWork.EmailTemplateRepository.GetById(
-                Convert.ToInt32(Resources.Confirmation)).Body;
-            string body = Engine.Razor.RunCompile(template, Resources.Confirmation, null,
-                new { Confirmation = confirmation });
-            var messageToSend = CreateMessage(confirmation.Receiver, body);
-            await SendEmailAsync(_transport.ElementAt(0), new[] { messageToSend });
+                    Receiver = new Receiver()
+                    {
+                        Emails = new List<string>() { email },
+                        FirstName = name
+                    },
+                    Url = url
+                };
+                string template = _unitOfWork.EmailTemplateRepository.GetById(
+                    Convert.ToInt32(Resources.Confirmation)).Body;
+                string body = Engine.Razor.RunCompile(template, Resources.Confirmation, null,
+                    new { Confirmation = confirmation });
+                var messageToSend = CreateMessage(confirmation.Receiver, body);
+                await SendEmailAsync(_transport.ElementAt(0), new[] { messageToSend });
+            }
+            catch (EntityException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (DbException exception)
+            {
+                _logger.Error(exception.Message);
+            }
         }
 
         /// <summary>
@@ -208,68 +235,114 @@ namespace Rocket.BL.Services.Notification
 
         private async Task NotifyMusicAsync(DbMusic music)
         {
-            var release = Mapper.Map<MusicNotification>(music);
-            string template = _unitOfWork.EmailTemplateRepository.
-                GetById(Convert.ToInt32(Resources.Music)).Body;
-
-            int quota = release.Receivers.Count / _transport.Count();
-            if (quota < 1)
+            try
             {
-                quota = 1;
-            }
+                var release = Mapper.Map<MusicNotification>(music);
+                string template = _unitOfWork.EmailTemplateRepository.
+                    GetById(Convert.ToInt32(Resources.Music)).Body;
 
-            var tasks = new List<Task>();
-            var messages = new List<MimeMessage>();
-            int smtpCount = 0;
-
-            for (int i = 0; i < release.Receivers.Count; i++)
-            {
-                var body = Engine.Razor.RunCompile(template,
-                    Resources.Music, null, new { Music = release, Count = i });
-                var message = CreateMessage(release.Receivers.ElementAt(i),
-                    body);
-                messages.Add(message);
-                if ((i + 1) % quota == 0)
+                int quota = release.Receivers.Count / _transport.Count();
+                if (quota < 1)
                 {
-                    tasks.Add(SendEmailAsync(_transport.ElementAt(smtpCount), messages));
-                    smtpCount++;
-                    messages.Clear();
+                    quota = 1;
                 }
+
+                var tasks = new List<Task>();
+                var messages = new List<MimeMessage>();
+                int smtpCount = 0;
+
+                for (int i = 0; i < release.Receivers.Count; i++)
+                {
+                    var body = Engine.Razor.RunCompile(template,
+                        Resources.Music, null, new { Music = release, Count = i });
+                    var message = CreateMessage(release.Receivers.ElementAt(i),
+                        body);
+                    messages.Add(message);
+                    if ((i + 1) % quota == 0)
+                    {
+                        tasks.Add(SendEmailAsync(_transport.ElementAt(smtpCount), messages));
+                        smtpCount++;
+                        messages.Clear();
+                    }
+                }
+                await Task.WhenAll(tasks);
             }
-            await Task.WhenAll(tasks);
+            catch (EntityException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (DbException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (AutoMapperConfigurationException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (AutoMapperMappingException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (NullReferenceException exception)
+            {
+                _logger.Error(exception.Message);
+            }
         }
 
         private async Task NotifyEpisodeAsync(EpisodeEntity episode)
         {
-            var release = Mapper.Map<EpisodeNotification>(episode);
-            string template = _unitOfWork.EmailTemplateRepository.
-                Get(x => x.Title == Resources.TvSeries).First().Body;
-
-            int quota = release.Receivers.Count / _transport.Count();
-            if (quota < 1)
+            try
             {
-                quota = 1;
-            }
+                var release = Mapper.Map<EpisodeNotification>(episode);
+                string template = _unitOfWork.EmailTemplateRepository.
+                    Get(x => x.Title == Resources.TvSeries).First().Body;
 
-            var tasks = new List<Task>();
-            var messages = new List<MimeMessage>();
-            int smtpCount = 0;
-
-            for (int i = 0; i < release.Receivers.Count; i++)
-            {
-                var body = Engine.Razor.RunCompile(template,
-                    Resources.TvSeries, null, new { TvSeries = release, Count = i });
-                var message = CreateMessage(release.Receivers.ElementAt(i),
-                    body);
-                messages.Add(message);
-                if ((i + 1) % quota == 0)
+                int quota = release.Receivers.Count / _transport.Count();
+                if (quota < 1)
                 {
-                    tasks.Add(SendEmailAsync(_transport.ElementAt(smtpCount), messages));
-                    smtpCount++;
-                    messages.Clear();
+                    quota = 1;
                 }
+
+                var tasks = new List<Task>();
+                var messages = new List<MimeMessage>();
+                int smtpCount = 0;
+
+                for (int i = 0; i < release.Receivers.Count; i++)
+                {
+                    var body = Engine.Razor.RunCompile(template,
+                        Resources.TvSeries, null, new { TvSeries = release, Count = i });
+                    var message = CreateMessage(release.Receivers.ElementAt(i),
+                        body);
+                    messages.Add(message);
+                    if ((i + 1) % quota == 0)
+                    {
+                        tasks.Add(SendEmailAsync(_transport.ElementAt(smtpCount), messages));
+                        smtpCount++;
+                        messages.Clear();
+                    }
+                }
+                await Task.WhenAll(tasks);
             }
-            await Task.WhenAll(tasks);
+            catch (EntityException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (DbException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (AutoMapperConfigurationException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (AutoMapperMappingException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (NullReferenceException exception)
+            {
+                _logger.Error(exception.Message);
+            }
         }
 
         private MimeMessage CreateMessage(Receiver receiver, string body)
@@ -318,24 +391,35 @@ namespace Rocket.BL.Services.Notification
 
         private async Task SendEmailAsync(IMailTransport transport, IEnumerable<MimeMessage> messages)
         {
-            foreach (var message in messages.ToList())
+            try
             {
-                transport.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                foreach (var message in messages.ToList())
+                {
+                    transport.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-                await transport.ConnectAsync(
-                    Settings.Default.Host,
-                    Settings.Default.Port,
-                    SecureSocketOptions.Auto).ConfigureAwait(false);
+                    await transport.ConnectAsync(
+                        Settings.Default.Host,
+                        Settings.Default.Port,
+                        SecureSocketOptions.Auto).ConfigureAwait(false);
 
-                transport.AuthenticationMechanisms.Remove("XOAUTH2");
+                    transport.AuthenticationMechanisms.Remove("XOAUTH2");
 
-                await transport.AuthenticateAsync(
-                    Settings.Default.Login,
-                    Settings.Default.Password).ConfigureAwait(false);
+                    await transport.AuthenticateAsync(
+                        Settings.Default.Login,
+                        Settings.Default.Password).ConfigureAwait(false);
 
-                await transport.SendAsync(message).ConfigureAwait(false);
+                    await transport.SendAsync(message).ConfigureAwait(false);
 
-                await transport.DisconnectAsync(true).ConfigureAwait(false);
+                    await transport.DisconnectAsync(true).ConfigureAwait(false);
+                }
+            }
+            catch (SmtpProtocolException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (AuthenticationException exception)
+            {
+                _logger.Error(exception.Message);
             }
         }
 
