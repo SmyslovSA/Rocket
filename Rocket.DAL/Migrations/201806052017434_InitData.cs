@@ -5,7 +5,7 @@ namespace Rocket.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitializeDateForParsers : DbMigration
+    public partial class InitData : DbMigration
     {
         public override void Up()
         {
@@ -30,6 +30,10 @@ namespace Rocket.DAL.Migrations
 
             var sqlFileEmail = AppDomain.CurrentDomain.BaseDirectory + "../../Migrations/SQLQueries/InitEmailTemplates.sql";
             Sql(File.ReadAllText(sqlFileEmail));
+
+            //инициализация настроек сервиса нотификации
+            var sqlFileNotificationSettings = AppDomain.CurrentDomain.BaseDirectory + "../../Migrations/SQLQueries/InitNotificationsSettings.sql";
+            Sql(File.ReadAllText(sqlFileNotificationSettings));
         }
         
         public override void Down()

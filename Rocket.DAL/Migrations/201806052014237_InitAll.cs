@@ -3,7 +3,7 @@ namespace Rocket.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AllSqlMigrations : DbMigration
+    public partial class InitAll : DbMigration
     {
         public override void Up()
         {
@@ -162,24 +162,6 @@ namespace Rocket.DAL.Migrations
                 .Index(t => t.TvSeriesId);
             
             CreateTable(
-                "dbo.Episode",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        ReleaseDateRu = c.DateTime(),
-                        ReleaseDateEn = c.DateTime(),
-                        Number = c.Int(nullable: false),
-                        TitleRu = c.String(nullable: false, maxLength: 250),
-                        TitleEn = c.String(nullable: false, maxLength: 250),
-                        DurationInMinutes = c.Double(),
-                        UrlForEpisodeSource = c.String(nullable: false),
-                        SeasonId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Season", t => t.SeasonId, cascadeDelete: true)
-                .Index(t => t.SeasonId);
-            
-            CreateTable(
                 "dbo.PersonType",
                 c => new
                     {
@@ -209,8 +191,8 @@ namespace Rocket.DAL.Migrations
                         ResourceId = c.Int(nullable: false),
                         ResourceInternalId = c.String(nullable: false, maxLength: 50),
                         ResourceItemLink = c.String(),
-                        CreatedDateTime = c.DateTime(nullable: false),
-                        LastModified = c.DateTime(nullable: false),
+                        CreatedDateTime = c.DateTime(name: "CreatedDateTime", nullable: false, defaultValueSql: "GETDATE()"),
+                        LastModified = c.DateTime(name: "LastModified", nullable: false, defaultValueSql: "GETDATE()"),
                         MusicId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -446,6 +428,16 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.NotificationsLog",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ReleaseId = c.Int(nullable: false),
+                        CreatedDateTime = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.NotificationsSettings",
                 c => new
                     {
@@ -453,6 +445,7 @@ namespace Rocket.DAL.Migrations
                         Name = c.String(nullable: false, maxLength: 50),
                         NotifyIsSwitchOn = c.Boolean(nullable: false),
                         NotifyPeriodInMinutes = c.Int(nullable: false),
+                        PushUrl = c.String(nullable: false, maxLength: 100),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -548,6 +541,19 @@ namespace Rocket.DAL.Migrations
                 .Index(t => t.GenreId);
             
             CreateTable(
+                "dbo.AuthorisedUserMusicGenres",
+                c => new
+                    {
+                        AuthorisedUserId = c.Int(nullable: false),
+                        MusicGenreId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.AuthorisedUserId, t.MusicGenreId })
+                .ForeignKey("dbo.AuthorisedUsers", t => t.AuthorisedUserId, cascadeDelete: true)
+                .ForeignKey("dbo.MusicGenres", t => t.MusicGenreId, cascadeDelete: true)
+                .Index(t => t.AuthorisedUserId)
+                .Index(t => t.MusicGenreId);
+            
+            CreateTable(
                 "dbo.UserDetailsEmailAddresses",
                 c => new
                     {
@@ -592,6 +598,7 @@ namespace Rocket.DAL.Migrations
                         Title = c.String(),
                         ReleaseDate = c.DateTime(nullable: false),
                         PosterImagePath = c.String(maxLength: 200),
+                        PosterImageUrl = c.String(),
                         Duration = c.Int(),
                         Artist = c.String(),
                         Type = c.String(),
@@ -599,6 +606,26 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Subscribable", t => t.Id)
                 .Index(t => t.Id);
+            
+            CreateTable(
+                "dbo.Episode",
+                c => new
+                    {
+                        Id = c.Int(nullable: false),
+                        ReleaseDateRu = c.DateTime(),
+                        ReleaseDateEn = c.DateTime(),
+                        Number = c.Int(nullable: false),
+                        TitleRu = c.String(nullable: false, maxLength: 250),
+                        TitleEn = c.String(nullable: false, maxLength: 250),
+                        DurationInMinutes = c.Double(),
+                        UrlForEpisodeSource = c.String(nullable: false),
+                        SeasonId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Subscribable", t => t.Id)
+                .ForeignKey("dbo.Season", t => t.SeasonId, cascadeDelete: true)
+                .Index(t => t.Id)
+                .Index(t => t.SeasonId);
             
             CreateTable(
                 "dbo.Genre",
@@ -674,6 +701,8 @@ namespace Rocket.DAL.Migrations
             DropForeignKey("dbo.Person", "Id", "dbo.Subscribable");
             DropForeignKey("dbo.Genre", "CategoryCode", "dbo.Category");
             DropForeignKey("dbo.Genre", "Id", "dbo.Subscribable");
+            DropForeignKey("dbo.Episode", "SeasonId", "dbo.Season");
+            DropForeignKey("dbo.Episode", "Id", "dbo.Subscribable");
             DropForeignKey("dbo.Music", "Id", "dbo.Subscribable");
             DropForeignKey("dbo.MusicGenres", "Id", "dbo.Subscribable");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
@@ -692,6 +721,8 @@ namespace Rocket.DAL.Migrations
             DropForeignKey("dbo.ReceiversJoinReleases", "ReceiverId", "dbo.Receivers");
             DropForeignKey("dbo.ReceiversJoinReleases", "ReleaseMessageId", "dbo.ReleaseMessages");
             DropForeignKey("dbo.CustomMessages", "ReceiverId", "dbo.Receivers");
+            DropForeignKey("dbo.AuthorisedUserMusicGenres", "MusicGenreId", "dbo.MusicGenres");
+            DropForeignKey("dbo.AuthorisedUserMusicGenres", "AuthorisedUserId", "dbo.AuthorisedUsers");
             DropForeignKey("dbo.AuthorisedUserGenres", "GenreId", "dbo.Genre");
             DropForeignKey("dbo.AuthorisedUserGenres", "AuthorisedUserId", "dbo.AuthorisedUsers");
             DropForeignKey("dbo.DbEmails", "DbAuthorisedUserId", "dbo.AuthorisedUsers");
@@ -705,7 +736,6 @@ namespace Rocket.DAL.Migrations
             DropForeignKey("dbo.MusicReleaseGenres", "MusicGenreId", "dbo.MusicGenres");
             DropForeignKey("dbo.MusicReleaseGenres", "MusicId", "dbo.Music");
             DropForeignKey("dbo.Season", "TvSeriesId", "dbo.TvSerias");
-            DropForeignKey("dbo.Episode", "SeasonId", "dbo.Season");
             DropForeignKey("dbo.TvSeriasToPersons", "PersonId", "dbo.Person");
             DropForeignKey("dbo.TvSeriasToPersons", "TvSeriasId", "dbo.TvSerias");
             DropForeignKey("dbo.TvSeriasToGenres", "GenreId", "dbo.Genre");
@@ -727,12 +757,16 @@ namespace Rocket.DAL.Migrations
             DropIndex("dbo.Person", new[] { "Id" });
             DropIndex("dbo.Genre", new[] { "CategoryCode" });
             DropIndex("dbo.Genre", new[] { "Id" });
+            DropIndex("dbo.Episode", new[] { "SeasonId" });
+            DropIndex("dbo.Episode", new[] { "Id" });
             DropIndex("dbo.Music", new[] { "Id" });
             DropIndex("dbo.MusicGenres", new[] { "Id" });
             DropIndex("dbo.UserDetailsPhoneNumbers", new[] { "PhoneNumberId" });
             DropIndex("dbo.UserDetailsPhoneNumbers", new[] { "UserDetailId" });
             DropIndex("dbo.UserDetailsEmailAddresses", new[] { "EmailAddressId" });
             DropIndex("dbo.UserDetailsEmailAddresses", new[] { "UserDetailId" });
+            DropIndex("dbo.AuthorisedUserMusicGenres", new[] { "MusicGenreId" });
+            DropIndex("dbo.AuthorisedUserMusicGenres", new[] { "AuthorisedUserId" });
             DropIndex("dbo.AuthorisedUserGenres", new[] { "GenreId" });
             DropIndex("dbo.AuthorisedUserGenres", new[] { "AuthorisedUserId" });
             DropIndex("dbo.MusicMusicians", new[] { "MusiciansId" });
@@ -763,7 +797,6 @@ namespace Rocket.DAL.Migrations
             DropIndex("dbo.ResourceItem", new[] { "MusicId" });
             DropIndex("dbo.ResourceItem", new[] { "ResourceId" });
             DropIndex("dbo.MusicTrack", new[] { "MusicId" });
-            DropIndex("dbo.Episode", new[] { "SeasonId" });
             DropIndex("dbo.Season", new[] { "TvSeriesId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "User_Id" });
@@ -780,10 +813,12 @@ namespace Rocket.DAL.Migrations
             DropTable("dbo.TvSerias");
             DropTable("dbo.Person");
             DropTable("dbo.Genre");
+            DropTable("dbo.Episode");
             DropTable("dbo.Music");
             DropTable("dbo.MusicGenres");
             DropTable("dbo.UserDetailsPhoneNumbers");
             DropTable("dbo.UserDetailsEmailAddresses");
+            DropTable("dbo.AuthorisedUserMusicGenres");
             DropTable("dbo.AuthorisedUserGenres");
             DropTable("dbo.MusicMusicians");
             DropTable("dbo.MusicReleaseGenres");
@@ -792,6 +827,7 @@ namespace Rocket.DAL.Migrations
             DropTable("dbo.SubscriptionsToUsers");
             DropTable("dbo.DbPermissionDbRoles");
             DropTable("dbo.NotificationsSettings");
+            DropTable("dbo.NotificationsLog");
             DropTable("dbo.GuestBillingMessages");
             DropTable("dbo.EmailTemplates");
             DropTable("dbo.PhoneNumbers");
@@ -813,7 +849,6 @@ namespace Rocket.DAL.Migrations
             DropTable("dbo.ResourceItem");
             DropTable("dbo.MusicTrack");
             DropTable("dbo.PersonType");
-            DropTable("dbo.Episode");
             DropTable("dbo.Season");
             DropTable("dbo.DbPermissions");
             DropTable("dbo.AspNetRoles");

@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http;
 using FluentValidation;
 using MailKit;
 using MailKit.Net.Smtp;
 using Ninject.Modules;
-using Rocket.BL.Common.Services;
 using Rocket.BL.Common.Services.Notification;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.BL.Common.Services.ReleaseList;
-using Rocket.BL.Services;
+using Rocket.BL.Common.Services.UserPayment;
 using Rocket.BL.Services.Notification;
 using Rocket.BL.Services.PersonalArea;
 using Rocket.BL.Services.ReleaseList;
+using Rocket.BL.Services.UserPaymentService;
 using Rocket.BL.Validators.User;
 
 namespace Rocket.BL

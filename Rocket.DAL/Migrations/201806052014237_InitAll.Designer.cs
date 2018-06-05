@@ -7,13 +7,13 @@ namespace Rocket.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitializeDateForParsers : IMigrationMetadata
+    public sealed partial class InitAll : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitializeDateForParsers));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitAll));
         
         string IMigrationMetadata.Id
         {
-            get { return "201806051843106_InitializeDateForParsers"; }
+            get { return "201806052014237_InitAll"; }
         }
         
         string IMigrationMetadata.Source
