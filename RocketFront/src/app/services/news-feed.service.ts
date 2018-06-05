@@ -3,9 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EpisodesPage } from '../models/news-feed/episodes-page';
 import { MusicPage } from '../models/news-feed/music-page';
+import { Music } from '../models/news-feed/music';
 import { SeriesPage } from '../models/news-feed/series-page';
 import { SeriesDetails } from '../models/news-feed/series-details';
 import { Genre } from '../models/news-feed/genre';
+import { MusicDetails } from '../models/news-feed/music-details';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,10 @@ export class NewsFeedService {
 
   getNewMusic(page: number): Observable<MusicPage> {
     return this.http.get<MusicPage>(`http://localhost:63613/music/page/${page}`);
+  }
+
+  getMusicDetails(id: number): Observable<MusicDetails> {
+    return this.http.get<MusicDetails>(`http://localhost:63613/music/${id}`);
   }
 
   getSeriesPage(page: number, genre: Genre): Observable<SeriesPage> {
