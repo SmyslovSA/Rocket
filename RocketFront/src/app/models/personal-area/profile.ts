@@ -1,4 +1,7 @@
 import { Email } from './email';
+import { GenreMusic } from './genreMusic';
+import { GenreTv } from './genreTv';
+
 
 export class Profile {
     Id: number;
@@ -6,4 +9,6 @@ export class Profile {
     LastName: string;
     Avatar: string;
     Emails: Email[];
+    GenreMusic:GenreMusic[];
+    GenreTv:GenreTv[];
 }

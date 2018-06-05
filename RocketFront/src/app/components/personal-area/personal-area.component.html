@@ -70,25 +70,26 @@
           </div>
           <div class = "row">
             <div class = "col">
-                <label for="category">Category</label>
-                <select class="custom-select d-block w-100" id="category" required>
-                  <option value="">Choose...</option>
-                  <option>Film</option>
+                <label for="category">GenreMusic</label>
+                <select class="custom-select d-block w-100" [(ngModel)]="selectedGenreMusic">
+                <option *ngFor="let r of listGenreMusicForFront" [value]="r.Name">{{r.Name}}</option>
                 </select>
+                <br>
+                  <button class="btn btn-secondary btn btn-block" type="submit" (click)="addGenreMusic(selectedGenreMusic)">Add genre Music</button>
                 <div class="invalid-feedback">
                   Please select a valid category.
                 </div>
-                <label for="genre">Genre</label>
-                <select class="custom-select d-block w-100" id="genre" required>
-                  <option value="">Choose...</option>
-                  <option>Action</option>
-                </select>
+                <label for="genre">GenreTv</label>
+                <select class="custom-select d-block w-100" [(ngModel)]="selectedGenreTv" >
+                  <option *ngFor="let r of listGenreTvForFront" [value]="r.Name">{{r.Name}}</option>
+                  </select>
+                
                 <div class="invalid-feedback">
                   Please provide a valid genre.
                 </div>
                   <br>
-                  <button class="btn btn-secondary btn btn-block" type="submit">Add genre</button>
-            </div>>
+                  <button class="btn btn-secondary btn btn-block" type="submit" (click)="addGenreTv(selectedGenreTv)">Add genre Tv</button>
+            </div>
           </div>         
             <div class="row">
                 <div class="col" style="width:20rem;margin:20px 0 24px 0">
@@ -101,16 +102,16 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Film</td>
-                        <td>Action</td>
-                        <td><button class="btn btn-secondary btn btn-block" type="submit">Delete</button></td>
-                      </tr>
-                      <tr>
-                        <td>Film</td>
-                        <td>Drama</td>
-                        <td><button class="btn btn-secondary btn btn-block" type="submit">Delete</button></td>
-                      </tr>
+                      <tr *ngFor="let gen of dataGenreMusicForFront,let rowIndex = index">
+                        <td>Music</td>
+                        <td>{{gen}}</td>
+                        <td><input type="button" value="Удалить" (click)="deleteMusicGenre(gen,index)" class="btn btn-danger" /></td>
+                    </tr> 
+                    <tr *ngFor="let gen of dataGenreTvForFront,let rowIndex = index">
+                      <td>Film</td>
+                      <td>{{gen}}</td>
+                      <td><input type="button" value="Удалить" (click)="deleteTvGenre(gen,index)" class="btn btn-danger" /></td>
+                  </tr> 
                     </tbody>
                   </table>
                 </div>
