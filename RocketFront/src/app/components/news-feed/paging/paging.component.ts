@@ -33,7 +33,7 @@ export class PagingComponent implements OnInit, AfterViewChecked {
   onPageParamChanged(page: number) {
     if (page < 1) {
       page = 1;
-      this.location.replaceState(this.location.path(), 'page=1');
+      this.location.replaceState(this.location.path(), 'page=1', { queryParamsHandling: 'merge' });
     }
     this.page = page;
     this.setDisplayPages();
@@ -57,10 +57,10 @@ export class PagingComponent implements OnInit, AfterViewChecked {
           this.displayPages.push(this.page + index);
         }
         if (this.displayPages.length >= displayCount) {
-          this.displayPages.sort((a, b) => a - b);
           break;
         }
       }
+      this.displayPages.sort((a, b) => a - b);
     }
   }
 
