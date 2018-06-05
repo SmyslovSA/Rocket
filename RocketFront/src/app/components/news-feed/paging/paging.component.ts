@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-paging',
@@ -8,9 +7,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./paging.component.css'],
   providers: [Location]
 })
-export class PagingComponent implements OnInit, AfterViewChecked {
+export class PagingComponent implements OnInit {
 
-  @Output() pageChanged = new EventEmitter<number>();
+  // @Output() pageChanged = new EventEmitter<number>();
   page: number;
   displayPages: number[] = [];
 
@@ -23,25 +22,20 @@ export class PagingComponent implements OnInit, AfterViewChecked {
     this.setDisplayPages();
   }
 
-  constructor(private route: ActivatedRoute, private router: Router, private location: Location) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(params =>
-      this.onPageParamChanged(+params.get('page')));
+      this.onQueryParamsChanged(+params.get('page')));
   }
 
-  onPageParamChanged(page: number) {
+  onQueryParamsChanged(page: number) {
     if (page < 1) {
       page = 1;
-      this.location.replaceState(this.location.path(), 'page=1', { queryParamsHandling: 'merge' });
+      this.router.navigate([], {queryParams: {page: 1}, queryParamsHandling: 'merge', replaceUrl: true});
     }
     this.page = page;
     this.setDisplayPages();
-    this.pageChanged.emit(this.page);
-  }
-
-  setPage(page: number) {
-    this.router.navigate([], { queryParams: { page: page }, queryParamsHandling: 'merge' });
   }
 
   setDisplayPages() {
@@ -63,9 +57,4 @@ export class PagingComponent implements OnInit, AfterViewChecked {
       this.displayPages.sort((a, b) => a - b);
     }
   }
-
-  ngAfterViewChecked(): void {
-    window.scrollTo(0, 0);
-    }
-
 }
