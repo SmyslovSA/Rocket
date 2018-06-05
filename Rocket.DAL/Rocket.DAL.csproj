@@ -215,6 +215,10 @@
     <Compile Include="Migrations\201806041152513_AddAutUserMusicGenres.Designer.cs">
       <DependentUpon>201806041152513_AddAutUserMusicGenres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806051737117_UpdByNotification.cs" />
+    <Compile Include="Migrations\201806051737117_UpdByNotification.Designer.cs">
+      <DependentUpon>201806051737117_UpdByNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
     <Compile Include="Migrations\InitialDataCreators\User\DbAccountStatusesCreator.cs" />
@@ -295,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806041152513_AddAutUserMusicGenres.resx">
       <DependentUpon>201806041152513_AddAutUserMusicGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806051737117_UpdByNotification.resx">
+      <DependentUpon>201806051737117_UpdByNotification.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
