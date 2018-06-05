@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Rocket.BL.Common.Models.User;
 using Rocket.BL.Common.Services.User;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Rocket.BL.Services.User
 {
@@ -94,21 +93,36 @@ namespace Rocket.BL.Services.User
         /// Обновляет информацию заданного пользователя в хранилище данных.
         /// </summary>
         /// <param name="user">Экземпляр пользователя для обновления.</param>
-        public void UpdateUser(Common.Models.User.User user)
+        public async Task UpdateUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
-            _unitOfWork.UserRepository.Update(dbUser);
-            _unitOfWork.SaveChanges();
+
+            var result = await _usermanager.UpdateAsync(dbUser).ConfigureAwait(false);
+
+            if (result.Succeeded)
+            {
+                return;
+            }
+
+            throw new InvalidOperationException(result.Errors.Aggregate((a, b) => $"{a} {b}"));
         }
 
         /// <summary>
         /// Удаляет пользователя с заданным идентификатором из хранилища данных.
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
-        public void DeleteUser(int id)
+        public async Task DeleteUser(string id)
         {
-            _unitOfWork.UserRepository.Delete(id);
-            _unitOfWork.SaveChanges();
+            var user = await this._usermanager.FindByIdAsync(id).ConfigureAwait(false);
+
+            var result = await _usermanager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                return;
+            }
+
+            throw new InvalidOperationException(result.Errors.Aggregate((a, b) => $"{a} {b}"));
         }
 
         /// <summary>
@@ -136,44 +150,6 @@ namespace Rocket.BL.Services.User
         {
             // todo надо сделать реализацию, после того, как "прорастут" вьюхи.
             return string.Empty;
-        }
-
-        /// <summary>
-        /// Возращает коллекцию (список) индексов пользователей,
-        /// которые будут помещаться на страницу.
-        /// </summary>
-        /// <param name="usersCount">Количество пользователей.</param>
-        /// <param name="pageSize">Размер страницы.</param>
-        /// <param name="pageNumber">Номер страницы.</param>
-        /// <returns>Коллекция индектов пользователей на странице.</returns>
-        public ICollection<int> GetUsersPageIndexes(int usersCount, int pageSize, int pageNumber)
-        {
-            if (usersCount < 1 || pageSize < 1 || pageNumber < 1)
-            {
-                return null;
-            }
-
-            var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize);
-
-            if (pagesCount < pageNumber)
-            {
-                return null;
-            }
-
-            var usersToPage = new List<int>();
-
-            var startUserIndex = (pageNumber - 1) * pageSize;
-
-            var finishUserIndex = startUserIndex + (pageNumber < pagesCount
-                ? pageSize - 1
-                : (usersCount % pageSize) - 1);
-
-            for (var i = startUserIndex; i <= finishUserIndex; i++)
-            {
-                usersToPage.Add(i);
-            }
-
-            return usersToPage;
         }
     }
 }
