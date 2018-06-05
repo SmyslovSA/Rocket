@@ -19,7 +19,6 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id);
             
             AddColumn("dbo.Music", "PosterImageUrl", c => c.String());
-            AddColumn("dbo.NotificationsSettings", "PushUrl", c => c.String(nullable: false, maxLength: 100));
             AlterColumn("dbo.Episode", "Id", c => c.Int(nullable: false));
             AddPrimaryKey("dbo.Episode", "Id");
             CreateIndex("dbo.Episode", "Id");
