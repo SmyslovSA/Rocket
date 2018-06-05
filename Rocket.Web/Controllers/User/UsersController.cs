@@ -119,11 +119,11 @@ namespace Rocket.Web.Controllers.User
         /// <returns>Сведения об удалении.</returns>
         [HttpDelete]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult DeleteUserById(int id)
+        public IHttpActionResult DeleteUserById(string id)
         {
             var usersCount = _userManagementService.GetAllUsers().Count;
 
-            if (id > usersCount)
+            if (Convert.ToInt32(id) > usersCount)
             {
                 return BadRequest("User id invalid");
             }
