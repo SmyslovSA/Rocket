@@ -12,7 +12,7 @@ using Rocket.DAL.Identity;
 
 namespace Rocket.BL.Services.UserServices
 {
-    public class UserRoleManager : BaseService, IUserRoleManager
+    public class UserRoleManager : BaseService//, IUserRoleManager
     {
         // todo !!!guid default role!!!
         private const string DefaultRoleId = "asdasda"; // todo MP закинуть в хранилище дефолтроль 
@@ -36,15 +36,8 @@ namespace Rocket.BL.Services.UserServices
         /// <returns> Task </returns>
         public virtual async Task<IdentityResult> AddToRole(string userId, string roleId = DefaultRoleId)
         {
-            if (!_userManager.IsInRole(userId, roleId))
-            {
-                throw new InvalidOperationException();
-                //_logger.Info
-            }
-
             _logger.Trace($"Role {roleId} added to user {userId}");
             return await _userManager.AddToRoleAsync(userId, roleId).ConfigureAwait(false);
-
 
             //var dbUser = _unitOfWork.UserRepository.Find(userId);
             //var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
@@ -71,7 +64,16 @@ namespace Rocket.BL.Services.UserServices
         /// <returns> bool </returns>
         public virtual async Task<IdentityResult> RemoveFromRole(string userId, string roleId)
         {
+            _logger.Trace($"Role {roleId} removed from {userId}");
+            return await _userManager.RemoveFromRoleAsync(userId, roleId).ConfigureAwait(false);
 
+            //if (!_userManager.IsInRole(userId, roleId))
+            //{
+            //    throw new InvalidOperationException();
+            //    //_logger.Info
+            //}
+
+            //_logger.Trace("");
 
             //var dbUser = _unitOfWork.UserRepository.Find(userId);
             //var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
@@ -88,12 +90,14 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <returns>Список ролей</returns>
-        public virtual IEnumerable<DbRole> GetRoles(string userId)
+        public virtual async Task<IList<string>> GetRoles(string userId)
         {
+            return await _userManager.GetRolesAsync(userId).ConfigureAwait(false);
+
             //    var dbUser = _unitOfWork.UserRepository.Get(t => t.Id == userId, includeProperties: "Roles").First();
             //    _logger.Trace($"Checking roles for user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
             //    return dbUser.Roles.Select(t => t.Role);
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -102,19 +106,21 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <param name="roleId"> Идентификатор роли. </param>
         /// <returns>bool</returns>
-       public virtual bool IsInRole(string userId, string roleId)
+        public virtual async Task<bool> IsInRole(string userId, string roleId)
         {
-        //    if (_unitOfWork.UserRepository.GetById(userId) == null)
-        //    {
-        //        throw new InvalidOperationException("user not found by userId");
-        //    }
+            return await _userManager.IsInRoleAsync(userId, roleId).ConfigureAwait(false);
 
-        //    var roles = GetRoles(userId);
-        //    var res = roles.Contains(_unitOfWork.RoleRepository.GetById(roleId));
+            //    if (_unitOfWork.UserRepository.GetById(userId) == null)
+            //    {
+            //        throw new InvalidOperationException("user not found by userId");
+            //    }
 
-        //    _logger.Trace($"Checking user {userId} has role {roleId}? - {res} ");
-        //    return res;
-            throw new NotImplementedException();
+            //    var roles = GetRoles(userId);
+            //    var res = roles.Contains(_unitOfWork.RoleRepository.GetById(roleId));
+
+            //    _logger.Trace($"Checking user {userId} has role {roleId}? - {res} ");
+            //    return res;
+            //    throw new NotImplementedException();
         }
     }
 }
