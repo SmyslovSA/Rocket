@@ -38,6 +38,12 @@ interface ReleaseSeries {
 interface Release
 {} 
 
+interface ReleaseEvent
+{
+  id: number;
+  UrlForEpisodeSource: string;
+} 
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -125,11 +131,21 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  eventClicked(event: CalendarEvent<{ release: ReleaseFilms }>): void {
-    window.open(
-      `https://www.themoviedb.org/movie/${event.meta.release.id}`,
-      '_blank'
-    );
+  eventClicked(event: CalendarEvent<{ release: ReleaseEvent }>): void {
+
+    if(this.targetMethod==1){
+      window.open(
+        `https://www.themoviedb.org/movie/${event.meta.release.id}`,
+        '_blank'
+      );
+    }
+    else if(this.targetMethod==2){
+      window.open(
+        `${event.meta.release.UrlForEpisodeSource}`
+      );
+    }
+
+    
   }
 
   seriesEvents(): void {
