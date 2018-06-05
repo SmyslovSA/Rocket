@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using AutoMapper;
 using Common.Logging;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.Identity;
@@ -41,33 +44,41 @@ namespace Rocket.BL.Services.UserServices
             return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
         }
 
-        public Role GetById(string id)
+        public async Task<Role> GetById(string id)
         {
-            return Mapper.Map<Role>(
-                _unitOfWork.RoleRepository.GetById(id));
+            return await _roleManager.FindByIdAsync();
+
+            //return Mapper.Map<Role>(
+            //    _unitOfWork.RoleRepository.GetById(id));
         }
 
-        public void Insert(Role role)
+        public async Task<IdentityResult> Insert(DbRole role)
         {
-            var dbRole = Mapper.Map<DbRole>(role);
-            _unitOfWork.RoleRepository.Insert(dbRole);
-            _logger.Debug($"Role {dbRole} added in DB");
-            _unitOfWork.SaveChanges();
+            return await _roleManager.CreateAsync(role).ConfigureAwait(false); 
+
+            //var dbRole = Mapper.Map<DbRole>(role);
+            //_unitOfWork.RoleRepository.Insert(dbRole);
+            //_logger.Debug($"Role {dbRole} added in DB");
+            //_unitOfWork.SaveChanges();
         }
 
-        public void Update(Role role)
+        public async Task<IdentityResult> Update(DbRole role)
         {
-            var dbRole = Mapper.Map<DbRole>(role);
-            _unitOfWork.RoleRepository.Update(dbRole);
-            _logger.Debug($"Role {dbRole} updated in DB");
-            _unitOfWork.SaveChanges();
+            return await _roleManager.UpdateAsync(role).ConfigureAwait(false);
+
+            //var dbRole = Mapper.Map<DbRole>(role);
+            //_unitOfWork.RoleRepository.Update(dbRole);
+            //_logger.Debug($"Role {dbRole} updated in DB");
+            //_unitOfWork.SaveChanges();
         }
 
-        public void Delete(string id)
+        public async Task<IdentityResult> Delete(DbRole role)
         {
-            _unitOfWork.RoleRepository.Delete(id);
-            _logger.Debug($"Role {id} removed from DB");
-            _unitOfWork.SaveChanges();
+            return await _roleManager.DeleteAsync(role).ConfigureAwait(false);
+
+            //_unitOfWork.RoleRepository.Delete(id);
+            //_logger.Debug($"Role {id} removed from DB");
+            //_unitOfWork.SaveChanges();
         }
     }
 }

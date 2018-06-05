@@ -7,7 +7,6 @@ using AutoMapper;
 using Common.Logging;
 using Microsoft.AspNet.Identity;
 using Rocket.BL.Common.Models.UserRoles;
-using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Identity;
@@ -22,28 +21,25 @@ namespace Rocket.BL.Services.UserServices
     /// <summary>
     /// Добавление/удаление пермишенов у ролей + логирование
     /// </summary>
-    public class PermissionManagerService : BaseService, IPermissionService
+    public class PermissionService : BaseService //, IPermissionService
     {
         private readonly RocketUserManager _userManager;
         private readonly RockeRoleManager _roleManager;
         private readonly ILog _logger;
 
         /// <summary>
-        /// Создает новый экземпляр <see cref="PermissionManagerService"/>
+        /// Создает новый экземпляр <see cref="PermissionService"/>
         /// с заданным unit of work
         /// </summary>
         /// <param name="unitOfWork">Экземпляр unit of work</param>
         /// <param name="userManager"></param>
         /// <param name="roleManager"></param>
-        public PermissionManagerService(IUnitOfWork unitOfWork,
-            RocketUserManager userManager,
-            RockeRoleManager roleManager, 
-            ILog _logger)
-            : base(unitOfWork)
+        public PermissionService(IUnitOfWork unitOfWork,RocketUserManager userManager,
+            RockeRoleManager roleManager, ILog logger): base(unitOfWork)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            this._logger = _logger;
+            _logger = logger;
         }
 
         /// <summary>
@@ -53,23 +49,19 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="idPermission">Идентификатор пермишена</param>
         public void AddPermissionToRole(string idRole, int idPermission)
         {
-            Permission p = new Permission();
-            var perm1 = new Claim("permission", p.ValueName);
             var perm = new Claim("permission", Permissions.Read);
-            //var perm = new Claim("permission", Permissions.Read);
-            //var perm = new Claim("permission", Permissions.Read);
             //var perm = new Claim("permission", Permissions.Read);
             //var perm = new Claim("permission", Permissions.Read);
             _userManager.AddClaim("id", perm);
             //_userManager.AddToRoleAsync();
-            throw new NotImplementedException();
+ 
 
 
             // докидываем пермишен в роль
-            var dbRole = _unitOfWork.RoleRepository.GetById(idRole);
-            var dbPermission = _unitOfWork.PermissionRepository.GetById(idPermission);
-            dbRole.Permissions.Add(dbPermission);
-            _unitOfWork.SaveChanges();
+            //var dbRole = _unitOfWork.RoleRepository.GetById(idRole);
+            //var dbPermission = _unitOfWork.PermissionRepository.GetById(idPermission);
+            //dbRole.Permissions.Add(dbPermission);
+            //_unitOfWork.SaveChanges();
         }
 
         /// <summary>
@@ -100,9 +92,6 @@ namespace Rocket.BL.Services.UserServices
             _userManager.AddClaim("id", permValueName);
             _userManager.AddClaim("id", permDescription);
             _logger.Debug($"Permission {permission.Description} added in DB");
-            //var perm = new Claim("permission", Permissions.Read);
-            //var perm = new Claim("permission", Permissions.Read);
-            //var perm = new Claim("permission", Permissions.Read);
             //var perm = new Claim("permission", Permissions.Read);
 
 
@@ -150,7 +139,8 @@ namespace Rocket.BL.Services.UserServices
         /// <returns>Permission</returns>
         public Permission GetById(string id)
         {
-            return Mapper.Map<Permission>(_unitOfWork.PermissionRepository.GetById(id));
+            //return Mapper.Map<Permission>(_unitOfWork.PermissionRepository.GetById(id));
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -159,9 +149,10 @@ namespace Rocket.BL.Services.UserServices
         /// <returns>Коллекцию Permission</returns>
         public IEnumerable<Permission> GetAllPermissions()
         {
-            var DbPerm = _unitOfWork.PermissionRepository.Get();
-            IEnumerable<Permission> perm = Mapper.Map<IEnumerable<Permission>>(DbPerm);
-            return perm;
+            //var bPerm = _unitOfWork.PermissionRepository.Get();
+            //IEnumerable<Permission> perm = Mapper.Map<IEnumerable<Permission>>(DbPerm);
+            //return perm;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -171,8 +162,9 @@ namespace Rocket.BL.Services.UserServices
         /// <returns>Коллекцию Permission</returns>
         public IEnumerable<Permission> GetPermissionByRole(string idRole)
         {
-            var rol = _unitOfWork.RoleRepository.GetById(idRole);
-            return Mapper.Map<Role>(rol)?.Permissions;
+            //var rol = _unitOfWork.RoleRepository.GetById(idRole);
+            //return Mapper.Map<Role>(rol)?.Permissions;
+            throw new NotImplementedException();
         }
 
         /// <summary>

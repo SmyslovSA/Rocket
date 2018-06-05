@@ -134,7 +134,7 @@
     </Compile>
     <Compile Include="Services\ReleaseList\TvSeriesDetailedInfoService.cs" />
     <Compile Include="Services\UserPaymentService\UserPaymentService.cs" />
-    <Compile Include="Services\UserServices\PermissionManagerService.cs" />
+    <Compile Include="Services\UserServices\PermissionService.cs" />
     <Compile Include="Services\UserServices\UserRoleManager.cs" />
     <Compile Include="Services\UserServices\RoleService.cs" />
     <Compile Include="Services\ReleaseList\FilmDetailedInfoService.cs" />

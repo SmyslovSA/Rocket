@@ -31,8 +31,11 @@ namespace Rocket.BL.Services.UserServices
         /// <returns> Task </returns>
         public virtual async Task<IdentityResult> AddToRole(string userId, string roleId = DefaultRoleId)
         {
-            _logger.Trace($"Role {roleId} added to user {userId}");
-            return await _userManager.AddToRoleAsync(userId, roleId).ConfigureAwait(false);
+            _logger.Trace($"Request AddRole in que: Role {roleId}, user {userId}");
+            var result = await _userManager.AddToRoleAsync(userId, roleId).ConfigureAwait(false);
+
+            _logger.Trace($"Request AddRole complete: user {userId} added to role {roleId}");
+            return result;
 
             //var dbUser = _unitOfWork.UserRepository.Find(userId);
             //var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
@@ -59,6 +62,8 @@ namespace Rocket.BL.Services.UserServices
         /// <returns> bool </returns>
         public virtual async Task<IdentityResult> RemoveFromRole(string userId, string roleId)
         {
+            _logger.Trace($"Request AddRole in que: Role {roleId}, user {userId}");
+
             _logger.Trace($"Role {roleId} removed from {userId}");
             return await _userManager.RemoveFromRoleAsync(userId, roleId).ConfigureAwait(false);
 
