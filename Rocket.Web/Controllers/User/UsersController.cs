@@ -68,7 +68,7 @@ namespace Rocket.Web.Controllers.User
         /// <returns>Пользователь хранилища.</returns>
         [HttpGet]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult GetUserById(int id)
+        public IHttpActionResult GetUserById(string id)
         {
             var user = _userManagementService.GetUser(id);
 
