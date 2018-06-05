@@ -1,26 +1,26 @@
-<!--Series-->
+<!--Episodes-->
 <div class="row">
-<div class="col-sm-6 col-xl-4 mb-4" *ngFor="let series of seriesPage?.PageItems">
+<div class="col-sm-6 col-xl-4 mb-4" *ngFor="let episode of episodesPage?.PageItems">
   <div class="card box-shadow h-100">
     <div class="position-relative">
-      <img class="card-img-top" src="{{series.PosterImageUrl}}">
+      <img class="card-img-top" src="{{episode.PosterImageUrl}}">
       <div class="position-absolute poster-info w-100 px-3">
-        <div class="float-left">{{series.SeasonNumber}} сезон {{series.Number}} серия</div>
-        <div class="float-right">{{series.ReleaseDateRu | date:'dd.MM.yyyy'}}</div>
+        <div class="float-left">{{episode.SeasonNumber}} сезон {{episode.Number}} серия</div>
+        <div class="float-right">{{episode.ReleaseDateRu | date:'dd.MM.yyyy'}}</div>
       </div>
     </div>
     <div class="card-body">
-      <h4 class="mb-0">{{series.TvSeriesTitleRu}}</h4>
-      <span class="text-muted">{{series.TvSeriesTitleEn}}</span>
-      <h5 class="mb-0 mt-2">{{series.TitleRu}}</h5>
-      <span class="text-muted">{{series.TitleEn}}</span>
+      <h4 class="mb-0">{{episode.TvSeriesTitleRu}}</h4>
+      <span class="text-muted">{{episode.TvSeriesTitleEn}}</span>
+      <h5 class="mb-0 mt-2">{{episode.TitleRu}}</h5>
+      <span class="text-muted">{{episode.TitleEn}}</span>
       <div class="d-flex justify-content-between align-items-center mt-3">
-        <button type="button" class="btn btn-outline-secondary">Сериал</button>
+        <button type="button" class="btn btn-outline-secondary" [routerLink]="['/series', episode.TvSeriesId]">Сериал</button>
         <div class="btn-group">
           <button type="button" class="btn btn-link p-0 mr-3 mr-sm-2" href="#">
             <i class="material-icons md-36 md-dark">star_border</i>
           </button>
-          <a class="btn btn-link p-0" target="_blank" href="{{series.UrlForEpisodeSource}}">
+          <a class="btn btn-link p-0" target="_blank" href="{{episode.UrlForEpisodeSource}}">
             <i class="material-icons md-36 md-dark">remove_red_eye</i>
           </a>
         </div>
@@ -29,6 +29,6 @@
   </div>
 </div>
 </div>
-<!--Series end-->
+<!--Episodes end-->
 <hr>
-<app-paging (pageChanged)="onPageChanged($event)" [pageCount]="seriesPage?.TotalPagesCount"></app-paging>
+<app-paging (pageChanged)="onPageChanged($event)" [pageCount]="episodesPage?.TotalPagesCount"></app-paging>
