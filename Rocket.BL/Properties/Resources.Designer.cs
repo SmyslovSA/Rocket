@@ -88,11 +88,29 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Cannot delete email. This email is undefined in system&quot;.
+        ///   Looks up a localized string similar to &quot;Cannot find valid dat using this parameters&quot;.
         /// </summary>
-        internal static string UndefinedEmail {
+        internal static string EmptyModel {
             get {
-                return ResourceManager.GetString("UndefinedEmail", resourceCulture);
+                return ResourceManager.GetString("EmptyModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;This Genre is already added&quot;.
+        /// </summary>
+        internal static string GenreDuplicate {
+            get {
+                return ResourceManager.GetString("GenreDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Genre with this name was not found&quot;.
+        /// </summary>
+        internal static string GenreWrongName {
+            get {
+                return ResourceManager.GetString("GenreWrongName", resourceCulture);
             }
         }
         
@@ -147,6 +165,15 @@ namespace Rocket.BL.Properties {
         internal static string TvSeries {
             get {
                 return ResourceManager.GetString("TvSeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Cannot delete email. This email is undefined in system&quot;.
+        /// </summary>
+        internal static string UndefinedEmail {
+            get {
+                return ResourceManager.GetString("UndefinedEmail", resourceCulture);
             }
         }
         
@@ -246,6 +273,15 @@ namespace Rocket.BL.Properties {
         internal static string UserWrongFirstOrLastName {
             get {
                 return ResourceManager.GetString("UserWrongFirstOrLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;User hasn&apos;t have this genre&quot;.
+        /// </summary>
+        internal static string UserWrongGenre {
+            get {
+                return ResourceManager.GetString("UserWrongGenre", resourceCulture);
             }
         }
         

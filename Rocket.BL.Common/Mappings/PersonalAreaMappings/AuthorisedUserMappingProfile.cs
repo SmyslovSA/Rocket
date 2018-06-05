@@ -19,6 +19,7 @@ namespace Rocket.BL.Common.Mappings.PersonalAreaMappings
                 .ForMember(dbu => dbu.Avatar, u => u.MapFrom(src => src.Avatar))
                 .ForMember(dbu => dbu.Email, u => u.MapFrom(src => src.Emails))
                 .ForMember(dbu => dbu.Genres, u => u.MapFrom(src => src.Genres))
+                .ForMember(dbu => dbu.MusicGenres, u => u.MapFrom(src => src.MusicGenre))
                 .ReverseMap();
         }
     }
