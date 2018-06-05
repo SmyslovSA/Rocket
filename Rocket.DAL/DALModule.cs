@@ -69,12 +69,10 @@ namespace Rocket.DAL
 
             Bind<RocketUserManager>().ToSelf().InRequestScope();
             Bind<RockeRoleManager>().ToSelf().InRequestScope();
-            //Bind<IUserService>().ToConstructor(ctx =>
-            //        new AspNetIdentityUserService<DbUser, string>(ctx.Inject<IUserService<DbUser, string>>(), null))
-            //    .InRequestScope();
-
+            //Bind<IUserService>()
                 //.ToConstructor(context => new AspNetIdentityUserService<DbUser, string>(context.Inject<UserManager<DbUser, string>>(), null))
                 //.InRequestScope();
+
             Bind<IUserStore<DbUser>>().ToMethod(ctx => new UserStore<DbUser>(new RocketContext()));
 
             //Bind<IUserStore<DbUser, int>>()
