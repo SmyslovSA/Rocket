@@ -346,7 +346,8 @@
 		<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-				<title>*|MC:SUBJECT|*</title>        
+				<title>*|MC:SUBJECT|*</title>
+        
 			<style>.ReadMsgBody {
 		width: 100%;
 		}
@@ -387,66 +388,66 @@
 		color: #606060; font-weight: normal; text-decoration: underline;
 		}
 		@@media only screen and (max-width: 480px) {
-			body {
+		  body {
 			-webkit-text-size-adjust: none !important;
-			}
-			table {
+		  }
+		  table {
 			-webkit-text-size-adjust: none !important;
-			}
-			td {
+		  }
+		  td {
 			-webkit-text-size-adjust: none !important;
-			}
-			p {
+		  }
+		  p {
 			-webkit-text-size-adjust: none !important;
-			}
-			a {
+		  }
+		  a {
 			-webkit-text-size-adjust: none !important;
-			}
-			li {
+		  }
+		  li {
 			-webkit-text-size-adjust: none !important;
-			}
-			blockquote {
+		  }
+		  blockquote {
 			-webkit-text-size-adjust: none !important;
-			}
-			body {
+		  }
+		  body {
 			width: 100% !important; min-width: 100% !important;
-			}
-			#bodyCell {
+		  }
+		  #bodyCell {
 			padding: 10px !important;
-			}
-			#templateContainer {
+		  }
+		  #templateContainer {
 			max-width: 600px !important; width: 100% !important;
-			}
-			h1 {
+		  }
+		  h1 {
 			font-size: 24px !important; line-height: 100% !important;
-			}
-			h2 {
+		  }
+		  h2 {
 			font-size: 20px !important; line-height: 100% !important;
-			}
-			h3 {
+		  }
+		  h3 {
 			font-size: 18px !important; line-height: 100% !important;
-			}
-			h4 {
+		  }
+		  h4 {
 			font-size: 16px !important; line-height: 100% !important;
-			}
-			#templatePreheader {
+		  }
+		  #templatePreheader {
 			display: none !important;
-			}
-			#headerImage {
+		  }
+		  #headerImage {
 			height: auto !important; max-width: 600px !important; width: 100% !important;
-			}
-			.headerContent {
+		  }
+		  .headerContent {
 			font-size: 20px !important; line-height: 125% !important;
-			}
-			.bodyContent {
+		  }
+		  .bodyContent {
 			font-size: 18px !important; line-height: 125% !important;
-			}
-			.footerContent {
+		  }
+		  .footerContent {
 			font-size: 14px !important; line-height: 115% !important;
-			}
-			.footerContent a {
+		  }
+		  .footerContent a {
 			display: block !important;
-			}
+		  }
 		}
 		</style></head>
 			<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; height: 100% !important; width: 100% !important; margin: 0; padding: 0;" bgcolor="#DEE0E2">
@@ -479,7 +480,7 @@
 											<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important; border-top-width: 1px; border-top-color: #FFFFFF; border-top-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; border-bottom-style: solid;" bgcolor="#F4F4F4">
 												<tr>
 													<td valign="top" class="headerContent" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #505050; font-family: Helvetica; font-size: 20px; font-weight: bold; line-height: 100%; padding: 0;" align="left">
-                                            			<img src="http://gallery.mailchimp.com/2425ea8ad3/images/header_placeholder_600px.png" style="max-width: 600px; -ms-interpolation-mode: bicubic; height: auto; line-height: 100%; outline: none; text-decoration: none; border: 0;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner="" mc:allowtext="" />
+                                            			<img src="https://i.pinimg.com/originals/6c/22/d9/6c22d9c6816f1f7108b45d2a9ce420a6.jpg" style="max-width: 600px; -ms-interpolation-mode: bicubic; height: auto; line-height: 100%; outline: none; text-decoration: none; border: 0;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner="" mc:allowtext="" />
 													</td>
 												</tr>
 											</table>
@@ -493,15 +494,30 @@
 												<tr>
 													<td valign="top" class="bodyContent" mc:edit="body_content" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #505050; font-family: Helvetica; font-size: 14px; line-height: 150%; padding: 20px;" align="left">
 														<h1 style="color: #202020 !important; display: block; font-family: Helvetica; font-size: 26px; font-style: normal; font-weight: bold; line-height: 100%; letter-spacing: normal; margin: 0 0 10px;" align="left">Здравствуйте, @Model.Music.Receivers[@Model.Count].FirstName!</h1>
-														<h3 style="color: #606060 !important; display: block; font-family: Helvetica; font-size: 16px; font-style: italic; font-weight: normal; line-height: 100%; letter-spacing: normal; margin: 0 0 10px;" align="left">Мы рады сообщить что @Model.Music.ReleaseDate состоялся</h3>
-														<h3 style="color: #606060 !important; display: block; font-family: Helvetica; font-size: 16px; font-style: italic; font-weight: normal; line-height: 100%; letter-spacing: normal; margin: 0 0 10px;" align="left">музыкальный релиз @Model.Music.Title исполнителя																									
-															@for (int i = 0; i @Model.Music.Musicians[i].FullName;																
-																}
-																else
-																{
-																	<div>@Model.Music.Musicians[i].FullName; &amp;</div>																
-																}
-															}
+														<h3 style="color: #202020 !important; display: block; font-family: Helvetica; font-size: 18px; font-style: normal; font-weight: normal; line-height: 100%; letter-spacing: normal; margin: 0 0 10px;" align="left">Мы рады сообщить что @Model.Music.ReleaseDate.ToShortDateString() состоялся<br></h3>
+														<h3 style="color: #202020 !important; display: block; font-family: Helvetica; font-size: 18px; font-style: normal; font-weight: normal; line-height: 100%; letter-spacing: normal; margin: 0 0 10px;" align="left">музыкальный релиз <b>"@Model.Music.Title"</b><br>																									
+								  <h3 style="color: #202020 !important; display: block; font-family: Helvetica; font-size: 18px; font-style: normal; font-weight: normal; line-height: 100%; letter-spacing: normal; margin: 0 0 10px;" align="left">
+									исполнителя
+									@for (int i = 0; i < @Model.Music.Musicians.Count; i++)
+									{
+									  if (@Model.Music.Musicians.Count == 1)
+									  {
+										<b>"@Model.Music.Musicians[i].FullName"</b>
+									  }
+									  else if (i == @Model.Music.Musicians.Count - 1)
+									  {
+										<b>@Model.Music.Musicians[i].FullName"</b>
+									  }
+									  else if (i == 0)
+									  {
+										<b>"@Model.Music.Musicians[i].FullName ft. </b>
+									  }
+									  else
+									  {
+										<b>@Model.Music.Musicians[i].FullName ft. </b>
+									  }
+									}
+								  </h3>
 														</h3>                                               
 													</td>
 												</tr>
