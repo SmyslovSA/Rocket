@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using Rocket.BL.Common.Models.UserPayment;
+using Rocket.BL.Common.Models;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.UoW;
 
-namespace Rocket.BL.Services.UserPaymentService
+namespace Rocket.BL.Services
 {
     /// <summary>
     /// Представляет сервис для работы с платежами
     /// </summary>
-    public class UserPaymentService : BaseService, Common.Services.UserPayment.IUserPaymentService
+    public class UserPaymentService : BaseService, Common.Services.IUserPaymentService
     {
         public UserPaymentService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
