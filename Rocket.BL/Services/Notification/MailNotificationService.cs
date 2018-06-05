@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Common.Logging;
 using MailKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
+using NLog;
 using RazorEngine;
 using RazorEngine.Templating;
 using Rocket.BL.Common.Enums;
@@ -28,18 +31,21 @@ namespace Rocket.BL.Services.Notification
     public class MailNotificationService : BaseService, IMailNotificationService
     {
         private IEnumerable<IMailTransport> _transport;
+        private readonly ILog _logger;
         private bool _isDisposed = false;
 
         /// <summary>
         /// Создает новый экземпляр <see cref="MailNotificationService"/>
         /// </summary>
-        /// <param name="unitOfWork"> Экземпляр <see cref="UnitOfWork"/></param>
+        /// <param name="unitOfWork"> Экземпляр <see cref="UnitOfWork"/> </param>
         /// <param name="transport"> Коллекция экземпляров <see cref="SmtpClient"/> </param>
+        /// <param name="logger"> Экземпляр <see cref="Logger"/> </param>
         public MailNotificationService(IUnitOfWork unitOfWork,
-            IEnumerable<IMailTransport> transport)
+            IEnumerable<IMailTransport> transport, ILog logger)
             : base(unitOfWork)
         {
             _transport = transport;
+            _logger = logger;
         }
 
         /// <summary>
@@ -54,9 +60,9 @@ namespace Rocket.BL.Services.Notification
                 {
                     await NotifyMusicAsync(music);
                 }
-                else if (entity is TvSeriasEntity tvSeries)
+                else if (entity is EpisodeEntity episode)
                 {
-                    await NotifyTvSeries(tvSeries);
+                    await NotifyEpisode(episode);
                 }
             }
         }
@@ -72,28 +78,48 @@ namespace Rocket.BL.Services.Notification
         public async Task SendBillingUserAsync(int id, decimal sum, string currency,
             BillingType type)
         {
-            var user = _unitOfWork.UserAuthorisedRepository.Get(
-                x => x.DbUserId == id, null, "DbUser").First();
-            var billing = Mapper.Map<BillingNotification>(user);
-            billing.Sum = sum;
-            billing.Currency = currency;
-            string body;
-            if (type == BillingType.Donate)
+            try
             {
-                var template = _unitOfWork.EmailTemplateRepository.GetById(
-                    Convert.ToInt32(Resources.Donate)).Body;
-                body = Engine.Razor.RunCompile(template, Resources.Donate, null,
-                    new { Donate = billing });
+                var user = _unitOfWork.UserAuthorisedRepository.Get(
+                    x => x.DbUserId == id, null, "DbUser").First();
+                var billing = Mapper.Map<BillingNotification>(user);
+                billing.Sum = sum;
+                billing.Currency = currency;
+                string body;
+                if (type == BillingType.Donate)
+                {
+                    var template = _unitOfWork.EmailTemplateRepository.GetById(
+                        Convert.ToInt32(Resources.Donate)).Body;
+                    body = Engine.Razor.RunCompile(template, Resources.Donate, null,
+                        new {Donate = billing});
+                }
+                else
+                {
+                    var template = _unitOfWork.EmailTemplateRepository.GetById(
+                        Convert.ToInt32(Resources.Premium)).Body;
+                    body = Engine.Razor.RunCompile(template, Resources.Premium, null,
+                        new {Premium = billing});
+                }
+
+                var message = CreateMessage(billing.Receiver, body);
+                await SendEmailAsync(_transport.ElementAt(0), new[] {message});
             }
-            else
+            catch (SqlException exception)
             {
-                var template = _unitOfWork.EmailTemplateRepository.GetById(
-                    Convert.ToInt32(Resources.Premium)).Body;
-                body = Engine.Razor.RunCompile(template, Resources.Premium, null,
-                    new { Premium = billing });
+                _logger.Error(exception.Message);
             }
-            var message = CreateMessage(billing.Receiver, body);
-            await SendEmailAsync(_transport.ElementAt(0), new[] { message });
+            catch (AutoMapperConfigurationException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (AutoMapperMappingException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (NullReferenceException exception)
+            {
+                _logger.Error(exception.Message);
+            }
         }
 
         /// <summary>
@@ -213,9 +239,9 @@ namespace Rocket.BL.Services.Notification
             await Task.WhenAll(tasks);
         }
 
-        private async Task NotifyTvSeries(TvSeriasEntity tvSeries)
+        private async Task NotifyEpisodeAsync(EpisodeEntity episode)
         {
-            var release = Mapper.Map<TvSeriesNotification>(tvSeries);
+            var release = Mapper.Map<EpisodeNotification>(episode);
             string template = _unitOfWork.EmailTemplateRepository.
                 Get(x => x.Title == Resources.TvSeries).First().Body;
 
