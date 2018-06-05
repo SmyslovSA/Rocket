@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using FluentValidation;
 using MailKit;
 using MailKit.Net.Smtp;
@@ -28,7 +29,18 @@ namespace Rocket.BL
             Bind<IUserPaymentService>().To<UserPaymentService>();
             Bind<IGenreManager>().To<ChangeGenreManagerService>();
             Bind<IGenreService>().To<GenreService>();
-            Bind<IMailNotificationService>().To<MailNotificationService>();
+            Bind<IMailNotificationService>().To<MailNotificationService>()
+                .WithConstructorArgument(
+                    "transport",
+                    new List<SmtpClient>()
+                    {
+                        new SmtpClient(),
+                        new SmtpClient(),
+                        new SmtpClient(),
+                        new SmtpClient()
+                    }
+                );
+            Bind<IMailTransport>().To<SmtpClient>();
         }
     }
 }
