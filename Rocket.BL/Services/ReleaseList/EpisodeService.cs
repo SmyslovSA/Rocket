@@ -78,5 +78,19 @@ namespace Rocket.BL.Services.ReleaseList
             pageInfo.PageItems = Mapper.Map<IEnumerable<EpisodeDto>>(episodes);
             return pageInfo;
         }
+
+        public IEnumerable<EpisodeDto> GetEpisodesByDates(DateTime startDate, DateTime endDate)
+        {
+            var episodes = _unitOfWork.EpisodeRepository.Get(
+                f => f.ReleaseDateRu >= startDate && f.ReleaseDateRu <= endDate,
+                includeProperties: $"{nameof(EpisodeEntity.Season)}");
+
+            foreach (var entity in episodes)
+            {
+                entity.Season.TvSeries = _unitOfWork.TvSeriasRepository.GetById(entity.Season.TvSeriesId);
+            }
+
+            return Mapper.Map<IEnumerable<EpisodeDto>>(episodes);
+        }
     }
 }
