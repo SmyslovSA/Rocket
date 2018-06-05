@@ -170,13 +170,13 @@
     <Compile Include="DALModule.cs" />
     <Compile Include="Identity\RockeRoleManager.cs" />
     <Compile Include="Identity\RocketUserManager.cs" />
-    <Compile Include="Migrations\201806051840193_AllSqlMigrations.cs" />
-    <Compile Include="Migrations\201806051840193_AllSqlMigrations.Designer.cs">
-      <DependentUpon>201806051840193_AllSqlMigrations.cs</DependentUpon>
+    <Compile Include="Migrations\201806052014237_InitAll.cs" />
+    <Compile Include="Migrations\201806052014237_InitAll.Designer.cs">
+      <DependentUpon>201806052014237_InitAll.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806051843106_InitializeDateForParsers.cs" />
-    <Compile Include="Migrations\201806051843106_InitializeDateForParsers.Designer.cs">
-      <DependentUpon>201806051843106_InitializeDateForParsers.cs</DependentUpon>
+    <Compile Include="Migrations\201806052017434_InitData.cs" />
+    <Compile Include="Migrations\201806052017434_InitData.Designer.cs">
+      <DependentUpon>201806052017434_InitData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
@@ -235,11 +235,11 @@
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806051840193_AllSqlMigrations.resx">
-      <DependentUpon>201806051840193_AllSqlMigrations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806052014237_InitAll.resx">
+      <DependentUpon>201806052014237_InitAll.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806051843106_InitializeDateForParsers.resx">
-      <DependentUpon>201806051843106_InitializeDateForParsers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806052017434_InitData.resx">
+      <DependentUpon>201806052017434_InitData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
