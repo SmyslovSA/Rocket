@@ -18,7 +18,6 @@ export class SignalRComponent implements OnInit {
     }
 
     connect() {
-        //let o: IConnectionOptions;
         let conx = this._signalR.createConnection();
         conx.status.subscribe((s) => console.warn(s.name));
         conx.start().then((c) => {

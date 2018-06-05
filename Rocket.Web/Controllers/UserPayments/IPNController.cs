@@ -1,15 +1,14 @@
-﻿using Rocket.BL.Common.Services;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
+using Rocket.BL.Common.Services.UserPayment;
 
-namespace Rocket.Web.Controllers
+namespace Rocket.Web.Controllers.UserPayments
 {
     [RoutePrefix("ipn")]
     public class IPNController : ApiController
@@ -20,7 +19,7 @@ namespace Rocket.Web.Controllers
 
             public string RequestBody { get; set; }
 
-            public string Verification { get; set; } = String.Empty;
+            public string Verification { get; set; } = string.Empty;
         }
 
         private readonly IUserPaymentService _userPaymentService;
@@ -38,7 +37,6 @@ namespace Rocket.Web.Controllers
             {
                 IPNRequest = Request
             };
-
            
             ipnContext.RequestBody = ipnContext.IPNRequest.Content.ToString();
 
@@ -85,7 +83,6 @@ namespace Rocket.Web.Controllers
 
             ProcessVerificationResponse(ipnContext);
         }
-
 
         private void LogRequest(IPNContext ipnContext)
         {

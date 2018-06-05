@@ -64,7 +64,7 @@ namespace Rocket.Notifications.Notificator
 
                 var musicReleases = GetMusicReleases(currDateTime);
 
-                var taskList = new List<Task> { /*_mailNotificationService.NotifyAboutReleaseAsync(musicReleases)*/ };
+                var taskList = new List<Task> { _mailNotificationService.NotifyAboutReleaseAsync(musicReleases) };
 
                 var pushNotifications = CastMusicToPushModel(musicReleases);
                 if (pushNotifications.Any())
@@ -94,7 +94,7 @@ namespace Rocket.Notifications.Notificator
 
                 var episodes = GetTvSeriesEpisodesReleases(currDateTime);
 
-                var taskList = new List<Task> { /*_mailNotificationService.NotifyAboutReleaseAsync(episodes)*/ };
+                var taskList = new List<Task> { _mailNotificationService.NotifyAboutReleaseAsync(episodes) };
                 
                 var pushNotifications = CastTvSeriasToPushModel(episodes);
                 if (pushNotifications.Any())
@@ -210,18 +210,20 @@ namespace Rocket.Notifications.Notificator
         private IEnumerable<PushNotificationModel> CastTvSeriasToPushModel(
             IEnumerable<EpisodeEntity> episodes)
         {
-            var pushNotifications = (from episode in episodes
-                                    let tvSeria = _unitOfWork.TvSeriasRepository.Queryable()
-                                        .Include(tv => tv.ListPerson)
-                                        .FirstOrDefault(tv => tv.Id == episode.Season.TvSeriesId)
-                                     let msg = $"{tvSeria.TitleRu} - {episode.TitleRu} ({episode.Number} серия {episode.Season.Number} сезона)"
-                select new PushNotificationModel
-                {
-                    Message = msg,
-                    Users = episode.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
-                }).ToList();
+            //var pushNotifications = (from episode in episodes
+            //                        let tvSeria = _unitOfWork.TvSeriasRepository.Queryable()
+            //                            .Include(tv => tv.ListPerson)
+            //                            .FirstOrDefault(tv => tv.Id == episode.Season.TvSeriesId)
+            //                         let msg = $"{tvSeria.TitleRu} - {episode.TitleRu} ({episode.Number} серия {episode.Season.Number} сезона)"
+            //    select new PushNotificationModel
+            //    {
+            //        Message = msg,
+            //        Users = episode.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
+            //    }).ToList();
 
-            return pushNotifications;
+            //return pushNotifications;
+
+            throw new NotImplementedException();
         }
 
 
@@ -232,15 +234,17 @@ namespace Rocket.Notifications.Notificator
         /// <returns>список уведомлений</returns>
         private static IEnumerable<PushNotificationModel> CastMusicToPushModel(IEnumerable<DbMusic> musicReleases)
         {
-            var pushNotifications = (from musicRelease in musicReleases
-                let msg = musicRelease.Artist + " " + musicRelease.Title
-                select new PushNotificationModel
-                {
-                    Message = msg,
-                    Users = musicRelease.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
-                }).ToList();
+            //var pushNotifications = (from musicRelease in musicReleases
+            //    let msg = musicRelease.Artist + " " + musicRelease.Title
+            //    select new PushNotificationModel
+            //    {
+            //        Message = msg,
+            //        Users = musicRelease.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
+            //    }).ToList();
 
-            return pushNotifications;
+            //return pushNotifications;
+
+            throw new NotImplementedException();
         }
 
         /// <summary>

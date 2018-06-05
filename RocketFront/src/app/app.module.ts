@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignalRComponent } from './components/signalR/signalr.component';
 
@@ -33,6 +33,7 @@ import { GenresComponent } from './components/catalog/genres/genres.component';
 import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarUtilsModule } from './components/calendar/calendar-utils/module';
+import { Urls } from './constants';
 import { MusicsDetailsComponent } from './components/news-feed/musics-details/musics-details.component';
 import { AdvertisementComponent } from './components/common/advertisement/advertisement.component';
 import { SideMenuComponent } from './components/common/side-menu/side-menu.component';
@@ -40,7 +41,7 @@ import { SideMenuComponent } from './components/common/side-menu/side-menu.compo
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
   c.hubName = 'Notification';
-  c.url = 'http://localhost:63613/';
+  c.url = Urls.signalRUrl;
   c.logging = true;
   return c;
 }
