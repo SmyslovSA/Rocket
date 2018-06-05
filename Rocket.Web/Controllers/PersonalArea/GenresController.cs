@@ -7,11 +7,11 @@ using System.Web.Http;
 
 namespace Rocket.Web.Controllers.PersonalArea
 {
-    public class GenreController : ApiController
+    public class GenresController : ApiController
     {
         private readonly IGenreManager _genreManager;
 
-        public GenreController(IGenreManager genreManager)
+        public GenresController(IGenreManager genreManager)
         {
             _genreManager = genreManager;
         }
