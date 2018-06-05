@@ -62,7 +62,7 @@
     <Compile Include="DtoModels\ReleaseList\TvSeriesSeasonsDto.cs" />
     <Compile Include="Mappings\Notification\BillingMessageMappingProfile.cs" />
     <Compile Include="Mappings\Notification\MusicNotificationMappingProfile.cs" />
-    <Compile Include="Mappings\Notification\TvSeriesNotificationMappingProfile.cs" />
+    <Compile Include="Mappings\Notification\EpisodeNotificationMappingProfile.cs" />
     <Compile Include="Mappings\PersonalAreaMappings\EmailMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\BaseReleaseMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\CategoryMappingProfile.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="Models\Notification\MessageAboutFilm.cs" />
     <Compile Include="Models\Notification\MusicNotification.cs" />
     <Compile Include="Models\Notification\Receiver.cs" />
-    <Compile Include="Models\Notification\TvSeriesNotification.cs" />
+    <Compile Include="Models\Notification\EpisodeNotification.cs" />
     <Compile Include="Models\Pagination\MusicPageInfo.cs" />
     <Compile Include="Models\Pagination\PageInfo.cs" />
     <Compile Include="Models\Pagination\ReleasesPageInfo.cs" />
