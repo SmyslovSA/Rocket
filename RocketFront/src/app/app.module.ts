@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { SignalRComponent } from './components/signalR/signalR.component';
+import { SignalRComponent } from './components/signalR/signalr.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MenuComponent } from './components/menu/menu.component';
@@ -34,6 +34,8 @@ import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarUtilsModule } from './components/calendar/calendar-utils/module';
 import { MusicsDetailsComponent } from './components/news-feed/musics-details/musics-details.component';
+import { AdvertisementComponent } from './components/common/advertisement/advertisement.component';
+import { SideMenuComponent } from './components/common/side-menu/side-menu.component';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -68,7 +70,9 @@ export function createConfig(): SignalRConfiguration {
     SeriesCatalogComponent,
     MusicCatalogComponent,
     GenresComponent,
-    MusicsDetailsComponent
+    MusicsDetailsComponent,
+    AdvertisementComponent,
+    SideMenuComponent
   ],
   imports: [
     BrowserModule,

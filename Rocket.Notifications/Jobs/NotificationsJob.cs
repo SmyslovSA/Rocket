@@ -3,7 +3,6 @@ using Ninject;
 using Quartz;
 using Rocket.Notifications.Heplers;
 using Rocket.Notifications.Interfaces;
-using Rocket.Notifications.Notifications;
 
 namespace Rocket.Notifications.Jobs
 {
@@ -12,7 +11,7 @@ namespace Rocket.Notifications.Jobs
     /// Джоба для отправки push-уведомелений
     /// </summary>
     [DisallowConcurrentExecution]
-    internal class PushNotificationsJob : IJob
+    internal class NotificationsJob : IJob
     {
         /// <inheritdoc />
         /// <summary>
@@ -27,8 +26,8 @@ namespace Rocket.Notifications.Jobs
                 var schedulerContext = context.JobDetail.JobDataMap;
                 var kernel = (IKernel)schedulerContext.Get(CommonHelper.ContainerKey);
 
-                var pushNotifications = kernel.Get<IPushNotifications>();
-                pushNotifications.NotifyAsync();
+                var pushNotificator = kernel.Get<IPushNotificator>();
+                pushNotificator.NotifyAsync().Wait();
             }
             catch (Exception excpt)
             {

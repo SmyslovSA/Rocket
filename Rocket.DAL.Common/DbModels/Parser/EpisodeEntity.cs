@@ -1,17 +1,13 @@
 ﻿using System;
+using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.Common.DbModels.Parser
 {
     /// <summary>
     /// Сущность модели серии.
     /// </summary>
-    public class EpisodeEntity
+    public class EpisodeEntity : SubscribableEntity
     {
-        /// <summary>
-        /// Уникальный идентификатор серии.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Дата выхода серии(рус).
         /// </summary>

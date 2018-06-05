@@ -3,9 +3,9 @@
 namespace Rocket.Notifications.Interfaces
 {
     /// <summary>
-    /// Рассылка згыр
+    /// Интерфейс инициации отправки уведомлений
     /// </summary>
-    public interface IPushNotifications
+    public interface IPushNotificator
     {
         /// <summary>
         /// Отправка уведомлений

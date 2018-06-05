@@ -1,6 +1,6 @@
 <!--Music-->
 <div class="row">
-<div class="col-sm-6 col-xl-4 mb-4" *ngFor="let music of musicPage?.PageItems">
+  <div class="col-sm-6 col-xl-4 mb-4" *ngFor="let music of musicPage?.PageItems">
     <div class="card box-shadow h-100">
       <div class="position-relative">
         <img class="card-img-top" src="{{music.PosterImagePath}}">
@@ -28,6 +28,6 @@
     </div>
   </div>
 </div>
-  <!--Music end-->
-  <hr>
-<app-paging (pageChanged)="onPageChanged($event)" [pageCount]="musicPage?.TotalPagesCount"></app-paging>
+<!--Music end-->
+<hr>
+<app-paging [pageCount]="musicPage?.TotalPagesCount"></app-paging>

@@ -51,6 +51,7 @@ namespace Rocket.DAL
             Bind<IDbRoleRepository>().To<DbRoleRepository>();
             Bind<IDbPermissionRepository>().To<DbPermissionRepository>();
             Bind<IDbAuthorisedUserRepository>().To<DbAuthorisedUserRepository>();
+            Bind<IBaseRepository<NotificationsSettingsEntity>>().To<BaseRepository<NotificationsSettingsEntity>>();
             Bind<IBaseRepository<NotificationsLogEntity>>().To<BaseRepository<NotificationsLogEntity>>();
             Bind<IDbEmailTemplateRepository>().To<DbEmailTemplateRepository>();
             Bind<IDbGuestBillingMessageRepository>().To<DbGuestBillingMessageRepository>();
