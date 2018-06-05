@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Rocket.DAL.Common.DbModels.Parser;
+using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.DAL.Common.DbModels.DbPersonalArea
@@ -30,8 +31,13 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         public virtual ICollection<DbEmail> Email { get; set; }
 
         /// <summary>
-        /// Коллекция выбранных жанров пользователя.
+        /// Коллекция TV жанров пользователя.
         /// </summary>
         public virtual ICollection<GenreEntity> Genres { get; set; }
+
+        /// <summary>
+        /// Коллекция музыкальных жанров пользователя.
+        /// </summary>
+        public virtual ICollection<DbMusicGenre> MusicGenres { get; set; }
     }
 }
