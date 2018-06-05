@@ -173,9 +173,6 @@
     <Compile Include="Migrations\201806041703124_Initial.cs" />
     <Compile Include="Migrations\201806041703124_Initial.Designer.cs">
       <DependentUpon>201806041703124_Initial.cs</DependentUpon>
-    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.cs" />
-    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.Designer.cs">
-      <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
