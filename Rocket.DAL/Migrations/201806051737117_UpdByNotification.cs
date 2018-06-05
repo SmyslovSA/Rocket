@@ -19,7 +19,6 @@ namespace Rocket.DAL.Migrations
                 .PrimaryKey(t => t.Id);
             
             AddColumn("dbo.Music", "PosterImageUrl", c => c.String());
-            AlterColumn("dbo.Episode", "Id", c => c.Int(nullable: false));
             AddPrimaryKey("dbo.Episode", "Id");
             CreateIndex("dbo.Episode", "Id");
             AddForeignKey("dbo.Episode", "Id", "dbo.Subscribable", "Id");
@@ -30,7 +29,6 @@ namespace Rocket.DAL.Migrations
             DropForeignKey("dbo.Episode", "Id", "dbo.Subscribable");
             DropIndex("dbo.Episode", new[] { "Id" });
             DropPrimaryKey("dbo.Episode");
-            AlterColumn("dbo.Episode", "Id", c => c.Int(nullable: false, identity: true));
             DropColumn("dbo.NotificationsSettings", "PushUrl");
             DropColumn("dbo.Music", "PosterImageUrl");
             DropTable("dbo.NotificationsLog");

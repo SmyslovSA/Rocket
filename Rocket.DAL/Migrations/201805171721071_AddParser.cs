@@ -89,7 +89,7 @@ namespace Rocket.DAL.Migrations
                 "dbo.Episode",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: false),
                         ReleaseDateRu = c.DateTime(),
                         ReleaseDateEn = c.DateTime(),
                         Number = c.Int(nullable: false),
