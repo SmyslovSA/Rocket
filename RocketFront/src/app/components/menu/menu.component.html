@@ -7,33 +7,31 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['']">Home
-          <span class="sr-only">(current)</span>
-        </a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/catalog']">Home</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/login']">Login</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/admin']">Admin</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/donate']">Donate</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/news/episodes']">News Feed</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/news']" [queryParams]="{ page: 1 }">Новинки</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/calendar']">Calendar</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/personal']">Personal area</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/registration']">Registration</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/users']">Users</a>
       </li>
     </ul>

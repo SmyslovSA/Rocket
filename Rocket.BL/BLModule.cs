@@ -21,6 +21,7 @@ namespace Rocket.BL
             Bind<IValidator<Common.Models.User.User>>().To<UserValidatorCheckRequiredFields>();
             Bind<IEmailManager>().To<ChangeEmailManagerService>();
             Bind<IUserPaymentService>().To<UserPaymentService>();
+            Bind<IGenreService>().To<GenreService>();
         }
     }
 }
