@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Rocket.BL.Common.Services.User
 {
@@ -11,7 +12,7 @@ namespace Rocket.BL.Common.Services.User
     {
         /// <summary>
         /// Возвращает всех пользователей
-        /// из хранилища данных.
+        /// из хранилища данных.        
         /// </summary>
         /// <returns>Коллекцию всех экземпляров пользователей.</returns>
         ICollection<Models.User.User> GetAllUsers();
@@ -31,7 +32,7 @@ namespace Rocket.BL.Common.Services.User
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
         /// <returns>Экземпляр пользователя.</returns>
-        Models.User.User GetUser(int id);
+        Task<Models.User.User> GetUser(string id);
 
         /// <summary>
         /// Добавляет заданного пользователя в хранилище данных
@@ -39,7 +40,7 @@ namespace Rocket.BL.Common.Services.User
         /// </summary>
         /// <param name="user">Экземпляр пользователя.</param>
         /// <returns>Уникальный идентификатор пользователя.</returns>
-        int AddUser(Models.User.User user);
+        Task<string> AddUser(Models.User.User user);
 
         /// <summary>
         /// Обновляет информацию заданного пользователя в хранилище данных.

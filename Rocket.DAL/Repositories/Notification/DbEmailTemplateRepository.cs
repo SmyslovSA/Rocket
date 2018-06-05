@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using Rocket.DAL.Common.DbModels.Notification;
+﻿using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Context;
 
@@ -8,7 +7,7 @@ namespace Rocket.DAL.Repositories.Notification
     /// <summary>
     /// Представляет репозиторий для шаблонов email сообщений
     /// </summary>
-    public class DbEmailTemplateRepository: BaseRepository<DbEmailTemplate>, IDbEmailTemplateRepository
+    public class DbEmailTemplateRepository : BaseRepository<DbEmailTemplate>, IDbEmailTemplateRepository
     {
         /// <summary>
         /// Создает новый экземпляр репозитория для шаблонов email сообщений

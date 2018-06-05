@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Rocket.BL.Common.Enums;
 using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.DbModels.Subscription;
@@ -14,9 +15,8 @@ namespace Rocket.BL.Common.Services.Notification
         /// <summary>
         /// Отправка сообщения о релизе
         /// </summary>
-        /// <param name="entity">подлежащий отправке релиз</param>
-        void NotifyAboutRelease(SubscribableEntity entity);
-
+        /// <param name="entities">Подлежащие отправке релизы</param>
+        Task NotifyAboutReleaseAsync(IEnumerable<SubscribableEntity> entities);
 
         /// <summary>
         /// Отправка пользователю сообщения с благодарностью за совершенный донат
@@ -26,7 +26,7 @@ namespace Rocket.BL.Common.Services.Notification
         /// <param name="sum">Оплаченная сумма</param>
         /// <param name="currency">Валюта совершенного платежа</param>
         /// <param name="type">Цель оплаты: премиум или донат</param>
-        void SendBillingUser(int id, decimal sum, string currency,
+        Task SendBillingUserAsync(int id, decimal sum, string currency,
             BillingType type);
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Rocket.BL.Common.Services.Notification
         /// <param name="email">Email гостя</param>
         /// <param name="sum">Оплаченная сумма</param>
         /// <param name="currency">Валюта совершенного платежа</param>
-        void SendBillingGuest(string name, string email, decimal sum,
+        Task SendBillingGuestAsync(string name, string email, decimal sum,
             string currency);
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Rocket.BL.Common.Services.Notification
         /// <param name="email">Email адрес посетителя</param>
         /// <param name="url">Ссылка для завершения регистрации аккаунта</param>
         /// <param name="name">Имя посетителя</param>
-        void SendConfirmation(string name, string email, string url);
+        Task SendConfirmationAsync(string name, string email, string url);
 
         /// <summary>
         /// Отправка сообщения произвольного содержания
@@ -58,7 +58,7 @@ namespace Rocket.BL.Common.Services.Notification
         /// <param name="subject">Тема сообщения</param>
         /// <param name="body">Содержание сообщения</param>
         /// <param name="html">Флаг указывающий является ли содержание разметкой HTML</param>
-        void SendCustom(string firstName, string lastName, ICollection<string> emails,
+        Task SendCustomAsync(string firstName, string lastName, ICollection<string> emails,
             string senderName, string subject, string body, bool html);
     }
 }

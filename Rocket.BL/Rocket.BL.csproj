@@ -50,11 +50,23 @@
     <Reference Include="Common.Logging.NLog444, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.NLog444.3.4.1\lib\net40\Common.Logging.NLog444.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.7.5.2\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="MailKit, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
       <HintPath>..\packages\MailKit.2.0.3\lib\net45\MailKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MimeKit, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
@@ -112,6 +124,7 @@
     <Compile Include="Services\PersonalArea\ChangeEmailManagerService.cs" />
     <Compile Include="Services\PersonalArea\ChangeGenreManagerService.cs" />
     <Compile Include="Services\ReleaseList\EpisodeService.cs" />
+    <Compile Include="Services\ReleaseList\GenreService.cs" />
     <Compile Include="Services\ReleaseList\GuestReleaseListService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -119,6 +132,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\ReleaseList\TvSeriesDetailedInfoService.cs" />
+    <Compile Include="Services\UserPaymentService\UserPaymentService.cs" />
     <Compile Include="Services\UserServices\PermissionManagerService.cs" />
     <Compile Include="Services\UserServices\UserRoleManager.cs" />
     <Compile Include="Services\UserServices\RoleService.cs" />
@@ -144,7 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rocket.BL.Common\Rocket.BL.Common.csproj">
-      <Project>{80692A9E-FD37-4473-9E91-FE1D345EE27A}</Project>
+      <Project>{80692a9e-fd37-4473-9e91-fe1d345ee27a}</Project>
       <Name>Rocket.BL.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">

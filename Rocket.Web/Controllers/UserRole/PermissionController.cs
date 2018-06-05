@@ -23,9 +23,26 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpGet]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult GetPermissionById(int id)
+        public IHttpActionResult GetPermissionById(string id)
         {
             var model = _permissionService.GetById(id);
+            return model == null ? (IHttpActionResult)NotFound() : Ok(model);
+        }
+
+        [HttpGet]
+        [Route("GetPermissionByRole{id:int:min(1)}")]
+        public IHttpActionResult GetPermissionByRole(string id)
+        {
+            var model = _permissionService.GetPermissionByRole(id);
+            return model == null ? (IHttpActionResult)NotFound() : Ok(model);
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public IHttpActionResult GetAllPermissions()
+        {
+            //_permissionService.Get(null, null, "Permission");
+            var model = _permissionService.GetAllPermissions();
             return model == null ? (IHttpActionResult)NotFound() : Ok(model);
         }
 
@@ -47,6 +64,11 @@ namespace Rocket.Web.Controllers.UserRole
         [HttpPut]
         public IHttpActionResult UpdatePermission([FromBody]Permission permission)
         {
+            if (permission == null)
+            {
+                return BadRequest("Model cannot be empty");
+            }
+
             _permissionService.Update(permission);
 
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
@@ -54,7 +76,7 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpDelete]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult DeletePermissionById(int id)
+        public IHttpActionResult DeletePermissionById(string id)
         {
             if (_permissionService.GetById(id) == null)
             {

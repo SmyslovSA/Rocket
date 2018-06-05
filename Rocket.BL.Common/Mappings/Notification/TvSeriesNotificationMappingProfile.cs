@@ -6,7 +6,7 @@ using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.BL.Common.Mappings.Notification
 {
-    class TvSeriesNotificationMappingProfile : Profile
+    public class TvSeriesNotificationMappingProfile : Profile
     {
         public TvSeriesNotificationMappingProfile()
         {
@@ -17,6 +17,7 @@ namespace Rocket.BL.Common.Mappings.Notification
                     s.LastName))
                 .ForMember(d => d.Emails, opt => opt.MapFrom(s =>
                     s.DbAuthorisedUser.Email.Select(x => x.Name).ToList()));
+
             CreateMap<TvSeriasEntity, TvSeriesNotification>()
                 .ForMember(d => d.Receivers, opt => opt.MapFrom(s =>
                     s.Users))

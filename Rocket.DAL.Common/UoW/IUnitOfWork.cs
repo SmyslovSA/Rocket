@@ -1,12 +1,13 @@
-﻿using Rocket.DAL.Common.DbModels.Parser;
+﻿using System;
+using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.Notification;
+using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
 using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
-using System;
-using Rocket.DAL.Common.DbModels.Notification;
 
 namespace Rocket.DAL.Common.UoW
 {
@@ -79,6 +80,11 @@ namespace Rocket.DAL.Common.UoW
         /// Репозиторий для работы с ролями.
         /// </summary>
         IDbRoleRepository RoleRepository { get; }
+
+        /// <summary>
+        /// Репозиторий для работы с ролями.
+        /// </summary>
+        IDbUserRoleRepository UserRoleRepository { get; }
 
         /// <summary>
         /// Репозиторий для работы с пермишенами.
@@ -175,6 +181,11 @@ namespace Rocket.DAL.Common.UoW
         /// Репозиторий лога нотификации
         /// </summary>
         IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
+
+        /// <summary>
+        /// Репозиторий платежей пользователя
+        /// </summary>
+        IBaseRepository<DbUserPayment> UserPaymentRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных

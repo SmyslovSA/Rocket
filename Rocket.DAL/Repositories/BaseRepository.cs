@@ -73,6 +73,7 @@ namespace Rocket.DAL.Repositories
         /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
+        /// <typeparam name="TKey">Тип идентификатора.</typeparam>
         /// <returns>Экземпляр <see cref="TEntity"/>.</returns>
         public TEntity GetById<TKey>(TKey id)
         {
@@ -130,6 +131,7 @@ namespace Rocket.DAL.Repositories
         /// соответствующий заданному идентификатору, из хранилища данных.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
+        /// <typeparam name="TKey">Тип идентификатора.</typeparam>
         public virtual void Delete<TKey>(TKey id)
         {
             var entityToDelete = _dbSet.Find(id);

@@ -1,18 +1,31 @@
 ﻿using System;
-using Rocket.DAL.Common.UoW;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Common.Logging;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Rocket.BL.Common.Services;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
+using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Identity;
 
 namespace Rocket.BL.Services.UserServices
 {
     public class UserRoleManager : BaseService, IUserRoleManager
     {
-        private const int DefaultRoleId = 0; // todo закинуть в хранилище дефолтроль
+        // todo !!!guid default role!!!
+        private const string DefaultRoleId = "asdasda"; // todo MP закинуть в хранилище дефолтроль 
+        private readonly ILog _logger;
+        private readonly RockeRoleManager _roleManager;
+        private readonly RocketUserManager _userManager;
 
-        public UserRoleManager(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public UserRoleManager(IUnitOfWork unitOfWork, ILog logger,
+            RockeRoleManager roleManager, RocketUserManager userManager) : base(unitOfWork)
         {
+            _logger = logger;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -20,21 +33,42 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <param name="roleId"> Идентификатор роли. </param>
-        public virtual void AddToRole(int userId, int roleId = DefaultRoleId)
+        /// <returns> Task </returns>
+        public virtual async Task<IdentityResult> AddToRole(string userId, string roleId = DefaultRoleId)
         {
-            // todo check user
+            var user = await _userManager.FindByIdAsync(userId);
+            var role = await _roleManager.FindByIdAsync(roleId);
 
-            if (IsInRole(userId, roleId))
+            if (user == null || role == null)
             {
-                return;
+                //_logger.Info
+                throw new InvalidOperationException();
             }
 
-            var dbRole = _unitOfWork.RoleRepository.GetById(roleId);
-            var dbUser = _unitOfWork.UserRepository.GetById(userId);
+            if (!_userManager.IsInRole(userId, roleId))
+            {
+                throw new InvalidOperationException();
+            }
 
-            dbUser.Roles.Add(dbRole);
+            return await _userManager.AddToRoleAsync(userId, roleId).ConfigureAwait(false);
+            // logger.Trace
 
-            _unitOfWork.SaveChanges();
+            //var dbUser = _unitOfWork.UserRepository.Find(userId);
+            //var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
+            //if (dbUserRole != null)
+            //{
+            //    //_logger.Trace($" Role {dbRole.Name} was in user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName}");
+            //    return;
+            //}
+            //// todo MP check user
+
+            //dbUserRole = new DbUserRole { UserId = userId, RoleId = roleId };
+            //_unitOfWork.UserRoleRepository.Insert(dbUserRole);
+            //_unitOfWork.SaveChanges();
+
+            //_logger.Fatal(
+            //    $"Role {dbRole.Name} was not added to user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName}",
+            //    new Exception(string.Join(Environment.NewLine, result.Errors)));
         }
 
         /// <summary>
@@ -43,19 +77,16 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <param name="roleId"> Идентификатор роли. </param>
         /// <returns> bool </returns>
-        public virtual bool RemoveFromRole(int userId, int roleId)
+        public virtual bool RemoveFromRole(string userId, string roleId)
         {
-            // todo check user
+            // todo MP check user
 
-            if (!IsInRole(userId, roleId))
-            {
-                return false;
-            }
+            var dbUser = _unitOfWork.UserRepository.Find(userId);
+            //var dbUserRole = _unitOfWork.UserRoleRepository.Get(t => t.UserId == userId && t.RoleId == roleId).FirstOrDefault();
+            //_unitOfWork.UserRoleRepository.Delete(dbUserRole);
 
-            var dbRole = _unitOfWork.RoleRepository.GetById(roleId);
-            var dbUser = _unitOfWork.UserRepository.GetById(userId);
-
-            dbUser.Roles.Remove(dbRole);
+            //dbUser.Roles.Remove(dbRole);
+            //_logger.Trace($"Role {dbRole.Name} removed from user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
 
             _unitOfWork.SaveChanges();
             return true;
@@ -66,10 +97,12 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <returns>Список ролей</returns>
-        public virtual IEnumerable<DbRole> GetRoles(int userId)
+        public virtual IEnumerable<DbRole> GetRoles(string userId)
         {
-            var dbUser = _unitOfWork.UserRepository.Get(t => t.Id == userId, includeProperties: "Roles").First();
-            return dbUser.Roles;
+            //    var dbUser = _unitOfWork.UserRepository.Get(t => t.Id == userId, includeProperties: "Roles").First();
+            //    _logger.Trace($"Checking roles for user: {dbUser.Id} -- {dbUser.FirstName}{dbUser.LastName} ");
+            //    return dbUser.Roles.Select(t => t.Role);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -78,15 +111,19 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="userId"> Идентификатор пользователя. </param>
         /// <param name="roleId"> Идентификатор роли. </param>
         /// <returns>bool</returns>
-        public virtual bool IsInRole(int userId, int roleId)
+       public virtual bool IsInRole(string userId, string roleId)
         {
-            if (_unitOfWork.UserRepository.GetById(userId) == null)
-            {
-                throw new InvalidOperationException("user not found by userId");
-            }
+        //    if (_unitOfWork.UserRepository.GetById(userId) == null)
+        //    {
+        //        throw new InvalidOperationException("user not found by userId");
+        //    }
 
-            var roles = GetRoles(userId);
-            return roles.Contains(_unitOfWork.RoleRepository.GetById(roleId));
+        //    var roles = GetRoles(userId);
+        //    var res = roles.Contains(_unitOfWork.RoleRepository.GetById(roleId));
+
+        //    _logger.Trace($"Checking user {userId} has role {roleId}? - {res} ");
+        //    return res;
+            throw new NotImplementedException();
         }
     }
 }

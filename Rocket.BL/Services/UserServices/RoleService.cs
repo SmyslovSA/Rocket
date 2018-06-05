@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
+using Common.Logging;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.UoW;
 
 namespace Rocket.BL.Services.UserServices
 {
-    /// <summary>
-    /// получение роли, установка роли для пользователя
-    /// если не указана, то дефолтовая
-    /// </summary>
     public class RoleService : BaseService, IRoleService
     {
-        public RoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        private readonly ILog _logger;
+
+        public RoleService(IUnitOfWork unitOfWork, ILog _logger) : base(unitOfWork)
         {
+            this._logger = _logger;
         }
 
         public bool RoleIsExists(Expression<Func<Role, bool>> filter)
@@ -35,7 +35,7 @@ namespace Rocket.BL.Services.UserServices
             return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
         }
 
-        public Role GetById(int id)
+        public Role GetById(string id)
         {
             return Mapper.Map<Role>(
                 _unitOfWork.RoleRepository.GetById(id));
@@ -45,6 +45,7 @@ namespace Rocket.BL.Services.UserServices
         {
             var dbRole = Mapper.Map<DbRole>(role);
             _unitOfWork.RoleRepository.Insert(dbRole);
+            _logger.Debug($"Role {dbRole} added in DB");
             _unitOfWork.SaveChanges();
         }
 
@@ -52,12 +53,14 @@ namespace Rocket.BL.Services.UserServices
         {
             var dbRole = Mapper.Map<DbRole>(role);
             _unitOfWork.RoleRepository.Update(dbRole);
+            _logger.Debug($"Role {dbRole} updated in DB");
             _unitOfWork.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             _unitOfWork.RoleRepository.Delete(id);
+            _logger.Debug($"Role {id} removed from DB");
             _unitOfWork.SaveChanges();
         }
     }

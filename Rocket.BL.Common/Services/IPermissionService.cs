@@ -5,11 +5,15 @@
         /// <summary>
         /// Добавить существующую функц возможность для выбранной роли
         /// </summary>
-        void AddPermissionToRole(int idRole, int idPermission);
+        /// <param name="idRole"> ID role </param>
+        /// <param name="idPermission"> ID permission </param>
+        void AddPermissionToRole(string idRole, string idPermission);
 
         /// <summary>
         /// Удалить функц возможность из текущего списка у роли
         /// </summary>
-        void RemovePermissionFromRole(int idRole, int idPermission);
+        /// <param name="idRole"> ID role </param>
+        /// <param name="idPermission"> ID permission </param>
+        void RemovePermissionFromRole(string idRole, string idPermission);
     }
 }

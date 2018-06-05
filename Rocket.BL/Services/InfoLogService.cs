@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -12,11 +13,15 @@ namespace Rocket.BL.Services
         /// <summary>
         /// Получить последних N строк из логгера
         /// </summary>
-        /// <param name="path"> Путь к файлу </param>
-        /// <param name="count" > Количество последних записей из соответствующего файла </param>
         /// <returns> string </returns>
-        public string GetLogInfo(string path, int count) // todo подумать чтобы передать дату файла
+        public string GetLogInfo() // todo MP подумать чтобы передать дату файла вместо =string path=, =int count=
         {
+            var fileName = $"{DateTime.Now:shortdate}.log";
+            var path = "..\\App_data\\Logs";
+            const int count = 20; // количество последних записей
+
+            path = Path.Combine(path, fileName);
+
             var resultString = string.Empty;
 
             if (string.IsNullOrWhiteSpace(path) || !File.Exists(path) || count <= 0)
@@ -96,7 +101,7 @@ namespace Rocket.BL.Services
                 }
             }
 
-            return logRows.ToString(firstLineStart, logRows.Length - firstLineStart);
+            return logRows.ToString(firstLineStart, logRows.Length - firstLineStart - 1);
         }
     }
 }
