@@ -10,7 +10,6 @@ namespace Rocket.Web.Identity
         public RocketIdentityService(UserManager<DbUser, string> userManager, Func<string, string> parseSubject = null) 
             : base(userManager, parseSubject)
         {
-
         }
     }
 }

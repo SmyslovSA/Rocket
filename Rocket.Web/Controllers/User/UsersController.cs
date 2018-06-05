@@ -3,7 +3,7 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Rocket.BL.Common.Services.User;
-using Rocket.Web.Attribute;
+using Rocket.Web.Attributes;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Rocket.Web.Controllers.User

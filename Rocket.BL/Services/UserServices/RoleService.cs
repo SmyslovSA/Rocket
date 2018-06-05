@@ -35,7 +35,7 @@ namespace Rocket.BL.Services.UserServices
             return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
         }
 
-        public Role GetById(int id)
+        public Role GetById(string id)
         {
             return Mapper.Map<Role>(
                 _unitOfWork.RoleRepository.GetById(id));
@@ -57,7 +57,7 @@ namespace Rocket.BL.Services.UserServices
             _unitOfWork.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             _unitOfWork.RoleRepository.Delete(id);
             _logger.Debug($"Role {id} removed from DB");

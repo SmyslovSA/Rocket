@@ -1,7 +1,7 @@
 ﻿using System;
 using Ninject;
 using Ninject.Web.Common.WebHost;
-using Rocket.Web.Attribute;
+using Rocket.Web.Attributes;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;

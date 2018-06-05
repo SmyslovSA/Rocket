@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Rocket.DAL.Common.DbModels.Identity;
 
 namespace Rocket.BL.Common.Services
@@ -11,14 +13,15 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="userId"> Идентификатор ползователя. </param>
         /// <param name="roleId"> Идентификатор ролию </param>
-        void AddToRole(int userId, int roleId = 0);
+        /// <returns> Task </returns>
+        Task<IdentityResult> AddToRole(string userId, string roleId);
 
         /// <summary>
         /// Получить все роли пользователя по его Id
         /// </summary>
         /// <param name="userId"> Идентификатор ползователя. </param>
         /// <returns>list</returns>
-        IEnumerable<DbRole> GetRoles(int userId);
+        IEnumerable<DbRole> GetRoles(string userId);
 
         /// <summary>
         /// Проверка что у юзера есть соответствующая роль
@@ -26,7 +29,7 @@ namespace Rocket.BL.Common.Services
         /// <param name="userId"> Идентификатор ползователя. </param>
         /// <param name="roleId"> Идентификатор ролию </param>
         /// <returns>bool</returns>
-        bool IsInRole(int userId, int roleId);
+        bool IsInRole(string userId, string roleId);
 
         /// <summary>
         /// Удалить роль у юзера
@@ -34,6 +37,6 @@ namespace Rocket.BL.Common.Services
         /// <param name="userId"> Идентификатор ползователя. </param>
         /// <param name="roleId"> Идентификатор ролию </param>
         /// <returns>bool</returns>
-        bool RemoveFromRole(int userId, int roleId);
+        bool RemoveFromRole(string userId, string roleId);
     }
 }

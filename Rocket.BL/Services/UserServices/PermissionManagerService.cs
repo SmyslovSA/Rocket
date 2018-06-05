@@ -47,7 +47,7 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="idRole">Идентификатор роли</param>
         /// <param name="idPermission">Идентификатор пермишена</param>
-        public void AddPermissionToRole(int idRole, int idPermission)
+        public void AddPermissionToRole(string idRole, string idPermission)
         {
             var perm = new Claim("permission", Permissions.Read);
             //var perm = new Claim("permission", Permissions.Read);
@@ -71,7 +71,7 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="idRole">Идентификатор роли</param>
         /// <param name="idPermission">Идентификатор пермишена</param>
-        public void RemovePermissionFromRole(int idRole, int idPermission)
+        public void RemovePermissionFromRole(string idRole, string idPermission)
         {
             // удаляем пермишен у роли
             var dbRole = _unitOfWork.RoleRepository.GetById(idRole);
@@ -106,7 +106,7 @@ namespace Rocket.BL.Services.UserServices
         /// Удаляет пермишен
         /// </summary>
         /// <param name="id">Идентификатор пермишена</param>
-        public void Delete(int id)
+        public void Delete(string id)
         {
             _unitOfWork.PermissionRepository.Delete(id);
             _unitOfWork.SaveChanges();
@@ -117,7 +117,7 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
         /// <returns>Permission</returns>
-        public Permission GetById(int id)
+        public Permission GetById(string id)
         {
             return Mapper.Map<Permission>(_unitOfWork.PermissionRepository.GetById(id));
         }
@@ -138,7 +138,7 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="idRole">Идентификатор роли</param>
         /// <returns>Коллекцию Permission</returns>
-        public IEnumerable<Permission> GetPermissionByRole(int idRole)
+        public IEnumerable<Permission> GetPermissionByRole(string idRole)
         {
             var rol = _unitOfWork.RoleRepository.GetById(idRole);
             return Mapper.Map<Role>(rol)?.Permissions;

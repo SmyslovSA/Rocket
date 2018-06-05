@@ -3,17 +3,17 @@ using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.DAL.Common.DbModels.Identity
 {
-    public class DbUserRole : IdentityUserRole<int>
+    public class DbUserRole : IdentityUserRole
     {
         /// <summary>
         ///  Get/set userid property
         /// </summary>
-        public override int UserId { get; set; }
+        public override string UserId { get; set; }
 
         /// <summary>
         /// Get/Set roleid property
         /// </summary>
-        public override int RoleId { get; set; }
+        public override string RoleId { get; set; }
 
         public virtual DbUser User { get; set; }
 

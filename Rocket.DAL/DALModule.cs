@@ -69,17 +69,17 @@ namespace Rocket.DAL
 
             Bind<RocketUserManager>().ToSelf().InRequestScope();
             Bind<RockeRoleManager>().ToSelf().InRequestScope();
-            //Bind<IUserService>()
-                //.ToConstructor(context => new AspNetIdentityUserService<DbUser, string>(context.Inject<UserManager<DbUser, string>>(), null))
-                //.InRequestScope();
+            Bind<IUserService>()
+                .ToConstructor(context => new AspNetIdentityUserService<DbUser, string>(context.Inject<UserManager<DbUser, string>>(), null))
+                .InRequestScope();
 
-            Bind<IUserStore<DbUser>>().ToMethod(ctx => new UserStore<DbUser>(new RocketContext()));
+            Bind<IUserStore<DbUser, string>>().ToMethod(ctx => new UserStore<DbUser>(new RocketContext()));
 
-            //Bind<IUserStore<DbUser, int>>()
-            //    .ToConstructor(context => new UserStore<DbUser, DbRole, int, DbUserLogin, DbUserRole, DbUserClaim>(context.Inject<DbContext>()))
+            //Bind<IUserStore<DbUser, string>>()
+            //    .ToConstructor(ctx => new UserStore<>())
+            //    .ToConstructor(context => new UserStore<DbUser, DbRole, string, DbUserLogin, DbUserRole, DbUserClaim>(context.Inject<DbContext>()))
             //    .InRequestScope();
-            //Bind<UserManager<DbUser, int>>().ToSelf().InRequestScope();
-
+            //Bind<UserManager<DbUser, string>>().ToSelf().InRequestScope();
 
             //UoW
             Bind<IUnitOfWork>().To<UnitOfWork>();

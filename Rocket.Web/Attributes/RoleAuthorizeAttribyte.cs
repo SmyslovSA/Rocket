@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 
-namespace Rocket.Web.Attribute
+namespace Rocket.Web.Attributes
 {
     public class RoleAuthorizeAttribute : AuthorizeAttribute
     {
@@ -14,7 +14,7 @@ namespace Rocket.Web.Attribute
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             var identity = actionContext.RequestContext.Principal.Identity as ClaimsIdentity;
-            //identity.HasClaim(c => c.Type.Equals("permission") && c.Value.Equals("read"));
+            identity?.HasClaim(c => c.Type.Equals("permission") && c.Value.Equals("read"));
 
             actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
         }
