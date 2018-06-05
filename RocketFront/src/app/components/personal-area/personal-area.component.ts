@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {SimpleUser} from '../../models/personal-area/simpleuser';
+import {Profile} from '../../models/personal-area/profile';
 import {HttpClientModule} from '@angular/common/http';
-import { DataService } from '../../services/simpleuser.data.service';
+import { DataService } from '../../services/profile.data.service';
 import { Email } from '../../models/personal-area/email';
 import {HttpHeaderResponse} from '@angular/common/http';
 
@@ -12,10 +12,10 @@ import {HttpHeaderResponse} from '@angular/common/http';
   providers: [DataService]
 })
 export class PersonalAreaComponent implements OnInit {
-  data: SimpleUser;
+  data: Profile;
   testemail: Email;
   constructor(private dataservice: DataService) {
-    this.data = new SimpleUser();
+    this.data = new Profile();
   }
   changeUserInfo() {
     this.dataservice.changeData(this.data).subscribe();
