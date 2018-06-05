@@ -33,6 +33,7 @@ import { GenresComponent } from './components/catalog/genres/genres.component';
 import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarUtilsModule } from './components/calendar/calendar-utils/module';
+import { MusicsDetailsComponent } from './components/news-feed/musics-details/musics-details.component';
 import { AdvertisementComponent } from './components/common/advertisement/advertisement.component';
 import { SideMenuComponent } from './components/common/side-menu/side-menu.component';
 
@@ -69,6 +70,7 @@ export function createConfig(): SignalRConfiguration {
     SeriesCatalogComponent,
     MusicCatalogComponent,
     GenresComponent,
+    MusicsDetailsComponent,
     AdvertisementComponent,
     SideMenuComponent
   ],

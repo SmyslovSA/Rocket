@@ -9,10 +9,12 @@
         </div>
       </div>
       <div class="card-body">
-        <h4 class="mb-0">Артист</h4>
+        <h4 class="mb-0">
+        <span *ngFor="let musicians of music.Musicians, let last=last">{{musicians.FullName}}{{last ? '' : ', '}}</span> 
+      </h4>      
         <h5 class="mb-0 mt-2">{{music.Title}}</h5>
         <div class="d-flex justify-content-between align-items-center mt-3">
-          <button type="button" class="btn btn-outline-secondary">Альбом</button>
+          <button type="button" class="btn btn-outline-secondary" [routerLink]="['/music', music.Id]">Альбом</button>
           <div class="btn-group">
             <button type="button" class="btn btn-link p-0 mr-3 mr-sm-2" href="#">
               <i class="material-icons md-36 md-dark">star_border</i>
