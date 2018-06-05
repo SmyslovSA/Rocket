@@ -63,7 +63,7 @@ namespace Rocket.BL.Services.Notification
                 }
                 else if (entity is EpisodeEntity episode)
                 {
-                    await NotifyEpisode(episode);
+                    await NotifyEpisodeAsync(episode);
                 }
             }
         }
@@ -265,7 +265,7 @@ namespace Rocket.BL.Services.Notification
                         messages.Clear();
                     }
                 }
-                await Task.WhenAll(tasks);
+                await Task.WhenAll(tasks).ConfigureAwait(false);
             }
             catch (EntityException exception)
             {
@@ -310,7 +310,7 @@ namespace Rocket.BL.Services.Notification
                 for (int i = 0; i < release.Receivers.Count; i++)
                 {
                     var body = Engine.Razor.RunCompile(template,
-                        Resources.Episode, null, new { TvSeries = release, Count = i });
+                        Resources.Episode, null, new { Episode = release, Count = i });
                     var message = CreateMessage(release.Receivers.ElementAt(i),
                         body);
                     messages.Add(message);
@@ -321,7 +321,7 @@ namespace Rocket.BL.Services.Notification
                         messages.Clear();
                     }
                 }
-                await Task.WhenAll(tasks);
+                await Task.WhenAll(tasks).ConfigureAwait(false);
             }
             catch (EntityException exception)
             {
