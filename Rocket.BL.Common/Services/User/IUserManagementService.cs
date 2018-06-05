@@ -12,7 +12,7 @@ namespace Rocket.BL.Common.Services.User
     {
         /// <summary>
         /// Возвращает всех пользователей
-        /// из хранилища данных.
+        /// из хранилища данных.        
         /// </summary>
         /// <returns>Коллекцию всех экземпляров пользователей.</returns>
         ICollection<Models.User.User> GetAllUsers();
