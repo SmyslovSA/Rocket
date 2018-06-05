@@ -65,7 +65,7 @@ namespace Rocket.BL.Services.UserServices
             _logger.Trace($"Request RemoveFromRole in queue: Role {roleId}, user {userId}");
             var result = await _userManager.RemoveFromRoleAsync(userId, roleId).ConfigureAwait(false);
 
-            _logger.Trace($"Role RemoveFromRole complete: {roleId} removed from {userId}");
+            _logger.Trace($"Request RemoveFromRole complete: {roleId} removed from {userId}");
             return result;
 
             //if (!_userManager.IsInRole(userId, roleId))

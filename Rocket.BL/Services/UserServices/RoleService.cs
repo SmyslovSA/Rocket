@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Common.Logging;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Rocket.BL.Common.Models.UserRoles;
-using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Identity;
@@ -27,26 +21,34 @@ namespace Rocket.BL.Services.UserServices
             _roleManager = roleManager;
         }
 
-        public async void RoleIsExists(Expression<Func<Role, bool>> filter)
+        public async Task<bool> RoleIsExists(string filter)
         {
-            //return await _roleManager.RoleExistsAsync(filter).ConfigureAwait(false);
+            _logger.Trace($"Request RoleIsExists : filter {filter}");
+            return await _roleManager.RoleExistsAsync(filter).ConfigureAwait(false);
 
             //return _unitOfWork.RoleRepository
             //    .Get(Mapper.Map<Expression<Func<DbRole, bool>>>(filter))
             //    .Any();
         }
 
-        public IEnumerable<Role> Get(
-            Expression<Func<DbRole, bool>> filter = null, 
-            Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, 
-            string includeProperties = "")
+        public IQueryable<IdentityRole> GetAllRoles()
         {
-            return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
+            _logger.Trace($"Request GetAllRoles");
+            return _roleManager.Roles;
         }
 
-        public async Task<Role> GetById(string id)
+        //public IEnumerable<Role> Get(
+        //    Expression<Func<DbRole, bool>> filter = null, 
+        //    Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, 
+        //    string includeProperties = "")
+        //{
+        //    return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
+        //}
+
+        public async Task<IdentityRole> GetById(string roleId)
         {
-            return await _roleManager.FindByIdAsync();
+            _logger.Trace($"Request GetById : roleId {roleId}");
+            return await _roleManager.FindByIdAsync(roleId).ConfigureAwait(false);
 
             //return Mapper.Map<Role>(
             //    _unitOfWork.RoleRepository.GetById(id));
@@ -54,7 +56,11 @@ namespace Rocket.BL.Services.UserServices
 
         public async Task<IdentityResult> Insert(DbRole role)
         {
-            return await _roleManager.CreateAsync(role).ConfigureAwait(false); 
+            _logger.Trace($"Request Insert in queue: Role {role}");
+            var result = await _roleManager.CreateAsync(role).ConfigureAwait(false);
+
+            _logger.Trace($"Request Insert complete: Role {role}");
+            return result;
 
             //var dbRole = Mapper.Map<DbRole>(role);
             //_unitOfWork.RoleRepository.Insert(dbRole);
@@ -64,7 +70,11 @@ namespace Rocket.BL.Services.UserServices
 
         public async Task<IdentityResult> Update(DbRole role)
         {
-            return await _roleManager.UpdateAsync(role).ConfigureAwait(false);
+            _logger.Trace($"Request Update in queue: Role {role}");
+            var result = await _roleManager.UpdateAsync(role).ConfigureAwait(false);
+
+            _logger.Trace($"Request Update complete: Role {role}");
+            return result;
 
             //var dbRole = Mapper.Map<DbRole>(role);
             //_unitOfWork.RoleRepository.Update(dbRole);
@@ -74,7 +84,11 @@ namespace Rocket.BL.Services.UserServices
 
         public async Task<IdentityResult> Delete(DbRole role)
         {
-            return await _roleManager.DeleteAsync(role).ConfigureAwait(false);
+            _logger.Trace($"Request Delete in queue: Role {role}");
+            var result = await _roleManager.DeleteAsync(role).ConfigureAwait(false);
+
+            _logger.Trace($"Request Delete complete: Role {role}");
+            return result;
 
             //_unitOfWork.RoleRepository.Delete(id);
             //_logger.Debug($"Role {id} removed from DB");
