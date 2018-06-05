@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using Rocket.BL.Common.Models;
 using Rocket.DAL.Common.DbModels;
 
-namespace Rocket.BL.Common.Mappings.UserPayment
+namespace Rocket.BL.Common.Mappings
 {
     /// <summary>
     /// Профиль сопоставления доменной модели платежа с моделью хранения данных о платеже.
@@ -10,7 +11,7 @@ namespace Rocket.BL.Common.Mappings.UserPayment
     {
         public UserPaymentMappingProfile()
         {
-            CreateMap<Models.UserPayment.UserPayment, DbUserPayment>()
+            CreateMap<UserPayment, DbUserPayment>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
