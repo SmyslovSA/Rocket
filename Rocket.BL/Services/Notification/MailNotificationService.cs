@@ -295,7 +295,7 @@ namespace Rocket.BL.Services.Notification
             {
                 var release = Mapper.Map<EpisodeNotification>(episode);
                 string template = _unitOfWork.EmailTemplateRepository.
-                    Get(x => x.Title == Resources.TvSeries).First().Body;
+                    Get(x => x.Title == Resources.Episode).First().Body;
 
                 int quota = release.Receivers.Count / _transport.Count();
                 if (quota < 1)
@@ -310,7 +310,7 @@ namespace Rocket.BL.Services.Notification
                 for (int i = 0; i < release.Receivers.Count; i++)
                 {
                     var body = Engine.Razor.RunCompile(template,
-                        Resources.TvSeries, null, new { TvSeries = release, Count = i });
+                        Resources.Episode, null, new { TvSeries = release, Count = i });
                     var message = CreateMessage(release.Receivers.ElementAt(i),
                         body);
                     messages.Add(message);
