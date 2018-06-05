@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Rocket.BL.Common.Models.UserPayment;
+using Rocket.BL.Common.Models;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.UoW;
 

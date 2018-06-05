@@ -92,6 +92,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Rocket.BL.Common\Rocket.BL.Common.csproj">
       <Project>{80692a9e-fd37-4473-9e91-fe1d345ee27a}</Project>
       <Name>Rocket.BL.Common</Name>
@@ -112,12 +118,6 @@
       <Project>{1aafa5b0-fbe9-4ab4-a16d-24becdd34aae}</Project>
       <Name>Rocket.Web</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

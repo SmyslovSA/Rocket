@@ -210,18 +210,20 @@ namespace Rocket.Notifications.Notificator
         private IEnumerable<PushNotificationModel> CastTvSeriasToPushModel(
             IEnumerable<EpisodeEntity> episodes)
         {
-            var pushNotifications = (from episode in episodes
-                                    let tvSeria = _unitOfWork.TvSeriasRepository.Queryable()
-                                        .Include(tv => tv.ListPerson)
-                                        .FirstOrDefault(tv => tv.Id == episode.Season.TvSeriesId)
-                                     let msg = $"{tvSeria.TitleRu} - {episode.TitleRu} ({episode.Number} серия {episode.Season.Number} сезона)"
-                select new PushNotificationModel
-                {
-                    Message = msg,
-                    Users = episode.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
-                }).ToList();
+            //var pushNotifications = (from episode in episodes
+            //                        let tvSeria = _unitOfWork.TvSeriasRepository.Queryable()
+            //                            .Include(tv => tv.ListPerson)
+            //                            .FirstOrDefault(tv => tv.Id == episode.Season.TvSeriesId)
+            //                         let msg = $"{tvSeria.TitleRu} - {episode.TitleRu} ({episode.Number} серия {episode.Season.Number} сезона)"
+            //    select new PushNotificationModel
+            //    {
+            //        Message = msg,
+            //        Users = episode.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
+            //    }).ToList();
 
-            return pushNotifications;
+            //return pushNotifications;
+
+            throw new NotImplementedException();
         }
 
 
@@ -232,15 +234,17 @@ namespace Rocket.Notifications.Notificator
         /// <returns>список уведомлений</returns>
         private static IEnumerable<PushNotificationModel> CastMusicToPushModel(IEnumerable<DbMusic> musicReleases)
         {
-            var pushNotifications = (from musicRelease in musicReleases
-                let msg = musicRelease.Artist + " " + musicRelease.Title
-                select new PushNotificationModel
-                {
-                    Message = msg,
-                    Users = musicRelease.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
-                }).ToList();
+            //var pushNotifications = (from musicRelease in musicReleases
+            //    let msg = musicRelease.Artist + " " + musicRelease.Title
+            //    select new PushNotificationModel
+            //    {
+            //        Message = msg,
+            //        Users = musicRelease.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
+            //    }).ToList();
 
-            return pushNotifications;
+            //return pushNotifications;
+
+            throw new NotImplementedException();
         }
 
         /// <summary>
