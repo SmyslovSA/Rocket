@@ -19,7 +19,7 @@ namespace Rocket.Web.Controllers.UserPayments
         /// <summary>
         /// Возвращает информацию о платеже.
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="user"> user </param>
         /// <returns>Информация о платеже.</returns>
         [HttpGet]
         [Route("paymentInfo")]

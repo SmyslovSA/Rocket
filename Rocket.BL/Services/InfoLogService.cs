@@ -17,8 +17,7 @@ namespace Rocket.BL.Services
         /// <returns> string </returns>
         public string GetLogInfo() // todo MP подумать чтобы передать дату файла вместо =string path=, =int count=
         {
-            var fileName = $"2018-06-05.log";
-            var path = "..\\App_data\\Logs";
+            var path = string.Empty;
             const int count = 20; // количество последних записей
 
             path = HostingEnvironment.MapPath("~/App_Data/Logs/2018-06-05.log");

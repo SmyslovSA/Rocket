@@ -12,14 +12,11 @@ namespace Rocket.BL.Services.UserServices
         // todo !!!guid default role!!!
         private const string DefaultRoleId = "asdasda"; // todo MP закинуть в хранилище дефолтроль 
         private readonly ILog _logger;
-        private readonly RockeRoleManager _roleManager;
         private readonly RocketUserManager _userManager;
 
-        public UserRoleManager(IUnitOfWork unitOfWork, ILog logger,
-            RockeRoleManager roleManager, RocketUserManager userManager) : base(unitOfWork)
+        public UserRoleManager(IUnitOfWork unitOfWork, ILog logger, RocketUserManager userManager) : base(unitOfWork)
         {
             _logger = logger;
-            _roleManager = roleManager;
             _userManager = userManager;
         }
 

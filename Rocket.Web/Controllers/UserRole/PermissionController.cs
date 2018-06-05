@@ -14,9 +14,9 @@ namespace Rocket.Web.Controllers.UserRole
     [RoutePrefix("permission")]
     public class PermissionController : ApiController
     {
-        private readonly PermissionManagerService _permissionService;
+        private readonly PermissionService _permissionService;
 
-        public PermissionController(PermissionManagerService permissionService)
+        public PermissionController(PermissionService permissionService)
         {
             _permissionService = permissionService;
         }

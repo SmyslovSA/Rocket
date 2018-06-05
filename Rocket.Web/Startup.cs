@@ -20,8 +20,9 @@ namespace Rocket.Web
     {
         // 1. AppHandler
         // 2. AuthorizeAttribute
-        // 3. DefaultRole
-        // 4. Peromance
+        // 3. DefaultRole   InfoLogService
+        // 4. Perfomance  IUserService
+        // 5. Loger fileName   InfoLogService
 
         public void Configuration(IAppBuilder app)
         {

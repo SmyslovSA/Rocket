@@ -83,7 +83,6 @@ namespace Rocket.Web.Controllers.UserPayments
             ProcessVerificationResponse(ipnContext);
         }
 
-
         private void LogRequest(IPNContext ipnContext)
         {
             // Persist the request values into a database or temporary data store
