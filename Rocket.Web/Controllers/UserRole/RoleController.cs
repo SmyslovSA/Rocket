@@ -19,6 +19,8 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpGet]
         [Route("all")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK)]
         public IHttpActionResult GetAllRoles()
         {
             _roleService.Get(null, null, "Roles");
@@ -27,6 +29,9 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpGet]
         [Route("{id:int:min(1)}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK)]
         public IHttpActionResult GetRoleById(int id)
         {
             var model = _roleService.GetById(id);
@@ -34,6 +39,7 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpPost]
+        [Route("save")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New Role description", typeof(Role))]
@@ -49,18 +55,25 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpPut]
+        [Route("update")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.NoContent)]
         public IHttpActionResult UpdateRole([FromBody] Role role)
         {
+            _roleService.Update(role);
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
 
         [HttpDelete]
         [Route("delete/{id:int:min(1)}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.Accepted)]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
         public IHttpActionResult DeleteRoleById(int id)
         {
             if (_roleService.GetById(id) == null)
             {
-                return BadRequest("The role not exists");
+                return BadRequest("The role does not exist");
             }
 
             _roleService.Delete(id);

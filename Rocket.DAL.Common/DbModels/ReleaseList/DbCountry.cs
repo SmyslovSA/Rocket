@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Rocket.DAL.Common.DbModels.User;
 
 namespace Rocket.DAL.Common.DbModels.ReleaseList
@@ -29,5 +30,10 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// к которым относится данная страна.
         /// </summary>
         public ICollection<DbAddress> DbAddresses { get; set; }
+
+        public static explicit operator DbCountry(DbUser v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

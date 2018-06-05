@@ -18,8 +18,13 @@ namespace Rocket.BL.Common.Models.PersonalArea
         public ICollection<Email> Emails { get; set; }
 
         /// <summary>
-        /// Персональный список релизов в виде списка жанров. 
+        /// Персональный список релизов в виде списка жанров TV. 
         /// </summary>
         public ICollection<Genre> Genres { get; set; }
+
+        /// <summary>
+        /// Персональный список релизов в виде списка музыкальных жанров. 
+        /// </summary>
+        public ICollection<MusicGenre> MusicGenre { get; set; }
     }
 }

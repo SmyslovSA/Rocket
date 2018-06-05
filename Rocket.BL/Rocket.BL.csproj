@@ -112,6 +112,7 @@
     <Compile Include="Services\PersonalArea\ChangeEmailManagerService.cs" />
     <Compile Include="Services\PersonalArea\ChangeGenreManagerService.cs" />
     <Compile Include="Services\ReleaseList\EpisodeService.cs" />
+    <Compile Include="Services\ReleaseList\GenreService.cs" />
     <Compile Include="Services\ReleaseList\GuestReleaseListService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -119,6 +120,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\ReleaseList\TvSeriesDetailedInfoService.cs" />
+    <Compile Include="Services\UserPaymentService\UserPaymentService.cs" />
     <Compile Include="Services\UserServices\PermissionManagerService.cs" />
     <Compile Include="Services\UserServices\UserRoleManager.cs" />
     <Compile Include="Services\UserServices\RoleService.cs" />
@@ -144,7 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rocket.BL.Common\Rocket.BL.Common.csproj">
-      <Project>{80692A9E-FD37-4473-9E91-FE1D345EE27A}</Project>
+      <Project>{80692a9e-fd37-4473-9e91-fe1d345ee27a}</Project>
       <Name>Rocket.BL.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">

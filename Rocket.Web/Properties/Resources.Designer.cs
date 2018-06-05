@@ -97,6 +97,15 @@ namespace Rocket.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;Genre cannot be null or empty&quot;.
+        /// </summary>
+        internal static string EmptyGenre {
+            get {
+                return ResourceManager.GetString("EmptyGenre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;Password or password confirm cannot be empty&quot;.
         /// </summary>
         internal static string EmptyPassword {

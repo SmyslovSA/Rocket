@@ -3,9 +3,11 @@ using FluentValidation;
 using MailKit;
 using MailKit.Net.Smtp;
 using Ninject.Modules;
+using Rocket.BL.Common.Services;
 using Rocket.BL.Common.Services.Notification;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.BL.Common.Services.ReleaseList;
+using Rocket.BL.Services;
 using Rocket.BL.Services.Notification;
 using Rocket.BL.Services.PersonalArea;
 using Rocket.BL.Services.ReleaseList;
@@ -23,6 +25,9 @@ namespace Rocket.BL
             Bind<IPersonalData>().To<PersonalDataService>();
             Bind<IValidator<Common.Models.User.User>>().To<UserValidatorCheckRequiredFields>();
             Bind<IEmailManager>().To<ChangeEmailManagerService>();
+            Bind<IUserPaymentService>().To<UserPaymentService>();
+            Bind<IGenreManager>().To<ChangeGenreManagerService>();
+            Bind<IGenreService>().To<GenreService>();
             Bind<IMailNotificationService>().To<MailNotificationService>();
         }
     }

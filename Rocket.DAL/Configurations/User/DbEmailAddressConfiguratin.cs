@@ -8,9 +8,9 @@ namespace Rocket.DAL.Configurations.User
     /// <summary>
     /// Конфигурация хранения данных об адресах электронной почты дополнительной информации пользователя.
     /// </summary>
-    public class DbEmailAddressConfiguratin : EntityTypeConfiguration<DbEmailAddress>
+    public class DbEmailAddressConfiguration : EntityTypeConfiguration<DbEmailAddress>
     {
-        public DbEmailAddressConfiguratin()
+        public DbEmailAddressConfiguration()
         {
             ToTable("EmailAddresses")
                 .HasKey(t => t.Id)
