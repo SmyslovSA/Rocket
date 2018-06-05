@@ -31,6 +31,11 @@
         public string ImageUrl { get; set; }
 
         /// <summary>
+        /// URL изображение релиза c адресом ресурса (полный путь)
+        /// </summary>
+        public string ImageFullUrl { get; set; }
+
+        /// <summary>
         /// Жанр релиза
         /// </summary>
         public string Genre { get; set; }

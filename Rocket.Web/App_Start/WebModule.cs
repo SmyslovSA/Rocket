@@ -1,5 +1,6 @@
 ﻿using Common.Logging;
 using Rocket.Web.App_Handler;
+using Rocket.Web.Helpers;
 
 namespace Rocket.Web
 {
@@ -25,6 +26,8 @@ namespace Rocket.Web
             });
 
             Bind<ApplicationErrorHandler>().ToSelf().InSingletonScope();
+
+            Bind<IPushNotificationsHelper>().To<PushNotificationsHelper>();
         }
     }
 }
