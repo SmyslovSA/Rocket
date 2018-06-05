@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using AutoMapper;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Rocket.BL.Common.Services.User;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Rocket.BL.Services.User
 {
@@ -15,14 +18,18 @@ namespace Rocket.BL.Services.User
     /// </summary>
     public class UserManagementService : BaseService, IUserManagementService
     {
+        private readonly RocketUserManager _usermanager;
+
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work.
         /// </summary>
-        /// <param name="unitOfWork">Экземпляр unit of work.</param>
-        public UserManagementService(IUnitOfWork unitOfWork)
+        /// <param name="unitOfWork"></param>
+        /// <param name="usermanager"></param>
+        public UserManagementService(IUnitOfWork unitOfWork, RocketUserManager usermanager)
             : base(unitOfWork)
         {
+            _usermanager = usermanager;
         }
 
         /// <summary>
@@ -32,21 +39,7 @@ namespace Rocket.BL.Services.User
         /// <returns>Коллекцию всех экземпляров пользователей.</returns>
         public ICollection<Common.Models.User.User> GetAllUsers()
         {
-            if (_unitOfWork.UserRepository == null)
-            {
-                return null;
-            }
-
-            var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
-
-            if (usersCount == 0)
-            {
-                return null;
-            }
-
-            var dbUsers = _unitOfWork.UserRepository.Get(i => i.Id > -1);
-
-            return dbUsers.Select(Mapper.Map<Common.Models.User.User>).ToList();
+            return _usermanager.Users.ProjectTo<Common.Models.User.User>().ToArray();
         }
 
         /// <summary>
@@ -58,32 +51,10 @@ namespace Rocket.BL.Services.User
         /// <returns>Коллекция экземпляров пользователей для пейджинга.</returns>
         public ICollection<Common.Models.User.User> GetUsersPage(int pageSize, int pageNumber)
         {
-            // Проверка валидности переменных-параментров.
-            var usersCount = _unitOfWork.UserRepository.ItemsCount(i => i.Id > -1);
-
-            if (usersCount == 0)
-            {
-                return null;
-            }
-            
-            ICollection<int> usersPageIndexes =
-                GetUsersPageIndexes(usersCount: usersCount, pageSize: pageSize, pageNumber: pageNumber);
-
-            if (usersPageIndexes == null)
-            {
-                return null;
-            }
-            
-            // ОБъявление списка для возврата значения.
-            var usersPage = new List<Common.Models.User.User>();
-
-            foreach (var usersPageIndexe in usersPageIndexes)
-            {
-                usersPage.Add(Mapper.Map<Common.Models.User.User>(
-                    _unitOfWork.UserRepository.GetById(usersPageIndexe)));
-            }
-
-            return usersPage;
+            return _usermanager.Users.Skip(pageNumber * pageSize)
+                .Take(pageSize)
+                .ProjectTo<Common.Models.User.User>()
+                .ToArray();
         }
 
         /// <summary>
@@ -91,10 +62,11 @@ namespace Rocket.BL.Services.User
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
         /// <returns>Экземпляр пользователя.</returns>
-        public Common.Models.User.User GetUser(int id)
+        public async Task<Common.Models.User.User> GetUser(string id)
         {
-            return Mapper.Map<Common.Models.User.User>(
-                _unitOfWork.UserRepository.GetById(id));
+            var user = await this._usermanager.FindByIdAsync(id).ConfigureAwait(false);
+
+            return Mapper.Map<Common.Models.User.User>(user);
         }
 
         /// <summary>
@@ -103,33 +75,55 @@ namespace Rocket.BL.Services.User
         /// </summary>
         /// <param name="user">Экземпляр пользователя для добавления.</param>
         /// <returns>Идентификатор пользователя.</returns>
-        public int AddUser(Common.Models.User.User user)
+        public async Task<string> AddUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
-            _unitOfWork.UserRepository.Insert(dbUser);
-            _unitOfWork.SaveChanges();
-            return dbUser.Id;
+            var result = await _usermanager.CreateAsync(dbUser, user.Password)
+                .ConfigureAwait(false);
+            if (result.Succeeded)
+            {
+                return dbUser.Id;
+            }
+
+            throw new InvalidOperationException(result.Errors.Aggregate((a, b) => $"{a} {b}"));
         }
 
         /// <summary>
         /// Обновляет информацию заданного пользователя в хранилище данных.
         /// </summary>
         /// <param name="user">Экземпляр пользователя для обновления.</param>
-        public void UpdateUser(Common.Models.User.User user)
+        /// <returns> Task </returns>
+        public async Task UpdateUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
-            _unitOfWork.UserRepository.Update(dbUser);
-            _unitOfWork.SaveChanges();
+
+            var result = await _usermanager.UpdateAsync(dbUser).ConfigureAwait(false);
+
+            if (result.Succeeded)
+            {
+                return;
+            }
+
+            throw new InvalidOperationException(result.Errors.Aggregate((a, b) => $"{a} {b}"));
         }
 
         /// <summary>
         /// Удаляет пользователя с заданным идентификатором из хранилища данных.
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
-        public void DeleteUser(int id)
+        /// <returns> Task </returns>
+        public async Task DeleteUser(string id)
         {
-            _unitOfWork.UserRepository.Delete(id);
-            _unitOfWork.SaveChanges();
+            var user = await this._usermanager.FindByIdAsync(id).ConfigureAwait(false);
+
+            var result = await _usermanager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                return;
+            }
+
+            throw new InvalidOperationException(result.Errors.Aggregate((a, b) => $"{a} {b}"));
         }
 
         /// <summary>
@@ -146,9 +140,9 @@ namespace Rocket.BL.Services.User
         }
 
         /// <summary>
-        /// После добавление пользователя в репозитарий 
+        /// После добавление пользователя в репозитарий
         /// генерирует ссылку, по которой пользователь
-        /// в случае получения уведомлении об активации, может 
+        /// в случае получения уведомлении об активации, может
         /// активировать аккаунт.
         /// </summary>
         /// <param name="user">Экземпляр пользователя.</param>
@@ -157,44 +151,6 @@ namespace Rocket.BL.Services.User
         {
             // todo надо сделать реализацию, после того, как "прорастут" вьюхи.
             return string.Empty;
-        }
-
-        /// <summary>
-        /// Возращает коллекцию (список) индексов пользователей,
-        /// которые будут помещаться на страницу.
-        /// </summary>
-        /// <param name="usersCount">Количество пользователей.</param>
-        /// <param name="pageSize">Размер страницы.</param>
-        /// <param name="pageNumber">Номер страницы.</param>
-        /// <returns>Коллекция индектов пользователей на странице.</returns>
-        public ICollection<int> GetUsersPageIndexes(int usersCount, int pageSize, int pageNumber)
-        {
-            if (usersCount < 1 || pageSize < 1 || pageNumber < 1)
-            {
-                return null;
-            }
-
-            var pagesCount = (int)Math.Ceiling((double)usersCount / pageSize);
-
-            if (pagesCount < pageNumber)
-            {
-                return null;
-            }
-
-            var usersToPage = new List<int>();
-
-            var startUserIndex = (pageNumber - 1) * pageSize;
-
-            var finishUserIndex = startUserIndex + (pageNumber < pagesCount
-                ? pageSize - 1
-                : (usersCount % pageSize) - 1);
-
-            for (var i = startUserIndex; i <= finishUserIndex; i++)
-            {
-                usersToPage.Add(i);
-            }
-
-            return usersToPage;
         }
     }
 }

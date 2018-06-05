@@ -1,7 +1,4 @@
-﻿using Rocket.BL.Common.Models;
-using System;
-
-namespace Rocket.BL.Common.Services
+﻿namespace Rocket.BL.Common.Services.UserPayment
 {
     /// <summary>
     /// Представляет сервис для валидации сведений о пользователе
