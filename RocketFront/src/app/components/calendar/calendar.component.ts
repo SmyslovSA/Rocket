@@ -1,7 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { CalendarEvent } from 'angular-calendar';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+import { CalendarEvent, CalendarDateFormatter, DAYS_OF_WEEK } from 'angular-calendar';
 import {
   isSameMonth,
   isSameDay,
@@ -16,6 +18,9 @@ import {
 import { Observable } from 'rxjs';
 import { colors } from './calendar-utils/colors';
 import { Router } from '@angular/router';
+import { CustomDateFormatter } from './custom-date-formatter.provider';
+
+registerLocaleData(localeRu);
 
 interface ReleaseFilms {
   id: number;
@@ -51,13 +56,25 @@ interface ReleaseEvent
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    }
+  ]
 })
 export class CalendarComponent implements OnInit {
 
   view: string = 'month';
   nameCalendar: string;
   targetMethod: number;
+
+  locale: string = 'ru';
+
+  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
+
+  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
 
   viewDate: Date = new Date();
   events$: Observable<Array<CalendarEvent<{ release: Release }>>>;
@@ -72,7 +89,7 @@ export class CalendarComponent implements OnInit {
   filmsEvents(): void {
     this.nameCalendar = "Фильмы"
     this.targetMethod = 1;
-
+    
     const getStart: any = {
       month: startOfMonth,
       week: startOfWeek,
