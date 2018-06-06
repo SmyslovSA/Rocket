@@ -27,7 +27,7 @@ export class DonateComponent implements OnInit {
   }
 
   login() {
-    this.auth.login('user', 'password');
+    this.auth.login('firstUser', 'password');
   }
 
 }

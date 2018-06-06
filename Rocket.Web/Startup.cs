@@ -32,7 +32,7 @@ namespace Rocket.Web
             app.MapSignalR();
 
             //  уточнить!
-            var asd = DependencyResolver.Current.GetService<IUserService>();
+            //var asd = DependencyResolver.Current.GetService<IUserService>();
 
             var factory =
                 new IdentityServerServiceFactory()
