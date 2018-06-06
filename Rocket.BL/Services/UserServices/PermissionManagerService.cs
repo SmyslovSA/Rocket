@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using AutoMapper;
+using Common.Logging;
 using Microsoft.AspNet.Identity;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Common.Services;
@@ -13,6 +14,7 @@ using Rocket.DAL.Identity;
 
 namespace Rocket.BL.Services.UserServices
 {
+    
     public static class Permissions
     {
         public static string Read => "read.news";
@@ -25,6 +27,8 @@ namespace Rocket.BL.Services.UserServices
     {
         private readonly RocketUserManager _userManager;
         private readonly RockeRoleManager _roleManager;
+        private readonly ILog _logger;
+        private readonly string _srtingClaims = "permission";
 
         /// <summary>
         /// Создает новый экземпляр <see cref="PermissionManagerService"/>
@@ -35,11 +39,13 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="roleManager"></param>
         public PermissionManagerService(IUnitOfWork unitOfWork,
             RocketUserManager userManager,
-            RockeRoleManager roleManager)
+            RockeRoleManager roleManager, 
+            ILog _logger)
             : base(unitOfWork)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            this._logger = _logger;
         }
 
         /// <summary>
@@ -47,9 +53,9 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="idRole">Идентификатор роли</param>
         /// <param name="idPermission">Идентификатор пермишена</param>
-        public void AddPermissionToRole(string idRole, string idPermission)
+        public void AddPermissionToRole(string idRole, int idPermission)
         {
-            var perm = new Claim("permission", Permissions.Read);
+           var perm = new Claim("permission", Permissions.Read);
             //var perm = new Claim("permission", Permissions.Read);
             //var perm = new Claim("permission", Permissions.Read);
             //var perm = new Claim("permission", Permissions.Read);
@@ -71,7 +77,7 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="idRole">Идентификатор роли</param>
         /// <param name="idPermission">Идентификатор пермишена</param>
-        public void RemovePermissionFromRole(string idRole, string idPermission)
+        public void RemovePermissionFromRole(string idRole, int idPermission)
         {
             // удаляем пермишен у роли
             var dbRole = _unitOfWork.RoleRepository.GetById(idRole);
@@ -86,9 +92,24 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="permission">Пермишен</param>
         public void Insert(Permission permission)
         {
-            var dbPermission = Mapper.Map<DbPermission>(permission);
-            _unitOfWork.PermissionRepository.Insert(dbPermission);
-            _unitOfWork.SaveChanges();
+            var PermissionClaim = new Claim(_srtingClaims, permission.PermissionId.ToString());
+            var permValueName = new Claim(_srtingClaims, permission.ValueName);
+            var permDescription = new Claim(_srtingClaims, permission.Description);
+
+            _userManager.AddClaim("id", PermissionClaim);
+            _userManager.AddClaim("ValueName", permValueName);
+            _userManager.AddClaim("Description", permDescription);
+            
+            _logger.Debug($"Permission {permission.Description} added in DB");
+            //var perm = new Claim("permission", Permissions.Read);
+            //var perm = new Claim("permission", Permissions.Read);
+            //var perm = new Claim("permission", Permissions.Read);
+            //var perm = new Claim("permission", Permissions.Read);
+
+
+            //var dbPermission = Mapper.Map<DbPermission>(permission);
+            //_unitOfWork.PermissionRepository.Insert(dbPermission);
+            //_unitOfWork.SaveChanges();
         }
 
         /// <summary>
@@ -97,9 +118,20 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="permission">Пермишен</param>
         public void Update(Permission permission)
         {
-            var dbPermission = Mapper.Map<DbPermission>(permission);
-            _unitOfWork.PermissionRepository.Update(dbPermission);
-            _unitOfWork.SaveChanges();
+            var permPermissionId = new Claim("permission", permission.PermissionId.ToString());
+            var permValueName = new Claim("permission", permission.ValueName);
+            var permDescription = new Claim("permission", permission.Description);
+
+            var perm = _roleManager.FindById(permission.PermissionId.ToString());
+            _userManager.AddClaim("id", permPermissionId);
+            _userManager.AddClaim("id", permValueName);
+            _userManager.AddClaim("id", permDescription);
+            _logger.Debug($"Permission {permission.Description} added in DB");
+            //_userManager.GetClaims()
+
+            //var dbPermission = Mapper.Map<DbPermission>(permission);
+            //_unitOfWork.PermissionRepository.Update(dbPermission);
+            //_unitOfWork.SaveChanges();
         }
 
         /// <summary>

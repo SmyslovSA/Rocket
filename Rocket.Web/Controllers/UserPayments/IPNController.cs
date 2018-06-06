@@ -1,4 +1,6 @@
 ﻿using Rocket.BL.Common.Services;
+using Rocket.BL.Common.Services.User;
+using Rocket.BL.Common.Services.UserPayment;
 using System;
 using System.IO;
 using System.Net;
@@ -24,10 +26,12 @@ namespace Rocket.Web.Controllers
         }
 
         private readonly IUserPaymentService _userPaymentService;
+        private readonly IUserAccountLevelService _userAccountLevelService;
 
-        public IPNController(IUserPaymentService userPaymentService)
+        public IPNController(IUserPaymentService userPaymentService, IUserAccountLevelService userAccountLevelService)
         {
             _userPaymentService = userPaymentService;
+            _userAccountLevelService = userAccountLevelService;
         }
 
         [HttpPost]
@@ -39,7 +43,7 @@ namespace Rocket.Web.Controllers
                 IPNRequest = Request
             };
 
-
+           
             ipnContext.RequestBody = ipnContext.IPNRequest.Content.ToString();
 
             //Store the IPN received from PayPal
@@ -103,8 +107,10 @@ namespace Rocket.Web.Controllers
                 // process payment
                 var paymentInfo = ipnContext.RequestBody;
                 var payment = new BL.Common.Models.UserPayment();
-                //var user = new Rocket.BL.Common.Models.User.User();
 
+                int userID = 0; //TODO: взять ид юзера из сообщения о поступлении платежа
+
+                payment.UserId = userID;
                 payment.FirstName = new Regex(@"first_name\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.LastName = new Regex(@"last_name\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.Result = new Regex(@"payment_status\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
@@ -113,6 +119,7 @@ namespace Rocket.Web.Controllers
                 payment.Currentcy = new Regex(@"mc_currency\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.CustomString = new Regex(@"custom\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 _userPaymentService.AddUserPayment(payment);
+                _userAccountLevelService.SetUserAccountLevel(userID, new BL.Common.Models.User.AccountLevel());
             }
             else if (ipnContext.Verification.Equals("INVALID"))
             {

@@ -46,6 +46,7 @@ namespace Rocket.BL.Common.Services.User
         /// Обновляет информацию заданного пользователя в хранилище данных.
         /// </summary>
         /// <param name="user">Экземпляр пользователя.</param>
+        /// <returns> Task </returns>
         Task UpdateUser(Models.User.User user);
 
         /// <summary>
@@ -53,6 +54,7 @@ namespace Rocket.BL.Common.Services.User
         /// из хранилища данных.
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
+        /// <returns> Task </returns>
         Task DeleteUser(string id);
 
         /// <summary>

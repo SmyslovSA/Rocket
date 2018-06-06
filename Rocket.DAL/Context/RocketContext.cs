@@ -13,6 +13,7 @@ using Rocket.DAL.Configurations.ReleaseList;
 using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
 using Rocket.DAL.Migrations;
+using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.Context
 {
@@ -152,9 +153,15 @@ namespace Rocket.DAL.Context
         public DbSet<DbUserBillingMessage> UserBillingMessage { get; set; }
 
         /// <summary>
+        /// DbSet платежа пользователя
+        /// </summary>
+        public DbSet<DbUserPayment> DbUserPayment { get; set; }
+
+        /// <summary>
         /// DbSet лога уведомлений
         /// </summary>
-        ///public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
+        public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
+
         /// <summary>
         /// Этот метод вызывается, когда модель для производного контекста данных была инициализирована,
         /// но до того, как модель была заблокирована и использована для инициализации этого контекста.
@@ -191,7 +198,7 @@ namespace Rocket.DAL.Context
 
             modelBuilder.Configurations.Add(new DbCountryConfiguration());
 
-            modelBuilder.Configurations.Add(new DbAuthorisedUserConfiguration());
+            modelBuilder.Configurations.Add(new DbUserProfileConfiguration());
 
             modelBuilder.Configurations.Add(new SubscribableConfiguration());
             modelBuilder.Configurations.Add(new NotificationsSettingsEntityMap());
@@ -203,7 +210,8 @@ namespace Rocket.DAL.Context
             modelBuilder.Configurations.Add(new ReceiversJoinReleasesConfiguration());
             modelBuilder.Configurations.Add(new ReleaseMessageConfiguration());
             modelBuilder.Configurations.Add(new UserBillingConfiguration());
-            //modelBuilder.Configurations.Add(new NotificationsLogMap());
+            modelBuilder.Configurations.Add(new NotificationsLogMap());
+            modelBuilder.Configurations.Add(new UserPaymentConfiguration());
         }
     }
 }

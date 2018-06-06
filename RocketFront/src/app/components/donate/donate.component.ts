@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PaymentService } from '../../services/payment.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-donate',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DonateComponent implements OnInit {
 
-  constructor() { }
+    paymentEnabled: boolean;
 
-  ngOnInit() {
-  }
+    constructor(private paymentService: PaymentService) { }
+
+    ngOnInit() {
+        this.getPAymentEnabled();
+    }
+
+    getPAymentEnabled() {
+        this.paymentService.getPAymentEnabled()
+            .subscribe(data => {
+                this.paymentEnabled = data;
+            });
+    }
 
 }

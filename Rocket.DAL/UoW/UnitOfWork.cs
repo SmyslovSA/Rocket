@@ -10,6 +10,7 @@ using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.UoW
 {
@@ -29,6 +30,8 @@ namespace Rocket.DAL.UoW
         /// <param name="musicGenreRepository">Репозиторий жанра</param>
         /// <param name="musicTrackRepository">Репозиторий трека</param>
         /// <param name="musicianRepository">Репозиторий исполнителя</param>
+        /// <param name="notificationsLogRepository">Репозиторий лога сервиса нотификации</param>
+        /// <param name="notificationsSettingsRepository">Репозиторий настроек сервиса нотификации</param>
         /// <param name="categoryRepository">Репозиторий категорий</param>
         /// <param name="episodeRepository">Репозиторий серий</param>
         /// <param name="genreRepository">Репозиторий жанров</param>
@@ -58,7 +61,7 @@ namespace Rocket.DAL.UoW
         /// <param name="dbReleaseMessageRepository">Репозиторий сообщений о релизе</param>
         /// <param name="dbUserBillingMessageRepository">Репозиторий сообщений о платежах пользователя</param>
         /// <param name="userPaymentRepository">Репозиторий платежей пользователя</param>
-        
+        /// <param name="subscribableRepository">Репозиторий ресурсов для подписки</param>
         public UnitOfWork(
             RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
@@ -89,15 +92,17 @@ namespace Rocket.DAL.UoW
             //IDbUserDetailRepository dbUserDetailRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
-            IDbAuthorisedUserRepository dbAuthorisedUserRepository,
+            IDbUserProfileRepository dbAuthorisedUserRepository,
             IDbCustomMessageRepository dbCustomMessageRepository,
             IBaseRepository<NotificationsLogEntity> notificationsLogRepository,
+            IBaseRepository<NotificationsSettingsEntity> notificationsSettingsRepository,
             IDbEmailTemplateRepository dbEmailTemplateRepository,
             IDbGuestBillingMessageRepository dbGuestBillingMessageRepository,
             IDbReceiverRepository dbReceiverRepository,
             IDbReleaseMessageRepository dbReleaseMessageRepository,
             IDbUserBillingMessageRepository dbUserBillingMessageRepository,
-            IBaseRepository<DbUserPayment> userPaymentRepository)
+            IBaseRepository<DbUserPayment> userPaymentRepository,
+            IBaseRepository<SubscribableEntity> subscribableRepository)
         {
             _rocketContext = rocketContext;
             MusicRepository = musicRepository;
@@ -131,12 +136,14 @@ namespace Rocket.DAL.UoW
             UserAuthorisedRepository = dbAuthorisedUserRepository;
             CustomMessageRepository = dbCustomMessageRepository;
             NotificationsLogRepository = notificationsLogRepository;
+            NotificationSettingsRepository = notificationsSettingsRepository;
             EmailTemplateRepository = dbEmailTemplateRepository;
             GuestBillingMessageRepository = dbGuestBillingMessageRepository;
             ReceiverRepository = dbReceiverRepository;
             ReleaseMessageRepository = dbReleaseMessageRepository;
             UserBillingMessageRepository = dbUserBillingMessageRepository;
             UserPaymentRepository = userPaymentRepository;
+            SubscribableRepository = subscribableRepository;
         }
 
         ~UnitOfWork()
@@ -274,7 +281,7 @@ namespace Rocket.DAL.UoW
         /// <summary>
         /// Репозиотрий для работы с пользователями личного кабинета.
         /// </summary>
-        public IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+        public IDbUserProfileRepository UserAuthorisedRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для сообщений произвольного содержания
@@ -286,7 +293,13 @@ namespace Rocket.DAL.UoW
         /// Репозиторий лога нотификации
         /// </summary>
         public IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
-        
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Репозиторий настроек сервиса нотификации
+        /// </summary>
+        public IBaseRepository<NotificationsSettingsEntity> NotificationSettingsRepository { get; }
+
         /// <summary>
         /// Возвращает репозиторий шаблонов email сообщений
         /// </summary>
@@ -316,6 +329,8 @@ namespace Rocket.DAL.UoW
         /// Репозиторий платежей пользователя
         /// </summary>
         public IBaseRepository<DbUserPayment> UserPaymentRepository { get; }
+
+        public IBaseRepository<SubscribableEntity> SubscribableRepository { get; }
 
         /// <summary>
         /// Освобождает управляемые ресурсы.

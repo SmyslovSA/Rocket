@@ -27,6 +27,6 @@ namespace Rocket.BL.Common.Models.Notification
         /// <summary>
         /// Возвращает или задает исполнителей музыкального релиза
         /// </summary>
-        public ICollection<Musician> Musicians { get; set; }
+        public IList<Musician> Musicians { get; set; }
     }
 }

@@ -59,8 +59,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="IdentityModel.Net45, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\IdentityModel.1.0.0\lib\net45\IdentityModel.Net45.dll</HintPath>
+    <Reference Include="IdentityModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityModel.1.9.2\lib\net45\IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="IdentityServer3, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IdentityServer3.2.6.1\lib\net45\IdentityServer3.dll</HintPath>
@@ -80,14 +80,14 @@
     <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Reflection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Reflection.Core.1.1.1\lib\net45\Mono.Reflection.dll</HintPath>
@@ -95,9 +95,8 @@
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
@@ -154,8 +153,9 @@
     <Compile Include="Configurations\ReleaseList\DbMusicGenreConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicianConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicTrackConfiguration.cs" />
-    <Compile Include="Configurations\PersonalArea\DbAuthorisedUserConfiguration.cs" />
+    <Compile Include="Configurations\PersonalArea\DbUserProfileConfiguration.cs" />
     <Compile Include="Configurations\Subscription\SubscribableConfiguration.cs" />
+    <Compile Include="Configurations\UserPayment\UserPaymentConfiguration.cs" />
     <Compile Include="Configurations\User\DbEmailAddressConfiguratin.cs" />
     <Compile Include="Configurations\ResourceMap.cs" />
     <Compile Include="Configurations\User\DbGenderConfiguration.cs" />
@@ -170,13 +170,25 @@
     <Compile Include="DALModule.cs" />
     <Compile Include="Identity\RockeRoleManager.cs" />
     <Compile Include="Identity\RocketUserManager.cs" />
-    <Compile Include="Migrations\201806041703124_Initial.cs" />
-    <Compile Include="Migrations\201806041703124_Initial.Designer.cs">
-      <DependentUpon>201806041703124_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201806052014237_InitAll.cs" />
+    <Compile Include="Migrations\201806052014237_InitAll.Designer.cs">
+      <DependentUpon>201806052014237_InitAll.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806041152513_AddAutUserMusicGenres.cs" />
-    <Compile Include="Migrations\201806041152513_AddAutUserMusicGenres.Designer.cs">
-      <DependentUpon>201806041152513_AddAutUserMusicGenres.cs</DependentUpon>
+    <Compile Include="Migrations\201806052017434_InitData.cs" />
+    <Compile Include="Migrations\201806052017434_InitData.Designer.cs">
+      <DependentUpon>201806052017434_InitData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.cs" />
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.Designer.cs">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.cs" />
+    <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.Designer.cs">
+      <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806061302282_Payment.cs" />
+    <Compile Include="Migrations\201806061302282_Payment.Designer.cs">
+      <DependentUpon>201806061302282_Payment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
@@ -204,7 +216,7 @@
     <Compile Include="Repositories\Notification\DbReceiverRepository.cs" />
     <Compile Include="Repositories\Notification\DbReleaseMessageRepository.cs" />
     <Compile Include="Repositories\Notification\DbUserBillingMessageRepository.cs" />
-    <Compile Include="Repositories\PersonalArea\DbAuthorisedUserRepository.cs" />
+    <Compile Include="Repositories\PersonalArea\DbUserProfileRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbEmailRepository.cs" />
     <Compile Include="Repositories\UserRole\DbPermissionRepository.cs" />
     <Compile Include="Repositories\UserRole\DbRoleRepository.cs" />
@@ -229,16 +241,26 @@
   <ItemGroup>
     <Content Include="Migrations\SQLQueries\InitCategory.sql" />
     <Content Include="Migrations\SQLQueries\InitEmailTemplates.sql" />
+    <Content Include="Migrations\SQLQueries\InitNotificationsSettings.sql" />
     <Content Include="Migrations\SQLQueries\InitPersonTypes.sql" />
     <Content Include="Migrations\SQLQueries\InitLostfilmParserSettings.sql" />
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806041703124_Initial.resx">
-      <DependentUpon>201806041703124_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806052014237_InitAll.resx">
+      <DependentUpon>201806052014237_InitAll.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806041152513_AddAutUserMusicGenres.resx">
-      <DependentUpon>201806041152513_AddAutUserMusicGenres.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806052017434_InitData.resx">
+      <DependentUpon>201806052017434_InitData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806060130196_ChangeAuthUserIdToString.resx">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806060148580_RenameAuthUserToUserProfile.resx">
+      <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806061302282_Payment.resx">
+      <DependentUpon>201806061302282_Payment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

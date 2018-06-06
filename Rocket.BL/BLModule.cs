@@ -1,12 +1,19 @@
-﻿using FluentValidation;
+﻿using System.Collections.Generic;
+using FluentValidation;
+using MailKit;
+using MailKit.Net.Smtp;
 using Ninject.Modules;
-using Rocket.BL.Common.Services;
+using Rocket.BL.Common.Services.Notification;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.BL.Common.Services.ReleaseList;
-using Rocket.BL.Services;
+using Rocket.BL.Common.Services.UserPayment;
+using Rocket.BL.Services.Notification;
 using Rocket.BL.Services.PersonalArea;
 using Rocket.BL.Services.ReleaseList;
+using Rocket.BL.Services.UserPaymentService;
 using Rocket.BL.Validators.User;
+using Rocket.BL.Common.Services.User;
+using Rocket.BL.Services.User;
 
 namespace Rocket.BL
 {
@@ -21,8 +28,21 @@ namespace Rocket.BL
             Bind<IValidator<Common.Models.User.User>>().To<UserValidatorCheckRequiredFields>();
             Bind<IEmailManager>().To<ChangeEmailManagerService>();
             Bind<IUserPaymentService>().To<UserPaymentService>();
+            Bind<IUserAccountLevelService>().To<UserAccountLevelService>();
             Bind<IGenreManager>().To<ChangeGenreManagerService>();
             Bind<IGenreService>().To<GenreService>();
+            Bind<IMailNotificationService>().To<MailNotificationService>()
+                .WithConstructorArgument(
+                    "transport",
+                    new List<SmtpClient>()
+                    {
+                        new SmtpClient(),
+                        new SmtpClient(),
+                        new SmtpClient(),
+                        new SmtpClient()
+                    });
+            Bind<ISubscriptionService>().To<SubscriptionService>();
+            Bind<IMailTransport>().To<SmtpClient>();
         }
     }
 }
