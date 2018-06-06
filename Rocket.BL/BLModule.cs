@@ -1,4 +1,7 @@
-﻿using FluentValidation;
+﻿using System.Collections.Generic;
+using FluentValidation;
+using MailKit;
+using MailKit.Net.Smtp;
 using Ninject.Modules;
 using Rocket.BL.Common.Services.Notification;
 using Rocket.BL.Common.Services.PersonalArea;
@@ -25,8 +28,18 @@ namespace Rocket.BL
             Bind<IUserPaymentService>().To<UserPaymentService>();
             Bind<IGenreManager>().To<ChangeGenreManagerService>();
             Bind<IGenreService>().To<GenreService>();
-            Bind<IMailNotificationService>().To<MailNotificationService>();
+            Bind<IMailNotificationService>().To<MailNotificationService>()
+                .WithConstructorArgument(
+                    "transport",
+                    new List<SmtpClient>()
+                    {
+                        new SmtpClient(),
+                        new SmtpClient(),
+                        new SmtpClient(),
+                        new SmtpClient()
+                    });
             Bind<ISubscriptionService>().To<SubscriptionService>();
+            Bind<IMailTransport>().To<SmtpClient>();
         }
     }
 }

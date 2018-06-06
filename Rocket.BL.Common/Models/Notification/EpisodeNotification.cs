@@ -6,7 +6,7 @@ namespace Rocket.BL.Common.Models.Notification
     /// <summary>
     /// Описывает релиз сериала для целей нотификации
     /// </summary>
-    public class TvSeriesNotification
+    public class EpisodeNotification
     {
         /// <summary>
         /// Возвращает или задает коллекцию получателей сообщений
