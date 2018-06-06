@@ -1,4 +1,5 @@
-﻿using Rocket.BL.Common.Services.ReleaseList;
+﻿using System;
+using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.Web.ConfigHandlers;
 using System.Web.Http;
 using Rocket.Web.Properties;
@@ -34,17 +35,18 @@ namespace Rocket.Web.Controllers.ReleaseList
         /// </summary>
         /// <param name="pageNumber">Номер страницы</param>
         /// <param name="page_size">Размер страницы</param>
+        /// <param name="genre_id">Идентификатор жанра</param>
         /// <returns>Страница новых серий</returns>
         [HttpGet]
         [Route("new/page_{pageNumber:int:min(1)}")]
-        public IHttpActionResult GetNewEpisodesByPage(int pageNumber, int? page_size = null)
+        public IHttpActionResult GetNewEpisodesByPage(int pageNumber, int? page_size = null, int? genre_id = null)
         {
             if (page_size.HasValue && page_size.Value < 1)
             {
                 return BadRequest(Resources.BadPageSizeMessage);
             }
 
-            var page = _episodeService.GetNewEpisodesPage(page_size ?? SettingsManager.ReleasesSettings.Pagination.PageSize, pageNumber);
+            var page = _episodeService.GetNewEpisodesPage(page_size ?? SettingsManager.ReleasesSettings.Pagination.PageSize, pageNumber, genre_id);
             return pageNumber <= page.TotalPagesCount ? Ok(page) : (IHttpActionResult)NotFound();
         }
 
@@ -66,6 +68,26 @@ namespace Rocket.Web.Controllers.ReleaseList
 
             var page = _episodeService.GetScheduleEpisodesPage(page_size ?? SettingsManager.ReleasesSettings.Pagination.PageSize, pageNumber);
             return pageNumber <= page.TotalPagesCount ? Ok(page) : (IHttpActionResult)NotFound();
+        }
+
+        /// <summary>
+        /// Возвращает коллекцию серий с датой выхода
+        /// между заданными начальной и конечной датами включительно
+        /// </summary>
+        /// <param name="start_date">Начальная дата</param>
+        /// <param name="end_date">Конечная дата</param>
+        /// <returns>Коллекция серий</returns>
+        [HttpGet]
+        [Route("calendar")]
+        public IHttpActionResult GetEpisodesByDates(DateTime start_date, DateTime end_date)
+        {
+            if (start_date > end_date)
+            {
+                return BadRequest(Resources.BadStartEndDatesMessage);
+            }
+
+            var episodes = _episodeService.GetEpisodesByDates(start_date.Date, end_date.Date);
+            return Ok(episodes);
         }
     }
 }

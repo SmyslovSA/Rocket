@@ -13,5 +13,11 @@ namespace Rocket.Web.Hubs
         {
             HubContext.Clients.All.notifyAll(msg);
         }
+
+        [HubMethodName("notifyOfRelease")]
+        public static void NotifyOfRelease(object msg, string[] users)
+        {
+            HubContext.Clients.Users(users).notifyOfRelease(msg);
+        }
     }
 }

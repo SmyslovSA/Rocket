@@ -14,21 +14,6 @@ namespace Rocket.DAL.Common.DbModels.Notification
         public int Id { get; set; }
 
         /// <summary>
-        /// Тип уведомления
-        /// </summary>
-        public NotificationType NotificationType { get; set; }
-
-        /// <summary>
-        /// Id пользователя
-        /// </summary>
-        public int UserId { get; set; }
-        
-        /// <summary>
-        /// Тип релиза
-        /// </summary>
-        public ReleaseType ReleaseType { get; set; }
-
-        /// <summary>
         /// Id релиза
         /// </summary>
         public int ReleaseId { get; set; }
@@ -36,6 +21,6 @@ namespace Rocket.DAL.Common.DbModels.Notification
         /// <summary>
         /// Дата и время создания
         /// </summary>
-        public DateTime CreatedDateTime { get; private set; }
+        public DateTime CreatedDateTime { get; set; }
     }
 }

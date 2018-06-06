@@ -20,7 +20,7 @@ namespace Rocket.Web.Controllers.UserRole
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "Role added to user")]
-        public IHttpActionResult AddToRole(int userId, int roleId) 
+        public IHttpActionResult AddToRole(string userId, string roleId) 
         {
              return _roleManager.IsInRole(userId, roleId) ? (IHttpActionResult)NotFound() : Ok();
         }
@@ -30,7 +30,7 @@ namespace Rocket.Web.Controllers.UserRole
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "Role removed from user")]
-        public IHttpActionResult RemoveFromRole(int userId, int roleId) 
+        public IHttpActionResult RemoveFromRole(string userId, string roleId) 
         {
             return !_roleManager.IsInRole(userId, roleId) ? (IHttpActionResult)NotFound() : Ok();
         }
@@ -40,7 +40,7 @@ namespace Rocket.Web.Controllers.UserRole
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public IHttpActionResult GetRoles(int userId)
+        public IHttpActionResult GetRoles(string userId)
         {
             return _roleManager.GetRoles(userId) == null ? (IHttpActionResult)NotFound() : Ok();
         }
@@ -50,7 +50,7 @@ namespace Rocket.Web.Controllers.UserRole
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public IHttpActionResult IsInRole(int userId, int roleId)
+        public IHttpActionResult IsInRole(string userId, string roleId)
         {
             _roleManager.IsInRole(userId, roleId);
             return Ok();

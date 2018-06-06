@@ -88,6 +88,15 @@ namespace Rocket.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Начальная дата должна быть меньше или равна конечной дате.
+        /// </summary>
+        internal static string BadStartEndDatesMessage {
+            get {
+                return ResourceManager.GetString("BadStartEndDatesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;Email cannot be empty&quot;.
         /// </summary>
         internal static string EmptyEmail {

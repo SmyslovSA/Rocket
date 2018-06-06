@@ -1,11 +1,13 @@
 ﻿using FluentValidation;
 using Ninject.Modules;
-using Rocket.BL.Common.Services;
+using Rocket.BL.Common.Services.Notification;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.BL.Common.Services.ReleaseList;
-using Rocket.BL.Services;
+using Rocket.BL.Common.Services.UserPayment;
+using Rocket.BL.Services.Notification;
 using Rocket.BL.Services.PersonalArea;
 using Rocket.BL.Services.ReleaseList;
+using Rocket.BL.Services.UserPaymentService;
 using Rocket.BL.Validators.User;
 
 namespace Rocket.BL
@@ -23,6 +25,7 @@ namespace Rocket.BL
             Bind<IUserPaymentService>().To<UserPaymentService>();
             Bind<IGenreManager>().To<ChangeGenreManagerService>();
             Bind<IGenreService>().To<GenreService>();
+            Bind<IMailNotificationService>().To<MailNotificationService>();
         }
     }
 }

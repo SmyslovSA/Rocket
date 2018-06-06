@@ -1,14 +1,14 @@
-﻿using Rocket.DAL.Common.DbModels.Parser;
+﻿using System;
+using Rocket.DAL.Common.DbModels.Notification;
+using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
+using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
-using System;
-using Rocket.DAL.Common.Repositories.Notification;
-using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.UoW
@@ -29,6 +29,8 @@ namespace Rocket.DAL.UoW
         /// <param name="musicGenreRepository">Репозиторий жанра</param>
         /// <param name="musicTrackRepository">Репозиторий трека</param>
         /// <param name="musicianRepository">Репозиторий исполнителя</param>
+        /// <param name="notificationsLogRepository">Репозиторий лога сервиса нотификации</param>
+        /// <param name="notificationsSettingsRepository">Репозиторий настроек сервиса нотификации</param>
         /// <param name="categoryRepository">Репозиторий категорий</param>
         /// <param name="episodeRepository">Репозиторий серий</param>
         /// <param name="genreRepository">Репозиторий жанров</param>
@@ -89,9 +91,10 @@ namespace Rocket.DAL.UoW
             //IDbUserDetailRepository dbUserDetailRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
-            IDbAuthorisedUserRepository dbAuthorisedUserRepository,
+            IDbUserProfileRepository dbAuthorisedUserRepository,
             IDbCustomMessageRepository dbCustomMessageRepository,
             IBaseRepository<NotificationsLogEntity> notificationsLogRepository,
+            IBaseRepository<NotificationsSettingsEntity> notificationsSettingsRepository,
             IDbEmailTemplateRepository dbEmailTemplateRepository,
             IDbGuestBillingMessageRepository dbGuestBillingMessageRepository,
             IDbReceiverRepository dbReceiverRepository,
@@ -131,6 +134,7 @@ namespace Rocket.DAL.UoW
             UserAuthorisedRepository = dbAuthorisedUserRepository;
             CustomMessageRepository = dbCustomMessageRepository;
             NotificationsLogRepository = notificationsLogRepository;
+            NotificationSettingsRepository = notificationsSettingsRepository;
             EmailTemplateRepository = dbEmailTemplateRepository;
             GuestBillingMessageRepository = dbGuestBillingMessageRepository;
             ReceiverRepository = dbReceiverRepository;
@@ -262,6 +266,11 @@ namespace Rocket.DAL.UoW
         public IDbRoleRepository RoleRepository { get; }
 
         /// <summary>
+        /// Репозиторий для работы с ролями.
+        /// </summary>
+        public IDbUserRoleRepository UserRoleRepository { get; }
+
+        /// <summary>
         /// Репозиторий для работы с пермишенами.
         /// </summary>
         public IDbPermissionRepository PermissionRepository { get; }
@@ -269,7 +278,7 @@ namespace Rocket.DAL.UoW
         /// <summary>
         /// Репозиотрий для работы с пользователями личного кабинета.
         /// </summary>
-        public IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+        public IDbUserProfileRepository UserAuthorisedRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для сообщений произвольного содержания
@@ -281,7 +290,13 @@ namespace Rocket.DAL.UoW
         /// Репозиторий лога нотификации
         /// </summary>
         public IBaseRepository<NotificationsLogEntity> NotificationsLogRepository { get; }
-        
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Репозиторий настроек сервиса нотификации
+        /// </summary>
+        public IBaseRepository<NotificationsSettingsEntity> NotificationSettingsRepository { get; }
+
         /// <summary>
         /// Возвращает репозиторий шаблонов email сообщений
         /// </summary>

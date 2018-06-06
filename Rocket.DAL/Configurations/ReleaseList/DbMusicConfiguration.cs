@@ -21,6 +21,10 @@ namespace Rocket.DAL.Configurations.ReleaseList
                 .IsOptional()
                 .HasColumnName("Duration");
 
+            Property(f => f.PosterImageUrl)
+                .IsOptional()
+                .HasColumnName("PosterImageUrl");
+
             HasMany(f => f.Musicians)
                 .WithMany(p => p.Musics)
                 .Map(m =>

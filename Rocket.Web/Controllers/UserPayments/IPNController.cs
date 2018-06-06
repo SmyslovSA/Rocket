@@ -1,14 +1,14 @@
-﻿using Rocket.BL.Common.Services;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
+using Rocket.BL.Common.Services.UserPayment;
 
-namespace Rocket.Web.Controllers
+namespace Rocket.Web.Controllers.UserPayments
 {
     [RoutePrefix("ipn")]
     public class IPNController : ApiController
@@ -19,7 +19,7 @@ namespace Rocket.Web.Controllers
 
             public string RequestBody { get; set; }
 
-            public string Verification { get; set; } = String.Empty;
+            public string Verification { get; set; } = string.Empty;
         }
 
         private readonly IUserPaymentService _userPaymentService;
@@ -37,7 +37,6 @@ namespace Rocket.Web.Controllers
             {
                 IPNRequest = Request
             };
-
            
             ipnContext.RequestBody = ipnContext.IPNRequest.Content.ToString();
 
@@ -85,7 +84,6 @@ namespace Rocket.Web.Controllers
             ProcessVerificationResponse(ipnContext);
         }
 
-
         private void LogRequest(IPNContext ipnContext)
         {
             // Persist the request values into a database or temporary data store
@@ -102,8 +100,15 @@ namespace Rocket.Web.Controllers
                 // process payment
                 var paymentInfo = ipnContext.RequestBody;
                 var payment = new BL.Common.Models.UserPayment();
-                //TODO:  parse info and write to payment
-                var user = new Rocket.BL.Common.Models.User.User();
+                //var user = new Rocket.BL.Common.Models.User.User();
+
+                payment.FirstName = new Regex(@"first_name\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
+                payment.LastName = new Regex(@"last_name\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
+                payment.Result = new Regex(@"payment_status\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
+                payment.Email = new Regex(@"payer_email\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
+                payment.Summ = decimal.Parse(new Regex(@"payment_gross\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim());
+                payment.Currentcy = new Regex(@"mc_currency\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
+                payment.CustomString = new Regex(@"custom\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 _userPaymentService.AddUserPayment(payment);
             }
             else if (ipnContext.Verification.Equals("INVALID"))

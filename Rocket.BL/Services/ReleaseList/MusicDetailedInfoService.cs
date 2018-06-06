@@ -121,7 +121,9 @@ namespace Rocket.BL.Services.ReleaseList
                 pageSize,
                 pageNumber,
                 filter,
-				o => o.OrderByDescending(t => t.ReleaseDate)));
+				o => o.OrderByDescending(t => t.ReleaseDate),
+                $"{nameof(Music.Musicians)}"
+				));
 
             return pageInfo;
         }
