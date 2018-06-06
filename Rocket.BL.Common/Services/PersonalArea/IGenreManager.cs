@@ -11,13 +11,13 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// Получение всех музыкальных жанров из базы.
         /// </summary>
         /// <returns>Коллекцию музыкальных жанров.</returns>
-        ICollection GetAllMusicGenres();
+        IEnumerable GetAllMusicGenres();
 
         /// <summary>
         /// Получение всех TV жанров из базы.
         /// </summary>
         /// <returns>Коллекцию TV жанров.</returns>
-        ICollection GetAllTvGenres();
+        IEnumerable GetAllTvGenres();
 
         /// <summary>
         /// Добавление жанра TV в персональный список ожидания релизов.
