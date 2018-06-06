@@ -15,6 +15,7 @@ import {
 } from 'date-fns';
 import { Observable } from 'rxjs';
 import { colors } from './calendar-utils/colors';
+import { Router } from '@angular/router';
 
 interface ReleaseFilms {
   id: number;
@@ -31,18 +32,20 @@ interface ReleaseMusic {
 interface ReleaseSeries {
   Id: number;
   TvSeriesTitleRu: string;
-  TitleRu: string;  
+  TitleRu: string;
   ReleaseDateRu: string;
 }
 
 interface Release
-{} 
+{}
 
 interface ReleaseEvent
 {
   id: number;
   UrlForEpisodeSource: string;
-} 
+  TvSeriesId: number;
+  Id: number;
+}
 
 @Component({
   selector: 'app-calendar',
@@ -53,14 +56,14 @@ interface ReleaseEvent
 export class CalendarComponent implements OnInit {
 
   view: string = 'month';
-  nameCalendar: string; 
+  nameCalendar: string;
   targetMethod: number;
 
   viewDate: Date = new Date();
   events$: Observable<Array<CalendarEvent<{ release: Release }>>>;
   activeDayIsOpen: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.filmsEvents();
@@ -140,17 +143,17 @@ export class CalendarComponent implements OnInit {
       );
     }
     else if(this.targetMethod==2){
-      window.open(
-        `${event.meta.release.UrlForEpisodeSource}`
-      );
+      this.router.navigate([`series/${event.meta.release.TvSeriesId}`]);
+    }
+    else if(this.targetMethod==3){
+      this.router.navigate([`music/${event.meta.release.Id}`]);
     }
 
-    
   }
 
   seriesEvents(): void {
     this.nameCalendar = "Сериалы"
-    this.targetMethod = 2;    
+    this.targetMethod = 2;
 
     const getStart: any = {
       month: startOfMonth,
@@ -193,7 +196,7 @@ export class CalendarComponent implements OnInit {
 
   musicEvents(): void {
     this.nameCalendar = "Музыка"
-    this.targetMethod = 3;    
+    this.targetMethod = 3;
 
     const getStart: any = {
       month: startOfMonth,
