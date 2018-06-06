@@ -19,7 +19,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         }
 
         [HttpGet]
-        [Route("{id:int:min(1)}")]
+        [Route("{id}")]
         public IHttpActionResult GetAuthorisedUser(string id)
         {
             var user = _ipersonaldata.GetUserData(id);
@@ -29,7 +29,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [HttpPut]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
-        [Route("info/{id:int:min(1)}")]
+        [Route("info/{id}")]
         public IHttpActionResult UpdateUserPersonalInfo(string id, string firstName, string lastName, string avatar)
         {
             if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
@@ -52,7 +52,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [HttpPut]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Password is not valid", typeof(string))]
-        [Route("password/{id:int:min(1)}")]
+        [Route("password/{id}")]
         public IHttpActionResult UpdateUserPassword(string id, string password, string passwordConfirm)
         {
             if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(passwordConfirm))

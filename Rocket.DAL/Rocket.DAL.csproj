@@ -156,6 +156,7 @@
     <Compile Include="Configurations\ReleaseList\DbMusicTrackConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbUserProfileConfiguration.cs" />
     <Compile Include="Configurations\Subscription\SubscribableConfiguration.cs" />
+    <Compile Include="Configurations\UserPayment\UserPaymentConfiguration.cs" />
     <Compile Include="Configurations\User\DbEmailAddressConfiguratin.cs" />
     <Compile Include="Configurations\ResourceMap.cs" />
     <Compile Include="Configurations\User\DbGenderConfiguration.cs" />
