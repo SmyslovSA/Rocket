@@ -4,7 +4,6 @@ using System.Web.Http.Results;
 using Rocket.BL.Common.Services;
 
 namespace Rocket.Web.Controllers
-namespace Rocket.Web.Controllers
 {
     /// <summary>
     /// Контроллер WebApi работы с инфой о платеже.
