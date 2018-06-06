@@ -55,6 +55,11 @@ namespace Rocket.BL.Services.Notification
         /// <param name="entities"> Подлежащие отправке релизы </param>
         public async Task NotifyAboutReleaseAsync(IEnumerable<SubscribableEntity> entities)
         {
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
             foreach (var entity in entities)
             {
                 if (entity is DbMusic music)
@@ -79,6 +84,11 @@ namespace Rocket.BL.Services.Notification
         public async Task SendBillingUserAsync(int id, decimal sum, string currency,
             BillingType type)
         {
+            if (currency == null)
+            {
+                throw new ArgumentNullException(nameof(currency));
+            }
+
             try
             {
                 var user = _unitOfWork.UserAuthorisedRepository.Get(
@@ -136,6 +146,11 @@ namespace Rocket.BL.Services.Notification
         /// <param name="currency">Валюта совершенного платежа</param>
         public async Task SendBillingGuestAsync(string name, string email, decimal sum, string currency)
         {
+            if (String.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException(nameof(email));
+            }
+
             try
             {
                 var billing = new BillingNotification()
@@ -175,6 +190,21 @@ namespace Rocket.BL.Services.Notification
         /// <param name="name">Имя посетителя</param>
         public async Task SendConfirmationAsync(string name, string email, string url)
         {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException(nameof(name));
+            }
+
+            if (String.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException(nameof(email));
+            }
+
+            if (String.IsNullOrEmpty(url))
+            {
+                throw new ArgumentException(nameof(url));
+            }
+
             try
             {
                 var confirmation = new ConfirmationNotification()
@@ -216,6 +246,12 @@ namespace Rocket.BL.Services.Notification
         public async Task SendCustomAsync(string firstName, string lastName, ICollection<string> emails,
             string senderName, string subject, string body, bool html)
         {
+            if (firstName == null || lastName == null || emails == null
+                || senderName == null || subject == null || body == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var custom = new CustomNotification()
             {
                 Receiver = new Receiver()
