@@ -37,8 +37,7 @@ namespace Rocket.BL
                         new SmtpClient(),
                         new SmtpClient(),
                         new SmtpClient()
-                    }
-                );
+                    });
             Bind<IMailTransport>().To<SmtpClient>();
         }
     }

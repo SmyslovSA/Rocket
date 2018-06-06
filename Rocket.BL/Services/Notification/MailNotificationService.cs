@@ -31,8 +31,8 @@ namespace Rocket.BL.Services.Notification
     /// </summary>
     public class MailNotificationService : BaseService, IMailNotificationService
     {
-        private IEnumerable<IMailTransport> _transport;
         private readonly ILog _logger;
+        private IEnumerable<IMailTransport> _transport;
         private bool _isDisposed = false;
 
         /// <summary>
@@ -41,18 +41,26 @@ namespace Rocket.BL.Services.Notification
         /// <param name="unitOfWork"> Экземпляр <see cref="UnitOfWork"/> </param>
         /// <param name="transport"> Коллекция экземпляров <see cref="SmtpClient"/> </param>
         /// <param name="logger"> Экземпляр <see cref="Logger"/> </param>
-        public MailNotificationService(IUnitOfWork unitOfWork,
-            IEnumerable<IMailTransport> transport, ILog logger)
+        public MailNotificationService(
+            IUnitOfWork unitOfWork,
+            IEnumerable<IMailTransport> transport,
+            ILog logger)
             : base(unitOfWork)
         {
             _transport = transport;
             _logger = logger;
         }
 
+        ~MailNotificationService()
+        {
+            Dispose(false);
+        }
+
         /// <summary>
         /// Отправка сообщения о релизе
         /// </summary>
         /// <param name="entities"> Подлежащие отправке релизы </param>
+        /// <returns> Void </returns>
         public async Task NotifyAboutReleaseAsync(IEnumerable<SubscribableEntity> entities)
         {
             if (entities == null)
@@ -81,7 +89,11 @@ namespace Rocket.BL.Services.Notification
         /// <param name="sum">Оплаченная сумма</param>
         /// <param name="currency">Валюта совершенного платежа</param>
         /// <param name="type">Цель оплаты: премиум или донат</param>
-        public async Task SendBillingUserAsync(string id, decimal sum, string currency,
+        /// <returns> Void </returns>
+        public async Task SendBillingUserAsync(
+            string id,
+            decimal sum,
+            string currency,
             BillingType type)
         {
             if (currency == null)
@@ -101,19 +113,21 @@ namespace Rocket.BL.Services.Notification
                 {
                     var template = _unitOfWork.EmailTemplateRepository.GetById(
                         Convert.ToInt32(Resources.Donate)).Body;
-                    body = Engine.Razor.RunCompile(template, Resources.Donate, null,
-                        new {Donate = billing});
+                    body = Engine.Razor.RunCompile(template, Resources.Donate, null, new { Donate = billing });
                 }
                 else
                 {
                     var template = _unitOfWork.EmailTemplateRepository.GetById(
                         Convert.ToInt32(Resources.Premium)).Body;
-                    body = Engine.Razor.RunCompile(template, Resources.Premium, null,
-                        new {Premium = billing});
+                    body = Engine.Razor.RunCompile(
+                        template,
+                        Resources.Premium,
+                        null,
+                        new { Premium = billing });
                 }
 
                 var message = CreateMessage(billing.Receiver, body);
-                await SendEmailAsync(_transport.ElementAt(0), new[] {message});
+                await SendEmailAsync(_transport.ElementAt(0), new[] { message });
             }
             catch (EntityException exception)
             {
@@ -144,9 +158,10 @@ namespace Rocket.BL.Services.Notification
         /// <param name="email">Email гостя</param>
         /// <param name="sum">Оплаченная сумма</param>
         /// <param name="currency">Валюта совершенного платежа</param>
+        /// <returns> Void </returns>
         public async Task SendBillingGuestAsync(string name, string email, decimal sum, string currency)
         {
-            if (String.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(email))
             {
                 throw new ArgumentException(nameof(email));
             }
@@ -159,15 +174,18 @@ namespace Rocket.BL.Services.Notification
                     {
                         Emails = new List<string>() { email },
                         FirstName = name ?? Resources.GuestAlias,
-                        LastName = ""
+                        LastName = string.Empty
                     },
                     Sum = sum,
                     Currency = currency
                 };
                 string template = _unitOfWork.EmailTemplateRepository.GetById(
                     Convert.ToInt32(Resources.Donate)).Body;
-                string body = Engine.Razor.RunCompile(template, Resources.Donate,
-                    null, new { Donate = billing });
+                string body = Engine.Razor.RunCompile(
+                    template,
+                    Resources.Donate,
+                    null,
+                    new { Donate = billing });
                 var messageToSend = CreateMessage(billing.Receiver, body);
                 await SendEmailAsync(_transport.ElementAt(0), new[] { messageToSend });
             }
@@ -185,22 +203,23 @@ namespace Rocket.BL.Services.Notification
         /// Отправка посетителю сообщения со ссылкой, необходимой
         /// для завершения регистрации аккаунта
         /// </summary>
+        /// <param name="name">Имя посетителя</param>
         /// <param name="email">Email адрес посетителя</param>
         /// <param name="url">Ссылка для завершения регистрации аккаунта</param>
-        /// <param name="name">Имя посетителя</param>
+        /// <returns> Void </returns>
         public async Task SendConfirmationAsync(string name, string email, string url)
         {
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentException(nameof(name));
             }
 
-            if (String.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(email))
             {
                 throw new ArgumentException(nameof(email));
             }
 
-            if (String.IsNullOrEmpty(url))
+            if (string.IsNullOrEmpty(url))
             {
                 throw new ArgumentException(nameof(url));
             }
@@ -218,7 +237,10 @@ namespace Rocket.BL.Services.Notification
                 };
                 string template = _unitOfWork.EmailTemplateRepository.GetById(
                     Convert.ToInt32(Resources.Confirmation)).Body;
-                string body = Engine.Razor.RunCompile(template, Resources.Confirmation, null,
+                string body = Engine.Razor.RunCompile(
+                    template,
+                    Resources.Confirmation,
+                    null,
                     new { Confirmation = confirmation });
                 var messageToSend = CreateMessage(confirmation.Receiver, body);
                 await SendEmailAsync(_transport.ElementAt(0), new[] { messageToSend });
@@ -243,8 +265,15 @@ namespace Rocket.BL.Services.Notification
         /// <param name="subject">Тема сообщения</param>
         /// <param name="body">Содержание сообщения</param>
         /// <param name="html">Флаг указывающий является ли содержание разметкой HTML</param>
-        public async Task SendCustomAsync(string firstName, string lastName, ICollection<string> emails,
-            string senderName, string subject, string body, bool html)
+        /// <returns> Void </returns>
+        public async Task SendCustomAsync(
+            string firstName,
+            string lastName,
+            ICollection<string> emails,
+            string senderName,
+            string subject,
+            string body,
+            bool html)
         {
             if (firstName == null || lastName == null || emails == null
                 || senderName == null || subject == null || body == null)
@@ -269,13 +298,35 @@ namespace Rocket.BL.Services.Notification
             await SendEmailAsync(_transport.ElementAt(0), new[] { message });
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (_isDisposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                GC.SuppressFinalize(this);
+            }
+
+            foreach (var mailTransport in _transport)
+            {
+                mailTransport?.Dispose();
+                _transport = null;
+                _isDisposed = true;
+            }
+
+            base.Dispose(disposing);
+        }
+
         private async Task NotifyMusicAsync(DbMusic music)
         {
             try
             {
                 var release = Mapper.Map<MusicNotification>(music);
-                string template = _unitOfWork.EmailTemplateRepository.
-                    GetById(Convert.ToInt32(Resources.Music)).Body;
+                string template = _unitOfWork.EmailTemplateRepository
+                    .GetById(Convert.ToInt32(Resources.Music)).Body;
 
                 int quota = release.Receivers.Count / _transport.Count();
                 if (quota < 1)
@@ -289,11 +340,14 @@ namespace Rocket.BL.Services.Notification
 
                 for (int i = 0; i < release.Receivers.Count; i++)
                 {
-                    var body = Engine.Razor.RunCompile(template,
-                        Resources.Music, null, new { Music = release, Count = i });
-                    var message = CreateMessage(release.Receivers.ElementAt(i),
-                        body);
+                    var body = Engine.Razor.RunCompile(
+                        template,
+                        Resources.Music,
+                        null,
+                        new { Music = release, Count = i });
+                    var message = CreateMessage(release.Receivers.ElementAt(i), body);
                     messages.Add(message);
+
                     if ((i + 1) % quota == 0)
                     {
                         tasks.Add(SendEmailAsync(_transport.ElementAt(smtpCount), messages));
@@ -301,6 +355,7 @@ namespace Rocket.BL.Services.Notification
                         messages.Clear();
                     }
                 }
+
                 await Task.WhenAll(tasks).ConfigureAwait(false);
             }
             catch (EntityException exception)
@@ -330,8 +385,8 @@ namespace Rocket.BL.Services.Notification
             try
             {
                 var release = Mapper.Map<EpisodeNotification>(episode);
-                string template = _unitOfWork.EmailTemplateRepository.
-                    Get(x => x.Title == Resources.Episode).First().Body;
+                string template = _unitOfWork.EmailTemplateRepository
+                    .Get(x => x.Title == Resources.Episode).First().Body;
 
                 int quota = release.Receivers.Count / _transport.Count();
                 if (quota < 1)
@@ -345,10 +400,12 @@ namespace Rocket.BL.Services.Notification
 
                 for (int i = 0; i < release.Receivers.Count; i++)
                 {
-                    var body = Engine.Razor.RunCompile(template,
-                        Resources.Episode, null, new { Episode = release, Count = i });
-                    var message = CreateMessage(release.Receivers.ElementAt(i),
-                        body);
+                    var body = Engine.Razor.RunCompile(
+                        template,
+                        Resources.Episode,
+                        null,
+                        new { Episode = release, Count = i });
+                    var message = CreateMessage(release.Receivers.ElementAt(i), body);
                     messages.Add(message);
                     if ((i + 1) % quota == 0)
                     {
@@ -357,6 +414,7 @@ namespace Rocket.BL.Services.Notification
                         messages.Clear();
                     }
                 }
+
                 await Task.WhenAll(tasks).ConfigureAwait(false);
             }
             catch (EntityException exception)
@@ -421,6 +479,7 @@ namespace Rocket.BL.Services.Notification
             {
                 bodyBuilder.TextBody = custom.Body;
             }
+
             message.Body = bodyBuilder.ToMessageBody();
             return message;
         }
@@ -457,28 +516,6 @@ namespace Rocket.BL.Services.Notification
             {
                 _logger.Error(exception.Message);
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (_isDisposed) return;
-            if (disposing)
-            {
-                GC.SuppressFinalize(this);
-            }
-
-            foreach (var mailTransport in _transport)
-            {
-                mailTransport?.Dispose();
-                _transport = null;
-                _isDisposed = true;
-            }
-            base.Dispose(disposing);
-        }
-
-        ~MailNotificationService()
-        {
-            Dispose(false);
         }
     }
 }
