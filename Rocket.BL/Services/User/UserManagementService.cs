@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Rocket.BL.Services.User
@@ -26,7 +27,8 @@ namespace Rocket.BL.Services.User
         /// </summary>
         /// <param name="unitOfWork"></param>
         /// <param name="usermanager"></param>
-        public UserManagementService(IUnitOfWork unitOfWork, RocketUserManager usermanager)
+        public UserManagementService(IUnitOfWork unitOfWork,
+            RocketUserManager usermanager)
             : base(unitOfWork)
         {
             _usermanager = usermanager;
@@ -82,6 +84,11 @@ namespace Rocket.BL.Services.User
                 .ConfigureAwait(false);
             if (result.Succeeded)
             {
+                // set user role
+                await _usermanager.AddToRoleAsync(dbUser.Id, "user").ConfigureAwait(false);
+                // add user claims
+                var claim = new Claim("", "");
+                await _usermanager.AddClaimAsync(dbUser.Id, claim);
                 return dbUser.Id;
             }
 
