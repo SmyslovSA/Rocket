@@ -15,26 +15,26 @@ namespace Rocket.Web.Controllers.UserRole
     [RoutePrefix("permission")]
     public class PermissionController : ApiController
     {
-        private readonly PermissionService _permissionService;
+        public readonly PermissionService _permissionService;
 
         public PermissionController(PermissionService permissionService)
         {
             _permissionService = permissionService;
         }
 
-        /*
+        
         [HttpGet]
         [Route("{id:int:min(1)}")]
         public IHttpActionResult GetPermissionById(string id)
         {
-            var model = _permissionService.GetById(id);
-            return model == null ? (IHttpActionResult)NotFound() : Ok(model);
+            var model = _permissionService.GetPermissionByYser(id);
+            return model == null ? (IHttpActionResult)NotFound() : Ok(model); ;
         }
-        */
+        
 
         [HttpGet]
         [Route("GetPermissionByRole{id:int:min(1)}")]
-        public IHttpActionResult GetPermissionByRole(BL.Common.Models.User.User user)
+        public IHttpActionResult GetPermissionByRole(string user)
         {
             var model = _permissionService.GetPermissionByYser(user);
             return model == null ? (IHttpActionResult)NotFound() : Ok(model);
@@ -51,9 +51,9 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpPost]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.Created, "New Permission description", typeof(Permission))]
-        public IHttpActionResult InsertPermission(Permission permission, BL.Common.Models.User.User user)
+        //[SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
+        //[SwaggerResponse(HttpStatusCode.Created, "New Permission description", typeof(Permission))]
+        public IHttpActionResult InsertPermission(Permission permission, string user)
         {
             if (permission == null)
             {
@@ -64,8 +64,9 @@ namespace Rocket.Web.Controllers.UserRole
             return Created($"permission/{permission.PermissionId}", permission);
         }
 
+        /*
         [HttpPut]
-        public IHttpActionResult UpdatePermission([FromBody]Permission permission, BL.Common.Models.User.User user)
+        public IHttpActionResult UpdatePermission([FromBody]Permission permission, string user)
         {
             if (permission == null)
             {
@@ -76,10 +77,11 @@ namespace Rocket.Web.Controllers.UserRole
 
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
+        */
 
         [HttpDelete]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult DeletePermissionById(Permission permission, BL.Common.Models.User.User user)
+        public IHttpActionResult DeletePermissionById(Permission permission, string user)
         {
             /*
             if (_permissionService.GetById(permission.PermissionId.ToString()) == null)

@@ -86,7 +86,7 @@ namespace Rocket.BL.Services.UserServices
         /// Добавляет пермишен
         /// </summary>
         /// <param name="permission">Пермишен</param>
-        public void Insert(Permission permission, Common.Models.User.User user)
+        public void Insert(Permission permission, string user)
         {
             //var permPermissionId = new Claim("permission", permission.PermissionId.ToString());
             var permValueName = new Claim("ValueName", permission.ValueName);
@@ -94,8 +94,8 @@ namespace Rocket.BL.Services.UserServices
 
             //_userManager.AddClaim("id", permPermissionId);
             
-            _userManager.AddClaim(user.Id, permValueName);
-            _userManager.AddClaim(user.Id, permDescription);
+            _userManager.AddClaim(user, permValueName);
+            _userManager.AddClaim(user, permDescription);
             _logger.Debug($"Permission {permission.Description} added in DB");
             //_userManager.Update(user);
             //var perm = new Claim("permission", Permissions.Read);
@@ -105,13 +105,14 @@ namespace Rocket.BL.Services.UserServices
             //_unitOfWork.SaveChanges();
         }
 
+        /*
         /// <summary>
         /// Обновляет пермишен
         /// </summary>
         /// <param name="permission">Пермишен</param>
-        public void Update(Permission permission, Common.Models.User.User user)
+        public void Update(Permission permission, string user)
         {
-            var userId = _userManager.FindById(user.Id);
+            var userId = _userManager.FindById(user);
 
             var claims = _userManager.GetClaimsAsync(userId.ToString());
 
@@ -124,8 +125,8 @@ namespace Rocket.BL.Services.UserServices
 
                 //_userManager.AddClaim("id", permPermissionId);
 
-                _userManager.AddClaim(user.Id, permValueName);
-                _userManager.AddClaim(user.Id, permDescription);
+                _userManager.AddClaim(user, permValueName);
+                _userManager.AddClaim(user, permDescription);
                 _logger.Debug($"Permission {permission.Description} added in DB");
             }
             else
@@ -136,30 +137,20 @@ namespace Rocket.BL.Services.UserServices
 
             //_userManager.RemoveClaim(user1, );
 
-            /*
-            var permPermissionId = new Claim("permission", permission.PermissionId.ToString());
-            var permValueName = new Claim("permission", permission.ValueName);
-            var permDescription = new Claim("permission", permission.Description);
-
-            var perm = _roleManager.FindById(permission.PermissionId.ToString());
-            _userManager.AddClaim("id", permPermissionId);
-            _userManager.AddClaim("id", permValueName);
-            _userManager.AddClaim("id", permDescription);
-            _logger.Debug($"Permission {permission.Description} added in DB");
-            */
-
+        
             //var dbPermission = Mapper.Map<DbPermission>(permission);
             //_unitOfWork.PermissionRepository.Update(dbPermission);
             //_unitOfWork.SaveChanges();
         }
+        */
 
         /// <summary>
         /// Удаляет пермишен
         /// </summary>
         /// <param name="id">Идентификатор пермишена</param>
-        public void Delete(Permission permission, Common.Models.User.User user)
+        public void Delete(Permission permission, string user)
         {
-            var userId = _userManager.FindById(user.Id);
+            var userId = _userManager.FindById(user);
 
             var claims = _userManager.GetClaimsAsync(userId.ToString());
 
@@ -171,7 +162,7 @@ namespace Rocket.BL.Services.UserServices
             }
             else
             {
-                _userManager.RemoveClaim(user.Id, permis);
+                _userManager.RemoveClaim(user, permis);
             }
         }
 
@@ -214,9 +205,9 @@ namespace Rocket.BL.Services.UserServices
         /// </summary>
         /// <param name="idRole">Идентификатор роли</param>
         /// <returns>Коллекцию Permission</returns>
-        public IEnumerable<Permission> GetPermissionByYser(Common.Models.User.User user)
+        public IEnumerable<Permission> GetPermissionByYser(string user)
         {
-            var userId = _userManager.FindById(user.Id);
+            var userId = _userManager.FindById(user);
 
             var claims = _userManager.GetClaimsAsync(userId.ToString());
 
