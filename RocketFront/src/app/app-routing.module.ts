@@ -43,7 +43,7 @@ const routes: Routes = [
       { path: 'music', component: MusicCatalogComponent }
     ]
   },
-  { path: 'personal', component: PersonalAreaComponent },
+  { path: 'personal', component: PersonalAreaComponent, canActivate: [RocketAuthGuard] },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'users', component: UsersComponent },
