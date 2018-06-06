@@ -24,30 +24,41 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(Email))]
-        public IHttpActionResult AddEmail(int id, Email email)
+        public IHttpActionResult AddEmail(string id, Email email)
         {
+            int mail;
             if (email == null)
             {
                 return BadRequest(Resources.EmptyEmail);
-            }
-
+            } 
+            
             try
             {
-                _emailEmailManager.AddEmail(id, email);
+                mail = _emailEmailManager.AddEmail(id, email);
             }
             catch (ValidationException exception)
             {
                 return BadRequest(exception.Message);
             }
 
-            return Created($"add/{email.Id}", email);
+            email.Id = mail;
+            return Created($"{mail}", email);
         }
 
         [HttpDelete]
         [Route("delete/{id:int:min(1)}")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Id is not valid", typeof(string))]
         public IHttpActionResult DeleteEmail(int id)
         {
-            _emailEmailManager.DeleteEmail(id);
+            try
+            {
+                _emailEmailManager.DeleteEmail(id);
+            }
+            catch (ValidationException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
     }

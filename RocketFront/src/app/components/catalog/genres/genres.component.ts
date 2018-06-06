@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Genre } from '../../../models/news-feed/genre';
 import { NewsFeedService } from '../../../services/news-feed.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  ChildActivationEnd
+} from '@angular/router';
 
 @Component({
   selector: 'app-genres',
@@ -10,22 +14,40 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class GenresComponent implements OnInit {
 
-  genres: Genre[];
   type: string;
+  selectedGenre: Genre;
+  genres: Genre[];
 
-  constructor(private newsService: NewsFeedService, private route: ActivatedRoute, private router: Router) { }
-
-  ngOnInit() {
-    this.type = this.route.snapshot.firstChild.url.pop().path;
-    this.getGenres();
+  constructor(
+    private newsService: NewsFeedService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    router.events.subscribe(event => {
+      if (event instanceof ChildActivationEnd) {
+        this.route.firstChild.url.subscribe(url => {
+          const newType = url.values().next().value.path;
+            if (newType !== this.type) {
+              this.type = newType;
+              this.getGenres(newType);
+            }
+        });
+      }
+    });
   }
 
-  getGenres() {
-    this.newsService.getGenres(this.type)
-       .subscribe(data => this.genres = data);
+  ngOnInit() {}
+
+  getGenres(type: string) {
+    this.newsService.getGenres(type).subscribe(data => {
+      this.genres = data;
+      this.route.queryParamMap.subscribe(params =>
+        this.onQueryParamsChanged(+params.get('genre'))
+      );
+    });
   }
 
-  setGenre(id: number) {
-    this.router.navigate([], { queryParams: { genre: id }, queryParamsHandling: 'preserve' });
+  onQueryParamsChanged(genreId: number) {
+    this.selectedGenre = this.genres.find(x => x.Id === genreId);
   }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Rocket.BL.Common.Models.UserRoles;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 
 namespace Rocket.BL.Common.Services
 {
@@ -13,7 +13,7 @@ namespace Rocket.BL.Common.Services
         /// Удаляем модель по Id
         /// </summary>
         /// <param name="id"> Идентификатор </param>
-        void Delete(int id);
+        void Delete(string id);
 
         /// <summary>
         /// Получаем список ролей с фильтрами и сортировкой
@@ -32,7 +32,7 @@ namespace Rocket.BL.Common.Services
         /// </summary>
         /// <param name="id"> Идентификатор </param>
         /// <returns>Role</returns>
-        Role GetById(int id);
+        Role GetById(string id);
 
         /// <summary>
         /// Добавляем новую роль

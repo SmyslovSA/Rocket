@@ -16,18 +16,19 @@ namespace Rocket.BL.Common.Services.Notification
         /// Отправка сообщения о релизе
         /// </summary>
         /// <param name="entities">Подлежащие отправке релизы</param>
+        /// <returns> Void </returns>
         Task NotifyAboutReleaseAsync(IEnumerable<SubscribableEntity> entities);
 
         /// <summary>
         /// Отправка пользователю сообщения с благодарностью за совершенный донат
         /// либо оплату премиум аккаунта
         /// </summary>
-        /// <param name="id">Идентификатор пользователя <see cref="DbAuthorisedUser"/></param>
+        /// <param name="id">Идентификатор пользователя <see cref="DbUserProfile"/></param>
         /// <param name="sum">Оплаченная сумма</param>
         /// <param name="currency">Валюта совершенного платежа</param>
         /// <param name="type">Цель оплаты: премиум или донат</param>
-        Task SendBillingUserAsync(int id, decimal sum, string currency,
-            BillingType type);
+        /// <returns> Void </returns>
+        Task SendBillingUserAsync(string id, decimal sum, string currency, BillingType type);
 
         /// <summary>
         /// Отправка гостю сообщения с благодарностью за совершенный донат
@@ -36,16 +37,21 @@ namespace Rocket.BL.Common.Services.Notification
         /// <param name="email">Email гостя</param>
         /// <param name="sum">Оплаченная сумма</param>
         /// <param name="currency">Валюта совершенного платежа</param>
-        Task SendBillingGuestAsync(string name, string email, decimal sum,
+        /// <returns> Void </returns>
+        Task SendBillingGuestAsync(
+            string name,
+            string email,
+            decimal sum,
             string currency);
 
         /// <summary>
         /// Отправка посетителю сообщения со ссылкой, необходимой
         /// для завершения регистрации аккаунта
         /// </summary>
+        /// <param name="name">Имя посетителя</param>
         /// <param name="email">Email адрес посетителя</param>
         /// <param name="url">Ссылка для завершения регистрации аккаунта</param>
-        /// <param name="name">Имя посетителя</param>
+        /// <returns> Void </returns>
         Task SendConfirmationAsync(string name, string email, string url);
 
         /// <summary>
@@ -58,7 +64,14 @@ namespace Rocket.BL.Common.Services.Notification
         /// <param name="subject">Тема сообщения</param>
         /// <param name="body">Содержание сообщения</param>
         /// <param name="html">Флаг указывающий является ли содержание разметкой HTML</param>
-        Task SendCustomAsync(string firstName, string lastName, ICollection<string> emails,
-            string senderName, string subject, string body, bool html);
+        /// <returns> Void </returns>
+        Task SendCustomAsync(
+            string firstName,
+            string lastName,
+            ICollection<string> emails,
+            string senderName,
+            string subject,
+            string body,
+            bool html);
     }
 }

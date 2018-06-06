@@ -61,8 +61,11 @@
     <Reference Include="Common.Logging.NLog444, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.NLog444.3.4.1\lib\net40\Common.Logging.NLog444.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\Rocket.DAL\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.7.5.2\lib\net45\FluentValidation.dll</HintPath>
@@ -75,6 +78,9 @@
     </Reference>
     <Reference Include="IdentityServer3.AccessTokenValidation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IdentityServer3.AccessTokenValidation.2.15.1\lib\net45\IdentityServer3.AccessTokenValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityServer3.AspNetIdentity.dll, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityServer3.AspNetIdentity.dll.2.0.0\lib\net45\IdentityServer3.AspNetIdentity.dll.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Authentication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Authentication.1.0.0-rc1-final\lib\net451\Microsoft.AspNet.Authentication.dll</HintPath>
@@ -115,6 +121,10 @@
     <Reference Include="Microsoft.AspNet.Identity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.3.0.0-rc1-final\lib\net451\Microsoft.AspNet.Identity.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.2.3\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
     </Reference>
@@ -329,6 +339,9 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="NLog.config" />
+    <Content Include="idsrv3test.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -353,7 +366,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DebugController.cs" />
     <Compile Include="Controllers\ReleaseList\GenreController.cs" />
+    <Compile Include="Controllers\ReleaseList\SubscriptionController.cs" />
     <Compile Include="Controllers\UserPayments\IPNController.cs" />
     <Compile Include="Controllers\UserPayments\UserPaymentsController.cs" />
     <Compile Include="Owin\Clients.cs" />
@@ -361,14 +376,14 @@
     <Compile Include="ConfigHandlers\PartialLoadConfigSection.cs" />
     <Compile Include="ConfigHandlers\ReleasesSettingsConfigGroup.cs" />
     <Compile Include="ConfigHandlers\SettingsManager.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PersonalArea\EmailController.cs" />
-    <Compile Include="Controllers\PersonalArea\ChangeGenreController.cs" />
+    <Compile Include="Controllers\PersonalArea\GenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReleaseList\EpisodeController.cs" />
     <Compile Include="Controllers\UserRole\PermissionController.cs" />
     <Compile Include="Controllers\ReleaseList\TvSeriesController.cs" />
     <Compile Include="Controllers\ReleaseList\MusicController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserRole\RoleController.cs" />
     <Compile Include="Controllers\UserRole\RoleManagerController.cs" />
     <Compile Include="Controllers\PersonalArea\PersonalInfoController.cs" />
@@ -376,10 +391,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IPushNotificationsHelper.cs" />
     <Compile Include="Helpers\PushNotificationsHelper.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
+    <Compile Include="Models\PushNotificationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Attribute\RoleAuthorizeAttribyte.cs" />
+    <Compile Include="Attributes\RoleAuthorizeAttribyte.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -388,8 +405,8 @@
     <Compile Include="App_Start\LoggerConfig.cs" />
     <Compile Include="App_Start\WebModule.cs" />
     <Compile Include="Owin\Scopes.cs" />
+    <Compile Include="Identity\RocketIdentityService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="OwinStartup.cs" />
     <Compile Include="Owin\Users.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -419,7 +436,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

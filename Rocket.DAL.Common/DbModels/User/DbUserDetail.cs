@@ -92,12 +92,6 @@ namespace Rocket.DAL.Common.DbModels.User
         public virtual DbAddress MailAddress { get; set; }
 
         /// <summary>
-        /// Возвращает или задает идентификатор пользователя,
-        /// к которому относится эта дополнительная информация.
-        /// </summary>
-        public int UserId { get; set; }
-
-        /// <summary>
         /// Возвращает или задает пользователя,
         /// К которому относится эта дополнительная информация.
         /// </summary>

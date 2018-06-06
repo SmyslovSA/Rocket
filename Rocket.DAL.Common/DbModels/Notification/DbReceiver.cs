@@ -11,7 +11,7 @@ namespace Rocket.DAL.Common.DbModels.Notification
     {
         /// <summary>
         /// Возвращает или задает идентификационный номер получателя
-        /// согласно модели <see cref="DbAuthorisedUser"/>
+        /// согласно модели <see cref="DbUserProfile"/>
         /// </summary>
         public int UserId { get; set; }
         

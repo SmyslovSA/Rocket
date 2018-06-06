@@ -15,21 +15,25 @@ import { SeriesDetailsComponent } from './components/news-feed/series-details/se
 import { SeriesCatalogComponent } from './components/catalog/series-catalog/series-catalog.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { MusicCatalogComponent } from './components/catalog/music-catalog/music-catalog.component';
+import { MusicsDetailsComponent } from './components/news-feed/musics-details/musics-details.component';
+import { RocketAuthGuard } from './auth.guard';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [RocketAuthGuard] },
   { path: 'donate', component: DonateComponent },
   {
     path: 'news',
     component: NewsFeedComponent,
     children: [
-      { path: '', redirectTo: 'episodes', pathMatch: 'prefix' },
-      { path: 'episodes', component: EpisodesComponent },
+      { path: '', redirectTo: 'series', pathMatch: 'prefix' },
+      { path: 'series', component: EpisodesComponent },
       { path: 'music', component: MusicsComponent }
     ]
   },
   { path: 'series/:id', component: SeriesDetailsComponent },
+  { path: 'music/:id', component: MusicsDetailsComponent },
   {
     path: 'catalog',
     component: CatalogComponent,
@@ -39,17 +43,17 @@ const routes: Routes = [
       { path: 'music', component: MusicCatalogComponent }
     ]
   },
-  { path: 'personal', component: PersonalAreaComponent },
+  { path: 'personal', component: PersonalAreaComponent, canActivate: [RocketAuthGuard] },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
-  { path: 'users', component: UsersComponent},
+  { path: 'users', component: UsersComponent },
   { path: '', redirectTo: 'catalog', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
   // добавить путь для ошибки, обычные пути
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

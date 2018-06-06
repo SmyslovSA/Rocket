@@ -1,24 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsFeedService } from '../../../services/news-feed.service';
 import { SeriesPage } from '../../../models/news-feed/series-page';
+import { Genre } from '../../../models/news-feed/genre';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-series-catalog',
   templateUrl: './series-catalog.component.html',
-  styleUrls: ['./series-catalog.component.css']
+  styleUrls: ['./series-catalog.component.css'],
 })
 export class SeriesCatalogComponent implements OnInit {
 
   seriesPage: SeriesPage;
 
-  constructor(private newsService: NewsFeedService) { }
+  constructor(private newsService: NewsFeedService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(params =>
+      this.onQueryParamsChanged(+params.get('page'), +params.get('genre')));
   }
 
-  onPageChanged(page: number) {
-    this.newsService.getSeriesPage(page)
-       .subscribe(data => this.seriesPage = data);
+  onQueryParamsChanged(page: number, genre: number) {
+    if (page > 0) {
+      this.newsService.getSeriesPage(page, genre)
+        .subscribe(data => this.seriesPage = data);
+    }
   }
 
 }

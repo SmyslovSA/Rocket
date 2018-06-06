@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Confirmation" xml:space="preserve">
-    <value>"Confirmation"</value>
+    <value>3</value>
   </data>
   <data name="Donate" xml:space="preserve">
-    <value>"Donate"</value>
+    <value>2</value>
   </data>
   <data name="EmailDuplicate" xml:space="preserve">
     <value>"This email is already registered in the system"</value>
@@ -133,10 +133,10 @@
     <value>"посетитель"</value>
   </data>
   <data name="Music" xml:space="preserve">
-    <value>"Music"</value>
+    <value>4</value>
   </data>
   <data name="Premium" xml:space="preserve">
-    <value>"Premium"</value>
+    <value>1</value>
   </data>
   <data name="Sender" xml:space="preserve">
     <value>"Rocket TEAM"</value>
@@ -144,8 +144,8 @@
   <data name="Subject" xml:space="preserve">
     <value>"No Reply"</value>
   </data>
-  <data name="TvSeries" xml:space="preserve">
-    <value>"TvSeries"</value>
+  <data name="Episode" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="USERACCOUNTLOGINISEMPTY" xml:space="preserve">
     <value>Test</value>
@@ -182,5 +182,17 @@
   </data>
   <data name="UserWrongPassword" xml:space="preserve">
     <value>"The password differs from the password confirmation or does not meet the security requirements"</value>
+  </data>
+  <data name="EmptyModel" xml:space="preserve">
+    <value>"Cannot find valid dat using this parameters"</value>
+  </data>
+  <data name="GenreWrongName" xml:space="preserve">
+    <value>"Genre with this name was not found"</value>
+  </data>
+  <data name="GenreDuplicate" xml:space="preserve">
+    <value>"This Genre is already added"</value>
+  </data>
+  <data name="UserWrongGenre" xml:space="preserve">
+    <value>"User hasn't have this genre"</value>
   </data>
 </root>

@@ -1,5 +1,4 @@
-﻿
-namespace Rocket.BL.Common.Models
+﻿namespace Rocket.BL.Common.Models
 {
     /// <summary>
     /// Представляет модель данных о платеже
@@ -9,12 +8,12 @@ namespace Rocket.BL.Common.Models
         /// <summary>
         /// Возвращает или задает уникальный идентификатор платежа
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Возвращает или задает пользователя
         /// </summary>
-        public virtual Rocket.BL.Common.Models.User.User User { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Возвращает или задает имя человека, указанное при проведении платежа
