@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using IdentityServer3.Core.Extensions;
+﻿using IdentityServer3.Core.Extensions;
 using Rocket.BL.Common.Services.ReleaseList;
+using System.Web.Http;
 
 namespace Rocket.Web.Controllers.ReleaseList
 {
-    [RoutePrefix("subscription")]
+    [RoutePrefix("")]
     public class SubscriptionController : ApiController
     {
         private readonly ISubscriptionService _subscriptionService;
