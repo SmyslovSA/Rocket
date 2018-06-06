@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using IdentityServer3.Core.Services.InMemory;
 
 namespace Rocket.Web.Owin
@@ -12,8 +13,12 @@ namespace Rocket.Web.Owin
                 new InMemoryUser()
                 {
                     Subject = "user123",
-                    Username = "JohnDoe",
-                    Password = "asdf"
+                    Username = "user",
+                    Password = "password",
+                    Claims = new List<Claim>()
+                    {
+                        new Claim("shirt_size","XXL")
+                    }
                 }
             };
         }

@@ -5,7 +5,7 @@ import { debug } from 'util';
 
 @Injectable()
 export class RocketAuthService {
-  authSubj: Subject<boolean>; // subscribe inside another components
+  authSubj = new Subject<boolean>(); // subscribe inside another components
 
   constructor(private openId: OAuthService) { }
 
@@ -17,7 +17,10 @@ export class RocketAuthService {
     }
 
     this.openId.fetchTokenUsingPasswordFlow(username, password)
-      .then(result => this.authSubj.next(true))
+      .then(result => {
+        this.authSubj.next(true);
+        this.openId.loadUserProfile().then(res => console.log(res));
+      })
       .catch(ex => console.log(ex));
   }
 

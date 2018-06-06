@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../../services/payment.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { RocketAuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-donate',
@@ -9,19 +11,23 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DonateComponent implements OnInit {
 
-    paymentEnabled: boolean;
+  paymentEnabled: boolean;
 
-    constructor(private paymentService: PaymentService) { }
+  constructor(private paymentService: PaymentService, private auth: RocketAuthService) { }
 
-    ngOnInit() {
-        this.getPAymentEnabled();
-    }
+  ngOnInit() {
+    this.getPAymentEnabled();
+  }
 
-    getPAymentEnabled() {
-        this.paymentService.getPAymentEnabled()
-            .subscribe(data => {
-                this.paymentEnabled = data;
-            });
-    }
+  getPAymentEnabled() {
+    this.paymentService.getPAymentEnabled()
+      .subscribe(data => {
+        this.paymentEnabled = data;
+      });
+  }
+
+  login() {
+    this.auth.login('user', 'password');
+  }
 
 }

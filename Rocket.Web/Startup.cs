@@ -33,13 +33,14 @@ namespace Rocket.Web
             var asd = DependencyResolver.Current.GetService<IUserService>();
 
             var factory =
-                new IdentityServerServiceFactory
-                {
-                    UserService = new Registration<IUserService>(DependencyResolver.Current.GetService<IUserService>())
-                }
-                .UseInMemoryClients(Clients.Load())
-                .UseInMemoryScopes(Scopes.Load())
-                /*.UseInMemoryUsers(Users.Load())*/;
+                new IdentityServerServiceFactory()
+                    //{
+                    //    UserService =
+                    //        new Registration<IUserService>(DependencyResolver.Current.GetService<IUserService>())
+                    //}
+                    .UseInMemoryClients(Clients.Load())
+                    .UseInMemoryScopes(Scopes.Load())
+                    .UseInMemoryUsers(Users.Load());
 
             factory.Register(new Registration<UserManager<DbUser, string>>());
             factory.Register(new Registration<RocketIdentityService>());
@@ -67,8 +68,6 @@ namespace Rocket.Web
 
         private X509Certificate2 LoadCertificate()
         {
-            //return new X509Certificate2(
-            //    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempRocket.cer"), "TempRocket");
             return new X509Certificate2(
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"bin\idsrv3test.pfx"), "idsrv3test");
         }
