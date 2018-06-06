@@ -25,8 +25,9 @@ namespace Rocket.Web.Controllers
         /// <returns>Информация о платеже.</returns>
         [HttpGet]
         [Route("paymentInfo")]
-        public IHttpActionResult GetPaymentInfo(Rocket.BL.Common.Models.User.User user = null)
+        public IHttpActionResult GetPaymentInfo()
         {
+            Rocket.BL.Common.Models.User.User user = null;
             if (user == null)
             {
                 //TODO: get current user

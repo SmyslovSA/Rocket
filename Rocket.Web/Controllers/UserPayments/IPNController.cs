@@ -1,4 +1,5 @@
 ﻿using Rocket.BL.Common.Services;
+using Rocket.BL.Common.Services.User;
 using System;
 using System.IO;
 using System.Net;
@@ -24,10 +25,12 @@ namespace Rocket.Web.Controllers
         }
 
         private readonly IUserPaymentService _userPaymentService;
+        private readonly IUserAccountLevelService _userAccountLevelService;
 
         public IPNController(IUserPaymentService userPaymentService)
         {
             _userPaymentService = userPaymentService;
+            _userAccountLevelService = userAccountLevelService;
         }
 
         [HttpPost]
@@ -113,6 +116,7 @@ namespace Rocket.Web.Controllers
                 payment.Currentcy = new Regex(@"mc_currency\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.CustomString = new Regex(@"custom\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 _userPaymentService.AddUserPayment(payment);
+                _userAccountLevelService.SetUserAccountLevel(userID, new BL.Common.Models.User.AccountLevel());
             }
             else if (ipnContext.Verification.Equals("INVALID"))
             {

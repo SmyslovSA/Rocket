@@ -23,6 +23,7 @@ namespace Rocket.BL
             Bind<IUserPaymentService>().To<UserPaymentService>();
             Bind<IGenreManager>().To<ChangeGenreManagerService>();
             Bind<IGenreService>().To<GenreService>();
+            Bind<IUserAccountLevelService>().To<UserAccountLevelService>();
         }
     }
 }

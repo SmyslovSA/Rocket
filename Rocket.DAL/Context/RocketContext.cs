@@ -191,6 +191,11 @@ namespace Rocket.DAL.Context
         public DbSet<DbUserBillingMessage> UserBillingMessage { get; set; }
 
         /// <summary>
+        /// DbSet платеже пользователя
+        /// </summary>
+        public DbSet<DbUserPayment> DBUserPayment { get; set; }
+        
+        /// <summary>
         /// DbSet лога уведомлений
         /// </summary>
         //public DbSet<NotificationsLogEntity> NotificationsLog { get; set; }
@@ -247,6 +252,7 @@ namespace Rocket.DAL.Context
             modelBuilder.Configurations.Add(new ReceiversJoinReleasesConfiguration());
             modelBuilder.Configurations.Add(new ReleaseMessageConfiguration());
             modelBuilder.Configurations.Add(new UserBillingConfiguration());
+            modelBuilder.Configurations.Add(new UserPaymentConfiguration());
             //modelBuilder.Configurations.Add(new NotificationsLogMap());
         }
     }

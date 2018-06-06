@@ -21,7 +21,7 @@ namespace Rocket.BL.Services
         /// <returns>Платеж пользователя</returns>
         public UserPayment GetUserPayment(Common.Models.User.User user)
         {
-            var dbPayment = _unitOfWork.UserPaymentRepository.Get(p => p.User.Id == user.Id);
+            var dbPayment = _unitOfWork.UserPaymentRepository.Get(p => p.UserId == user.Id);
 
             return Mapper.Map<UserPayment>(dbPayment);
         }

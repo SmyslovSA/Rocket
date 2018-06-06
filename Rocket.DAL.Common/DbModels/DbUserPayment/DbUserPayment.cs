@@ -14,9 +14,9 @@ namespace Rocket.DAL.Common.DbModels
         public int Id { get; set; }
 
         /// <summary>
-        /// Возвращает или задает пользователя
+        /// Возвращает или задает id пользователя
         /// </summary>
-        public virtual DbUser User { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Возвращает или задает имя человека, указанное при проведении платежа
