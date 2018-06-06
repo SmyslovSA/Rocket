@@ -38,6 +38,7 @@ import { MusicsDetailsComponent } from './components/news-feed/musics-details/mu
 import { AdvertisementComponent } from './components/common/advertisement/advertisement.component';
 import { SideMenuComponent } from './components/common/side-menu/side-menu.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { RocketAuthService } from './services/auth.service';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -83,7 +84,7 @@ export function createConfig(): SignalRConfiguration {
     AppRoutingModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['api url here'],
+        allowedUrls: ['http://localhost:63613'],
         sendAccessToken: true
       }
     }),
@@ -93,7 +94,7 @@ export function createConfig(): SignalRConfiguration {
     CalendarUtilsModule,
     SnotifyModule
   ],
-  providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults }, SnotifyService],
+  providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults }, SnotifyService, RocketAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

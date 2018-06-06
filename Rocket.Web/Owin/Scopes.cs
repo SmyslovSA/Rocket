@@ -8,7 +8,18 @@ namespace Rocket.Web.Owin
         public static IEnumerable<Scope> Load()
         {
             // настроить скопы согласно модельки юзера
-            return new[] { StandardScopes.OpenId, StandardScopes.Profile };
+            return new[]
+            {
+                StandardScopes.OpenId, StandardScopes.Profile,
+                new Scope()
+                {
+                    Name = "api",
+                    Claims = new List<ScopeClaim>()
+                    {
+                        new ScopeClaim("shirt_size")
+                    }
+                }
+            };
         }
     }
 }

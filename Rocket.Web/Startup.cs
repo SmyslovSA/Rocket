@@ -34,15 +34,17 @@ namespace Rocket.Web
             app.MapSignalR();
 
             var factory =
-                new IdentityServerServiceFactory
+                new IdentityServerServiceFactory()
                 {
-                    UserService = new Registration<IUserService, RocketIdentityService>()
+                    UserService =
+                            new Registration<IUserService, RocketIdentityService>()
                 }
-                .UseInMemoryClients(Clients.Load())
-                .UseInMemoryScopes(Scopes.Load());
+                    .UseInMemoryClients(Clients.Load())
+                    .UseInMemoryScopes(Scopes.Load());
+
 
             factory.Register(new Registration<UserManager<DbUser, string>>());
-            factory.Register(new Registration<IUserStore<DbUser,  string>>(resolver => new UserStore<DbUser>(new RocketContext())));
+            factory.Register(new Registration<IUserStore<DbUser,string>>(resolver => new UserStore<DbUser>(new RocketContext())));
 
             app.UseIdentityServer(new IdentityServerOptions
             {
