@@ -21,7 +21,7 @@ namespace Rocket.Web
         // 1. AppHandler
         // 2. AuthorizeAttribute
         // 3. DefaultRole   InfoLogService
-        // 4. Perfomance  IUserService
+        // 4. Perfomance  IUserService  ++
         // 5. Loger fileName   InfoLogService
         // 6. canActivate: [RocketAuthGuard] front
 
@@ -33,7 +33,8 @@ namespace Rocket.Web
             var factory =
                 new IdentityServerServiceFactory
                 {
-                    UserService = new Registration<IUserService>(DependencyResolver.Current.GetService<IUserService>())
+                    UserService = new Registration<IUserService, RocketIdentityService>()
+                    //new Registration<IUserService>(DependencyResolver.Current.GetService<IUserService>())
                 }
                 .UseInMemoryClients(Clients.Load())
                 .UseInMemoryScopes(Scopes.Load())
