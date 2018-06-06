@@ -26,6 +26,7 @@ namespace Rocket.BL
             Bind<IGenreManager>().To<ChangeGenreManagerService>();
             Bind<IGenreService>().To<GenreService>();
             Bind<IMailNotificationService>().To<MailNotificationService>();
+            Bind<ISubscriptionService>().To<SubscriptionService>();
         }
     }
 }

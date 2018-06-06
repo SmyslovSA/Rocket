@@ -3,6 +3,7 @@ using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.Subscription;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
@@ -191,6 +192,8 @@ namespace Rocket.DAL.Common.UoW
         /// Репозиторий настроек сервиса нотификации
         /// </summary>
         IBaseRepository<NotificationsSettingsEntity> NotificationSettingsRepository { get; }
+
+        IBaseRepository<SubscribableEntity> SubscribableRepository { get; }
 
         /// <summary>
         /// Сохраняет изменения в хранилище данных

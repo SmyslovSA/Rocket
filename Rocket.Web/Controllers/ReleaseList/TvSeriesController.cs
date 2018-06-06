@@ -1,5 +1,6 @@
 ﻿using Rocket.BL.Common.Services.ReleaseList;
 using System.Web.Http;
+using IdentityServer3.Core.Extensions;
 using Rocket.Web.ConfigHandlers;
 using Rocket.Web.Properties;
 
@@ -61,7 +62,8 @@ namespace Rocket.Web.Controllers.ReleaseList
             var page = _tvSeriesDetailedInfoService.GetPageInfo(
                 page_size ?? SettingsManager.ReleasesSettings.Pagination.PageSize,
                 pageNumber,
-                genre_id);
+                genre_id,
+                User.GetSubjectId());
             return pageNumber <= page.TotalPagesCount ? Ok(page) : (IHttpActionResult)NotFound();
         }
 
