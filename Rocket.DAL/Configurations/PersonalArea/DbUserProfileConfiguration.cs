@@ -10,7 +10,7 @@ namespace Rocket.DAL.Configurations.PersonalArea
             ToTable("UserProfile")
                 .HasKey(p => p.DbUser_Id)
                 .HasRequired(p => p.DbUser)
-                .WithRequiredDependent(d => d.DbAuthorisedUser);
+                .WithRequiredDependent(d => d.DbUserProfile);
 
             Property(p => p.Avatar)
                 .IsOptional()

@@ -15,7 +15,7 @@ namespace Rocket.BL.Common.Mappings.Notification
                 .ForMember(d => d.LastName, opt => opt.MapFrom(s => s.LastName))
                 .ForMember(
                     d => d.Emails,
-                    opt => opt.MapFrom(s => s.DbAuthorisedUser.Email.Select(x => x.Name)
+                    opt => opt.MapFrom(s => s.DbUserProfile.Email.Select(x => x.Name)
                         .ToList()));
 
             CreateMap<EpisodeEntity, EpisodeNotification>()

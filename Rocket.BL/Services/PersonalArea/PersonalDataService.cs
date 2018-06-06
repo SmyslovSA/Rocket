@@ -66,7 +66,7 @@ namespace Rocket.BL.Services.PersonalArea
                         ?.FirstOrDefault();
             user.FirstName = firstName;
             user.LastName = lastName;
-            user.DbAuthorisedUser.Avatar = avatar;
+            user.DbUserProfile.Avatar = avatar;
             var userToValidate = Mapper.Map<Common.Models.User.User>(user);
             var validate = _validator.Validate(userToValidate);
             if (!validate.IsValid)

@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
+using Rocket.BL.Common.Models.PersonalArea;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.BL.Properties;
 using Rocket.DAL.Common.UoW;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Rocket.BL.Services.PersonalArea
@@ -13,18 +15,18 @@ namespace Rocket.BL.Services.PersonalArea
         {
         }
 
-        public ICollection GetAllMusicGenres()
+        public IEnumerable GetAllMusicGenres()
         {
-            return _unitOfWork.MusicGenreRepository.Get(f => f.Name != null).ToList();
+            return AutoMapper.Mapper.Map<IEnumerable<MusicGenre>>(_unitOfWork.MusicGenreRepository.Get());
         }
 
-        public ICollection GetAllTvGenres()
+        public IEnumerable GetAllTvGenres()
         {
-            return _unitOfWork.GenreRepository.Get(f => f.Name != null).ToList();
+            return AutoMapper.Mapper.Map<IEnumerable<Genre>>(_unitOfWork.GenreRepository.Get());
         }
 
         /// <summary>
-        /// Добавляет музыкальный жанр пользователю
+        /// Добавляет музыкальный жанр пользователю.
         /// </summary>
         /// <param name="id">Id пользователя</param>
         /// <param name="genre">Имя жанра для добавления</param>
