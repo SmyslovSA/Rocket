@@ -20,7 +20,7 @@ namespace Rocket.BL.Services.PersonalArea
         /// <param name="id">Id авторизованного пользователь, инициировавшего смену</param>
         /// <param name="email">Email, который необходимо добавить.</param>
         /// <returns>Id добавленного e-mail</returns>
-        public int AddEmail(int id, Email email)
+        public int AddEmail(string id, Email email)
         {
             if (_unitOfWork.EmailRepository.Get()
                     .FirstOrDefault(c => c.Name == email.Name) != null)

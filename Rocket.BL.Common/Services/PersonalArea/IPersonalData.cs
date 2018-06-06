@@ -12,7 +12,7 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id по которому необходимо найти пользователя.</param>
         /// <returns>Модель авторизованного пользователя.</returns>
-        SimpleUser GetUserData(int id);
+        SimpleUser GetUserData(string id);
 
         /// <summary>
         /// Изменение персональных данных.
@@ -21,7 +21,7 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// <param name="firstName">Имя пользователя.</param>
         /// <param name="lastName">Фамилия пользователя.</param>
         /// <param name="avatar">Аватар пользователя.</param>
-        void ChangePersonalData(int id, string firstName, string lastName, string avatar);
+        void ChangePersonalData(string id, string firstName, string lastName, string avatar);
 
         /// <summary>
         /// Изменение пароля на новый.
@@ -29,6 +29,6 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// <param name="id">Id пользователя, инициировавшего смену пароля.</param>
         /// <param name="newPassword">Новый пароль, введенный пользователем.</param>
         /// <param name="newPasswordConfirm">Подтверждение пароля.</param>
-        void ChangePasswordData(int id, string newPassword, string newPasswordConfirm);
+        void ChangePasswordData(string id, string newPassword, string newPasswordConfirm);
     }
 }

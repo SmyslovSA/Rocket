@@ -13,7 +13,7 @@ namespace Rocket.DAL.Common.DbModels.DbPersonalArea
         /// <summary>
         /// Id авторизованного пользователя личного кабинета.
         /// </summary>
-        public int DbUserId { get; set; }
+        public string DbUser_Id { get; set; }
 
         /// <summary>
         /// Ссылка на DbUser.

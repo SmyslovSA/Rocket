@@ -142,7 +142,6 @@
     <Compile Include="Services\PersonalArea\IPersonalData.cs" />
     <Compile Include="Models\PersonalArea\Category.cs" />
     <Compile Include="Models\PersonalArea\Genre.cs" />
-    <Compile Include="Models\PersonalArea\PremiumUser.cs" />
     <Compile Include="Models\ReleaseList\Country.cs" />
     <Compile Include="Models\ReleaseList\Episode.cs" />
     <Compile Include="Models\ReleaseList\Film.cs" />
@@ -155,7 +154,6 @@
     <Compile Include="Models\ReleaseList\TVSeries.cs" />
     <Compile Include="Models\ReleaseList\Genre.cs" />
     <Compile Include="Models\PersonalArea\SimpleUser.cs" />
-    <Compile Include="Models\PersonalArea\AuthorisedUser.cs" />
     <Compile Include="Models\UserRoles\Permission.cs" />
     <Compile Include="Models\UserRoles\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

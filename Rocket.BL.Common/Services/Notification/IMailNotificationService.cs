@@ -26,7 +26,7 @@ namespace Rocket.BL.Common.Services.Notification
         /// <param name="sum">Оплаченная сумма</param>
         /// <param name="currency">Валюта совершенного платежа</param>
         /// <param name="type">Цель оплаты: премиум или донат</param>
-        Task SendBillingUserAsync(int id, decimal sum, string currency,
+        Task SendBillingUserAsync(string id, decimal sum, string currency,
             BillingType type);
 
         /// <summary>

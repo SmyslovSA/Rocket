@@ -18,7 +18,7 @@
         /// <summary>
         /// Внешний ключ к таблице DbAuthorisedUser.
         /// </summary>
-        public int DbAuthorisedUserId { get; set; }
+        public string DbAuthorisedUserId { get; set; }
 
         /// <summary>
         /// Ссылка на DbAuthorisedUser.

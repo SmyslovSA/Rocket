@@ -178,6 +178,10 @@
     <Compile Include="Migrations\201806052017434_InitData.Designer.cs">
       <DependentUpon>201806052017434_InitData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.cs" />
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.Designer.cs">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
     <Compile Include="Migrations\InitialDataCreators\User\DbAccountStatusesCreator.cs" />
@@ -240,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806052017434_InitData.resx">
       <DependentUpon>201806052017434_InitData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806060130196_ChangeAuthUserIdToString.resx">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
