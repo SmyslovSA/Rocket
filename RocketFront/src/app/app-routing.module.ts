@@ -16,11 +16,12 @@ import { SeriesCatalogComponent } from './components/catalog/series-catalog/seri
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { MusicCatalogComponent } from './components/catalog/music-catalog/music-catalog.component';
 import { MusicsDetailsComponent } from './components/news-feed/musics-details/musics-details.component';
+import { RocketAuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [RocketAuthGuard] },
   { path: 'donate', component: DonateComponent },
   {
     path: 'news',
@@ -32,7 +33,7 @@ const routes: Routes = [
     ]
   },
   { path: 'series/:id', component: SeriesDetailsComponent },
-  { path: 'music/:id', component: MusicsDetailsComponent },  
+  { path: 'music/:id', component: MusicsDetailsComponent },
   {
     path: 'catalog',
     component: CatalogComponent,
@@ -45,14 +46,14 @@ const routes: Routes = [
   { path: 'personal', component: PersonalAreaComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
-  { path: 'users', component: UsersComponent},
+  { path: 'users', component: UsersComponent },
   { path: '', redirectTo: 'catalog', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
   // добавить путь для ошибки, обычные пути
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
