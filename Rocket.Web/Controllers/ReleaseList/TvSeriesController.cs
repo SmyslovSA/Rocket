@@ -62,8 +62,7 @@ namespace Rocket.Web.Controllers.ReleaseList
             var page = _tvSeriesDetailedInfoService.GetPageInfo(
                 page_size ?? SettingsManager.ReleasesSettings.Pagination.PageSize,
                 pageNumber,
-                genre_id,
-                User.GetSubjectId());
+                genre_id);
             return pageNumber <= page.TotalPagesCount ? Ok(page) : (IHttpActionResult)NotFound();
         }
 
