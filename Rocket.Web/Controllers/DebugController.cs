@@ -31,14 +31,13 @@ namespace Rocket.Web.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> CreateUsers()
         {
-            await _rolemanager.CreateAsync(new IdentityRole("administrator")).ConfigureAwait(false);
-            await _rolemanager.CreateAsync(new IdentityRole("user")).ConfigureAwait(false);
+            await _rolemanager.CreateAsync(new DbRole() {Name = "administrator"}).ConfigureAwait(false);
+            await _rolemanager.CreateAsync(new DbRole() {Name = "user"}).ConfigureAwait(false);
 
             await _usermanager.CreateAsync((new DbUser()
             {
                 EmailConfirmed = true,
                 Email = "adminuser@gmail.com",
-                PasswordHash = _usermanager.PasswordHasher.HashPassword("security"),
                 PhoneNumber = "+375221133654",
                 TwoFactorEnabled = false,
                 LockoutEnabled = false,
@@ -57,13 +56,12 @@ namespace Rocket.Web.Controllers
                         }
                     },
                 },
-            })).ConfigureAwait(false);
+            }), "security").ConfigureAwait(false);
 
             await _usermanager.CreateAsync((new DbUser()
             {
                 EmailConfirmed = true,
                 Email = "userfirst@gmail.com",
-                PasswordHash = _usermanager.PasswordHasher.HashPassword("password"),
                 PhoneNumber = "+375221159654",
                 TwoFactorEnabled = false,
                 LockoutEnabled = false,
@@ -82,7 +80,7 @@ namespace Rocket.Web.Controllers
                         }
                     },
                 },
-            })).ConfigureAwait(false);
+            }), "password").ConfigureAwait(false);
 
             await _usermanager.CreateAsync((new DbUser()
             {
@@ -107,25 +105,17 @@ namespace Rocket.Web.Controllers
                         }
                     },
                 },
-            })).ConfigureAwait(false);
+            }), "password2").ConfigureAwait(false);
 
-            var admin = await _rolemanager.FindByNameAsync("administrator").ConfigureAwait(false);
-            admin.Users.Add(new IdentityUserRole()
-            {
-                RoleId = admin.Id,
-                UserId = _usermanager.FindByName("adminUser").Id,
-            });
-            var user = await _rolemanager.FindByNameAsync("user").ConfigureAwait(false);
-            user.Users.Add(new IdentityUserRole()
-            {
-                RoleId = user.Id,
-                UserId = _usermanager.FindByName("firstUser").Id,
-            });
-            user.Users.Add(new IdentityUserRole()
-            {
-                RoleId = user.Id,
-                UserId = _usermanager.FindByName("secondUser").Id,
-            });
+            await _usermanager
+                .AddToRoleAsync(_usermanager.FindByName("adminUser").Id, "administrator")
+                .ConfigureAwait(false);
+            await _usermanager
+                .AddToRoleAsync(_usermanager.FindByName("firstUser").Id, "user")
+                .ConfigureAwait(false);
+            await _usermanager
+                .AddToRoleAsync(_usermanager.FindByName("secondUser").Id, "user")
+                .ConfigureAwait(false);
 
             return Ok();
         }
