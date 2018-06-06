@@ -8,7 +8,7 @@
         /// <summary>
         /// Возвращает или задает уникальный идентификатор платежа
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Возвращает или задает пользователя

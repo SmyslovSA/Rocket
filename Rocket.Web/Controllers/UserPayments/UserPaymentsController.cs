@@ -2,7 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Results;
 using Rocket.BL.Common.Services;
-
+using Rocket.BL.Common.Services.UserPayment;
 
 namespace Rocket.Web.Controllers
 {

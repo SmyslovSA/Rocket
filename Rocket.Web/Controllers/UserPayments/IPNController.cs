@@ -1,5 +1,6 @@
 ﻿using Rocket.BL.Common.Services;
 using Rocket.BL.Common.Services.User;
+using Rocket.BL.Common.Services.UserPayment;
 using System;
 using System.IO;
 using System.Net;
