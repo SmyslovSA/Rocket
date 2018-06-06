@@ -1,5 +1,5 @@
-import { GenreTv } from "./genreTv";
+import { GenreTv } from './genreTv';
 
-export class listGenreTv {
-    GenreTv:GenreTv[];
+export class ListGenreTv {
+    GenreTv: GenreTv[];
 }

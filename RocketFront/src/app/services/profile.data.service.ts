@@ -37,18 +37,17 @@ export class DataService {
     deleteemail(id: number): Observable<HttpErrorResponse> {
        return this.http.delete<HttpErrorResponse>(`http://localhost:63613/personal/email/delete/${id}`);
     }
-    addMusicGenre(user: Profile,genre: string):Observable<HttpErrorResponse>{
-        return this.http.post<HttpErrorResponse>(`http://localhost:63613/personal/genres/music/add?id=${user.Id}&genre=${genre}`,null);
+    addMusicGenre(user: Profile, genre: string): Observable<HttpErrorResponse> {
+        return this.http.post<HttpErrorResponse>(`http://localhost:63613/personal/genres/music/add?id=${user.Id}&genre=${genre}`, null);
     }
-    deleteMusicGenre(user: Profile,genre: string):Observable<HttpErrorResponse>{
-        return this.http.post<HttpErrorResponse>(`http://localhost:63613/personal/genres/music/delete?id=${user.Id}&genre=${genre}`,null);
+    deleteMusicGenre(user: Profile, genre: string): Observable<HttpErrorResponse> {
+        return this.http.post<HttpErrorResponse>(`http://localhost:63613/personal/genres/music/delete?id=${user.Id}&genre=${genre}`, null);
     }
 
-    addTvGenre(user: Profile,genre: string):Observable<HttpErrorResponse>{
-        return this.http.post<HttpErrorResponse>(`http://localhost:63613/personal/genres/tv/add?id=${user.Id}&genre=${genre}`,null);
+    addTvGenre(user: Profile, genre: string): Observable<HttpErrorResponse> {
+        return this.http.post<HttpErrorResponse>(`http://localhost:63613/personal/genres/tv/add?id=${user.Id}&genre=${genre}`, null);
     }
-    deletTvGenre(user: Profile,genre: string):Observable<HttpErrorResponse>{
-        return this.http.post<HttpErrorResponse>(`http://localhost:63613/personal/genres/tv/delete?id=${user.Id}&genre=${genre}`,null);
+    deletTvGenre(user: Profile, genre: string): Observable<HttpErrorResponse> {
+        return this.http.post<HttpErrorResponse>(`http://localhost:63613/personal/genres/tv/delete?id=${user.Id}&genre=${genre}`, null);
     }
-   
 }

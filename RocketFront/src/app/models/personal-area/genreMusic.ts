@@ -1,6 +1,4 @@
-export class GenreMusic
-{
- Id:number;
-    
-   Name:string;
+export class GenreMusic {
+  Id: number;
+  Name: string;
 }

@@ -1,6 +1,5 @@
-import { GenreMusic } from "./genreMusic";
+import { GenreMusic } from './genreMusic';
 
-export class listGenreMusic {
-     GenreMusic:GenreMusic[];
-    
+export class ListGenreMusic {
+     GenreMusic: GenreMusic[];
 }
