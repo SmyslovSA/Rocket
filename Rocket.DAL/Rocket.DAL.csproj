@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.Designer.cs">
       <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806061302282_Payment.cs" />
+    <Compile Include="Migrations\201806061302282_Payment.Designer.cs">
+      <DependentUpon>201806061302282_Payment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201806061127444_Alekhno.cs" />
     <Compile Include="Migrations\201806061127444_Alekhno.Designer.cs">
       <DependentUpon>201806061127444_Alekhno.cs</DependentUpon>
@@ -262,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806061127444_Alekhno.resx">
       <DependentUpon>201806061127444_Alekhno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806061302282_Payment.resx">
+      <DependentUpon>201806061302282_Payment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
