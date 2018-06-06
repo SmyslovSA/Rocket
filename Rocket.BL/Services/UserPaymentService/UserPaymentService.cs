@@ -3,12 +3,12 @@ using Rocket.BL.Common.Models;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.UoW;
 
-namespace Rocket.BL.Services
+namespace Rocket.BL.Services.UserPaymentService
 {
     /// <summary>
     /// Представляет сервис для работы с платежами
     /// </summary>
-    public class UserPaymentService : BaseService, Common.Services.IUserPaymentService
+    public class UserPaymentService : BaseService, Common.Services.UserPayment.IUserPaymentService
     {
         public UserPaymentService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {

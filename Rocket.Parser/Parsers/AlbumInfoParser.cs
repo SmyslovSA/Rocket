@@ -278,6 +278,7 @@ namespace Rocket.Parser.Parsers
             music.Type = releaseType;
             music.Artist = string.IsNullOrEmpty(releaseArtist) ? Helper.UnknownArtist : releaseArtist;
             music.PosterImagePath = release.CoverPath;
+            music.PosterImageUrl = release.ImageFullUrl;
 
             return music;
         }
@@ -439,6 +440,7 @@ namespace Rocket.Parser.Parsers
             await _loadHtmlService.DownloadFile(url, fillPath).ConfigureAwait(false);
 
             release.CoverPath = fillPath;
+            release.ImageFullUrl = url;
         }
     }
 }

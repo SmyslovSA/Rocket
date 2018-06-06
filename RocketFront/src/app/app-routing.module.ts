@@ -15,6 +15,8 @@ import { SeriesDetailsComponent } from './components/news-feed/series-details/se
 import { SeriesCatalogComponent } from './components/catalog/series-catalog/series-catalog.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { MusicCatalogComponent } from './components/catalog/music-catalog/music-catalog.component';
+import { MusicsDetailsComponent } from './components/news-feed/musics-details/musics-details.component';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,12 +26,13 @@ const routes: Routes = [
     path: 'news',
     component: NewsFeedComponent,
     children: [
-      { path: '', redirectTo: 'episodes', pathMatch: 'prefix' },
-      { path: 'episodes', component: EpisodesComponent },
+      { path: '', redirectTo: 'series', pathMatch: 'prefix' },
+      { path: 'series', component: EpisodesComponent },
       { path: 'music', component: MusicsComponent }
     ]
   },
   { path: 'series/:id', component: SeriesDetailsComponent },
+  { path: 'music/:id', component: MusicsDetailsComponent },  
   {
     path: 'catalog',
     component: CatalogComponent,

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.ReleaseList;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Migrations.InitialDataCreators.User;
@@ -21,7 +21,7 @@ namespace Rocket.DAL.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
 
             //todo insert fake users data here...
@@ -77,11 +77,11 @@ namespace Rocket.DAL.Migrations
 
             // Добавление в репозиторий первоначальной информации о ролях пользователей.
             List<DbRole> initialRolesDatas = new DbUserRolesCreator().Items;
-            if (!context.DbRoles.Any())
-            {
-                context.DbRoles.AddRange(initialRolesDatas);
-                context.SaveChanges();
-            }
+            //if (!context.DbRoles.Any())
+            //{
+            //    context.DbRoles.AddRange(initialRolesDatas);
+            //    context.SaveChanges();
+            //}
 
             //// Добавление в репозиторий первоначальной тестовой информации о пользователей.
             //if (!context.DbUsers.Any())

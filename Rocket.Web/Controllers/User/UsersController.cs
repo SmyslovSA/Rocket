@@ -1,7 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Rocket.BL.Common.Services.User;
+using Rocket.Web.Attributes;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Rocket.Web.Controllers.User
@@ -10,6 +12,7 @@ namespace Rocket.Web.Controllers.User
     /// Контроллер WebApi работы с пользователями.
     /// </summary>
     [RoutePrefix("users")]
+    [RoleAuthorize(ClaimName = "a,b,c")]
     public class UsersController : ApiController
     {
         private readonly IUserManagementService _userManagementService;
@@ -65,7 +68,7 @@ namespace Rocket.Web.Controllers.User
         /// <returns>Пользователь хранилища.</returns>
         [HttpGet]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult GetUserById(int id)
+        public IHttpActionResult GetUserById(string id)
         {
             var user = _userManagementService.GetUser(id);
 
@@ -116,11 +119,11 @@ namespace Rocket.Web.Controllers.User
         /// <returns>Сведения об удалении.</returns>
         [HttpDelete]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult DeleteUserById(int id)
+        public IHttpActionResult DeleteUserById(string id)
         {
             var usersCount = _userManagementService.GetAllUsers().Count;
 
-            if (id > usersCount)
+            if (Convert.ToInt32(id) > usersCount)
             {
                 return BadRequest("User id invalid");
             }
@@ -145,9 +148,10 @@ namespace Rocket.Web.Controllers.User
                 return BadRequest("User invalid");
             }
 
-            _userManagementService.DeleteUser(user.Id);
+            //_userManagementService.DeleteUser(user.Id);
 
-            return Ok($"User with id = {user.Id} successfully deleted");
+            //return Ok($"User with id = {user.Id} successfully deleted");
+            throw new NotImplementedException();
         }
     }
 }
