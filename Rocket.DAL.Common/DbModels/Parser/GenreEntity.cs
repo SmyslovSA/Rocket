@@ -20,6 +20,6 @@ namespace Rocket.DAL.Common.DbModels.Parser
 
         public List<TvSeriasEntity> ListTvSerias { get; set; }
 
-        public List<DbAuthorisedUser> ListAuthorisedUser { get; set; }
+        public List<DbUserProfile> ListAuthorisedUser { get; set; }
     }
 }

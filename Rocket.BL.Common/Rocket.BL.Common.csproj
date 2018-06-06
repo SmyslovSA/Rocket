@@ -126,7 +126,7 @@
     <Compile Include="Mappings\ReleaseList\CountryMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\EpisodeMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\FilmMappingProfile.cs" />
-    <Compile Include="Mappings\PersonalAreaMappings\AuthorisedUserMappingProfile.cs" />
+    <Compile Include="Mappings\PersonalAreaMappings\UserProfileMapping.cs" />
     <Compile Include="Mappings\ReleaseList\PersonMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\SeasonMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\TVSeriesMappingProfile.cs" />
@@ -153,7 +153,7 @@
     <Compile Include="Models\ReleaseList\MusicTrack.cs" />
     <Compile Include="Models\ReleaseList\TVSeries.cs" />
     <Compile Include="Models\ReleaseList\Genre.cs" />
-    <Compile Include="Models\PersonalArea\SimpleUser.cs" />
+    <Compile Include="Models\PersonalArea\UserProfile.cs" />
     <Compile Include="Models\UserRoles\Permission.cs" />
     <Compile Include="Models\UserRoles\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

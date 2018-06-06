@@ -94,7 +94,7 @@ namespace Rocket.DAL.Common.UoW
         /// <summary>
         /// Репозиотрий для работы с пользователями личного кабинета.
         /// </summary>
-        IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+        IDbUserProfileRepository UserAuthorisedRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для музыкального релиза

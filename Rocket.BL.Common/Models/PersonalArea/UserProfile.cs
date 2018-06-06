@@ -2,7 +2,7 @@
 
 namespace Rocket.BL.Common.Models.PersonalArea
 {
-    public class SimpleUser
+    public class UserProfile
     {
         /// <summary>
         /// Id пользователя.

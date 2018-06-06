@@ -24,9 +24,9 @@ namespace Rocket.BL.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id пользователя.</param>
         /// <returns>Модель авторизованного пользователя.</returns>
-        public SimpleUser GetUserData(string id)
+        public UserProfile GetUserData(string id)
         {
-            return Mapper.Map<SimpleUser>(_unitOfWork.UserAuthorisedRepository.Get(
+            return Mapper.Map<UserProfile>(_unitOfWork.UserAuthorisedRepository.Get(
                     f => f.DbUser_Id == id,
                     includeProperties: $"{nameof(DbUser)}")
                     ?.FirstOrDefault());
@@ -62,7 +62,7 @@ namespace Rocket.BL.Services.PersonalArea
         {
             var user = _unitOfWork.UserRepository.Get(
                         f => f.Id == id,
-                        includeProperties: $"{nameof(DbAuthorisedUser)}")
+                        includeProperties: $"{nameof(DbUserProfile)}")
                         ?.FirstOrDefault();
             user.FirstName = firstName;
             user.LastName = lastName;

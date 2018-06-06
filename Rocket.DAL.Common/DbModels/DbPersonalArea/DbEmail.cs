@@ -18,11 +18,11 @@
         /// <summary>
         /// Внешний ключ к таблице DbAuthorisedUser.
         /// </summary>
-        public string DbAuthorisedUserId { get; set; }
+        public string DbUserProfileId { get; set; }
 
         /// <summary>
         /// Ссылка на DbAuthorisedUser.
         /// </summary>
-        public virtual DbAuthorisedUser DbAuthorisedUser { get; set; }
+        public virtual DbUserProfile DbUserProfile { get; set; }
     }
 }

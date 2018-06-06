@@ -28,7 +28,7 @@ namespace Rocket.BL.Services.PersonalArea
                 throw new ValidationException(Resources.EmailDuplicate);
             }
 
-            var emails = new DbEmail() { Name = email.Name, DbAuthorisedUserId = id };
+            var emails = new DbEmail() { Name = email.Name, DbUserProfileId = id };
             _unitOfWork.EmailRepository.Insert(emails);
             _unitOfWork.SaveChanges();
             return emails.Id;

@@ -3,11 +3,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Rocket.DAL.Configurations.PersonalArea
 {
-    public class DbAuthorisedUserConfiguration : EntityTypeConfiguration<DbAuthorisedUser>
+    public class DbUserProfileConfiguration : EntityTypeConfiguration<DbUserProfile>
     {
-        public DbAuthorisedUserConfiguration()
+        public DbUserProfileConfiguration()
         {
-            ToTable("AuthorisedUsers")
+            ToTable("UserProfile")
                 .HasKey(p => p.DbUser_Id)
                 .HasRequired(p => p.DbUser)
                 .WithRequiredDependent(d => d.DbAuthorisedUser);
@@ -20,15 +20,15 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 .IsVariableLength();
 
             HasMany(p => p.Email)
-                .WithRequired(e => e.DbAuthorisedUser)
-                .HasForeignKey(e => e.DbAuthorisedUserId);
+                .WithRequired(e => e.DbUserProfile)
+                .HasForeignKey(e => e.DbUserProfileId);
 
             HasMany(p => p.Genres)
                 .WithMany(e => e.ListAuthorisedUser)
                 .Map(m =>
                 {
-                    m.ToTable("AuthorisedUserGenres")
-                    .MapLeftKey("AuthorisedUserId")
+                    m.ToTable("UserProfileGenres")
+                    .MapLeftKey("UserProfileId")
                     .MapRightKey("GenreId");
                 });
 
@@ -36,8 +36,8 @@ namespace Rocket.DAL.Configurations.PersonalArea
                 .WithMany(e => e.DbAuthorisedUsers)
                 .Map(m =>
                 {
-                    m.ToTable("AuthorisedUserMusicGenres")
-                    .MapLeftKey("AuthorisedUserId")
+                    m.ToTable("UserProfileMusicGenres")
+                    .MapLeftKey("UserProfileId")
                     .MapRightKey("MusicGenreId");
                 });
         }

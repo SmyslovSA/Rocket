@@ -12,7 +12,7 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id по которому необходимо найти пользователя.</param>
         /// <returns>Модель авторизованного пользователя.</returns>
-        SimpleUser GetUserData(string id);
+        UserProfile GetUserData(string id);
 
         /// <summary>
         /// Изменение персональных данных.

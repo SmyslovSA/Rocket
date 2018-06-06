@@ -22,7 +22,7 @@ namespace Rocket.BL.Common.Services.Notification
         /// Отправка пользователю сообщения с благодарностью за совершенный донат
         /// либо оплату премиум аккаунта
         /// </summary>
-        /// <param name="id">Идентификатор пользователя <see cref="DbAuthorisedUser"/></param>
+        /// <param name="id">Идентификатор пользователя <see cref="DbUserProfile"/></param>
         /// <param name="sum">Оплаченная сумма</param>
         /// <param name="currency">Валюта совершенного платежа</param>
         /// <param name="type">Цель оплаты: премиум или донат</param>
