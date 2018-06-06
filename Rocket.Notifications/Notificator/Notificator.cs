@@ -170,7 +170,7 @@ namespace Rocket.Notifications.Notificator
                 .Include(m => m.Musicians)
                 .Where(m => m.ReleaseDate > DbFunctions.AddDays(currDateTime, -3) && m.ReleaseDate < currDateTime)
                 .Where(m => m.Users.Any() || m.Musicians.Select(a => a.Users.Any()).Any())
-                .ToList();  //todo settings
+                .ToList();  
 
             //исключить релизы, которые, возможно, уже были обработаны ранее
             musicReleases = musicReleases
@@ -210,20 +210,18 @@ namespace Rocket.Notifications.Notificator
         private IEnumerable<PushNotificationModel> CastTvSeriasToPushModel(
             IEnumerable<EpisodeEntity> episodes)
         {
-            //var pushNotifications = (from episode in episodes
-            //                        let tvSeria = _unitOfWork.TvSeriasRepository.Queryable()
-            //                            .Include(tv => tv.ListPerson)
-            //                            .FirstOrDefault(tv => tv.Id == episode.Season.TvSeriesId)
-            //                         let msg = $"{tvSeria.TitleRu} - {episode.TitleRu} ({episode.Number} серия {episode.Season.Number} сезона)"
-            //    select new PushNotificationModel
-            //    {
-            //        Message = msg,
-            //        Users = episode.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
-            //    }).ToList();
+            var pushNotifications = (from episode in episodes
+                                     let tvSeria = _unitOfWork.TvSeriasRepository.Queryable()
+                                         .Include(tv => tv.ListPerson)
+                                         .FirstOrDefault(tv => tv.Id == episode.Season.TvSeriesId)
+                                     let msg = $"{tvSeria.TitleRu} - {episode.TitleRu} ({episode.Number} серия {episode.Season.Number} сезона)"
+                                     select new PushNotificationModel
+                                     {
+                                         Message = msg,
+                                         Users = episode.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
+                                     }).ToList();
 
-            //return pushNotifications;
-
-            throw new NotImplementedException();
+            return pushNotifications;
         }
 
 
@@ -234,17 +232,15 @@ namespace Rocket.Notifications.Notificator
         /// <returns>список уведомлений</returns>
         private static IEnumerable<PushNotificationModel> CastMusicToPushModel(IEnumerable<DbMusic> musicReleases)
         {
-            //var pushNotifications = (from musicRelease in musicReleases
-            //    let msg = musicRelease.Artist + " " + musicRelease.Title
-            //    select new PushNotificationModel
-            //    {
-            //        Message = msg,
-            //        Users = musicRelease.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
-            //    }).ToList();
+            var pushNotifications = (from musicRelease in musicReleases
+                                     let msg = musicRelease.Artist + " " + musicRelease.Title
+                                     select new PushNotificationModel
+                                     {
+                                         Message = msg,
+                                         Users = musicRelease.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
+                                     }).ToList();
 
-            //return pushNotifications;
-
-            throw new NotImplementedException();
+            return pushNotifications;
         }
 
         /// <summary>
@@ -258,7 +254,6 @@ namespace Rocket.Notifications.Notificator
         {
             var content = new StringContent(pushNotifications.ToString(), Encoding.UTF8, Resources.JsonMIMEType);
             var response = await _httpClient.PostAsync(settings.PushUrl, content);
-            //var responseСontent = await response.Content.ReadAsStringAsync();
             return response.StatusCode == System.Net.HttpStatusCode.NoContent 
                 || response.StatusCode == System.Net.HttpStatusCode.OK;
         }
