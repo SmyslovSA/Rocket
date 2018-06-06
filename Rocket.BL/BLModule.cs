@@ -38,6 +38,7 @@ namespace Rocket.BL
                         new SmtpClient(),
                         new SmtpClient()
                     });
+            Bind<ISubscriptionService>().To<SubscriptionService>();
             Bind<IMailTransport>().To<SmtpClient>();
         }
     }

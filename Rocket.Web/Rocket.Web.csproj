@@ -367,6 +367,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ReleaseList\GenreController.cs" />
+    <Compile Include="Controllers\ReleaseList\SubscriptionController.cs" />
     <Compile Include="Controllers\UserPayments\IPNController.cs" />
     <Compile Include="Controllers\UserPayments\UserPaymentsController.cs" />
     <Compile Include="Owin\Clients.cs" />

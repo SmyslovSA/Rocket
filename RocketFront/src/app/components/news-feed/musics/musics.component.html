@@ -3,7 +3,7 @@
   <div class="col-sm-6 col-xl-4 mb-4" *ngFor="let music of musicPage?.PageItems">
     <div class="card box-shadow h-100">
       <div class="position-relative">
-        <img class="card-img-top" src="{{music.PosterImagePath}}">
+        <img class="card-img-top" src="{{music.PosterImageUrl}}">
         <div class="position-absolute poster-info w-100 px-3">
           <div class="float-right">{{music.ReleaseDate | date:'dd.MM.yyyy'}}</div>
         </div>

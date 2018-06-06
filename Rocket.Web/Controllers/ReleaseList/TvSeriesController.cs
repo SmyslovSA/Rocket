@@ -1,5 +1,6 @@
 ﻿using Rocket.BL.Common.Services.ReleaseList;
 using System.Web.Http;
+using IdentityServer3.Core.Extensions;
 using Rocket.Web.ConfigHandlers;
 using Rocket.Web.Properties;
 

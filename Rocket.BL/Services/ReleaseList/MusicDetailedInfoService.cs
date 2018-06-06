@@ -98,33 +98,47 @@ namespace Rocket.BL.Services.ReleaseList
                        .FirstOrDefault() != null;
         }
 
-		/// <summary>
-		/// Возвращает страницу музыкальных релизов с заданным номером и размером,
-		/// музыкальные релизы сортированы по дата релиза
-		/// </summary>
-		/// <param name="pageSize">Размер страницы</param>
-		/// <param name="pageNumber">Номер страницы</param>
-		/// <param name="genreId">Идентификатор жанра</param>
-		/// <returns>Страница музыкальных релизов</returns>
-		public MusicPageInfo GetPageInfoByDate(int pageSize, int pageNumber, int? genreId = null)
+        /// <inheritdoc />
+        /// <summary>
+        /// Возвращает коллекцию музыкальных релизов с датой выхода
+        /// между заданными начальной и конечной датами включительно
+        /// </summary>
+        /// <param name="startDate">Начальная дата</param>
+        /// <param name="endDate">Конечная дата</param>
+        /// <returns>Коллекция музыкальных релизов</returns>
+        public IEnumerable<Music> GetMusicByDates(DateTime startDate, DateTime endDate)
         {
-	        Expression<Func<DbMusic, bool>> filter = null;
-	        if (genreId != null)
-	        {
-		        filter = f => f.Genres.Select(g => g.Id).Contains(genreId.Value);
-	        }
+            var musics = _unitOfWork.MusicRepository.Get(
+                f => f.ReleaseDate >= startDate && f.ReleaseDate <= endDate);
 
-			var pageInfo = new MusicPageInfo();
+            return Mapper.Map<IEnumerable<Music>>(musics);
+        }
+
+        /// <summary>
+        /// Возвращает страницу музыкальных релизов с заданным номером и размером,
+        /// музыкальные релизы сортированы по дата релиза
+        /// </summary>
+        /// <param name="pageSize">Размер страницы</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <param name="genreId">Идентификатор жанра</param>
+        /// <returns>Страница музыкальных релизов</returns>
+        public MusicPageInfo GetPageInfoByDate(int pageSize, int pageNumber, int? genreId = null)
+        {
+            Expression<Func<DbMusic, bool>> filter = null;
+            if (genreId != null)
+            {
+                filter = f => f.Genres.Select(g => g.Id).Contains(genreId.Value);
+            }
+
+            var pageInfo = new MusicPageInfo();
             pageInfo.TotalItemsCount = _unitOfWork.MusicRepository.ItemsCount(filter);
             pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
             pageInfo.PageItems = Mapper.Map<IEnumerable<Music>>(_unitOfWork.MusicRepository.GetPage(
                 pageSize,
                 pageNumber,
                 filter,
-				o => o.OrderByDescending(t => t.ReleaseDate),
-                $"{nameof(Music.Musicians)}"
-				));
-
+                o => o.OrderByDescending(t => t.ReleaseDate),
+                $"{nameof(Music.Musicians)}"));
             return pageInfo;
         }
     }
