@@ -23,15 +23,15 @@ namespace Rocket.BL.Common.Models.ReleaseList
         /// </summary>
         public string PosterImagePath { get; set; }
 
-	    /// <summary>
-	    /// Url постера на сайте ресурса
-	    /// </summary>
-	    public string PosterImageUrl { get; set; }
+        /// <summary>
+        /// Url постера на сайте ресурса
+        /// </summary>
+        public string PosterImageUrl { get; set; }
 
-		/// <summary>
-		/// Возвращает или задает продолжительность музыкального релиза
-		/// </summary>
-		public TimeSpan Duration { get; set; }
+        /// <summary>
+        /// Возвращает или задает продолжительность музыкального релиза
+        /// </summary>
+        public TimeSpan Duration { get; set; }
 
         /// <summary>
         /// Возвращает или задает коллекцию жанров, к которым относится музыкальный релиз

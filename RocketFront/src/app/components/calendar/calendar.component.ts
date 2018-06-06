@@ -194,11 +194,33 @@ export class CalendarComponent implements OnInit {
   musicEvents(): void {
     this.nameCalendar = "Музыка"
     this.targetMethod = 3;    
+
+    const getStart: any = {
+      month: startOfMonth,
+      week: startOfWeek,
+      day: startOfDay
+    }[this.view];
+    const getEnd: any = {
+      month: endOfMonth,
+      week: endOfWeek,
+      day: endOfDay
+    }[this.view];
+
+    const params = new HttpParams()
+      .set(
+        'start_date',
+        format(getStart(this.viewDate), 'YYYY-MM-DD')
+      )
+      .set(
+        'end_date',
+        format(getEnd(this.viewDate), 'YYYY-MM-DD')
+      )
+
     this.events$ = this.http
-      .get('http://localhost:63613/music/page/1')
+      .get('http://localhost:63613/music/calendar', { params })
       .pipe(
-        map(({ PageItems }: { PageItems: ReleaseMusic[] }) => {
-          return PageItems.map((release: ReleaseMusic) => {
+        map(( results: ReleaseMusic[] ) => {
+          return results.map((release: ReleaseMusic) => {
             return {
               title: release.Title,
               start: new Date(release.ReleaseDate),
