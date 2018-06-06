@@ -65,15 +65,15 @@ namespace Rocket.BL.Services.Notification
         /// Отправка пользователю сообщения с благодарностью за совершенный донат
         /// либо оплату премиум аккаунта
         /// </summary>
-        /// <param name="id">Идентификатор пользователя <see cref="DbAuthorisedUser"/></param>
+        /// <param name="id">Идентификатор пользователя <see cref="DbUserProfile"/></param>
         /// <param name="sum">Оплаченная сумма</param>
         /// <param name="currency">Валюта совершенного платежа</param>
         /// <param name="type">Цель оплаты: премиум или донат</param>
-        public async Task SendBillingUserAsync(int id, decimal sum, string currency,
+        public async Task SendBillingUserAsync(string id, decimal sum, string currency,
             BillingType type)
         {
             var user = _unitOfWork.UserAuthorisedRepository.Get(
-                x => x.DbUserId == id, null, "DbUser").First();
+                x => x.DbUser_Id == id, null, "DbUser").First();
             var billing = Mapper.Map<BillingNotification>(user);
             billing.Sum = sum;
             billing.Currency = currency;

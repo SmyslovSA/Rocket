@@ -16,7 +16,7 @@ namespace Rocket.BL.Common.Mappings.Notification
                 .ForMember(d => d.Emails, opt => opt.Ignore())
                 .ReverseMap();
 
-            CreateMap<DbAuthorisedUser, BillingNotification>()
+            CreateMap<DbUserProfile, BillingNotification>()
                 .ForMember(d => d.Receiver, opt => opt.MapFrom(s => s.DbUser))
                 .ForPath(d => d.Receiver.Emails, opt => opt.MapFrom(s => s.Email.Select(x => x.Name).ToList()));
         }

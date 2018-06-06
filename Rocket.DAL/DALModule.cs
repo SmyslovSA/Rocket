@@ -10,6 +10,7 @@ using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.Subscription;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
@@ -58,7 +59,8 @@ namespace Rocket.DAL
             Bind<IDbUserRepository>().To<DbUserRepository>();
             Bind<IDbRoleRepository>().To<DbRoleRepository>();
             Bind<IDbPermissionRepository>().To<DbPermissionRepository>();
-            Bind<IDbAuthorisedUserRepository>().To<DbAuthorisedUserRepository>();
+            Bind<IDbUserProfileRepository>().To<DbUserProfileRepository>();
+            Bind<IBaseRepository<NotificationsSettingsEntity>>().To<BaseRepository<NotificationsSettingsEntity>>();
             Bind<IBaseRepository<NotificationsLogEntity>>().To<BaseRepository<NotificationsLogEntity>>();
             Bind<IDbEmailTemplateRepository>().To<DbEmailTemplateRepository>();
             Bind<IDbGuestBillingMessageRepository>().To<DbGuestBillingMessageRepository>();
@@ -66,6 +68,7 @@ namespace Rocket.DAL
             Bind<IDbReleaseMessageRepository>().To<DbReleaseMessageRepository>();
             Bind<IDbUserBillingMessageRepository>().To<DbUserBillingMessageRepository>();
             Bind<IDbCustomMessageRepository>().To<DbCustomMessageRepository>();
+            Bind<IBaseRepository<SubscribableEntity>>().To<BaseRepository<SubscribableEntity>>();
 
             Bind<RocketUserManager>().ToSelf().InRequestScope();
             Bind<RockeRoleManager>().ToSelf().InRequestScope();

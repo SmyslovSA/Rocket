@@ -10,13 +10,13 @@
         /// получение инфы о платеже.
         /// </summary>
         /// <param name="user">Экземпляр пользователя, для которого ищем инфу о платеже.</param>
-        /// <returns> foobar </returns>
-        Models.UserPayment.UserPayment GetUserPayment(Models.User.User user);
+        /// <returns>Платеж пользователя.</returns>
+        Models.UserPayment GetUserPayment(Models.User.User user);
 
         /// <summary>
         /// добавление инфы о платеже.
         /// </summary>
         /// <param name="payment">Информация о платеже</param>
-        void AddUserPayment(Models.UserPayment.UserPayment payment);
+        void AddUserPayment(Models.UserPayment payment);
     }
 }

@@ -36,8 +36,8 @@ namespace Rocket.Notifications
                         serviceConfigurator.WhenStarted((service, control) => service.Start(control));
                         serviceConfigurator.WhenStopped((service, control) => service.Stop(control));
 
-                        //Запуск процесса рассылки push-уведомлений 
-                        PushNotificationsProcess(serviceConfigurator, kernel);
+                        //Запуск процесса рассылки уведомлений 
+                        NotificationsProcess(serviceConfigurator, kernel);
                     });
 
                     configurator.StartAutomatically();
@@ -51,36 +51,36 @@ namespace Rocket.Notifications
         }
 
         /// <summary>
-        /// Добавляет в конфигуратор Quartz задание по расписанию для push-уведомлений.
+        /// Добавляет в конфигуратор Quartz задание по расписанию для уведомлений.
         /// </summary>
         /// <param name="serviceConfigurator">Конфигуратор Quartz.</param>
         /// <param name="kernel">DI контейнер</param>
-        private static void PushNotificationsProcess(
+        private static void NotificationsProcess(
             ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
             var notificationsSettingsRepository = kernel.Get<IBaseRepository<NotificationsSettingsEntity>>();
             var resource = notificationsSettingsRepository
-                .Queryable().First(r => r.Name.Equals(Resources.PushNotificationsSettings));
+                .Queryable().First(r => r.Name.Equals(Resources.NotificationsSettings));
 
-            var pushNotificationsIsSwitchOn = resource.NotifyIsSwitchOn;
-            var pushNotificationsPeriodInMinutes = resource.NotifyPeriodInMinutes;
+            var notificationsIsSwitchOn = resource.NotifyIsSwitchOn;
+            var notificationsPeriodInMinutes = resource.NotifyPeriodInMinutes;
 
-            if (!pushNotificationsIsSwitchOn) return;
+            if (!notificationsIsSwitchOn) return;
 
-            ITrigger PushNotificationsTrigger() => TriggerBuilder.Create()
-                .WithSimpleSchedule(builder => builder.WithIntervalInMinutes(pushNotificationsPeriodInMinutes)
+            ITrigger NotificationsTrigger() => TriggerBuilder.Create()
+                .WithSimpleSchedule(builder => builder.WithIntervalInMinutes(notificationsPeriodInMinutes)
                     .WithMisfireHandlingInstructionIgnoreMisfires()
                     .RepeatForever())
                 .Build();
 
-            IJobDetail pushNotificationsTriggerJob = JobBuilder.Create<PushNotificationsJob>().Build();
-            pushNotificationsTriggerJob.JobDataMap.Put(CommonHelper.ContainerKey, kernel);
+            IJobDetail notificationsTriggerJob = JobBuilder.Create<NotificationsJob>().Build();
+            notificationsTriggerJob.JobDataMap.Put(CommonHelper.ContainerKey, kernel);
 
-            // Запускает push-уведомления
+            // Запускает уведомления
             serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
                 jobConfigurator
-                    .WithJob(() => pushNotificationsTriggerJob)
-                    .AddTrigger(PushNotificationsTrigger));
+                    .WithJob(() => notificationsTriggerJob)
+                    .AddTrigger(NotificationsTrigger));
         }
 
     }

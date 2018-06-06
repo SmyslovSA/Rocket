@@ -154,7 +154,7 @@
     <Compile Include="Configurations\ReleaseList\DbMusicGenreConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicianConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicTrackConfiguration.cs" />
-    <Compile Include="Configurations\PersonalArea\DbAuthorisedUserConfiguration.cs" />
+    <Compile Include="Configurations\PersonalArea\DbUserProfileConfiguration.cs" />
     <Compile Include="Configurations\Subscription\SubscribableConfiguration.cs" />
     <Compile Include="Configurations\User\DbEmailAddressConfiguratin.cs" />
     <Compile Include="Configurations\ResourceMap.cs" />
@@ -170,9 +170,21 @@
     <Compile Include="DALModule.cs" />
     <Compile Include="Identity\RockeRoleManager.cs" />
     <Compile Include="Identity\RocketUserManager.cs" />
-    <Compile Include="Migrations\201806041703124_Initial.cs" />
-    <Compile Include="Migrations\201806041703124_Initial.Designer.cs">
-      <DependentUpon>201806041703124_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201806052014237_InitAll.cs" />
+    <Compile Include="Migrations\201806052014237_InitAll.Designer.cs">
+      <DependentUpon>201806052014237_InitAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806052017434_InitData.cs" />
+    <Compile Include="Migrations\201806052017434_InitData.Designer.cs">
+      <DependentUpon>201806052017434_InitData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.cs" />
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.Designer.cs">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.cs" />
+    <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.Designer.cs">
+      <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201806061127444_Alekhno.cs" />
     <Compile Include="Migrations\201806061127444_Alekhno.Designer.cs">
@@ -204,7 +216,7 @@
     <Compile Include="Repositories\Notification\DbReceiverRepository.cs" />
     <Compile Include="Repositories\Notification\DbReleaseMessageRepository.cs" />
     <Compile Include="Repositories\Notification\DbUserBillingMessageRepository.cs" />
-    <Compile Include="Repositories\PersonalArea\DbAuthorisedUserRepository.cs" />
+    <Compile Include="Repositories\PersonalArea\DbUserProfileRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbEmailRepository.cs" />
     <Compile Include="Repositories\UserRole\DbPermissionRepository.cs" />
     <Compile Include="Repositories\UserRole\DbRoleRepository.cs" />
@@ -229,13 +241,23 @@
   <ItemGroup>
     <Content Include="Migrations\SQLQueries\InitCategory.sql" />
     <Content Include="Migrations\SQLQueries\InitEmailTemplates.sql" />
+    <Content Include="Migrations\SQLQueries\InitNotificationsSettings.sql" />
     <Content Include="Migrations\SQLQueries\InitPersonTypes.sql" />
     <Content Include="Migrations\SQLQueries\InitLostfilmParserSettings.sql" />
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806041703124_Initial.resx">
-      <DependentUpon>201806041703124_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806052014237_InitAll.resx">
+      <DependentUpon>201806052014237_InitAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806052017434_InitData.resx">
+      <DependentUpon>201806052017434_InitData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806060130196_ChangeAuthUserIdToString.resx">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806060148580_RenameAuthUserToUserProfile.resx">
+      <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806061127444_Alekhno.resx">
       <DependentUpon>201806061127444_Alekhno.cs</DependentUpon>

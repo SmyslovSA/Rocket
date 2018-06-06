@@ -72,9 +72,9 @@
     <Compile Include="Heplers\BootstrapHelper.cs" />
     <Compile Include="Heplers\CommonHelper.cs" />
     <Compile Include="Interfaces\INinjectModuleBootstrapper.cs" />
-    <Compile Include="Jobs\PushNotificationsJob.cs" />
-    <Compile Include="Interfaces\IPushNotifications.cs" />
-    <Compile Include="Notifications\PushNotifications.cs" />
+    <Compile Include="Jobs\NotificationsJob.cs" />
+    <Compile Include="Interfaces\IPushNotificator.cs" />
+    <Compile Include="Notificator\Notificator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -92,6 +92,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rocket.BL.Common\Rocket.BL.Common.csproj">
+      <Project>{80692a9e-fd37-4473-9e91-fe1d345ee27a}</Project>
+      <Name>Rocket.BL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rocket.BL\Rocket.BL.csproj">
+      <Project>{8bf7299b-0c16-4451-8c47-02645e05cf77}</Project>
+      <Name>Rocket.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
       <Project>{4383c0ff-4c4a-4c42-bb46-5a5137e5e7ad}</Project>
       <Name>Rocket.DAL.Common</Name>
@@ -100,12 +114,10 @@
       <Project>{67c097cc-75da-45ad-95d9-595ccf0a1063}</Project>
       <Name>Rocket.DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Rocket.Web\Rocket.Web.csproj">
+      <Project>{1aafa5b0-fbe9-4ab4-a16d-24becdd34aae}</Project>
+      <Name>Rocket.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

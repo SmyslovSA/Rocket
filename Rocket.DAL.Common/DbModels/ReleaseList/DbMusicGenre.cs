@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.Common.DbModels.ReleaseList
@@ -18,5 +19,10 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// которые относятся к этому жанру
         /// </summary>
         public ICollection<DbMusic> DbMusics { get; set; }
+
+        /// <summary>
+        /// Возвращает или задает коллекцию пользователей, подписанных на этот жанр
+        /// </summary>
+        public ICollection<DbUserProfile> DbAuthorisedUsers { get; set; }
     }
 }

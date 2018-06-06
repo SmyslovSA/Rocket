@@ -8,7 +8,6 @@ using IdentityServer3.Core.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Owin;
-using Rocket.BL.Services;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.Web.Identity;
 using Rocket.Web.Owin;
@@ -19,6 +18,12 @@ namespace Rocket.Web
 {
     public class Startup
     {
+        // 1. AppHandler
+        // 2. AuthorizeAttribute
+        // 3. DefaultRole   InfoLogService
+        // 4. Perfomance  IUserService
+        // 5. Loger fileName   InfoLogService
+
         public void Configuration(IAppBuilder app)
         {
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
@@ -39,10 +44,6 @@ namespace Rocket.Web
             factory.Register(new Registration<UserManager<DbUser, string>>());
             factory.Register(new Registration<RocketIdentityService>());
 
-            // test logservice
-            //var asdf = new InfoLogService();
-            //var azsd = asdf.GetLogInfo();
-
             app.UseIdentityServer(new IdentityServerOptions
             {
                 RequireSsl = false,
@@ -54,9 +55,9 @@ namespace Rocket.Web
 
             var opt = new IdentityServerBearerTokenAuthenticationOptions
             {
-                Authority = "http://localhost:2383", // ?
+                Authority = "http://localhost:63613", // ?
                 RequiredScopes = new[] { "openid" },
-                IssuerName = "http://localhost:2383", // ?
+                IssuerName = "http://localhost:63613", // ?
                 SigningCertificate = LoadCertificate(),
                 ValidationMode = ValidationMode.ValidationEndpoint
             };
@@ -66,8 +67,10 @@ namespace Rocket.Web
 
         private X509Certificate2 LoadCertificate()
         {
+            //return new X509Certificate2(
+            //    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempRocket.cer"), "TempRocket");
             return new X509Certificate2(
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempRocket.cer"), "TempRocket");
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"bin\idsrv3test.pfx"), "idsrv3test");
         }
     }
 }

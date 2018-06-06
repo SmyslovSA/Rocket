@@ -24,7 +24,7 @@ namespace Rocket.BL.Services.User
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work.
         /// </summary>
-        /// <param name="unitOfWork">Экземпляр unit of work.</param>
+        /// <param name="unitOfWork"></param>
         /// <param name="usermanager"></param>
         public UserManagementService(IUnitOfWork unitOfWork, RocketUserManager usermanager)
             : base(unitOfWork)
@@ -64,10 +64,9 @@ namespace Rocket.BL.Services.User
         /// <returns>Экземпляр пользователя.</returns>
         public async Task<Common.Models.User.User> GetUser(string id)
         {
-
             var user = await this._usermanager.FindByIdAsync(id).ConfigureAwait(false);
 
-            return Mapper.Map<Common.Models.User.User>(user); ;
+            return Mapper.Map<Common.Models.User.User>(user);
         }
 
         /// <summary>
@@ -93,6 +92,7 @@ namespace Rocket.BL.Services.User
         /// Обновляет информацию заданного пользователя в хранилище данных.
         /// </summary>
         /// <param name="user">Экземпляр пользователя для обновления.</param>
+        /// <returns> Task </returns>
         public async Task UpdateUser(Common.Models.User.User user)
         {
             var dbUser = Mapper.Map<DbUser>(user);
@@ -111,6 +111,7 @@ namespace Rocket.BL.Services.User
         /// Удаляет пользователя с заданным идентификатором из хранилища данных.
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
+        /// <returns> Task </returns>
         public async Task DeleteUser(string id)
         {
             var user = await this._usermanager.FindByIdAsync(id).ConfigureAwait(false);

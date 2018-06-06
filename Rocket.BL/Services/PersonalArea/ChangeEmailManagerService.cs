@@ -19,7 +19,8 @@ namespace Rocket.BL.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id авторизованного пользователь, инициировавшего смену</param>
         /// <param name="email">Email, который необходимо добавить.</param>
-        public void AddEmail(int id, Email email)
+        /// <returns>Id добавленного e-mail</returns>
+        public int AddEmail(string id, Email email)
         {
             if (_unitOfWork.EmailRepository.Get()
                     .FirstOrDefault(c => c.Name == email.Name) != null)
@@ -27,9 +28,10 @@ namespace Rocket.BL.Services.PersonalArea
                 throw new ValidationException(Resources.EmailDuplicate);
             }
 
-            var emails = new DbEmail() { Name = email.Name, DbAuthorisedUserId = id };
+            var emails = new DbEmail() { Name = email.Name, DbUserProfileId = id };
             _unitOfWork.EmailRepository.Insert(emails);
             _unitOfWork.SaveChanges();
+            return emails.Id;
         }
 
         /// <summary>

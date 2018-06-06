@@ -7,8 +7,7 @@ namespace Rocket.DAL.Configurations.Parser
     {
         public EpisodeEntityMap()
         {
-            ToTable("Episode")
-                .HasKey(p => p.Id);
+            ToTable("Episode");
 
             Property(p => p.ReleaseDateRu)
                 .IsOptional()
