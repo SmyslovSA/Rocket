@@ -6,9 +6,11 @@ using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Services;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
 using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Context;
 using Rocket.Web.Identity;
 using Rocket.Web.Owin;
 
@@ -34,16 +36,16 @@ namespace Rocket.Web
 
             var factory =
                 new IdentityServerServiceFactory()
-                    //{
-                    //    UserService =
-                    //        new Registration<IUserService>(DependencyResolver.Current.GetService<IUserService>())
-                    //}
+                {
+                    UserService =
+                            new Registration<IUserService, RocketIdentityService>()
+                }
                     .UseInMemoryClients(Clients.Load())
-                    .UseInMemoryScopes(Scopes.Load())
-                    .UseInMemoryUsers(Users.Load());
+                    .UseInMemoryScopes(Scopes.Load());
+
 
             factory.Register(new Registration<UserManager<DbUser, string>>());
-            factory.Register(new Registration<RocketIdentityService>());
+            factory.Register(new Registration<IUserStore<DbUser,string>>(resolver => new UserStore<DbUser>(new RocketContext())));
 
             app.UseIdentityServer(new IdentityServerOptions
             {
