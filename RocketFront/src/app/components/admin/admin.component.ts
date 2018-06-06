@@ -40,11 +40,15 @@ export class AdminComponent implements OnInit {
 
     switch(this.currTemplate) { 
       case '1': { 
-         this.users = this.adminService.getAllUsers();
+         this.adminService.getAllUsers().subscribe(data => {
+          this.users = data;
+         });
          break; 
       } 
       case '2': { 
-        this.roles = this.adminService.getAllRoles();
+        this.adminService.getAllRoles().subscribe(data => {
+          this.roles = data;
+        });
          break; 
       } 
       case '3': { 
@@ -54,12 +58,7 @@ export class AdminComponent implements OnInit {
      case '4': { 
       //statements; 
       break; 
-    } 
-      default: { 
-        this.currTemplate = '1';
-        this.users = this.adminService.getAllUsers();
-         break; 
-      } 
+    }       
    } 
 
   }

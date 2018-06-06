@@ -21,8 +21,7 @@ import { RocketAuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent },
-  //{ path: 'admin', component: AdminComponent, canActivate: [RocketAuthGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [RocketAuthGuard] },
   { path: 'donate', component: DonateComponent },
   {
     path: 'news',
