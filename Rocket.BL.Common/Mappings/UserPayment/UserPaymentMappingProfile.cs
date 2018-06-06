@@ -13,6 +13,7 @@ namespace Rocket.BL.Common.Mappings
         {
             CreateMap<UserPayment, DbUserPayment>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
                 .ForMember(dest => dest.Currentcy, opt => opt.MapFrom(src => src.Currentcy))

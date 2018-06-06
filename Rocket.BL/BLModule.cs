@@ -3,9 +3,11 @@ using Ninject.Modules;
 using Rocket.BL.Common.Services;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.BL.Common.Services.ReleaseList;
+using Rocket.BL.Common.Services.User;
 using Rocket.BL.Services;
 using Rocket.BL.Services.PersonalArea;
 using Rocket.BL.Services.ReleaseList;
+using Rocket.BL.Services.User;
 using Rocket.BL.Validators.User;
 
 namespace Rocket.BL

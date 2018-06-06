@@ -27,7 +27,7 @@ namespace Rocket.Web.Controllers
         private readonly IUserPaymentService _userPaymentService;
         private readonly IUserAccountLevelService _userAccountLevelService;
 
-        public IPNController(IUserPaymentService userPaymentService)
+        public IPNController(IUserPaymentService userPaymentService, IUserAccountLevelService userAccountLevelService)
         {
             _userPaymentService = userPaymentService;
             _userAccountLevelService = userAccountLevelService;
@@ -106,8 +106,10 @@ namespace Rocket.Web.Controllers
                 // process payment
                 var paymentInfo = ipnContext.RequestBody;
                 var payment = new BL.Common.Models.UserPayment();
-                //var user = new Rocket.BL.Common.Models.User.User();
 
+                int userID = 0; //TODO: взять ид юзера из сообщения о поступлении платежа
+
+                payment.UserId = userID;
                 payment.FirstName = new Regex(@"first_name\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.LastName = new Regex(@"last_name\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.Result = new Regex(@"payment_status\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();

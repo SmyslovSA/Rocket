@@ -145,6 +145,7 @@
     <Compile Include="Configurations\ReleaseList\DbMusicTrackConfiguration.cs" />
     <Compile Include="Configurations\PersonalArea\DbAuthorisedUserConfiguration.cs" />
     <Compile Include="Configurations\Subscription\SubscribableConfiguration.cs" />
+    <Compile Include="Configurations\UserPayment\UserPaymentConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
     <Compile Include="Configurations\UserRoleEntities\DbUserConfiguration.cs" />

@@ -13,7 +13,7 @@
         /// <summary>
         /// Возвращает или задает пользователя
         /// </summary>
-        public virtual Rocket.BL.Common.Models.User.User User { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Возвращает или задает имя человека, указанное при проведении платежа

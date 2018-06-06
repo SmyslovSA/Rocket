@@ -17,6 +17,7 @@ using Rocket.DAL.Configurations.UserRoleEntities;
 using System.Data.Entity;
 using Rocket.DAL.IdentityModule;
 using Rocket.DAL.Migrations;
+using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.Context
 {
