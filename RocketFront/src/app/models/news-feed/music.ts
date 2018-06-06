@@ -5,5 +5,6 @@ export class Music {
   Title: string;
   ReleaseDate: Date;
   PosterImagePath: string;
+  PosterImageUrl: string;
   Musicians: Musician[];
 }

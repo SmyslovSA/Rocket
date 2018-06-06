@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Rocket.BL.Common.Models.Pagination;
 using Rocket.BL.Common.Models.ReleaseList;
@@ -54,5 +55,14 @@ namespace Rocket.BL.Common.Services.ReleaseList
         /// <param name="filter">Лямбда-выражение определяющее фильтр для поиска музыки</param>
         /// <returns>Возвращает <see langword="true"/>, если музыкальный релиз существует в хранилище данных</returns>
         bool MusicExists(Expression<Func<Music, bool>> filter);
+
+        /// <summary>
+        /// Возвращает коллекцию музыкальных релизов с датой выхода
+        /// между заданными начальной и конечной датами включительно
+        /// </summary>
+        /// <param name="startDate">Начальная дата</param>
+        /// <param name="endDate">Конечная дата</param>
+        /// <returns>Коллекция музыкальных релизов</returns>
+        IEnumerable<Music> GetMusicByDates(DateTime startDate, DateTime endDate);
     }
 }
