@@ -42,10 +42,8 @@ this.listGenreMusicForFront.push(gen);
     this.dataservice.changeData(this.data).subscribe();
   }
 
-  changeUserPassword(password: string, passwordConfirm: string) {
-    this.dataservice.changePassword(password, passwordConfirm).subscribe();
-    // добавить reqExp на ввод пароля
-    // проверить привязки в html
+  changeUserPassword(pass: string, passConfirm: string) {
+    this.dataservice.changePassword(pass, passConfirm).subscribe();
   }
 
   addEmail(newEmail: string) {

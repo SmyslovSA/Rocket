@@ -30,16 +30,13 @@
               type="submit">Change personal info</button>
               <br>
               <label for="password">New password</label>
-              <input type="text" class="form-control" id="password" placeholder="More than 6 symbols" [(ngModel)]="newPassword" required>
-              <div class="invalid-feedback">
-                  Valid password  is required.
-              </div>
-              <input type="text" class="form-control" id="passwordConfirm" placeholder="Password confirm" [(ngModel)]="newPasswordConfirm" required>
-              <div class="invalid-feedback">
-                  Valid password confirm is required.
-              </div>
+              <input type="password" class="form-control" id="password" placeholder="More than 6 symbols" [(ngModel)]="newPassword" #password="ngModel"
+              required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,20}$">
+              <input type="password" class="form-control" id="passwordConfirm" placeholder="Password confirm" [(ngModel)]="confirmNewPassword" #passwordConfirm="ngModel"
+              required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,20}$">
               <br>
-              <button class="btn btn-success btn btn-block" (click)="changeUserPassword(newPassword,newPasswordConfirm)" type="submit">Change password</button>
+              <button [disabled]="password.invalid || passwordConfirm.invalid || newPassword != confirmNewPassword" class="btn btn-success btn btn-block" 
+              (click)="changeUserPassword(newPassword,confirmNewPassword)" type="submit">Change password</button>
               <br> 
               <label for="email">Emails</label>
               <div *ngFor="let emails of data.Emails">
@@ -56,8 +53,9 @@
                 <table class="table">
                   <tbody>
                       <tr>
-                        <td style="width: 60%"><input type="email" class="form-control" id="email" placeholder="Enter your e-mail"[(ngModel)]="newEmail"></td>
-                        <td style="width: 40%"><button class="btn btn-success btn btn-block" (click)="addEmail(newEmail)">Add Email</button></td>
+                        <td style="width: 60%"><input type="email" class="form-control" id="email" 
+                          placeholder="Enter your e-mail"[(ngModel)]="newEmail" #Email="ngModel" required pattern="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"></td>
+                        <td style="width: 40%"><button [disabled]="Email.invalid" class="btn btn-success btn btn-block" (click)="addEmail(newEmail)">Add Email</button></td>
                       </tr>
                   </tbody>
                 </table>

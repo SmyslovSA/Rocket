@@ -299,3 +299,4 @@ __pycache__/
 
 # End of https://www.gitignore.io/api/visualstudio
 RocketFront/.angulardoc.json
+RocketFront/package-lock.json
