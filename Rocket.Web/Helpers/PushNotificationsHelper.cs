@@ -53,7 +53,6 @@ namespace Rocket.Web.Helpers
         //    }
         //}
 
-
         /// <summary>
         /// Добавляет подписчиков на музыкальный релиз, если те подписаны на исполнителя из этого релиза
         /// </summary>
@@ -72,6 +71,5 @@ namespace Rocket.Web.Helpers
         //        }
         //    }
         //}
-
     }
 }

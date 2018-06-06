@@ -37,7 +37,6 @@ namespace Rocket.Web.Controllers
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.NoContent);
-
         }
 
         [System.Web.Http.HttpPost]

@@ -6,9 +6,11 @@ using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Services;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
 using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Context;
 using Rocket.Web.Identity;
 using Rocket.Web.Owin;
 
@@ -20,11 +22,11 @@ namespace Rocket.Web
     {
         // 1. AppHandler
         // 2. AuthorizeAttribute
-        // 3. DefaultRole   InfoLogService
+        // 3. DefaultRole   InfoLogService 
         // 4. Perfomance  IUserService  ++
-        // 5. Loger fileName   InfoLogService
+        // 5. Loger fileName   InfoLogService  ++
         // 6. canActivate: [RocketAuthGuard] front
-        // 7. delete Users front
+        // 7. delete /Users front
 
         public void Configuration(IAppBuilder app)
         {
@@ -35,14 +37,12 @@ namespace Rocket.Web
                 new IdentityServerServiceFactory
                 {
                     UserService = new Registration<IUserService, RocketIdentityService>()
-                    //new Registration<IUserService>(DependencyResolver.Current.GetService<IUserService>())
                 }
                 .UseInMemoryClients(Clients.Load())
-                .UseInMemoryScopes(Scopes.Load())
-                /*.UseInMemoryUsers(Users.Load())*/;
+                .UseInMemoryScopes(Scopes.Load());
 
             factory.Register(new Registration<UserManager<DbUser, string>>());
-            factory.Register(new Registration<RocketIdentityService>());
+            factory.Register(new Registration<IUserStore<DbUser,  string>>(resolver => new UserStore<DbUser>(new RocketContext())));
 
             app.UseIdentityServer(new IdentityServerOptions
             {
@@ -67,8 +67,6 @@ namespace Rocket.Web
 
         private X509Certificate2 LoadCertificate()
         {
-            //return new X509Certificate2(
-            //    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempRocket.cer"), "TempRocket");
             return new X509Certificate2(
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"bin\idsrv3test.pfx"), "idsrv3test");
         }

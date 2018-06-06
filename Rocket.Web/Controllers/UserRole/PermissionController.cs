@@ -15,22 +15,21 @@ namespace Rocket.Web.Controllers.UserRole
     [RoutePrefix("permission")]
     public class PermissionController : ApiController
     {
-        public readonly PermissionService _permissionService;
+        private readonly PermissionService _permissionService;
 
         public PermissionController(PermissionService permissionService)
         {
             _permissionService = permissionService;
         }
-
         
         [HttpGet]
         [Route("{id:int:min(1)}")]
         public IHttpActionResult GetPermissionById(string id)
         {
             var model = _permissionService.GetPermissionByYser(id);
-            return model == null ? (IHttpActionResult)NotFound() : Ok(model); ;
+
+            return model == null ? (IHttpActionResult)NotFound() : Ok(model);
         }
-        
 
         [HttpGet]
         [Route("GetPermissionByRole{id:int:min(1)}")]

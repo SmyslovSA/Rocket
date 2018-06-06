@@ -82,7 +82,6 @@ namespace Rocket.DAL
                 .InRequestScope()
                 .WithConstructorArgument("context", new RocketContext());
 
-
             //Bind<IUserStore<DbUser, string>>()
             //    .ToConstructor(ctx => new UserStore<>())
             //    .ToConstructor(context => new UserStore<DbUser, DbRole, string, DbUserLogin, DbUserRole, DbUserClaim>(context.Inject<DbContext>()))
