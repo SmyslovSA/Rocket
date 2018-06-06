@@ -22,6 +22,11 @@ namespace Rocket.DAL.Configurations.Notification
             Property(p => p.NotifyPeriodInMinutes)
                 .IsRequired()
                 .HasColumnName("NotifyPeriodInMinutes");
+
+            Property(p => p.PushUrl)
+                .IsRequired()
+                .HasColumnName("PushUrl")
+                .HasMaxLength(100);
         }
     }
 }

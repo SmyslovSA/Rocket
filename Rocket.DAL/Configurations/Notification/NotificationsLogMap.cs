@@ -10,18 +10,6 @@ namespace Rocket.DAL.Configurations.Notification
             ToTable("NotificationsLog")
                 .HasKey(p => p.Id);
 
-            Property(p => p.NotificationType)
-                .IsRequired()
-                .HasColumnName("NotificationType");
-
-            Property(p => p.UserId)
-                .IsRequired()
-                .HasColumnName("UserId");
-
-            Property(p => p.ReleaseType)
-                .IsRequired()
-                .HasColumnName("ReleaseType");
-
             Property(p => p.ReleaseId)
                 .IsRequired()
                 .HasColumnName("ReleaseId");

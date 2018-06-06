@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Castle.Core.Internal;
 
 namespace Rocket.BL.Services.ReleaseList
 {
@@ -26,7 +27,7 @@ namespace Rocket.BL.Services.ReleaseList
         {
         }
 
-        public PageInfo<TvSeriesMinimalDto> GetPageInfo(int pageSize, int pageNumber, int? genreId = null)
+        public PageInfo<TvSeriesMinimalDto> GetPageInfo(int pageSize, int pageNumber, int? genreId = null, string userId = null)
         {
             Expression<Func<TvSeriasEntity, bool>> filter = null;
             if (genreId != null)
@@ -37,13 +38,20 @@ namespace Rocket.BL.Services.ReleaseList
             var pageInfo = new PageInfo<TvSeriesMinimalDto>();
             pageInfo.TotalItemsCount = _unitOfWork.TvSeriasRepository.ItemsCount(filter);
             pageInfo.TotalPagesCount = (int)Math.Ceiling((double)pageInfo.TotalItemsCount / pageSize);
-            pageInfo.PageItems = Mapper.Map<IEnumerable<TvSeriesMinimalDto>>(
+            pageInfo.PageItems = Mapper.Map<IEnumerable<TvSeriasEntity>, IEnumerable<TvSeriesMinimalDto>>(
                 _unitOfWork.TvSeriasRepository.GetPage(
                     pageSize,
                     pageNumber,
                     filter,
                     o => o.OrderByDescending(t => t.LostfilmRate),
-                    $"{nameof(TvSeriasEntity.ListGenreEntity)}"));
+                    $"{nameof(TvSeriasEntity.ListGenreEntity)},{nameof(TvSeriasEntity.Users)}"),
+                opts => opts.AfterMap((src, dest) =>
+                {
+                    foreach (var tvSeries in dest)
+                    {
+                        tvSeries.IsUserSubscribed = src.First(x => x.Id == tvSeries.Id).Users.Any(x => x.Id == userId);
+                    }
+                }));
 
             return pageInfo;
         }

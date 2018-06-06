@@ -117,8 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PushNotificationsSettings" xml:space="preserve">
-    <value>PushNotifications</value>
-    <comment>Для получения настройки сервиса push-уведомлений</comment>
+  <data name="JsonMIMEType" xml:space="preserve">
+    <value>application/json</value>
+    <comment>MIME тип для JSON</comment>
+  </data>
+  <data name="NotificationsSettings" xml:space="preserve">
+    <value>Notifications</value>
+    <comment>Для получения настройки сервиса уведомлений</comment>
   </data>
 </root>

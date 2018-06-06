@@ -24,7 +24,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(Email))]
-        public IHttpActionResult AddEmail(int id, Email email)
+        public IHttpActionResult AddEmail(string id, Email email)
         {
             int? mail;
             if (email == null)

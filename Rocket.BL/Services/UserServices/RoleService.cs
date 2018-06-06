@@ -1,67 +1,98 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using AutoMapper;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Common.Logging;
-using Rocket.BL.Common.Models.UserRoles;
-using Rocket.BL.Common.Services;
-using Rocket.DAL.Common.DbModels.DbUserRole;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Identity;
 
 namespace Rocket.BL.Services.UserServices
 {
-    public class RoleService : BaseService, IRoleService
+    public class RoleService : BaseService //, IRoleService
     {
         private readonly ILog _logger;
+        private readonly RockeRoleManager _roleManager;
 
-        public RoleService(IUnitOfWork unitOfWork, ILog _logger) : base(unitOfWork)
+        public RoleService(IUnitOfWork unitOfWork, ILog logger, RockeRoleManager roleManager) 
+            : base(unitOfWork)
         {
-            this._logger = _logger;
+            _logger = logger;
+            _roleManager = roleManager;
         }
 
-        public bool RoleIsExists(Expression<Func<Role, bool>> filter)
+        public async Task<bool> RoleIsExists(string filter)
         {
-            return _unitOfWork.RoleRepository
-                .Get(Mapper.Map<Expression<Func<DbRole, bool>>>(filter))
-                .Any();
+            _logger.Trace($"Request RoleIsExists : filter {filter}");
+            return await _roleManager.RoleExistsAsync(filter).ConfigureAwait(false);
+
+            //return _unitOfWork.RoleRepository
+            //    .Get(Mapper.Map<Expression<Func<DbRole, bool>>>(filter))
+            //    .Any();
         }
 
-        public IEnumerable<Role> Get(
-            Expression<Func<DbRole, bool>> filter = null, 
-            Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, 
-            string includeProperties = "")
+        public IQueryable<IdentityRole> GetAllRoles()
         {
-            return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
+            _logger.Trace($"Request GetAllRoles");
+            return _roleManager.Roles;
         }
 
-        public Role GetById(int id)
+        //public IEnumerable<Role> Get(
+        //    Expression<Func<DbRole, bool>> filter = null, 
+        //    Func<IQueryable<DbRole>, IOrderedQueryable<DbRole>> orderBy = null, 
+        //    string includeProperties = "")
+        //{
+        //    return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
+        //}
+
+        public async Task<IdentityRole> GetById(string roleId)
         {
-            return Mapper.Map<Role>(
-                _unitOfWork.RoleRepository.GetById(id));
+            _logger.Trace($"Request GetById : roleId {roleId}");
+            return await _roleManager.FindByIdAsync(roleId).ConfigureAwait(false);
+
+            //return Mapper.Map<Role>(
+            //    _unitOfWork.RoleRepository.GetById(id));
         }
 
-        public void Insert(Role role)
+        public async Task<IdentityResult> Insert(DbRole role)
         {
-            var dbRole = Mapper.Map<DbRole>(role);
-            _unitOfWork.RoleRepository.Insert(dbRole);
-            _logger.Debug($"Role {dbRole} added in DB");
-            _unitOfWork.SaveChanges();
+            _logger.Trace($"Request Insert in queue: Role {role}");
+            var result = await _roleManager.CreateAsync(role).ConfigureAwait(false);
+
+            _logger.Trace($"Request Insert complete: Role {role}");
+            return result;
+
+            //var dbRole = Mapper.Map<DbRole>(role);
+            //_unitOfWork.RoleRepository.Insert(dbRole);
+            //_logger.Debug($"Role {dbRole} added in DB");
+            //_unitOfWork.SaveChanges();
         }
 
-        public void Update(Role role)
+        public async Task<IdentityResult> Update(DbRole role)
         {
-            var dbRole = Mapper.Map<DbRole>(role);
-            _unitOfWork.RoleRepository.Update(dbRole);
-            _logger.Debug($"Role {dbRole} updated in DB");
-            _unitOfWork.SaveChanges();
+            _logger.Trace($"Request Update in queue: Role {role}");
+            var result = await _roleManager.UpdateAsync(role).ConfigureAwait(false);
+
+            _logger.Trace($"Request Update complete: Role {role}");
+            return result;
+
+            //var dbRole = Mapper.Map<DbRole>(role);
+            //_unitOfWork.RoleRepository.Update(dbRole);
+            //_logger.Debug($"Role {dbRole} updated in DB");
+            //_unitOfWork.SaveChanges();
         }
 
-        public void Delete(int id)
+        public async Task<IdentityResult> Delete(DbRole role)
         {
-            _unitOfWork.RoleRepository.Delete(id);
-            _logger.Debug($"Role {id} removed from DB");
-            _unitOfWork.SaveChanges();
+            _logger.Trace($"Request Delete in queue: Role {role}");
+            var result = await _roleManager.DeleteAsync(role).ConfigureAwait(false);
+
+            _logger.Trace($"Request Delete complete: Role {role}");
+            return result;
+
+            //_unitOfWork.RoleRepository.Delete(id);
+            //_logger.Debug($"Role {id} removed from DB");
+            //_unitOfWork.SaveChanges();
         }
     }
 }

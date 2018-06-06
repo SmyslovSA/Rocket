@@ -24,10 +24,10 @@ namespace Rocket.BL.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id пользователя.</param>
         /// <returns>Модель авторизованного пользователя.</returns>
-        public SimpleUser GetUserData(int id)
+        public UserProfile GetUserData(string id)
         {
-            return Mapper.Map<SimpleUser>(_unitOfWork.UserAuthorisedRepository.Get(
-                    f => f.DbUserId == id,
+            return Mapper.Map<UserProfile>(_unitOfWork.UserAuthorisedRepository.Get(
+                    f => f.DbUser_Id == id,
                     includeProperties: $"{nameof(DbUser)}")
                     ?.FirstOrDefault());
         }
@@ -38,7 +38,7 @@ namespace Rocket.BL.Services.PersonalArea
         /// <param name="id">Id пользователя, инициировавшего смену пароля.</param>
         /// <param name="newPassword">Новый пароль.</param>
         /// <param name="newPasswordConfirm">Подтверждение пароля.</param>
-        public void ChangePasswordData(int id, string newPassword, string newPasswordConfirm)
+        public void ChangePasswordData(string id, string newPassword, string newPasswordConfirm)
         {
             if (!PasswordValidate(newPassword, newPasswordConfirm))
             {
@@ -46,7 +46,7 @@ namespace Rocket.BL.Services.PersonalArea
             }
 
             var user = _unitOfWork.UserRepository.GetById(id);
-            user.Password = newPassword;
+            user.PasswordHash = newPassword;
             _unitOfWork.UserRepository.Update(user);
             _unitOfWork.SaveChanges();
         }
@@ -58,11 +58,11 @@ namespace Rocket.BL.Services.PersonalArea
         /// <param name="firstName">Имя пользователя.</param>
         /// <param name="lastName">Фамилия пользователя.</param>
         /// <param name="avatar">Аватар пользователя.</param>
-        public void ChangePersonalData(int id, string firstName, string lastName, string avatar)
+        public void ChangePersonalData(string id, string firstName, string lastName, string avatar)
         {
             var user = _unitOfWork.UserRepository.Get(
                         f => f.Id == id,
-                        includeProperties: $"{nameof(DbAuthorisedUser)}")
+                        includeProperties: $"{nameof(DbUserProfile)}")
                         ?.FirstOrDefault();
             user.FirstName = firstName;
             user.LastName = lastName;

@@ -59,6 +59,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="IdentityModel.Net45, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityModel.1.0.0\lib\net45\IdentityModel.Net45.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityServer3, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityServer3.2.6.1\lib\net45\IdentityServer3.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityServer3.AspNetIdentity.dll, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityServer3.AspNetIdentity.dll.2.0.0\lib\net45\IdentityServer3.AspNetIdentity.dll.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -86,8 +95,9 @@
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
@@ -102,6 +112,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -143,12 +154,8 @@
     <Compile Include="Configurations\ReleaseList\DbMusicGenreConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicianConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicTrackConfiguration.cs" />
-    <Compile Include="Configurations\PersonalArea\DbAuthorisedUserConfiguration.cs" />
+    <Compile Include="Configurations\PersonalArea\DbUserProfileConfiguration.cs" />
     <Compile Include="Configurations\Subscription\SubscribableConfiguration.cs" />
-    <Compile Include="Configurations\UserPayment\UserPaymentConfiguration.cs" />
-    <Compile Include="Configurations\UserRoleEntities\DbPermissionConfiguration.cs" />
-    <Compile Include="Configurations\UserRoleEntities\DbRoleConfiguration.cs" />
-    <Compile Include="Configurations\UserRoleEntities\DbUserConfiguration.cs" />
     <Compile Include="Configurations\User\DbEmailAddressConfiguratin.cs" />
     <Compile Include="Configurations\ResourceMap.cs" />
     <Compile Include="Configurations\User\DbGenderConfiguration.cs" />
@@ -159,62 +166,25 @@
     <Compile Include="Configurations\User\DbAccountStatusConfiguration.cs" />
     <Compile Include="Configurations\User\DbAddressConfiguration.cs" />
     <Compile Include="Configurations\User\DbUserDetailConfiguration.cs" />
-    <Compile Include="Configurations\User\DbUserConfiguration.cs" />
-    <Compile Include="IdentityModule\CustomClaims.cs" />
-    <Compile Include="IdentityModule\CustomRole.cs" />
-    <Compile Include="IdentityModule\CustomRoleManager.cs" />
-    <Compile Include="IdentityModule\AppUser.cs" />
     <Compile Include="Context\RocketContext.cs" />
     <Compile Include="DALModule.cs" />
-    <Compile Include="IdentityModule\AppUserManager.cs" />
-    <Compile Include="IdentityModule\AppUserStore.cs" />
-    <Compile Include="Migrations\201805171721071_AddParser.cs" />
-    <Compile Include="Migrations\201805171721071_AddParser.Designer.cs">
-      <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
+    <Compile Include="Identity\RockeRoleManager.cs" />
+    <Compile Include="Identity\RocketUserManager.cs" />
+    <Compile Include="Migrations\201806052014237_InitAll.cs" />
+    <Compile Include="Migrations\201806052014237_InitAll.Designer.cs">
+      <DependentUpon>201806052014237_InitAll.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805171728294_InitializeDateForParsers.cs" />
-    <Compile Include="Migrations\201805171728294_InitializeDateForParsers.Designer.cs">
-      <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
+    <Compile Include="Migrations\201806052017434_InitData.cs" />
+    <Compile Include="Migrations\201806052017434_InitData.Designer.cs">
+      <DependentUpon>201806052017434_InitData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805171922023_UpdByParser.cs" />
-    <Compile Include="Migrations\201805171922023_UpdByParser.Designer.cs">
-      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.cs" />
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.Designer.cs">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805192337515_AddUser.cs" />
-    <Compile Include="Migrations\201805192337515_AddUser.Designer.cs">
-      <DependentUpon>201805192337515_AddUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805200849026_AddNotificationsSettings.cs" />
-    <Compile Include="Migrations\201805200849026_AddNotificationsSettings.Designer.cs">
-      <DependentUpon>201805200849026_AddNotificationsSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805231204024_SubscribeAdd.cs" />
-    <Compile Include="Migrations\201805231204024_SubscribeAdd.Designer.cs">
-      <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.cs" />
-    <Compile Include="Migrations\201805280056508_UpdAuthorisedUser.Designer.cs">
-      <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805291655515_AddNotifications.cs" />
-    <Compile Include="Migrations\201805291655515_AddNotifications.Designer.cs">
-      <DependentUpon>201805291655515_AddNotifications.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805291656302_InitializeEmailTemplates.cs" />
-    <Compile Include="Migrations\201805291656302_InitializeEmailTemplates.Designer.cs">
-      <DependentUpon>201805291656302_InitializeEmailTemplates.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805301549282_Alekhno.cs" />
-    <Compile Include="Migrations\201805301549282_Alekhno.Designer.cs">
-      <DependentUpon>201805301549282_Alekhno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806011345559_PermRename.cs" />
-    <Compile Include="Migrations\201806011345559_PermRename.Designer.cs">
-      <DependentUpon>201806011345559_PermRename.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806041152513_AddAutUserMusicGenres.cs" />
-    <Compile Include="Migrations\201806041152513_AddAutUserMusicGenres.Designer.cs">
-      <DependentUpon>201806041152513_AddAutUserMusicGenres.cs</DependentUpon>
+    <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.cs" />
+    <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.Designer.cs">
+      <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
@@ -242,10 +212,11 @@
     <Compile Include="Repositories\Notification\DbReceiverRepository.cs" />
     <Compile Include="Repositories\Notification\DbReleaseMessageRepository.cs" />
     <Compile Include="Repositories\Notification\DbUserBillingMessageRepository.cs" />
-    <Compile Include="Repositories\PersonalArea\DbAuthorisedUserRepository.cs" />
+    <Compile Include="Repositories\PersonalArea\DbUserProfileRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbEmailRepository.cs" />
     <Compile Include="Repositories\UserRole\DbPermissionRepository.cs" />
     <Compile Include="Repositories\UserRole\DbRoleRepository.cs" />
+    <Compile Include="Repositories\UserRole\DbUserRoleRepository.cs" />
     <Compile Include="Repositories\User\DbUserRepository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
   </ItemGroup>
@@ -253,7 +224,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
@@ -264,50 +237,27 @@
   <ItemGroup>
     <Content Include="Migrations\SQLQueries\InitCategory.sql" />
     <Content Include="Migrations\SQLQueries\InitEmailTemplates.sql" />
+    <Content Include="Migrations\SQLQueries\InitNotificationsSettings.sql" />
     <Content Include="Migrations\SQLQueries\InitPersonTypes.sql" />
     <Content Include="Migrations\SQLQueries\InitLostfilmParserSettings.sql" />
     <Content Include="Migrations\SQLQueries\InitAlbumInfoParserSettings.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805192337515_AddUser.resx">
-      <DependentUpon>201805192337515_AddUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806052014237_InitAll.resx">
+      <DependentUpon>201806052014237_InitAll.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805200849026_AddNotificationsSettings.resx">
-      <DependentUpon>201805200849026_AddNotificationsSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806052017434_InitData.resx">
+      <DependentUpon>201806052017434_InitData.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805231204024_SubscribeAdd.resx">
-      <DependentUpon>201805231204024_SubscribeAdd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806060130196_ChangeAuthUserIdToString.resx">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805280056508_UpdAuthorisedUser.resx">
-      <DependentUpon>201805280056508_UpdAuthorisedUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805291655515_AddNotifications.resx">
-      <DependentUpon>201805291655515_AddNotifications.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805291656302_InitializeEmailTemplates.resx">
-      <DependentUpon>201805291656302_InitializeEmailTemplates.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805301549282_Alekhno.resx">
-      <DependentUpon>201805301549282_Alekhno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806011345559_PermRename.resx">
-      <DependentUpon>201806011345559_PermRename.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806041152513_AddAutUserMusicGenres.resx">
-      <DependentUpon>201806041152513_AddAutUserMusicGenres.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806060148580_RenameAuthUserToUserProfile.resx">
+      <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805171721071_AddParser.resx">
-      <DependentUpon>201805171721071_AddParser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805171728294_InitializeDateForParsers.resx">
-      <DependentUpon>201805171728294_InitializeDateForParsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805171922023_UpdByParser.resx">
-      <DependentUpon>201805171922023_UpdByParser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

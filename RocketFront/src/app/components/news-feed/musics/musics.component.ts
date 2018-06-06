@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicPage } from '../../../models/news-feed/music-page';
 import { NewsFeedService } from '../../../services/news-feed.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-musics',
@@ -11,14 +12,18 @@ export class MusicsComponent implements OnInit {
 
   musicPage: MusicPage;
 
-  constructor(private newsService: NewsFeedService) { }
+  constructor(private newsService: NewsFeedService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(params =>
+      this.onQueryParamsChanged(+params.get('page'), +params.get('genre')));
   }
 
-  onPageChanged(page: number) {
-    this.newsService.getNewMusic(page)
-       .subscribe(data => this.musicPage = data);
+  onQueryParamsChanged(page: number, genre: number) {
+    if (page > 0) {
+      this.newsService.getNewMusic(page, genre)
+        .subscribe(data => this.musicPage = data);
+    }
   }
 
 }

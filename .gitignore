@@ -203,7 +203,6 @@ ClientBin/
 *.dbmdl
 *.dbproj.schemaview
 *.jfm
-*.pfx
 *.publishsettings
 orleans.codegen.cs
 
@@ -299,3 +298,4 @@ __pycache__/
 
 
 # End of https://www.gitignore.io/api/visualstudio
+RocketFront/.angulardoc.json

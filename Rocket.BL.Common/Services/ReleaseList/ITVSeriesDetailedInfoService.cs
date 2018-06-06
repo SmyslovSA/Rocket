@@ -17,8 +17,9 @@ namespace Rocket.BL.Common.Services.ReleaseList
         /// <param name="pageSize">Размер страницы</param>
         /// <param name="pageNumber">Номер страницы</param>
         /// <param name="genreId">Идентификатор жанра</param>
+        /// <param name="userId">Идентификатор пользователя</param>
         /// <returns>Страница сериалов</returns>
-        PageInfo<TvSeriesMinimalDto> GetPageInfo(int pageSize, int pageNumber, int? genreId = null);
+        PageInfo<TvSeriesMinimalDto> GetPageInfo(int pageSize, int pageNumber, int? genreId = null, string userId = null);
 
         /// <summary>
         /// Возвращает информацию о сериале с заданным идентификатором,

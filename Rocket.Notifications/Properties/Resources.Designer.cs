@@ -61,11 +61,20 @@ namespace Rocket.Notifications.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PushNotifications.
+        ///   Looks up a localized string similar to application/json.
         /// </summary>
-        internal static string PushNotificationsSettings {
+        internal static string JsonMIMEType {
             get {
-                return ResourceManager.GetString("PushNotificationsSettings", resourceCulture);
+                return ResourceManager.GetString("JsonMIMEType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        internal static string NotificationsSettings {
+            get {
+                return ResourceManager.GetString("NotificationsSettings", resourceCulture);
             }
         }
     }

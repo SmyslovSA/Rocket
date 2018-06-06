@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using Rocket.DAL.Common.DbModels.Notification;
+﻿using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Context;
 
