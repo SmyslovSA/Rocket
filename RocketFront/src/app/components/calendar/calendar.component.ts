@@ -1,7 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { CalendarEvent } from 'angular-calendar';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+import { CalendarEvent, CalendarDateFormatter, DAYS_OF_WEEK } from 'angular-calendar';
 import {
   isSameMonth,
   isSameDay,
@@ -15,6 +17,10 @@ import {
 } from 'date-fns';
 import { Observable } from 'rxjs';
 import { colors } from './calendar-utils/colors';
+import { Router } from '@angular/router';
+import { CustomDateFormatter } from './custom-date-formatter.provider';
+
+registerLocaleData(localeRu);
 
 interface ReleaseFilms {
   id: number;
@@ -26,41 +32,56 @@ interface ReleaseMusic {
   Id: number;
   Title: string;
   ReleaseDate: string;
+  Artist: string;
 }
 
 interface ReleaseSeries {
   Id: number;
   TvSeriesTitleRu: string;
-  TitleRu: string;  
+  TitleRu: string;
   ReleaseDateRu: string;
 }
 
 interface Release
-{} 
+{}
 
 interface ReleaseEvent
 {
   id: number;
   UrlForEpisodeSource: string;
-} 
+  TvSeriesId: number;
+  Id: number;
+}
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    }
+  ]
 })
 export class CalendarComponent implements OnInit {
 
   view: string = 'month';
-  nameCalendar: string; 
+  nameCalendar: string;
   targetMethod: number;
+
+  locale: string = 'ru';
+
+  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
+
+  weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
 
   viewDate: Date = new Date();
   events$: Observable<Array<CalendarEvent<{ release: Release }>>>;
   activeDayIsOpen: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.filmsEvents();
@@ -140,17 +161,17 @@ export class CalendarComponent implements OnInit {
       );
     }
     else if(this.targetMethod==2){
-      window.open(
-        `${event.meta.release.UrlForEpisodeSource}`
-      );
+      this.router.navigate([`series/${event.meta.release.TvSeriesId}`]);
+    }
+    else if(this.targetMethod==3){
+      this.router.navigate([`music/${event.meta.release.Id}`]);
     }
 
-    
   }
 
   seriesEvents(): void {
     this.nameCalendar = "Сериалы"
-    this.targetMethod = 2;    
+    this.targetMethod = 2;
 
     const getStart: any = {
       month: startOfMonth,
@@ -193,7 +214,7 @@ export class CalendarComponent implements OnInit {
 
   musicEvents(): void {
     this.nameCalendar = "Музыка"
-    this.targetMethod = 3;    
+    this.targetMethod = 3;
 
     const getStart: any = {
       month: startOfMonth,
@@ -222,7 +243,7 @@ export class CalendarComponent implements OnInit {
         map(( results: ReleaseMusic[] ) => {
           return results.map((release: ReleaseMusic) => {
             return {
-              title: release.Title,
+              title: release.Artist + " - " + release.Title,
               start: new Date(release.ReleaseDate),
               color: colors.yellow,
               meta: {
