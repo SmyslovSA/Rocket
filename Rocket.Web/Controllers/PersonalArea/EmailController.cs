@@ -4,7 +4,6 @@ using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.Web.Properties;
 using Swashbuckle.Swagger.Annotations;
 using System.Net;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 
