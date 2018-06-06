@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SignalR, SignalRConnection, IConnectionOptions, BroadcastEventListener } from 'ng2-signalr';
 import {SnotifyService} from 'ng-snotify';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,8 +12,10 @@ export class AdminComponent implements OnInit {
 
   currTemplate: string;
   pushMsg: string = '';
+  users: any;
+  roles: any;
 
-  constructor(private _signalR: SignalR, private snotifyService: SnotifyService)  {
+  constructor(private _signalR: SignalR, private snotifyService: SnotifyService, private adminService: AdminService)  {
 
   }
 
@@ -37,19 +40,24 @@ export class AdminComponent implements OnInit {
 
     switch(this.currTemplate) { 
       case '1': { 
-         //statements; 
+         this.users = this.adminService.getAllUsers();
          break; 
       } 
       case '2': { 
-         //statements; 
+        this.roles = this.adminService.getAllRoles();
          break; 
       } 
       case '3': { 
         //statements; 
         break; 
      } 
+     case '4': { 
+      //statements; 
+      break; 
+    } 
       default: { 
-         //statements; 
+        this.currTemplate = '1';
+        this.users = this.adminService.getAllUsers();
          break; 
       } 
    } 

@@ -23,7 +23,7 @@ namespace Rocket.Web.Helpers
         /// Отослать сообщения о выходе релизов
         /// </summary>
         /// <param name="notifications">Коллекция push-уведомлений</param>
-        public void SendPushNotificationsOfRelease(IEnumerable<PushNotificationModel> notifications) //todo presentation model
+        public void SendPushNotificationsOfRelease(IEnumerable<PushNotificationModel> notifications)
         {
             foreach (var notification in notifications)
             {

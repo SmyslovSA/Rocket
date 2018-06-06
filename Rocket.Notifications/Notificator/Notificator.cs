@@ -77,7 +77,7 @@ namespace Rocket.Notifications.Notificator
             }
             catch (Exception e)
             {
-                //todo логирование
+                throw e;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Rocket.Notifications.Notificator
             }
             catch (Exception e)
             {
-                //todo логирование
+                throw e;
             }
         }
 
@@ -218,7 +218,7 @@ namespace Rocket.Notifications.Notificator
                                      select new PushNotificationModel
                                      {
                                          Message = msg,
-                                         Users = episode.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
+                                         Users = episode.Users.Select(u => u.Id.ToString()).ToArray() 
                                      }).ToList();
 
             return pushNotifications;
@@ -237,7 +237,7 @@ namespace Rocket.Notifications.Notificator
                                      select new PushNotificationModel
                                      {
                                          Message = msg,
-                                         Users = musicRelease.Users.Select(u => u.Id.ToString()).ToArray() //todo identity id
+                                         Users = musicRelease.Users.Select(u => u.Id.ToString()).ToArray() 
                                      }).ToList();
 
             return pushNotifications;

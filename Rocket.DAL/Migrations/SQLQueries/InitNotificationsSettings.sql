@@ -6,7 +6,7 @@ INSERT INTO [dbo].[NotificationsSettings]
      VALUES
            ('Notifications'
            ,1
-           ,60
+           ,10
 		   ,'http://localhost:63613/api/notifications/notifyOfReleasePush');
 
 
