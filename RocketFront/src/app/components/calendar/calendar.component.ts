@@ -32,6 +32,7 @@ interface ReleaseMusic {
   Id: number;
   Title: string;
   ReleaseDate: string;
+  Artist: string;
 }
 
 interface ReleaseSeries {
@@ -242,7 +243,7 @@ export class CalendarComponent implements OnInit {
         map(( results: ReleaseMusic[] ) => {
           return results.map((release: ReleaseMusic) => {
             return {
-              title: release.Title,
+              title: release.Artist + " - " + release.Title,
               start: new Date(release.ReleaseDate),
               color: colors.yellow,
               meta: {
