@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.Designer.cs">
       <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806061302282_Payment.cs" />
+    <Compile Include="Migrations\201806061302282_Payment.Designer.cs">
+      <DependentUpon>201806061302282_Payment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
     <Compile Include="Migrations\InitialDataCreators\User\DbAccountStatusesCreator.cs" />
@@ -255,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806060148580_RenameAuthUserToUserProfile.resx">
       <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806061302282_Payment.resx">
+      <DependentUpon>201806061302282_Payment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
