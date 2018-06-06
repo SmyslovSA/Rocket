@@ -23,6 +23,6 @@ namespace Rocket.DAL.Common.DbModels.ReleaseList
         /// <summary>
         /// Возвращает или задает коллекцию пользователей, подписанных на этот жанр
         /// </summary>
-        public ICollection<DbAuthorisedUser> DbAuthorisedUsers { get; set; }
+        public ICollection<DbUserProfile> DbAuthorisedUsers { get; set; }
     }
 }

@@ -7,13 +7,13 @@ namespace Rocket.DAL.Repositories.PersonalArea
     /// <summary>
     /// Репозиторий пользователей личного кабинета.
     /// </summary>
-    public class DbAuthorisedUserRepository : BaseRepository<DbAuthorisedUser>, IDbAuthorisedUserRepository
+    public class DbUserProfileRepository : BaseRepository<DbUserProfile>, IDbUserProfileRepository
     {
         /// <summary>
         /// Создает новый экземпляр репозитория для пользователей личного кабинета с заданным контекстом базы данных.
         /// </summary>
         /// <param name="context">Экземпляр контекста базы данных.</param>
-        public DbAuthorisedUserRepository(RocketContext context) : base(context)
+        public DbUserProfileRepository(RocketContext context) : base(context)
         {
         }
     }

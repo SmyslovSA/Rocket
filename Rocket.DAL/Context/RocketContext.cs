@@ -192,7 +192,7 @@ namespace Rocket.DAL.Context
 
             modelBuilder.Configurations.Add(new DbCountryConfiguration());
 
-            modelBuilder.Configurations.Add(new DbAuthorisedUserConfiguration());
+            modelBuilder.Configurations.Add(new DbUserProfileConfiguration());
 
             modelBuilder.Configurations.Add(new SubscribableConfiguration());
             modelBuilder.Configurations.Add(new NotificationsSettingsEntityMap());

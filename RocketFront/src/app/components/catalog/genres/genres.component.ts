@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Genre } from '../../../models/news-feed/genre';
 import { NewsFeedService } from '../../../services/news-feed.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GenreService } from '../../../services/genre.service';
+import {
+  ActivatedRoute,
+  Router,
+  ChildActivationEnd
+} from '@angular/router';
 
 @Component({
   selector: 'app-genres',
@@ -11,41 +14,40 @@ import { GenreService } from '../../../services/genre.service';
 })
 export class GenresComponent implements OnInit {
 
+  type: string;
   selectedGenre: Genre;
   genres: Genre[];
-  type: string;
 
-  constructor(private newsService: NewsFeedService,
+  constructor(
+    private newsService: NewsFeedService,
     private route: ActivatedRoute,
-    private router: Router,
-    private genreService: GenreService) { }
-
-  ngOnInit() {
-    this.type = this.route.snapshot.firstChild.url.pop().path;
-    this.getGenres();
+    private router: Router
+  ) {
+    router.events.subscribe(event => {
+      if (event instanceof ChildActivationEnd) {
+        this.route.firstChild.url.subscribe(url => {
+          const newType = url.values().next().value.path;
+            if (newType !== this.type) {
+              this.type = newType;
+              this.getGenres(newType);
+            }
+        });
+      }
+    });
   }
 
-  onGenreParamChanged(genreId: number) {
+  ngOnInit() {}
+
+  getGenres(type: string) {
+    this.newsService.getGenres(type).subscribe(data => {
+      this.genres = data;
+      this.route.queryParamMap.subscribe(params =>
+        this.onQueryParamsChanged(+params.get('genre'))
+      );
+    });
+  }
+
+  onQueryParamsChanged(genreId: number) {
     this.selectedGenre = this.genres.find(x => x.Id === genreId);
-    this.genreService.setGenre(this.selectedGenre);
-  }
-
-  getGenres() {
-    this.newsService.getGenres(this.type)
-       .subscribe(data => {
-         this.genres = data;
-         this.route.queryParamMap.subscribe(params =>
-          this.onGenreParamChanged(+params.get('genre')));
-       });
-  }
-
-  setGenre(genre: Genre) {
-    this.selectedGenre = genre;
-    this.router.navigate([], { queryParams: { genre: genre.Id, page: 1 } });
-  }
-
-  clearGenre() {
-    this.selectedGenre = null;
-    this.router.navigate([], { queryParams: { page: 1 } });
   }
 }

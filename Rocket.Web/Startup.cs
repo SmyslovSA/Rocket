@@ -55,9 +55,9 @@ namespace Rocket.Web
 
             var opt = new IdentityServerBearerTokenAuthenticationOptions
             {
-                Authority = "http://localhost:2383", // ?
+                Authority = "http://localhost:63613", // ?
                 RequiredScopes = new[] { "openid" },
-                IssuerName = "http://localhost:2383", // ?
+                IssuerName = "http://localhost:63613", // ?
                 SigningCertificate = LoadCertificate(),
                 ValidationMode = ValidationMode.ValidationEndpoint
             };
@@ -67,8 +67,10 @@ namespace Rocket.Web
 
         private X509Certificate2 LoadCertificate()
         {
+            //return new X509Certificate2(
+            //    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempRocket.cer"), "TempRocket");
             return new X509Certificate2(
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempRocket.cer"), "TempRocket");
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"bin\idsrv3test.pfx"), "idsrv3test");
         }
     }
 }
