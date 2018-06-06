@@ -91,7 +91,7 @@ namespace Rocket.DAL.UoW
             //IDbUserDetailRepository dbUserDetailRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
-            IDbAuthorisedUserRepository dbAuthorisedUserRepository,
+            IDbUserProfileRepository dbAuthorisedUserRepository,
             IDbCustomMessageRepository dbCustomMessageRepository,
             IBaseRepository<NotificationsLogEntity> notificationsLogRepository,
             IBaseRepository<NotificationsSettingsEntity> notificationsSettingsRepository,
@@ -278,7 +278,7 @@ namespace Rocket.DAL.UoW
         /// <summary>
         /// Репозиотрий для работы с пользователями личного кабинета.
         /// </summary>
-        public IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+        public IDbUserProfileRepository UserAuthorisedRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для сообщений произвольного содержания

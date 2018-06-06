@@ -34,6 +34,9 @@ import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarUtilsModule } from './components/calendar/calendar-utils/module';
 import { Urls } from './constants';
+import { MusicsDetailsComponent } from './components/news-feed/musics-details/musics-details.component';
+import { AdvertisementComponent } from './components/common/advertisement/advertisement.component';
+import { SideMenuComponent } from './components/common/side-menu/side-menu.component';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -67,7 +70,10 @@ export function createConfig(): SignalRConfiguration {
     CatalogComponent,
     SeriesCatalogComponent,
     MusicCatalogComponent,
-    GenresComponent
+    GenresComponent,
+    MusicsDetailsComponent,
+    AdvertisementComponent,
+    SideMenuComponent
   ],
   imports: [
     BrowserModule,

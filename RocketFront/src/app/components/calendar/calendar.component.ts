@@ -16,17 +16,33 @@ import {
 import { Observable } from 'rxjs';
 import { colors } from './calendar-utils/colors';
 
-interface Release {
+interface ReleaseFilms {
   id: number;
   title: string;
   release_date: string;
 }
 
 interface ReleaseMusic {
-  id: number;
+  Id: number;
   Title: string;
   ReleaseDate: string;
 }
+
+interface ReleaseSeries {
+  Id: number;
+  TvSeriesTitleRu: string;
+  TitleRu: string;  
+  ReleaseDateRu: string;
+}
+
+interface Release
+{} 
+
+interface ReleaseEvent
+{
+  id: number;
+  UrlForEpisodeSource: string;
+} 
 
 @Component({
   selector: 'app-calendar',
@@ -37,22 +53,23 @@ interface ReleaseMusic {
 export class CalendarComponent implements OnInit {
 
   view: string = 'month';
+  nameCalendar: string; 
+  targetMethod: number;
 
   viewDate: Date = new Date();
-
-  events2$: Observable<Array<CalendarEvent<{ release: ReleaseMusic }>>>;
   events$: Observable<Array<CalendarEvent<{ release: Release }>>>;
-  
-
   activeDayIsOpen: boolean = false;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.fetchEvents();
+    this.filmsEvents();
   }
 
-  fetchEvents(): void {
+  filmsEvents(): void {
+    this.nameCalendar = "Фильмы"
+    this.targetMethod = 1;
+
     const getStart: any = {
       month: startOfMonth,
       week: startOfWeek,
@@ -79,8 +96,8 @@ export class CalendarComponent implements OnInit {
     this.events$ = this.http
       .get('https://api.themoviedb.org/3/discover/movie', { params })
       .pipe(
-        map(({ results }: { results: Release[] }) => {
-          return results.map((release: Release) => {
+        map(({ results }: { results: ReleaseFilms[] }) => {
+          return results.map((release: ReleaseFilms) => {
             return {
               title: release.title,
               start: new Date(release.release_date),
@@ -99,7 +116,7 @@ export class CalendarComponent implements OnInit {
     events
   }: {
     date: Date;
-    events: Array<CalendarEvent<{ release: Release }>>;
+    events: Array<CalendarEvent<{ release: ReleaseFilms }>>;
   }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -114,23 +131,34 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  eventClicked(event: CalendarEvent<{ release: Release }>): void {
-    window.open(
-      `https://www.themoviedb.org/movie/${event.meta.release.id}`,
-      '_blank'
-    );
+  eventClicked(event: CalendarEvent<{ release: ReleaseEvent }>): void {
+
+    if(this.targetMethod==1){
+      window.open(
+        `https://www.themoviedb.org/movie/${event.meta.release.id}`,
+        '_blank'
+      );
+    }
+    else if(this.targetMethod==2){
+      window.open(
+        `${event.meta.release.UrlForEpisodeSource}`
+      );
+    }
+
+    
   }
 
-
-  musicEvents(): void {
-    this.events2$ = this.http
-      .get('http://localhost:63613/music/page/1')
+  seriesEvents(): void {
+    this.nameCalendar = "Сериалы"
+    this.targetMethod = 2;    
+    this.events$ = this.http
+      .get('http://localhost:63613/episode/new/page_1?page_size=100')
       .pipe(
-        map(({ results }: { results: ReleaseMusic[] }) => {
-          return results.map((release: ReleaseMusic) => {
+        map(({ PageItems }: { PageItems: ReleaseSeries[] }) => {
+          return PageItems.map((release: ReleaseSeries) => {
             return {
-              title: '123',
-              start: new Date(2018, 6, 3),
+              title: release.TvSeriesTitleRu  + " - " + release.TitleRu,
+              start: new Date(release.ReleaseDateRu),
               color: colors.yellow,
               meta: {
                 release
@@ -139,5 +167,39 @@ export class CalendarComponent implements OnInit {
           });
         })
       );
+  }
+
+  musicEvents(): void {
+    this.nameCalendar = "Музыка"
+    this.targetMethod = 3;    
+    this.events$ = this.http
+      .get('http://localhost:63613/music/page/1')
+      .pipe(
+        map(({ PageItems }: { PageItems: ReleaseMusic[] }) => {
+          return PageItems.map((release: ReleaseMusic) => {
+            return {
+              title: release.Title,
+              start: new Date(release.ReleaseDate),
+              color: colors.yellow,
+              meta: {
+                release
+              }
+            };
+          });
+        })
+      );
+  }
+
+  releaseEvents(): void{
+      if(this.targetMethod==1){
+        this.filmsEvents();
+      }
+      else if(this.targetMethod==2){
+        this.seriesEvents();
+      }
+      else if(this.targetMethod==3)
+      {
+        this.musicEvents();
+      }
   }
 }

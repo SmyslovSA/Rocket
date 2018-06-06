@@ -154,7 +154,7 @@
     <Compile Include="Configurations\ReleaseList\DbMusicGenreConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicianConfiguration.cs" />
     <Compile Include="Configurations\ReleaseList\DbMusicTrackConfiguration.cs" />
-    <Compile Include="Configurations\PersonalArea\DbAuthorisedUserConfiguration.cs" />
+    <Compile Include="Configurations\PersonalArea\DbUserProfileConfiguration.cs" />
     <Compile Include="Configurations\Subscription\SubscribableConfiguration.cs" />
     <Compile Include="Configurations\User\DbEmailAddressConfiguratin.cs" />
     <Compile Include="Configurations\ResourceMap.cs" />
@@ -177,6 +177,14 @@
     <Compile Include="Migrations\201806052017434_InitData.cs" />
     <Compile Include="Migrations\201806052017434_InitData.Designer.cs">
       <DependentUpon>201806052017434_InitData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.cs" />
+    <Compile Include="Migrations\201806060130196_ChangeAuthUserIdToString.Designer.cs">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.cs" />
+    <Compile Include="Migrations\201806060148580_RenameAuthUserToUserProfile.Designer.cs">
+      <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\InitialDataCreators\UserRole\DbUserRolesCreator.cs" />
@@ -204,7 +212,7 @@
     <Compile Include="Repositories\Notification\DbReceiverRepository.cs" />
     <Compile Include="Repositories\Notification\DbReleaseMessageRepository.cs" />
     <Compile Include="Repositories\Notification\DbUserBillingMessageRepository.cs" />
-    <Compile Include="Repositories\PersonalArea\DbAuthorisedUserRepository.cs" />
+    <Compile Include="Repositories\PersonalArea\DbUserProfileRepository.cs" />
     <Compile Include="Repositories\PersonalArea\DbEmailRepository.cs" />
     <Compile Include="Repositories\UserRole\DbPermissionRepository.cs" />
     <Compile Include="Repositories\UserRole\DbRoleRepository.cs" />
@@ -240,6 +248,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806052017434_InitData.resx">
       <DependentUpon>201806052017434_InitData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806060130196_ChangeAuthUserIdToString.resx">
+      <DependentUpon>201806060130196_ChangeAuthUserIdToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806060148580_RenameAuthUserToUserProfile.resx">
+      <DependentUpon>201806060148580_RenameAuthUserToUserProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -126,6 +126,9 @@
   <data name="BadPersonCountMessage" xml:space="preserve">
     <value>Количество загружаемых участников сериала не должно быть отрицательным</value>
   </data>
+  <data name="BadStartEndDatesMessage" xml:space="preserve">
+    <value>Начальная дата должна быть меньше или равна конечной дате</value>
+  </data>
   <data name="EmptyEmail" xml:space="preserve">
     <value>"Email cannot be empty"</value>
   </data>

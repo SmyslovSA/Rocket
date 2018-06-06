@@ -2,11 +2,23 @@
 
 namespace Rocket.BL.Common.Models.PersonalArea
 {
-    /// <summary>
-    /// Авторизованный пользователь с обычными правами.
-    /// </summary>
-    public class SimpleUser : AuthorisedUser
+    public class UserProfile
     {
+        /// <summary>
+        /// Id пользователя.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Имя пользователя.
+        /// </summary>
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Фамилия пользователя.
+        /// </summary>
+        public string LastName { get; set; }
+
         /// <summary>
         /// Относительный путь к аватаре пользователя.
         /// </summary>

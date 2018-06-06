@@ -374,7 +374,7 @@
     <Compile Include="ConfigHandlers\SettingsManager.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PersonalArea\EmailController.cs" />
-    <Compile Include="Controllers\PersonalArea\GenreController.cs" />
+    <Compile Include="Controllers\PersonalArea\GenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReleaseList\EpisodeController.cs" />
     <Compile Include="Controllers\UserRole\PermissionController.cs" />
