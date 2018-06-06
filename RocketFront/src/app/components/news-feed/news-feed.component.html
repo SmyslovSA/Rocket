@@ -1,13 +1,9 @@
 <div class="container-fluid text-center">
+  <!--Head-->
   <div class="col-md-8 m-auto">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-      <h1>Новые <ng-container *ngIf="type == 'episodes'; else elseTemplate">
-        серии
-      </ng-container>
-      <ng-template #elseTemplate>
-        альбомы
-      </ng-template>
-      </h1>
+      <h1>Новинки</h1>
+      <!--Genres-->
       <div class="btn-toolbar mb-2 mb-md-0">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
@@ -22,9 +18,13 @@
           <a class="dropdown-item" href="#">Вестерн</a>
         </div>
       </div>
+      <!--Genres end-->
     </div>
   </div>
+  <!--Head end-->
+  <!--Main-->
   <div class="row content">
+    <!--Left side menu-->
     <div class="col-md-2 pr-md-0 sidenav text-left">
       <ul class="nav flex-md-column">
         <li class="nav-item">
@@ -49,79 +49,15 @@
         </li>
       </ul>
     </div>
+    <!--Left side menu end-->
+    <!--Content-->
     <div class="col-md-8 text-left">
       <!--Releases-->
-      <div class="row">
-        <!--Series-->
-        <div class="col-sm-6 col-xl-4 mb-4" *ngFor="let series of seriesPage?.PageItems">
-          <div class="card box-shadow h-100">
-            <div class="position-relative">
-              <img class="card-img-top" src="{{series.PosterImageUrl}}">
-              <div class="position-absolute poster-info w-100 px-3">
-                <div class="float-left">{{series.SeasonNumber}} сезон {{series.Number}} серия</div>
-                <div class="float-right">{{series.ReleaseDateRu | date:'dd.MM.yyyy'}}</div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h4 class="mb-0">{{series.TvSeriesTitleRu}}</h4>
-              <span class="text-muted">{{series.TvSeriesTitleEn}}</span>
-              <h5 class="mb-0 mt-2">{{series.TitleRu}}</h5>
-              <span class="text-muted">{{series.TitleEn}}</span>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <button type="button" class="btn btn-outline-secondary">Сериал</button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-link p-0 mr-3 mr-sm-2" href="#">
-                    <i class="material-icons md-36 md-dark">star_border</i>
-                  </button>
-                  <a class="btn btn-link p-0" target="_blank" href="{{series.UrlForEpisodeSource}}">
-                    <i class="material-icons md-36 md-dark">remove_red_eye</i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--Series end-->
-        <!--Music-->
-        <div class="col-sm-6 col-xl-4 mb-4" *ngFor="let music of musicPage?.PageItems">
-          <div class="card box-shadow h-100">
-            <div class="position-relative">
-              <img class="card-img-top" src="{{music.PosterImagePath}}">
-              <div class="position-absolute poster-info w-100 px-3">
-                <div class="float-right">{{music.ReleaseDate | date:'dd.MM.yyyy'}}</div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h4 class="mb-0">Артист</h4>
-              <h5 class="mb-0 mt-2">{{music.Title}}</h5>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <button type="button" class="btn btn-outline-secondary">Альбом</button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-link p-0 mr-3 mr-sm-2" href="#">
-                    <i class="material-icons md-36 md-dark">star_border</i>
-                  </button>
-                  <button type="button" class="btn btn-link p-0" href="#">
-                    <i class="material-icons md-36 md-dark">music_note</i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--Music end-->
-      </div>
+        <router-outlet></router-outlet>
       <!--Releases end-->
-      <hr>
-      <!--Pagination-->
-      <nav>
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" (click)="getPage(page-1)">&laquo;</a></li>
-          <li class="page-item active"><a class="page-link">{{page}}</a></li>
-          <li class="page-item"><a class="page-link" (click)="getPage(page+1)">&raquo;</a></li>
-        </ul>
-      </nav>
-      <!--Pagination end-->
     </div>
+    <!--Content end-->
+    <!--Right side adv-->
     <div class="col-md-2 sidenav">
       <div class="well">
         <p>Наша прекрасная реклама</p>
@@ -133,5 +69,7 @@
         <p>Наша прекрасная реклама</p>
       </div>
     </div>
+    <!--Right side adv end-->
   </div>
+  <!--Main end-->
 </div>
