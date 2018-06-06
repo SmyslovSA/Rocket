@@ -151,11 +151,33 @@ export class CalendarComponent implements OnInit {
   seriesEvents(): void {
     this.nameCalendar = "Сериалы"
     this.targetMethod = 2;    
+
+    const getStart: any = {
+      month: startOfMonth,
+      week: startOfWeek,
+      day: startOfDay
+    }[this.view];
+    const getEnd: any = {
+      month: endOfMonth,
+      week: endOfWeek,
+      day: endOfDay
+    }[this.view];
+
+    const params = new HttpParams()
+      .set(
+        'start_date',
+        format(getStart(this.viewDate), 'YYYY-MM-DD')
+      )
+      .set(
+        'end_date',
+        format(getEnd(this.viewDate), 'YYYY-MM-DD')
+      )
+
     this.events$ = this.http
-      .get('http://localhost:63613/episode/new/page_1?page_size=100')
+      .get('http://localhost:63613/episode/calendar', { params })
       .pipe(
-        map(({ PageItems }: { PageItems: ReleaseSeries[] }) => {
-          return PageItems.map((release: ReleaseSeries) => {
+        map(( results: ReleaseSeries[] ) => {
+          return results.map((release: ReleaseSeries) => {
             return {
               title: release.TvSeriesTitleRu  + " - " + release.TitleRu,
               start: new Date(release.ReleaseDateRu),
