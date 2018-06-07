@@ -115,7 +115,7 @@ namespace Rocket.Web.Controllers.UserPayments
                 payment.Currentcy = new Regex(@"mc_currency\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.CustomString = new Regex(@"custom\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 _userPaymentService.AddUserPayment(payment);
-                _userAccountLevelService.SetUserAccountLevel(userID, new BL.Common.Models.User.AccountLevel());
+                _userAccountLevelService.SetUserAccountLevel(userID.ToString(), new BL.Common.Models.User.AccountLevel());
             }
             else if (ipnContext.Verification.Equals("INVALID"))
             {
