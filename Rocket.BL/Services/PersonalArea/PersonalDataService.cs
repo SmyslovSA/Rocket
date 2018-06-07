@@ -7,6 +7,7 @@ using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Rocket.BL.Services.PersonalArea
 {
@@ -86,12 +87,8 @@ namespace Rocket.BL.Services.PersonalArea
         /// <returns>True - если пароль прошел валидацию, false - если не прошел.</returns>
         private bool PasswordValidate(string password, string passwordConfirm)
         {
-            if (password == null || passwordConfirm == null)
-            {
-                return false;
-            }
-
-            return password == passwordConfirm && password.Length > 6;
+            var pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$";
+            return (password != null) && (passwordConfirm != null) && (Regex.IsMatch(password, pattern)) && password == passwordConfirm;
         }
     }
 }
