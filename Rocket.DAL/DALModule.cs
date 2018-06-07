@@ -37,6 +37,7 @@ namespace Rocket.DAL
         public override void Load()
         {
             //контекст
+            Bind<DbContext>().To<RocketContext>();
             Bind<RocketContext>().ToSelf().InRequestScope();
             //Bind<DbContext>().To<RocketContext>().InRequestScope();
             //репозитарии
@@ -77,10 +78,8 @@ namespace Rocket.DAL
                 .InRequestScope();
 
             //Bind<IUserStore<DbUser, string>>().ToMethod(ctx => new UserStore<DbUser>(new RocketContext()));
-            Bind<IUserStore<DbUser>>()
-                .To<UserStore<DbUser>>()
-                .InRequestScope()
-                .WithConstructorArgument("context", new RocketContext());
+            Bind<IUserStore<DbUser>>().To<UserStore<DbUser>>();
+            Bind<IRoleStore<IdentityRole, string>>().To<RoleStore<IdentityRole>>();
 
             //Bind<IUserStore<DbUser, string>>()
             //    .ToConstructor(ctx => new UserStore<>())

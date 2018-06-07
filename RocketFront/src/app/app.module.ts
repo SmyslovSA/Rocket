@@ -38,6 +38,7 @@ import { AdvertisementComponent } from './components/common/advertisement/advert
 import { SideMenuComponent } from './components/common/side-menu/side-menu.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { RocketAuthService } from './services/auth.service';
+import { AdminService } from './services/admin.service';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -92,7 +93,7 @@ export function createConfig(): SignalRConfiguration {
     CalendarUtilsModule,
     SnotifyModule
   ],
-  providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults }, SnotifyService, RocketAuthService],
+  providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults }, SnotifyService, RocketAuthService, AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

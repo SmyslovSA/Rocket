@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Rocket.Web.Hubs
@@ -12,6 +13,12 @@ namespace Rocket.Web.Hubs
         public static void NotifyAll(object msg)
         {
             HubContext.Clients.All.notifyAll(msg);
+        }
+
+        [HubMethodName("sendMessage")]
+        public void SendMessage(object msg)
+        {
+            Clients.All.sendMessage(msg);
         }
 
         [HubMethodName("notifyOfRelease")]
