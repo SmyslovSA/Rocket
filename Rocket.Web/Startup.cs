@@ -26,7 +26,7 @@ namespace Rocket.Web
         // 4. Perfomance  IUserService  ++
         // 5. Loger fileName   InfoLogService  ++
         // 6. canActivate: [RocketAuthGuard] front
-        // 7. delete /Users front.
+        // 7. delete /Users front.  ++
 
         public void Configuration(IAppBuilder app)
         {
