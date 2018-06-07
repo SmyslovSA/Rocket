@@ -14,6 +14,9 @@ import { MusicDetails } from '../models/news-feed/music-details';
 })
 export class NewsFeedService {
 
+  subscribeOnRelease(id: number): Observable<any> {
+    return this.http.put<any>(`http://localhost:63613/subscribe/${id}`, null);
+  }
   constructor(private http: HttpClient) { }
 
   getNewEpisodes(page: number, genre: number): Observable<EpisodesPage> {

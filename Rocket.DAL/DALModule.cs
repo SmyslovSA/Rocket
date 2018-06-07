@@ -79,7 +79,7 @@ namespace Rocket.DAL
 
             //Bind<IUserStore<DbUser, string>>().ToMethod(ctx => new UserStore<DbUser>(new RocketContext()));
             Bind<IUserStore<DbUser>>().To<UserStore<DbUser>>();
-            Bind<IRoleStore<IdentityRole, string>>().To<RoleStore<IdentityRole>>();
+            Bind<IRoleStore<DbRole, string>>().To<RoleStore<DbRole>>();
 
             //Bind<IUserStore<DbUser, string>>()
             //    .ToConstructor(ctx => new UserStore<>())

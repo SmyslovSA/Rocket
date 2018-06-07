@@ -27,4 +27,9 @@ export class SeriesCatalogComponent implements OnInit {
     }
   }
 
+  subscribeOnRelease(id: number) {
+    this.newsService.subscribeOnRelease(id)
+      .subscribe();
+  }
+
 }
