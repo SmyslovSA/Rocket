@@ -1,10 +1,13 @@
-﻿using System;
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Results;
-using Rocket.BL.Common.Services.User;
+﻿using AutoMapper;
+using Rocket.DAL.Common.DbModels.DbPersonalArea;
+using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Identity;
 using Rocket.Web.Attributes;
 using Swashbuckle.Swagger.Annotations;
+using System.Collections.ObjectModel;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Rocket.Web.Controllers.User
 {
@@ -15,11 +18,13 @@ namespace Rocket.Web.Controllers.User
     [RoleAuthorize(ClaimName = "a,b,c")]
     public class UsersController : ApiController
     {
-        private readonly IUserManagementService _userManagementService;
+        private readonly RocketUserManager _userManagementService;
+        private readonly RockeRoleManager _rolemanager;
 
-        public UsersController(IUserManagementService userManagementService)
+        public UsersController(RocketUserManager userManagementService, RockeRoleManager rolemanager)
         {
             _userManagementService = userManagementService;
+            _rolemanager = rolemanager;
         }
 
         /// <summary>
@@ -30,14 +35,20 @@ namespace Rocket.Web.Controllers.User
         [Route("all")]
         public IHttpActionResult GetAllUsers()
         {
-            var users = _userManagementService.GetAllUsers();
 
-            if (users == null)
-            {
-                return NotFound();
-            }
+            //await _rolemanager.CreateAsync(new DbRole() { Name = "user" }).ConfigureAwait(false);
 
-            return Ok(users);
+
+            //var users = _userManagementService.GetAllUsers();
+
+            //if (users == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return Ok(users);
+
+            return Ok();
         }
 
         /// <summary>
@@ -50,14 +61,14 @@ namespace Rocket.Web.Controllers.User
         [Route("page")]
         public IHttpActionResult GetUsersPage(int pageSize, int pageNumber)
         {
-            var users = _userManagementService.GetUsersPage(pageSize, pageNumber);
+            //var users = _userManagementService.GetUsersPage(pageSize, pageNumber);
 
-            if (users == null)
-            {
-                return NotFound();
-            }
+            //if (users == null)
+            //{
+            return NotFound();
+            //}
 
-            return Ok(users);
+            //return Ok(users);
         }
 
         /// <summary>
@@ -70,9 +81,11 @@ namespace Rocket.Web.Controllers.User
         [Route("{id:int:min(1)}")]
         public IHttpActionResult GetUserById(string id)
         {
-            var user = _userManagementService.GetUser(id);
+            //var user = _userManagementService.GetUser(id);
 
-            return user == null ? (IHttpActionResult)NotFound() : Ok(user);
+            //return user == null ? (IHttpActionResult)NotFound() : Ok(user);
+
+            return Ok();
         }
 
         /// <summary>
@@ -85,16 +98,34 @@ namespace Rocket.Web.Controllers.User
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(BL.Common.Models.User.User))]
-        public IHttpActionResult AddUser([FromBody] BL.Common.Models.User.User user)
+        public async Task<IHttpActionResult> AddUser([FromBody] BL.Common.Models.User.User user)
         {
-            if (user == null)
-            {
-                return BadRequest("User can not be empty");
-            }
+            //if (user == null)
+            //{
+            //    return BadRequest("User can not be empty");
+            //}
 
-            _userManagementService.AddUser(user);
+            //var dbRole = await _rolemanager.FindByNameAsync("administrator").ConfigureAwait(false);
+            //var dbUserProfile = new DbUserProfile()
+            //{
+            //    Email = new Collection<DbEmail>()
+            //        {
+            //            new DbEmail()
+            //            {
+            //                Name = "emptyEmail",
+            //            }
+            //        },
+            //};
 
-            return Created($"users/{user.Id}", user);
+            //var dbUser = Mapper.Map<DbUser>(user);
+            //dbUser.DbUserProfile = dbUserProfile;
+
+            //await _userManagementService.CreateAsync(dbUser).ConfigureAwait(false);
+
+            //await _userManagementService
+            //    .AddToRoleAsync(dbUser.Id, "user").ConfigureAwait(false);
+
+            return Ok();
         }
 
         /// <summary>
@@ -106,9 +137,11 @@ namespace Rocket.Web.Controllers.User
         [Route("update")]
         public IHttpActionResult UpdateUser([FromBody]BL.Common.Models.User.User user)
         {
-            _userManagementService.UpdateUser(user);
+            //_userManagementService.UpdateUser(user);
 
-            return new StatusCodeResult(HttpStatusCode.NoContent, Request);
+            //return new StatusCodeResult(HttpStatusCode.NoContent, Request);
+
+            return Ok();
         }
 
         /// <summary>
@@ -121,16 +154,18 @@ namespace Rocket.Web.Controllers.User
         [Route("{id:int:min(1)}")]
         public IHttpActionResult DeleteUserById(string id)
         {
-            var usersCount = _userManagementService.GetAllUsers().Count;
+            //var usersCount = _userManagementService.GetAllUsers().Count;
 
-            if (Convert.ToInt32(id) > usersCount)
-            {
-                return BadRequest("User id invalid");
-            }
+            //if (Convert.ToInt32(id) > usersCount)
+            //{
+            //    return BadRequest("User id invalid");
+            //}
 
-            _userManagementService.DeleteUser(id);
+            //_userManagementService.DeleteUser(id);
 
-            return Ok($"User with id = {id} successfully deleted");
+            //return Ok($"User with id = {id} successfully deleted");
+
+            return Ok();
         }
 
         /// <summary>
@@ -141,17 +176,19 @@ namespace Rocket.Web.Controllers.User
         [HttpDelete]
         public IHttpActionResult DeleteUserByModel([FromBody]BL.Common.Models.User.User user)
         {
-            var usersLogin = user.Login;
+            //var usersLogin = user.Login;
 
-            if (!_userManagementService.UserExists(f => f.Login == usersLogin))
-            {
-                return BadRequest("User invalid");
-            }
+            //if (!_userManagementService.UserExists(f => f.Login == usersLogin))
+            //{
+            //    return BadRequest("User invalid");
+            //}
 
-            //_userManagementService.DeleteUser(user.Id);
+            ////_userManagementService.DeleteUser(user.Id);
 
-            //return Ok($"User with id = {user.Id} successfully deleted");
-            throw new NotImplementedException();
+            ////return Ok($"User with id = {user.Id} successfully deleted");
+            //throw new NotImplementedException();
+
+            return Ok();
         }
     }
 }
