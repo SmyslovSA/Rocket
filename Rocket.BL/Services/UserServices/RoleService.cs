@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -38,7 +39,7 @@ namespace Rocket.BL.Services.UserServices
         public IEnumerable<Role> GetAllRoles()
         {
             _logger.Trace($"Request GetAllRoles");
-            return _roleManager.Roles.AsEnumerable().Select(Mapper.Map<Role>);
+            return _roleManager.Roles.Include(t => t.Permissions).ToArray().Select(Mapper.Map<Role>);
         }
 
         //public IEnumerable<Role> Get(
