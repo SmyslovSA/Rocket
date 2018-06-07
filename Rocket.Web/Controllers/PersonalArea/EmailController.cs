@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Rocket.BL.Common.Models.PersonalArea;
 using Rocket.BL.Common.Services.PersonalArea;
+using Rocket.Web.Extensions;
 using Rocket.Web.Properties;
 using Swashbuckle.Swagger.Annotations;
 using System.Net;
@@ -24,7 +25,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(Email))]
-        public IHttpActionResult AddEmail(string id, Email email)
+        public IHttpActionResult AddEmail(Email email)
         {
             int mail;
             if (email == null)
@@ -34,7 +35,7 @@ namespace Rocket.Web.Controllers.PersonalArea
             
             try
             {
-                mail = _emailEmailManager.AddEmail(id, email);
+                mail = _emailEmailManager.AddEmail(User.GetUserId(), email);
             }
             catch (ValidationException exception)
             {

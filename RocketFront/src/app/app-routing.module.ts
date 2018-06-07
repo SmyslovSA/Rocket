@@ -21,7 +21,7 @@ import { RocketAuthGuard } from './auth.guard';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent
-  // , canActivate: [RocketAuthGuard] 
+  // , canActivate: [RocketAuthGuard]
 },
   { path: 'donate', component: DonateComponent },
   {
@@ -44,7 +44,7 @@ const routes: Routes = [
       { path: 'music', component: MusicCatalogComponent }
     ]
   },
-  { path: 'personal', component: PersonalAreaComponent, canActivate: [RocketAuthGuard] },
+  { path: 'personal', component: PersonalAreaComponent}, // , canActivate: [RocketAuthGuard] },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: '', redirectTo: 'catalog', pathMatch: 'full' },
