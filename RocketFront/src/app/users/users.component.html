@@ -1,4 +1,15 @@
 
+  <div *ngFor="let user of users">
+      <table class="table">
+          <tbody>
+              <tr>
+                <input [(ngModel)]="user.name" placeholder="user">
+                <input [(ngModel)]="user.role" placeholder="role">
+              </tr>
+          </tbody>    
+      </table>
+    </div>
+
 <h2>App users</h2>
 <ul class="users">
   <li *ngFor="let user of users"

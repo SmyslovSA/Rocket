@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
+using Rocket.BL.Common.Models.User;
 using Rocket.BL.Common.Models.UserRoles;
 using Rocket.BL.Services.UserServices;
 using Swashbuckle.Swagger.Annotations;
@@ -20,20 +21,21 @@ namespace Rocket.Web.Controllers.UserRole
         {
             _permissionService = permissionService;
         }
-
+        
         [HttpGet]
         [Route("{id:int:min(1)}")]
         public IHttpActionResult GetPermissionById(string id)
         {
-            var model = _permissionService.GetById(id);
+            var model = _permissionService.GetPermissionByYser(id);
+
             return model == null ? (IHttpActionResult)NotFound() : Ok(model);
         }
 
         [HttpGet]
         [Route("GetPermissionByRole{id:int:min(1)}")]
-        public IHttpActionResult GetPermissionByRole(string id)
+        public IHttpActionResult GetPermissionByRole(string user)
         {
-            var model = _permissionService.GetPermissionByRole(id);
+            var model = _permissionService.GetPermissionByYser(user);
             return model == null ? (IHttpActionResult)NotFound() : Ok(model);
         }
 
@@ -48,42 +50,46 @@ namespace Rocket.Web.Controllers.UserRole
 
         [HttpPost]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.Created, "New Permission description", typeof(Permission))]
-        public IHttpActionResult InsertPermission(Permission permission)
+        //[SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
+        //[SwaggerResponse(HttpStatusCode.Created, "New Permission description", typeof(Permission))]
+        public IHttpActionResult InsertPermission(Permission permission, string user)
         {
             if (permission == null)
             {
                 return BadRequest("Model cannot be empty");
             }
 
-            _permissionService.Insert(permission);
+            _permissionService.Insert(permission, user);
             return Created($"permission/{permission.PermissionId}", permission);
         }
 
+        /*
         [HttpPut]
-        public IHttpActionResult UpdatePermission([FromBody]Permission permission)
+        public IHttpActionResult UpdatePermission([FromBody]Permission permission, string user)
         {
             if (permission == null)
             {
                 return BadRequest("Model cannot be empty");
             }
 
-            _permissionService.Update(permission);
+            _permissionService.Update(permission, user);
 
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
+        */
 
         [HttpDelete]
         [Route("{id:int:min(1)}")]
-        public IHttpActionResult DeletePermissionById(string id)
+        public IHttpActionResult DeletePermissionById(Permission permission, string user)
         {
-            if (_permissionService.GetById(id) == null)
+            /*
+            if (_permissionService.GetById(permission.PermissionId.ToString()) == null)
             {
                 return BadRequest("The permission not exists");
             }
+            */
 
-            _permissionService.Delete(id);
+            _permissionService.Delete(permission, user);
             return new StatusCodeResult(HttpStatusCode.Accepted, Request);
         }
     }

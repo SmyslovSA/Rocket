@@ -92,13 +92,13 @@ namespace Rocket.BL.Services.UserServices
         /// <param name="permission">Пермишен</param>
         public void Insert(Permission permission)
         {
-            var PermissionClaim = new Claim(_srtingClaims, permission.PermissionId.ToString());
-            var permValueName = new Claim(_srtingClaims, permission.ValueName);
-            var permDescription = new Claim(_srtingClaims, permission.Description);
+            //_srtingClaims
+            //var PermissionClaim = new Claim("id", permission.PermissionId.ToString());
+            var permValueName = new Claim("ValueName", permission.ValueName);
+            var permDescription = new Claim("Description", permission.Description);
 
-            _userManager.AddClaim("id", PermissionClaim);
-            _userManager.AddClaim("ValueName", permValueName);
-            _userManager.AddClaim("Description", permDescription);
+            _userManager.AddClaim(_srtingClaims, permValueName);
+            _userManager.AddClaim(_srtingClaims, permDescription);
             
             _logger.Debug($"Permission {permission.Description} added in DB");
             //var perm = new Claim("permission", Permissions.Read);

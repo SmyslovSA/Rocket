@@ -25,10 +25,9 @@ namespace Rocket.BL.Services.User
         /// Создает новый экземпляр <see cref="UserManagementService"/>
         /// с заданным unit of work.
         /// </summary>
-        /// <param name="unitOfWork"></param>
-        /// <param name="usermanager"></param>
-        public UserManagementService(IUnitOfWork unitOfWork,
-            RocketUserManager usermanager)
+        /// <param name="unitOfWork"> uow </param>
+        /// <param name="usermanager"> manager </param>
+        public UserManagementService(IUnitOfWork unitOfWork, RocketUserManager usermanager)
             : base(unitOfWork)
         {
             _usermanager = usermanager;
