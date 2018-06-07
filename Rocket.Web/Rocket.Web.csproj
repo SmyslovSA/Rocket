@@ -371,6 +371,7 @@
     <Compile Include="Controllers\ReleaseList\SubscriptionController.cs" />
     <Compile Include="Controllers\UserPayments\IPNController.cs" />
     <Compile Include="Controllers\UserPayments\UserPaymentsController.cs" />
+    <Compile Include="Controllers\User\IAccountLevelService.cs" />
     <Compile Include="Owin\Clients.cs" />
     <Compile Include="ConfigHandlers\PaginationConfigSection.cs" />
     <Compile Include="ConfigHandlers\PartialLoadConfigSection.cs" />
