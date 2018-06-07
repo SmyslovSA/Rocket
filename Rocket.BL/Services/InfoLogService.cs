@@ -17,11 +17,9 @@ namespace Rocket.BL.Services
         /// <returns> string </returns>
         public string GetLogInfo() // todo MP подумать чтобы передать дату файла вместо =string path=, =int count=
         {
-            var path = string.Empty;
             const int count = 20; // количество последних записей
 
-            path = HostingEnvironment.MapPath("~/App_Data/Logs/2018-06-05.log");
-
+            var path = HostingEnvironment.MapPath("~/App_Data/Logs/2018-06-08.log");
             var resultString = string.Empty;
 
             if (string.IsNullOrWhiteSpace(path) || !File.Exists(path) || count <= 0)
@@ -90,7 +88,7 @@ namespace Rocket.BL.Services
             var lineCount = 0;
             for (; firstLineStart > 0; firstLineStart--)
             {
-                if (logRows[firstLineStart-1] == '\n')
+                if (logRows[firstLineStart - 1] == '\n')
                 {
                     lineCount++;
                 }

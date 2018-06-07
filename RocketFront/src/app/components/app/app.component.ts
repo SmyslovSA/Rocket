@@ -16,15 +16,16 @@ export class AppComponent {
   private ConfigureOAuth() {
     this.oidServ.configure(authConfig);
     this.oidServ.tokenValidationHandler = new JwksValidationHandler();
-    this.oidServ.loadDiscoveryDocumentAndLogin();
+    this.oidServ.loadDiscoveryDocument();
   }
 }
 
 export const authConfig: AuthConfig = {
-  issuer: 'url to issuer here',
+  issuer: 'http://localhost:63613',
   showDebugInformation: true, // remove after debug
-  clientId: 'client id here',
-  dummyClientSecret: 'client secret here',
-  scope: 'openid profile email phone custom',
-  oidc: false
+  clientId: 'client',
+  dummyClientSecret: 'secret-rocket',
+  scope: 'openid profile api',
+  oidc: false,
+  requireHttps: false
 };

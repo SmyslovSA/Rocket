@@ -42,7 +42,6 @@ namespace Rocket.Parser.Parsers
         /// </summary>
         public async Task ParseAsync()
         {
-            //todo логирование парсер запущен
             try
             {
                 // получаем настройки парсера
@@ -52,11 +51,6 @@ namespace Rocket.Parser.Parsers
                 var settings = _unitOfWork.ParserSettingsRepository.Queryable().
                     Where(ps => ps.ResourceId == resource.Id)
                     .ToList();
-
-                if (!settings.Any())
-                {
-                    //todo log нет активныйх настроек для парсера Resources.AlbumInfoSettings
-                }
 
                 // по каждой настройке выполняем парсинг
                 foreach (var setting in settings)
@@ -75,19 +69,14 @@ namespace Rocket.Parser.Parsers
 
                     await Task.WhenAll(taskList.ToArray());
 
-                    //todo log для настройки setting.Id количество полученных релизов: resourceItemsBc.Count
-
                     //фиксация данных в БД
                     SaveResults(resourceItemsBc, releasesBc);
                 }
             }
             catch (Exception excpt)
             {
-                //todo логирование
                 throw excpt;
             }
-            
-            //todo логирование парсер отработал
         }
 
         /// <summary>

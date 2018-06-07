@@ -418,7 +418,6 @@ namespace Rocket.Parser.Parsers
             }
             catch (Exception e)
             {
-                //todo запись в лог о неудачной попытке обратиться к сайту
                 throw e;
             }
         }
