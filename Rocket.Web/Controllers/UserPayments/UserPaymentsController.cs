@@ -1,10 +1,7 @@
-﻿using System.Net;
-using System.Web.Http;
-using System.Web.Http.Results;
-using Rocket.BL.Common.Services;
+﻿using System.Web.Http;
 using Rocket.BL.Common.Services.UserPayment;
 
-namespace Rocket.Web.Controllers
+namespace Rocket.Web.Controllers.UserPayments
 {
     /// <summary>
     /// Контроллер WebApi работы с инфой о платеже.
@@ -27,7 +24,7 @@ namespace Rocket.Web.Controllers
         [Route("paymentInfo")]
         public IHttpActionResult GetPaymentInfo()
         {
-            Rocket.BL.Common.Models.User.User user = null;
+            BL.Common.Models.User.User user = null;
             if (user == null)
             {
                 //TODO: get current user

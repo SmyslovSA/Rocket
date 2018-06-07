@@ -31,8 +31,8 @@ namespace Rocket.Web.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> CreateUsers()
         {
-            await _rolemanager.CreateAsync(new DbRole() {Name = "administrator"}).ConfigureAwait(false);
-            await _rolemanager.CreateAsync(new DbRole() {Name = "user"}).ConfigureAwait(false);
+            await _rolemanager.CreateAsync(new DbRole() {Name = "administrator"});
+            await _rolemanager.CreateAsync(new DbRole() {Name = "user"});
 
             await _usermanager.CreateAsync((new DbUser()
             {
