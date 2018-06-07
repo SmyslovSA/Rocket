@@ -149,6 +149,10 @@ namespace Rocket.BL.Services.Notification
             {
                 _logger.Error(exception.Message);
             }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.Message);
+            }
         }
 
         /// <summary>
@@ -194,6 +198,10 @@ namespace Rocket.BL.Services.Notification
                 _logger.Error(exception.Message);
             }
             catch (DbException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (Exception exception)
             {
                 _logger.Error(exception.Message);
             }
@@ -250,6 +258,10 @@ namespace Rocket.BL.Services.Notification
                 _logger.Error(exception.Message);
             }
             catch (DbException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (Exception exception)
             {
                 _logger.Error(exception.Message);
             }
@@ -378,6 +390,10 @@ namespace Rocket.BL.Services.Notification
             {
                 _logger.Error(exception.Message);
             }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.Message);
+            }
         }
 
         private async Task NotifyEpisodeAsync(EpisodeEntity episode)
@@ -434,6 +450,10 @@ namespace Rocket.BL.Services.Notification
                 _logger.Error(exception.Message);
             }
             catch (NullReferenceException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (Exception exception)
             {
                 _logger.Error(exception.Message);
             }
@@ -513,6 +533,10 @@ namespace Rocket.BL.Services.Notification
                 _logger.Error(exception.Message);
             }
             catch (AuthenticationException exception)
+            {
+                _logger.Error(exception.Message);
+            }
+            catch (Exception exception)
             {
                 _logger.Error(exception.Message);
             }
