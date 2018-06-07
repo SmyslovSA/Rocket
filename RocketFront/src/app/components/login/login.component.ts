@@ -20,7 +20,6 @@ export class LoginComponent {
       this.rocketAuthService.login(this.userLogin, this.password);
   }
 
- 
   get givenName() {
     const claims = this.oauthService.getIdentityClaims();
     if (!claims) {

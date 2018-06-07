@@ -23,9 +23,6 @@
               <div [hidden]="lastname.valid" class="alert alert-danger">
                 The lastname must contain more than 2 or less than 15 letters of the English alphabet.
               </div>
-              <label for="avatar">Avatar</label>
-              <input type="text" [(ngModel)]="data.Avatar" class="form-control" id="avatar" placeholder="">
-              <br>
               <button [disabled]="name.invalid || lastname.invalid" class="btn btn-success btn btn-block" (click)="changeUserInfo()" 
               type="submit">Change personal info</button>
               <br>
@@ -44,7 +41,7 @@
                     <tbody>
                         <tr>
                           <td style="width: 60%"><input type="email" class="form-control" id="email" placeholder="you@example.com" value="{{emails.Name}}" disabled></td>
-                          <td style="width: 40%"><button class="btn btn-secondary btn btn-block" (click)="deleteEmail(emails.Id)" type="submit">Delete Email</button></td>            
+                          <td style="width: 40%"><button class="btn btn-secondary btn btn-block" (click)="deleteEmail(emails.Id,emails.Name)" type="submit">Delete Email</button></td>            
                         </tr>
                     </tbody>    
                 </table>
@@ -73,7 +70,7 @@
                 <option *ngFor="let r of listGenreMusicForFront" [value]="r.Name">{{r.Name}}</option>
                 </select>
                 <br>
-                  <button class="btn btn-secondary btn btn-block" type="submit" (click)="addGenreMusic(selectedGenreMusic)">Add genre Music</button>
+                  <button class="btn btn-success btn btn-block" type="submit" (click)="addGenreMusic(selectedGenreMusic)">Add Music genre</button>
                 <div class="invalid-feedback">
                   Please select a valid category.
                 </div>
@@ -86,7 +83,7 @@
                   Please provide a valid genre.
                 </div>
                   <br>
-                  <button class="btn btn-secondary btn btn-block" type="submit" (click)="addGenreTv(selectedGenreTv)">Add genre Tv</button>
+                  <button class="btn btn-success btn btn-block" type="submit" (click)="addGenreTv(selectedGenreTv)">Add TV Genre</button>
             </div>
           </div>         
             <div class="row">
@@ -103,12 +100,12 @@
                       <tr *ngFor="let gen of dataGenreMusicForFront,let rowIndex = index">
                         <td>Music</td>
                         <td>{{gen}}</td>
-                        <td><input type="button" value="Удалить" (click)="deleteMusicGenre(gen,index)" class="btn btn-danger" /></td>
+                        <td><input type="button" value="Удалить" (click)="deleteMusicGenre(gen,index)" class="btn btn-secondary" /></td>
                     </tr> 
                     <tr *ngFor="let gen of dataGenreTvForFront,let rowIndex = index">
                       <td>Film</td>
                       <td>{{gen}}</td>
-                      <td><input type="button" value="Удалить" (click)="deleteTvGenre(gen,index)" class="btn btn-danger" /></td>
+                      <td><input type="button" value="Удалить" (click)="deleteTvGenre(gen,index)" class="btn btn-secondary" /></td>
                   </tr> 
                     </tbody>
                   </table>
