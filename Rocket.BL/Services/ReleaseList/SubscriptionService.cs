@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rocket.BL.Common.Services.ReleaseList;
+﻿using Rocket.BL.Common.Services.ReleaseList;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
+using System.Linq;
 
 namespace Rocket.BL.Services.ReleaseList
 {
