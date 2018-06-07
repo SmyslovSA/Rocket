@@ -133,6 +133,15 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;User with that Id was not found&quot;.
+        /// </summary>
+        internal static string InvalidUserId {
+            get {
+                return ResourceManager.GetString("InvalidUserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 4.
         /// </summary>
         internal static string Music {
@@ -291,6 +300,15 @@ namespace Rocket.BL.Properties {
         internal static string UserWrongPassword {
             get {
                 return ResourceManager.GetString("UserWrongPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Email format is wrong&quot;.
+        /// </summary>
+        internal static string WrongEmailFormat {
+            get {
+                return ResourceManager.GetString("WrongEmailFormat", resourceCulture);
             }
         }
     }

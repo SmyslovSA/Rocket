@@ -3,10 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Hosting;
+using Rocket.BL.Common.Services;
 
 namespace Rocket.BL.Services
 {
-    public class InfoLogService
+    public class InfoLogService : ILogService
     {
         // количество байт для буфера
         private const int СountBytes = 4096;

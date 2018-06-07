@@ -38,7 +38,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponse(HttpStatusCode.BadRequest, "Genre is not valid", typeof(string))]
         public IHttpActionResult SaveMusicGenre(string id, string genre)
         {
-            if (string.IsNullOrEmpty(genre))
+            if (string.IsNullOrWhiteSpace(genre) || string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest(Resources.EmptyGenre);
             }
@@ -61,7 +61,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponse(HttpStatusCode.BadRequest, "Genre is not valid", typeof(string))]
         public IHttpActionResult DeleteMusicGenre(string id, string genre)
         {
-            if (string.IsNullOrEmpty(genre))
+            if (string.IsNullOrWhiteSpace(genre) || string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest(Resources.EmptyGenre);
             }
@@ -84,7 +84,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponse(HttpStatusCode.BadRequest, "Genre is not valid", typeof(string))]
         public IHttpActionResult SaveTvGenre(string id, string genre)
         {
-            if (string.IsNullOrEmpty(genre))
+            if (string.IsNullOrWhiteSpace(genre) || string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest(Resources.EmptyGenre);
             }
@@ -107,7 +107,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [SwaggerResponse(HttpStatusCode.BadRequest, "Genre is not valid", typeof(string))]
         public IHttpActionResult DeleteTvGenre(string id, string genre)
         {
-            if (string.IsNullOrEmpty(genre))
+            if (string.IsNullOrWhiteSpace(genre) || string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest(Resources.EmptyGenre);
             }

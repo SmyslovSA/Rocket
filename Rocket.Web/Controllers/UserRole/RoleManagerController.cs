@@ -1,6 +1,8 @@
 ﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Rocket.BL.Common.Services;
+using Rocket.BL.Services.UserServices;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Rocket.Web.Controllers.UserRole
@@ -8,35 +10,37 @@ namespace Rocket.Web.Controllers.UserRole
     [RoutePrefix("user")]
     public class RoleManagerController : ApiController
     {
-        private readonly IUserRoleManager _roleManager;
+        private readonly UserRoleManager _roleManager;
 
-        public RoleManagerController(IUserRoleManager roleManager)
+        public RoleManagerController(UserRoleManager roleManager)
         {
             _roleManager = roleManager;
         }
 
         [HttpPost]
-        [Route("add/role/{id:int:min(1)}")]
+        [Route("{userId:length(36)}/role/add")]//{roleId:string:min(1)}
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "Role added to user")]
-        public IHttpActionResult AddToRole(string userId, string roleId) 
+        public async Task<IHttpActionResult> AddToRole(string userId, string roleId)
         {
-             return _roleManager.IsInRole(userId, roleId) ? (IHttpActionResult)NotFound() : Ok();
+            var result = await _roleManager.AddToRole(userId, roleId);
+            return result.Succeeded ? (IHttpActionResult)NotFound() : Ok();
         }
 
         [HttpDelete]
-        [Route("remove/role/{id:int:min(1)}")]
+        [Route("{userId:length(36)}/role/{roleId}/remove")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "Role removed from user")]
-        public IHttpActionResult RemoveFromRole(string userId, string roleId) 
+        public async Task<IHttpActionResult> RemoveFromRole(string userId, string roleId)
         {
-            return !_roleManager.IsInRole(userId, roleId) ? (IHttpActionResult)NotFound() : Ok();
+            var removeResult = await _roleManager.RemoveFromRole(userId, roleId);
+            return removeResult.Succeeded ?  Ok() : (IHttpActionResult)NotFound();
         }
 
         [HttpGet]
-        [Route("{id:int:min(1)}/roles")]
+        [Route("{userId:length(36)}/roles")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK)]
@@ -46,14 +50,15 @@ namespace Rocket.Web.Controllers.UserRole
         }
 
         [HttpGet]
-        [Route("has/role")]
+        [Route("{userId:length(36)}/role/{roleId}/has")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public IHttpActionResult IsInRole(string userId, string roleId)
+        public async Task<IHttpActionResult> IsInRole(string userId, string roleId)
         {
-            _roleManager.IsInRole(userId, roleId);
-            return Ok();
+            var isInRoleResult = await _roleManager.IsInRole(userId, roleId);
+
+            return isInRoleResult ? Ok() : (IHttpActionResult)NotFound();
         }
     }
 }

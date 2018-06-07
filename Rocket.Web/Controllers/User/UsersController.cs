@@ -1,10 +1,16 @@
-﻿using System;
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Results;
+﻿using AutoMapper;
 using Rocket.BL.Common.Services.User;
+using Rocket.DAL.Common.DbModels.DbPersonalArea;
+using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Identity;
 using Rocket.Web.Attributes;
 using Swashbuckle.Swagger.Annotations;
+using System;
+using System.Collections.ObjectModel;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace Rocket.Web.Controllers.User
 {
@@ -12,14 +18,19 @@ namespace Rocket.Web.Controllers.User
     /// Контроллер WebApi работы с пользователями.
     /// </summary>
     [RoutePrefix("users")]
-    [RoleAuthorize(ClaimName = "a,b,c")]
     public class UsersController : ApiController
     {
+        private readonly RocketUserManager _rocketUserManagerService;
+        private readonly RockeRoleManager _rolemanager;
         private readonly IUserManagementService _userManagementService;
 
-        public UsersController(IUserManagementService userManagementService)
+        public UsersController(
+            RocketUserManager rocketUserManagerService, RockeRoleManager rolemanager, IUserManagementService userNativeManagementService)
         {
-            _userManagementService = userManagementService;
+            _rocketUserManagerService = rocketUserManagerService;
+            _rolemanager = rolemanager;
+            _userManagementService = userNativeManagementService;
+
         }
 
         /// <summary>
@@ -85,16 +96,41 @@ namespace Rocket.Web.Controllers.User
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(BL.Common.Models.User.User))]
-        public IHttpActionResult AddUser([FromBody] BL.Common.Models.User.User user)
+        public async Task<IHttpActionResult> AddUser([FromBody] BL.Common.Models.User.User user)
         {
             if (user == null)
             {
                 return BadRequest("User can not be empty");
             }
 
-            _userManagementService.AddUser(user);
+            var result = await _rocketUserManagerService.FindByNameAsync(user.Login).ConfigureAwait(false);
 
-            return Created($"users/{user.Id}", user);
+            if (result != null)
+            {
+                return BadRequest("User exists");
+            }
+
+            var dbRole = await _rolemanager.FindByNameAsync("administrator").ConfigureAwait(false);
+            var dbUserProfile = new DbUserProfile()
+            {
+                Email = new Collection<DbEmail>()
+                    {
+                        new DbEmail()
+                        {
+                            Name = "emptyEmail",
+                        }
+                    },
+            };
+
+            var dbUser = Mapper.Map<DbUser>(user);
+            dbUser.DbUserProfile = dbUserProfile;
+
+            await _rocketUserManagerService.CreateAsync(dbUser).ConfigureAwait(false);
+
+            await _rocketUserManagerService
+                .AddToRoleAsync(dbUser.Id, "user").ConfigureAwait(false);
+
+            return Ok();
         }
 
         /// <summary>
@@ -148,9 +184,10 @@ namespace Rocket.Web.Controllers.User
                 return BadRequest("User invalid");
             }
 
-            //_userManagementService.DeleteUser(user.Id);
+            _userManagementService.DeleteUser(user.Id);
 
-            //return Ok($"User with id = {user.Id} successfully deleted");
+            return Ok($"User with id = {user.Id} successfully deleted");
+
             throw new NotImplementedException();
         }
     }

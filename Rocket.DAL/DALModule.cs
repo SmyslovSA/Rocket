@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject.Modules;
 using Ninject.Web.Common;
+using Rocket.BL.Common.Services;
 using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.Notification;
@@ -79,7 +80,7 @@ namespace Rocket.DAL
 
             //Bind<IUserStore<DbUser, string>>().ToMethod(ctx => new UserStore<DbUser>(new RocketContext()));
             Bind<IUserStore<DbUser>>().To<UserStore<DbUser>>();
-            Bind<IRoleStore<IdentityRole, string>>().To<RoleStore<IdentityRole>>();
+            Bind<IRoleStore<DbRole, string>>().To<RoleStore<DbRole>>();
 
             //Bind<IUserStore<DbUser, string>>()
             //    .ToConstructor(ctx => new UserStore<>())

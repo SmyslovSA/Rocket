@@ -195,4 +195,10 @@
   <data name="UserWrongGenre" xml:space="preserve">
     <value>"User hasn't have this genre"</value>
   </data>
+  <data name="WrongEmailFormat" xml:space="preserve">
+    <value>"Email format is wrong"</value>
+  </data>
+  <data name="InvalidUserId" xml:space="preserve">
+    <value>"User with that Id was not found"</value>
+  </data>
 </root>

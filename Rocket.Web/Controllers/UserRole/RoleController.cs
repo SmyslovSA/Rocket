@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Rocket.BL.Common.Models.UserRoles;
-using Rocket.BL.Common.Services;
+using Rocket.BL.Services.UserServices;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Rocket.Web.Controllers.UserRole
@@ -10,11 +12,11 @@ namespace Rocket.Web.Controllers.UserRole
     [RoutePrefix("roles")]
     public class RoleController : ApiController
     {
-        private readonly IRoleService _roleService;
+        private readonly RoleService _roleManager;
 
-        public RoleController(IRoleService roleService)
+        public RoleController(RoleService roleManager)
         {
-            _roleService = roleService;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -23,19 +25,19 @@ namespace Rocket.Web.Controllers.UserRole
         [SwaggerResponse(HttpStatusCode.OK)]
         public IHttpActionResult GetAllRoles()
         {
-            _roleService.Get(null, null, "Roles");
-            return Ok();
+            var result = _roleManager.GetAllRoles().ToArray();
+            return Ok(result);
         }
 
         [HttpGet]
-        [Route("{id:int:min(1)}")]
+        [Route("{id}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public IHttpActionResult GetRoleById(string id)
+        public async Task<IHttpActionResult> GetRoleById(string id)
         {
-            var model = _roleService.GetById(id);
-            return model == null ? (IHttpActionResult)NotFound() : Ok(model);
+            var model = await _roleManager.GetById(id);
+            return model == null ? (IHttpActionResult)NotFound() : Ok(model.Name);
         }
 
         [HttpPost]
@@ -43,40 +45,41 @@ namespace Rocket.Web.Controllers.UserRole
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
         [SwaggerResponse(HttpStatusCode.Created, "New Role description", typeof(Role))]
-        public IHttpActionResult SaveRole(Role role)
+        public async Task<IHttpActionResult> SaveRole(string roleName)
         {
-            if (role == null)
+            if (roleName == null)
             {
                 return BadRequest("Model cannot be empty");
             }
 
-            _roleService.Insert(role);
-            return Created($"role/{role.RoleId}", role);
+            var role = new Role { Name = roleName };
+
+            await _roleManager.Insert(role);
+            return Created($"role/{roleName}", role);
         }
 
         [HttpPut]
         [Route("update")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NoContent)]
-        public IHttpActionResult UpdateRole([FromBody] Role role)
+        public async Task<IHttpActionResult> UpdateRole(string roleId, string roleName)
         {
-            _roleService.Update(role);
+            var model = await _roleManager.GetById(roleId);
+
+            if (model != null)
+                await _roleManager.Update(roleId, roleName);
+
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
         }
 
         [HttpDelete]
-        [Route("delete/{id:int:min(1)}")]
+        [Route("delete")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.Accepted)]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
-        public IHttpActionResult DeleteRoleById(string id)
+        public async Task<IHttpActionResult> DeleteRoleById(string roleId)
         {
-            if (_roleService.GetById(id) == null)
-            {
-                return BadRequest("The role does not exist");
-            }
-
-            _roleService.Delete(id);
+            await _roleManager.Delete(roleId);
             return new StatusCodeResult(HttpStatusCode.Accepted, Request);
         }
     }
