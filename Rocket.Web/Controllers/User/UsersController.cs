@@ -100,30 +100,32 @@ namespace Rocket.Web.Controllers.User
         [SwaggerResponse(HttpStatusCode.Created, "New model description", typeof(BL.Common.Models.User.User))]
         public async Task<IHttpActionResult> AddUser([FromBody] BL.Common.Models.User.User user)
         {
-            //if (user == null)
-            //{
-            //    return BadRequest("User can not be empty");
-            //}
 
-            //var dbRole = await _rolemanager.FindByNameAsync("administrator").ConfigureAwait(false);
-            //var dbUserProfile = new DbUserProfile()
-            //{
-            //    Email = new Collection<DbEmail>()
-            //        {
-            //            new DbEmail()
-            //            {
-            //                Name = "emptyEmail",
-            //            }
-            //        },
-            //};
 
-            //var dbUser = Mapper.Map<DbUser>(user);
-            //dbUser.DbUserProfile = dbUserProfile;
+            if (user == null)
+            {
+                return BadRequest("User can not be empty");
+            }
 
-            //await _userManagementService.CreateAsync(dbUser).ConfigureAwait(false);
+            var dbRole = await _rolemanager.FindByNameAsync("administrator").ConfigureAwait(false);
+            var dbUserProfile = new DbUserProfile()
+            {
+                Email = new Collection<DbEmail>()
+                    {
+                        new DbEmail()
+                        {
+                            Name = "emptyEmail",
+                        }
+                    },
+            };
 
-            //await _userManagementService
-            //    .AddToRoleAsync(dbUser.Id, "user").ConfigureAwait(false);
+            var dbUser = Mapper.Map<DbUser>(user);
+            dbUser.DbUserProfile = dbUserProfile;
+
+            await _userManagementService.CreateAsync(dbUser).ConfigureAwait(false);
+
+            await _userManagementService
+                .AddToRoleAsync(dbUser.Id, "user").ConfigureAwait(false);
 
             return Ok();
         }
