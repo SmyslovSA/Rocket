@@ -1,5 +1,5 @@
-﻿using IdentityServer3.Core.Extensions;
-using Rocket.BL.Common.Services.ReleaseList;
+﻿using Rocket.BL.Common.Services.ReleaseList;
+using Rocket.Web.Extensions;
 using System.Web.Http;
 
 namespace Rocket.Web.Controllers.ReleaseList
@@ -19,7 +19,7 @@ namespace Rocket.Web.Controllers.ReleaseList
         public IHttpActionResult Subscribe(int id)
         {
             // todo: обработка ошибок
-            _subscriptionService.Subscribe(User.GetSubjectId(), id);
+            _subscriptionService.Subscribe(User.GetUserId(), id);
             return Ok();
         }
 
@@ -28,7 +28,7 @@ namespace Rocket.Web.Controllers.ReleaseList
         public IHttpActionResult Unsubscribe(int id)
         {
             // todo: обработка ошибок
-            _subscriptionService.Unsubscribe(User.GetSubjectId(), id);
+            _subscriptionService.Unsubscribe(User.GetUserId(), id);
             return Ok();
         }
     }
