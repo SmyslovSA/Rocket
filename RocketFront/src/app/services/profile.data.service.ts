@@ -10,7 +10,7 @@ import { GenreTv } from '../models/personal-area/genreTv';
 export class DataService {
     constructor(private http: HttpClient) {}
     getData(): Observable<Profile> {
-       return this.http.get<Profile>('http://localhost:63613/personal/user/Zz33-dasad6GyLK-123fdsZ');
+       return this.http.get<Profile>(`http://localhost:63613/personal/user`);
     }
 
     getListGenreMusic(): Observable<GenreMusic> {
@@ -23,17 +23,17 @@ export class DataService {
     changeData(user: Profile): Observable<Profile> {
        return this.http.put<Profile>(
     // tslint:disable-next-line:max-line-length
-    `http://localhost:63613/personal/user/info/Zz33-dasad6GyLK-123fdsZ?firstName=${user.FirstName}&lastName=${user.LastName}&avatar=${user.Avatar}`, null);
+    `http://localhost:63613/personal/user/info/?firstName=${user.FirstName}&lastName=${user.LastName}&avatar=${user.Avatar}`, null);
     }
 
     changePassword(pass: string, passConfirm: string): Observable<Profile> {
         return this.http.put<Profile>(
         // tslint:disable-next-line:max-line-length
-        `http://localhost:63613/personal/user/password/Zz33-dasad6GyLK-123fdsZ?password=${pass}&passwordConfirm=${passConfirm}`, null);
+        `http://localhost:63613/personal/user/password/?password=${pass}&passwordConfirm=${passConfirm}`, null);
     }
 
     addemail(email: Email): Observable<Email> {
-         return this.http.post<Email>(`http://localhost:63613/personal/email/add?id=Zz33-dasad6GyLK-123fdsZ`, email);
+         return this.http.post<Email>(`http://localhost:63613/personal/email/add/`, email);
     }
 
     deleteemail(id: number): Observable<HttpErrorResponse> {

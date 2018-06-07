@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Rocket.BL.Common.Services.PersonalArea;
+using Rocket.Web.Extensions;
 using Rocket.Web.Properties;
 using Swashbuckle.Swagger.Annotations;
 using System.Net;
@@ -19,27 +20,27 @@ namespace Rocket.Web.Controllers.PersonalArea
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public IHttpActionResult GetAuthorisedUser(string id)
+        [Route()]
+        public IHttpActionResult GetAuthorisedUser()
         {
-            var user = _ipersonaldata.GetUserData(id);
+            var user = _ipersonaldata.GetUserData(User.GetUserId());
             return user == null ? (IHttpActionResult)NotFound() : Ok(user);
         }
 
         [HttpPut]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Data is not valid", typeof(string))]
-        [Route("info/{id}")]
-        public IHttpActionResult UpdateUserPersonalInfo(string id, string firstName, string lastName, string avatar)
+        [Route("info")]
+        public IHttpActionResult UpdateUserPersonalInfo(string firstName, string lastName, string avatar)
         {
-            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) || string.IsNullOrWhiteSpace(id))
+            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
             {
                 return BadRequest(Resources.UserEmptyFirstNameOrLastName);
             }
 
             try
             {
-                _ipersonaldata.ChangePersonalData(id, firstName, lastName, avatar);
+                _ipersonaldata.ChangePersonalData(User.GetUserId(), firstName, lastName, avatar);
             }
             catch (ValidationException exception)
             {
@@ -52,17 +53,17 @@ namespace Rocket.Web.Controllers.PersonalArea
         [HttpPut]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Password is not valid", typeof(string))]
-        [Route("password/{id}")]
-        public IHttpActionResult UpdateUserPassword(string id, string password, string passwordConfirm)
+        [Route("password")]
+        public IHttpActionResult UpdateUserPassword(string password, string passwordConfirm)
         {
-            if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(passwordConfirm) || string.IsNullOrWhiteSpace(id))
+            if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(passwordConfirm))
             {
                 return BadRequest(Resources.EmptyPassword);
             }
 
             try
             {
-                _ipersonaldata.ChangePasswordData(id, password, passwordConfirm);
+                _ipersonaldata.ChangePasswordData(User.GetUserId(), password, passwordConfirm);
             }
             catch (ValidationException exception)
             {
