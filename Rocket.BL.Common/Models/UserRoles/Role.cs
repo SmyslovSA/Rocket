@@ -7,7 +7,7 @@ namespace Rocket.BL.Common.Models.UserRoles
         /// <summary>
         /// Уникальный идентификатор роли пользователя
         /// </summary>
-        public int RoleId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Название роли пользователя
