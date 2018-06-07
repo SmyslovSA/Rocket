@@ -367,10 +367,12 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DebugController.cs" />
+    <Compile Include="Controllers\LoggerController.cs" />
     <Compile Include="Controllers\ReleaseList\GenreController.cs" />
     <Compile Include="Controllers\ReleaseList\SubscriptionController.cs" />
     <Compile Include="Controllers\UserPayments\IPNController.cs" />
     <Compile Include="Controllers\UserPayments\UserPaymentsController.cs" />
+    <Compile Include="Extensions\PrincipalExtensions.cs" />
     <Compile Include="Owin\Clients.cs" />
     <Compile Include="ConfigHandlers\PaginationConfigSection.cs" />
     <Compile Include="ConfigHandlers\PartialLoadConfigSection.cs" />
@@ -435,7 +437,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Logs\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -453,7 +455,7 @@
       <Name>Rocket.BL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rocket.DAL.Common\Rocket.DAL.Common.csproj">
-      <Project>{4383C0FF-4C4A-4C42-BB46-5A5137E5E7AD}</Project>
+      <Project>{4383c0ff-4c4a-4c42-bb46-5a5137e5e7ad}</Project>
       <Name>Rocket.DAL.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rocket.DAL\Rocket.DAL.csproj">

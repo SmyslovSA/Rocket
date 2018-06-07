@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rocket.BL.Common.Services.ReleaseList
 {
-    public interface ISubscriptionService
+    public interface ISubscriptionService : IDisposable
     {
-        void Subscribe(string userId, int id);
-        void Unsubscribe(string userId, int id);
+    void Subscribe(string userId, int id);
+
+    void Unsubscribe(string userId, int id);
     }
 }

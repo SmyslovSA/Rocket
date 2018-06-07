@@ -29,7 +29,7 @@ namespace Rocket.BL.Services.UserPaymentService
         /// <summary>
         /// добавление инфы о платеже.
         /// </summary>
-        /// <param name="payment">Экземпляр пользователя, для которого ищем инфу о платеже.</param>
+        /// <param name="payment">Экземпляр платежа пользователя, для которого ищем инфу о платеже.</param>
         public void AddUserPayment(UserPayment payment)
         {
             var dbPayment = Mapper.Map<DbUserPayment>(payment);

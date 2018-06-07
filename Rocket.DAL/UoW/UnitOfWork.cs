@@ -1,7 +1,9 @@
 ﻿using System;
+using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.Subscription;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
 using Rocket.DAL.Common.Repositories.IDbUserRoleRepository;
@@ -9,8 +11,6 @@ using Rocket.DAL.Common.Repositories.Notification;
 using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
-using Rocket.DAL.Common.DbModels;
-using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.UoW
 {
@@ -62,6 +62,7 @@ namespace Rocket.DAL.UoW
         /// <param name="dbUserBillingMessageRepository">Репозиторий сообщений о платежах пользователя</param>
         /// <param name="userPaymentRepository">Репозиторий платежей пользователя</param>
         /// <param name="subscribableRepository">Репозиторий ресурсов для подписки</param>
+        
         public UnitOfWork(
             RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,

@@ -31,16 +31,16 @@
                             <td>{{TestUser.role}}</td>
                         </tr> -->
     
-                      <td><a class="nav-link" href="#">John Doe (link)</a></td> 
-                      <td>Админ, Юзер</td>
+                      <td>John Doe</td> 
+                      <td>admin, user</td>
                     </tr>
                     <tr>
-                      <td><a class="nav-link" href="#">Mary Moe (link)</a></td> 
-                      <td>Модератор, Юзер</td>
+                      <td>Mary Moe</td> 
+                      <td>moder_news, user</td>
                     </tr>
                     <tr>
-                      <td><a class="nav-link" href="#">July Dooley (link)</a></td>
-                      <td>Юзер</td>
+                      <td>July Dooley</td>
+                      <td>user</td>
                     </tr>
                   </tbody>
                 </table>
@@ -80,16 +80,16 @@
             </thead>
             <tbody>
               <tr>
-                <td><a class="nav-link" href="#">Администратор (link)</a></td>
-                <td>Админ</td>
+                <td>admin</td>
+                <td>Администратор сайта</td>
               </tr>
               <tr>
-                <td><a class="nav-link" href="#">Модератор (link)</a></td>
-                <td>Модератор</td>
+                <td>moder_news</td>
+                <td>Модератор ленты новостей</td>
               </tr>
               <tr>
-                <td><a class="nav-link" href="#">Стандартный пользователь  (link)</a></td>
-                <td>Юзер</td>
+                <td>user</td>
+                <td>Пользователь</td>
               </tr>
             </tbody>
           </table>
@@ -105,22 +105,31 @@
                   </div>
             </form>
         </div>
+
+        <div *ngIf="currTemplate == 4" class="container">
+          <h2>Чтение логов из файла</h2>
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <th>Последние записи из файла логирования на текущую дату</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Error время1 : Ошибка при попытке "Корректировка комментариев"</td>
+              </tr>
+              <tr>
+                <td>Info время2 : Не удалосьвыполнить "Блокировка аккаунта"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div> 
+
+        
     </div>
 
     <div class="col-sm-4">            <table class="table table-bordered table-sm">
-        <thead>
-          <tr>
-            <th>Последние 20 записей из файла логирования на текущую дату</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Error время1 : Ошибка при попытке "Корректировка комментариев"</td>
-          </tr>
-          <tr>
-            <td>Info время2 : Не удалосьвыполнить "Блокировка аккаунта"</td>
-          </tr>
-        </tbody>
+        
       </table></div>
     </div>      
 

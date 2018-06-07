@@ -20,7 +20,6 @@ import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { UsersComponent } from './users/users.component';
 import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
 import { PagingComponent } from './components/news-feed/paging/paging.component';
 import { MusicsComponent } from './components/news-feed/musics/musics.component';
@@ -64,7 +63,6 @@ export function createConfig(): SignalRConfiguration {
     NewsFeedComponent,
     PersonalAreaComponent,
     CalendarComponent,
-    UsersComponent,
     EpisodesComponent,
     PagingComponent,
     MusicsComponent,

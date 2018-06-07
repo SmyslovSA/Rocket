@@ -6,17 +6,21 @@ using Rocket.BL.Properties;
 using Rocket.DAL.Common.DbModels.DbPersonalArea;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
+using Rocket.DAL.Identity;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Rocket.BL.Services.PersonalArea
 {
     public class PersonalDataService : BaseService, IPersonalData
     {
         private readonly IValidator _validator;
+        private readonly RocketUserManager _userManager;
 
-        public PersonalDataService(IUnitOfWork unitOfWork, IValidator<Common.Models.User.User> validator) : base(unitOfWork)
+        public PersonalDataService(IUnitOfWork unitOfWork, IValidator<Common.Models.User.User> validator, RocketUserManager usermanager) : base(unitOfWork)
         {
             _validator = validator;
+            _userManager = usermanager;
         }
 
         /// <summary>
@@ -45,8 +49,8 @@ namespace Rocket.BL.Services.PersonalArea
                 throw new ValidationException(Resources.UserWrongPassword);
             }
 
-            var user = _unitOfWork.UserRepository.GetById(id);
-            user.PasswordHash = newPassword;
+            var user = _unitOfWork.UserRepository.GetById(id) ?? throw new ValidationException(Resources.InvalidUserId);
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(newPassword);
             _unitOfWork.UserRepository.Update(user);
             _unitOfWork.SaveChanges();
         }
@@ -63,17 +67,10 @@ namespace Rocket.BL.Services.PersonalArea
             var user = _unitOfWork.UserRepository.Get(
                         f => f.Id == id,
                         includeProperties: $"{nameof(DbUserProfile)}")
-                        ?.FirstOrDefault();
+                        ?.FirstOrDefault() ?? throw new ValidationException(Resources.InvalidUserId);
             user.FirstName = firstName;
             user.LastName = lastName;
             user.DbUserProfile.Avatar = avatar;
-            var userToValidate = Mapper.Map<Common.Models.User.User>(user);
-            var validate = _validator.Validate(userToValidate);
-            if (!validate.IsValid)
-            {
-                throw new ValidationException(Resources.UserWrongFirstOrLastName);
-            }
-
             _unitOfWork.UserRepository.Update(user);
             _unitOfWork.SaveChanges();
         }
@@ -86,12 +83,8 @@ namespace Rocket.BL.Services.PersonalArea
         /// <returns>True - если пароль прошел валидацию, false - если не прошел.</returns>
         private bool PasswordValidate(string password, string passwordConfirm)
         {
-            if (password == null || passwordConfirm == null)
-            {
-                return false;
-            }
-
-            return password == passwordConfirm && password.Length > 6;
+            var pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$";
+            return Regex.IsMatch(password, pattern) && password == passwordConfirm;
         }
     }
 }

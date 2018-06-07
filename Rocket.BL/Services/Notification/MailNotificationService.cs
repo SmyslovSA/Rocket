@@ -386,7 +386,7 @@ namespace Rocket.BL.Services.Notification
             {
                 var release = Mapper.Map<EpisodeNotification>(episode);
                 string template = _unitOfWork.EmailTemplateRepository
-                    .Get(x => x.Title == Resources.Episode).First().Body;
+                    .GetById(Convert.ToInt32(Resources.Episode)).Body;
 
                 int quota = release.Receivers.Count / _transport.Count();
                 if (quota < 1)

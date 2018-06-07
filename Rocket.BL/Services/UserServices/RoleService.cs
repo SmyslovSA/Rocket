@@ -1,8 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Common.Logging;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Rocket.BL.Common.Models.UserRoles;
 using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Identity;
@@ -31,10 +36,10 @@ namespace Rocket.BL.Services.UserServices
             //    .Any();
         }
 
-        public IQueryable<IdentityRole> GetAllRoles()
+        public IEnumerable<Role> GetAllRoles()
         {
             _logger.Trace($"Request GetAllRoles");
-            return _roleManager.Roles;
+            return _roleManager.Roles.Include(t => t.Permissions).ToArray().Select(Mapper.Map<Role>);
         }
 
         //public IEnumerable<Role> Get(
@@ -45,21 +50,26 @@ namespace Rocket.BL.Services.UserServices
         //    return _unitOfWork.RoleRepository.Get(filter, orderBy, includeProperties).Select(Mapper.Map<Role>);
         //}
 
-        public async Task<IdentityRole> GetById(string roleId)
+        public async Task<Role> GetById(string roleId)
         {
             _logger.Trace($"Request GetById : roleId {roleId}");
-            return await _roleManager.FindByIdAsync(roleId).ConfigureAwait(false);
+
+            var dbRole = await _roleManager.FindByIdAsync(roleId).ConfigureAwait(false);
+            return Mapper.Map<Role>(dbRole);
 
             //return Mapper.Map<Role>(
             //    _unitOfWork.RoleRepository.GetById(id));
         }
 
-        public async Task<IdentityResult> Insert(DbRole role)
+        public async Task<IdentityResult> Insert(Role role)
         {
-            _logger.Trace($"Request Insert in queue: Role {role}");
-            var result = await _roleManager.CreateAsync(role).ConfigureAwait(false);
+            var dbRole = Mapper.Map<DbRole>(role);
+            dbRole.Id = Guid.NewGuid().ToString();
 
-            _logger.Trace($"Request Insert complete: Role {role}");
+            _logger.Trace($"Request Insert in queue: Role {dbRole}");
+            var result = await _roleManager.CreateAsync(dbRole).ConfigureAwait(false);
+
+            _logger.Trace($"Request Insert complete: Role {dbRole}");
             return result;
 
             //var dbRole = Mapper.Map<DbRole>(role);
@@ -68,12 +78,15 @@ namespace Rocket.BL.Services.UserServices
             //_unitOfWork.SaveChanges();
         }
 
-        public async Task<IdentityResult> Update(DbRole role)
+        public async Task<IdentityResult> Update(string roleId, string roleName)
         {
-            _logger.Trace($"Request Update in queue: Role {role}");
-            var result = await _roleManager.UpdateAsync(role).ConfigureAwait(false);
+            var dbRole = await _roleManager.FindByIdAsync(roleId);
+            dbRole.Name = roleName;
 
-            _logger.Trace($"Request Update complete: Role {role}");
+            _logger.Trace($"Request Update in queue: Role {dbRole}");
+            var result = await _roleManager.UpdateAsync(dbRole).ConfigureAwait(false);
+
+            _logger.Trace($"Request Update complete: Role {dbRole}");
             return result;
 
             //var dbRole = Mapper.Map<DbRole>(role);
@@ -82,12 +95,14 @@ namespace Rocket.BL.Services.UserServices
             //_unitOfWork.SaveChanges();
         }
 
-        public async Task<IdentityResult> Delete(DbRole role)
+        public async Task<IdentityResult> Delete(string roleId)
         {
-            _logger.Trace($"Request Delete in queue: Role {role}");
-            var result = await _roleManager.DeleteAsync(role).ConfigureAwait(false);
+            var dbRole = await _roleManager.FindByIdAsync(roleId);
 
-            _logger.Trace($"Request Delete complete: Role {role}");
+            _logger.Trace($"Request Delete in queue: Role {dbRole}");
+            var result = await _roleManager.DeleteAsync(dbRole).ConfigureAwait(false);
+
+            _logger.Trace($"Request Delete complete: Role {dbRole}");
             return result;
 
             //_unitOfWork.RoleRepository.Delete(id);
