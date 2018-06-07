@@ -10,7 +10,9 @@ namespace Rocket.Web.Owin
             // настроить скопы согласно модельки юзера
             return new[]
             {
-                StandardScopes.OpenId, StandardScopes.Profile,
+                StandardScopes.OpenId,
+                StandardScopes.ProfileAlwaysInclude,
+                StandardScopes.AllClaims,
                 new Scope()
                 {
                     Name = "api",
