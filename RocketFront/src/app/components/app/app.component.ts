@@ -25,7 +25,7 @@ export const authConfig: AuthConfig = {
   showDebugInformation: true, // remove after debug
   clientId: 'client',
   dummyClientSecret: 'secret-rocket',
-  scope: 'openid profile api',
+  scope: 'openid profile all_claims api',
   oidc: false,
   requireHttps: false
 };

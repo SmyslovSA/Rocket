@@ -61,7 +61,7 @@ namespace Rocket.Web
                 RequiredScopes = new[] { "openid" },
                 IssuerName = "http://localhost:63613", // ?
                 SigningCertificate = LoadCertificate(),
-                ValidationMode = ValidationMode.ValidationEndpoint
+                ValidationMode = ValidationMode.Local
             };
 
             app.UseIdentityServerBearerTokenAuthentication(opt);
