@@ -106,7 +106,7 @@ namespace Rocket.Web.Controllers.UserPayments
                 payment.Currentcy = GetFromSpam("mc_currency", paymentInfo);
                 payment.UserId = GetFromSpam("custom", paymentInfo);
 
-                //_userPaymentService.AddUserPayment(payment);
+                _userPaymentService.AddUserPayment(payment);
 
                 if ((payment.Result == "Completed") && (payment.Summ == 3))
                 {
