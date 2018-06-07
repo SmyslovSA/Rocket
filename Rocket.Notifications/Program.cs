@@ -11,6 +11,7 @@ using Rocket.Notifications.Heplers;
 using Rocket.Notifications.Jobs;
 using Rocket.Notifications.Properties;
 using Rocket.Notifications.Services;
+using Rocket.Web;
 using Topshelf;
 using Topshelf.Quartz;
 using Topshelf.ServiceConfigurators;
@@ -26,6 +27,7 @@ namespace Rocket.Notifications
                 //Подключаем IoC
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 var kernel = BootstrapHelper.LoadNinjectKernel(assemblies);
+                MapperConfig.Initialize();
 
                 HostFactory.Run(configurator =>
                 {
@@ -58,29 +60,37 @@ namespace Rocket.Notifications
         private static void NotificationsProcess(
             ServiceConfigurator<TopshelfService> serviceConfigurator, IKernel kernel)
         {
-            var notificationsSettingsRepository = kernel.Get<IBaseRepository<NotificationsSettingsEntity>>();
-            var resource = notificationsSettingsRepository
-                .Queryable().First(r => r.Name.Equals(Resources.NotificationsSettings));
+            try
+            {
+                var notificationsSettingsRepository = kernel.Get<IBaseRepository<NotificationsSettingsEntity>>();
+                var resource = notificationsSettingsRepository
+                    .Queryable().First(r => r.Name.Equals(Resources.NotificationsSettings));
 
-            var notificationsIsSwitchOn = resource.NotifyIsSwitchOn;
-            var notificationsPeriodInMinutes = resource.NotifyPeriodInMinutes;
+                var notificationsIsSwitchOn = resource.NotifyIsSwitchOn;
+                var notificationsPeriodInMinutes = resource.NotifyPeriodInMinutes;
 
-            if (!notificationsIsSwitchOn) return;
+                if (!notificationsIsSwitchOn) return;
 
-            ITrigger NotificationsTrigger() => TriggerBuilder.Create()
-                .WithSimpleSchedule(builder => builder.WithIntervalInMinutes(notificationsPeriodInMinutes)
-                    .WithMisfireHandlingInstructionIgnoreMisfires()
-                    .RepeatForever())
-                .Build();
+                ITrigger NotificationsTrigger() => TriggerBuilder.Create()
+                    .WithSimpleSchedule(builder => builder.WithIntervalInMinutes(notificationsPeriodInMinutes)
+                        .WithMisfireHandlingInstructionIgnoreMisfires()
+                        .RepeatForever())
+                    .Build();
 
-            IJobDetail notificationsTriggerJob = JobBuilder.Create<NotificationsJob>().Build();
-            notificationsTriggerJob.JobDataMap.Put(CommonHelper.ContainerKey, kernel);
+                IJobDetail notificationsTriggerJob = JobBuilder.Create<NotificationsJob>().Build();
+                notificationsTriggerJob.JobDataMap.Put(CommonHelper.ContainerKey, kernel);
 
-            // Запускает уведомления
-            serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
-                jobConfigurator
-                    .WithJob(() => notificationsTriggerJob)
-                    .AddTrigger(NotificationsTrigger));
+                // Запускает уведомления
+                serviceConfigurator.ScheduleQuartzJob(jobConfigurator =>
+                    jobConfigurator
+                        .WithJob(() => notificationsTriggerJob)
+                        .AddTrigger(NotificationsTrigger));
+
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
     }
