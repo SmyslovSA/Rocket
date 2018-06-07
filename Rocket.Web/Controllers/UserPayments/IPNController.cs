@@ -104,16 +104,16 @@ namespace Rocket.Web.Controllers.UserPayments
                 payment.Email = GetFromSpam("payer_email", paymentInfo);
                 payment.LastName = GetFromSpam("last_name", paymentInfo);
                 payment.Currentcy = GetFromSpam("mc_currency", paymentInfo);
-                payment.UserId = int.Parse(GetFromSpam("custom", paymentInfo));
+                payment.UserId = GetFromSpam("custom", paymentInfo);
 
-                _userPaymentService.AddUserPayment(payment);
+                //_userPaymentService.AddUserPayment(payment);
 
                 if ((payment.Result == "Completed") && (payment.Summ == 3))
                 {
                     var accountLevel = new AccountLevel();
                     accountLevel.Id = 2;
                     accountLevel.Name = "Премиум";
-                    _userAccountLevelService.SetUserAccountLevel(payment.UserId, accountLevel);
+                    _userAccountLevelService.SetUserAccountLevel(int.Parse(payment.UserId), accountLevel);
                 }
             }
             else if (ipnContext.Verification.Equals("INVALID"))
