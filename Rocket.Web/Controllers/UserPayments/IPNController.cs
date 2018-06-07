@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Rocket.BL.Common.Services;
+using Rocket.BL.Common.Services.User;
+using Rocket.BL.Common.Services.UserPayment;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
-using Rocket.BL.Common.Services.UserPayment;
 
-namespace Rocket.Web.Controllers.UserPayments
+namespace Rocket.Web.Controllers
 {
     [RoutePrefix("ipn")]
     public class IPNController : ApiController
@@ -19,14 +22,16 @@ namespace Rocket.Web.Controllers.UserPayments
 
             public string RequestBody { get; set; }
 
-            public string Verification { get; set; } = string.Empty;
+            public string Verification { get; set; } = String.Empty;
         }
 
         private readonly IUserPaymentService _userPaymentService;
+        private readonly IUserAccountLevelService _userAccountLevelService;
 
-        public IPNController(IUserPaymentService userPaymentService)
+        public IPNController(IUserPaymentService userPaymentService, IUserAccountLevelService userAccountLevelService)
         {
             _userPaymentService = userPaymentService;
+            _userAccountLevelService = userAccountLevelService;
         }
 
         [HttpPost]
@@ -37,6 +42,7 @@ namespace Rocket.Web.Controllers.UserPayments
             {
                 IPNRequest = Request
             };
+
            
             ipnContext.RequestBody = ipnContext.IPNRequest.Content.ToString();
 
@@ -84,6 +90,7 @@ namespace Rocket.Web.Controllers.UserPayments
             ProcessVerificationResponse(ipnContext);
         }
 
+
         private void LogRequest(IPNContext ipnContext)
         {
             // Persist the request values into a database or temporary data store
@@ -100,8 +107,10 @@ namespace Rocket.Web.Controllers.UserPayments
                 // process payment
                 var paymentInfo = ipnContext.RequestBody;
                 var payment = new BL.Common.Models.UserPayment();
-                //var user = new Rocket.BL.Common.Models.User.User();
 
+                int userID = 0; //TODO: взять ид юзера из сообщения о поступлении платежа
+
+                payment.UserId = userID;
                 payment.FirstName = new Regex(@"first_name\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.LastName = new Regex(@"last_name\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.Result = new Regex(@"payment_status\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
@@ -110,6 +119,7 @@ namespace Rocket.Web.Controllers.UserPayments
                 payment.Currentcy = new Regex(@"mc_currency\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 payment.CustomString = new Regex(@"custom\s*=(.*)").Match(paymentInfo).Groups[1].Value.Trim();
                 _userPaymentService.AddUserPayment(payment);
+                _userAccountLevelService.SetUserAccountLevel(userID, new BL.Common.Models.User.AccountLevel());
             }
             else if (ipnContext.Verification.Equals("INVALID"))
             {

@@ -10,6 +10,7 @@ using Rocket.DAL.Common.Repositories.User;
 using Rocket.DAL.Common.UoW;
 using Rocket.DAL.Context;
 using Rocket.DAL.Common.DbModels;
+using Rocket.DAL.Common.DbModels.Subscription;
 
 namespace Rocket.DAL.UoW
 {
@@ -60,7 +61,7 @@ namespace Rocket.DAL.UoW
         /// <param name="dbReleaseMessageRepository">Репозиторий сообщений о релизе</param>
         /// <param name="dbUserBillingMessageRepository">Репозиторий сообщений о платежах пользователя</param>
         /// <param name="userPaymentRepository">Репозиторий платежей пользователя</param>
-        
+        /// <param name="subscribableRepository">Репозиторий ресурсов для подписки</param>
         public UnitOfWork(
             RocketContext rocketContext,
             IBaseRepository<DbMusic> musicRepository,
@@ -91,7 +92,7 @@ namespace Rocket.DAL.UoW
             //IDbUserDetailRepository dbUserDetailRepository,
             IDbRoleRepository dbRoleRepository,
             IDbPermissionRepository dbPermissionRepository,
-            IDbAuthorisedUserRepository dbAuthorisedUserRepository,
+            IDbUserProfileRepository dbAuthorisedUserRepository,
             IDbCustomMessageRepository dbCustomMessageRepository,
             IBaseRepository<NotificationsLogEntity> notificationsLogRepository,
             IBaseRepository<NotificationsSettingsEntity> notificationsSettingsRepository,
@@ -100,7 +101,8 @@ namespace Rocket.DAL.UoW
             IDbReceiverRepository dbReceiverRepository,
             IDbReleaseMessageRepository dbReleaseMessageRepository,
             IDbUserBillingMessageRepository dbUserBillingMessageRepository,
-            IBaseRepository<DbUserPayment> userPaymentRepository)
+            IBaseRepository<DbUserPayment> userPaymentRepository,
+            IBaseRepository<SubscribableEntity> subscribableRepository)
         {
             _rocketContext = rocketContext;
             MusicRepository = musicRepository;
@@ -141,6 +143,7 @@ namespace Rocket.DAL.UoW
             ReleaseMessageRepository = dbReleaseMessageRepository;
             UserBillingMessageRepository = dbUserBillingMessageRepository;
             UserPaymentRepository = userPaymentRepository;
+            SubscribableRepository = subscribableRepository;
         }
 
         ~UnitOfWork()
@@ -278,7 +281,7 @@ namespace Rocket.DAL.UoW
         /// <summary>
         /// Репозиотрий для работы с пользователями личного кабинета.
         /// </summary>
-        public IDbAuthorisedUserRepository UserAuthorisedRepository { get; }
+        public IDbUserProfileRepository UserAuthorisedRepository { get; }
 
         /// <summary>
         /// Возвращает репозиторий для сообщений произвольного содержания
@@ -326,6 +329,8 @@ namespace Rocket.DAL.UoW
         /// Репозиторий платежей пользователя
         /// </summary>
         public IBaseRepository<DbUserPayment> UserPaymentRepository { get; }
+
+        public IBaseRepository<SubscribableEntity> SubscribableRepository { get; }
 
         /// <summary>
         /// Освобождает управляемые ресурсы.

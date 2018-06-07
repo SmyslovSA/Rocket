@@ -10,6 +10,7 @@ using Rocket.DAL.Common.DbModels.Identity;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
+using Rocket.DAL.Common.DbModels.Subscription;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.Repositories;
 using Rocket.DAL.Common.Repositories.IDbPersonalAreaRepository;
@@ -36,6 +37,7 @@ namespace Rocket.DAL
         public override void Load()
         {
             //контекст
+            Bind<DbContext>().To<RocketContext>();
             Bind<RocketContext>().ToSelf().InRequestScope();
             //Bind<DbContext>().To<RocketContext>().InRequestScope();
             //репозитарии
@@ -58,7 +60,7 @@ namespace Rocket.DAL
             Bind<IDbUserRepository>().To<DbUserRepository>();
             Bind<IDbRoleRepository>().To<DbRoleRepository>();
             Bind<IDbPermissionRepository>().To<DbPermissionRepository>();
-            Bind<IDbAuthorisedUserRepository>().To<DbAuthorisedUserRepository>();
+            Bind<IDbUserProfileRepository>().To<DbUserProfileRepository>();
             Bind<IBaseRepository<NotificationsSettingsEntity>>().To<BaseRepository<NotificationsSettingsEntity>>();
             Bind<IBaseRepository<NotificationsLogEntity>>().To<BaseRepository<NotificationsLogEntity>>();
             Bind<IDbEmailTemplateRepository>().To<DbEmailTemplateRepository>();
@@ -67,6 +69,7 @@ namespace Rocket.DAL
             Bind<IDbReleaseMessageRepository>().To<DbReleaseMessageRepository>();
             Bind<IDbUserBillingMessageRepository>().To<DbUserBillingMessageRepository>();
             Bind<IDbCustomMessageRepository>().To<DbCustomMessageRepository>();
+            Bind<IBaseRepository<SubscribableEntity>>().To<BaseRepository<SubscribableEntity>>();
 
             Bind<RocketUserManager>().ToSelf().InRequestScope();
             Bind<RockeRoleManager>().ToSelf().InRequestScope();
@@ -74,7 +77,9 @@ namespace Rocket.DAL
                 .ToConstructor(context => new AspNetIdentityUserService<DbUser, string>(context.Inject<UserManager<DbUser, string>>(), null))
                 .InRequestScope();
 
-            Bind<IUserStore<DbUser, string>>().ToMethod(ctx => new UserStore<DbUser>(new RocketContext()));
+            //Bind<IUserStore<DbUser, string>>().ToMethod(ctx => new UserStore<DbUser>(new RocketContext()));
+            Bind<IUserStore<DbUser>>().To<UserStore<DbUser>>();
+            Bind<IRoleStore<IdentityRole, string>>().To<RoleStore<IdentityRole>>();
 
             //Bind<IUserStore<DbUser, string>>()
             //    .ToConstructor(ctx => new UserStore<>())

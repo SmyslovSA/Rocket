@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OAuthService, AuthConfig, JwksValidationHandler } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,24 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor(private oidServ: OAuthService) {
+    this.ConfigureOAuth();
+  }
+
+  private ConfigureOAuth() {
+    this.oidServ.configure(authConfig);
+    this.oidServ.tokenValidationHandler = new JwksValidationHandler();
+    this.oidServ.loadDiscoveryDocument();
+  }
 }
+
+export const authConfig: AuthConfig = {
+  issuer: 'http://localhost:63613',
+  showDebugInformation: true, // remove after debug
+  clientId: 'client',
+  dummyClientSecret: 'secret-rocket',
+  scope: 'openid profile api',
+  oidc: false,
+  requireHttps: false
+};

@@ -61,7 +61,7 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Confirmation&quot;.
+        ///   Looks up a localized string similar to 3.
         /// </summary>
         internal static string Confirmation {
             get {
@@ -70,7 +70,7 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Donate&quot;.
+        ///   Looks up a localized string similar to 2.
         /// </summary>
         internal static string Donate {
             get {
@@ -93,6 +93,15 @@ namespace Rocket.BL.Properties {
         internal static string EmptyModel {
             get {
                 return ResourceManager.GetString("EmptyModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5.
+        /// </summary>
+        internal static string Episode {
+            get {
+                return ResourceManager.GetString("Episode", resourceCulture);
             }
         }
         
@@ -124,7 +133,7 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Music&quot;.
+        ///   Looks up a localized string similar to 4.
         /// </summary>
         internal static string Music {
             get {
@@ -133,7 +142,7 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Premium&quot;.
+        ///   Looks up a localized string similar to 1.
         /// </summary>
         internal static string Premium {
             get {
@@ -156,15 +165,6 @@ namespace Rocket.BL.Properties {
         internal static string Subject {
             get {
                 return ResourceManager.GetString("Subject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;TvSeries&quot;.
-        /// </summary>
-        internal static string TvSeries {
-            get {
-                return ResourceManager.GetString("TvSeries", resourceCulture);
             }
         }
         

@@ -34,6 +34,12 @@ import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarUtilsModule } from './components/calendar/calendar-utils/module';
 import { Urls } from './constants';
+import { MusicsDetailsComponent } from './components/news-feed/musics-details/musics-details.component';
+import { AdvertisementComponent } from './components/common/advertisement/advertisement.component';
+import { SideMenuComponent } from './components/common/side-menu/side-menu.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { RocketAuthService } from './services/auth.service';
+import { AdminService } from './services/admin.service';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -67,20 +73,29 @@ export function createConfig(): SignalRConfiguration {
     CatalogComponent,
     SeriesCatalogComponent,
     MusicCatalogComponent,
-    GenresComponent
+    GenresComponent,
+    MusicsDetailsComponent,
+    AdvertisementComponent,
+    SideMenuComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:63613'],
+        sendAccessToken: true
+      }
+    }),
     SignalRModule.forRoot(createConfig),
     BrowserAnimationsModule,
     CalendarModule.forRoot(),
     CalendarUtilsModule,
     SnotifyModule
   ],
-  providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults},  SnotifyService],
+  providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults }, SnotifyService, RocketAuthService, AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

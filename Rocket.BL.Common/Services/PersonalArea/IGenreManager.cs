@@ -11,40 +11,40 @@ namespace Rocket.BL.Common.Services.PersonalArea
         /// Получение всех музыкальных жанров из базы.
         /// </summary>
         /// <returns>Коллекцию музыкальных жанров.</returns>
-        ICollection GetAllMusicGenres();
+        IEnumerable GetAllMusicGenres();
 
         /// <summary>
         /// Получение всех TV жанров из базы.
         /// </summary>
         /// <returns>Коллекцию TV жанров.</returns>
-        ICollection GetAllTvGenres();
+        IEnumerable GetAllTvGenres();
 
         /// <summary>
         /// Добавление жанра TV в персональный список ожидания релизов.
         /// </summary>
         /// <param name="id">id идентификатор пользователя.</param>
         /// <param name="genre">TV жанр продукта, который пользователь хочет добавить в список.</param>
-        void AddTvGenre(int id, string genre);
+        void AddTvGenre(string id, string genre);
 
         /// <summary>
         /// Удаление жанра TV из персонального списка ожидания релизов.
         /// </summary>
         /// <param name="id">id идентификатор пользователя.</param>
         /// <param name="genre">TV жанр продукта, который пользователь хочет удалить из списка.</param>
-        void DeleteTvGenre(int id, string genre);
+        void DeleteTvGenre(string id, string genre);
 
         /// <summary>
         /// Добавление музыкального жанра в персональный список ожидания релизов.
         /// </summary>
         /// <param name="id">id идентификатор пользователя.</param>
         /// <param name="genre">Музыкальный жанр продукта, который пользователь хочет добавить в список.</param>
-        void AddMusicGenre(int id, string genre);
+        void AddMusicGenre(string id, string genre);
 
         /// <summary>
         /// Удаление музыкального жанра из персонального списка ожидания релизов.
         /// </summary>
         /// <param name="id">id идентификатор пользователя.</param>
         /// <param name="genre">Музыкальный жанр продукта, который пользователь хочет удалить из списка.</param>
-        void DeleteMusicGenre(int id, string genre);
+        void DeleteMusicGenre(string id, string genre);
     }
 }

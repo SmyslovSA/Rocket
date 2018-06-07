@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { RocketAuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent {
 
-  constructor() { }
+  constructor(private rocketAuthService: RocketAuthService) { }
 
-  ngOnInit() {
-  }
+  public logoff() {
+    this.rocketAuthService.logoff();
+}
 
 }

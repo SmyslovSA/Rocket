@@ -18,7 +18,7 @@ namespace Rocket.Web.Owin
                     },
                     ClientName = "Android",
                     AllowAccessToAllScopes = true,
-                    Flow = Flows.ResourceOwner
+                    Flow = Flows.ResourceOwner,
                 }
             };
         }

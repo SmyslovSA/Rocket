@@ -22,7 +22,7 @@ export class SignalRComponent implements OnInit {
         conx.status.subscribe((s) => console.warn(s.name));
         conx.start().then((c) => {
     
-          let listener = c.listenFor('notifyAll');
+          let listener = c.listenFor('sendMessage');
           listener.subscribe(data => {
               this.snotifyService.simple(data.toString(),"Новое сообщение!");
                   console.log(data);    

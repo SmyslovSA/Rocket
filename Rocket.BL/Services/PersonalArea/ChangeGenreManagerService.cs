@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
+using Rocket.BL.Common.Models.PersonalArea;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.BL.Properties;
 using Rocket.DAL.Common.UoW;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Rocket.BL.Services.PersonalArea
@@ -13,23 +15,24 @@ namespace Rocket.BL.Services.PersonalArea
         {
         }
 
-        public ICollection GetAllMusicGenres()
+        public IEnumerable GetAllMusicGenres()
         {
-            return _unitOfWork.MusicGenreRepository.Get(f => f.Name != null).ToList();
+            return AutoMapper.Mapper.Map<IEnumerable<MusicGenre>>(_unitOfWork.MusicGenreRepository.Get());
         }
 
-        public ICollection GetAllTvGenres()
+        public IEnumerable GetAllTvGenres()
         {
-            return _unitOfWork.GenreRepository.Get(f => f.Name != null).ToList();
+            return AutoMapper.Mapper.Map<IEnumerable<Genre>>(_unitOfWork.GenreRepository.Get());
         }
+
         /// <summary>
-        /// Добавляет музыкальный жанр пользователю
+        /// Добавляет музыкальный жанр пользователю.
         /// </summary>
         /// <param name="id">Id пользователя</param>
         /// <param name="genre">Имя жанра для добавления</param>
-        public void AddMusicGenre(int id, string genre)
+        public void AddMusicGenre(string id, string genre)
         {
-            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUserId == id).FirstOrDefault()
+            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUser_Id == id).FirstOrDefault()
                ?? throw new ValidationException(Resources.EmptyModel);
             if (_unitOfWork.MusicGenreRepository.Get(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() == null)
             {
@@ -51,9 +54,9 @@ namespace Rocket.BL.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id пользователя</param>
         /// <param name="genre">Имя жанра для добавления</param>
-        public void AddTvGenre(int id, string genre)
+        public void AddTvGenre(string id, string genre)
         {
-            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUserId == id).FirstOrDefault()
+            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUser_Id == id).FirstOrDefault()
                 ?? throw new ValidationException(Resources.EmptyModel);
             if (_unitOfWork.GenreRepository.Get(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() == null)
             {
@@ -75,9 +78,9 @@ namespace Rocket.BL.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id пользователя</param>
         /// <param name="genre">Имя жанра для удаления</param>
-        public void DeleteMusicGenre(int id, string genre)
+        public void DeleteMusicGenre(string id, string genre)
         {
-            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUserId == id).FirstOrDefault() 
+            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUser_Id == id).FirstOrDefault() 
                 ?? throw new ValidationException(Resources.EmptyModel);
             if (modelUser.MusicGenres.Where(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() != null)
             {
@@ -97,9 +100,9 @@ namespace Rocket.BL.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id пользователя</param>
         /// <param name="genre">Имя жанра для удаления</param>
-        public void DeleteTvGenre(int id, string genre)
+        public void DeleteTvGenre(string id, string genre)
         {
-            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUserId == id).FirstOrDefault()
+            var modelUser = _unitOfWork.UserAuthorisedRepository.Get(f => f.DbUser_Id == id).FirstOrDefault()
                 ?? throw new ValidationException(Resources.EmptyModel);
             if (modelUser.Genres.Where(f => f.Name.ToUpper() == genre.ToUpper()).FirstOrDefault() != null)
             {

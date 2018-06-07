@@ -21,5 +21,7 @@ namespace Rocket.BL.Common.DtoModels.ReleaseList
         public string TvSerialYearStart { get; set; }
         
         public IEnumerable<GenreDto> Genres { get; set; }
+
+        public bool IsUserSubscribed { get; set; }
     }
 }

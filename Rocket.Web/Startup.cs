@@ -6,9 +6,11 @@ using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Services;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
 using Rocket.DAL.Common.DbModels.User;
+using Rocket.DAL.Context;
 using Rocket.Web.Identity;
 using Rocket.Web.Owin;
 
@@ -30,19 +32,20 @@ namespace Rocket.Web
             app.MapSignalR();
 
             //  уточнить!
-            var asd = DependencyResolver.Current.GetService<IUserService>();
+            //var asd = DependencyResolver.Current.GetService<IUserService>();
 
             var factory =
-                new IdentityServerServiceFactory
+                new IdentityServerServiceFactory()
                 {
-                    UserService = new Registration<IUserService>(DependencyResolver.Current.GetService<IUserService>())
+                    UserService =
+                            new Registration<IUserService, RocketIdentityService>()
                 }
-                .UseInMemoryClients(Clients.Load())
-                .UseInMemoryScopes(Scopes.Load())
-                /*.UseInMemoryUsers(Users.Load())*/;
+                    .UseInMemoryClients(Clients.Load())
+                    .UseInMemoryScopes(Scopes.Load());
+
 
             factory.Register(new Registration<UserManager<DbUser, string>>());
-            factory.Register(new Registration<RocketIdentityService>());
+            factory.Register(new Registration<IUserStore<DbUser,string>>(resolver => new UserStore<DbUser>(new RocketContext())));
 
             app.UseIdentityServer(new IdentityServerOptions
             {
@@ -55,9 +58,9 @@ namespace Rocket.Web
 
             var opt = new IdentityServerBearerTokenAuthenticationOptions
             {
-                Authority = "http://localhost:2383", // ?
+                Authority = "http://localhost:63613", // ?
                 RequiredScopes = new[] { "openid" },
-                IssuerName = "http://localhost:2383", // ?
+                IssuerName = "http://localhost:63613", // ?
                 SigningCertificate = LoadCertificate(),
                 ValidationMode = ValidationMode.ValidationEndpoint
             };
@@ -68,7 +71,7 @@ namespace Rocket.Web
         private X509Certificate2 LoadCertificate()
         {
             return new X509Certificate2(
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempRocket.cer"), "TempRocket");
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"bin\idsrv3test.pfx"), "idsrv3test");
         }
     }
 }

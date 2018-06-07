@@ -24,13 +24,13 @@ namespace Rocket.BL.Services.PersonalArea
         /// </summary>
         /// <param name="id">Id пользователя.</param>
         /// <returns>Модель авторизованного пользователя.</returns>
-        //public SimpleUser GetUserData(int id)
-        //{
-        //    return Mapper.Map<SimpleUser>(_unitOfWork.UserAuthorisedRepository.Get(
-        //            f => f.DbUserId == id,
-        //            includeProperties: $"{nameof(DbUser)}")
-        //            ?.FirstOrDefault());
-        //}
+        public UserProfile GetUserData(string id)
+        {
+            return Mapper.Map<UserProfile>(_unitOfWork.UserAuthorisedRepository.Get(
+                    f => f.DbUser_Id == id,
+                    includeProperties: $"{nameof(DbUser)}")
+                    ?.FirstOrDefault());
+        }
 
         /// <summary>
         /// Смена пароля.
@@ -46,7 +46,7 @@ namespace Rocket.BL.Services.PersonalArea
             }
 
             var user = _unitOfWork.UserRepository.GetById(id);
-            //user.Password = newPassword;
+            user.PasswordHash = newPassword;
             _unitOfWork.UserRepository.Update(user);
             _unitOfWork.SaveChanges();
         }
@@ -62,11 +62,11 @@ namespace Rocket.BL.Services.PersonalArea
         {
             var user = _unitOfWork.UserRepository.Get(
                         f => f.Id == id,
-                        includeProperties: $"{nameof(DbAuthorisedUser)}")
+                        includeProperties: $"{nameof(DbUserProfile)}")
                         ?.FirstOrDefault();
             user.FirstName = firstName;
             user.LastName = lastName;
-            user.DbAuthorisedUser.Avatar = avatar;
+            user.DbUserProfile.Avatar = avatar;
             var userToValidate = Mapper.Map<Common.Models.User.User>(user);
             var validate = _validator.Validate(userToValidate);
             if (!validate.IsValid)
@@ -92,21 +92,6 @@ namespace Rocket.BL.Services.PersonalArea
             }
 
             return password == passwordConfirm && password.Length > 6;
-        }
-
-        public SimpleUser GetUserData(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ChangePersonalData(int id, string firstName, string lastName, string avatar)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ChangePasswordData(int id, string newPassword, string newPasswordConfirm)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

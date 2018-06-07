@@ -1,31 +1,31 @@
 <div class="container-fluid text-center">
   <div class="col-md-8 m-auto">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-      <h1>Календарь</h1>
+      <h1>{{nameCalendar}}</h1>
     </div>
   </div>
   <div class="row content">
     <div class="col-md-2 pr-md-0 sidenav text-left">
       <ul class="nav flex-md-column">
         <li class="nav-item">
-          <a class="nav-link active pr-md-0"  (click)="fetchEvents()" >
+          <a class="nav-link active pr-md-0"  (click)="filmsEvents()" >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round" class="feather feather-video">
               <polygon points="23 7 16 12 23 17 23 7" />
               <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
             </svg>
-            Films
+            Фильмы
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link pr-md-0" routerLink="/calendar">
+          <a class="nav-link pr-md-0" routerLink="/calendar" (click)="seriesEvents()">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round" class="feather feather-tv">
               <rect x="2" y="7" width="20" height="15" rx="2" ry="2" />
               <polyline points="17 2 12 7 7 2" />
             </svg>
-            TVSeries
+            Сериалы
           </a>
         </li>
         <li class="nav-item">
@@ -35,7 +35,7 @@
               <path d="M9 17H5a2 2 0 0 0-2 2 2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm12-2h-4a2 2 0 0 0-2 2 2 2 0 0 0 2 2h2a2 2 0 0 0 2-2z" />
               <polyline points="9 17 9 5 21 3 21 15" />
             </svg>
-            Music
+            Музыка
           </a>
         </li>
       </ul>
@@ -45,8 +45,9 @@
         <mwl-demo-utils-calendar-header
         [(view)]="view"
         [(viewDate)]="viewDate"
-        (viewDateChange)="fetchEvents()"
-        (viewChange)="fetchEvents()">
+        (viewDateChange)="releaseEvents()"
+        [locale]="locale"
+        (viewChange)="releaseEvents()">
       </mwl-demo-utils-calendar-header>
 
         <ng-template #loading>
@@ -63,6 +64,9 @@
                 *ngSwitchCase="'month'"
                 [viewDate]="viewDate"
                 [events]="events"
+                [locale]="locale"
+                [weekStartsOn]="weekStartsOn"
+                [weekendDays]="weekendDays"
                 [activeDayIsOpen]="activeDayIsOpen"
                 (dayClicked)="dayClicked($event.day)"
                 (eventClicked)="eventClicked($event.event)">
@@ -70,11 +74,15 @@
               <mwl-calendar-week-view
                 *ngSwitchCase="'week'"
                 [viewDate]="viewDate"
+                [locale]="locale"
+                [weekStartsOn]="weekStartsOn"
+                [weekendDays]="weekendDays"
                 [events]="events"
                 (eventClicked)="eventClicked($event.event)">
               </mwl-calendar-week-view>
               <mwl-calendar-day-view
                 *ngSwitchCase="'day'"
+                [locale]="locale"
                 [viewDate]="viewDate"
                 [events]="events"
                 (eventClicked)="eventClicked($event.event)">

@@ -128,13 +128,11 @@ namespace Rocket.Parser.Parsers
                         tvSeriaEntity.ListSeasons = new List<SeasonEntity>();
 
                         var listPersonId = tvSeriaEntity.ListPerson.Select(item => item.Id).ToList();
-                        tvSeriaEntity.ListPerson = new List<PersonEntity>();
                         tvSeriaEntity.ListPerson = personRepository.Queryable()
                             .Where(item => listPersonId.Contains(item.Id))
                             .ToList();
 
                         var listGenreId = tvSeriaEntity.ListGenreEntity.Select(item => item.Id).ToList();
-                        tvSeriaEntity.ListGenreEntity = new List<GenreEntity>();
                         tvSeriaEntity.ListGenreEntity = genreRepository.Queryable()
                             .Where(item => listGenreId.Contains(item.Id))
                             .ToList();
@@ -163,11 +161,6 @@ namespace Rocket.Parser.Parsers
                             tvSeriaEntityInDb.RateImDb = tvSeriaEntity.RateImDb;
                             tvSeriaEntityInDb.Summary = tvSeriaEntity.Summary;
                             tvSeriaEntityInDb.UrlToOfficialSite = tvSeriaEntity.UrlToOfficialSite;
-
-                            tvSeriaEntityInDb.ListPerson = new List<PersonEntity>();
-                            tvSeriaEntityInDb.ListGenreEntity = new List<GenreEntity>();
-
-                            //todo добавлять в список дельту
 
                             tvSeriasRepository.Update(tvSeriaEntityInDb);
                             tvSeriasRepository.SaveChanges();
@@ -425,7 +418,6 @@ namespace Rocket.Parser.Parsers
             }
             catch (Exception e)
             {
-                //todo запись в лог о неудачной попытке обратиться к сайту
                 throw e;
             }
         }
@@ -654,7 +646,7 @@ namespace Rocket.Parser.Parsers
             //Получаем дату премьеры сериала прописью
             var premiereDateForParseElement = serialOverviewElement.QuerySelector(
                 LostfilmHelper.GetTvSerialPremiereDateForParse());
-            tvSeriasEntity.PremiereDateForParse = premiereDateForParseElement?.InnerHtml; //todo распарсить
+            tvSeriasEntity.PremiereDateForParse = premiereDateForParseElement?.InnerHtml;
 
             //Получаем ссылку на ориганильный сайт
             var urlToOfficialSiteElement =
@@ -664,9 +656,6 @@ namespace Rocket.Parser.Parsers
             //Полчаем описание сериала
             var summaryElement = serialOverviewElement.QuerySelector(LostfilmHelper.GetTvSerialSummary());
             tvSeriasEntity.Summary = summaryElement?.InnerHtml;
-            //todo доработать чтобы тут было только описание
-
-            //todo страна
         }
 
         /// <summary>

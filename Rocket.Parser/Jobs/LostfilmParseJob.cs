@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Ninject;
 using Quartz;
 using Rocket.Parser.Heplers;
@@ -19,7 +18,6 @@ namespace Rocket.Parser.Jobs
         /// <param name="context">context</param>
         public void Execute(IJobExecutionContext context)
         {
-            //todo логирование парсер запущен
             try
             {
                 var schedulerContext = context.JobDetail.JobDataMap;
@@ -30,11 +28,8 @@ namespace Rocket.Parser.Jobs
             }
             catch (Exception excpt)
             {
-                //todo логирование
                 throw excpt;
             }
-
-            //todo логирование парсер отработал
         }
     }
 }

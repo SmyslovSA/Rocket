@@ -9,7 +9,6 @@ using Rocket.Web.Models;
 
 namespace Rocket.Web.Controllers
 {
-    //todo admin filter
     [System.Web.Http.RoutePrefix("api/notifications")]
     public class NotificationsController : ApiController
     {
@@ -32,8 +31,7 @@ namespace Rocket.Web.Controllers
             }
             catch (Exception e)
             {
-                //todo log
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                throw e;
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.NoContent);
@@ -44,7 +42,6 @@ namespace Rocket.Web.Controllers
         [System.Web.Http.Route("notifyOfReleasePush")]
         public ActionResult NotifyOfReleasePush(IEnumerable<PushNotificationModel> notifications)
         {
-            //_log.Info("start NotifyOfReleasePush"); //todo
             try
             {
                 _pushNotificationsHelper.SendPushNotificationsOfRelease(notifications);
@@ -52,11 +49,8 @@ namespace Rocket.Web.Controllers
             }
             catch (Exception e)
             {
-                //todo log
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                throw e;
             }
-
-            //_log.Info("end NotifyOfReleasePush");
 
             return new HttpStatusCodeResult(HttpStatusCode.NoContent);
         }
