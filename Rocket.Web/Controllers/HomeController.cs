@@ -13,10 +13,5 @@ namespace Rocket.Web.Controllers
         {
             return View();
         }
-
-        public ActionResult PaymentResult()
-        {
-            return View();
-        }
     }
 }
