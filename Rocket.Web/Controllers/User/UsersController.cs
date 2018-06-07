@@ -18,7 +18,6 @@ namespace Rocket.Web.Controllers.User
     /// Контроллер WebApi работы с пользователями.
     /// </summary>
     [RoutePrefix("users")]
-    [RoleAuthorize(ClaimName = "a,b,c")]
     public class UsersController : ApiController
     {
         private readonly RocketUserManager _rocketUserManagerService;
@@ -146,8 +145,6 @@ namespace Rocket.Web.Controllers.User
             _userManagementService.UpdateUser(user);
 
             return new StatusCodeResult(HttpStatusCode.NoContent, Request);
-
-            return Ok();
         }
 
         /// <summary>

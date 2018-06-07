@@ -84,13 +84,13 @@ namespace Rocket.DAL.Migrations
             //}
 
             //// Добавление в репозиторий первоначальной тестовой информации о пользователей.
-            if (!context.Users.Any())
-            {
-                var initialUserdatas = new FakeDbUsersCreator().Users;
+            //if (!context.Users.Any())
+            //{
+            //    var initialUserdatas = new FakeDbUsersCreator().Users;
 
-                initialUserdatas.ForEach(user => context.Users.Add(user));
-                context.SaveChanges();
-            }
+            //    initialUserdatas.ForEach(user => context.Users.Add(user));
+            //    context.SaveChanges();
+            //}
         }
     }
 }
