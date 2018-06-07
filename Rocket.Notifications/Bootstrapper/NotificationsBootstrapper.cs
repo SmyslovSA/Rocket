@@ -4,6 +4,7 @@ using Rocket.BL;
 using Rocket.DAL;
 using Rocket.Notifications.Config;
 using Rocket.Notifications.Interfaces;
+using Rocket.Web;
 
 namespace Rocket.Notifications.Bootstrapper
 {
@@ -13,6 +14,7 @@ namespace Rocket.Notifications.Bootstrapper
         {
             return new List<INinjectModule>()
             {
+                new WebModule(),
                 new DALModule(),
                 new BLModule(),
                 new NotificationsModule()
