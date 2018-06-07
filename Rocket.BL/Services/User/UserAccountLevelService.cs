@@ -27,9 +27,9 @@ namespace Rocket.BL.Services.User
         /// </summary>
         /// <param name="id">Идентификатор пользователя.</param>
         /// <returns>Уровень аккаунта пользователя.</returns>
-        public AccountLevel GetUserAccountLevel(string id)
+        public AccountLevel GetUserAccountLevel(int id)
         {
-            var isUserExist = _unitOfWork.UserRepository.Get(u => u.Id == id)
+            var isUserExist = _unitOfWork.UserRepository.Get(u => u.Id == id.ToString())
                 .FirstOrDefault() != null;
 
             // Проверка на наличие пользователя в хранилище.
@@ -49,9 +49,9 @@ namespace Rocket.BL.Services.User
         ///// </summary>
         ///// <param name="id">Идентификатор пользователя.</param>
         ///// <param name="accountLevel">Задаваемый уровень аккаунта.</param>
-        public void SetUserAccountLevel(string id, AccountLevel accountLevel)
+        public void SetUserAccountLevel(int id, AccountLevel accountLevel)
         {
-            var isUserExist = _unitOfWork.UserRepository.Get(u => u.Id == id)
+            var isUserExist = _unitOfWork.UserRepository.Get(u => u.Id == id.ToString())
                                   .FirstOrDefault() != null;
 
             // Проверка на наличие пользователя в хранилище.
@@ -69,15 +69,5 @@ namespace Rocket.BL.Services.User
             _unitOfWork.UserRepository.Update(dbUser);
             _unitOfWork.SaveChanges();
         }
-
-        //public AccountLevel GetUserAccountLevel(int id)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        //public void SetUserAccountLevel(int id, AccountLevel accountLevel)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
     }
 }
