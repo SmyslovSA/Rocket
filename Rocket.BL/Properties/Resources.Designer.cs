@@ -293,5 +293,14 @@ namespace Rocket.BL.Properties {
                 return ResourceManager.GetString("UserWrongPassword", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Email format is wrong&quot;.
+        /// </summary>
+        internal static string WrongEmailFormat {
+            get {
+                return ResourceManager.GetString("WrongEmailFormat", resourceCulture);
+            }
+        }
     }
 }
