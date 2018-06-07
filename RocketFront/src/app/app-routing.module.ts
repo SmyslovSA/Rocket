@@ -8,7 +8,6 @@ import { NewsFeedComponent } from './components/news-feed/news-feed.component';
 import { PersonalAreaComponent } from './components/personal-area/personal-area.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { UsersComponent } from './users/users.component';
 import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
 import { MusicsComponent } from './components/news-feed/musics/musics.component';
 import { SeriesDetailsComponent } from './components/news-feed/series-details/series-details.component';
@@ -21,7 +20,9 @@ import { RocketAuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent, canActivate: [RocketAuthGuard] },
+  { path: 'admin', component: AdminComponent
+  // , canActivate: [RocketAuthGuard] 
+},
   { path: 'donate', component: DonateComponent },
   {
     path: 'news',
@@ -46,7 +47,6 @@ const routes: Routes = [
   { path: 'personal', component: PersonalAreaComponent, canActivate: [RocketAuthGuard] },
   { path: 'registration', component: RegistrationComponent },
   { path: 'calendar', component: CalendarComponent },
-  { path: 'users', component: UsersComponent },
   { path: '', redirectTo: 'catalog', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
   // добавить путь для ошибки, обычные пути

@@ -50,19 +50,19 @@ namespace Rocket.Web.Controllers.ReleaseList
         /// Возвращает коллекцию музыкальных релизов с датой выхода
         /// между заданными начальной и конечной датами включительно
         /// </summary>
-        /// <param name="startDate">Начальная дата</param>
-        /// <param name="endDate">Конечная дата</param>
+        /// <param name="start_date">Начальная дата</param>
+        /// <param name="end_date">Конечная дата</param>
         /// <returns>Коллекция музыкальных релизов</returns>
         [HttpGet]
         [Route("calendar")]
-        public IHttpActionResult GetMusicByDates(DateTime startDate, DateTime endDate)
+        public IHttpActionResult GetMusicByDates(DateTime start_date, DateTime end_date)
         {
-            if (startDate > endDate)
+            if (start_date > end_date)
             {
                 return BadRequest(Resources.BadStartEndDatesMessage);
             }
 
-            var musics = _musicDetailedInfoService.GetMusicByDates(startDate.Date, endDate.Date);
+            var musics = _musicDetailedInfoService.GetMusicByDates(start_date.Date, end_date.Date);
             return Ok(musics);
         }
     }

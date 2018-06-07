@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Rocket.DAL.Common.DbModels;
 using Rocket.DAL.Common.DbModels.Notification;
 using Rocket.DAL.Common.DbModels.Parser;
 using Rocket.DAL.Common.DbModels.ReleaseList;
@@ -13,7 +14,6 @@ using Rocket.DAL.Configurations.ReleaseList;
 using Rocket.DAL.Configurations.Subscription;
 using Rocket.DAL.Configurations.User;
 using Rocket.DAL.Migrations;
-using Rocket.DAL.Common.DbModels;
 
 namespace Rocket.DAL.Context
 {

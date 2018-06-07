@@ -20,7 +20,6 @@ namespace Rocket.Notifications.Jobs
         /// <param name="context"></param>
         public void Execute(IJobExecutionContext context)
         {
-            //todo логирование 
             try
             {
                 var schedulerContext = context.JobDetail.JobDataMap;
@@ -31,11 +30,8 @@ namespace Rocket.Notifications.Jobs
             }
             catch (Exception excpt)
             {
-                //todo логирование
                 throw excpt;
             }
-
-            //todo логирование отработал
         }
 
     }
