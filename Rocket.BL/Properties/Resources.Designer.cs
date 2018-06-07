@@ -133,6 +133,15 @@ namespace Rocket.BL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;User with that Id was not found&quot;.
+        /// </summary>
+        internal static string InvalidUserId {
+            get {
+                return ResourceManager.GetString("InvalidUserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 4.
         /// </summary>
         internal static string Music {

@@ -32,7 +32,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [Route("info/{id}")]
         public IHttpActionResult UpdateUserPersonalInfo(string id, string firstName, string lastName, string avatar)
         {
-            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
+            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) || string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest(Resources.UserEmptyFirstNameOrLastName);
             }
@@ -55,7 +55,7 @@ namespace Rocket.Web.Controllers.PersonalArea
         [Route("password/{id}")]
         public IHttpActionResult UpdateUserPassword(string id, string password, string passwordConfirm)
         {
-            if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(passwordConfirm))
+            if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(passwordConfirm) || string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest(Resources.EmptyPassword);
             }

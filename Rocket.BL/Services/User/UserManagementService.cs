@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Rocket.BL.Common.Models.User;
 using Rocket.BL.Common.Services.User;
 using Rocket.DAL.Common.DbModels.User;
 using Rocket.DAL.Common.UoW;
@@ -20,6 +21,7 @@ namespace Rocket.BL.Services.User
     public class UserManagementService : BaseService, IUserManagementService
     {
         private readonly RocketUserManager _usermanager;
+        private readonly IUserAccountLevelService _userAccountLevelService;
 
         /// <summary>
         /// Создает новый экземпляр <see cref="UserManagementService"/>
@@ -27,12 +29,12 @@ namespace Rocket.BL.Services.User
         /// </summary>
         /// <param name="unitOfWork"> uow </param>
         /// <param name="usermanager"> manager </param>
-        public UserManagementService(IUnitOfWork unitOfWork, RocketUserManager usermanager)
+        public UserManagementService(IUnitOfWork unitOfWork, RocketUserManager usermanager, IUserAccountLevelService userAccountLevelService)
             : base(unitOfWork)
         {
             _usermanager = usermanager;
+            _userAccountLevelService = userAccountLevelService;
         }
-
         /// <summary>
         /// Возвращает всех пользователей
         /// из хранилища данных.
@@ -78,6 +80,7 @@ namespace Rocket.BL.Services.User
         /// <returns>Идентификатор пользователя.</returns>
         public async Task<string> AddUser(Common.Models.User.User user)
         {
+            user.AccountLevel = _userAccountLevelService.GetUserAccountLevel(1);
             var dbUser = Mapper.Map<DbUser>(user);
             var result = await _usermanager.CreateAsync(dbUser, user.Password)
                 .ConfigureAwait(false);

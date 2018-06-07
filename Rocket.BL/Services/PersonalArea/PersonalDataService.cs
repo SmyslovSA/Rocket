@@ -46,7 +46,7 @@ namespace Rocket.BL.Services.PersonalArea
                 throw new ValidationException(Resources.UserWrongPassword);
             }
 
-            var user = _unitOfWork.UserRepository.GetById(id);
+            var user = _unitOfWork.UserRepository.GetById(id) ?? throw new ValidationException(Resources.InvalidUserId);
             user.PasswordHash = newPassword;
             _unitOfWork.UserRepository.Update(user);
             _unitOfWork.SaveChanges();
@@ -64,7 +64,7 @@ namespace Rocket.BL.Services.PersonalArea
             var user = _unitOfWork.UserRepository.Get(
                         f => f.Id == id,
                         includeProperties: $"{nameof(DbUserProfile)}")
-                        ?.FirstOrDefault();
+                        ?.FirstOrDefault() ?? throw new ValidationException(Resources.InvalidUserId);
             user.FirstName = firstName;
             user.LastName = lastName;
             user.DbUserProfile.Avatar = avatar;
@@ -88,7 +88,7 @@ namespace Rocket.BL.Services.PersonalArea
         private bool PasswordValidate(string password, string passwordConfirm)
         {
             var pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$";
-            return (password != null) && (passwordConfirm != null) && (Regex.IsMatch(password, pattern)) && password == passwordConfirm;
+            return Regex.IsMatch(password, pattern) && password == passwordConfirm;
         }
     }
 }

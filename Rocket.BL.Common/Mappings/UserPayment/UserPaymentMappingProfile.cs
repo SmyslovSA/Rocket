@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using Rocket.BL.Common.Models;
 using Rocket.DAL.Common.DbModels;
 
-namespace Rocket.BL.Common.Mappings.UserPayment
+namespace Rocket.BL.Common.Mappings
 {
     /// <summary>
     /// Профиль сопоставления доменной модели платежа с моделью хранения данных о платеже.
