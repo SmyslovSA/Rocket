@@ -20,7 +20,6 @@ import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { UsersComponent } from './users/users.component';
 import { EpisodesComponent } from './components/news-feed/episodes/episodes.component';
 import { PagingComponent } from './components/news-feed/paging/paging.component';
 import { MusicsComponent } from './components/news-feed/musics/musics.component';
@@ -39,6 +38,7 @@ import { AdvertisementComponent } from './components/common/advertisement/advert
 import { SideMenuComponent } from './components/common/side-menu/side-menu.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { RocketAuthService } from './services/auth.service';
+import { AdminService } from './services/admin.service';
 
 export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
@@ -63,7 +63,6 @@ export function createConfig(): SignalRConfiguration {
     NewsFeedComponent,
     PersonalAreaComponent,
     CalendarComponent,
-    UsersComponent,
     EpisodesComponent,
     PagingComponent,
     MusicsComponent,
@@ -94,7 +93,7 @@ export function createConfig(): SignalRConfiguration {
     CalendarUtilsModule,
     SnotifyModule
   ],
-  providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults }, SnotifyService, RocketAuthService],
+  providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults }, SnotifyService, RocketAuthService, AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

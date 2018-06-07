@@ -3,8 +3,8 @@ const api = "api";
 
 const urls = {
     signalRUrl: `${apiUrl}/`,
-    getSomething: `${apiUrl}something/`,  //для примера, получится 'http://localhost:63613/something/'
-    getSomethingWithApi: `${apiUrl}${api}something/`,  //для примера, получится 'http://localhost:63613/api/something/'
+    getAllUsers: `${apiUrl}users/all`,
+    getAllRoles: `${apiUrl}roles/all`,
 };
 
 export {

@@ -10,7 +10,7 @@ INSERT INTO [dbo].[Resource]
            ('Album Info'
            ,'http://www.album-info.ru/'
 		   ,1	
-		   ,180
+		   ,30
 		   );
 
 SET @ResourceID = SCOPE_IDENTITY();
@@ -26,6 +26,6 @@ INSERT INTO [dbo].[ParserSettings]
            ,'http://www.album-info.ru/albumlist.aspx?'
            ,'page='
            ,1
-           ,1);
+           ,5);
 
 
