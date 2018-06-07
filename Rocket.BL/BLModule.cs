@@ -3,6 +3,7 @@ using FluentValidation;
 using MailKit;
 using MailKit.Net.Smtp;
 using Ninject.Modules;
+using Rocket.BL.Common.Services;
 using Rocket.BL.Common.Services.Notification;
 using Rocket.BL.Common.Services.PersonalArea;
 using Rocket.BL.Common.Services.ReleaseList;
@@ -13,6 +14,7 @@ using Rocket.BL.Services.ReleaseList;
 using Rocket.BL.Services.UserPaymentService;
 using Rocket.BL.Validators.User;
 using Rocket.BL.Common.Services.User;
+using Rocket.BL.Services;
 using Rocket.BL.Services.User;
 
 namespace Rocket.BL
@@ -43,6 +45,7 @@ namespace Rocket.BL
                     });
             Bind<ISubscriptionService>().To<SubscriptionService>();
             Bind<IMailTransport>().To<SmtpClient>();
+            Bind<ILogService>().To<InfoLogService>();
         }
     }
 }

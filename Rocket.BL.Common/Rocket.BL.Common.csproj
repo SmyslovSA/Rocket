@@ -134,6 +134,7 @@
     <Compile Include="Mappings\ReleaseList\MusicTrackMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\MusicGenreMappingProfile.cs" />
     <Compile Include="Mappings\ReleaseList\MusicianMappingProfile.cs" />
+    <Compile Include="Services\ILogService.cs" />
     <Compile Include="Services\Notification\IMailNotificationService.cs" />
     <Compile Include="Services\IRoleService.cs" />
     <Compile Include="Services\IUserRoleManager.cs" />
